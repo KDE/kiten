@@ -4,8 +4,10 @@
 #include <klocale.h>
 #include <kconfig.h>
 #include <kapp.h>
+#include <kiconloader.h>
 #include <klineedit.h>
 #include <kpushbutton.h>
+#include <qtoolbutton.h>
 #include <qtextedit.h>
 #include <qstring.h>
 #include <qregexp.h>
@@ -14,17 +16,30 @@
 #include "widgets.h"
 #include "dict.h"
 
+// Noatun wuz heer
+namespace
+{
+QToolButton *newButton(const QIconSet &iconSet, const QString &textLabel, QObject *receiver, const char * slot, QWidget *parent, const char *name = 0)
+{
+	QToolButton *button = new QToolButton(parent, name);
+	button->setIconSet(iconSet);
+	button->setTextLabel(textLabel, true);
+	QObject::connect(button, SIGNAL(clicked()), receiver, slot);
+	button->setFixedSize(QSize(22, 22));
+	return button;
+}
+}
+
 SearchForm::SearchForm(QWidget *parent, const char *name)
 	: QWidget(parent, name)
 {
 	QHBoxLayout *layout = new QHBoxLayout(this, 6);
 
-	ClearButton = new KPushButton(i18n("&x"), this);
 	LineEdit = new KLineEdit(this);
 	CompletionObj = LineEdit->completionObject();
+	ClearButton = newButton(BarIconSet("editclear", KIcon::SizeSmall), "Clear", LineEdit, SLOT(clear()), this);
 	layout->addWidget(ClearButton);
 	layout->addWidget(LineEdit);
-	connect(ClearButton, SIGNAL(pressed()), LineEdit, SLOT(clear()));
 
 
 	SearchDictButton = new KPushButton(i18n("&Anywhere"), this);

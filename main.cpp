@@ -20,7 +20,7 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char *argv[])
 {
-	KAboutData aboutData( "Kiten", I18N_NOOP("Kiten"),
+	KAboutData aboutData( "kiten", I18N_NOOP("Kiten"),
 	  "0.1", I18N_NOOP("Japanese Reference Tool"), KAboutData::License_GPL,
 	  "(c) 2001, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten", "jason@katzbrown.com");
 

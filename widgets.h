@@ -11,6 +11,7 @@ class Kanji;
 class QString;
 class QRegExp;
 class KPushButton;
+class QToolButton;
 
 class SearchForm : public QWidget
 {
@@ -29,7 +30,7 @@ class SearchForm : public QWidget
 	void setFocusNow();
 
 	private:
-	KPushButton *ClearButton;
+	QToolButton *ClearButton;
 	KLineEdit *LineEdit;
 	KCompletion *CompletionObj;
 	KPushButton *SearchDictButton;

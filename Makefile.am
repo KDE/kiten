@@ -33,6 +33,6 @@ applnk_DATA = kiten.desktop
 applnkdir = $(kde_appsdir)/Utilities
 
 data_DATA = edict kanjidic
-datadir = $(kde_datadir)/Kiten
+datadir = $(kde_datadir)/kiten
 
 messages: $(XGETTEXT) *.cpp *.h -o $(podir)/Kiten.pot
