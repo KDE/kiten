@@ -250,7 +250,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	backAct->plug(toolBar());
 	cheatAct = new KAction(i18n("&Cheat"), CTRL + Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
 	randomAct = new KAction(i18n("&Random"), "goto", CTRL + Key_R, this, SLOT(random()), actionCollection(), "random");
-	gradeAct = new KListAction(i18n("Grade"), 0, this, SLOT(updateGrade()), actionCollection(), "grade");
+	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
 	gradeAct->setItems(grades);
 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
 	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
@@ -387,6 +387,7 @@ void Learn::update()
 
 void Learn::updateGrade()
 {
+	//kdDebug() << "update grade\n";
 	int grade = getCurrentGrade();
 
 	QString regexp("G%1 ");
