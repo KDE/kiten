@@ -32,7 +32,7 @@
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
-	_ResultView = new ResultView(this, "_ResultView");
+	_ResultView = new ResultView(true, this, "_ResultView");
 	setCentralWidget(_ResultView);
 
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());

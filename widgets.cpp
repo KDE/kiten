@@ -34,10 +34,11 @@
 #include "dict.h"
 
 
-ResultView::ResultView(QWidget *parent, const char *name)
+ResultView::ResultView(bool _links, QWidget *parent, const char *name)
 	: QTextBrowser(parent, name)
 {
 	setReadOnly(true);
+	links = _links;
 }
 
 void ResultView::addResult(Dict::Entry result, bool com)
@@ -166,6 +167,9 @@ void ResultView::addHeader(const QString &header, unsigned int degree)
 
 QString ResultView::putchars(const QString &text)
 {
+	if (!links)
+		return text;
+
 	unsigned int len = text.length();
 	QString ret;
 
@@ -228,7 +232,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));
 
-	View = new ResultView(listTop, "View");
+	View = new ResultView(false, listTop, "View");
 
 	QStringList grades(i18n("Grade 1"));
 	grades.append(i18n("Grade 2"));

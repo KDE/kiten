@@ -32,7 +32,7 @@ class ResultView : public QTextBrowser
 	Q_OBJECT
 	
 	public:
-	ResultView(QWidget *parent = 0, const char *name = 0);
+	ResultView(bool, QWidget *parent = 0, const char *name = 0);
 
 	void addResult(Dict::Entry, bool = false);
 	void addKanjiResult(Dict::Kanji);
@@ -41,6 +41,8 @@ class ResultView : public QTextBrowser
 
 	private:
 	QString putchars(const QString &);
+
+	bool links;
 };
 
 class Learn : public KMainWindow
