@@ -29,7 +29,7 @@ rc_DATA = kitenui.rc
 dummy.cpp:
 	echo > dummy.cpp
 
-applnk_DATA = Kiten.desktop
+applnk_DATA = kiten.desktop
 applnkdir = $(kde_appsdir)/Utilities
 
 data_DATA = edict kanjidic

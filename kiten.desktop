@@ -1,0 +1,12 @@
+[Desktop Entry]
+Comment=Kanji Tool
+Comment[da]=Kanji-værktøj
+Comment[he]=כלי קאנג'י
+Comment[hu]=Kanji-kezelő segédprogram
+Comment[nl]=Kanji-hulpprogramma
+DocPath=kiten/index.html
+Exec=kiten -caption "%c" %i %m
+Name=Kiten
+Terminal=0
+Type=Application
+Icon=kiten
