@@ -112,6 +112,12 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	QTimer::singleShot(10, this, SLOT(finishInit()));
 }
 
+TopLevel::~TopLevel()
+{
+    delete optionDialog;
+    optionDialog = 0;
+}
+
 void TopLevel::finishInit()
 {
 	if (kanjiCB->isChecked())

@@ -26,6 +26,7 @@ class TopLevel : public KMainWindow
 
 public:
 	TopLevel(QWidget *parent = 0, const char *name = 0);
+    ~TopLevel();
 
 signals:
 	void saveLists();
