@@ -34,7 +34,7 @@ struct Conjugation
 	unsigned int num;
 };
 
-class Index
+class KDE_EXPORT Index
 {
 	public:
 	Index();

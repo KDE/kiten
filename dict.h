@@ -42,7 +42,7 @@ namespace Dict
 enum TextType { Text_Kanji, Text_Kana, Text_Latin };
 
 // returns the TextType of the first part of the text
-TextType textType(const QString &text);
+KDE_EXPORT TextType textType(const QString &text);
 
 // File needs to be able to give out Arrays based on its mmap'd data.
 // But, we don't want the users of the arrays to have to remember to
@@ -106,7 +106,7 @@ private:
 	bool valid;
 };
 
-class Entry
+class KDE_EXPORT Entry
 {
 public:
 	// EDict ctor
@@ -161,7 +161,7 @@ struct SearchResult
 enum SearchType { Search_Beginning, Search_FullWord, Search_Anywhere };
 enum DictionaryType { Edict, Kanjidict };
 
-class Index : public QObject
+class KDE_EXPORT Index : public QObject
 {
 Q_OBJECT
 
@@ -192,12 +192,12 @@ private:
 };
 
 // lotsa helper functions
-QString prettyKanjiReading(QStringList);
-QString prettyMeaning(QStringList);
-Entry parse(const QString &);
-Entry kanjiParse(const QString &);
-Dict::Entry firstEntry(Dict::SearchResult);
-QString firstEntryText(Dict::SearchResult);
+KDE_EXPORT QString prettyKanjiReading(QStringList);
+KDE_EXPORT QString prettyMeaning(QStringList);
+KDE_EXPORT Entry parse(const QString &);
+KDE_EXPORT Entry kanjiParse(const QString &);
+KDE_EXPORT Dict::Entry firstEntry(Dict::SearchResult);
+KDE_EXPORT QString firstEntryText(Dict::SearchResult);
 
 int eucStringCompare(const char *str1, const char *str2);
 bool isEUC(unsigned char c);

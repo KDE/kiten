@@ -28,7 +28,7 @@ namespace Dict
 	class Index;
 }
 
-class Asyndeta
+class KDE_EXPORT Asyndeta
 {
 public:
 	// creates index

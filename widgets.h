@@ -34,7 +34,7 @@ class KStatusBar;
 #include "dict.h"
 #include "rad.h"
 
-class ResultView : public KTextBrowser
+class KDE_EXPORT ResultView : public KTextBrowser
 {
 	Q_OBJECT
 	
@@ -63,7 +63,7 @@ class ResultView : public KTextBrowser
 	bool basicMode;
 };
 
-class eEdit : public KMainWindow
+class KDE_EXPORT eEdit : public KMainWindow
 {
 	Q_OBJECT
 	
@@ -88,7 +88,7 @@ class eEdit : public KMainWindow
 	bool isMod;
 };
 
-class EditAction : public KAction
+class KDE_EXPORT EditAction : public KAction
 {
 	Q_OBJECT
 	public:

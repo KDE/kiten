@@ -31,7 +31,7 @@ class KPushButton;
 class KListBox;
 class QButtonGroup;
 
-class Radical
+class KDE_EXPORT Radical
 {
 	public:
 	Radical(QString = QString::null, unsigned int = 0);
@@ -48,7 +48,7 @@ class Radical
 	QString Kanji;
 };
 
-class Rad : public QObject
+class KDE_EXPORT Rad : public QObject
 {
 	Q_OBJECT
 	
@@ -69,7 +69,7 @@ class Rad : public QObject
 	bool loaded;
 };
 
-class RadWidget : public QWidget
+class KDE_EXPORT RadWidget : public QWidget
 {
 	Q_OBJECT
 

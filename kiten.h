@@ -36,7 +36,7 @@ class KListAction;
 class Learn;
 class ResultView;
 
-class TopLevel : public KMainWindow
+class KDE_EXPORT TopLevel : public KMainWindow
 {
 	Q_OBJECT
 
