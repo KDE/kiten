@@ -40,8 +40,8 @@ dummy.cpp:
 applnk_DATA = kiten.desktop
 applnkdir = $(kde_appsdir)/Edutainment/Languages
 
-data_DATA = edict kanjidic radkfile vconj romkana.cnv
-datadir = $(kde_datadir)/kiten
+kiten_DATA = edict kanjidic radkfile vconj romkana.cnv
+kitendir = $(kde_datadir)/kiten
 
 messages: rc.cpp
 	$(XGETTEXT) *.cpp *.h -o $(podir)/kiten.pot
