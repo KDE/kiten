@@ -248,7 +248,8 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	ok->setEnabled(false);
 	connect(ok, SIGNAL(clicked()), SLOT(apply()));
 	layout->addWidget(ok);
-	cancel = new KPushButton(i18n("&Cancel"), this);
+	cancel = new KPushButton( KStdGuiItem::cancel(), this );
+
 	connect(cancel, SIGNAL(clicked()), SLOT(close()));
 	layout->addWidget(cancel);
 
