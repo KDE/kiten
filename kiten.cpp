@@ -1,35 +1,36 @@
-#include <kmainwindow.h>
-#include <klocale.h>
+#include <kaccel.h>
+#include <kaction.h>
+#include <kapp.h>
+#include <kconfig.h>
+#include <kdebug.h>
+#include <kedittoolbar.h>
 #include <kglobal.h>
+#include <kglobalaccel.h>
 #include <kiconloader.h>
+#include <klocale.h>
+#include <kmainwindow.h>
+#include <kmessagebox.h>
+#include <kstandarddirs.h>
+#include <kstatusbar.h>
+#include <kstdaction.h>
 #include <qcheckbox.h>
 #include <qclipboard.h>
 #include <qfile.h>
-#include <qpushbutton.h>
-#include <kconfig.h>
-#include <kedittoolbar.h>
 #include <qguardedptr.h>
-#include <qtextcodec.h>
-#include <kaccel.h>
-#include <qwidget.h>
-#include <kmessagebox.h>
-#include <kapp.h>
-#include <kstatusbar.h>
-#include <kstandarddirs.h>
-#include <kglobalaccel.h>
-#include <kdebug.h>
-#include <qtimer.h>
-#include <qregexp.h>
 #include <qlayout.h>
-#include <kaction.h>
-#include <kstdaction.h>
+#include <qpushbutton.h>
+#include <qregexp.h>
+#include <qtextcodec.h>
+#include <qtimer.h>
+#include <qwidget.h>
 
-#include "kiten.h"
-#include "optiondialog.h"
-#include "widgets.h"
-#include "dict.h"
-#include "rad.h"
 #include "deinf.h"
+#include "dict.h"
+#include "kiten.h"
+#include "learn.h"
+#include "optiondialog.h"
+#include "rad.h"
+#include "widgets.h"
 
 #include <cassert>
 
@@ -81,8 +82,6 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	if (autoCreateLearn)
 		createLearn();
 	
-	isListMod = false;
-
 	resize(600, 400);
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
@@ -91,19 +90,13 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 void TopLevel::closeEvent(QCloseEvent *)
 {
-	if (isListMod)
+	for(QPtrListIterator<Learn> i(learnList); *i;)
 	{
-		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
-		switch(result)
-		{
-		case KMessageBox::Yes:
-			emit saveLists();
-			// fallthrough
-		case KMessageBox::No:
-			break;
-		case KMessageBox::Cancel:
-			return;
-		}
+		(*i)->show();
+		if(!(*i)->closeWindow()) return;
+		Learn *old = *i;
+		++i;
+		learnList.remove(old);
 	}
 
 	KConfig *config = kapp->config();
@@ -524,16 +517,19 @@ void TopLevel::slotConfigureDestroy()
 void TopLevel::createLearn()
 {
 	Learn *_Learn = new Learn(&_Index, this);
-	
-	// make all learns have current list
-	connect(_Learn, SIGNAL(listChanged()), SLOT(globalListChanged()));
-	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
-	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
-	connect(this, SIGNAL(saveLists()), _Learn, SLOT(writeConfiguration()));
+
+	connect(_Learn, SIGNAL(destroyed(Learn *)), this, SLOT(learnDestroyed(Learn *)));
 	connect(this, SIGNAL(quizConfChanged()), _Learn, SLOT(updateQuizConfiguration()));
-	connect(this, SIGNAL(add(Dict::Entry)), _Learn, SLOT(externAdd(Dict::Entry)));
+	connect(this, SIGNAL(add(Dict::Entry)), _Learn, SLOT(add(Dict::Entry)));
+
+	learnList.append(_Learn);
 
 	_Learn->show();
+}
+
+void TopLevel::learnDestroyed(Learn *learn)
+{
+	learnList.remove(learn);
 }
 
 void TopLevel::createEEdit()
@@ -542,20 +538,9 @@ void TopLevel::createEEdit()
 	_eEdit->show();
 }
 
-void TopLevel::globalListChanged()
-{
-	isListMod = false;
-	emit updateLists();
-}
-
 void TopLevel::kanjiDictChange()
 {
 	// Do we even *need* something here?
-}
-
-void TopLevel::globalListDirty()
-{
-	isListMod = true;
 }
 
 QRegExp TopLevel::readingSearchItems(bool kanji)

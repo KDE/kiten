@@ -2,23 +2,21 @@
 #define KITEN_H
 
 #include <kmainwindow.h>
+#include <qptrlist.h>
+#include <qregexp.h>
 #include <qstring.h>
 
-#include <qregexp.h>
 #include "dict.h"
 #include "rad.h"
 #include "deinf.h"
 
-class Rad;
-class Entry;
-class EditAction;
-class KStatusBar;
-class QCheckBox;
-class QPushButton;
-class ResultView;
 class ConfigureDialog;
+class EditAction;
 class KGlobalAccel;
+class KStatusBar;
 class KToggleAction;
+class Learn;
+class ResultView;
 
 class TopLevel : public KMainWindow
 {
@@ -28,7 +26,6 @@ class TopLevel : public KMainWindow
 	TopLevel(QWidget *parent = 0, const char *name = 0);
 
 	signals:
-	void updateLists();
 	void saveLists();
 	void add(Dict::Entry);
 	void quizConfChanged();
@@ -54,16 +51,15 @@ class TopLevel : public KMainWindow
 	void slotConfigureDestroy();
 	void slotUpdateConfiguration();
 	void kanjiDictChange();
-	void globalListChanged();
-	void globalListDirty();
 	void toggleCom();
 	void addToList();
 	void radicalSearch();
 	void radSearch(QString &, unsigned int);
-	
+
 	void print();
 
 	void createLearn();
+	void learnDestroyed(Learn *);
 	void createEEdit();
 	void configureToolBars();
 	void newToolBarConfig();
@@ -97,8 +93,8 @@ class TopLevel : public KMainWindow
 
 	void setResults(unsigned int, unsigned int);
 
+	QPtrList<Learn> learnList;
 	bool autoCreateLearn;
-	bool isListMod;
 
 	QRegExp searchItems();
 	QRegExp readingSearchItems(bool);

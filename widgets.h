@@ -1,34 +1,18 @@
 #ifndef WIDGETS_H
 #define WIDGETS_H
 
-#include <qwidget.h>
-#include <qtextbrowser.h>
-#include <qptrlist.h>
-#include <kaction.h>
-#include <kstdaction.h>
 #include <klineedit.h>
 #include <kmainwindow.h>
-#include <qstringlist.h>
 #include <qguardedptr.h>
-#include <kaction.h>
+#include <qtextbrowser.h>
+#include <qwidget.h>
 
-#include "rad.h"
-
-class QButtonGroup;
-class QString;
-class QSplitter;
-class QTabWidget;
-class QListViewItem;
+class KAction;
 class KListView;
-class QRegExp;
-class KConfig;
-class QLabel;
-class KPushButton;
 class KStatusBar;
-class QSpinBox;
-class QToolButton;
 
 #include "dict.h"
+#include "rad.h"
 
 class ResultView : public QTextBrowser
 {
@@ -80,117 +64,6 @@ class eEdit : public KMainWindow
 	KAction *removeAct;
 	KAction *saveAct;
 	bool isMod;
-};
-
-class Learn : public KMainWindow
-{
-	Q_OBJECT
-	
-	public:
-	Learn(Dict::Index *, QWidget *parent = 0, const char *name = 0);
-	~Learn();
-
-	signals:
-	void listChanged();
-	void listDirty();
-
-	public slots:
-	void showKanji(QListViewItem *);
-	void readConfiguration();
-	void writeConfiguration();
-	void updateQuizConfiguration();
-
-	protected:
-	void closeEvent(QCloseEvent *);
-
-	private slots:
-	void next();
-	void prev();
-	void update();
-	void updateGrade();
-	void random();
-	void add();
-	void addAll();
-	void externAdd(Dict::Entry);
-	void del();
-	void cheat();
-	void tabChanged(QWidget *);
-	void itemSelectionChanged();
-	void saveAs();
-
-	void open();
-	void openDefault();
-
-	void print();
-
-	void updateQuiz();
-	void answerClicked(int);
-	void qnew();
-
-	private:
-	QString filename;
-	bool warnClose();
-	KConfig *config;
-
-	QTabWidget *Tabs;
-	QSplitter *listTop;
-	QWidget *quizTop;
-
-	ResultView *View;
-	QValueList<Dict::Entry> list;
-	QValueListIterator<Dict::Entry> current;
-	KStatusBar *StatusBar;
-
-	Dict::Index *index;
-
-	KListView *List;
-	KPushButton *Save;
-	KPushButton *Del;
-	KPushButton *qDel;
-
-	bool isMod;
-	bool noRead;
-
-	// Quiz, an app to itself in a tabwidget :)
-
-	static const int numberOfAnswers;
-	QButtonGroup *answers;
-	QLabel *qKanji;
-
-	QListViewItem *prevItem;
-	QListViewItem *curItem;
-	// if init == true, don't emit dirty
-	void addItem(QListViewItem *, bool init = false);
-
-	void qupdate();
-
-	int seikai;
-	bool nogood;
-	QString shortenString(QString);
-
-	// Creates a random meaning not on the lists and adds the meaning
-	// to the list.
-	QString randomMeaning(QStringList &oldMeanings);
-
-	KAction *forwardAct;
-	KAction *printAct;
-	KAction *backAct;
-	KAction *cheatAct;
-	KAction *saveAct;
-	KAction *openAct;
-	KAction *openDefaultAct;
-	KAction *saveAsAct;
-	KAction *addAct;
-	KAction *addAllAct;
-	KAction *removeAct;
-	KAction *randomAct;
-	KListAction *gradeAct;
-
-	int getCurrentGrade(void);
-	void setCurrentGrade(int grade);
-
-	int quizOn;
-	int guessOn;
 };
 
 class EditAction : public KAction

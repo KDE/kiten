@@ -11,7 +11,10 @@ kiten_la_SOURCES = 	main.cpp \
 				rad.cpp \
 				deinf.cpp \
 				kromajiedit.cpp \
-				widgets.cpp
+				widgets.cpp \
+				learn.cpp \
+				kloader.cpp \
+				ksaver.cpp
 
 kiten_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -avoid-version
 

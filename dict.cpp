@@ -670,10 +670,10 @@ Entry::Entry(const QString &dictname)
 	DictName = dictname;
 }
 
-Entry::Entry(const QString &headername, bool header)
-	: KanaOnly(true)
-	, DictName(QString::fromLatin1("__NOTSET"))
+Entry::Entry(const QString &headername, bool)
+	: DictName(QString::fromLatin1("__NOTSET"))
 	, Header(headername)
+	, KanaOnly(true)
 	, ExtendedKanjiInfo(false)
 {
 }
