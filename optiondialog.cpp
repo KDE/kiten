@@ -143,7 +143,13 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 
 void DictList::add()
 {
-	(void) new QListViewItem(List, "New Dict", QFileInfo(List->firstChild()->text(1)).dirPath(true).append("/"));
+	QListViewItem *item = List->firstChild();
+	QString filepath("");
+
+	if (item)
+		QFileInfo(item->text(1)).dirPath(true).append("/");
+
+	(void) new QListViewItem(List, "New Dict", filepath);
 }
 
 void DictList::del()
