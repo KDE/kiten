@@ -366,6 +366,8 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 
 	statusBar()->message(str);
 	setCaption(kapp->makeStdCaption(str));
+
+	_ResultView->updateContents();
 }
 
 void TopLevel::slotUpdateConfiguration()
