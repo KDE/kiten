@@ -98,7 +98,8 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	QFrame *Page6 = addPage(i18n("Font"));
 	QVBoxLayout *fontLayout = new QVBoxLayout(Page6);
 	font = new KFontChooser(Page6);
-	font->setSampleText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("Result View Font - いろはにほへと 漢字")));
+	font->setSampleText(i18n("Result View Font") +
+                            QTextCodec::codecForName("eucJP")->toUnicode(QCString(" - いろはにほへと 漢字")));
 	fontLayout->addWidget(font);
 
 	readConfig();
