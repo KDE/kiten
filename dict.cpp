@@ -4,6 +4,8 @@
 #include <kdebug.h>
 #include <qfile.h>
 #include <kapp.h>
+#include <krun.h>
+#include <kstandarddirs.h>
 #include <qtextstream.h> 
 #include <iostream.h>
 #include <qstring.h>
@@ -62,10 +64,16 @@ bool Dict::init(bool kanjidict)
 			kdDebug() << *it << " does not exist!\n";
 			return false;
 		}
-		if (!QFile::exists(QString((*it)).append(".xjdx"))) // the index file
+
+		QString index = QString((*it)).append(".xjdx"))) // the index file
+		if (!QFile::exists(index))
 		{
-			kdDebug() << *it << " does not exist!\n";
-			return false;
+			kdDebug() << *it << " does not exist, will make now\n";
+
+			// find the index generator executable
+			QString file = "";
+			QString cmd = QString("%1 %2").arg(KStandardDirs::findExe("kiten_gen").arg(*it);
+			KRun::runCommand(cmd);
 		}
 	}
 
@@ -76,6 +84,7 @@ bool Dict::init(bool kanjidict)
 	for (it = theDictList->begin(); it != theDictList->end(); ++it)
 	{
 		kdDebug() << "starting on " << (*it).latin1() << " now\n";
+		QString index = QString((*it)).append(".xjdx"))) // the index file
 		
   		DictFiles[i] = open((*it).latin1(), O_RDONLY);
 		kdDebug() << "DictFiles[" << i << "] = " << DictFiles[i] << endl;
