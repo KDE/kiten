@@ -42,6 +42,7 @@ public:
             delete file;
             delete textStream;
             delete dataStream;
+            delete tempFile;
         };
 	bool isLocal;
 	KTempFile *tempFile;
