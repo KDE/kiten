@@ -1,10 +1,11 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Kiten Learn" version="1">
+<kpartgui name="Kiten Learn" version="2">
 
 <MenuBar>
 
 <Menu name="edit"><text>&amp;Edit</text>
   <Action name="add" />
+  <Action name="addall" />
   <Action name="del" />
 </Menu>
 

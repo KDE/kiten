@@ -187,7 +187,6 @@ void DictList::del()
 
 void DictList::writeConfig()
 {
-	//kdDebug() << "DictList::writeConfig()\n";
 	KConfig *config = kapp->config();
 	config->setGroup(_configKey);
 
@@ -196,7 +195,6 @@ void DictList::writeConfig()
 	QListViewItemIterator it(List);
 	for (; it.current(); ++it )
 	{
-		//kdDebug() << "saving item\n";
 		names.append(it.current()->text(0));
 		config->writeEntry(it.current()->text(0), it.current()->text(1));
 	}

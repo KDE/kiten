@@ -233,18 +233,15 @@ void TopLevel::search(bool inResults)
 	// TODO: factor out this gjiten heuristic
 	if (first <= 128)
 	{
-		//kdDebug() << "english!\n";
 		regexp = searchItems();
 	}
 	else if (first < 0xa5)
 	{
-		//kdDebug() << "reading!\n";
 		regexp = readingSearchItems(kanjiCB->isChecked());
 		readingSearch = true;
 	}
 	else if (first > 0xa8)
 	{
-		//kdDebug() << "kanji!\n";
 		regexp = kanjiSearchItems();
 	}
 
@@ -503,7 +500,6 @@ QRegExp TopLevel::searchItems()
 
 	regexp = regexp.arg(text);
 	
-	//kdDebug() << "SearchForm::searchItems returning " << regexp << endl;
 	return QRegExp(regexp, caseSensitive);
 }
 

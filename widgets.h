@@ -12,6 +12,7 @@
 #include <qguardedptr.h>
 #include <kaction.h>
 
+class QButtonGroup;
 class QString;
 class QSplitter;
 class QTabWidget;
@@ -65,18 +66,16 @@ class Learn : public KMainWindow
 	void updateGrade();
 	void random();
 	void add();
+	void addAll();
 	void externAdd(Dict::Kanji);
 	void del();
 	void cheat();
 	void tabChanged(QWidget *);
+	void itemSelectionChanged();
 
 	void updateQuiz();
 
-	void q1();
-	void q2();
-	void q3();
-	void q4();
-	void q5();
+	void answerClicked(int);
 	void qnew();
 
 	private:
@@ -101,16 +100,15 @@ class Learn : public KMainWindow
 	bool isMod;
 
 	// Quiz, an app to itself in a tabwidget :)
-	
-	KPushButton *Q1;
-	KPushButton *Q2;
-	KPushButton *Q3;
-	KPushButton *Q4;
-	KPushButton *Q5;
+
+	static const int numberOfAnswers;
+	QButtonGroup *answers;
 	QLabel *qKanji;
 
 	QListViewItem *prevItem;
 	QListViewItem *curItem;
+	// if init == true, don't emit dirty
+	void addItem(QListViewItem *, bool init = false);
 
 	void qupdate();
 
@@ -125,9 +123,14 @@ class Learn : public KMainWindow
 	KAction *backAct;
 	KAction *cheatAct;
 	KAction *saveAct;
-	KAction *newAct;
+	KAction *addAct;
+	KAction *addAllAct;
+	KAction *removeAct;
 	KAction *randomAct;
 	KListAction *gradeAct;
+
+	int getCurrentGrade(void);
+	void setCurrentGrade(int grade);
 };
 
 class EditAction : public KAction
