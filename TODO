@@ -3,18 +3,44 @@ Dict what kind of search they want, and Dict tells them the regexp they need
 to pass Dict::Index.
   jasonkb says: err maybe, don't see the advantages of this.
 
+  Neil replies: You haven't used Dict.  While re-doing Learn, I went to use
+  searchKanji and didn't know how to formulate the regexp.  No user of the API
+  will.  Dict needs a wrapper that will handle that for the user.
+
 - get all SearchResults and Entries into one hierarchy.
   jasonkb says: I don't understand ;)
+
+  Neil replies: You know how Headers are a hack right now?  I want them not
+  to be a hack in Kiten 2.
 
 - split the two tabs of the learn mode into separate dialogs, or even make
 learn a separate app.
   jasonkb says: hmm perhaps.
 
+  Neil replies: I see three users of libkiten in the Kiten 2 age: the
+  dictionary, the quizzer, and the XIM server.  (note that the kana lineedit
+  will be in the lib)
+
 - rewrite the index generator
   jasonkb says: not me :P
 
+  Neil replies: It's wicked, but it really does have to be done.  Dict fell
+  to repeated effort, and so shall the generator.  Hey, maybe it won't even
+  have to be a separate executible, but just a function under namespace Dict.
+
 - factor out the gjiten heuristic of figuring out kanji/kana/roomaji
   jasonkb says: yes :)
+
+  Neil replies: Why don't you do this one?
+
+  namespace Dict
+  {
+  enum TextType {Kanji, Kana, Latin};
+
+  TextType textType(QString);
+  }
+
+  or something like that.
 
 - move all dialogs to KDialogBase, and have them used by exec()ing them
   jasonkb says: sure
