@@ -12,8 +12,6 @@
 #include <qguardedptr.h>
 #include <kaction.h>
 
-class Entry;
-class Kanji;
 class QString;
 class QSplitter;
 class QTabWidget;
@@ -24,8 +22,9 @@ class QLabel;
 class KPushButton;
 class KStatusBar;
 class QSpinBox;
-class Dict;
 class QToolButton;
+
+#include "dict.h"
 
 class ResultView : public QTextEdit
 {
@@ -34,8 +33,8 @@ class ResultView : public QTextEdit
 	public:
 	ResultView(QWidget *parent = 0, const char *name = 0);
 
-	void addResult(Entry *, bool = false);
-	void addKanjiResult(Kanji *);
+	void addResult(Dict::Entry, bool = false);
+	void addKanjiResult(Dict::Kanji);
 
 	void addHeader(const QString &, unsigned int degree = 3);
 };
@@ -45,7 +44,7 @@ class Learn : public KMainWindow
 	Q_OBJECT
 	
 	public:
-	Learn(Dict *, QWidget *parent = 0, const char *name = 0);
+	Learn(Dict::Index *, QWidget *parent = 0, const char *name = 0);
 	~Learn();
 
 	signals:
@@ -66,7 +65,7 @@ class Learn : public KMainWindow
 	void updateGrade();
 	void random();
 	void add();
-	void externAdd(Kanji *);
+	void externAdd(Dict::Kanji);
 	void del();
 	void cheat();
 	void tabChanged(QWidget *);
@@ -86,10 +85,11 @@ class Learn : public KMainWindow
 	QWidget *quizTop;
 
 	ResultView *View;
-	QPtrList<Kanji> list;
+	QValueList<Dict::Kanji> list;
+	QValueListIterator<Dict::Kanji> current;
 	KStatusBar *StatusBar;
 
-	Dict *dict;
+	Dict::Index *index;
 
 	void update();
 
@@ -117,8 +117,9 @@ class Learn : public KMainWindow
 	int seikai;
 	QString shortenString(QString);
 
-	QString randomMeaning();
-	QStringList oldMeanings;
+	// Creates a random meaning not on the lists and adds the meaning
+	// to the list.
+	QString randomMeaning(QStringList &oldMeanings);
 
 	KAction *forwardAct;
 	KAction *backAct;

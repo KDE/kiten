@@ -1,5 +1,4 @@
 #include <qwidget.h>
-#include <qptrlist.h>
 #include <qsplitter.h>
 #include <kaction.h>
 #include <kstdaction.h>
@@ -35,22 +34,22 @@ ResultView::ResultView(QWidget *parent, const char *name)
 	setReadOnly(true);
 }
 
-void ResultView::addResult(Entry *result, bool com)
+void ResultView::addResult(Dict::Entry result, bool com)
 {
-	if (result->dictName() != "__NOTSET")
+	if (result.dictName() != "__NOTSET")
 	{
-		insertParagraph(i18n("<h3>Results from %1</h3>").arg(result->dictName()), paragraphs() + 1);
+		insertParagraph(i18n("<h3>Results from %1</h3>").arg(result.dictName()), paragraphs() + 1);
 		return;
 	}
 
 	QString html;
-	if (result->kanaOnly())
-		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result->reading());
+	if (result.kanaOnly())
+		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result.reading());
 	else
-		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(result->kanji()).arg(result->reading());
+		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(result.kanji()).arg(result.reading());
 
 	QStringList::Iterator it;
-	QStringList Meanings = result->meanings();
+	QStringList Meanings = result.meanings();
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 	{
 		if ((*it).find("(P)") >= 0)
@@ -74,18 +73,18 @@ void ResultView::addResult(Entry *result, bool com)
 	insertParagraph(html, paragraphs() + 1);
 }
 
-void ResultView::addKanjiResult(Kanji *result)
+void ResultView::addKanjiResult(Dict::Kanji result)
 {
-	if (result->dictName() != "__NOTSET")
+	if (result.dictName() != "__NOTSET")
 	{
-		insertParagraph(i18n("<h3>Results from %1</h3>").arg(result->dictName()), paragraphs() + 1);
+		insertParagraph(i18n("<h3>Results from %1</h3>").arg(result.dictName()), paragraphs() + 1);
 		return;
 	}
 
 	QString html;
-	html = QString("<p><font size=\"+3\">%1</font>: %2  ").arg(result->kanji());
+	html = QString("<p><font size=\"+3\">%1</font>: %2  ").arg(result.kanji());
 
-	unsigned int freq = result->freq();
+	unsigned int freq = result.freq();
 	if (freq == 0) // does it have a frequency?
 		html = html.arg(i18n("Rare"));
 	else
@@ -94,7 +93,7 @@ void ResultView::addKanjiResult(Kanji *result)
 	html += "<br />";
 
 	QStringList::Iterator it;
-	QStringList Readings = result->readings();
+	QStringList Readings = result.readings();
 	for (it = Readings.begin(); it != Readings.end(); ++it)
 	{
 		if ((*it) == "T1")
@@ -120,7 +119,7 @@ void ResultView::addKanjiResult(Kanji *result)
 
 	html += "<br />";
 
-	QStringList Meanings = result->meanings();
+	QStringList Meanings = result.meanings();
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 	{
 		html += (*it);
@@ -129,7 +128,7 @@ void ResultView::addKanjiResult(Kanji *result)
 	html += "<br />";
 	html += i18n("Grade Level: %1. Strokes: %2.");
 
-	switch (result->grade())
+	switch (result.grade())
 	{
 		case 0:
 		html = html.arg(i18n("None"));
@@ -141,13 +140,13 @@ void ResultView::addKanjiResult(Kanji *result)
 		html = html.arg(i18n("In Jinmeiyou"));
 		break;
 		default:
-		html = html.arg(result->grade());
+		html = html.arg(result.grade());
 	}
 
-	html = html.arg(result->strokes());
+	html = html.arg(result.strokes());
 
-	if (result->miscount() != 0)
-		html.append(i18n(" Common Miscount: %1.").arg(result->miscount()));
+	if (result.miscount() != 0)
+		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
 
 	html += "</p>";
 
@@ -161,9 +160,9 @@ void ResultView::addHeader(const QString &header, unsigned int degree)
 
 ////////////////////////////////////////////////
 
-Learn::Learn(Dict *parentDict, QWidget *parent, const char *name) : KMainWindow(parent, name)
+Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
-	dict = parentDict;
+	index = parentDict;
 
 	QWidget *dummy = new QWidget(this);
 	setCentralWidget(dummy);
@@ -297,14 +296,15 @@ void Learn::random()
 	float rand2 = RAND_MAX / rand;
 	rand = list.count() / rand2;
 
-	list.at(rand);
+	current = list.at(rand);
 	update();
 }
 
 void Learn::next()
 {
-	if (!list.next())
-		list.first();
+	++current;
+	if(current == list.end())
+		current = list.begin();
 	update();
 }
 
@@ -320,8 +320,9 @@ void Learn::prev()
 		return;
 	}
 
-	if (!list.prev())
-		list.last();
+	if(current == list.begin())
+		current = list.end();
+	--current;
 	update();
 }
 
@@ -329,9 +330,9 @@ void Learn::update()
 {
 	View->clear();
 	
-	Kanji *curKanji = list.current();
+	Dict::Kanji curKanji = *current;
 
-	if (!curKanji)
+	if (!curKanji.kanji())
 	{
 		StatusBar->message(i18n("Grade not loaded")); // oops
 		return;
@@ -340,27 +341,14 @@ void Learn::update()
 
 	// now show some compounds in which this kanji appears
 	
-	QString kanji = curKanji->kanji();
+	QString kanji = curKanji.kanji();
 
-	bool oldir = dict->isir();
-	bool oldcom = dict->iscom();
-	dict->toggleCom(true);
-	dict->toggleIR(false);
-	
 	unsigned int num, fullNum;
-	QPtrList<Entry> compounds = dict->search(QRegExp(kanji), kanji, num, fullNum);
+	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, num, fullNum, true);
 	View->addHeader(i18n("%1 in common compunds").arg(kanji));
-		
-	QPtrListIterator<Entry> it(compounds);
-	Entry *curEntry;
-	while ((curEntry = it.current()) != 0)
-	{
-		++it;
-		View->addResult(curEntry, true);
-	}
-
-	dict->toggleCom(oldcom);
-	dict->toggleIR(oldir);
+	
+	for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+		View->addResult(*it, true);
 }
 
 void Learn::updateGrade()
@@ -370,22 +358,15 @@ void Learn::updateGrade()
 	QString regexp("G%1 ");
 	regexp = regexp.arg(grade);
 
-	bool oldir = dict->isir();
-	bool oldcom = dict->iscom();
-	dict->toggleCom(false);
-	dict->toggleIR(false);
-
 	unsigned int num, fullNum;
-	list = dict->kanjiSearch(QRegExp(regexp), regexp, num, fullNum);
-
-	dict->toggleCom(oldcom);
-	dict->toggleIR(oldir);
+	Dict::KanjiSearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
+	list = result.list;
 
 	StatusBar->message(i18n("%1 entries in grade %2").arg(list.count()).arg(grade));
 	setCaption(i18n("Grade %1 - Learn").arg(grade));
 
-	list.removeFirst();
-	list.first();
+	list.remove(list.begin());
+	current = list.begin();
 	update();
 
 	KConfig *config = kapp->config();
@@ -440,12 +421,12 @@ void Learn::writeConfiguration()
 	emit listChanged();
 }
 
-void Learn::externAdd(Kanji *toAdd)
+void Learn::externAdd(Dict::Kanji toAdd)
 {
-	QString readings = Dict::prettyKanjiReading(toAdd->readings());
-	QString meanings = Dict::prettyMeaning(toAdd->meanings());
+	QString readings = Dict::prettyKanjiReading(toAdd.readings());
+	QString meanings = Dict::prettyMeaning(toAdd.meanings());
 
-	(void) new QListViewItem(List, toAdd->kanji(), QString::number(toAdd->grade()), readings, meanings);
+	(void) new QListViewItem(List, toAdd.kanji(), QString::number(toAdd.grade()), readings, meanings);
 
 	isMod = true;
 	emit listDirty();
@@ -453,10 +434,10 @@ void Learn::externAdd(Kanji *toAdd)
 
 void Learn::add()
 {
-	QString readings = Dict::prettyKanjiReading(list.current()->readings());
-	QString meanings = Dict::prettyMeaning(list.current()->meanings());
+	QString readings = Dict::prettyKanjiReading((*current).readings());
+	QString meanings = Dict::prettyMeaning((*current).meanings());
 
-	(void) new QListViewItem(List, list.current()->kanji(), QString::number(list.current()->grade()), readings, meanings);
+	(void) new QListViewItem(List, (*current).kanji(), QString::number((*current).grade()), readings, meanings);
 
 	isMod = true;
 	emit listDirty();
@@ -484,15 +465,10 @@ void Learn::showKanji(QListViewItem *item)
 		updateGrade();
 	}
 	
-	list.first();
-	//kdDebug() << list.count() << endl;
-	//kdDebug() << list.current()->kanji() << endl;
-	//kdDebug() << kanji << endl;
+	current = list.begin();
 
-	while (list.current()->kanji() != kanji)
-	{ 
-		list.next();
-	}
+	while ((*current).kanji() != kanji)
+		++current;
 
 	update();
 	setCaption(i18n("%1 - Learn").arg(item->text(0)));
@@ -583,57 +559,36 @@ void Learn::q5()
 	}
 }
 
-QString Learn::randomMeaning()
+QString Learn::randomMeaning(QStringList &oldMeanings)
 {
 	QString meaning;
-	float rand = kapp->random();
 
-	QStringList::Iterator itr;
-
-TryAgain:
-
-	if ((rand > (RAND_MAX / 2)) || (List->childCount() < 5))
+	do
 	{
-		rand = kapp->random();
-		float rand2 = RAND_MAX / rand;
-		rand = list.count() / rand2;
-	
-		QPtrListIterator<Kanji> it(list);
-
-		int i;
-		for (i = 1; i < rand; ++it)
-		{i++;}
-
-		meaning = dict->prettyMeaning(it.current()->meanings());
-	}
-	else
-	{
-		rand = kapp->random();
-		float rand2 = RAND_MAX / rand;
-		rand = List->childCount() / rand2;
-	
-		int max = (int) rand;
-	
-		QListViewItemIterator it(List);
-		int i;
-		for (i = 1; i < max; ++it)
-			{i++;}
-	
-		meaning = it.current()->text(3);
-	}
-
-	for (itr = oldMeanings.begin(); itr != oldMeanings.end(); ++itr)
-	{
-		//kdDebug() << "old meaning: " << *itr << " new meaning: " << meaning << endl;
-		if ((*itr) == meaning)
+		float rand = kapp->random();
+		if ((rand > (RAND_MAX / 2)) || (List->childCount() < 5))
 		{
-			//kdDebug() << "TRYAGAIN\n";
-			goto TryAgain;
+			rand = kapp->random();
+			float rand2 = RAND_MAX / rand;
+			rand = list.count() / rand2;
+
+			meaning = Dict::prettyMeaning((*list.at(rand)).meanings());
+		}
+		else
+		{
+			rand = kapp->random();
+			float rand2 = RAND_MAX / rand;
+			rand = List->childCount() / rand2;
+
+			int max = (int) rand;
+		
+			QListViewItemIterator it(List);
+			it += max;
+
+			meaning = it.current()->text(3);
 		}
 	}
-
-	if (meaning == curItem->text(3))
-		goto TryAgain;
+	while(oldMeanings.contains(meaning) || meaning == curItem->text(3));
 
 	oldMeanings.append(meaning);
 	meaning = shortenString(meaning);
@@ -655,15 +610,12 @@ void Learn::qupdate()
 	seikai = static_cast<int>(5 / rand2);
 	seikai++;
 
-	//kdDebug() << "seikai = " << seikai << endl;
-
-	Q1->setText(randomMeaning());
-	Q2->setText(randomMeaning());
-	Q3->setText(randomMeaning());
-	Q4->setText(randomMeaning());
-	Q5->setText(randomMeaning());
-
-	//kdDebug() << "done with random meanings\n";
+	QStringList oldMeanings;
+	Q1->setText(randomMeaning(oldMeanings));
+	Q2->setText(randomMeaning(oldMeanings));
+	Q3->setText(randomMeaning(oldMeanings));
+	Q4->setText(randomMeaning(oldMeanings));
+	Q5->setText(randomMeaning(oldMeanings));
 
 	switch (seikai)
 	{
@@ -687,7 +639,6 @@ void Learn::qupdate()
 
 void Learn::qnew() // new quiz kanji
 {
-	oldMeanings.clear();
 	StatusBar->clear();
 
 	float rand = kapp->random();
@@ -782,7 +733,7 @@ void Learn::tabChanged(QWidget *widget)
 
 		cheatAct->setEnabled(false);
 
-		setCaption(i18n("%1 - Learn").arg(list.current()->kanji()));
+		setCaption(i18n("%1 - Learn").arg((*current).kanji()));
 	}
 }
 
