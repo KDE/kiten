@@ -118,7 +118,7 @@ bool KSaver::close(void)
 
 		d->tempFile->close();
 
-		bool retval = KIO::NetAccess::upload(d->tempFile->name(), d->url);
+		bool retval = KIO::NetAccess::upload(d->tempFile->name(), d->url, 0);
 
 		delete d->tempFile;
 		d->tempFile = 0;
