@@ -173,7 +173,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(totalStrokes, SIGNAL(clicked()), this, SLOT(totalClicked()));
 	layout->addWidget(totalStrokes);
 	layout->addWidget(new QLabel(i18n("<strong>Total</strong> strokes:"), this));
-	totalSpin = new QSpinBox(1, 20, 1, this);
+	totalSpin = new QSpinBox(1, 30, 1, this);
 	layout->addWidget(totalSpin);
 	
 	ok = new QPushButton(i18n("&Look Up"), this);

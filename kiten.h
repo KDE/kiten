@@ -116,8 +116,6 @@ class TopLevel : public KMainWindow
 	void addHistory(Dict::SearchResult);
 	void enableHistoryButtons();
 
-	Dict::Entry firstEntry(Dict::SearchResult);
-
 	QString personalDict;
 };
 

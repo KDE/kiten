@@ -588,6 +588,8 @@ void Learn::closeEvent(QCloseEvent *e)
 	if (!warnClose())
 		return;
 
+	emit listChanged();
+
 	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
 	KMainWindow::closeEvent(e);
 }
@@ -720,6 +722,8 @@ void Learn::open()
 
 	config = new KConfig(filename, false, false);
 	readConfiguration();
+
+	emit listDirty();
 }
 
 void Learn::openDefault()

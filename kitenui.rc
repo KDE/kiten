@@ -40,9 +40,6 @@
   <Action name="go_back" />
   <Action name="go_forward" />
   <Separator/>
-  <Action name="search_stroke" />
-  <Action name="search_grade" />
-  <Separator/>
   <Action name="kanji_toggle" />
   <Action name="common" />
   <Separator/>

@@ -35,14 +35,21 @@
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
+
+	Accel = new KGlobalAccel(this);
+	Accel->insertAction(i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), KShortcuts("CTRL + ALT + K"), KShortcuts("CTRL + ALT + K"), this, SLOT(kanjiSearchAccel()));
+	Accel->insertAction(i18n("Lookup English/Japanese word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), KShortcuts("CTRL + ALT + S"), KShortcuts("CTRL + ALT + S"), this, SLOT(searchAccel()));
+	Accel->readSettings(KGlobal::config());
+	Accel->updateConnections();
+
 	_ResultView = new ResultView(true, this, "_ResultView");
 	setCentralWidget(_ResultView);
 
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
-	(void) new KAction(i18n("&Dictionary Editor"), 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
+	(void) new KAction(i18n("&Learn..."), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+	(void) new KAction(i18n("&Dictionary Editor..."), 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	(void) new KAction(i18n("Ra&dical Search"), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
@@ -65,7 +72,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	forwardAction->setEnabled(false);
 	currentResult = resultHistory.end();
 
-	createGUI();
+	createGUI("kitenui.rc");
 
 	StatusBar = statusBar();
 	optionDialog = 0;
@@ -73,11 +80,6 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	slotUpdateConfiguration();
 	if (autoCreateLearn)
 		createLearn();
-
-	Accel = new KGlobalAccel(this);
-	Accel->insertAction(i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), KShortcuts("CTRL + ALT + K"), KShortcuts("CTRL + ALT + K"), this, SLOT(kanjiSearchAccel()));
-	Accel->insertAction(i18n("Lookup English/Japanese word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), KShortcuts(), KShortcuts(), this, SLOT(searchAccel()));
-	Accel->readSettings(KGlobal::config());
 	
 	isListMod = false;
 
@@ -182,7 +184,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 	addAction->setEnabled(false);
 	_ResultView->clear();
 
-	Dict::Entry first = firstEntry(results);
+	Dict::Entry first = Dict::firstEntry(results);
 	if(first.extendedKanjiInfo())
 	{
 		if (results.count == 1) // if its only one entry, give compounds too!
@@ -395,7 +397,6 @@ QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 
 void TopLevel::searchAccel()
 {
-	kdDebug() << "TopLevel::kanjiAccel()" << endl;
 	kanjiCB->setChecked(false);
 
 	Edit->setText(clipBoardText());
@@ -404,7 +405,6 @@ void TopLevel::searchAccel()
 
 void TopLevel::kanjiSearchAccel()
 {
-	kdDebug() << "TopLevel::kanjiSearchAccel()" << endl;
 	kanjiCB->setChecked(true);
 
 	Edit->setText(clipBoardText());
@@ -445,17 +445,17 @@ void TopLevel::slotUpdateConfiguration()
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
 		DictList.append(config->readEntry(*it));
-	
-	if (globaledict != QString::null)
-	{
-		DictList.prepend(globaledict);
-		DictNameList.prepend("Edict");
-	}
 
 	if (QFile::exists(personalDict))
 	{
 		DictList.prepend(personalDict);
 		DictNameList.prepend(i18n("Personal"));
+	}
+	
+	if (globaledict != QString::null)
+	{
+		DictList.prepend(globaledict);
+		DictNameList.prepend("Edict");
 	}
 
 	_Index.setDictList(DictList, DictNameList);
@@ -629,7 +629,7 @@ void TopLevel::configureToolBars()
 	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
 	if (dlg.exec())
 	{
-		createGUI();
+		createGUI("kitenui.rc");
 	}
 }
 
@@ -651,7 +651,6 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 
 	QStringList::iterator it;
 
-	Dict::Entry kanji;
 	Dict::SearchResult hist;
 	hist.count = 0;
 	hist.outOf = 0;
@@ -671,26 +670,13 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 		if (results.count < 1)
 			continue;
 
-		kanji = firstEntry(results);
-
-		hist.list.append(kanji);
-		hist.results.append(results.results.first());
+		hist.list.append(Dict::firstEntry(results));
+		hist.results.append(Dict::firstEntryText(results));
 		hist.count += results.count;
 	}
 
 	addHistory(hist);
 	handleSearchResult(hist);
-}
-
-Dict::Entry TopLevel::firstEntry(Dict::SearchResult result)
-{
-	for (QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
-	{
-		if ((*it).dictName() == "__NOTSET" && (*it).header() == "__NOTSET")
-			return (*it);
-	}
-
-	return Dict::Entry("__NOTHING");
 }
 
 void TopLevel::back(void)

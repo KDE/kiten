@@ -356,7 +356,7 @@ SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult li
 {
 	SearchResult res;
 
-	if((*list.list.at(0)).extendedKanjiInfo())
+	if(firstEntry(list).extendedKanjiInfo())
 		res = scanKanjiResults(regexp, list.results, common);
 	else
 		res = scanResults(regexp, list.results, common);
@@ -607,6 +607,28 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 	html.truncate(html.length() - 2); // get rid of last ,
 
 	return html;
+}
+
+Dict::Entry Dict::firstEntry(Dict::SearchResult result)
+{
+	for (QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
+	{
+		if ((*it).dictName() == "__NOTSET" && (*it).header() == "__NOTSET")
+			return (*it);
+	}
+
+	return Dict::Entry("__NOTHING");
+}
+
+QString Dict::firstEntryText(Dict::SearchResult result)
+{
+	for (QStringList::Iterator it = result.results.begin(); it != result.results.end(); ++it)
+	{
+		if ((*it).left(5) != "DICT " && (*it).left(7) != "HEADER ")
+			return (*it);
+	}
+
+	return QString("NONE ");
 }
 
 ///////////////////////////////////////////////////////////////

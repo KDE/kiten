@@ -159,10 +159,13 @@ private:
 	int stringCompare(File &, int index, QCString);
 };
 
+// lotsa helper functions
 QString prettyKanjiReading(QStringList);
 QString prettyMeaning(QStringList);
 Entry parse(const QString &);
 Entry kanjiParse(const QString &);
+Dict::Entry firstEntry(Dict::SearchResult);
+QString firstEntryText(Dict::SearchResult);
 	
 }
 
