@@ -123,7 +123,7 @@ affect all searches.</para>
 <guilabel>Search</guilabel> button on the toolbar or pressing
 <keycap>Return</keycap> on the text-entry in the toolbar, choose
 <menuchoice><guimenu>Search</guimenu><guimenuitem>Search with
-Beginning of Word</guimenuitem></menuchoice>. Similiarly, choose
+Beginning of Word</guimenuitem></menuchoice>. Similarly, choose
 <menuchoice><guimenu>Search</guimenu><guimenuitem>Search
 Anywhere</guimenuitem></menuchoice> to search for your text anywhere
 in a word. These search modes work for searches of both
