@@ -56,15 +56,15 @@ class RadWidget : public QWidget
 	~RadWidget();
 
 	signals:
-	void set(QString &);
+	void set(QString &, unsigned int);
 
 	private slots:
 	void updateList(int);
 	void apply();
-	void docancel();
 	
 	private:
 	QSpinBox *strokesSpin;
+	QSpinBox *nonradSpin;
 	QPushButton *ok;
 	QPushButton *cancel;
 	QListBox *List;

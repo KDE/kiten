@@ -53,7 +53,7 @@ class TopLevel : public KMainWindow
 	void toggleCom();
 	void addToList();
 	void radicalSearch();
-	void radSearch(QString &);
+	void radSearch(QString &, unsigned int);
 
 	void createLearn();
 	void configureToolBars();
@@ -96,6 +96,8 @@ class TopLevel : public KMainWindow
 
 	QValueList<Dict::SearchResult> resultHistory;
 	QValueList<Dict::KanjiSearchResult> kanjiResultHistory;
+
+	Dict::Kanji firstKanji(Dict::KanjiSearchResult);
 };
 
 #endif

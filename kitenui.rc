@@ -30,6 +30,7 @@
   <Action name="search_edit" />
   <Action name="search" />
   <Action name="search_in_results" />
+  <Action name="search_radical" />
 </ToolBar>
 
 <ToolBar name="extraToolBar" noMerge="1"><text>Extra Toolbar</text>

@@ -210,8 +210,8 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name) : KMain
 	gradeAct = new KListAction(i18n("Grade"), 0, this, SLOT(updateGrade()), actionCollection(), "grade");
 	gradeAct->setItems(grades);
 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
-	(void) new KAction(i18n("&Delete"), "editdelete", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
-	newAct = KStdAction::openNew(this, SLOT(add()), actionCollection());
+	(void) new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
+	newAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, SLOT(add()), actionCollection(), "add");
 	saveAct = KStdAction::save(this, SLOT(writeConfiguration()), actionCollection());
 
 	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 6);
@@ -444,7 +444,6 @@ void Learn::add()
 
 	if (List->childCount() == 1)
 	{
-		kdDebug() << "qnew\n";
 		curItem = List->firstChild();
 		prevItem = curItem;
 		qnew(); // init first quiz

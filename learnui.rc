@@ -4,6 +4,7 @@
 <MenuBar>
 
 <Menu name="edit"><text>&amp;Edit</text>
+  <Action name="add" />
   <Action name="del" />
 </Menu>
 
@@ -19,6 +20,7 @@
   <Action name="go_forward" />
   <Action name="random" />
   <Seperator />
+  <Action name="add" />
   <Action name="del" />
   <Seperator />
   <Action name="grade" />

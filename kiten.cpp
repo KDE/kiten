@@ -37,7 +37,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
-	(void) new KAction(i18n("Ra&dical Search"), 0, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
+	(void) new KAction(i18n("Ra&dical Search"), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
@@ -149,7 +149,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 
 		if (num == 1) // if its only one entry, give compounds too!
 		{
-			toAddKanji = *(results.list.begin());
+			toAddKanji = firstKanji(results);
 			_ResultView->addKanjiResult(toAddKanji);
 
 			addAction->setEnabled(true);
@@ -422,7 +422,7 @@ void TopLevel::createLearn()
 	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
 	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
 	connect(this, SIGNAL(saveLists()), _Learn, SLOT(writeConfiguration()));
-	connect(this, SIGNAL(add(Kanji *)), _Learn, SLOT(externAdd(Kanji *)));
+	connect(this, SIGNAL(add(Dict::Kanji)), _Learn, SLOT(externAdd(Dict::Kanji)));
 
 	_Learn->show();
 }
@@ -530,21 +530,52 @@ void TopLevel::newToolBarConfig()
 void TopLevel::radicalSearch()
 {
 	RadWidget *rw = new RadWidget(&_Rad, 0, "rw");
-	connect(rw, SIGNAL(set(QString &)), this, SLOT(radSearch(QString &)));
+	connect(rw, SIGNAL(set(QString &, unsigned int)), this, SLOT(radSearch(QString &, unsigned int)));
 	rw->show();
 }
 
-void TopLevel::radSearch(QString &text)
+void TopLevel::radSearch(QString &text, unsigned int strokes)
 {
 	_ResultView->clear();
 
 	QStringList list = _Rad.kanjiByRad(text);
 
+	unsigned int fullNum, num;
+	unsigned int realnum = 0;
 	QStringList::iterator it;
+
+	_ResultView->addHeader(i18n("Kanji with radical %1 and %2 strokes").arg(text).arg(strokes));
+
+	Dict::Kanji kanji;
+
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		_ResultView->addHeader(*it, 1);
+		Dict::KanjiSearchResult results = _Index.searchKanji(QRegExp(QString(*it).prepend("^")), (*it) , num, fullNum, comCB->isChecked());
+
+		if (results.list.count() < 1)
+			continue;
+
+		kanji = firstKanji(results);
+		if (kanji.strokes() != strokes)
+			continue;
+
+		_ResultView->addKanjiResult(kanji);
+		realnum++;
 	}
+
+	setResults(realnum, realnum);
+}
+
+Dict::Kanji TopLevel::firstKanji(Dict::KanjiSearchResult result)
+{
+	for(QValueListIterator<Dict::Kanji> it = result.list.begin(); it != result.list.end(); ++it)
+	{
+		if ((*it).dictName() == "__NOTSET");
+		{
+			return (*it);
+		}
+	}
+	return Dict::Kanji("Nothing");
 }
 
 #include "kiten.moc"
