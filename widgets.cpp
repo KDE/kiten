@@ -168,6 +168,11 @@ void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
 	if (!!rad.radical())
 		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(rad.radical()).arg(rad.strokes()));
 
+	QString entities;
+	for(unsigned i = 0; i < result.kanji().length(); ++i)
+		entities += QString("&amp;#x%1;").arg(QString::number(result.kanji().at(i).unicode(), 16));
+	html += QString::fromLatin1("<br />%1<br />").arg(entities);
+
 	html += "</p>";
 
 	append(html);
