@@ -18,6 +18,7 @@
 #include <qregexp.h>
 #include <qlayout.h>
 #include <kaction.h>
+#include <kstatusbar.h>
 #include <kstdaction.h>
 
 #include "kiten.h"
@@ -455,7 +456,7 @@ void TopLevel::globalListChanged()
 
 void TopLevel::kanjiDictChange()
 {
-	bool on = kanjiCB->isChecked();
+	//bool on = kanjiCB->isChecked();
 	//strokeButton->setEnabled(on);
 	//gradeButton->setEnabled(on);
 }

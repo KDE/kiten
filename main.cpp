@@ -9,9 +9,6 @@
 
 #include "kiten.h"
 
-static const char *description =
-	I18N_NOOP("Japanese Reference Tool");
-	
 static KCmdLineOptions options[] =
 {
 	{ 0, 0, 0 }

@@ -114,7 +114,8 @@ bool Dict::init(bool kanjidict)
 		DictLength[i] = buf.st_size + 1;
 		//kdDebug() << "buf.st_size " << buf.st_size << endl;
 
-		if ((DictMap[i] = mmap(0, DictLength[i], PROT_READ, MAP_FILE | MAP_SHARED, DictFiles[i], 0)) == MAP_FAILED)
+		DictMap[i] = static_cast<char *>(mmap(0, DictLength[i], PROT_READ, MAP_FILE | MAP_SHARED, DictFiles[i], 0));
+		if (DictMap[i] == MAP_FAILED)
 		{
 			msgerr(i18n("Memory error when loading dictionary %1!"), *it);
 			kapp->quit();
@@ -128,7 +129,8 @@ bool Dict::init(bool kanjidict)
 		indptrt[i] = IndexLength[i] / sizeof(int32_t) - 1;
 
 		//kdDebug() << "IndexLength " << IndexLength[i] << endl;
-		if ((DictIndexMap[i] = (int32_t *) mmap(0, IndexLength[i], PROT_READ, MAP_FILE | MAP_SHARED, IndexFiles[i], 0)) == MAP_FAILED)
+		DictIndexMap[i] = static_cast<uint32_t *>(mmap(0, IndexLength[i], PROT_READ, MAP_FILE | MAP_SHARED, IndexFiles[i], 0));
+		if (DictIndexMap[i] == MAP_FAILED)
 		{
 			msgerr(i18n("Memory error when loading dictionary %1's index file!"), *it);
 			kapp->quit();
@@ -153,14 +155,7 @@ void Dict::doSearch(QString regexp)
 	//our codec
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
 
-	QCString csch_str = codec->fromUnicode(regexp);
-	unsigned char *sch_str = (const char*)(csch_str);
-	sch_str = (const unsigned char *)(sch_str);
-
-	//unsigned char *sch_str = regexp.latin1();
-
-	int sch_str_len = strlen(sch_str);
-	//kdDebug() << "search(), sch_str = " << QString((char *)sch_str) << ", sch_str_len = " << sch_str_len << endl;
+	QCString sch_str = codec->fromUnicode(regexp);
 
 	int32_t lo, hi, itok, lo2, hi2, schix, schiy, index_posn = 0;
 	int res = 0, i;
@@ -189,9 +184,7 @@ void Dict::doSearch(QString regexp)
   		it = (lo + hi) / 2; // it is now average
 		//kdDebug() << "it is " << it << endl;
 
-		//kdDebug() << "Calling stringCompare- 1\n";
-		res = stringCompare(sch_str_len, sch_str); // looks for the search string and len at it
-		//kdDebug() << "stringCompare done, res = " << res << endl;
+		res = stringCompare(sch_str); // looks for the search string and len at it
 
 		if (res == 0) // if it was a perfect match
 		{
@@ -206,8 +199,7 @@ void Dict::doSearch(QString regexp)
 
 				it = (lo2+hi2)/2;
 
-				//kdDebug() << "stringCompare- 1.5\n";
-				res = stringCompare(sch_str_len, sch_str);
+				res = stringCompare(sch_str);
 
 				if (res == 0)
 				{
@@ -250,8 +242,7 @@ void Dict::doSearch(QString regexp)
 	while (true)
 	{
 
-		//kdDebug() << "stringCompare- 2\n";
-		if (stringCompare(sch_str_len, sch_str) == 0) // if its a match now
+		if (stringCompare(sch_str) == 0) // if its a match now
 		{
 			it--; // lets try again going backwards (ie, to first)
 			if (it == 0)
@@ -291,8 +282,7 @@ void Dict::doSearch(QString regexp)
 		}
 		it = index_posn;
 	
-		//kdDebug() << "calling stringCompare- 3\n";
-		res = stringCompare(sch_str_len, sch_str);
+		res = stringCompare(sch_str);
 		//kdDebug() << "res = " << res << endl;
 	
 		if (res != 0)
@@ -495,11 +485,11 @@ QPtrList<Kanji> Dict::kanjiSearch(QRegExp realregexp, const QString &regexp, uns
 ////////////////////////////////////
 
 // looks up str1's equiv at it in the xjdx file
-int Dict::stringCompare(int klen, unsigned char *str1)
+int Dict::stringCompare(QCString str1)
 {
-	//kdDebug() << "Dict::stringCompare(" << klen << ", " << str1 << ")\n";
 	unsigned c1,c2;
 	int i,rc1,rc2;
+	int klen = str1.length();
 
 /* effectively does a strnicmp on two "strings" 
    except it will make katakana and hiragana match (EUC A4 & A5) */
@@ -551,7 +541,7 @@ unsigned char Dict::DictLookup(uint32_t xit)
 	it2 = xit-1;
 	//kdDebug() << "length is " << DictLength[CurrentDict] << ", it2 is " << it2 << endl;
 
-	if ((it2 < 0) || (it2 > DictLength[CurrentDict]))
+	if (it2 > DictLength[CurrentDict])
 		return (10);
 
 	return (DictMap[CurrentDict][it2]);

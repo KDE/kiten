@@ -62,9 +62,9 @@ class Dict : public QObject
 	// should this be uint or int :(
 	uint32_t it; // it marks the spot in the dict buffer we are currently at!
 
-	int CurrentDict; // dict in all arrays that all functions use for searching
+	unsigned CurrentDict; // dict in all arrays that all functions use for searching
 
-	int stringCompare(int klen, unsigned char *str1);
+	int stringCompare(QCString str1);
 	unsigned char DictLookup(uint32_t xit);
 	uint32_t IndexLookup(uint32_t xit);
 

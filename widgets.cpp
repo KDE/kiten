@@ -681,7 +681,7 @@ void Learn::qupdate()
 
 	float rand = kapp->random();
 	float rand2 = RAND_MAX / rand;
-	seikai = (int) 5 / rand2;
+	seikai = static_cast<int>(5 / rand2);
 	seikai++;
 
 	//kdDebug() << "seikai = " << seikai << endl;
@@ -878,3 +878,4 @@ void EditAction::clear()
 	m_combo->clear();
 }
 
+#include "widgets.moc"
