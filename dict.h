@@ -12,7 +12,12 @@
 #include <kurl.h>
 
 #include <sys/types.h>
+#ifdef __osf__
+typedef unsigned int uint32_t;
+typedef int int32_t;
+#else
 #include <inttypes.h>
+#endif
 
 class QRegExp;
 
