@@ -12,6 +12,7 @@
   <Action name="search" />
   <Action name="search_in_results" />
   <Action name="search_beginning" />
+  <Action name="search_anywhere" />
   <Action name="search_end" />
   <Action name="search_grade" />
   <Action name="search_stroke" />
@@ -26,7 +27,7 @@
 
 </MenuBar>
 
-<ToolBar name="mainToolBar" noMerge="1" fullWidth="true" noEdit="true"><text>Main Toolbar</text>
+<ToolBar name="mainToolBar" fullWidth="true" noEdit="true"><text>Main Toolbar</text>
   <Action name="clear_search" />
   <Action name="search_edit" />
   <Action name="search" />
@@ -34,7 +35,7 @@
   <Action name="search_radical" />
 </ToolBar>
 
-<ToolBar name="extraToolBar" noMerge="1"><text>Extra Toolbar</text>
+<ToolBar name="extraToolBar"><text>Extra Toolbar</text>
   <Action name="go_back" />
   <Action name="go_forward" />
   <Separator/>

@@ -1,10 +1,14 @@
 #include <kapp.h>
 #include <kconfig.h>
+#include <qvgroupbox.h>
 #include <kkeydialog.h>
+#include <kfontdialog.h>
+#include <qtextcodec.h>
 #include <kglobalaccel.h>
 #include <kglobal.h>
 #include <kdebug.h>
 #include <klocale.h>
+#include <qcombobox.h>
 #include <kconfig.h>
 #include <kfiledialog.h>
 #include <kstandarddirs.h>
@@ -33,6 +37,7 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	QFrame *Page0 = addPage(i18n("Dictionaries"));
 	QVBoxLayout *descBox = new QVBoxLayout(Page0);
 	descBox->addWidget(new QLabel(i18n("Kiten includes Edict for a regular word search.\nFor Kanji searching, Kanjidic is included.\n\nFeel free to add your own extras, by adding them in the\nconfiguration pages below this one."), Page0));
+	descBox->addStretch();
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0));
 	descBox->addStretch();
@@ -69,12 +74,33 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	learnBox->addWidget(startLearnCB);
 	learnBox->addStretch();
 
+	QStringList quizTypes(i18n("Kanji"));
+	quizTypes.append(i18n("Meaning"));
+	quizTypes.append(i18n("Reading"));
+
+	QVGroupBox *quizzing = new QVGroupBox(i18n("Quizzing"), Page4);
+	learnBox->addWidget(quizzing);
+
+	(void) new QLabel(i18n("<strong>Quiz</strong> on"), quizzing);
+	quizOn = new QComboBox(quizzing);
+	quizOn->insertStringList(quizTypes);
+	(void) new QLabel(i18n("<strong>Guess</strong> on"), quizzing);
+	guessOn = new QComboBox(quizzing);
+	guessOn->insertStringList(quizTypes);
+	learnBox->addStretch();
+
 	QFrame *Page5 = addPage(i18n("Global Keys"));
 	/* TODO new Accel
 	m_keys = Accel->keyDict();
 	QVBoxLayout *layout = new QVBoxLayout(Page5);
 	layout->addWidget(new KKeyChooser(&m_keys, Page5));
 	*/
+
+	QFrame *Page6 = addPage(i18n("Font"));
+	QVBoxLayout *fontLayout = new QVBoxLayout(Page6);
+	font = new KFontChooser(Page6);
+	font->setSampleText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("Result View Font - いろはにほへと 漢字")));
+	fontLayout->addWidget(font);
 
 	readConfig();
 }
@@ -90,6 +116,11 @@ void ConfigureDialog::readConfig()
 	DictDictList->readConfig();
 	KanjiDictList->readConfig();
 
+	config->setGroup("General");
+	QFont defaultFont(config->readFontEntry("font"));
+	config->setGroup("Font");
+	font->setFont(config->readFontEntry("font", &defaultFont));
+
 	config->setGroup("Dictionaries");
 
 	config->setGroup("Searching Options");
@@ -98,6 +129,8 @@ void ConfigureDialog::readConfig()
 
 	config->setGroup("Learn");
 	startLearnCB->setChecked(config->readBoolEntry("startLearn", false));
+	quizOn->setCurrentItem(config->readNumEntry("Quiz On", 0));
+	guessOn->setCurrentItem(config->readNumEntry("Guess On", 1));
 }
 
 void ConfigureDialog::writeConfig()
@@ -107,6 +140,9 @@ void ConfigureDialog::writeConfig()
 	KanjiDictList->writeConfig();
 	DictDictList->writeConfig();
 
+	config->setGroup("Font");
+	config->writeEntry("font", font->font());
+
 	config->setGroup("Dictionaries");
 
 	config->setGroup("Searching Options");
@@ -115,6 +151,8 @@ void ConfigureDialog::writeConfig()
 
 	config->setGroup("Learn");
 	config->writeEntry("startLearn", startLearnCB->isChecked());
+	config->writeEntry("Quiz On", quizOn->currentItem());
+	config->writeEntry("Guess On", guessOn->currentItem());
 
 	config->sync();
 

@@ -15,7 +15,8 @@
 #
 $HIRAGANA TABLE   (don't delete this line)
 ー -
-・ .
+# useful for kanjidic's okurigana system
+#・ .
 ぁ xa
 あ a
 ぃ xi
@@ -210,7 +211,7 @@ $HIRAGANA TABLE   (don't delete this line)
 ん q  note that q = n is necessary
 $KATAKANA  (DON'T delete this line!)
 ー -
-・ .
+#・ .
 ァ xa
 ア a
 ィ xi

@@ -6,8 +6,10 @@
 
 class KListView;
 class QString;
+class KFontChooser;
 class QLabel;
 class QPushButton;
+class QComboBox;
 class QCheckBox;
 class KGlobalAccel;
 class DictList;
@@ -34,6 +36,9 @@ class ConfigureDialog : public KDialogBase
 	QCheckBox *wholeWordCB;
 	QCheckBox *caseSensitiveCB;
 	QCheckBox *startLearnCB;
+	QComboBox *quizOn;
+	QComboBox *guessOn;
+	KFontChooser *font;
 
 	KGlobalAccel *Accel;
 	/* TODO new Accel

@@ -21,6 +21,7 @@ class QTabWidget;
 class QListViewItem;
 class KListView;
 class QRegExp;
+class KConfig;
 class QLabel;
 class KPushButton;
 class KStatusBar;
@@ -41,8 +42,17 @@ class ResultView : public QTextBrowser
 
 	void addHeader(const QString &, unsigned int degree = 3);
 
+	public slots:
+	void print(QString = QString::null);
+	void append(const QString &);
+	void flush();
+	void clear();
+
+	void updateFont();
+
 	private:
 	QString putchars(const QString &);
+	QString printText;
 
 	bool links;
 };
@@ -63,6 +73,7 @@ class Learn : public KMainWindow
 	void showKanji(QListViewItem *);
 	void readConfiguration();
 	void writeConfiguration();
+	void updateQuizConfiguration();
 
 	protected:
 	void closeEvent(QCloseEvent *);
@@ -70,6 +81,7 @@ class Learn : public KMainWindow
 	private slots:
 	void next();
 	void prev();
+	void update();
 	void updateGrade();
 	void random();
 	void add();
@@ -79,13 +91,22 @@ class Learn : public KMainWindow
 	void cheat();
 	void tabChanged(QWidget *);
 	void itemSelectionChanged();
+	void saveAs();
+
+	void open();
+	void openDefault();
+
+	void print();
 
 	void updateQuiz();
-
 	void answerClicked(int);
 	void qnew();
 
 	private:
+	QString filename;
+	bool warnClose();
+	KConfig *config;
+
 	QTabWidget *Tabs;
 	QSplitter *listTop;
 	QWidget *quizTop;
@@ -97,14 +118,13 @@ class Learn : public KMainWindow
 
 	Dict::Index *index;
 
-	void update();
-
 	KListView *List;
 	KPushButton *Save;
 	KPushButton *Del;
 	KPushButton *qDel;
 
 	bool isMod;
+	bool noRead;
 
 	// Quiz, an app to itself in a tabwidget :)
 
@@ -120,6 +140,7 @@ class Learn : public KMainWindow
 	void qupdate();
 
 	int seikai;
+	bool nogood;
 	QString shortenString(QString);
 
 	// Creates a random meaning not on the lists and adds the meaning
@@ -127,9 +148,13 @@ class Learn : public KMainWindow
 	QString randomMeaning(QStringList &oldMeanings);
 
 	KAction *forwardAct;
+	KAction *printAct;
 	KAction *backAct;
 	KAction *cheatAct;
 	KAction *saveAct;
+	KAction *openAct;
+	KAction *openDefaultAct;
+	KAction *saveAsAct;
 	KAction *addAct;
 	KAction *addAllAct;
 	KAction *removeAct;
@@ -138,6 +163,9 @@ class Learn : public KMainWindow
 
 	int getCurrentGrade(void);
 	void setCurrentGrade(int grade);
+
+	int quizOn;
+	int guessOn;
 };
 
 class EditAction : public KAction

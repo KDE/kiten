@@ -30,6 +30,7 @@ class TopLevel : public KMainWindow
 	void updateLists();
 	void saveLists();
 	void add(Dict::Entry);
+	void quizConfChanged();
 
 	protected:
 	void closeEvent(QCloseEvent *);
@@ -38,7 +39,7 @@ class TopLevel : public KMainWindow
 	void search(bool inResults = false);
 	void ressearch(const QString&);
 	void searchBeginning();
-	void searchEnd();
+	void searchAnywhere();
 	void resultSearch();
 	void searchAccel();
 	void kanjiSearchAccel();
@@ -47,6 +48,7 @@ class TopLevel : public KMainWindow
 	void back();
 	void forward();
 	void slotConfigure();
+	void slotLearnConfigure();
 	void slotConfigureHide();
 	void slotConfigureDestroy();
 	void slotUpdateConfiguration();
@@ -57,6 +59,8 @@ class TopLevel : public KMainWindow
 	void addToList();
 	void radicalSearch();
 	void radSearch(QString &, unsigned int);
+	
+	void print();
 
 	void createLearn();
 	void configureToolBars();

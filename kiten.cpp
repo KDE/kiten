@@ -39,14 +39,15 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	setCentralWidget(_ResultView);
 
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
+	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	(void) new KAction(i18n("Ra&dical Search"), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
-	(void) new KAction(i18n("&Search with beginning of word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
-	(void) new KAction(i18n("&Search with end of word"), 0, this, SLOT(searchEnd()), actionCollection(), "search_end");
+	(void) new KAction(i18n("&Search With Beginning of Word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
+	(void) new KAction(i18n("&Search Anywhere"), 0, this, SLOT(searchAnywhere()), actionCollection(), "search_anywhere");
 	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
 	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
@@ -200,23 +201,32 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		
 			_ResultView->addHeader(i18n("%1 in compunds").arg(kanji));
 	
-			for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+			for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
 				//kdDebug() << "adding " << (*it).kanji() << endl;
 				_ResultView->addResult(*it, true);
+				kapp->processEvents();
 			}
 		}
 		else
 		{
-			for(QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+			for (QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+			{
+				kapp->processEvents();
 				_ResultView->addKanjiResult(*it, results.common);
+			}
 		}
 	}
 	else
 	{
-		for(QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+		for (QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+		{
+			kapp->processEvents();
 			_ResultView->addResult(*it, comCB->isChecked());
+		}
 	}
+
+	_ResultView->flush();
 }
 
 void TopLevel::searchBeginning()
@@ -248,9 +258,9 @@ void TopLevel::searchBeginning()
 	doSearch(text, regexp);
 }
 
-void TopLevel::searchEnd()
+void TopLevel::searchAnywhere()
 {
-	doSearch(Edit->text(), QRegExp(QString("\\W").prepend(Edit->text())));
+	doSearch(Edit->text(), QRegExp(Edit->text()));
 }
 
 void TopLevel::resultSearch()
@@ -281,7 +291,7 @@ void TopLevel::search(bool inResults)
 	{
 		regexp = searchItems();
 	}
-	else if (first < 0xa5)
+	else if (first < 0xa8)
 	{
 		regexp = readingSearchItems(kanjiCB->isChecked());
 		readingSearch = true;
@@ -410,8 +420,6 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 
 	statusBar()->message(str);
 	setCaption(str);
-
-	_ResultView->updateContents();
 }
 
 void TopLevel::slotUpdateConfiguration()
@@ -467,6 +475,8 @@ void TopLevel::slotUpdateConfiguration()
 	config->setGroup("Searching Options");
 	wholeWord = config->readBoolEntry("wholeWord", true);
 	caseSensitive = config->readBoolEntry("caseSensitive", false);
+
+	_ResultView->updateFont();
 }
 
 void TopLevel::slotConfigure()
@@ -478,9 +488,16 @@ void TopLevel::slotConfigure()
 			return;
 		connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
 		connect(optionDialog, SIGNAL(valueChanged()), this, SLOT(slotUpdateConfiguration()));
+		connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
 	}
 
 	optionDialog->show();
+}
+
+void TopLevel::slotLearnConfigure()
+{
+	slotConfigure();
+	optionDialog->showPage(4);
 }
 
 void TopLevel::slotConfigureHide()
@@ -499,13 +516,14 @@ void TopLevel::slotConfigureDestroy()
 
 void TopLevel::createLearn()
 {
-	Learn *_Learn = new Learn(&_Index, 0);
+	Learn *_Learn = new Learn(&_Index, this);
 	
 	// make all learns have current list
 	connect(_Learn, SIGNAL(listChanged()), SLOT(globalListChanged()));
 	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
 	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
 	connect(this, SIGNAL(saveLists()), _Learn, SLOT(writeConfiguration()));
+	connect(this, SIGNAL(quizConfChanged()), _Learn, SLOT(updateQuizConfiguration()));
 	connect(this, SIGNAL(add(Dict::Entry)), _Learn, SLOT(externAdd(Dict::Entry)));
 
 	_Learn->show();
@@ -544,8 +562,6 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 
 	regexp = regexp.arg(text);
 
-	//kdDebug() << "regexp is " << regexp << endl;
-	
 	return QRegExp(regexp, caseSensitive);
 }
 
@@ -643,7 +659,6 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 			continue;
 
 		kanji = firstEntry(results);
-		_ResultView->addKanjiResult(kanji, hist.common);
 
 		hist.list.append(kanji);
 		hist.results.append(results.results.first());
@@ -658,7 +673,7 @@ Dict::Entry TopLevel::firstEntry(Dict::SearchResult result)
 {
 	for (QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
 	{
-		if ((*it).dictName() == "__NOTSET")
+		if ((*it).dictName() == "__NOTSET" && (*it).header() == "__NOTSET")
 			return (*it);
 	}
 
@@ -689,7 +704,7 @@ void TopLevel::addHistory(Dict::SearchResult result)
 	enableHistoryButtons();
 
 	// we don't want the history list tooo long..
-		   if (resultHistory.size() > 50)
+	if (resultHistory.size() > 50)
 		resultHistory.pop_front();
 }
 
@@ -698,6 +713,11 @@ void TopLevel::enableHistoryButtons()
 	backAction->setEnabled(currentResult != resultHistory.begin());
 	forwardAction->setEnabled(++currentResult != resultHistory.end());
 	--currentResult;
+}
+
+void TopLevel::print()
+{
+	_ResultView->print((*currentResult).text);
 }
 
 #include "kiten.moc"

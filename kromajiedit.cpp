@@ -132,7 +132,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 
 		//kdDebug() << "at = " << QString(at) << endl;
 
-		if (at.row() == 0)
+		if (at.row() == 0 && at != '.')
 		{
 			//kdDebug() << "prepending " << QString(at) << endl;
 			curEng.prepend(at);

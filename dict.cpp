@@ -584,7 +584,7 @@ QString Dict::prettyMeaning(QStringList Meanings)
 	QString meanings;
 	QStringList::Iterator it;
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
-		meanings.append(*it).append("; ");
+		meanings.append((*it).stripWhiteSpace()).append("; ");
 
 	meanings.truncate(meanings.length() - 2);
 	return meanings;
@@ -605,7 +605,7 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 				html += i18n("As radical: ");
 			else
 			{
-				html += (*it);
+				html += (*it).stripWhiteSpace();
 				html += ", ";
 			}
 		}
