@@ -144,6 +144,7 @@ unsigned char **argv;
   */
 
   printf("\nNOTE: running this program by itself is never necessary. Kiten will run it automatically.\n");
+  printf("\nXJDXGEN V2.3 Index Table Generator for XJDIC. \n      Copyright J.W. Breen, 1998\n");
 
   if (argc < 3)
   {
