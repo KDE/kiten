@@ -478,9 +478,9 @@ void TopLevel::gradeSearch()
 	QString editText = Edit->text().stripWhiteSpace();
 	unsigned int grade;
 
-	if (editText.lower() == "Jouyou")
+	if (editText.lower() == "jouyou")
 		grade = 8;
-	else if (editText.lower() == "Jinmeiyou")
+	else if (editText.lower() == "jinmeiyou")
 		grade = 9;
 	else
 		grade = editText.toUInt();
@@ -855,7 +855,7 @@ void TopLevel::forward(void)
 
 void TopLevel::goInHistory(int index)
 {
-	currentResult = resultHistory.at(index);
+	currentResult = resultHistory.at(resultHistory.count() - historyAction->items().count() + index);
 	currentResultIndex = index;
 	enableHistoryButtons();
 	handleSearchResult(*currentResult);
@@ -880,6 +880,10 @@ void TopLevel::addHistory(Dict::SearchResult result)
 
 	resultHistory.append(result);
 	newHistoryList.append(result.text);
+
+	// make history menu a reasonable length
+	while (newHistoryList.count() > 20)
+		newHistoryList.pop_front();
 
 	historyAction->setItems(newHistoryList);
 
