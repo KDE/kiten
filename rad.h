@@ -8,6 +8,7 @@
 #include <qwidget.h>
 
 class QCheckBox;
+class QListBoxItem;
 class QSpinBox;
 class KPushButton;
 class KListBox;
@@ -39,7 +40,8 @@ class Rad : public QObject
 	~Rad();
 
 	QStringList radByStrokes(unsigned int);
-	QStringList kanjiByRad(QString &);
+	QStringList kanjiByRad(const QString &);
+	QStringList kanjiByRad(const QStringList &);
 	Radical radByKanji(QString);
 	unsigned int strokesByRad(QString);
 
@@ -61,28 +63,38 @@ class RadWidget : public QWidget
 
 	signals:
 	// if totalStrokes == 0, then don't search by total strokes
-	void set(QString &radical, unsigned int totalStrokes);
+	void set(const QStringList &radical, unsigned int totalStrokes);
 
 	private slots:
 	void updateList(int);
 	void apply();
 	void totalClicked(void);
-	void highlighted(int);
+	void selectionChanged();
 	void hotlistClicked(int);
+	void addToSelected(const QString &);
+	void executed(QListBoxItem *);
+	void removeSelected();
+	void clearSelected();
 	
 	private:
 	QSpinBox *strokesSpin;
 	QSpinBox *totalSpin;
 	KPushButton *ok;
 	KPushButton *cancel;
+	KPushButton *remove;
+	KPushButton *clear;
 	QButtonGroup *hotlistGroup;
 	QCheckBox *totalStrokes;
 	KListBox *List;
+	KListBox *selectedList;
+	QStringList selected;
 
 	Rad *rad;
 
 	unsigned int hotlistNum;
 	QStringList hotlist;
+
+	void numChanged();
 };
 
 #endif

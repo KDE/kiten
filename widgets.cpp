@@ -34,6 +34,7 @@ ResultView::ResultView(bool _links, QWidget *parent, const char *name)
 {
 	setReadOnly(true);
 	setLinkUnderline(false);
+	basicMode = false;
 	links = _links;
 
 	// qtextbrowser.cpp connects this... we don't need it
@@ -115,6 +116,9 @@ void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
 	{
 		if ((*it) == "T1")
 		{
+			if (basicMode)
+				break;
+
 			html.truncate(html.length() - 2); // get rid of last ,
 			html += i18n("<br />In names: ");
 		}
@@ -122,6 +126,9 @@ void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
 		{
 			if ((*it) == "T2")
 			{
+				if (basicMode)
+					break;
+
 				html.truncate(html.length() - 2); 
 				html += i18n("<br />As radical: ");
 			}

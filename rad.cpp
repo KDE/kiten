@@ -1,24 +1,25 @@
-#include <kglobal.h>
-#include <kdebug.h>
-#include <qbuttongroup.h>
-#include <kdialog.h>
-#include <kstandarddirs.h>
-#include <kmessagebox.h>
-#include <kconfig.h>
-#include <klocale.h>
 #include <kapplication.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qstringlist.h>
-#include <qptrlist.h>
+#include <kconfig.h>
+#include <kdebug.h>
+#include <kdialog.h>
+#include <kglobal.h>
 #include <klistbox.h>
+#include <klocale.h>
+#include <kmessagebox.h>
 #include <kpushbutton.h>
+#include <kstandarddirs.h>
+
+#include <qbuttongroup.h>
+#include <qcheckbox.h>
+#include <qfile.h>
+#include <qlabel.h>
 #include <qlayout.h>
+#include <qptrlist.h>
 #include <qspinbox.h>
 #include <qstring.h>
+#include <qstringlist.h>
 #include <qtextcodec.h>
+#include <qtextstream.h>
 
 #include "rad.h"
 
@@ -110,17 +111,66 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 	return ret;
 }
 
-QStringList Rad::kanjiByRad(QString &text)
+QStringList Rad::kanjiByRad(const QString &text)
 {
+	//kdDebug() << "kanjiByRad, text is " << text << endl;
 	load();
 	QStringList ret;
 
 	QValueListIterator<Radical> it;
-	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
+	for (it = list.begin(); it != list.end() && (*it).radical() != text; ++it)
+	{
+		//kdDebug() << "kanjiByRad, looping, radical is " << (*it).radical() << endl;
+	}
 
 	QString kanji = (*it).kanji();
 	for (unsigned i = 0; i < kanji.length(); ++i)
+	{
+		//kdDebug() << "kanjiByRad, i is " << i << endl;
 		ret.append(QString(kanji.at(i)));
+	}
+
+	return ret;
+}
+
+QStringList Rad::kanjiByRad(const QStringList &list)
+{
+	//kdDebug() << "kanjiByRad (list version)\n";
+
+	QStringList ret;
+	QValueList<QStringList> lists;
+
+	for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
+	{
+		//kdDebug() << "loading radical " << *it << endl;
+		lists.append(kanjiByRad(*it));
+	}
+
+	QStringList first = lists.first();
+	lists.pop_front();
+
+	for (QStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
+	{
+		//kdDebug() << "kit is " << *kit << endl;
+		bool remove = false;
+		QValueList<bool> outcomes;
+		for (QValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
+		{
+			//kdDebug() << "looping through lists\n";
+			outcomes.append((*it).contains(*kit) > 0);
+		}
+
+		const bool containsBool = false;
+		if ((outcomes.contains(containsBool) < 1))
+		{
+			//kdDebug() << "appending " << *kit << endl;
+			ret.append(*kit);
+		}
+		else
+		{
+			//kdDebug() << "not appending " << *kit << endl;
+		}
+	}
 
 	return ret;
 }
@@ -131,7 +181,7 @@ Radical Rad::radByKanji(QString text)
 	QString ret;
 
 	QValueListIterator<Radical> it;
-	for(it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
+	for (it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
 
 	return (*it);
 }
@@ -153,7 +203,7 @@ Rad::~Rad()
 
 RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	hotlistNum = 5;
+	hotlistNum = 3;
 
 	rad = _rad;
 	QHBoxLayout *hlayout = new QHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
@@ -167,12 +217,16 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	config->setGroup("Radical Searching");
 
 	hotlist = config->readListEntry("Hotlist");
+
+	while (hotlist.size() > hotlistNum)
+		hotlist.pop_front();
+
 	unsigned int size = hotlist.size();
 	for (unsigned int i = 0; i < hotlistNum; ++i)
 	{
-		if (i >= size)
+		if (i >= hotlistNum)
 			break;
-		//hotlistGroup->insert(new QRadioButton(*hotlist.at(i), hotlistGroup), i);
+
 		hotlistGroup->insert(new KPushButton(*hotlist.at(i), hotlistGroup), i);
 	}
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
@@ -199,9 +253,24 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	layout->addWidget(cancel);
 
 	List = new KListBox(this);
-	connect(List, SIGNAL(highlighted(int)), SLOT(highlighted(int)));
 	hlayout->addWidget(List);
-	connect(strokesSpin, SIGNAL(valueChanged(int)), SLOT(updateList(int)));
+	connect(List, SIGNAL(executed(QListBoxItem *)), this, SLOT(executed(QListBoxItem *)));
+	connect(strokesSpin, SIGNAL(valueChanged(int)), this, SLOT(updateList(int)));
+
+	QVBoxLayout *rightvlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	selectedList = new KListBox(this);
+	rightvlayout->addWidget(selectedList);
+	connect(selectedList, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
+
+	remove = new KPushButton(i18n("&Remove"), this);
+	rightvlayout->addWidget(remove);
+	connect(remove, SIGNAL(clicked()), this, SLOT(removeSelected()));
+	remove->setEnabled(false);
+
+	clear = new KPushButton(i18n("&Clear"), this);
+	rightvlayout->addWidget(clear);
+	connect(clear, SIGNAL(clicked()), this, SLOT(clearSelected()));
+	clear->setEnabled(false);
 
 	setCaption(kapp->makeStdCaption(i18n("Radical Selector")));
 
@@ -218,14 +287,54 @@ RadWidget::~RadWidget()
 
 void RadWidget::hotlistClicked(int num)
 {
-	// condense code :)
-	strokesSpin->setValue(rad->strokesByRad(*hotlist.at(num)));
-	List->setSelected(List->findItem(* hotlist.at(num)), true);
+	addToSelected(*hotlist.at(num));
 }
 
-void RadWidget::highlighted(int)
+void RadWidget::executed(QListBoxItem *item)
 {
-	ok->setEnabled(true);
+	addToSelected(item->text());
+}
+
+void RadWidget::clearSelected()
+{
+	selectedList->clear();
+}
+
+void RadWidget::removeSelected()
+{
+	int currentItem = selectedList->currentItem();
+	if (currentItem != -1)
+	{
+		selectedList->removeItem(currentItem);
+		selected.remove(selected.at(currentItem));
+
+		numChanged();
+		selectionChanged();
+	}
+}
+
+void RadWidget::numChanged()
+{
+	ok->setEnabled(selectedList->count() > 0);
+	clear->setEnabled(selectedList->count() > 0);
+}
+
+void RadWidget::addToSelected(const QString &text)
+{
+	if (!selected.contains(text))
+	{
+		selectedList->insertItem(text);
+		selected.append(text);
+
+		numChanged();
+		selectionChanged();
+	}
+}
+
+void RadWidget::selectionChanged()
+{
+	//kdDebug() << "selectionChanged()" << endl;
+	remove->setEnabled(selectedList->currentItem() != -1);
 }
 
 void RadWidget::updateList(int strokes)
@@ -237,11 +346,15 @@ void RadWidget::updateList(int strokes)
 
 void RadWidget::apply()
 {
-	QString text = List->currentText();
-	if (text == QString::null)
-		return;
+	//kdDebug() << "apply\n";
 
-	emit set(text, totalStrokes->isChecked() ? totalSpin->value() : 0);
+	if (selected.count() < 1)
+	{
+		//kdDebug() << "selected.count() is " << selected.count() << endl;
+		return;
+	}
+
+	emit set(selected, totalStrokes->isChecked() ? totalSpin->value() : 0);
 
 	KConfig *config = kapp->config();
 	config->setGroup("Radical Searching");
@@ -249,15 +362,16 @@ void RadWidget::apply()
 	config->writeEntry("Total Strokes", totalSpin->value());
 	config->writeEntry("Search By Total", totalStrokes->isChecked());
 
-	if (hotlist.find(text) == hotlist.end())
+	for (QStringList::Iterator it = selected.begin(); it != selected.end(); ++it)
 	{
-		if (hotlist.size() >= hotlistNum)
+		if (hotlist.find(*it) == hotlist.end())
 		{
-			hotlist.pop_front(); // stupid stl functions in Qt .. ;)
-		}
-		hotlist.append(text);
+			if (hotlist.size() >= hotlistNum)
+				hotlist.pop_front(); // stupid stl functions in Qt .. ;)
+			hotlist.append(*it);
 
-		config->writeEntry("Hotlist", hotlist);
+			config->writeEntry("Hotlist", hotlist);
+		}
 	}
 	config->sync();
 

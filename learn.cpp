@@ -76,6 +76,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));
 
 	View = new ResultView(true, listTop, "View");
+	View->setBasicMode(true);
 	connect(View, SIGNAL(linkClicked(const QString &)), this, SIGNAL(linkClicked(const QString &)));
 
 	QStringList grades(i18n("Grade 1"));
@@ -377,6 +378,7 @@ void Learn::openNew()
 		return;
 
 	filename = "";
+	setCaption("");
 
 	List->clear();
 	setClean();

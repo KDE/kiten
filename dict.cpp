@@ -1,23 +1,25 @@
-#include "dict.h"
-#include <kdebug.h>
-#include <qfile.h>
 #include <kapplication.h>
-#include <klocale.h>
+#include <kdebug.h>
 #include <kglobal.h>
+#include <klocale.h>
+#include <kmessagebox.h>
 #include <kprocess.h>
 #include <kstandarddirs.h>
-#include <kmessagebox.h>
-#include <qtextstream.h> 
-#include <qfileinfo.h> 
-#include <iostream.h>
-#include <qstring.h>
-#include <qregexp.h>
-#include <qtextcodec.h>
+
 #include <qcstring.h>
+#include <qfile.h>
+#include <qfileinfo.h> 
 #include <qobject.h>
+#include <qregexp.h>
+#include <qstring.h>
 #include <qstringlist.h>
 #include <qstrlist.h>
+#include <qtextcodec.h>
+#include <qtextstream.h> 
 
+#include "dict.h"
+
+#include <iostream.h>
 #include <cassert>
 #include <sys/mman.h> 
 #include <stdio.h>
@@ -27,7 +29,8 @@ namespace
 void msgerr(const QString &msg, const QString &dict = QString::null)
 {
 	QString output = msg;
-	if(dict != QString::null) output = msg.arg(dict);
+	if (dict != QString::null)
+		output = msg.arg(dict);
 	KMessageBox::error(0, output);
 }
 }
@@ -42,23 +45,34 @@ File::File(QString path, QString n)
 	, indexPtr((const uint32_t *)MAP_FAILED)
 	, valid(false)
 {
-	// ### change this if need be!!
-	// this up-to-date code from xjdservcomm.c
+	bool forceUpdate = false;
 
-	int dictionaryLength = 0;
-	QFile dictionary(path);
-	dictionaryLength = dictionary.size();
-  	dictionaryLength++;
-	//kdDebug() << "dictionaryLength = " << dictionaryLength << endl;
+	bool indexFileExists = indexFile.exists();
+	if (!indexFileExists)
+	{
+		// ### change this if need be!!
+		const int indexFileVersion = 14;
 
-	int32_t testWord[1];
-	fread(&testWord[0], sizeof(int32_t), 1, fopen(indexFile.name().latin1(), "rb"));
+		// this up-to-date code from xjdservcomm.c
+		// we need to check if the index needs to
+		// remade
 
-	//kdDebug() << "testWord[0] = " << testWord[0] << endl;
+		int dictionaryLength;
+		QFile dictionary(path);
+		dictionaryLength = dictionary.size();
+		dictionaryLength++;
+		//kdDebug() << "dictionaryLength = " << dictionaryLength << endl;
 
-	const int indexFileVersion = 14;
+		int32_t testWord[1];
+		fread(&testWord[0], sizeof(int32_t), 1, fopen(indexFile.name().latin1(), "rb"));
 
-	if (!indexFile.exists() || testWord[0] != (dictionaryLength + indexFileVersion))
+		//kdDebug() << "testWord[0] = " << testWord[0] << endl;
+
+		if (testWord[0] != (dictionaryLength + indexFileVersion))
+			forceUpdate = true;
+	}
+
+	if (!indexFileExists || forceUpdate)
 	{
 		//kdDebug() << "creating " << indexFile.name() << endl;
 		// find the index generator executable
@@ -88,7 +102,7 @@ File::File(QString path, QString n)
 	}
 
 	indexPtr = (const uint32_t*)mmap(0, indexFile.size(), PROT_READ, MAP_SHARED, indexFile.handle(), 0);
-	if(indexPtr == MAP_FAILED)
+	if (indexPtr == MAP_FAILED)
 	{
 		msgerr(i18n("Memory error when loading dictionary %1's index file."), path);
 		return;
@@ -99,11 +113,11 @@ File::File(QString path, QString n)
 
 File::~File(void)
 {
-	if(dictPtr != MAP_FAILED)
+	if (dictPtr != MAP_FAILED)
 		munmap((void *)dictPtr, dictFile.size());
 	dictFile.close();
 
-	if(indexPtr != MAP_FAILED)
+	if (indexPtr != MAP_FAILED)
 		munmap((void *)indexPtr, indexFile.size());
 	indexFile.close();
 }
@@ -144,7 +158,7 @@ bool File::isValid(void)
 unsigned char File::lookup(unsigned i, int offset)
 {
 	uint32_t pos = indexPtr[i] + offset - 1;
-	if(pos > dictFile.size()) return 10;
+	if (pos > dictFile.size()) return 10;
 	return dictPtr[pos];
 }
 
@@ -187,7 +201,7 @@ void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, 
 	{
 		File *f = new File(*it, *dictIt);
 		// our ugly substitute for exceptions
-		if(f->isValid())
+		if (f->isValid())
 			fileList.append(f);
 		else
 			delete f;
@@ -214,15 +228,15 @@ QStringList Index::doSearch(File &file, QString text)
 		cur = (hi + lo) / 2;
 		comp = stringCompare(file, cur, eucString);
 
-		if(comp < 0)
+		if (comp < 0)
 			hi = cur - 1;
-		else if(comp > 0)
+		else if (comp > 0)
 			lo = cur + 1;
 	}
 	while(hi >= lo && comp != 0);
 	QStringList results;
 	// A match?
-	if(comp == 0)
+	if (comp == 0)
 	{
 		// wheel back to make sure we get the first matching entry
 		while(cur - 1 && 0 == stringCompare(file, cur - 1, eucString))
@@ -304,7 +318,7 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 SearchResult Index::search(QRegExp regexp, QString text, bool common)
 {
 	QStringList results;
-	for(QPtrListIterator<File> file(dictFiles); *file; ++file)
+	for (QPtrListIterator<File> file(dictFiles); *file; ++file)
 	{
 		results.append(QString("DICT ") + (*file)->name());
 
@@ -356,7 +370,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 SearchResult Index::searchKanji(QRegExp regexp, QString text,  bool common)
 {
 	QStringList results;
-	for(QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
+	for (QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
 		results.append(QString("DICT ") + (*file)->name());
 
@@ -372,7 +386,7 @@ SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult li
 {
 	SearchResult res;
 
-	if(firstEntry(list).extendedKanjiInfo())
+	if (firstEntry(list).extendedKanjiInfo())
 		res = scanKanjiResults(regexp, list.results, common);
 	else
 		res = scanResults(regexp, list.results, common);
@@ -385,7 +399,7 @@ SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult li
 // except it will make katakana and hiragana match (EUC A4 & A5)
 int Index::stringCompare(File &file, int index, QCString str)
 {
-	for(unsigned i = 0; i < str.length(); ++i)
+	for (unsigned i = 0; i < str.length(); ++i)
 	{
 		unsigned char c1 = static_cast<unsigned char>(str[i]);
 		unsigned char c2 = file.lookup(index, i);

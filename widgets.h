@@ -31,6 +31,7 @@ class ResultView : public QTextBrowser
 	void append(const QString &);
 	void flush();
 	void clear();
+	void setBasicMode(bool yes) { basicMode = yes; }
 
 	void updateFont();
 
@@ -39,6 +40,7 @@ class ResultView : public QTextBrowser
 	QString printText;
 
 	bool links;
+	bool basicMode;
 };
 
 class eEdit : public KMainWindow

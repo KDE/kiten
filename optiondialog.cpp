@@ -181,11 +181,9 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	QString globaldict = dirs->findResource("appdata", configKey);
 
 	QVBoxLayout *biglayout = new QVBoxLayout(this, 0, KDialog::spacingHint());
-	if (globaldict != QString::null)
-	{
-		QLabel *already = new QLabel(i18n("Main <strong>%1</strong> already loaded.").arg(configKey), this);
-		biglayout->addWidget(already);
-	}
+	useGlobal = new QCheckBox(i18n("Use preinstalled %1").arg(configKey), this);
+	biglayout->addWidget(useGlobal);
+	useGlobal->setEnabled(globaldict != QString::null);
 
 	QHBoxLayout *layout = new QHBoxLayout(biglayout, KDialog::spacingHint());
 
@@ -241,6 +239,8 @@ void DictList::writeConfig()
 		config->writeEntry(it.current()->text(0), it.current()->text(1));
 	}
 	config->writeEntry("__NAMES", names);
+
+	config->writeEntry("__useGlobal", useGlobal->isChecked());
 }
 
 void DictList::readConfig()
@@ -255,6 +255,8 @@ void DictList::readConfig()
 	{
 		(void) new QListViewItem (List, *it, config->readEntry(*it));
 	}
+
+	useGlobal->setChecked(config->readBoolEntry("__useGlobal", true));
 }
 
 #include "optiondialog.moc"

@@ -5,6 +5,7 @@
 #include <qptrlist.h>
 #include <qregexp.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
 #include "dict.h"
 #include "rad.h"
@@ -40,6 +41,7 @@ class TopLevel : public KMainWindow
 	void searchAnywhere();
 	void resultSearch();
 	void searchAccel();
+	void autoSearch();
 	void kanjiSearchAccel();
 	void strokeSearch();
 	void gradeSearch();
@@ -55,7 +57,7 @@ class TopLevel : public KMainWindow
 	void toggleCom();
 	void addToList();
 	void radicalSearch();
-	void radSearch(QString &, unsigned int);
+	void radSearch(const QStringList &, unsigned int);
 
 	void print();
 
@@ -73,6 +75,7 @@ class TopLevel : public KMainWindow
 	Deinf::Index _DeinfIndex;
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
+	KToggleAction *autoSearchToggle;
 	KToggleAction *deinfCB;
 	KAction *irAction;
 	KAction *addAction;
@@ -105,6 +108,8 @@ class TopLevel : public KMainWindow
 
 	bool readingSearch; // if this is true and no results, try with kanjiSearchItems
 	bool beginningReadingSearch;
+	bool edictUseGlobal;
+	bool kanjidicUseGlobal;
 
 	Dict::Entry toAddKanji;
 

@@ -15,6 +15,7 @@
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
 #include <kstdaction.h>
+
 #include <qcheckbox.h>
 #include <qclipboard.h>
 #include <qfile.h>
@@ -65,6 +66,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
 	deinfCB = new KToggleAction(i18n("&Deinflect verbs in regular search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
+	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	irAction =  new KAction(i18n("Search &in Results"), "find", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 	addAction = new KAction(i18n("Add &Kanji to Learning List"), 0, this, SLOT(addToList()), actionCollection(), "add");
@@ -76,10 +78,18 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	forwardAction->setEnabled(false);
 	currentResult = resultHistory.end();
 
-	createGUI("kitenui.rc");
+	createGUI();
 
 	StatusBar = statusBar();
 	optionDialog = 0;
+
+	KConfig *config = kapp->config();
+	config->setGroup("app");
+	bool com = config->readBoolEntry("com", false);
+	comCB->setChecked(com);
+	kanjiCB->setChecked(config->readBoolEntry("kanji", false));
+	autoSearchToggle->setChecked(config->readBoolEntry("autosearch", false));
+	deinfCB->setChecked(config->readBoolEntry("deinf", true));
 
 	slotUpdateConfiguration();
 	if (autoCreateLearn)
@@ -89,14 +99,16 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
 	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(ressearch(const QString &)));
+	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(autoSearch()));
 }
 
 void TopLevel::closeEvent(QCloseEvent *)
 {
-	for(QPtrListIterator<Learn> i(learnList); *i;)
+	for (QPtrListIterator<Learn> i(learnList); *i;)
 	{
 		(*i)->show();
-		if(!(*i)->closeWindow()) return;
+		if (!(*i)->closeWindow())
+			return;
 		Learn *old = *i;
 		++i;
 		learnList.remove(old);
@@ -106,7 +118,13 @@ void TopLevel::closeEvent(QCloseEvent *)
 	config->setGroup("app");
 	config->writeEntry("com", comCB->isChecked());
 	config->writeEntry("kanji", kanjiCB->isChecked());
+	config->writeEntry("autosearch", autoSearchToggle->isChecked());
 	config->writeEntry("deinf", deinfCB->isChecked());
+
+	config->setGroup("kanjidic");
+	config->writeEntry("__useGlobal", kanjidicUseGlobal);
+	config->setGroup("edict");
+	config->writeEntry("__useGlobal", edictUseGlobal);
 
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
@@ -115,8 +133,12 @@ void TopLevel::closeEvent(QCloseEvent *)
 
 void TopLevel::addToList()
 {
+	if (learnList.isEmpty())
+		createLearn();
+	else
+		StatusBar->message(i18n("%1 added to learn list of all open learn windows").arg(toAddKanji.kanji()));
+
 	emit add(toAddKanji);
-	StatusBar->message(i18n("%1 added to learn list of all OPEN learn windows").arg(toAddKanji.kanji()));
 }
 
 void TopLevel::doSearch(QString text, QRegExp regexp)
@@ -269,6 +291,7 @@ void TopLevel::resultSearch()
 	search(true);
 }
 
+// called when a kanji is clicked on in result view
 void TopLevel::ressearch(const QString &text)
 {
 	Edit->setText(text);
@@ -407,6 +430,12 @@ QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 	return text;
 }
 
+void TopLevel::autoSearch()
+{
+	if (autoSearchToggle->isChecked())
+		searchAccel();
+}
+
 void TopLevel::searchAccel()
 {
 	kanjiCB->setChecked(false);
@@ -441,14 +470,10 @@ void TopLevel::slotUpdateConfiguration()
 	QString globaledict = dirs->findResource("appdata", "edict");
 	QString globalkanjidic = dirs->findResource("appdata", "kanjidic");
 	personalDict = KGlobal::dirs()->saveLocation("appdata", "dictionaries/", true).append("personal");
-
-	config->setGroup("app");
-	bool com = config->readBoolEntry("com", false);
-	comCB->setChecked(com);
-	kanjiCB->setChecked(config->readBoolEntry("kanji", false));
-	deinfCB->setChecked(config->readBoolEntry("deinf", true));
 	
 	config->setGroup("edict");
+
+	edictUseGlobal = config->readBoolEntry("__useGlobal", true);
 
 	QStringList DictNameList = config->readListEntry("__NAMES");
 	QStringList DictList;
@@ -464,7 +489,7 @@ void TopLevel::slotUpdateConfiguration()
 		DictNameList.prepend(i18n("Personal"));
 	}
 	
-	if (globaledict != QString::null)
+	if (globaledict != QString::null && edictUseGlobal)
 	{
 		DictList.prepend(globaledict);
 		DictNameList.prepend("Edict");
@@ -474,13 +499,15 @@ void TopLevel::slotUpdateConfiguration()
 
 	config->setGroup("kanjidic");
 
+	kanjidicUseGlobal = config->readBoolEntry("__useGlobal", true);
+
 	DictList.clear();
 	DictNameList = config->readListEntry("__NAMES");
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
 		DictList.append(config->readEntry(*it));
 
-	if (globalkanjidic != QString::null)
+	if (globalkanjidic != QString::null && kanjidicUseGlobal)
 	{
 		DictList.prepend(globalkanjidic);
 		DictNameList.prepend("Kanjidic");
@@ -652,13 +679,15 @@ void TopLevel::newToolBarConfig()
 void TopLevel::radicalSearch()
 {
 	RadWidget *rw = new RadWidget(&_Rad, 0, "rw");
-	connect(rw, SIGNAL(set(QString &, unsigned int)), this, SLOT(radSearch(QString &, unsigned int)));
+	connect(rw, SIGNAL(set(const QStringList &, unsigned int)), this, SLOT(radSearch(const QStringList &, unsigned int)));
 	rw->show();
 }
 
-void TopLevel::radSearch(QString &text, unsigned int strokes)
+void TopLevel::radSearch(const QStringList &_list, unsigned int strokes)
 {
-	QStringList list = _Rad.kanjiByRad(text);
+	//kdDebug() << "TopLevel::radSearch\n";
+
+	QStringList list(_Rad.kanjiByRad(_list));
 
 	QStringList::iterator it;
 
@@ -666,12 +695,24 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 	hist.count = 0;
 	hist.outOf = 0;
 	hist.common = comCB->isChecked();
-	hist.text = text;
+
+	QString prettyRadicalString;
+	bool already = false;
+	for (QStringList::ConstIterator it = _list.begin(); it != _list.end(); ++it)
+	{
+		if (already)
+			prettyRadicalString.append(", ");
+		prettyRadicalString.append(*it);
+
+		already = true;
+	}
+
+	hist.text = prettyRadicalString;
 
 	if (strokes)
-		hist.list.append(Dict::Entry(i18n("Kanji with radical %1 and %2 strokes").arg(text).arg(strokes), true));
+		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1 and %2 strokes").arg(prettyRadicalString).arg(strokes), true));
 	else
-		hist.list.append(Dict::Entry(i18n("Kanji with radical %1").arg(text), true));
+		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1").arg(prettyRadicalString), true));
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{

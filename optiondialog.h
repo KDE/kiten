@@ -63,6 +63,7 @@ class DictList : public QWidget
 	private:
 	QPushButton *AddButton;
 	QPushButton *DelButton;
+	QCheckBox *useGlobal;
 
 	KListView *List;
 
