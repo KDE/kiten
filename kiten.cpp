@@ -46,7 +46,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	Accel = new KGlobalAccel(this);
 	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), CTRL + ALT + Key_K, CTRL + ALT + Key_K, this, SLOT(kanjiSearchAccel()));
-	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), CTRL + ALT + Key_S, CTRL + ALT + Key_S, this, SLOT(searchAccel()));
+	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), CTRL + ALT + Key_S, CTRL + ALT + Key_S, this, SLOT(searchAccel()));
 	Accel->readSettings(KGlobal::config());
 	Accel->updateConnections();
 

@@ -79,7 +79,6 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	quizTypes.append(i18n("Reading"));
 
 	QVGroupBox *quizzing = new QVGroupBox(i18n("Quizzing"), Page4);
-	quizzing->setAlignment(QGroupBox::AlignRight);
 	learnBox->addWidget(quizzing);
 
 	(void) new QLabel(i18n("Clue:"), quizzing);
