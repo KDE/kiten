@@ -329,7 +329,7 @@ void Learn::read(const KURL &url)
 		// ignore whitespace
 		if (!kanji.isSpace())
 		{
-			QRegExp regexp = QString("^%1\\W").arg(kanji);
+			QRegExp regexp ( QString("^%1\\W").arg(kanji) );
 			Dict::SearchResult res = index->searchKanji(regexp, kanji, false);
 			Dict::Entry first = Dict::firstEntry(res);
 			if (first.extendedKanjiInfo())
@@ -454,7 +454,7 @@ void Learn::saveScores()
 void Learn::add(Dict::Entry toAdd, bool noEmit)
 {
 	// Remove peripheral readings: This is a study mode, not a reference mode
-	QRegExp inNames = QString::fromLatin1(",\\s*[A-Za-z ]+:.*");
+	QRegExp inNames (",\\s*[A-Za-z ]+:.*");
 	QString readings = Dict::prettyKanjiReading(toAdd.readings()).replace(inNames, "");
 	QString meanings = shortenString(Dict::prettyMeaning(toAdd.meanings()).replace(inNames, ""));
 	QString kanji = toAdd.kanji();
