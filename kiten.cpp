@@ -76,6 +76,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
 	name = QString::null;
+
+	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(search(const QString &)));
 }
 
 void TopLevel::closeEvent(QCloseEvent *)
@@ -225,6 +227,13 @@ void TopLevel::search()
 	search(false);
 }
 
+void TopLevel::search(const QString &text)
+{
+	Edit->clear();
+	Edit->insert(text);
+	search(false);
+}
+
 void TopLevel::search(bool inResults)
 {
 	QString text = Edit->text();
@@ -343,6 +352,8 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 	
 	if (results < fullNum)
 		str += i18n(" out of %1").arg(fullNum);
+
+	name = QString::null;
 
 	statusBar()->message(str);
 	setCaption(str);

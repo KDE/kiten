@@ -174,15 +174,13 @@ QString ResultView::putchars(const QString &text)
 
 	for (i = 0; i < len; i++)
 	{
-		if ((codec->fromUnicode(QString(text.at(i)))[0]) > 0xa8) // if its a kanji..
-		{
+		QCString str = codec->fromUnicode(QString(text.at(i)));
+		unsigned char first = str[0];
+
+		if (first > 0xa8)
 			ret.append(QString("<a href=\"%1\">%1</a>").arg(text.at(i)).arg(text.at(i)));
-		}
 		else
-		{
-			kdDebug() << QString(text.at(i)) << " isn't kanji\n";
 			ret.append(text.at(i));
-		}
 	}
 	
 	return ret;

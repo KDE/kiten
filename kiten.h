@@ -36,6 +36,7 @@ class TopLevel : public KMainWindow
 
 	private slots:
 	void search();
+	void search(const QString&);
 	void search(bool inResults);
 	void searchBeginning();
 	void searchEnd();
