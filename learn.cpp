@@ -32,10 +32,8 @@
 const int Learn::numberOfAnswers = 5;
 
 Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
-	: KMainWindow(parent, name)
-	, curItem(0)
+	: KMainWindow(parent, name), curItem(0), initialized(false)
 {
-	initialized = false;
 	index = parentDict;
 
 	QWidget *dummy = new QWidget(this);
@@ -51,6 +49,10 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	quizTop = new QWidget(Tabs);
 	Tabs->addTab(listTop, i18n("&List"));
 	Tabs->addTab(quizTop, i18n("&Quiz"));
+
+	View = new ResultView(true, listTop, "View");
+	View->setBasicMode(true);
+	connect(View, SIGNAL(linkClicked(const QString &)), this, SIGNAL(linkClicked(const QString &)));
 
 	List = new KListView(listTop);
 
@@ -74,10 +76,6 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 
 	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));
-
-	View = new ResultView(true, listTop, "View");
-	View->setBasicMode(true);
-	connect(View, SIGNAL(linkClicked(const QString &)), this, SIGNAL(linkClicked(const QString &)));
 
 	QStringList grades(i18n("Grade 1"));
 	grades.append(i18n("Grade 2"));
