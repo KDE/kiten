@@ -10,6 +10,7 @@
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <kmessagebox.h>
+#include <kshortcut.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
 #include <kstdaction.h>
@@ -38,8 +39,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 {
 
 	Accel = new KGlobalAccel(this);
-	Accel->insertAction(i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), QString::null, KShortcuts("CTRL + ALT + K"), KShortcuts("CTRL + ALT + K"), this, SLOT(kanjiSearchAccel()));
-	Accel->insertAction(i18n("Lookup English/Japanese word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), QString::null, KShortcuts("CTRL + ALT + S"), KShortcuts("CTRL + ALT + S"), this, SLOT(searchAccel()));
+	Accel->insertAction(i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), QString::null, KKeySequence("CTRL + ALT + K"), KKeySequence("CTRL + ALT + K"), this, SLOT(kanjiSearchAccel()));
+	Accel->insertAction(i18n("Lookup English/Japanese word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), QString::null, KKeySequence("CTRL + ALT + S"), KKeySequence("CTRL + ALT + S"), this, SLOT(searchAccel()));
 	Accel->readSettings(KGlobal::config());
 	Accel->updateConnections();
 
