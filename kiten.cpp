@@ -1,6 +1,6 @@
 #include <kaccel.h>
 #include <kaction.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>

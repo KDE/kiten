@@ -3,7 +3,7 @@
 #include "dict.h"
 #include <kdebug.h>
 #include <qfile.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kprocess.h>

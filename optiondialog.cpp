@@ -1,5 +1,4 @@
-#include <kapp.h>
-#include <kconfig.h>
+#include <kapplication.h>
 #include <qvgroupbox.h>
 #include <kkeydialog.h>
 #include <kfontdialog.h>

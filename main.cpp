@@ -2,7 +2,7 @@
 
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 #include <qnamespace.h>
 #include <kmainwindow.h>
