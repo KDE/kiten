@@ -45,7 +45,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		insertParagraph(i18n("<h3>Results from %1</h3>").arg(result.dictName()), paragraphs() + 1);
+		addHeader(i18n("Results from %1").arg(result.dictName()), 5);
 		return;
 	}
 
@@ -84,7 +84,7 @@ void ResultView::addKanjiResult(Dict::Kanji result)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		insertParagraph(i18n("<h3>Results from %1</h3>").arg(result.dictName()), paragraphs() + 1);
+		addHeader(i18n("Results from %1").arg(result.dictName()), 5);
 		return;
 	}
 
@@ -265,7 +265,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	qKanji = new QLabel(quizTop);
 	quizLayout->addWidget(qKanji);
 
-	answers = new QButtonGroup(1, Horizontal, quizTop);
+	answers = new QButtonGroup(1, Horizontal, i18n("Meaning"), quizTop);
 	for(int i = 0; i < numberOfAnswers; ++i)
 		answers->insert(new KPushButton(answers), i);
 	quizLayout->addWidget(answers);

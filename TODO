@@ -22,3 +22,4 @@ learn a separate app.
 
 Jason's:
 - load radkfile and vconj only when asked for
+- TODO in void TopLevel::addToList()

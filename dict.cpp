@@ -280,8 +280,6 @@ SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsi
 	for(QPtrListIterator<File> file(dictFiles); *file; ++file)
 	{
 		results.append(QString("DICT ") + (*file)->name());
-		--num;
-		--fullNum;
 
 		results += doSearch(**file, text);
 	}
@@ -337,8 +335,6 @@ KanjiSearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsign
 	for(QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
 		results.append(QString("DICT ") + (*file)->name());
-		--num;
-		--fullNum;
 
 		results += doSearch(**file, text);
 	}
@@ -649,6 +645,7 @@ QStringList Entry::meanings()
 
 Kanji::Kanji(QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
 {
+	//kdDebug() << "new kanji\n";
 	TheKanji = kanji;
 	Readings = readings;
 	Meanings = meanings;
@@ -662,6 +659,7 @@ Kanji::Kanji(QString &kanji, QStringList &readings, QStringList &meanings, unsig
 
 Kanji::Kanji(const QString &dictname)
 {
+	//kdDebug() << "new kanji header\n";
 	DictName = dictname;
 }
 

@@ -111,6 +111,7 @@ void TopLevel::closeEvent(QCloseEvent *)
 
 void TopLevel::addToList()
 {
+	// TODO! make this write to the kconfig file, and emit listDirty
 	emit add(toAddKanji);
 }
 
@@ -171,7 +172,10 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 			_ResultView->addHeader(i18n("%1 in common compunds").arg(kanji));
 
 			for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+			{
+				//kdDebug() << "adding " << (*it).kanji() << endl;
 				_ResultView->addResult(*it, true);
+			}
 		}
 		else
 		{
@@ -602,11 +606,10 @@ Dict::Kanji TopLevel::firstKanji(Dict::KanjiSearchResult result)
 {
 	for(QValueListIterator<Dict::Kanji> it = result.list.begin(); it != result.list.end(); ++it)
 	{
-		if ((*it).dictName() == "__NOTSET");
-		{
+		if ((*it).dictName() == "__NOTSET")
 			return (*it);
-		}
 	}
+
 	return Dict::Kanji("Nothing");
 }
 
