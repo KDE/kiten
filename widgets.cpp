@@ -215,6 +215,8 @@ void ResultView::clear()
 void ResultView::flush()
 {
 	setText(printText);
+	setCursorPosition(0, 0);
+	ensureCursorVisible();
 }
 
 void ResultView::print(QString title)
