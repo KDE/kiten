@@ -13,14 +13,12 @@
 #include <qvaluelist.h>
 #include "deinf.h"
 
-using namespace Deinf;
-
-Index::Index()
+Deinf::Index::Index()
 {
 	loaded = false;
 }
 
-void Index::load()
+void Deinf::Index::load()
 {
 	if (loaded)
 		return;
@@ -84,7 +82,7 @@ QStringList possibleConjugations(const QString &text)
 }
 }
 
-QStringList Index::deinflect(QString text, QStringList &name)
+QStringList Deinf::Index::deinflect(QString text, QStringList &name)
 {
 	load();
 	QStringList endings = possibleConjugations(text);
