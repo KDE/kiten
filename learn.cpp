@@ -156,7 +156,7 @@ void Learn::finishCtor()
 	updateQuizConfiguration(); // first
 
 	config.setGroup("Learn");
-	QString entry = config.readEntry("lastFile", QString(""));
+	QString entry = config.readPathEntry("lastFile");
 	//kdDebug() << "lastFile: " << entry << endl;
 	if (!entry.isEmpty())
 	{
@@ -358,7 +358,7 @@ void Learn::open()
 	//kdDebug() << "saving lastFile\n";
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
-	config.writeEntry("lastFile", filename.url());
+	config.writePathEntry("lastFile", filename.url());
 	config.sync();
 
 	// redo quiz, because we deleted the current quiz item
@@ -408,7 +408,7 @@ void Learn::save()
 	KConfig &config = *kapp->config();
 	//kdDebug() << "saving lastFile\n";
 	config.setGroup("Learn");
-	config.writeEntry("lastFile", filename.url());
+	config.writePathEntry("lastFile", filename.url());
 	config.sync();
 }
 
