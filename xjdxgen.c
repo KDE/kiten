@@ -30,7 +30,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#ifndef __FreeBSD__
+#ifdef HAVE_STDINT_H
 #include <stdint.h>
 #endif
 
