@@ -1,2 +1,3 @@
-- advanced kanjidic lookup with strokes and radical
+- advanced kanjidic lookup with radical
+- don't crash when in Learn a kanji is deleted and it is the curItem!
 - hmm
