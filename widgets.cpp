@@ -485,11 +485,9 @@ void Learn::showKanji(QListViewItem *item)
 		setCurrentGrade(grade);
 		updateGrade();
 	}
-	
-	current = list.begin();
 
-	while ((*current).kanji() != kanji)
-		++current;
+	// Why does this fail to find the kanji sometimes?
+	for(current = list.begin(); current != list.end() && (*current).kanji() != kanji; ++current);
 
 	update();
 	setCaption(i18n("%1 - Learn").arg(item->text(0)));
