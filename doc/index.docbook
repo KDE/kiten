@@ -37,10 +37,8 @@
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>Golf</keyword>
-<keyword>Kolf</keyword>
-<keyword>Miniature</keyword>
-<keyword>Arcade</keyword>
+<keyword>Japanese</keyword>
+<keyword>Language</keyword>
 </keywordset>
 
 </bookinfo>
@@ -166,15 +164,15 @@ searches.</para>
 
 <para>To go forward one Kanji in the current grade, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To go back one Kanji, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>. To go to a random Kanji, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Random</guimenuitem></menuchoice>.</para>
 
-<tip><para>If you click on a Kanji in the bottom view, the main &kiten; window will give detailed information on the Kanji you clicked.</para></tip>
+<tip><para>If you click on a Kanji in the top view, the main &kiten; window will give detailed information on the Kanji you clicked.</para></tip>
 </sect1>
 
 <sect1 id="populating-learning-list"> <title>Populating the Learning List</title>
-<para>There are three ways to add Kanji to the Learning List. To add the current Kanji (the one displayed in the view on the bottom) to your list, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Add</guimenuitem></menuchoice>. To add all Kanji in the current grade to your list, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Add All</guimenuitem></menuchoice>.</para>
+<para>There are three ways to add Kanji to the Learning List. To add the current Kanji (the one displayed in the view on the top) to your list, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Add</guimenuitem></menuchoice>. To add all Kanji in the current grade to your list, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Add All</guimenuitem></menuchoice>.</para>
 
 <para>The current Kanji in the main &kiten; window can also be added by choosing (in the main &kiten; window) <menuchoice><guimenu>File</guimenu><guimenuitem>Add Kanji to Learning List</guimenuitem></menuchoice>.</para>
 
-<para>To delete a Kanji on your Learning List, select it and choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>. You can also select a range of Kanji to delete by clicking and dragging in the list while holding down the <keycap>Shift</keycap> or <keycap>Control</keycap> keys.</para>
+<para>To delete a Kanji on your Learning List, select it and choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>. You can also select a range of Kanji to delete by clicking in the list while holding down the <keycap>Shift</keycap> or <keycap>Control</keycap> keys.</para>
 </sect1>
 
 <sect1 id="file-list"> <title>Managing Learning List Files</title>
