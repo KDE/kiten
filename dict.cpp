@@ -377,15 +377,23 @@ QPtrList<Entry> Dict::search(QRegExp realregexp, QString regexp, unsigned int &n
 			it = 0;
 	
 			// add seperator
-			if (*(DictNameList.at(CurrentDict)) == "Edict" && com) // if com, nothing but edict
+			
+			if (com)
 			{
-				ret.append(new Entry("Edict"));
-				doSearch(regexp); // make our s
+				if (*(DictNameList.at(CurrentDict)) == "Edict") // if com, nothing but edict
+				{
+					doSearch(regexp); // make our s, only from edict so no header
+				}
+				else
+				{
+					num++; // counteract what happens below
+					fullNum++;
+				}
 			}
 			else
 			{
-				num++; // counteract what happens below
-				fullNum++;
+				ret.append(new Entry(*(DictNameList.at(CurrentDict))));
+				doSearch(regexp); // make our s
 			}
 		}
 		num--; // we added a dummy divider, so lets take one off
@@ -446,7 +454,7 @@ QPtrList<Kanji> Dict::kanjiSearch(QRegExp realregexp, const QString &regexp, uns
 		{
 			it = 0;
 	
-			ret.append(new Kanji(*KanjiDictNameList.at(CurrentDict - DictList.size())));
+			ret.append(new Kanji(*KanjiDictNameList.at(DictList.size() - CurrentDict)));
 			
 			doSearch(regexp); // make our s
 		}
@@ -827,6 +835,42 @@ Kanji *Dict::kanjiParse(const QString &raw)
 	}
 
 	return (new Kanji(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
+}
+
+QString Dict::prettyMeaning(QStringList Meanings)
+{
+	QString meanings;
+	QStringList::Iterator it;
+	for (it = Meanings.begin(); it != Meanings.end(); ++it)
+		meanings.append(*it).append("; ");
+
+	meanings.truncate(meanings.length() - 2);
+	return meanings;
+}
+
+QString Dict::prettyKanjiReading(QStringList Readings)
+{
+	QStringList::Iterator it;
+	QString html;
+
+	for (it = Readings.begin(); it != Readings.end(); ++it)
+	{
+		if ((*it) == "T1")
+			html += i18n("In names: ");
+		else
+		{
+			if ((*it) == "T2")
+				html += i18n("As radical: ");
+			else
+			{
+				html += (*it);
+				html += ", ";
+			}
+		}
+	}
+	html.truncate(html.length() - 2); // get rid of last ,
+
+	return html;
 }
 
 ///////////////////////////////////////////////////////////////

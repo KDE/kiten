@@ -4,6 +4,7 @@
 #include <qwidget.h>
 #include <qtextedit.h>
 #include <qptrlist.h>
+#include <qstringlist.h>
 
 class KLineEdit;
 class KCompletion;
@@ -84,9 +85,13 @@ class Learn : public QWidget
 	Learn(Dict *, QWidget *parent = 0, const char *name = 0);
 	~Learn();
 
+	signals:
+	void listChanged();
+	void listDirty();
+
 	public slots:
 	void showKanji(QListViewItem *);
-	void writeConfiguration();
+	void readConfiguration();
 
 	private slots:
 	void next();
@@ -97,15 +102,18 @@ class Learn : public QWidget
 	void gradeChange(int);
 	void add();
 	void del();
+	void qdelete();
 	void updateCaption(QListViewItem *);
 	void close();
 	void cheat();
+	void writeConfiguration();
 
 	void q1();
 	void q2();
 	void q3();
 	void q4();
 	void q5();
+	void qnew();
 
 	private:
 	QTabWidget *Tabs;
@@ -125,13 +133,12 @@ class Learn : public QWidget
 
 	Dict *dict;
 
-	void readConfiguration();
-
 	void update(Kanji *curKanji= 0);
 
 	KListView *List;
 	KPushButton *Save;
 	KPushButton *Del;
+	KPushButton *qDel;
 
 	bool isMod;
 
@@ -149,11 +156,12 @@ class Learn : public QWidget
 	QListViewItem *curItem;
 
 	void qupdate();
-	void qnew();
 
 	int seikai;
+	QString shortenString(QString);
 
 	QString randomMeaning();
+	QStringList oldMeanings;
 };
 
 

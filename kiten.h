@@ -22,6 +22,9 @@ class TopLevel : public KMainWindow
 	public:
 	TopLevel(QWidget *parent = 0, const char *name = 0);
 
+	signals:
+	void updateLists();
+
 	private slots:
 	void close();
 	void search();
@@ -32,11 +35,15 @@ class TopLevel : public KMainWindow
 	void jpWordAccel();
 	void engWordAccel();
 	void strokeSearch();
+	void gradeSearch();
 	void slotConfigure();
 	void slotConfigureHide();
 	void slotConfigureDestroy();
 	void slotUpdateConfiguration();
 	void loadDict();
+	void kanjiDictChange(bool);
+	void globalListChanged();
+	void globalListDirty();
 
 	void createLearn();
 
@@ -46,6 +53,7 @@ class TopLevel : public KMainWindow
 	ResultView *_ResultView;
 	QCheckBox *kanjiCB;
 	QPushButton *strokeButton;
+	QPushButton *gradeButton;
 	QCheckBox *comCB;
 	QCheckBox *irCB;
 	bool noInit;
@@ -62,6 +70,9 @@ class TopLevel : public KMainWindow
 	ConfigureDialog *optionDialog;
 
 	void setResults(unsigned int, unsigned int);
+
+	bool autoCreateLearn;
+	bool isListMod;
 };
 
 #endif

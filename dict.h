@@ -34,6 +34,9 @@ class Dict : public QObject
 
 	bool isir() { return ir; };
 	bool iscom() { return com; };
+
+	static QString prettyKanjiReading(QStringList);
+	static QString prettyMeaning(QStringList);
 	
 	public slots:
 	void toggleCom(bool);

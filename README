@@ -3,11 +3,9 @@
    ** the only KDE Japanese reference tool **
     ****************************************
 
-Kiten comes ready to use.
+Kiten comes ready to use. It will take a bit of time to start up the first time as it indexes your dictionary files. Be sure to try File->Learn...
 
-If you have extra dictionaries in the correct formats, visit the "edict" and "kanjidic"
-configuration pages, under the "Dictionaries" configuration page, and use the
-"Add" button.
+If you have extra dictionaries in the correct formats, visit the "edict" and "kanjidic" configuration pages, under the "Dictionaries" configuration page, and use the "Add" button.
 
 Information about edict and kanjidic is available at the urls
 

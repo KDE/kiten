@@ -33,6 +33,7 @@ class ConfigureDialog : public KDialogBase
 	DictList *KanjiDictList;
 	QCheckBox *wholeWordCB;
 	QCheckBox *caseSensitiveCB;
+	QCheckBox *startLearnCB;
 
 	KGlobalAccel *Accel;
 	KKeyEntryMap m_keys;

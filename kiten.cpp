@@ -5,6 +5,7 @@
 #include <qclipboard.h>
 #include <qpushbutton.h>
 #include <kconfig.h>
+#include <kaccel.h>
 #include <qwidget.h>
 #include <kmessagebox.h>
 #include <kapp.h>
@@ -43,18 +44,22 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	topLayout->addWidget(irCB);
 
 	kanjiCB = new QCheckBox(i18n("&Kanjidic?"), dummy, "kanjiCB");
+	connect(kanjiCB, SIGNAL(toggled(bool)), SLOT(kanjiDictChange(bool)));
 	botLayout->addWidget(kanjiCB);
 
 	strokeButton = new QPushButton(i18n("&Stroke Search"), dummy, "strokeButton");
 	botLayout->addWidget(strokeButton);
-	connect(strokeButton, SIGNAL(pressed()), SLOT(strokeSearch()));
+	connect(strokeButton, SIGNAL(clicked()), SLOT(strokeSearch()));
+	gradeButton = new QPushButton(i18n("&Grade Search"), dummy, "gradeButton");
+	botLayout->addWidget(gradeButton);
+	connect(gradeButton, SIGNAL(clicked()), SLOT(gradeSearch()));
 
 	layout->addWidget(_SearchForm);
 	layout->addWidget(_ResultView);
 
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) new KAction(i18n("&Learn..."), "pencil", 0, this, SLOT(createLearn()), actionCollection(), "file_learn");
+	(void) new KAction(i18n("&Learn..."), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 
 	connect(_SearchForm, SIGNAL(search()), SLOT(search()));
 	connect(_SearchForm, SIGNAL(readingSearch()), SLOT(readingSearch()));
@@ -70,6 +75,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	connect(irCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleIR(bool)));
 
 	slotUpdateConfiguration();
+	if (autoCreateLearn)
+		createLearn();
 
 	Accel = new KGlobalAccel();
 	Accel->insertItem(i18n("Lookup kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
@@ -82,11 +89,25 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	Accel->connectItem("LookupReading", this, SLOT(readingSearchAccel()));
 	Accel->readSettings();
 
+	isListMod = false;
+
+	kanjiDictChange(kanjiCB->isChecked());
 	_SearchForm->setFocusNow();
 }
 
 void TopLevel::close()
 {
+	kdDebug() << "TopLevel::close()\n";
+
+	if (isListMod)
+	{
+		if (KMessageBox::warningContinueCancel(this, i18n("Unsaved changes to learning list. Are you sure you want to discard these?"), i18n("Unsaved changes"), i18n("Discard"), "DiscardAsk", true) != KMessageBox::Continue)
+		{
+			statusBar()->message(i18n("Go to the List tab in the Learn dialog to save your learning list"));
+			return;
+		}
+	}
+
 	KConfig *config = kapp->config();
 	config->setGroup("app");
 	config->writeEntry("com", comCB->isChecked());
@@ -136,13 +157,48 @@ void TopLevel::doSearch()
 		}
 	
 		QPtrList<Kanji> results = _Dict->kanjiSearch(realregexp, regexp, num, fullNum);
-		
-		QPtrListIterator<Kanji> it(results);
-		Kanji *curKanji;
-		while ((curKanji = it.current()) != 0)
+
+		if (num == 1) // if its only one entry, give compounds too!
 		{
-			++it;
+			Kanji *curKanji = results.getLast();
 			_ResultView->addKanjiResult(curKanji);
+
+			// now show some compounds in which this kanji appears
+			
+			QString kanji = curKanji->kanji();
+			//kdDebug() << "kanji is " << kanji << endl;
+		
+			bool oldir = _Dict->isir();
+			bool oldcom = _Dict->iscom();
+			_Dict->toggleCom(true);
+			_Dict->toggleIR(false);
+			
+			unsigned int _num, _fullNum;
+			QPtrList<Entry> compounds = _Dict->search(QRegExp(kanji), kanji, _num, _fullNum);
+		
+			_ResultView->addHeader(i18n("%1 in common compunds").arg(kanji));
+				
+			QPtrListIterator<Entry> it(compounds);
+			Entry *curEntry;
+			while ((curEntry = it.current()) != 0)
+			{
+				//kdDebug() << "entry: " << curEntry->kanji() << endl;
+				++it;
+				_ResultView->addResult(curEntry, true);
+			}
+		
+			_Dict->toggleCom(oldcom);
+			_Dict->toggleIR(oldir);
+		}
+		else
+		{
+			QPtrListIterator<Kanji> it(results);
+			Kanji *curKanji;
+			while ((curKanji = it.current()) != 0)
+			{
+				++it;
+				_ResultView->addKanjiResult(curKanji);
+			}
 		}
 	}
 
@@ -182,6 +238,31 @@ void TopLevel::strokeSearch()
 	realregexp = QRegExp(regexp);
 
 	// must be in kanjidic mode
+	kanjiCB->setChecked(true);
+
+	doSearch();
+}
+
+void TopLevel::gradeSearch()
+{
+	QString text = _SearchForm->lineText();
+	unsigned int grade;
+
+	if (text == "Jouyou")
+		grade = 8;
+	else if (text == "Jinmeiyou")
+		grade = 9;
+	else
+		grade = text.toUInt();
+
+	if (grade <= 0 || grade > 9)
+	{
+		statusBar()->message(i18n("Invalid grade"));
+		return;
+	}
+	regexp = QString("G%1 ").arg(grade);
+	realregexp = QRegExp(regexp);
+
 	kanjiCB->setChecked(true);
 
 	doSearch();
@@ -297,6 +378,9 @@ void TopLevel::slotUpdateConfiguration()
 	_Dict->setKanjiDictNameList(DictNameList);
 
 	loadDict();
+
+	config->setGroup("Learn");
+	autoCreateLearn = config->readBoolEntry("startLearn", false);
 }
 
 void TopLevel::loadDict()
@@ -344,7 +428,30 @@ void TopLevel::slotConfigureDestroy()
 void TopLevel::createLearn()
 {
 	Learn *_Learn = new Learn(_Dict, 0);
+	
+	// make all learns have current list
+	connect(_Learn, SIGNAL(listChanged()), SLOT(globalListChanged()));
+	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
+	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
+
 	_Learn->show();
+}
+
+void TopLevel::globalListChanged()
+{
+	isListMod = false;
+	emit updateLists();
+}
+
+void TopLevel::kanjiDictChange(bool on)
+{
+	strokeButton->setEnabled(on);
+	gradeButton->setEnabled(on);
+}
+
+void TopLevel::globalListDirty()
+{
+	isListMod = false;
 }
 
 #include "kiten.moc"

@@ -61,10 +61,15 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	wholeWordCB = new QCheckBox(i18n("Match only whole english word"), Page3);
 	searchBox->addWidget(wholeWordCB);
 
-	QFrame *Page4 = addPage(i18n("Global Keys"));
+	QFrame *Page4 = addPage(i18n("Learn"));
+	QVBoxLayout *learnBox = new QVBoxLayout(Page4);
+	startLearnCB = new QCheckBox(i18n("Start Learn automatically"), Page4);
+	learnBox->addWidget(startLearnCB);
+
+	QFrame *Page5 = addPage(i18n("Global Keys"));
 	m_keys = Accel->keyDict();
-	QVBoxLayout *layout = new QVBoxLayout(Page4);
-	layout->addWidget(new KKeyChooser(&m_keys, Page4));
+	QVBoxLayout *layout = new QVBoxLayout(Page5);
+	layout->addWidget(new KKeyChooser(&m_keys, Page5));
 
 	readConfig();
 }
@@ -85,6 +90,9 @@ void ConfigureDialog::readConfig()
 	config->setGroup("Searching Options");
 	caseSensitiveCB->setChecked(config->readBoolEntry("caseSensitive", false));
 	wholeWordCB->setChecked(config->readBoolEntry("wholeWord", true));
+
+	config->setGroup("Learn");
+	startLearnCB->setChecked(config->readBoolEntry("startLearn", false));
 }
 
 void ConfigureDialog::writeConfig()
@@ -99,6 +107,9 @@ void ConfigureDialog::writeConfig()
 	config->setGroup("Searching Options");
 	config->writeEntry("caseSensitive", caseSensitiveCB->isChecked());
 	config->writeEntry("wholeWord", wholeWordCB->isChecked());
+
+	config->setGroup("Learn");
+	config->writeEntry("startLearn", startLearnCB->isChecked());
 
 	config->sync();
 
@@ -143,10 +154,10 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	QVBoxLayout *buttonLayout = new QVBoxLayout(layout, 6);
 	AddButton = new QPushButton(i18n("Add"), this);
 	buttonLayout->addWidget(AddButton);
-	connect(AddButton, SIGNAL(pressed()), SLOT(add()));
+	connect(AddButton, SIGNAL(clicked()), SLOT(add()));
 	DelButton = new QPushButton(i18n("Delete"), this);
 	buttonLayout->addWidget(DelButton);
-	connect(DelButton, SIGNAL(pressed()), SLOT(del()));
+	connect(DelButton, SIGNAL(clicked()), SLOT(del()));
 
 	List->addColumn(i18n("Name"));
 	List->addColumn(i18n("File"));
