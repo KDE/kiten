@@ -141,23 +141,24 @@ class Learn : public KMainWindow
 
 class EditAction : public KAction
 {
-  Q_OBJECT
-public:
-    EditAction( const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name );
-    ~EditAction();
+	Q_OBJECT
+	public:
+	EditAction( const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name );
+	~EditAction();
 
-    virtual int plug( QWidget *w, int index = -1 );
+	virtual int plug( QWidget *w, int index = -1 );
 
-    virtual void unplug( QWidget *w );
+	virtual void unplug( QWidget *w );
 
-    QString text() { return m_combo->text(); }
+	QString text() { return m_combo->text(); }
+	QGuardedPtr<KLineEdit> editor();
 
-public slots:
+	public slots:
 	void clear();
 	void insert(QString);
 
-signals:
-    void plugged();
+	signals:
+	void plugged();
 
 private:
     QGuardedPtr<KLineEdit> m_combo;

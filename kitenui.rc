@@ -22,6 +22,8 @@
   <Action name="kanji_toggle" />
   <Action name="deinf_toggle" />
   <Action name="common" />
+  <Seperator />
+  <Action name="input" />
 </Menu>
 
 </MenuBar>

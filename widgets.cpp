@@ -784,4 +784,8 @@ void EditAction::insert(QString text)
 	m_combo->insert(text);
 }
 
+QGuardedPtr<KLineEdit> EditAction::editor()
+{
+	return m_combo;
+}
 #include "widgets.moc"

@@ -7,6 +7,7 @@
 #include <qpushbutton.h>
 #include <kconfig.h>
 #include <kedittoolbar.h>
+#include <qguardedptr.h>
 #include <qtextcodec.h>
 #include <kaccel.h>
 #include <qwidget.h>
@@ -53,6 +54,13 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 	addAction = new KAction(i18n("Add Kanji to learning list"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
+
+	QStringList kanamodes(i18n("English"));
+	kanamodes.append(i18n("Hiragana"));
+	kanamodes.append(i18n("Katakana"));
+	KListAction *kanaAct = new KListAction(i18n("Input mode"), 0, 0, 0, actionCollection(), "input");
+	connect(kanaAct, SIGNAL(activated(int)), Edit->editor(), SLOT(setKana(int)));
+	kanaAct->setItems(kanamodes);
 
 	createGUI();
 
@@ -574,7 +582,8 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 	QStringList list = _Rad.kanjiByRad(text);
 
 	unsigned int fullNum, num;
-	unsigned int realnum = 0;
+	unsigned int realNum = 0;
+	unsigned int realFullNum = 0;
 	QStringList::iterator it;
 
 	if(strokes)
@@ -586,20 +595,19 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		Dict::KanjiSearchResult results = _Index.searchKanji(QRegExp(QString(*it).prepend("^")), (*it), num, fullNum, comCB->isChecked());
+		Dict::KanjiSearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), num, fullNum, comCB->isChecked());
 
-		if(results.list.count() < 1)
+		if(num < 1)
 			continue;
 
 		kanji = firstKanji(results);
-		if (kanji.strokes() == strokes || !strokes)
-		{
-			_ResultView->addKanjiResult(kanji);
-			realnum++;
-		}
+		_ResultView->addKanjiResult(kanji);
+
+		realNum += num;
+		realFullNum += fullNum;
 	}
 
-	setResults(realnum, realnum);
+	setResults(realNum, realFullNum);
 }
 
 Dict::Kanji TopLevel::firstKanji(Dict::KanjiSearchResult result)
@@ -610,7 +618,7 @@ Dict::Kanji TopLevel::firstKanji(Dict::KanjiSearchResult result)
 			return (*it);
 	}
 
-	return Dict::Kanji("Nothing");
+	return Dict::Kanji("__NOTHING");
 }
 
 #include "kiten.moc"
