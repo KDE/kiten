@@ -18,5 +18,7 @@ learn a separate app.
 
 - add load and save as to Learn mode
 
+- move all dialogs to KDialogBase, and have them used by exec()ing them
+
 Jason's:
 - load radkfile and vconj only when asked for
