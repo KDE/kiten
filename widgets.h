@@ -67,7 +67,6 @@ class Learn : public KMainWindow
 	void random();
 	void add();
 	void del();
-	void close();
 	void cheat();
 	void tabChanged(QWidget *);
 
@@ -125,8 +124,6 @@ class Learn : public KMainWindow
 	KAction *saveAct;
 	KAction *newAct;
 	KListAction *gradeAct;
-
-	void closestuff();
 };
 
 class EditAction : public KAction

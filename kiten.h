@@ -32,12 +32,8 @@ class TopLevel : public KMainWindow
 
 	private slots:
 	void search();
-	void readingSearch();
-	void readingSearchAccel();
-	void kanjiSearch();
+	void searchAccel();
 	void kanjiSearchAccel();
-	void jpWordAccel();
-	void engWordAccel();
 	void strokeSearch();
 	void gradeSearch();
 	void slotConfigure();

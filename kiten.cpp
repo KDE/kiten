@@ -6,6 +6,7 @@
 #include <qclipboard.h>
 #include <qpushbutton.h>
 #include <kconfig.h>
+#include <qtextcodec.h>
 #include <kaccel.h>
 #include <qwidget.h>
 #include <kmessagebox.h>
@@ -37,9 +38,9 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
-	(void) new KAction(i18n("&Anywhere"), "find", 0, this, SLOT(search()), actionCollection(), "search_anywhere");
-	(void) new KAction(i18n("&Reading"), "find", CTRL+Key_R, this, SLOT(readingSearch()), actionCollection(), "search_reading");
-	(void) new KAction(i18n("&Kanji"), "find", CTRL+Key_K, this, SLOT(kanjiSearch()), actionCollection(), "search_kanji");
+	(void) new KAction(i18n("&Search"), "find", 0, this, SLOT(search()), actionCollection(), "search");
+	//(void) new KAction(i18n("&Reading"), "find", CTRL+Key_R, this, SLOT(readingSearch()), actionCollection(), "search_reading");
+	//(void) new KAction(i18n("&Kanji"), "find", CTRL+Key_K, this, SLOT(kanjiSearch()), actionCollection(), "search_kanji");
 	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
 	kanjiCB = new KToggleAction(i18n("Kan&jidic?"), "kanjidic", CTRL+Key_J, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
@@ -59,13 +60,9 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	Accel = new KGlobalAccel();
 	Accel->insertItem(i18n("Lookup kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
-	Accel->insertItem(i18n("Lookup Japanese word (Edict)"), "LookupJpWord", "CTRL+SHIFT+W");
-	Accel->insertItem(i18n("Lookup English word (Edict)"), "LookupEngWord", "CTRL+SHIFT+E");
-	Accel->insertItem(i18n("Lookup reading (Edict)"), "LookupReading", "CTRL+SHIFT+R");
+	Accel->insertItem(i18n("Lookup English/Japanese word"), "LookupWord", "CTRL+SHIFT+A");
 	Accel->connectItem("LookupKanji", this, SLOT(kanjiSearchAccel()));
-	Accel->connectItem("LookupJpWord", this, SLOT(jpWordAccel()));
-	Accel->connectItem("LookupEngWord", this, SLOT(engWordAccel()));
-	Accel->connectItem("LookupReading", this, SLOT(readingSearchAccel()));
+	Accel->connectItem("LookupWord", this, SLOT(searchAccel()));
 	Accel->readSettings();
 
 	isListMod = false;
@@ -195,22 +192,30 @@ void TopLevel::doSearch()
 
 void TopLevel::search()
 {
-	realregexp = searchItems();
 	regexp = Edit->text();
-	doSearch();
-}
 
-void TopLevel::readingSearch()
-{
-	realregexp = readingSearchItems(kanjiCB->isChecked());
-	regexp = Edit->text();
-	doSearch();
-}
+	QTextCodec *codec = QTextCodec::codecForName("eucJP");
+	QCString csch_str = codec->fromUnicode(regexp);
+	unsigned char *sch_str = (const char *)(csch_str);
+	sch_str = (const unsigned char *)(sch_str);
 
-void TopLevel::kanjiSearch()
-{
-	realregexp = kanjiSearchItems();
-	regexp = Edit->text();
+	// gjiten seems to do this stuff to tell between the three...
+	if (sch_str[0] <= 128)
+	{
+		//kdDebug() << "english!\n";
+		realregexp = searchItems();
+	}
+	else if (sch_str[0] < 0xa5)
+	{
+		//kdDebug() << "reading!\n";
+		realregexp = readingSearchItems(kanjiCB->isChecked());
+	}
+	else if (sch_str[0] > 0xa8)
+	{
+		//kdDebug() << "kanji!\n";
+		realregexp = kanjiSearchItems();
+	}
+
 	doSearch();
 }
 
@@ -265,44 +270,20 @@ QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 	return text;
 }
 
-void TopLevel::readingSearchAccel()
+void TopLevel::searchAccel()
 {
 	kanjiCB->setChecked(false);
 
-	realregexp = readingSearchItems(kanjiCB->isChecked());
 	clipBoardText();
-	regexp = Edit->text();
-	doSearch();
+	search();
 }
 
 void TopLevel::kanjiSearchAccel()
 {
 	kanjiCB->setChecked(true);
 
-	realregexp = kanjiSearchItems();
 	clipBoardText();
-	regexp = Edit->text();
-	doSearch();
-}
-
-void TopLevel::jpWordAccel()
-{
-	kanjiCB->setChecked(false);
-
-	realregexp = kanjiSearchItems();
-	clipBoardText();
-	regexp = Edit->text();
-	doSearch();
-}
-
-void TopLevel::engWordAccel()
-{
-	kanjiCB->setChecked(false);
-	
-	realregexp = searchItems();
-	clipBoardText();
-	regexp = Edit->text();
-	doSearch();
+	search();
 }
 
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)

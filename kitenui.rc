@@ -8,9 +8,7 @@
 </Menu>
 
 <Menu name="search"><text>&amp;Search</text>
-  <Action name="search_anywhere" />
-  <Action name="search_reading" />
-  <Action name="search_kanji" />
+  <Action name="search" />
   <Action name="search_stroke" />
   <Action name="search_grade" />
 </Menu>
@@ -26,9 +24,7 @@
 <ToolBar name="mainToolBar" noMerge="1" fullWidth="true"><text>Main Toolbar</text>
   <Action name="clear_search" />
   <Action name="search_edit" />
-  <Action name="search_anywhere" />
-  <Action name="search_reading" />
-  <Action name="search_kanji" />
+  <Action name="search" />
   <Action name="search_stroke" />
   <Action name="search_grade" />
   <Seperator />
