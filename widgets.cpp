@@ -380,8 +380,7 @@ void Learn::update()
 	
 	QString kanji = curKanji.kanji();
 
-	unsigned int num, fullNum;
-	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, num, fullNum, true);
+	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
 	View->addHeader(i18n("%1 in common compunds").arg(kanji));
 	
 	for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
@@ -396,8 +395,7 @@ void Learn::updateGrade()
 	QString regexp("G%1 ");
 	regexp = regexp.arg(grade);
 
-	unsigned int num, fullNum;
-	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
+	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
 	list = result.list;
 
 	StatusBar->message(i18n("%1 entries in grade %2").arg(list.count()).arg(grade));
@@ -479,8 +477,7 @@ void Learn::addAll()
 	QString regexp("G%1 ");
 	regexp = regexp.arg(grade);
 
-	unsigned int num, fullNum;
-	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
+	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
 	for(QValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
 		externAdd(*i);
 }

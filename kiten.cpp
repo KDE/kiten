@@ -139,32 +139,28 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 	}
 
 	statusBar()->message(i18n("Searching..."));
-	unsigned int fullNum;
-	unsigned int num;
 
 	Dict::SearchResult results;
 	if (!kanjiCB->isChecked())
 	{
-		results = _Index.search(regexp, text, num, fullNum, comCB->isChecked());
+		results = _Index.search(regexp, text, comCB->isChecked());
 
 		// do again... bad because sometimes reading is kanji
-		if ((readingSearch || beginningReadingSearch) && (num < 1))
+		if ((readingSearch || beginningReadingSearch) && (results.count < 1))
 		{
 			//kdDebug() << "doing again\n";
-			num = 0;
-			fullNum = 0;
 
 			if (beginningReadingSearch)
 				regexp = kanjiSearchItems(true);
 			else if (readingSearch)
 				regexp = kanjiSearchItems();
 
-			results = _Index.search(regexp, text, num, fullNum, comCB->isChecked());
+			results = _Index.search(regexp, text, comCB->isChecked());
 		}
 	}
 	else
 	{
-		results = _Index.searchKanji(regexp, text, num, fullNum, comCB->isChecked());
+		results = _Index.searchKanji(regexp, text, comCB->isChecked());
 	}
 
 	addHistory(results);
@@ -181,9 +177,7 @@ void TopLevel::doSearchInResults(QString text, QRegExp regexp)
 	}
 
 	statusBar()->message(i18n("Searching..."));
-	unsigned int fullNum;
-	unsigned int num;
-	Dict::SearchResult results = _Index.searchPrevious(regexp, text, *currentResult, num, fullNum, comCB->isChecked());
+	Dict::SearchResult results = _Index.searchPrevious(regexp, text, *currentResult, comCB->isChecked());
 	addHistory(results);
 	handleSearchResult(results);
 	readingSearch = false;
@@ -210,8 +204,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 			// now show some compounds in which this kanji appears
 			QString kanji = toAddKanji.kanji();
 		
-			unsigned int _num, _fullNum;
-			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, _num, _fullNum, true);
+			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
 		
 			_ResultView->addHeader(i18n("%1 in common compunds").arg(kanji));
 	
@@ -619,7 +612,6 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 
 	QStringList list = _Rad.kanjiByRad(text);
 
-	unsigned int fullNum, num;
 	unsigned int realNum = 0;
 	unsigned int realFullNum = 0;
 	QStringList::iterator it;
@@ -633,16 +625,16 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), num, fullNum, comCB->isChecked());
+		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), comCB->isChecked());
 
-		if(num < 1)
+		if(results.count < 1)
 			continue;
 
 		kanji = firstKanji(results);
 		_ResultView->addKanjiResult(kanji);
 
-		realNum += num;
-		realFullNum += fullNum;
+		realNum += results.count;
+		realFullNum += results.outOf;
 	}
 
 	setResults(realNum, realFullNum);

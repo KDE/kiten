@@ -139,9 +139,9 @@ public:
 	void setDictList(const QStringList &files, const QStringList &names);
 	void setKanjiDictList(const QStringList &files, const QStringList &names);
 
-	SearchResult search(QRegExp, QString, unsigned int &, unsigned int &, bool common);
-	SearchResult searchKanji(QRegExp, QString, unsigned int &, unsigned int &, bool common);
-	SearchResult searchPrevious(QRegExp, QString, SearchResult, unsigned int &, unsigned int &, bool common);
+	SearchResult search(QRegExp, QString, bool common);
+	SearchResult searchKanji(QRegExp, QString, bool common);
+	SearchResult searchPrevious(QRegExp, QString, SearchResult, bool common);
 
 private:
 	QPtrList<File> dictFiles;
@@ -150,8 +150,8 @@ private:
 	void loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList);
 
 	QStringList doSearch(File &, QString);
-	SearchResult scanResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
-	SearchResult scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
+	SearchResult scanResults(QRegExp regexp, QStringList results, bool common);
+	SearchResult scanKanjiResults(QRegExp regexp, QStringList results, bool common);
 	int stringCompare(File &, int index, QCString);
 
 	Entry parse(const QString &);

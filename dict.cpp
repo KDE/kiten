@@ -253,8 +253,11 @@ QStringList Index::doSearch(File &file, QString text)
 	return results;
 }
 
-SearchResult Index::scanResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common)
 {
+	unsigned int num = 0;
+	unsigned int fullNum = 0;
+
 	SearchResult ret;
 	ret.results = results;
 	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
@@ -284,11 +287,8 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, unsigned in
 	return ret;
 }
 
-SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::search(QRegExp regexp, QString text, bool common)
 {
-	fullNum = 0;
-	num = 0;
-
 	QStringList results;
 	for(QPtrListIterator<File> file(dictFiles); *file; ++file)
 	{
@@ -297,13 +297,15 @@ SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsi
 		results += doSearch(**file, text);
 	}
 
-	SearchResult res = scanResults(regexp, results, num, fullNum, common);
+	SearchResult res = scanResults(regexp, results, common);
 	res.text = text;
 	return res;
 }
 
-SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool common)
 {
+	unsigned int num = 0;
+	unsigned int fullNum = 0;
 	const bool jmyCount = false; // don't count JinMeiYou as common
 	SearchResult ret;
 	ret.results = results;
@@ -337,11 +339,8 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsign
 	return ret;
 }
 
-SearchResult Index::searchKanji(QRegExp regexp, QString text, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::searchKanji(QRegExp regexp, QString text,  bool common)
 {
-	num = 0;
-	fullNum = 0;
-
 	QStringList results;
 	for(QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
@@ -350,21 +349,19 @@ SearchResult Index::searchKanji(QRegExp regexp, QString text, unsigned int &num,
 		results += doSearch(**file, text);
 	}
 
-	SearchResult res = scanKanjiResults(regexp, results, num, fullNum, common);
+	SearchResult res = scanKanjiResults(regexp, results, common);
 	res.text = text;
 	return res;
 }
 
-SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult list, bool common)
 {
-	num = 0;
-	fullNum = 0;
 	SearchResult res;
 
 	if((*list.list.at(0)).extendedKanjiInfo())
-		res = scanKanjiResults(regexp, list.results, num, fullNum, common);
+		res = scanKanjiResults(regexp, list.results, common);
 	else
-		res = scanResults(regexp, list.results, num, fullNum, common);
+		res = scanResults(regexp, list.results, common);
 
 	res.text = text;
 	return res;
