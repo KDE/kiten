@@ -1,8 +1,10 @@
 #include <kglobal.h>
 #include <kdebug.h>
+#include <qbuttongroup.h>
 #include <kdialog.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
+//#include <qradiobutton.h>
 #include <kconfig.h>
 #include <klocale.h>
 #include <kapp.h>
@@ -66,6 +68,11 @@ Rad::Rad() : QObject()
 			cur.addKanji(s);
 		}
 	}
+	
+	// we gotta append the last one!!
+	// this nagged jasonkb for a bit wondering why fue wasn't showing up ;)
+	list.append(cur);
+
 	f.close();
 }
 
@@ -111,9 +118,17 @@ Radical Rad::radByKanji(QString text)
 	QString ret;
 
 	QValueListIterator<Radical> it;
-	for(it = list.begin(); it != list.end() && (*it).kanji().find(text) == -1; ++it);
+	for(it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
 
 	return (*it);
+}
+
+unsigned int Rad::strokesByRad(QString text)
+{
+	QValueListIterator<Radical> it;
+	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
+
+	return (*it).strokes();
 }
 
 Rad::~Rad()
@@ -124,9 +139,31 @@ Rad::~Rad()
 
 RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	hotlistNum = 5;
+
 	rad = _rad;
 	QHBoxLayout *hlayout = new QHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
-	QVBoxLayout *layout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	QVBoxLayout *vlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+
+	hotlistGroup = new QButtonGroup(1, Horizontal, i18n("Hotlist"), this);
+	//hotlistGroup->setRadioButtonExclusive(true);
+	vlayout->addWidget(hotlistGroup);
+
+	KConfig *config = kapp->config();
+	config->setGroup("Radical Searching");
+
+	hotlist = config->readListEntry("Hotlist");
+	unsigned int size = hotlist.size();
+	for (unsigned int i = 0; i < hotlistNum; ++i)
+	{
+		if (i >= size)
+			break;
+		//hotlistGroup->insert(new QRadioButton(*hotlist.at(i), hotlistGroup), i);
+		hotlistGroup->insert(new QPushButton(*hotlist.at(i), hotlistGroup), i);
+	}
+	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
+
+	QVBoxLayout *layout = new QVBoxLayout(vlayout, KDialog::spacingHint());
 	layout->addWidget(new QLabel(i18n("<strong>Radical</strong> strokes:"), this));
 	strokesSpin = new QSpinBox(1, 17, 1, this);
 	layout->addWidget(strokesSpin);
@@ -154,8 +191,6 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 	setCaption(kapp->makeStdCaption(i18n("Radical Selector")));
 
-	KConfig *config = kapp->config();
-	config->setGroup("Radical Searching");
 	strokesSpin->setValue(config->readNumEntry("Strokes", 1));
 	totalSpin->setValue(config->readNumEntry("Total Strokes", 1));
 	totalStrokes->setChecked(config->readBoolEntry("Search By Total", false));
@@ -165,6 +200,13 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 RadWidget::~RadWidget()
 {
+}
+
+void RadWidget::hotlistClicked(int num)
+{
+	// condense code :)
+	strokesSpin->setValue(rad->strokesByRad(*hotlist.at(num)));
+	List->setSelected(List->findItem(* hotlist.at(num)), true);
 }
 
 void RadWidget::highlighted(int)
@@ -192,6 +234,17 @@ void RadWidget::apply()
 	config->writeEntry("Strokes", strokesSpin->value());
 	config->writeEntry("Total Strokes", totalSpin->value());
 	config->writeEntry("Search By Total", totalStrokes->isChecked());
+
+	if (hotlist.find(text) == hotlist.end())
+	{
+		if (hotlist.size() >= hotlistNum)
+		{
+			hotlist.pop_front(); // stupid stl functions in Qt .. ;)
+		}
+		hotlist.append(text);
+
+		config->writeEntry("Hotlist", hotlist);
+	}
 	config->sync();
 
 	close();

@@ -11,6 +11,7 @@ class QCheckBox;
 class QSpinBox;
 class QPushButton;
 class QListBox;
+class QButtonGroup;
 
 class Radical
 {
@@ -40,6 +41,7 @@ class Rad : public QObject
 	QStringList radByStrokes(unsigned int);
 	QStringList kanjiByRad(QString &);
 	Radical radByKanji(QString);
+	unsigned int strokesByRad(QString);
 
 	private:
 	void loadLine(QString &);
@@ -64,16 +66,21 @@ class RadWidget : public QWidget
 	void apply();
 	void totalClicked(void);
 	void highlighted(int);
+	void hotlistClicked(int);
 	
 	private:
 	QSpinBox *strokesSpin;
 	QSpinBox *totalSpin;
 	QPushButton *ok;
 	QPushButton *cancel;
+	QButtonGroup *hotlistGroup;
 	QCheckBox *totalStrokes;
 	QListBox *List;
 
 	Rad *rad;
+
+	unsigned int hotlistNum;
+	QStringList hotlist;
 };
 
 #endif

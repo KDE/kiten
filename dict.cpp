@@ -259,10 +259,12 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 	unsigned int fullNum = 0;
 
 	SearchResult ret;
-	ret.results = results;
+	
+	//ret.results = results; //not here..
+	
 	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
 	{
-		if ((*itr).left(5) == "DICT ")
+		if ((*itr).left(5) == "DICT " || (*itr).left(8) == "HEADING ")
 		{
 			ret.list.append(parse(*itr));
 			continue;
@@ -275,6 +277,8 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 			++fullNum;
 			if ((*itr).find(QString("(P)")) >= 0 || !common)
 			{
+				ret.results.append(*itr); // we append HERE, so we get the exact
+				                          // results we have in ret.list
 				ret.list.append(parse(*itr));
 				++num;
 			}
@@ -312,7 +316,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 
 	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
 	{
-		if ((*itr).left(5) == "DICT ")
+		if ((*itr).left(5) == "DICT " || (*itr).left(8) == "HEADING ")
 		{
 			ret.list.append(kanjiParse(*itr));
 			continue;
@@ -402,6 +406,8 @@ Entry Index::parse(const QString &raw)
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
 		return Entry(raw.right(length - 5));
+	if (raw.left(8) == "HEADING ")
+		return Entry(raw.right(length - 8), true);
 
 	QString reading;
 	QString kanji;
@@ -463,6 +469,8 @@ Entry Index::kanjiParse(const QString &raw)
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
 		return Entry(raw.right(length - 5));
+	if (raw.left(8) == "HEADING ")
+		return Entry(raw.right(length - 8), true);
 
 	QStringList readings;
 	QString kanji;
@@ -611,6 +619,7 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 
 Entry::Entry(const QString & kanji, const QString & reading, const QStringList &meanings)
 	: DictName(QString::fromLatin1("__NOTSET"))
+	, Header(QString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)
 	, Kanji(kanji)
 	, KanaOnly(reading.isEmpty())
@@ -625,6 +634,7 @@ Entry::Entry(const QString & kanji, const QString & reading, const QStringList &
 
 Entry::Entry(QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
 	: DictName(QString::fromLatin1("__NOTSET"))
+	, Header(QString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)
 	, Kanji(kanji)
 	, KanaOnly(false)
@@ -644,9 +654,22 @@ Entry::Entry(const QString &dictname)
 	DictName = dictname;
 }
 
+Entry::Entry(const QString &headername, bool header)
+	: KanaOnly(true)
+	, DictName(QString::fromLatin1("__NOTSET"))
+	, Header(headername)
+	, ExtendedKanjiInfo(false)
+{
+}
+
 QString Entry::dictName()
 {
 	return DictName;
+}
+
+QString Entry::header()
+{
+	return Header;
 }
 
 bool Entry::kanaOnly()

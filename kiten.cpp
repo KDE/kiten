@@ -50,12 +50,13 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
 	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
-	deinfCB = new KToggleAction(i18n("&Deinflect verbs"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
+	deinfCB = new KToggleAction(i18n("&Deinflect verbs in regular search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	irAction =  new KAction(i18n("Search &in Results"), "find", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 	addAction = new KAction(i18n("Add Kanji to learning list"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
+
 	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
@@ -83,8 +84,6 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	resize(600, 400);
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
-
-	name = QString::null;
 
 	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(ressearch(const QString &)));
 }
@@ -184,7 +183,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 	addAction->setEnabled(false);
 	_ResultView->clear();
 
-	Dict::Entry first = firstKanji(results);
+	Dict::Entry first = firstEntry(results);
 	if(first.extendedKanjiInfo())
 	{
 		if (results.count == 1) // if its only one entry, give compounds too!
@@ -261,8 +260,7 @@ void TopLevel::resultSearch()
 
 void TopLevel::ressearch(const QString &text)
 {
-	Edit->clear();
-	Edit->insert(text);
+	Edit->setText(text);
 	kanjiCB->setChecked(true);
 	search();
 }
@@ -290,26 +288,47 @@ void TopLevel::search(bool inResults)
 	}
 	else if (first > 0xa8)
 	{
-		if (last < 0xa5 && deinfCB->isChecked() && name == QString::null) // deinflect
+		if (last < 0xa5 && deinfCB->isChecked()) // deinflect
 		{
-			dicform = _DeinfIndex.deinflect(text, name);
-			if (name == QString::null)
-				goto Normal;
+			bool common = comCB->isChecked();
+			QStringList names;
+			QStringList res(_DeinfIndex.deinflect(text, names));
 
-			statusBar()->message(name);
+			if (res.size() > 0)
+			{
+				Dict::SearchResult hist;
+				hist.count = 0;
+				hist.outOf = 0;
+				hist.common = common;
+				hist.text = text;
 
-			Edit->clear();
-			Edit->insert(dicform);
-			return;
+				QStringList::Iterator nit = names.begin();
+				for (QStringList::Iterator it = res.begin(); it != res.end(); ++it, ++nit)
+				{
+					Dict::SearchResult results = _Index.search(QRegExp(QString("^") + (*it) + "\\W"), *it, common);
+					
+					if (results.count < 1) // stop if it isn't in the dictionary
+						continue;
+
+					hist.list.append(Dict::Entry(*nit, true));
+
+					hist.list += results.list;
+					hist.results += results.results;
+
+					hist.count += results.count;
+					hist.outOf += results.outOf;
+				}
+
+				handleSearchResult(hist);
+				addHistory(hist);
+				return;
+			}
 		}
 
-		Normal:
 		regexp = kanjiSearchItems();
 	}
 
-	dicform = QString::null;
-
-	if(inResults)
+	if (inResults)
 		doSearchInResults(text, regexp);
 	else
 		doSearch(text, regexp);
@@ -384,12 +403,10 @@ void TopLevel::kanjiSearchAccel()
 
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 {
-	QString str = i18n("%1 results").arg(results);
+	QString str = i18n("%1 result(s)").arg(results);
 	
 	if (results < fullNum)
 		str += i18n(" out of %1").arg(fullNum);
-
-	name = QString::null;
 
 	statusBar()->message(str);
 	setCaption(str);
@@ -601,41 +618,45 @@ void TopLevel::radicalSearch()
 
 void TopLevel::radSearch(QString &text, unsigned int strokes)
 {
-	_ResultView->clear();
-
 	QStringList list = _Rad.kanjiByRad(text);
 
-	unsigned int realNum = 0;
-	unsigned int realFullNum = 0;
 	QStringList::iterator it;
 
-	if(strokes)
-		_ResultView->addHeader(i18n("Kanji with radical %1 and %2 strokes").arg(text).arg(strokes));
-	else
-		_ResultView->addHeader(i18n("Kanji with radical %1").arg(text));
-
 	Dict::Entry kanji;
+	Dict::SearchResult hist;
+	hist.count = 0;
+	hist.outOf = 0;
+	hist.common = comCB->isChecked();
+	hist.text = text;
+
+	if (strokes)
+		hist.list.append(Dict::Entry(i18n("Kanji with radical %1 and %2 strokes").arg(text).arg(strokes), true));
+	else
+		hist.list.append(Dict::Entry(i18n("Kanji with radical %1").arg(text), true));
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), comCB->isChecked());
+		hist.outOf += results.outOf;
 
-		if(results.count < 1)
+		if (results.count < 1)
 			continue;
 
-		kanji = firstKanji(results);
+		kanji = firstEntry(results);
 		_ResultView->addKanjiResult(kanji);
 
-		realNum += results.count;
-		realFullNum += results.outOf;
+		hist.list.append(kanji);
+		hist.results.append(results.results.first());
+		hist.count += results.count;
 	}
 
-	setResults(realNum, realFullNum);
+	addHistory(hist);
+	handleSearchResult(hist);
 }
 
-Dict::Entry TopLevel::firstKanji(Dict::SearchResult result)
+Dict::Entry TopLevel::firstEntry(Dict::SearchResult result)
 {
-	for(QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
+	for (QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
 	{
 		if ((*it).dictName() == "__NOTSET")
 			return (*it);
@@ -666,6 +687,10 @@ void TopLevel::addHistory(Dict::SearchResult result)
 	currentResult = resultHistory.end();
 	--currentResult;
 	enableHistoryButtons();
+
+	// we don't want the history list tooo long..
+		   if (resultHistory.size() > 50)
+		resultHistory.pop_front();
 }
 
 void TopLevel::enableHistoryButtons()

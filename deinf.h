@@ -2,6 +2,7 @@
 #define DEFINF_H
 
 #include <qstring.h>
+#include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qmap.h>
 
@@ -20,13 +21,11 @@ class Index
 	public:
 	Index();
 
-	QString deinflect(QString, QString &);
+	QStringList deinflect(QString, QStringList &);
 
 	private:
 	QMap<unsigned int, QString> names;
 	QValueList<Conjugation> list;
-
-	void loadLine(const QString &);
 };
 
 }

@@ -89,8 +89,11 @@ public:
 	Entry(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
 	// default (for containers)
 	Entry(const QString & = QString::null);
+	// for a heading
+	Entry(const QString &, bool header);
 
 	QString dictName();
+	QString header();
 	QStringList meanings();
 	QStringList readings();
 	QString firstReading();
@@ -106,6 +109,7 @@ public:
 
 protected:
 	QString DictName;
+	QString Header;
 	QStringList Meanings;
 
 	QString Kanji;

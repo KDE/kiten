@@ -48,6 +48,11 @@ void ResultView::addResult(Dict::Entry result, bool com)
 		addHeader(i18n("Results from %1").arg(result.dictName()), 5);
 		return;
 	}
+	if (result.header() != "__NOTSET")
+	{
+		addHeader(result.header());
+		return;
+	}
 
 	QString html;
 	if (result.kanaOnly())
@@ -77,7 +82,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 
 	html += "</p>";
 
-	insertParagraph(html, paragraphs() + 1);
+	append(html);
 }
 
 void ResultView::addKanjiResult(Dict::Entry result, Radical rad)
@@ -85,6 +90,11 @@ void ResultView::addKanjiResult(Dict::Entry result, Radical rad)
 	if (result.dictName() != "__NOTSET")
 	{
 		addHeader(i18n("Results from %1").arg(result.dictName()), 5);
+		return;
+	}
+	if (result.header() != "__NOTSET")
+	{
+		addHeader(result.header());
 		return;
 	}
 
@@ -132,6 +142,7 @@ void ResultView::addKanjiResult(Dict::Entry result, Radical rad)
 		html += (*it);
 		html += "; ";
 	}
+	html.truncate(html.length() - 2); // get rid of last ,
 	html += "<br />";
 	html += i18n("Grade Level: %1. Strokes: %2.");
 
@@ -156,16 +167,16 @@ void ResultView::addKanjiResult(Dict::Entry result, Radical rad)
 		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
 
 	if (!!rad.radical())
-		html.append(i18n(" Radical: %1, with %2 strokes.").arg(rad.radical()).arg(rad.strokes()));
+		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(rad.radical()).arg(rad.strokes()));
 
 	html += "</p>";
 
-	insertParagraph(html, paragraphs() + 1);
+	append(html);
 }
 
 void ResultView::addHeader(const QString &header, unsigned int degree)
 {
-	insertParagraph(QString("<h%1>%2</h%3>").arg(degree).arg(header).arg(degree), paragraphs() + 1);
+	append(QString("<h%1>%2</h%3>").arg(degree).arg(header).arg(degree));
 }
 
 QString ResultView::putchars(const QString &text)

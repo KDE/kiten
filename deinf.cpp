@@ -69,27 +69,33 @@ namespace
 QStringList possibleConjugations(const QString &text)
 {
 	QStringList endings;
-	for(unsigned i = 0; i < text.length(); ++i)
+	for (unsigned i = 0; i < text.length(); ++i)
 		endings.append(text.right(i));
 	return endings;
 }
 }
 
-QString Index::deinflect(QString text, QString &name)
+QStringList Index::deinflect(QString text, QStringList &name)
 {
 	QStringList endings = possibleConjugations(text);
+	QStringList ret;
+
 	for (QValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
 	{
-		QStringList::Iterator ending = endings.find((*it).ending);
-		if(ending != endings.end()) // a match
+		QStringList matches(endings.grep(QRegExp(QString("^") + (*it).ending)));
+
+		if (matches.size() > 0) // a match
 		{
-			name = names[(*it).num];
-			text.replace(QRegExp((*ending) + "$"), (*it).replace);
-			return text;
+			name.append(names[(*it).num]);
+
+			//kdDebug() << "match ending: " << (*it).ending << "; replace: " << (*it).replace << "; name: " << names[(*it).num] << endl;
+
+			QString tmp(text);
+			tmp.replace(QRegExp((*it).ending + "*", false, true), (*it).replace);
+			ret.append(tmp);
 		}
 	}
 
-	name = QString::null;
-	return text;
+	return ret;
 }
 
