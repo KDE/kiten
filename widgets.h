@@ -34,9 +34,6 @@ class SearchForm : public QWidget
 
 	bool wholeWord;
 	bool caseSensitive;
-	bool alreadyOnce;
-
-	//bool isEnglish(QString);
 
 	QString goodText();
 

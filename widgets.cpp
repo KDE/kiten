@@ -39,19 +39,11 @@ SearchForm::SearchForm(QWidget *parent, const char *name)
 	connect(SearchKanjiButton, SIGNAL(pressed()), SLOT(doKanjiSearch()));
 
 	slotUpdateConfiguration();
-
-	alreadyOnce = false;
 }
 
 void SearchForm::returnPressed()
 {
-	if (alreadyOnce)
-		alreadyOnce = false;
-	else
-	{
-		alreadyOnce = true;
-		doSearch();
-	}
+	doSearch();
 }
 
 void SearchForm::slotUpdateConfiguration()
