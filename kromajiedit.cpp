@@ -93,6 +93,7 @@ void KRomajiEdit::setKana(int _kana)
 void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 {
 	bool shift = e->state() & ShiftButton;
+	QString ji = e->text();
 
 	if (shift && e->key() == Key_Space) // switch hiragana/english
 	{
@@ -104,7 +105,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		return;
 	}
 
-	if (kana == "english")
+	if (kana == "english" || ji.isEmpty())
 	{
 		KLineEdit::keyPressEvent(e);
 		return;
@@ -117,7 +118,6 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	}
 
 	//kdDebug() << "--------------------\n";
-	QString ji = e->text();
 
 	QString curEng;
 	QString curKana;
