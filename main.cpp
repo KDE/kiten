@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 {
 	qInstallMsgHandler(noMessageOutput);
 	KAboutData aboutData( "kiten", I18N_NOOP("Kiten"),
-	  "1.1", I18N_NOOP("Japanese Reference Tool"), KAboutData::License_GPL,
-	  "(c) 2001, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten");
+	  "1.2", I18N_NOOP("Japanese Reference Tool"), KAboutData::License_GPL,
+	  "(c) 2001-2004, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten");
 
 	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jason@katzbrown.com");
 	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
