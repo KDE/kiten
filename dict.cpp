@@ -138,7 +138,7 @@ unsigned char File::lookup(unsigned i, int offset)
 	if(i > indexFile.size()) return 10;
 	uint32_t pos = indexPtr[i] + offset;
 	if(pos > dictFile.size()) return 10;
-	return dictPtr[indexPtr[i] + offset];
+	return dictPtr[pos];
 }
 
 // And last, Index itself is the API presented to the rest of Kiten
@@ -378,7 +378,7 @@ int Index::stringCompare(File &file, int index, QCString str)
 	return 0;
 }
 
-Entry *Index::parse(const QString &raw)
+Entry Index::parse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	QString reading;
@@ -429,10 +429,10 @@ Entry *Index::parse(const QString &raw)
 		}
 	}
 
-	return (new Entry(kanji, reading, meanings));
+	return (Entry(kanji, reading, meanings));
 }
 
-Kanji *Index::kanjiParse(const QString &raw)
+Kanji Index::kanjiParse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	QStringList readings;
@@ -541,7 +541,7 @@ Kanji *Index::kanjiParse(const QString &raw)
 		}
 	}
 
-	return (new Kanji(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
+	return (Kanji(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
 }
 
 QString Index::prettyMeaning(QStringList Meanings)

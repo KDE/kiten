@@ -5,11 +5,12 @@
 
 #include <qfile.h>
 #include <qmemarray.h>
+#include <qobject.h>
 #include <qptrlist.h>
+#include <qregexp.h>
 #include <qstringlist.h>
 #include <qstring.h>
-#include <qobject.h>
-#include <qregexp.h>
+#include <qvaluelist.h>
 
 #include <sys/types.h>
 #include <inttypes.h>
@@ -83,7 +84,7 @@ class Entry
 {
 public:
 	Entry(const QString &, const QString &, const QStringList &);
-	Entry(const QString &);
+	Entry(const QString & = QString::null);
 
 	bool kanaOnly();
 	QString kanji();
@@ -105,7 +106,7 @@ class Kanji
 {
 public:
 	Kanji(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
-	Kanji(const QString &);
+	Kanji(const QString & = QString::null);
 
 	QString kanji();
 	unsigned int grade();
@@ -131,13 +132,13 @@ private:
 
 struct SearchResult
 {
-	QPtrList<Entry> list;
+	QValueList<Entry> list;
 	QStringList results;
 };
 
 struct KanjiSearchResult
 {
-	QPtrList<Kanji> list;
+	QValueList<Kanji> list;
 	QStringList results;
 };
 
@@ -171,8 +172,8 @@ private:
 	KanjiSearchResult scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
 	int stringCompare(File &, int index, QCString);
 
-	Entry *parse(const QString &);
-	Kanji *kanjiParse(const QString &);
+	Entry parse(const QString &);
+	Kanji kanjiParse(const QString &);
 };
 
 }
