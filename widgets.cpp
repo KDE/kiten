@@ -167,12 +167,11 @@ void ResultView::addHeader(const QString &header, unsigned int degree)
 QString ResultView::putchars(const QString &text)
 {
 	unsigned int len = text.length();
-	int i;
 	QString ret;
 
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
 
-	for (i = 0; i < len; i++)
+	for (unsigned i = 0; i < len; i++)
 	{
 		QCString str = codec->fromUnicode(QString(text.at(i)));
 		unsigned char first = str[0];
