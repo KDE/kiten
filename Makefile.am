@@ -38,10 +38,7 @@ dummy.cpp:
 	echo > dummy.cpp
 
 applnk_DATA = kiten.desktop
-applnkdir = $(kde_appsdir)/Edutainment
-
-install-data-local:
-	rm -rf $(kde_appsdir)/Utilities/kiten.desktop
+applnkdir = $(kde_appsdir)/Edutainment/Languages
 
 data_DATA = edict kanjidic radkfile vconj romkana.cnv
 datadir = $(kde_datadir)/kiten
