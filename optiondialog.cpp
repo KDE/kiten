@@ -139,19 +139,19 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString globaldict = dirs->findResource("appdata", configKey);
 
-	QVBoxLayout *biglayout = new QVBoxLayout(this, 6);
+	QVBoxLayout *biglayout = new QVBoxLayout(this, 0, KDialog::spacingHint());
 	if (globaldict != QString::null)
 	{
 		QLabel *already = new QLabel(i18n("Main <strong>%1</strong> already loaded.").arg(configKey), this);
 		biglayout->addWidget(already);
 	}
 
-	QHBoxLayout *layout = new QHBoxLayout(biglayout, 6);
+	QHBoxLayout *layout = new QHBoxLayout(biglayout, KDialog::spacingHint());
 
 	List = new KListView(this);
 	layout->addWidget(List);
 
-	QVBoxLayout *buttonLayout = new QVBoxLayout(layout, 6);
+	QVBoxLayout *buttonLayout = new QVBoxLayout(layout, KDialog::spacingHint());
 	AddButton = new QPushButton(i18n("Add"), this);
 	buttonLayout->addWidget(AddButton);
 	connect(AddButton, SIGNAL(clicked()), SLOT(add()));

@@ -3,6 +3,7 @@
 #include <kaction.h>
 #include <kstdaction.h>
 #include <kdebug.h>
+#include <kdialog.h>
 #include <klistview.h>
 #include <klocale.h>
 #include <ktoolbar.h>
@@ -232,7 +233,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 
 	removeAct->setEnabled(false);
 
-	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 6);
+	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 0, KDialog::spacingHint());
 
 	qKanji = new QLabel(quizTop);
 	quizLayout->addWidget(qKanji);

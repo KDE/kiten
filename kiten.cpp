@@ -540,23 +540,26 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 	unsigned int realnum = 0;
 	QStringList::iterator it;
 
-	_ResultView->addHeader(i18n("Kanji with radical %1 and %2 strokes").arg(text).arg(strokes));
+	if(strokes)
+		_ResultView->addHeader(i18n("Kanji with radical %1 and %2 strokes").arg(text).arg(strokes));
+	else
+		_ResultView->addHeader(i18n("Kanji with radical %1").arg(text));
 
 	Dict::Kanji kanji;
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		Dict::KanjiSearchResult results = _Index.searchKanji(QRegExp(QString(*it).prepend("^")), (*it) , num, fullNum, comCB->isChecked());
+		Dict::KanjiSearchResult results = _Index.searchKanji(QRegExp(QString(*it).prepend("^")), (*it), num, fullNum, comCB->isChecked());
 
-		if (results.list.count() < 1)
+		if(results.list.count() < 1)
 			continue;
 
 		kanji = firstKanji(results);
-		if (kanji.strokes() != strokes)
-			continue;
-
-		_ResultView->addKanjiResult(kanji);
-		realnum++;
+		if (kanji.strokes() == strokes || !strokes)
+		{
+			_ResultView->addKanjiResult(kanji);
+			realnum++;
+		}
 	}
 
 	setResults(realnum, realnum);

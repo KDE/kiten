@@ -1,10 +1,12 @@
 #include <kglobal.h>
 #include <kdebug.h>
+#include <kdialog.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kconfig.h>
 #include <klocale.h>
 #include <kapp.h>
+#include <qcheckbox.h>
 #include <qlabel.h>
 #include <qfile.h>
 #include <qtextstream.h>
@@ -15,6 +17,7 @@
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <qstring.h>
+#include <qtextcodec.h>
 
 #include "rad.h"
 
@@ -29,7 +32,6 @@ Rad::Rad() : QObject()
 	}
 
 	QFile f(radkfile);
-	QString s;
 	
 	if (!f.open(IO_ReadOnly))
 	{
@@ -37,59 +39,55 @@ Rad::Rad() : QObject()
 	}
 
 	QTextStream t(&f);
+	t.setCodec(QTextCodec::codecForName("eucJP"));
+	Radical cur;
 	while (!t.eof())
 	{
-		s = t.readLine();
+		QString s = t.readLine();
 
-		loadLine(s);
+		QChar first = s.at(0);
+		if (first == '#') // comment!
+		{
+			// nothing
+		}
+		else if (first == '$') // header
+		{
+			// save previous one
+			if(cur.kanji() != QString::null)
+				list.append(cur);
+
+			//first entry is trim(last 4 chars).. <rad><space><strokes>
+			unsigned int strokes = s.right(2).toUInt();
+			QString radical = QString(s.at(2));
+			cur = Radical(radical, strokes);
+		}
+		else // continuation
+		{
+			cur.addKanji(s);
+		}
 	}
-
 	f.close();
-
-	list.setAutoDelete(true); // I should do this, no?
-}
-
-void Rad::loadLine(QString &s)
-{
-	QChar first = s.at(0);
-	if (first == '#') // comment!
-		return;
-	if (first == '$') // header
-	{
-		//first entry is trim(last 4 chars).. <rad><space><strokes>
-
-		unsigned int strokes = s.right(2).stripWhiteSpace().toUInt();
-		QString radical = QString(s.at(2));
-		curRadical= new Radical(radical, strokes);
-		list.append(curRadical);
-		return;
-	}
-
-	curRadical->addKanji(s);
 }
 
 QStringList Rad::radByStrokes(unsigned int strokes)
 {
 	QStringList ret;
 	bool hadOne = false;
-	QPtrListIterator<Radical> it(list);
-	Radical *cur;
+	QValueListIterator<Radical> it = list.begin();
 
-	while ((cur = it.current()) != 0)
+	do
 	{
-		++it;
-
-		if (cur->strokes() == strokes)
+		if ((*it).strokes() == strokes)
 		{
-			ret.append(cur->radical());
+			ret.append((*it).radical());
 			hadOne = true;
-			continue;
 		}
-
-		// if we've hadOne, and now we don't, there won't be anymore
-		if (hadOne)
-			break;
+		else if(hadOne) // shortcut because it's a sorted list
+		{
+			return ret;
+		}
 	}
+	while (++it != list.end());
 
 	return ret;
 }
@@ -97,23 +95,13 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 QStringList Rad::kanjiByRad(QString &text)
 {
 	QStringList ret;
-	QPtrListIterator<Radical> it(list);
-	Radical *cur;
 
-	while ((cur = it.current()) != 0)
-	{
-		++it;
-		if (cur->radical() == text)
-			break;
-	}
+	QValueListIterator<Radical> it;
+	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
 
-	QString kanji = cur->kanji();
-
-	unsigned int i;
-	for (i = 0; i < kanji.length(); ++i)
-	{
+	QString kanji = (*it).kanji();
+	for (unsigned i = 0; i < kanji.length(); ++i)
 		ret.append(QString(kanji.at(i)));
-	}
 
 	return ret;
 }
@@ -127,20 +115,20 @@ Rad::~Rad()
 RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	rad = _rad;
-	QHBoxLayout *hlayout = new QHBoxLayout(this, 6);
-	QVBoxLayout *layout = new QVBoxLayout(hlayout, 6);
+	QHBoxLayout *hlayout = new QHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *layout = new QVBoxLayout(hlayout, KDialog::spacingHint());
 	layout->addWidget(new QLabel(i18n("<strong>Radical</strong> strokes:"), this));
 	strokesSpin = new QSpinBox(1, 17, 1, this);
 	layout->addWidget(strokesSpin);
+	layout->addStretch();
 	
-	layout->addStretch(2);
-
-	layout->addWidget(new QLabel(i18n("<strong>All</strong> strokes:"), this));
-	nonradSpin = new QSpinBox(1, 20, 1, this);
-	layout->addWidget(nonradSpin);
+	totalStrokes = new QCheckBox(i18n("Search by total strokes"), this);
+	connect(totalStrokes, SIGNAL(clicked()), this, SLOT(totalClicked()));
+	layout->addWidget(totalStrokes);
+	layout->addWidget(new QLabel(i18n("<strong>Total</strong> strokes:"), this));
+	totalSpin = new QSpinBox(1, 20, 1, this);
+	layout->addWidget(totalSpin);
 	
-	layout->addStretch(5);
-
 	ok = new QPushButton(i18n("&OK"), this);
 	connect(ok, SIGNAL(clicked()), SLOT(apply()));
 	layout->addWidget(ok);
@@ -157,7 +145,10 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	KConfig *config = kapp->config();
 	config->setGroup("Radical Searching");
 	strokesSpin->setValue(config->readNumEntry("Strokes", 1));
-	nonradSpin->setValue(config->readNumEntry("NonRad Strokes", 1));
+	totalSpin->setValue(config->readNumEntry("Total Strokes", 1));
+	totalStrokes->setChecked(config->readBoolEntry("Search By Total", false));
+
+	totalClicked();
 }
 
 RadWidget::~RadWidget()
@@ -177,15 +168,21 @@ void RadWidget::apply()
 	if (text == QString::null)
 		return;
 
-	emit set(text, nonradSpin->value());
+	emit set(text, totalStrokes->isChecked() ? totalSpin->value() : 0);
 
 	KConfig *config = kapp->config();
 	config->setGroup("Radical Searching");
 	config->writeEntry("Strokes", strokesSpin->value());
-	config->writeEntry("NonRad Strokes", nonradSpin->value());
+	config->writeEntry("Total Strokes", totalSpin->value());
+	config->writeEntry("Search By Total", totalStrokes->isChecked());
 	config->sync();
 
 	close();
+}
+
+void RadWidget::totalClicked(void)
+{
+	totalSpin->setEnabled(totalStrokes->isChecked());
 }
 
 //////////////////////////////////////////////

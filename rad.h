@@ -7,6 +7,7 @@
 #include <qptrlist.h>
 #include <qwidget.h>
 
+class QCheckBox;
 class QSpinBox;
 class QPushButton;
 class QListBox;
@@ -14,7 +15,7 @@ class QListBox;
 class Radical
 {
 	public:
-	Radical(QString, unsigned int);
+	Radical(QString = QString::null, unsigned int = 0);
 
 	QString radical() { return _Radical; };
 	unsigned int strokes() { return Strokes; };
@@ -42,9 +43,7 @@ class Rad : public QObject
 	private:
 	void loadLine(QString &);
 
-	QPtrList<Radical> list;
-
-	Radical *curRadical;
+	QValueList<Radical> list;
 };
 
 class RadWidget : public QWidget
@@ -56,17 +55,20 @@ class RadWidget : public QWidget
 	~RadWidget();
 
 	signals:
-	void set(QString &, unsigned int);
+	// if totalStrokes == 0, then don't search by total strokes
+	void set(QString &radical, unsigned int totalStrokes);
 
 	private slots:
 	void updateList(int);
 	void apply();
+	void totalClicked(void);
 	
 	private:
 	QSpinBox *strokesSpin;
-	QSpinBox *nonradSpin;
+	QSpinBox *totalSpin;
 	QPushButton *ok;
 	QPushButton *cancel;
+	QCheckBox *totalStrokes;
 	QListBox *List;
 
 	Rad *rad;
