@@ -39,14 +39,18 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
-	(void) new KAction(i18n("&Search"), "find", 0, this, SLOT(search()), actionCollection(), "search");
+	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
+	(void) new KAction(i18n("&Search with beginning of word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
+	(void) new KAction(i18n("&Search with end of word"), 0, this, SLOT(searchEnd()), actionCollection(), "search_end");
 	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
 	kanjiCB = new KToggleAction(i18n("&Kanjidic?"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
-	irAction =  new KAction(i18n("Search &in Results"), "viewmag+", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
+	irAction =  new KAction(i18n("Search &in Results"), "find", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
+	addAction = new KAction(i18n("Add Kanji to learning list"), 0, this, SLOT(addToList()), actionCollection(), "add");
+	addAction->setEnabled(false);
 
 	createGUI();
 
@@ -99,6 +103,11 @@ void TopLevel::closeEvent(QCloseEvent *)
 	kapp->quit();
 }
 
+void TopLevel::addToList()
+{
+	emit add(toAddKanji);
+}
+
 void TopLevel::doSearch()
 {
 	if (regexp.isEmpty())
@@ -107,7 +116,8 @@ void TopLevel::doSearch()
 		return;
 	}
 
-	//kdDebug() << "TopLevel::doSearch()\n";
+	addAction->setEnabled(false);
+
 	_ResultView->clear();
 
 	statusBar()->message(i18n("Searching..."));
@@ -123,6 +133,20 @@ void TopLevel::doSearch()
 		}
 	
 		QPtrList<Entry> results = _Dict->search(realregexp, regexp, num, fullNum);
+
+		// do again... bad because sometimes reading is kanji
+		if ((readingSearch || beginningReadingSearch) && (num < 1))
+		{
+			num = 0;
+			fullNum = 0;
+
+			if (beginningReadingSearch)
+				realregexp = kanjiSearchItems(true);
+			else if (readingSearch)
+				realregexp = kanjiSearchItems();
+
+			results = _Dict->search(realregexp, regexp, num, fullNum);
+		}
 		
 		QPtrListIterator<Entry> it(results);
 		Entry *curEntry;
@@ -144,12 +168,14 @@ void TopLevel::doSearch()
 
 		if (num == 1) // if its only one entry, give compounds too!
 		{
-			Kanji *curKanji = results.getLast();
-			_ResultView->addKanjiResult(curKanji);
+			toAddKanji = results.getLast();
+			_ResultView->addKanjiResult(toAddKanji);
+
+			addAction->setEnabled(true);
 
 			// now show some compounds in which this kanji appears
 			
-			QString kanji = curKanji->kanji();
+			QString kanji = toAddKanji->kanji();
 			//kdDebug() << "kanji is " << kanji << endl;
 		
 			bool oldir = _Dict->isir();
@@ -186,7 +212,45 @@ void TopLevel::doSearch()
 		}
 	}
 
+	readingSearch = false;
 	setResults(num, fullNum);
+}
+
+void TopLevel::searchBeginning()
+{
+	regexp = Edit->text();
+
+	QTextCodec *codec = QTextCodec::codecForName("eucJP");
+	QCString csch_str = codec->fromUnicode(regexp);
+	unsigned char *sch_str = (const char *)(csch_str);
+	sch_str = (const unsigned char *)(sch_str);
+
+	if (sch_str[0] <= 128)
+		realregexp = QRegExp(QString("\\W").append(regexp));
+	else if (sch_str[0] < 0xa5)
+	{
+		if (kanjiCB->isChecked())
+		{
+			realregexp = QRegExp(QString("\\W").append(regexp));
+		}
+		else
+		{
+			beginningReadingSearch = true;
+			realregexp = QRegExp(QString("[").append(regexp));
+		}
+	}
+	else if (sch_str[0] > 0xa8)
+		realregexp = QRegExp(QString("^").append(regexp));
+
+	doSearch();
+}
+
+void TopLevel::searchEnd()
+{
+	regexp = Edit->text();
+	realregexp = QRegExp(QString("\\W").prepend(regexp));
+
+	doSearch();
 }
 
 void TopLevel::resultSearch()
@@ -215,6 +279,7 @@ void TopLevel::search()
 	{
 		//kdDebug() << "reading!\n";
 		realregexp = readingSearchItems(kanjiCB->isChecked());
+		readingSearch = true;
 	}
 	else if (sch_str[0] > 0xa8)
 	{
@@ -412,6 +477,7 @@ void TopLevel::createLearn()
 	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
 	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
 	connect(this, SIGNAL(saveLists()), _Learn, SLOT(writeConfiguration()));
+	connect(this, SIGNAL(add(Kanji *)), _Learn, SLOT(externAdd(Kanji *)));
 
 	_Learn->show();
 }
@@ -454,7 +520,7 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 	return QRegExp(regexp, caseSensitive);
 }
 
-QRegExp TopLevel::kanjiSearchItems()
+QRegExp TopLevel::kanjiSearchItems(bool beginning)
 {
 	QString text = Edit->text();
 	if (text.isEmpty())
@@ -464,7 +530,12 @@ QRegExp TopLevel::kanjiSearchItems()
 
 	//CompletionObj->addItem(text);
 
-	QString regexp = "^%1\\W";
+	QString regexp;
+	if (beginning)
+		regexp = "^%1";
+	else
+		regexp = "^%1\\W";
+
 	regexp = regexp.arg(text);
 	
 	return QRegExp(regexp, caseSensitive);

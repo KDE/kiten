@@ -5,6 +5,7 @@
 #include <qstring.h>
 
 #include <qregexp.h>
+#include <dict.h>
 
 class Dict;
 class Entry;
@@ -26,12 +27,15 @@ class TopLevel : public KMainWindow
 	signals:
 	void updateLists();
 	void saveLists();
+	void add(Kanji *);
 
 	protected:
 	void closeEvent(QCloseEvent *);
 
 	private slots:
 	void search();
+	void searchBeginning();
+	void searchEnd();
 	void resultSearch();
 	void searchAccel();
 	void kanjiSearchAccel();
@@ -46,6 +50,7 @@ class TopLevel : public KMainWindow
 	void globalListChanged();
 	void globalListDirty();
 	void toggleCom();
+	void addToList();
 
 	void createLearn();
 	void configureToolBars();
@@ -56,6 +61,7 @@ class TopLevel : public KMainWindow
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
 	KAction *irAction;
+	KAction *addAction;
 	KToggleAction *comCB;
 
 	bool noInit;
@@ -80,9 +86,14 @@ class TopLevel : public KMainWindow
 
 	QRegExp searchItems();
 	QRegExp readingSearchItems(bool);
-	QRegExp kanjiSearchItems();
+	QRegExp kanjiSearchItems(bool = false);
 
 	EditAction *Edit;
+
+	bool readingSearch; // if this is true and no results, try with kanjiSearchItems
+	bool beginningReadingSearch;
+
+	Kanji *toAddKanji;
 };
 
 #endif

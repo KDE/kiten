@@ -66,6 +66,7 @@ class Learn : public KMainWindow
 	void updateGrade();
 	void random();
 	void add();
+	void externAdd(Kanji *);
 	void del();
 	void cheat();
 	void tabChanged(QWidget *);

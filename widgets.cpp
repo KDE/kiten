@@ -436,6 +436,17 @@ void Learn::writeConfiguration()
 	emit listChanged();
 }
 
+void Learn::externAdd(Kanji *toAdd)
+{
+	QString readings = Dict::prettyKanjiReading(toAdd->readings());
+	QString meanings = Dict::prettyMeaning(toAdd->meanings());
+
+	(void) new QListViewItem(List, toAdd->kanji(), QString::number(toAdd->grade()), readings, meanings);
+
+	isMod = true;
+	emit listDirty();
+}
+
 void Learn::add()
 {
 	QString readings = Dict::prettyKanjiReading(list.current()->readings());
