@@ -114,11 +114,11 @@ File::File(QString path, QString n)
 File::~File(void)
 {
 	if (dictPtr != (unsigned char*) MAP_FAILED)
-		munmap((void *)dictPtr, dictFile.size());
+		munmap((char *)dictPtr, dictFile.size());
 	dictFile.close();
 
 	if (indexPtr != (uint32_t*) MAP_FAILED)
-		munmap((void *)indexPtr, indexFile.size());
+		munmap((char *)indexPtr, indexFile.size());
 	indexFile.close();
 }
 
