@@ -1,6 +1,8 @@
 ** Kiten **
 
-Make sure you visit the preferences page!
+Make sure you visit the preferences page. It outlines the necessary dictionaries you will have to install / tell Kiten about.
+
+After you have gotten the flat dictionary files, run 'xjdxgen dictname', where dictname is the name of the dictionary in your current working directory. This creates the index file for that dictionary. Without it, kiten will not work.
 
 Hope Kiten is useful to you!
 	Jason Katz-Brown <jason@katzbrown.com>
