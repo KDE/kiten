@@ -192,6 +192,8 @@ QStringList Index::doSearch(File &file, QString text)
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
 	QCString eucString = codec.fromUnicode(text);
 
+	QString prevResult;
+
 	Array<const uint32_t> index = file.index();
 	Array<const unsigned char> dict = file.dict();
 	int lo = 0;
@@ -221,7 +223,8 @@ QStringList Index::doSearch(File &file, QString text)
 		// output every matching entry
 		while(cur < index.size() && 0 == stringCompare(file, cur, eucString))
 		{
-			// because the index doesn't point to the start of the line, find the
+			// because the index doesn't point
+			// to the start of the line, find the
 			// start of the line:
 			int i = 0;
 			while(file.lookup(cur, i - 1) != 0x0a) --i;
@@ -234,8 +237,14 @@ QStringList Index::doSearch(File &file, QString text)
 				bytes[bytes.size() - 1] = eucchar;
 				++i;
 			}
-			results.append(codec.toUnicode(bytes));
-			results.append("\n");
+
+			QString result = codec.toUnicode(bytes) + QString("\n");
+			if (prevResult != result)
+			{
+				results.append(result);
+				prevResult = result;
+			}
+
 			++cur;
 		}
 	}

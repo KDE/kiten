@@ -39,6 +39,7 @@ class Rad : public QObject
 
 	QStringList radByStrokes(unsigned int);
 	QStringList kanjiByRad(QString &);
+	Radical radByKanji(QString);
 
 	private:
 	void loadLine(QString &);

@@ -6,12 +6,13 @@
 #include <qptrlist.h>
 #include <kaction.h>
 #include <kstdaction.h>
+#include <klineedit.h>
 #include <kmainwindow.h>
 #include <qstringlist.h>
 #include <qguardedptr.h>
 #include <kaction.h>
 
-#include "kromajiedit.h"
+#include "rad.h"
 
 class QButtonGroup;
 class QString;
@@ -36,7 +37,7 @@ class ResultView : public QTextBrowser
 	ResultView(bool, QWidget *parent = 0, const char *name = 0);
 
 	void addResult(Dict::Entry, bool = false);
-	void addKanjiResult(Dict::Kanji);
+	void addKanjiResult(Dict::Kanji, Radical = Radical());
 
 	void addHeader(const QString &, unsigned int degree = 3);
 

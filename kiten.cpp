@@ -146,6 +146,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 		// do again... bad because sometimes reading is kanji
 		if ((readingSearch || beginningReadingSearch) && (num < 1))
 		{
+			//kdDebug() << "doing again\n";
 			num = 0;
 			fullNum = 0;
 
@@ -167,7 +168,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 		if (num == 1) // if its only one entry, give compounds too!
 		{
 			toAddKanji = firstKanji(results);
-			_ResultView->addKanjiResult(toAddKanji);
+			_ResultView->addKanjiResult(toAddKanji, _Rad.radByKanji(toAddKanji.kanji()));
 
 			addAction->setEnabled(true);
 
@@ -504,6 +505,8 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 		regexp = "\\[%1\\]";
 
 	regexp = regexp.arg(text);
+
+	//kdDebug() << "regexp is " << regexp << endl;
 	
 	return QRegExp(regexp, caseSensitive);
 }

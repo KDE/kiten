@@ -80,7 +80,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 	insertParagraph(html, paragraphs() + 1);
 }
 
-void ResultView::addKanjiResult(Dict::Kanji result)
+void ResultView::addKanjiResult(Dict::Kanji result, Radical rad)
 {
 	if (result.dictName() != "__NOTSET")
 	{
@@ -154,6 +154,9 @@ void ResultView::addKanjiResult(Dict::Kanji result)
 
 	if (result.miscount() != 0)
 		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
+
+	if (!!rad.radical())
+		html.append(i18n(" Radical: %1, with %2 strokes.").arg(rad.radical()).arg(rad.strokes()));
 
 	html += "</p>";
 

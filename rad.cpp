@@ -106,6 +106,16 @@ QStringList Rad::kanjiByRad(QString &text)
 	return ret;
 }
 
+Radical Rad::radByKanji(QString text)
+{
+	QString ret;
+
+	QValueListIterator<Radical> it;
+	for(it = list.begin(); it != list.end() && (*it).kanji().find(text) == -1; ++it);
+
+	return (*it);
+}
+
 Rad::~Rad()
 {
 }
