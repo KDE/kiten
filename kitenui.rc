@@ -1,11 +1,10 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Kiten" version="9">
+<kpartgui name="Kiten" version="10">
 
 <MenuBar>
 
 <Menu name="file">
   <Action name="file_learn" append="new_merge" />
-  <Action name="dict_editor" append="new_merge" />
   <Action name="add" />
 </Menu>
 
@@ -33,7 +32,7 @@
 
 </MenuBar>
 
-<ToolBar name="mainToolBar" fullWidth="true" noEdit="true"><text>Main Toolbar</text>
+<ToolBar name="locationToolBar" fullWidth="true" newline="true"><text>Search Toolbar</text>
   <Action name="clear_search" />
   <Action name="search_edit" />
   <Action name="search" />
@@ -41,9 +40,7 @@
   <Action name="search_radical" />
 </ToolBar>
 
-<ToolBar name="extraToolBar"><text>Extra Toolbar</text>
-  <Action name="file_print" />
-  <Separator />
+<ToolBar name="mainToolBar" fullWidth="true">
   <Action name="go_back" />
   <Action name="go_forward" />
   <Separator/>

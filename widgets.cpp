@@ -372,15 +372,16 @@ void eEdit::save()
 	for (; it.current(); ++it)
 	{
 		QString kanji = it.current()->text(0);
-		QString text = kanji;
 		QString reading = it.current()->text(1);
+		QString text = kanji.isEmpty()? reading : kanji;
+
 		QString meanings = it.current()->text(2);
 		if (meanings.right(1) != "/")
 			meanings.append("/");
 		if (meanings.left(1) != "/")
 			meanings.prepend("/");
-		QString commonString = it.current()->text(3).lower();
 
+		QString commonString = it.current()->text(3).lower();
 		bool common = (commonString == "true" || commonString == "yes" || commonString == "1" || commonString == "common");
 
 		text.append(" ");
