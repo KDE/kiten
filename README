@@ -3,13 +3,11 @@
    ** the only KDE Japanese reference tool **
     ****************************************
 
-Make sure you visit the preferences page. It outlines the necessary
-dictionaries you will have to install / tell Kiten about.
+Kiten comes ready to use.
 
-To tell Kiten about your dictionaries, visit the "edict" and "kanjidic"
+If you have extra dictionaries in the correct formats, visit the "edict" and "kanjidic"
 configuration pages, under the "Dictionaries" configuration page, and use the
-"Add" button. Then type in the full path to your dictionary files, and
-whatever name you want in the first column.
+"Add" button.
 
 Information about edict and kanjidic is available at the urls
 
@@ -18,5 +16,6 @@ http://www.csse.monash.edu.au/~jwb/kanjidic.html
 
 respectively.
 
+--
 Hope Kiten is useful to you!
 	Jason Katz-Brown <jason@katzbrown.com>

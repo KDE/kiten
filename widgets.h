@@ -15,6 +15,7 @@ class KPushButton;
 class SearchForm : public QWidget
 {
 	Q_OBJECT
+
 	public:
 	SearchForm(QWidget *parent = 0, const char *name = 0);
 	~SearchForm();
@@ -26,6 +27,7 @@ class SearchForm : public QWidget
 	QString lineText();
 
 	private:
+	KPushButton *ClearButton;
 	KLineEdit *LineEdit;
 	KCompletion *CompletionObj;
 	KPushButton *SearchDictButton;

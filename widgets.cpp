@@ -21,15 +21,19 @@ SearchForm::SearchForm(QWidget *parent, const char *name)
 {
 	QHBoxLayout *layout = new QHBoxLayout(this, 6);
 
+	ClearButton = new KPushButton(i18n("&x"), this);
 	LineEdit = new KLineEdit(this);
 	CompletionObj = LineEdit->completionObject();
+	layout->addWidget(ClearButton);
 	layout->addWidget(LineEdit);
+	connect(ClearButton, SIGNAL(pressed()), LineEdit, SLOT(clear()));
 
-	SearchDictButton = new KPushButton(i18n("Anywhere"), this);
+
+	SearchDictButton = new KPushButton(i18n("&Anywhere"), this);
 	layout->addWidget(SearchDictButton);
-	SearchReadingButton = new KPushButton(i18n("Reading"), this);
+	SearchReadingButton = new KPushButton(i18n("&Reading"), this);
 	layout->addWidget(SearchReadingButton);
-	SearchKanjiButton = new KPushButton(i18n("Kanji"), this);
+	SearchKanjiButton = new KPushButton(i18n("Kan&ji"), this);
 	layout->addWidget(SearchKanjiButton);
 
 	// both do same thing
@@ -257,6 +261,9 @@ void ResultView::addKanjiResult(Kanji *result)
 	}
 
 	html = html.arg(result->strokes());
+
+	if (result->miscount() != 0)
+		html.append(i18n(" Common Miscount: %1.").arg(result->miscount()));
 
 	html += "</p>";
 

@@ -1,10 +1,14 @@
 #include <kmainwindow.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <qcheckbox.h>
+#include <qpushbutton.h>
 #include <kconfig.h>
 #include <qwidget.h>
+#include <kmessagebox.h>
 #include <kapp.h>
 #include <kstatusbar.h>
+#include <kstandarddirs.h>
 #include <kglobalaccel.h>
 #include <kdebug.h>
 #include <qtimer.h>
@@ -27,12 +31,23 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	_ResultView = new ResultView(dummy, "ResultView");
 
 	QVBoxLayout *layout = new QVBoxLayout(dummy, 6);
-	QHBoxLayout *checkLayout = new QHBoxLayout(layout, 6);
 
-	kanjiCB = new QCheckBox(i18n("KanjiDic?"), dummy, "kanjiCB");
-	comCB = new QCheckBox(i18n("Only common entries"), dummy, "comCB");
-	checkLayout->addWidget(kanjiCB);
-	checkLayout->addWidget(comCB);
+	QHBoxLayout *botLayout = new QHBoxLayout(layout, 6);
+	QHBoxLayout *topLayout = new QHBoxLayout(layout, 6);
+
+	comCB = new QCheckBox(i18n("&Only common entries"), dummy, "comCB");
+	topLayout->addWidget(comCB);
+
+	irCB = new QCheckBox(i18n("Search &in results"), dummy, "irCB");
+	topLayout->addWidget(irCB);
+
+	kanjiCB = new QCheckBox(i18n("&Kanjidic?"), dummy, "kanjiCB");
+	botLayout->addWidget(kanjiCB);
+
+	radButton = new QPushButton(i18n("Kanji Ra&dical Search"), dummy, "radButton");
+	botLayout->addWidget(radButton);
+	connect(radButton, SIGNAL(pressed()), SLOT(radSearch()));
+
 	layout->addWidget(_SearchForm);
 	layout->addWidget(_ResultView);
 
@@ -50,6 +65,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	_Dict = new Dict();
 	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
+	connect(irCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleIR(bool)));
 
 	slotUpdateConfiguration();
 
@@ -145,6 +161,10 @@ void TopLevel::kanjiSearch()
 	doSearch();
 }
 
+void TopLevel::radSearch()
+{
+}
+
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 {
 	QString str = i18n("%1 results").arg(results);
@@ -158,6 +178,9 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 void TopLevel::slotUpdateConfiguration()
 {
 	KConfig *config = kapp->config();
+	KStandardDirs *dirs = KGlobal::dirs();
+	QString globaledict = dirs->findResource("appdata", "edict");
+	QString globalkanjidic = dirs->findResource("appdata", "kanjidic");
 
 	config->setGroup("app");
 	bool com = config->readBoolEntry("com", false);
@@ -171,8 +194,16 @@ void TopLevel::slotUpdateConfiguration()
 	QStringList DictList;
 
 	QStringList::Iterator it;
+
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
 		DictList.append(config->readEntry(*it));
+	
+	if (globaledict != QString::null)
+	{
+		DictList.prepend(globaledict);
+		DictNameList.prepend("Edict");
+	}
+
 	_Dict->setDictList(DictList);
 	_Dict->setDictNameList(DictNameList);
 
@@ -183,6 +214,13 @@ void TopLevel::slotUpdateConfiguration()
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
 		DictList.append(config->readEntry(*it));
+
+	if (globalkanjidic != QString::null)
+	{
+		DictList.prepend(globalkanjidic);
+		DictNameList.prepend("Kanjidic");
+	}
+
 	_Dict->setKanjiDictList(DictList);
 	_Dict->setKanjiDictNameList(DictNameList);
 
@@ -195,6 +233,7 @@ void TopLevel::loadDict()
 		noInit = true;
 	else
 		noInit = false;
+
 	if (!_Dict->init(true)) // kanji
 		noKanjiInit = true;
 	else

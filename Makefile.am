@@ -32,4 +32,5 @@ dummy.cpp:
 applnk_DATA = kiten.desktop
 applnkdir = $(kde_appsdir)/Utilities
 
-datadir = $(kde_datadir)/kiten
+data_DATA = edict kanjidic
+datadir = $(kde_datadir)/Kiten

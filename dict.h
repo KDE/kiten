@@ -34,6 +34,7 @@ class Dict : public QObject
 	
 	public slots:
 	void toggleCom(bool);
+	void toggleIR(bool);
 
 	private:
 	char *DictMap[40];
@@ -43,6 +44,11 @@ class Dict : public QObject
 	uint32_t DictLength[40];
 	uint32_t IndexLength[40];
 	uint32_t indptrt[40];
+
+	void msgerr(const QString &, const QString &);
+	void msgerr(const QString &);
+
+	QStringList *results;
 
 	void doSearch(QString);
 	QStringList s; // doSearch() stores it here
@@ -60,11 +66,10 @@ class Dict : public QObject
 	QStringList DictNameList;
 	QStringList KanjiDictList;
 	QStringList KanjiDictNameList;
-	QStringList *TheDict;
-	QStringList *TheKanjiDict;
 	QString dictName();
 
 	bool com;
+	bool ir;
 
 	Entry *parse(const QString &);
 	Kanji *kanjiParse(const QString &);
@@ -95,12 +100,13 @@ class Entry
 class Kanji
 {
 	public:
-	Kanji(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes);
+	Kanji(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
 	Kanji(const QString &);
 
 	QString kanji();
 	unsigned int grade();
 	unsigned int strokes();
+	unsigned int miscount();
 	unsigned int freq();
 	QStringList readings();
 	QStringList meanings();
@@ -111,6 +117,7 @@ class Kanji
 	QString TheKanji;
 	unsigned int Grade;
 	unsigned int Strokes;
+	unsigned int Miscount;
 	unsigned int Freq;
 	QStringList Readings;
 	QStringList Meanings;

@@ -10,6 +10,7 @@ class Dict;
 class Entry;
 class SearchForm;
 class QCheckBox;
+class QPushButton;
 class ResultView;
 class ConfigureDialog;
 class KGlobalAccel;
@@ -26,6 +27,7 @@ class TopLevel : public KMainWindow
 	void search();
 	void readingSearch();
 	void kanjiSearch();
+	void radSearch();
 	void slotConfigure();
 	void slotConfigureHide();
 	void slotConfigureDestroy();
@@ -37,7 +39,9 @@ class TopLevel : public KMainWindow
 	SearchForm *_SearchForm;
 	ResultView *_ResultView;
 	QCheckBox *kanjiCB;
+	QPushButton *radButton;
 	QCheckBox *comCB;
+	QCheckBox *irCB;
 	bool noInit;
 	bool noKanjiInit;
 

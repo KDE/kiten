@@ -21,9 +21,13 @@ static KCmdLineOptions options[] =
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "Kiten", I18N_NOOP("Kiten"),
-	  "0.5", "Japanese Reference Tool", KAboutData::License_GPL,
+	  "0.1", I18N_NOOP("Japanese Reference Tool"), KAboutData::License_GPL,
 	  "(c) 2001, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten", "jason@katzbrown.com");
-	aboutData.addAuthor("Jason Katz-Brown",0, "jason@katzbrown.com");
+
+	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jason@katzbrown.com");
+	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
+	aboutData.addCredit("Neil Stevens", I18N_NOOP("Encoding help, and miscellaneous fixes."), "neil@qualityassistant.com");
+
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions(options); // Add our own options.
 

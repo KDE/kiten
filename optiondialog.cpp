@@ -2,9 +2,12 @@
 #include <kconfig.h>
 #include <kkeydialog.h>
 #include <kglobalaccel.h>
+#include <kglobal.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kconfig.h>
+#include <kfiledialog.h>
+#include <kstandarddirs.h>
 #include <kurllabel.h>
 #include <klistview.h>
 
@@ -29,11 +32,11 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	list = i18n("Dictionaries");
 	QFrame *Page0 = addPage(i18n("Dictionaries"));
 	QVBoxLayout *descBox = new QVBoxLayout(Page0);
-	descBox->addWidget(new QLabel(i18n("Kiten requires Edict for a regular word search.\nFor Kanji searching, Kanjidic is required.\n\nSet the location of these files in the\nconfiguration pages below this one."), Page0));
+	descBox->addWidget(new QLabel(i18n("Kiten includes Edict for a regular word search.\nFor Kanji searching, Kanjidic is included.\nFeel free to add your own extras, by adding them in the\nconfiguration pages below this one."), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0));
 
-	list.append(i18n("edict"));
+	list.append(i18n("Edict"));
 	QFrame *Page1 = addPage(list);
 	QVBoxLayout *dictBox = new QVBoxLayout(Page1);
 
@@ -41,7 +44,7 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	dictBox->addWidget(DictDictList);
 
 	list = i18n("Dictionaries");
-	list.append(i18n("kanjidic"));
+	list.append(i18n("Kanjidic"));
 	QFrame *Page2 = addPage(list);
 	QVBoxLayout *kanjiDictBox = new QVBoxLayout(Page2);
 
@@ -120,7 +123,17 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 {
 	_configKey = configKey;
 
-	QHBoxLayout *layout = new QHBoxLayout(this, 6);
+	KStandardDirs *dirs = KGlobal::dirs();
+	QString globaldict = dirs->findResource("appdata", configKey);
+
+	QVBoxLayout *biglayout = new QVBoxLayout(this, 6);
+	if (globaldict != QString::null)
+	{
+		QLabel *already = new QLabel(i18n("Main <strong>%1</strong> already loaded.").arg(configKey), this);
+		biglayout->addWidget(already);
+	}
+
+	QHBoxLayout *layout = new QHBoxLayout(biglayout, 6);
 
 	List = new KListView(this);
 	layout->addWidget(List);
@@ -144,12 +157,10 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 void DictList::add()
 {
 	QListViewItem *item = List->firstChild();
-	QString filepath("");
+	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString::null);
+	QString name = QFileInfo(filename).fileName();
 
-	if (item)
-		QFileInfo(item->text(1)).dirPath(true).append("/");
-
-	(void) new QListViewItem(List, "New Dict", filepath);
+	(void) new QListViewItem(List, name, filename);
 }
 
 void DictList::del()
@@ -194,4 +205,3 @@ void DictList::readConfig()
 }
 
 #include "optiondialog.moc"
-
