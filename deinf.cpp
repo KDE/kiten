@@ -32,10 +32,10 @@ void Deinf::Index::load()
 	}
 
 	QFile f(vconj);
-	
+
 	if (!f.open(IO_ReadOnly))
 	{
-		KMessageBox::error(0, i18n("Verb deinflection information not be loaded, so verb de-inflection cannot be used."));
+		KMessageBox::error(0, i18n("Verb deinflection information could not be loaded, so verb de-inflection cannot be used."));
 		return;
 	}
 
