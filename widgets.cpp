@@ -323,6 +323,7 @@ eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
 
 	saveAct = KStdAction::save(this, SLOT(save()), actionCollection());
 	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
+	(void) new KAction(i18n("&Disable Dictionary"), 0, this, SLOT(disable()), actionCollection(), "disable");
 	addAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, SLOT(add()), actionCollection(), "add");
 	KAction *closeAction = KStdAction::close(this, SLOT(close()), actionCollection());
 
@@ -413,6 +414,16 @@ void eEdit::save()
 	
 	StatusBar->message(i18n("Saved"));
 	isMod = false;
+}
+
+void eEdit::disable()
+{
+	int result = KMessageBox::warningYesNo(this, i18n("Disabling your personal dictionary will delete its contents.\n\n(You can however always create your dictionary again.)"), i18n("Are you sure?"), i18n("Disable"), i18n("Cancel"), "DisableAsk", true);
+	if (result == KMessageBox::No)
+		return;
+
+	QFile::remove(filename);
+	delete this;
 }
 
 void eEdit::del()

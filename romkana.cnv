@@ -207,7 +207,7 @@ $HIRAGANA TABLE   (don't delete this line)
 比 we
 毛 wo
 氏 n'
-氏 nn
+#氏 nn
 氏 q  note that q = n is necessary
 $KATAKANA  (DON'T delete this line!)
 □ -
@@ -403,7 +403,7 @@ $KATAKANA  (DON'T delete this line!)
 伏 we
 仲 wo
 件 n'
-件 nn
+#件 nn
 件 q note that q = n is necessary
 任 vu
 任央 va

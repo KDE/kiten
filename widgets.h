@@ -69,6 +69,7 @@ class eEdit : public KMainWindow
 	void add();
 	void save();
 	void del();
+	void disable();
 	void openFile(const QString &);
 
 	private:
