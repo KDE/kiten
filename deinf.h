@@ -39,7 +39,7 @@ class Index
 	public:
 	Index();
 
-	QStringList deinflect(QString, QStringList &);
+	QStringList deinflect(const QString &, QStringList &);
 
 	private:
 	void load();

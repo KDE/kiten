@@ -96,7 +96,7 @@ QStringList possibleConjugations(const QString &text)
 }
 }
 
-QStringList Deinf::Index::deinflect(QString text, QStringList &name)
+QStringList Deinf::Index::deinflect(const QString &text, QStringList &name)
 {
 	load();
 	QStringList endings = possibleConjugations(text);
