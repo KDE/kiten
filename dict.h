@@ -3,6 +3,8 @@
 #ifndef DICT_H
 #define DICT_H
 
+#include <qfile.h>
+#include <qmemarray.h>
 #include <qptrlist.h>
 #include <qstringlist.h>
 #include <qstring.h>
@@ -13,77 +15,73 @@
 #include <inttypes.h>
 
 class QRegExp;
-class Entry;
-class Kanji;
 
-class Dict : public QObject
+namespace Dict
 {
-	Q_OBJECT
+// File needs to be able to give out Arrays based on its mmap'd data.
+// But, we don't want the users of the arrays to have to remember to
+// resetRawData() after using them, since that's bound to fail sooner or later.
+//
+// This class handles it for us.
+template<class T> class Array : public QMemArray<T>
+{
+public:
+	Array(T *, int);
+	virtual ~Array();
 
-	public:
-	Dict();
-	~Dict();
-	bool init(bool);
-	void search(QString);
-	QPtrList<Entry> search(QRegExp, QString, unsigned int &, unsigned int &);
-	QPtrList<Kanji> kanjiSearch(QRegExp, const QString &, unsigned int &, unsigned int &);
-	void setDictList(const QStringList &);
-	void setDictNameList(const QStringList &);
-	void setKanjiDictList(const QStringList &);
-	void setKanjiDictNameList(const QStringList &);
+private:
+	T *data;
+	int dataSize;
+};
 
-	bool isir() { return ir; };
-	bool iscom() { return com; };
+template<class T> Array<T>::Array(T *d, int s)
+	: QMemArray<T>()
+	, data(d)
+	, dataSize(s)
+{
+	setRawData(data, dataSize);
+}
 
-	static QString prettyKanjiReading(QStringList);
-	static QString prettyMeaning(QStringList);
-	
-	public slots:
-	void toggleCom(bool);
-	void toggleIR(bool);
+template<class T> Array<T>::~Array()
+{
+	resetRawData(data, dataSize);
+}
 
-	private:
-	char *DictMap[40];
-	uint32_t *DictIndexMap[40];
-	int DictFiles[40];
-	int IndexFiles[40];
-	uint32_t DictLength[40];
-	uint32_t IndexLength[40];
-	uint32_t indptrt[40];
+// File manages all the files, pointers, and memory management associated
+// with a single dictionary.
+class File
+{
+public:
+	File(QString path, QString name);
+	~File();
 
-	void msgerr(const QString &, const QString &);
-	void msgerr(const QString &);
+	QString name(void);
 
-	QStringList *results;
+	Array<unsigned char> dict(void);
+	Array<uint32_t> index(void);
 
-	void doSearch(QString);
-	QStringList s; // doSearch() stores it here
+	int dictLength(void);
+	int indexLength(void);
 
-	// should this be uint or int :(
-	uint32_t it; // it marks the spot in the dict buffer we are currently at!
+	// replacement for exceptions thrown in the constructor
+	bool isValid(void);
 
-	unsigned CurrentDict; // dict in all arrays that all functions use for searching
+	unsigned char lookup(unsigned i, int offset = 0);
+private:
+	QString myName;
 
-	int stringCompare(unsigned char *str1);
-	unsigned char DictLookup(uint32_t xit);
-	uint32_t IndexLookup(uint32_t xit);
+	QFile dictFile;
+	unsigned char *dictPtr;
 
-	QStringList DictList;
-	QStringList DictNameList;
-	QStringList KanjiDictList;
-	QStringList KanjiDictNameList;
-	QString dictName();
+	QFile indexFile;
+	uint32_t *indexPtr;
 
-	bool com;
-	bool ir;
-
-	Entry *parse(const QString &);
-	Kanji *kanjiParse(const QString &);
+	bool valid;
 };
 
 class Entry
 {
-	public:
+public:
 	Entry(const QString &, const QString &, const QStringList &);
 	Entry(const QString &);
 
@@ -93,7 +91,7 @@ class Entry
 	QStringList meanings();
 	QString dictName();
 	
-	private:
+private:
 	QString Kanji;
 	QString Reading;
 	bool KanaOnly;
@@ -105,7 +103,7 @@ class Entry
 
 class Kanji
 {
-	public:
+public:
 	Kanji(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
 	Kanji(const QString &);
 
@@ -119,7 +117,7 @@ class Kanji
 
 	QString dictName();
 
-	private:
+private:
 	QString TheKanji;
 	unsigned int Grade;
 	unsigned int Strokes;
@@ -130,5 +128,53 @@ class Kanji
 
 	QString DictName;
 };
+
+struct SearchResult
+{
+	QPtrList<Entry> list;
+	QStringList results;
+};
+
+struct KanjiSearchResult
+{
+	QPtrList<Kanji> list;
+	QStringList results;
+};
+
+class Index : public QObject
+{
+Q_OBJECT
+
+public:
+	Index();
+	virtual ~Index();
+
+	void setDictList(const QStringList &files, const QStringList &names);
+	void setKanjiDictList(const QStringList &files, const QStringList &names);
+
+	SearchResult search(QRegExp, QString, unsigned int &, unsigned int &, bool common);
+	SearchResult searchPrevious(QRegExp, SearchResult, unsigned int &, unsigned int &, bool common);
+	KanjiSearchResult searchKanji(QRegExp, const QString &, unsigned int &, unsigned int &, bool common);
+	KanjiSearchResult searchPreviousKanji(QRegExp, KanjiSearchResult, unsigned int &, unsigned int &, bool common);
+
+	static QString prettyKanjiReading(QStringList);
+	static QString prettyMeaning(QStringList);
+	
+private:
+	QPtrList<File> dictFiles;
+	QPtrList<File> kanjiDictFiles;
+
+	void loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList);
+
+	QStringList doSearch(File &, QString);
+	SearchResult scanResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
+	KanjiSearchResult scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
+	int stringCompare(File &, int index, QCString);
+
+	Entry *parse(const QString &);
+	Kanji *kanjiParse(const QString &);
+};
+
+}
 
 #endif

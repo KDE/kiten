@@ -20,6 +20,9 @@
 #include <qstringlist.h>
 #include <qstrlist.h>
 
+#include <cassert>
+
+// TODO: check which of these C headers are stll needed
 #include <unistd.h> 
 #include <stdio.h> 
 #include <sys/mman.h> 
@@ -28,489 +31,328 @@
 #include <sys/stat.h>
 #include <inttypes.h>
 
-Dict::Dict() : QObject()
+namespace
 {
-	com = false;
-	ir = false;
-	
-	results = new QStringList;
+void msgerr(const QString &msg, const QString &dict = QString::null)
+{
+	QString output = msg;
+	if(dict != QString::null) output = msg.arg(dict);
+	KMessageBox::error(0, output);
+}
 }
 
-Dict::~Dict()
+using namespace Dict;
+
+File::File(QString path, QString n)
+	: myName(n)
+	, dictFile(path)
+	, dictPtr(static_cast<unsigned char *>(MAP_FAILED))
+	, indexFile(KGlobal::dirs()->saveLocation("appdata", "xjdx/", true) + path + ".xjdx")
+	, indexPtr(static_cast<uint32_t *>(MAP_FAILED))
+	, valid(false)
 {
-}
-
-bool Dict::init(bool kanjidict)
-{
-	KStandardDirs *dirs = KGlobal::dirs();
-
-	//kdDebug() << "Dict:init(" << kanjidict << ")\n";
-	QStringList *theDictList = 0;
-
-	QString indexdir = dirs->saveLocation("appdata", "xjdx/", true);
-	QString index;
-
-	if (kanjidict)
-		theDictList = &KanjiDictList;
-	else
-		theDictList = &DictList;
-
-	// check if we have a dict
-	
-	int numDicts = theDictList->size();
-	if (numDicts < 1)
+	if(!indexFile.exists())
 	{
-		msgerr(i18n("No dictionaries in list!"));
-		return false;
+		// find the index generator executable
+		KProcess proc;
+		proc << KStandardDirs::findExe("kitengen") << path << indexFile.name();
+		// TODO: put up a status dialog and event loop instead of blocking
+		proc.start(KProcess::Block, KProcess::NoCommunication);
 	}
 
-	QStringList::Iterator it;
-	for (it = theDictList->begin(); it != theDictList->end(); ++it)
+	if(!dictFile.open(IO_ReadOnly))
 	{
-		kdDebug() << *it << endl;
-		// check if the dicts exist
-		if (!QFile::exists(*it))
-		{
-			//kdDebug() << *it << " does not exist!\n";
-			
-			msgerr(i18n("Dictionary %1 does not exist."), *it);
-			return false;
-		}
-
-		index = QString(indexdir).append(QFileInfo(*it).fileName()).append(".xjdx"); // the index file
-
-		if (!QFile::exists(index))
-		{
-			//kdDebug() << index << " does not exist, will make now\n";
-
-			// find the index generator executable
-			KProcess proc;
-			proc << KStandardDirs::findExe("kitengen") << *it << index;
-			// TODO: put up a status dialog and event loop instead of blocking
-			proc.start(KProcess::Block, KProcess::NoCommunication);
-
-			if (!QFile::exists(index))
-			{
-				//kdDebug() << index << " still does not exist\n";
-				msgerr(i18n("Dictionary %1's index file does not exist."), *it);
-				return false;
-			}
-		}
-	}
-
-	struct stat buf;
-
-	int i = kanjidict? DictList.size() : 0; // dict number in array
-
-	for (it = theDictList->begin(); it != theDictList->end(); ++it)
-	{
-		//kdDebug() << "starting on " << (*it).latin1() << " now\n";
-		index = QString(indexdir).append(QFileInfo(*it).fileName()).append(".xjdx"); // the index file
-		
-  		DictFiles[i] = open((*it).latin1(), O_RDONLY);
-		//kdDebug() << "DictFiles[" << i << "] = " << DictFiles[i] << endl;
-
-		stat((*it).latin1(), &buf);
-		DictLength[i] = buf.st_size + 1;
-		//kdDebug() << "buf.st_size " << buf.st_size << endl;
-
-		DictMap[i] = static_cast<char *>(mmap(0, DictLength[i], PROT_READ, MAP_FILE | MAP_SHARED, DictFiles[i], 0));
-		if (DictMap[i] == MAP_FAILED)
-		{
-			msgerr(i18n("Memory error when loading dictionary %1!"), *it);
-			kapp->quit();
-		}
-
-  		IndexFiles[i] = open(index.latin1(), O_RDONLY);
-		stat(index.latin1(), &buf);
-		IndexLength[i] = buf.st_size + 1;
-		
-		// don't ask me what indptrt is useful for, I know not
-		indptrt[i] = IndexLength[i] / sizeof(int32_t) - 1;
-
-		//kdDebug() << "IndexLength " << IndexLength[i] << endl;
-		DictIndexMap[i] = static_cast<uint32_t *>(mmap(0, IndexLength[i], PROT_READ, MAP_FILE | MAP_SHARED, IndexFiles[i], 0));
-		if (DictIndexMap[i] == MAP_FAILED)
-		{
-			msgerr(i18n("Memory error when loading dictionary %1's index file!"), *it);
-			kapp->quit();
-		}
-
-		//kdDebug() << "Dict #" << i << " is now mmapped!\n";
-
-		i++;
-	}
-	return true;
-}
-
-void Dict::doSearch(QString regexp)
-{
-	// TIME FOR SPAGHETTI CODE! :))
-	// but it works.. yaya!
-	// if you call munging the encoding until it's illegible "working" :-)
-
-	bool firstTime = true; // if it isn't, then we look for next entry
-	                       // otherwise we get our bearing in the file
-
-	//our codec
-	QTextCodec *codec = QTextCodec::codecForName("eucJP");
-
-	QCString csch_str = codec->fromUnicode(regexp);
-	unsigned char *sch_str = (const char *)(csch_str);
-	sch_str = (const unsigned char *)(sch_str);
-
-	int32_t lo, hi, itok, lo2, hi2, schix, schiy, index_posn = 0;
-	int res = 0, i;
-
-	QString ResultString; // final results
-
-	int32_t dic_loc;
-	int hit_posn;
-	int32_t res_index = 0;
-	int32_t oldres_index;
-
-	// get down and da-ti-
-	// this is modelled after Jim Breen's xjdic's xjdserver()
-	// thanks Mr Breen!
-	
-	lo = 1;
-	hi = indptrt[CurrentDict];
-	
-	int iterlimit = 40; // maximum binary search iterations
-
-	while (true)
-	{
-		if (!iterlimit--)
-			break; // break if we've done this 40 times
-
-  		it = (lo + hi) / 2; // it is now average
-		//kdDebug() << "it is " << it << endl;
-
-		res = stringCompare(sch_str); // looks for the search string and len at it
-
-		if (res == 0) // if it was a perfect match
-		{
-			itok = it; // ok
-
-			lo2 = lo; // backup
-			hi2 = it; // backup
-			while (true)
-			{
-				if (lo2 + 1 >= hi2) // if they are one different break
-					break;
-
-				it = (lo2+hi2)/2;
-
-				res = stringCompare(sch_str);
-
-				if (res == 0)
-				{
-					hi2 = it;
-					itok = it;
-					continue;
-				}
-				else
-				{
-					lo2 = it + 1;
-				}
-			}
-			it = itok;
-			res = 0;
-			break;
-		}
-
-		if (res < 0) // was less than
-		{
-			hi = it - 1;
-		}
-		else         // was greater than
-			lo = it + 1;
-
-		if (lo > hi)
-		{
-			//kdDebug() << "lo = " << lo << ", hi = " << hi << endl;
-			break;
-		}
-
-		//kdDebug() << "looping again\n";
-	}
-
-	if (res != 0) // never got a match
-	{
+		msgerr(i18n("Could not open dictionary %1."), path);
 		return;
 	}
 
-	// as the above sometimes misses the first matching entry, step back to the first
-	while (true)
+	dictPtr = static_cast<unsigned char *>(mmap(0, dictFile.size(), PROT_READ, MAP_FILE | MAP_SHARED, dictFile.handle(), 0));
+	if(dictPtr == MAP_FAILED)
 	{
-
-		if (stringCompare(sch_str) == 0) // if its a match now
-		{
-			it--; // lets try again going backwards (ie, to first)
-			if (it == 0)
-			{
-				it = 1;
-				break;
-			}
-			continue;
-		}
-		else // go forwards looking for match
-		{
-			it++;
-			break;
-		}
+		msgerr(i18n("Memory error when loading dictionary %1."), path);
+		return;
 	}
 
-	//kdDebug() << "firsttime is now false\n";
-
-	// start of code we do if its first time or not
-	Common:
-	//kdDebug() << "starting common again\n";
-
-	oldres_index = res_index;
-
-	// if its not firstTime, we get next entry
-	if (!firstTime)
+	if(!indexFile.open(IO_ReadOnly))
 	{
-		index_posn++;
-		hi = indptrt[CurrentDict];
-		
-		//kdDebug() << "looking for ANOTHER entry\n";
-		res = 0;
-
-		if (index_posn > hi)
-		{
-			return;
-		}
-		it = index_posn;
-	
-		res = stringCompare(sch_str);
-		//kdDebug() << "res = " << res << endl;
-	
-		if (res != 0)
-		{
-			return;
-		}
+		msgerr(i18n("Could not open index for dictionary %1."), path);
+		return;
 	}
 
-	schix = IndexLookup(it);
-	schiy = schix;
-
-	res_index = it;
-
-	// back off to the start of this line
-	while ((DictLookup(schix) != 0x0a) && (schix >= 0)) // while its not the last line or blah..
-		schix--;
-
-	schix++; // now points to first char of our line
-
-	hit_posn = schiy - schix;
-	dic_loc = schix;
-
-	QByteArray bytes(0);
-	for (i = 0; DictLookup(schix + i) != 0x0a; i++) // get to end of our line
+	indexPtr = static_cast<uint32_t *>(mmap(0, indexFile.size(), PROT_READ, MAP_FILE | MAP_SHARED, indexFile.handle(), 0));
+	if(indexPtr == MAP_FAILED)
 	{
-		if (i == 512)
-		{
-		}
-
-		const char eucchar = static_cast<char>(DictLookup(schix + i));
-		bytes.resize(bytes.size() + 1);
-		bytes[bytes.size() - 1] = eucchar;
-
-		//kdDebug() << "eucchar = " << eucchar << endl;
-		//kdDebug() << "appendChar = " << QString(appendChar) << endl;
-
-		//kdDebug() << "end of this iteration\n";
+		msgerr(i18n("Memory error when loading dictionary %1's index file."), path);
+		return;
 	}
 
-	ResultString.append(codec->toUnicode(bytes)); // add to our match result
-	ResultString.append("\n"); // add a newline
-	//kdDebug() << "ResultString = " << ResultString << endl;
-
-	if (oldres_index != res_index) // no repeats
-	                               // actually i don't know why i do this :)
-		s.append(ResultString);
-
-	ResultString = "";
-
-	//kdDebug() << "One Entry Done\n";
-	//kdDebug() << "going to Common:\n";
-	
-	if (firstTime)
-	{
-		index_posn = res_index;
-		firstTime = false;
-	}
-	
-	goto Common; // search for more 
+	valid = true;
 }
 
-QPtrList<Entry> Dict::search(QRegExp realregexp, QString regexp, unsigned int &num, unsigned int &fullNum)
+File::~File(void)
+{
+	if(dictPtr != MAP_FAILED)
+		munmap(static_cast<void *>(dictPtr), dictFile.size());
+	dictFile.close();
+
+	if(indexPtr != MAP_FAILED)
+		munmap(static_cast<void *>(indexPtr), indexFile.size());
+	indexFile.close();
+}
+
+QString File::name(void)
+{
+	return myName;
+}
+
+Array<unsigned char> File::dict(void)
+{
+	assert(valid);
+	return Array<unsigned char>(dictPtr, dictFile.size());
+}
+
+Array<uint32_t> File::index(void)
+{
+	assert(valid);
+	return Array<uint32_t>(indexPtr, indexFile.size());
+}
+
+int File::dictLength(void)
+{
+	return dictFile.size();
+}
+
+int File::indexLength(void)
+{
+	return indexFile.size();
+}
+
+bool File::isValid(void)
+{
+	return valid;
+}
+
+// returns specified character from a dictionary
+unsigned char File::lookup(unsigned i, int offset)
+{
+	if(i > indexFile.size()) return 10;
+	uint32_t pos = indexPtr[i] + offset;
+	if(pos > dictFile.size()) return 10;
+	return dictPtr[indexPtr[i] + offset];
+}
+
+// And last, Index itself is the API presented to the rest of Kiten
+Index::Index()
+	: QObject()
+{
+	dictFiles.setAutoDelete(true);
+}
+
+Index::~Index()
+{
+}
+
+void Index::setDictList(const QStringList &list, const QStringList &names)
+{
+	loadDictList(dictFiles, list, names);
+}
+
+void Index::setKanjiDictList(const QStringList &list, const QStringList &names)
+{
+	loadDictList(kanjiDictFiles, list, names);
+}
+
+void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList)
+{
+	// check if we have a dict
+	if (dictList.size() < 1)
+	{
+		msgerr(i18n("No dictionaries in list!"));
+		return;
+	}
+
+	QStringList::ConstIterator it;
+	QStringList::ConstIterator dictIt;
+	for (it = dictList.begin(), dictIt = dictNameList.begin(); it != dictList.end(); ++it, ++dictIt)
+	{
+		File *f = new File(*it, *dictIt);
+		// our ugly substitute for exceptions
+		if(f->isValid())
+			fileList.append(f);
+		else
+			delete f;
+	}
+}
+
+// Made possible by Jim
+// Made working by Jason
+// Made sane by Neil
+QStringList Index::doSearch(File &file, QString text)
+{
+	// Do a binary search to find an entry that matches text
+	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
+	QCString eucString = codec.fromUnicode(text);
+
+	Array<uint32_t> index = file.index();
+	Array<unsigned char> dict = file.dict();
+	int lo = 0;
+	int hi = index.size() - 1;
+	unsigned cur;
+	int comp = 0;
+
+	do
+	{
+		cur = (hi + lo) / 2;
+		comp = stringCompare(file, cur, eucString);
+
+		if(comp < 0)
+		{
+			hi = cur - 1;
+		}
+		else if(comp > 0)
+		{
+			lo = cur + 1;
+		}
+	}
+	while(hi > lo && comp != 0);
+
+	// We got a match
+	QStringList results;
+	if(comp == 0)
+	{
+		// wheel back to make sure we get the first matching entry
+		while(cur - 1 && 0 == stringCompare(file, cur - 1, eucString))
+			--cur;
+
+		// output every matching entry
+		while(cur < index.size() && 0 == stringCompare(file, cur, eucString))
+		{
+			QByteArray bytes(0);
+			for (int i = 0; file.lookup(cur, i) != 0x0a; i++) // get to end of our line
+			{
+				const char eucchar = file.lookup(cur, i);
+				bytes.resize(bytes.size() + 1);
+				bytes[bytes.size() - 1] = eucchar;
+			}
+			results.append(codec.toUnicode(bytes));
+			results.append("\n");
+			++cur;
+		}
+	}
+
+	// return all the entries found, or null if no match
+	return results;
+}
+
+SearchResult Index::scanResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
+{
+	SearchResult ret;
+	ret.results = results;
+	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
+	{
+		int found = regexp.search(*itr);
+
+		if (found >= 0)
+		{
+			++fullNum;
+			if ((*itr).find(QString("(P)")) >= 0 || !common)
+			{
+				ret.list.append(parse(*itr));
+				++num;
+			}
+		}
+	}
+	return ret;
+}
+
+SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsigned int &fullNum, bool common)
 {
 	fullNum = 0;
 	num = 0;
-	QPtrList<Entry> ret;
 
-	QStringList *newResults = new QStringList;
-
-	QStringList::iterator itr;
-
-	for (CurrentDict = 0; CurrentDict < DictList.size(); CurrentDict++)
+	QStringList results;
+	for(QPtrListIterator<File> file(dictFiles); *file; ++file)
 	{
-		if (ir) // if we should just do on 'results' and be done with it
-		{
-			s = *results;
-			CurrentDict = DictList.size(); // make sure we only do once
-			ret.append(new Entry(i18n("previous results")));
-		}
-		else
-		{
-			it = 0;
-	
-			// add seperator
-			
-			if (com)
-			{
-				if (*(DictNameList.at(CurrentDict)) == "Edict") // if com, nothing but edict
-					doSearch(regexp); // make our s, only from edict so no header
-				num++; // counteract what happens below
-				fullNum++;
-			}
-			else
-			{
-				ret.append(new Entry(*(DictNameList.at(CurrentDict))));
-				doSearch(regexp); // make our s
-			}
-		}
-		num--; // we added a dummy divider, so lets take one off
-		fullNum--;
+		// TODO ret.append(new Entry((*file)->name()));
+		// ++num;
+		// ++fullNum;
 
-		for (itr = s.begin(); itr != s.end(); ++itr)
-		{
-			//kdDebug() << "Processing: " << *itr << endl;
-			int found = realregexp.search(*itr);
-	
-			if (found < 0)
-				continue;
-	
-			// i think that all other dict's entries are non-common because, well, they are extra
-			if (((*itr).find(QString("(P)")) < 0) && com) // && (*(DictNameList.at(CurrentDict)) == "Edict"))
-			{
-				//kdDebug() << "Not Common\n";
-				fullNum++;
-				continue;
-			}
-
-			ret.append(parse(*itr));
-
-			newResults->append(*itr);
-		}
-		s.clear();
+		results += doSearch(**file, text);
 	}
 
-	fullNum += ret.count();
-	num += ret.count();
+	return scanResults(regexp, results, num, fullNum, common);
+}
 
-	delete results;
-	results = newResults;
+SearchResult Index::searchPrevious(QRegExp regexp, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
+{
+	num = 0;
+	fullNum = 0;
+	return scanResults(regexp, list.results, num, fullNum, common);
+}
+
+KanjiSearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
+{
+	const bool jmyCount = false; // don't count JinMeiYou as common
+	KanjiSearchResult ret;
+	ret.results = results;
+
+	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
+	{
+		int found = regexp.search(*itr);
+
+		if (found >= 0)
+		{
+			++fullNum;
+			// common entries have G[1-8] (jouyou)
+			QRegExp comregexp(jmyCount ? "G[1-9]" : "G[1-8]");
+			if ((*itr).find(comregexp) >= 0 || !common)
+			{
+				ret.list.append(kanjiParse(*itr));
+				++num;
+			}
+		}
+	}
 
 	return ret;
 }
 
-QPtrList<Kanji> Dict::kanjiSearch(QRegExp realregexp, const QString &regexp, unsigned int &num, unsigned int &fullNum)
+KanjiSearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsigned int &num, unsigned int &fullNum, bool common)
 {
-	bool jmyCount = true; // count JinMeiYou as common
 	num = 0;
 	fullNum = 0;
-	QPtrList<Kanji> ret;
 
-	QStringList *newResults = new QStringList;
-
-	QStringList::iterator itr;
-
-	for (CurrentDict = DictList.size(); CurrentDict < (DictList.size() + KanjiDictList.size()); CurrentDict++)
+	QStringList results;
+	for(QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
-		if (ir) // if we should just do on 'results' and be done with it
-		{
-			s = *results;
-			CurrentDict = DictList.size() + KanjiDictList.size(); // make sure we only do once
-			ret.append(new Kanji(i18n("previous results")));
-		}
-		else
-		{
-			it = 0;
-	
-			ret.append(new Kanji(*KanjiDictNameList.at(DictList.size() - CurrentDict)));
-			
-			doSearch(regexp); // make our s
-		}
-		num--;
-		fullNum--;
-
-		for (itr = s.begin(); itr != s.end(); ++itr)
-		{
-			//kdDebug() << "Processing: " << *itr << endl;
-			int found = realregexp.search(*itr);
-	
-			if (found < 0)
-				continue;
-	
-			// if this is true, then its NOT G[1-8]
-			QString comregexpstr = jmyCount? "G[1-9]" : "G[1-8]";
-			QRegExp comregexp = comregexpstr;
-			if (((*itr).find(comregexp) < 0) && com) // common entries
-			                                                 // have G[1-8] 
-			                                                 // (jouyou)
-			{
-				fullNum++;
-				continue;
-			}
-	
-			ret.append(kanjiParse(*itr));
-
-			newResults->append(*itr);
-		}
-		s.clear();
+		// TODO ret.append(new Kanji((*file)->name()));
+		// ++num;
+		// ++fullNum;
+		results += doSearch(**file, text);
 	}
 
-	fullNum += ret.count();
-	num += ret.count();
-
-	delete results; // switch where results is pointing to
-	results = newResults;
-
-	return ret;
+	return scanKanjiResults(regexp, results, num, fullNum, common);
 }
 
-// algorithms by Jim Breen for xjdic
-////////////////////////////////////
-
-// looks up str1's equiv at it in the xjdx file
-int Dict::stringCompare(unsigned char * str1)
+KanjiSearchResult Index::searchPreviousKanji(QRegExp regexp, KanjiSearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
 {
-	int klen = strlen((char *)(str1)); // error without cast
+	num = 0;
+	fullNum = 0;
 
-	unsigned c1,c2;
-	int i,rc1,rc2;
+	return scanKanjiResults(regexp, list.results, num, fullNum, common);
+}
 
-/* effectively does a strnicmp on two "strings" 
-   except it will make katakana and hiragana match (EUC A4 & A5) */
+// effectively does a strnicmp on two "strings" 
+// except it will make katakana and hiragana match (EUC A4 & A5)
+int Index::stringCompare(File &file, int index, QCString str)
+{
 
-//  The strcmp() function compares the two strings s1 and s2. It returns an integer less than, equal to, or greater than zero if s1 is found, respectively, to be less than, to match, or be greater than s2. 
-//  okay.. ;)
-
-	for (i = 0; i < klen ; i++)
+	for(unsigned i = 0; i < str.length(); ++i)
 	{
-		c1 = str1[i];
-
-		//kdDebug() << "DictLookup(IndexLookup(" << it << ") + " << i << ")\n";
-		c2 = DictLookup(IndexLookup(it) + i);
-
-		//kdDebug() << "c2 = " << c2 << endl;
+		unsigned char c1 = static_cast<unsigned char>(str[i]);
+		unsigned char c2 = file.lookup(index, i);
 
 		if ((c1 == '\0') || (c2 == '\0'))
-			return (0);
+			return 0;
 
 		if ((i % 2) ==0)
 		{
@@ -524,82 +366,16 @@ int Dict::stringCompare(unsigned char * str1)
 		if ((c1 >= 'A') && (c1 <= 'Z')) c1 |= 0x20; /*fix ucase*/
 		if ((c2 >= 'A') && (c2 <= 'Z')) c2 |= 0x20;
 
-		if (c1 != c2 ) 
+		if (c1 != c2)
 		{
-			rc1 = c1;
-			rc2 = c2;
-			return (rc1-rc2);
+			return (int)c1 - (int)c2;
 		}
 	}
 
-	return (0);
+	return 0;
 }
 
-// returns specified character from a dictionary
-unsigned char Dict::DictLookup(uint32_t xit)
-{
-	//kdDebug() << "Dict::DictLookup(" << xit << ")\n";
-
-	uint32_t it2;
-	it2 = xit-1;
-	//kdDebug() << "length is " << DictLength[CurrentDict] << ", it2 is " << it2 << endl;
-
-	if (it2 > DictLength[CurrentDict])
-		return (10);
-
-	return (DictMap[CurrentDict][it2]);
-}
-
-// returns specified entry from .xjdx file
-uint32_t Dict::IndexLookup(uint32_t xit)
-{
-	return (DictIndexMap[CurrentDict][xit]);
-}
-
-//////////////////
-// end Jim Breen's
-
-void Dict::setDictList(const QStringList &list)
-{
-	DictList = list;
-}
-
-void Dict::setDictNameList(const QStringList &list)
-{
-	DictNameList = list;
-}
-
-void Dict::setKanjiDictList(const QStringList &list)
-{
-	KanjiDictList = list;
-}
-
-void Dict::setKanjiDictNameList(const QStringList &list)
-{
-	KanjiDictNameList = list;
-}
-
-void Dict::toggleCom(bool on)
-{
-	com = on; // toggle
-}
-
-void Dict::toggleIR(bool on)
-{
-	ir = on;
-}
-
-void Dict::msgerr(const QString &msg, const QString &dict)
-{
-	KMessageBox::error(0, msg.arg(dict));
-}
-
-void Dict::msgerr(const QString &msg)
-{
-	KMessageBox::error(0, msg);
-}
-
-Entry *Dict::parse(const QString &raw)
+Entry *Index::parse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	QString reading;
@@ -618,63 +394,42 @@ Entry *Dict::parse(const QString &raw)
 		{
 			parsemode = "reading";
 		}
-		else
+		else if (ichar == '/')
 		{
-			if (ichar == ']')
+			if (!firstmeaning)
 			{
+				meanings.prepend(curmeaning);
+				curmeaning = "";
 			}
 			else
 			{
-				if (ichar == '/')
-				{
-					if (!firstmeaning)
-					{
-						meanings.prepend(curmeaning);
-						curmeaning = "";
-					}
-					else
-					{
-						firstmeaning = false;
-						parsemode = "meaning";
-					}
-				}
-				else
-				{
-					if (ichar == ' ')
-					{
-						if (parsemode == "meaning") // only one that needs the space
-							curmeaning += ' ';
-					}
-					else
-					{
-						if (parsemode == "kanji")
-						{
-							kanji += ichar;
-						}
-						else
-						{
-							if (parsemode == "meaning")
-							{
-								curmeaning += ichar;
-							}
-							else
-							{
-								if (parsemode == "reading")
-								{
-									reading += ichar;
-								}
-							}
-						}
-					}
-				}
+				firstmeaning = false;
+				parsemode = "meaning";
 			}
+		}
+		else if (ichar == ' ')
+		{
+			if (parsemode == "meaning") // only one that needs the space
+				curmeaning += ' ';
+		}
+		else if (parsemode == "kanji")
+		{
+			kanji += ichar;
+		}
+		else if (parsemode == "meaning")
+		{
+			curmeaning += ichar;
+		}
+		else if (parsemode == "reading")
+		{
+			reading += ichar;
 		}
 	}
 
 	return (new Entry(kanji, reading, meanings));
 }
 
-Kanji *Dict::kanjiParse(const QString &raw)
+Kanji *Index::kanjiParse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	QStringList readings;
@@ -709,115 +464,76 @@ Kanji *Dict::kanjiParse(const QString &raw)
 				readings.append(curreading);
 				curreading = "";
 			}
-			else
+			else if (parsemode == "kanji")
 			{
-				if (parsemode == "kanji")
-				{
-					parsemode = "misc";
-				}
-				else
-				{
-					if (parsemode == "detail")
-					{
-						if (detailname == 'S')
-							strokesset = true;
+				parsemode = "misc";
+			}
+			else if (parsemode == "detail")
+			{
+				if (detailname == 'S')
+					strokesset = true;
 
-						parsemode = "misc";
-					}
-					else
-					{
-						if (parsemode == "meaning")
-						{
-							curmeaning += ichar;
-						}
-					}
-				}
+				parsemode = "misc";
+			}
+			else if (parsemode == "meaning")
+			{
+				curmeaning += ichar;
 			}
 			prevwasspace = true;
 		}
-		else
+		else if (ichar == '{')
 		{
-			if (ichar == '{')
+			parsemode = "meaning";
+		}
+		else if (ichar == '}')
+		{
+			meanings.prepend(curmeaning);
+			curmeaning = "";
+		}
+		else if (parsemode == "detail")
+		{
+			if (detailname == 'G')
 			{
-					parsemode = "meaning";
+				strgrade += ichar;
+			}
+			else if (detailname == 'F')
+			{
+				strfreq += ichar;
+			}
+			else if (detailname == 'S')
+			{
+				if (strokesset)
+					strmiscount += ichar;
+				else
+					strstrokes += ichar;
+			}
+			prevwasspace = false;
+		}
+		else if (parsemode == "kanji")
+		{
+			kanji += ichar;
+		}
+		else if (parsemode == "meaning")
+		{
+			curmeaning += ichar;
+		}
+		else if (parsemode == "reading")
+		{
+			curreading += ichar;
+		}
+		else if (parsemode == "misc" && prevwasspace)
+		{
+			if (QRegExp("[A-Za-z0-9]").search(QString(ichar)) >= 0)
+				   // is non-japanese?
+			{
+				detailname = ichar;
+				parsemode = "detail";
 			}
 			else
 			{
-				if (ichar == '}')
-				{
-					meanings.prepend(curmeaning);
-					curmeaning = "";
-				}
-				else
-				{
-					if (parsemode == "detail")
-					{
-						if (detailname == 'G')
-						{
-							strgrade += ichar;
-						}
-						else
-						{
-							if (detailname == 'F')
-							{
-								strfreq += ichar;
-							}
-							else
-							{
-								if (detailname == 'S')
-								{
-									if (strokesset)
-										strmiscount += ichar;
-									else
-										strstrokes += ichar;
-								}
-							}
-						}
-						prevwasspace = false;
-					}
-					else
-					{
-						if (parsemode == "kanji")
-						{
-							kanji += ichar;
-						}
-						else
-						{
-							if (parsemode == "meaning")
-							{
-								curmeaning += ichar;
-							}
-							else
-							{
-								if (parsemode == "reading")
-								{
-									curreading += ichar;
-								}
-								else
-								{
-									if (parsemode == "misc")
-									{
-										if (prevwasspace)
-										{
-											if (QRegExp("[A-Za-z0-9]").search(QString(ichar)) >= 0)
-												   // is non-japanese?
-											{
-												detailname = ichar;
-												parsemode = "detail";
-											}
-											else
-											{
-												//kdDebug() << QString(ichar) << " isn't a letter\n";
-												curreading = QString(ichar);
-												parsemode = "reading";
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				//kdDebug() << QString(ichar) << " isn't a letter\n";
+				curreading = QString(ichar);
+				parsemode = "reading";
 			}
 		}
 	}
@@ -825,7 +541,7 @@ Kanji *Dict::kanjiParse(const QString &raw)
 	return (new Kanji(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
 }
 
-QString Dict::prettyMeaning(QStringList Meanings)
+QString Index::prettyMeaning(QStringList Meanings)
 {
 	QString meanings;
 	QStringList::Iterator it;
@@ -836,7 +552,7 @@ QString Dict::prettyMeaning(QStringList Meanings)
 	return meanings;
 }
 
-QString Dict::prettyKanjiReading(QStringList Readings)
+QString Index::prettyKanjiReading(QStringList Readings)
 {
 	QStringList::Iterator it;
 	QString html;
