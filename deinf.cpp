@@ -27,7 +27,7 @@ void Deinf::Index::load()
 	QString vconj = dirs->findResource("appdata", "vconj");
 	if (vconj == QString::null)
 	{
-		KMessageBox::error(0, i18n("Verb deinflection information not found, so verb de-inflection cannot be used."));
+		KMessageBox::error(0, i18n("Verb deinflection information not found, so verb deinflection cannot be used."));
 		return;
 	}
 
@@ -35,7 +35,7 @@ void Deinf::Index::load()
 
 	if (!f.open(IO_ReadOnly))
 	{
-		KMessageBox::error(0, i18n("Verb deinflection information could not be loaded, so verb de-inflection cannot be used."));
+		KMessageBox::error(0, i18n("Verb deinflection information could not be loaded, so verb deinflection cannot be used."));
 		return;
 	}
 
