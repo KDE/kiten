@@ -36,4 +36,6 @@ applnkdir = $(kde_appsdir)/Utilities
 data_DATA = edict kanjidic radkfile
 datadir = $(kde_datadir)/kiten
 
-messages: $(XGETTEXT) *.cpp *.h -o $(podir)/Kiten.pot
+messages: rc.cpp
+	$(XGETTEXT) *.cpp *.h -o $(podir)/Kiten.pot
+
