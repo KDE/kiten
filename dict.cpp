@@ -135,6 +135,7 @@ void Dict::doSearch(QString regexp)
 {
 	// TIME FOR SPAGHETTI CODE! :))
 	// but it works.. yaya!
+	// if you call munging the encoding until it's illegible "working" :-)
 
 	bool firstTime = true; // if it isn't, then we look for next entry
 	                       // otherwise we get our bearing in the file
@@ -301,6 +302,7 @@ void Dict::doSearch(QString regexp)
 	hit_posn = schiy - schix;
 	dic_loc = schix;
 
+	QByteArray bytes(0);
 	for (i = 0; DictLookup(schix + i) != 0x0a; i++) // get to end of our line
 	{
 		if (i == 512)
@@ -309,17 +311,16 @@ void Dict::doSearch(QString regexp)
 			kapp->quit();
 		}
 
-		unsigned char eucchar = DictLookup(schix + i);
-
-		QChar appendChar(eucchar);
+		const char eucchar = static_cast<char>(DictLookup(schix + i));
+		bytes.resize(bytes.size() + 1);
+		bytes[bytes.size() - 1] = eucchar;
 
 		//kdDebug() << "eucchar = " << eucchar << endl;
 		//kdDebug() << "appendChar = " << QString(appendChar) << endl;
 
-		ResultString.append(appendChar); // add to our match result
-
 		//kdDebug() << "end of this iteration\n";
 	}
+	ResultString.append(codec->toUnicode(bytes)); // add to our match result
 
 	if (oldres_index != res_index) // no repeats
 	{
