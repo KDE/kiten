@@ -12,6 +12,7 @@
 class Rad;
 class Entry;
 class EditAction;
+class KStatusBar;
 class QCheckBox;
 class QPushButton;
 class ResultView;
@@ -67,6 +68,8 @@ class TopLevel : public KMainWindow
 	void newToolBarConfig();
 
 	private:
+	KStatusBar *StatusBar;
+
 	Dict::Index _Index;
 	Rad _Rad;
 	Deinf::Index _DeinfIndex;

@@ -21,7 +21,6 @@
 #include <qregexp.h>
 #include <qlayout.h>
 #include <kaction.h>
-#include <kstatusbar.h>
 #include <kstdaction.h>
 
 #include "kiten.h"
@@ -66,7 +65,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	createGUI();
 
-	statusBar();
+	StatusBar = statusBar();
 	optionDialog = 0;
 
 	slotUpdateConfiguration();
@@ -127,11 +126,11 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{
-		statusBar()->message(i18n("Empty search items"));
+		StatusBar->message(i18n("Empty search items"));
 		return;
 	}
 
-	statusBar()->message(i18n("Searching..."));
+	StatusBar->message(i18n("Searching..."));
 
 	Dict::SearchResult results;
 	if (!kanjiCB->isChecked())
@@ -165,11 +164,11 @@ void TopLevel::doSearchInResults(QString text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{
-		statusBar()->message(i18n("Empty search items"));
+		StatusBar->message(i18n("Empty search items"));
 		return;
 	}
 
-	statusBar()->message(i18n("Searching..."));
+	StatusBar->message(i18n("Searching..."));
 	Dict::SearchResult results = _Index.searchPrevious(regexp, text, *currentResult, comCB->isChecked());
 	addHistory(results);
 	handleSearchResult(results);
@@ -349,7 +348,7 @@ void TopLevel::strokeSearch()
 	unsigned int strokes = Edit->text().toUInt();
 	if (strokes <= 0 || strokes > 60)
 	{
-		statusBar()->message(i18n("Invalid stroke count"));
+		StatusBar->message(i18n("Invalid stroke count"));
 		return;
 	}
 	QString text = QString("S%1 ").arg(strokes);
@@ -375,7 +374,7 @@ void TopLevel::gradeSearch()
 
 	if (grade <= 0 || grade > 9)
 	{
-		statusBar()->message(i18n("Invalid grade"));
+		StatusBar->message(i18n("Invalid grade"));
 		return;
 	}
 	QString text = QString("G%1 ").arg(grade);
@@ -418,7 +417,7 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 	if (results < fullNum)
 		str += i18n(" out of %1").arg(fullNum);
 
-	statusBar()->message(str);
+	StatusBar->message(str);
 	setCaption(str);
 }
 
