@@ -32,7 +32,7 @@
 const int Learn::numberOfAnswers = 5;
 
 Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
-	: KMainWindow(parent, name), curItem(0), initialized(false)
+	: KMainWindow(parent, name), initialized(false), curItem(0)
 {
 	index = parentDict;
 
