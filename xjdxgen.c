@@ -66,7 +66,7 @@ int alphaoreuc(unsigned char x);
 
 int stringcomp(unsigned char *s1, unsigned char *s2)
 {
-	int i;
+	uint i;
 	unsigned char c1,c2;
 
 	for(i = 0; i < strlen(s1);i++) 
@@ -186,7 +186,7 @@ unsigned char **argv;
 /* generate index for *every* kanji in key */
 				i = 2;
 				if (currstr[0] == 0x8f) i++;
-				for ( ; i < strlen(currstr); i+=2)
+				for ( ;  i < strlen(currstr);  i+=2)
 				{
 					if((currstr[i] >= 0xb0) || (currstr[i] == 0x8f))
 					{
@@ -225,7 +225,7 @@ unsigned char **argv;
 				  {
 					  for (isc = 0; isc <= excount; isc++)
 					  {
-						  if (( exlens[isc] == strlen(currstr)) &&
+						  if (( (uint) exlens[isc] == strlen(currstr)) &&
 						  (stringcomp(currstr,exlist[isc]) == 0)   )
 						  {
 							  indptr--;

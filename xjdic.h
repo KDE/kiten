@@ -1,3 +1,25 @@
+/**************************************************************************
+*                     X J D X G E N
+*                                                   Author: Jim Breen
+*           Index (.xjdx) generator program fron XJDIC            
+*
+*		V2.3 - indexes JIS X 0212 (3-byte EUC) kanji
+***************************************************************************/
+/*  This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 1, or (at your option)
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.     */
+
+  
 #define MAXLINES 24     /* default lines per display */
 #define MAXCOLS 80      /* default cols per display */
 #define NRKANA 250*2   /*  size of the romaji to kana tables*/
