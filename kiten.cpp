@@ -101,13 +101,13 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	slotUpdateConfiguration();
 	if (autoCreateLearn)
 		createLearn();
-	
+
 	resize(600, 400);
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
 	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(ressearch(const QString &)));
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(autoSearch()));
-	
+
 	QTimer::singleShot(10, this, SLOT(finishInit()));
 }
 
@@ -223,7 +223,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 	_ResultView->clear();
 
 	Dict::Entry first = Dict::firstEntry(results);
-	
+
 	if (results.count > 0)
 		kanjiCB->setChecked(first.extendedKanjiInfo());
 	else
@@ -242,12 +242,12 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 			addAction->setEnabled(true);
 
 			_ResultView->append(QString("<p>%1</p>").arg(i18n("HTML Entity: %1").arg(QString("&amp;#x%1;").arg(QString::number(toAddKanji.kanji().at(0).unicode(), 16))))); // show html entity
-	
+
 			// now show some compounds in which this kanji appears
 			QString kanji = toAddKanji.kanji();
-		
+
 			_ResultView->addHeader(i18n("%1 in compounds").arg(kanji));
-		
+
 			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
 			bool common = true;
 			if (compounds.count <= 0)
@@ -256,7 +256,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 				_ResultView->addHeader(i18n("(No common compounds)"), 4);
 				common = false;
 			}
-	
+
 			for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
 				//kdDebug() << "adding " << (*it).kanji() << endl;
@@ -390,7 +390,7 @@ void TopLevel::search(bool inResults)
 
 					//kdDebug() << "currently on deinflection " << *it << endl;
 					Dict::SearchResult results = _Index.search(QRegExp(QString("^") + (*it) + "\\W"), *it, common);
-					
+
 					if (results.count < 1) // stop if it isn't in the dictionary
 						continue;
 
@@ -467,7 +467,7 @@ void TopLevel::strokeSearch()
 
 		//kdDebug() << "strokesString is " << strokesString << endl;
 		*/
-		
+
 		StatusBar->message(i18n("Unparseable number"));
 		return;
 	}
@@ -554,7 +554,7 @@ void TopLevel::kanjiSearchAccel()
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 {
 	QString str = i18n("%n result","%n results",results);
-	
+
 	if (results < fullNum)
 		str += i18n(" out of %1").arg(fullNum);
 
@@ -569,7 +569,7 @@ void TopLevel::slotUpdateConfiguration()
 	QString globaledict = dirs->findResource("appdata", "edict");
 	QString globalkanjidic = dirs->findResource("appdata", "kanjidic");
 	personalDict = KGlobal::dirs()->saveLocation("appdata", "dictionaries/", true).append("personal");
-	
+
 	config->setGroup("edict");
 
 	edictUseGlobal = config->readBoolEntry("__useGlobal", true);
@@ -587,7 +587,7 @@ void TopLevel::slotUpdateConfiguration()
 		DictList.prepend(personalDict);
 		DictNameList.prepend(i18n("Personal"));
 	}
-	
+
 	if (globaledict != QString::null && edictUseGlobal)
 	{
 		DictList.prepend(globaledict);
@@ -629,7 +629,7 @@ void TopLevel::slotConfigure()
 	if (optionDialog == 0)
 	{
 		optionDialog = new ConfigureDialog(Accel, 0);
-		if (optionDialog == 0) 
+		if (optionDialog == 0)
 			return;
 		connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
 		connect(optionDialog, SIGNAL(valueChanged()), this, SLOT(slotUpdateConfiguration()));
@@ -746,7 +746,7 @@ QRegExp TopLevel::searchItems()
 		regexp = "%1";
 
 	regexp = regexp.arg(text);
-	
+
 	return QRegExp(regexp, caseSensitive);
 }
 
@@ -764,14 +764,12 @@ void TopLevel::configureToolBars()
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 	KEditToolbar dlg(actionCollection(), "kitenui.rc");
 	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
-	if (dlg.exec())
-	{
-		createGUI("kitenui.rc");
-	}
+	dlg.exec();
 }
 
 void TopLevel::newToolBarConfig()
 {
+	createGUI("kitenui.rc");
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 }
 
