@@ -32,7 +32,7 @@
 const int Learn::numberOfAnswers = 5;
 
 Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
-	: KMainWindow(parent, name), initialized(false), curItem(0)
+	: KMainWindow(parent, name), initialized(false), isMod(false), prevItem(0), curItem(0)
 {
 	index = parentDict;
 
@@ -616,6 +616,9 @@ void Learn::print()
 
 void Learn::answerClicked(int i)
 {
+	if (!curItem)
+		return;
+		
 	int newscore = 0;
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
@@ -808,7 +811,12 @@ QString Learn::shortenString(QString thestring)
 
 void Learn::tabChanged(QWidget *widget)
 {
-	bool isQuiz = widget == quizTop;
+	bool isQuiz = (widget == quizTop);
+
+	if (isQuiz)
+		backAct->setEnabled(prevItem != 0);
+	else
+		backAct->setEnabled(true);
 
 	forwardAct->setEnabled(!isQuiz);
 	gradeAct->setEnabled(!isQuiz);
@@ -896,6 +904,9 @@ void Learn::setClean()
 
 void Learn::qKanjiClicked()
 {
+	if (!curItem)
+		return;
+
 	showKanji(curItem);
 	nogood = true;
 }
