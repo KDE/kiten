@@ -63,13 +63,14 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	if (autoCreateLearn)
 		createLearn();
 
+	/* TODO new Accel
 	Accel = new KGlobalAccel();
 	Accel->insertItem(i18n("Lookup Kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
 	Accel->insertItem(i18n("Lookup English/Japanese word"), "LookupWord", "CTRL+SHIFT+A");
 	Accel->connectItem("LookupKanji", this, SLOT(kanjiSearchAccel()));
 	Accel->connectItem("LookupWord", this, SLOT(searchAccel()));
 	Accel->readSettings();
-
+	*/
 	isListMod = false;
 
 	resize(600, 400);

@@ -36,7 +36,9 @@ class ConfigureDialog : public KDialogBase
 	QCheckBox *startLearnCB;
 
 	KGlobalAccel *Accel;
+	/* TODO new Accel
 	KKeyEntryMap m_keys;
+	*/
 	
 	signals:
 	void valueChanged();
