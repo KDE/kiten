@@ -35,6 +35,7 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	descBox->addWidget(new QLabel(i18n("Kiten includes Edict for a regular word search.\nFor Kanji searching, Kanjidic is included.\n\nFeel free to add your own extras, by adding them in the\nconfiguration pages below this one."), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0));
+	descBox->addStretch();
 
 	list.append(i18n("Edict"));
 	QFrame *Page1 = addPage(list);
@@ -60,11 +61,13 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	searchBox->addWidget(caseSensitiveCB);
 	wholeWordCB = new QCheckBox(i18n("Match only whole english word"), Page3);
 	searchBox->addWidget(wholeWordCB);
+	searchBox->addStretch();
 
 	QFrame *Page4 = addPage(i18n("Learn"));
 	QVBoxLayout *learnBox = new QVBoxLayout(Page4);
 	startLearnCB = new QCheckBox(i18n("Start Learn automatically"), Page4);
 	learnBox->addWidget(startLearnCB);
+	learnBox->addStretch();
 
 	QFrame *Page5 = addPage(i18n("Global Keys"));
 	m_keys = Accel->keyDict();
@@ -158,6 +161,7 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	DelButton = new QPushButton(i18n("Delete"), this);
 	buttonLayout->addWidget(DelButton);
 	connect(DelButton, SIGNAL(clicked()), SLOT(del()));
+	buttonLayout->addStretch();
 
 	List->addColumn(i18n("Name"));
 	List->addColumn(i18n("File"));
