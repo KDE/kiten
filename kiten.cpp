@@ -39,11 +39,9 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("&Search"), "find", 0, this, SLOT(search()), actionCollection(), "search");
-	//(void) new KAction(i18n("&Reading"), "find", CTRL+Key_R, this, SLOT(readingSearch()), actionCollection(), "search_reading");
-	//(void) new KAction(i18n("&Kanji"), "find", CTRL+Key_K, this, SLOT(kanjiSearch()), actionCollection(), "search_kanji");
 	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
-	kanjiCB = new KToggleAction(i18n("Kan&jidic?"), "kanjidic", CTRL+Key_J, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
+	kanjiCB = new KToggleAction(i18n("&Kanjidic?"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
 	irCB =  new KToggleAction(i18n("&In Results"), "viewmag+", CTRL+Key_I, this, SLOT(toggleIR()), actionCollection(), "in_results");
@@ -59,7 +57,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 		createLearn();
 
 	Accel = new KGlobalAccel();
-	Accel->insertItem(i18n("Lookup kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
+	Accel->insertItem(i18n("Lookup Kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
 	Accel->insertItem(i18n("Lookup English/Japanese word"), "LookupWord", "CTRL+SHIFT+A");
 	Accel->connectItem("LookupKanji", this, SLOT(kanjiSearchAccel()));
 	Accel->connectItem("LookupWord", this, SLOT(searchAccel()));

@@ -7,7 +7,7 @@
   <Action name="del" />
 </Menu>
 
-<Menu name="go_document"><text>&amp;Go</text>
+<Menu name="go_web"><text>&amp;Go</text>
   <Action name="random" />
   <Action name="cheat" />
 </Menu>
@@ -15,8 +15,12 @@
 </MenuBar>
 
 <ToolBar name="mainToolBar" fullWidth="true"><text>Main Toolbar</text>
+  <Action name="go_back" />
+  <Action name="go_forward" />
   <Action name="random" />
+  <Seperator />
   <Action name="del" />
+  <Seperator />
   <Action name="grade" />
 </ToolBar>
 

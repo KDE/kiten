@@ -202,13 +202,15 @@ Learn::Learn(Dict *parentDict, QWidget *parent, const char *name) : KMainWindow(
 	grades.append(i18n("Jinmeiyou"));
 
 	KAction *closeAction = KStdAction::close(this, SLOT(close()), actionCollection());
-	forwardAct = KStdAction::next(this, SLOT(next()), actionCollection());
+	forwardAct = KStdAction::forward(this, SLOT(next()), actionCollection());
+	forwardAct->plug(toolBar());
+	backAct = KStdAction::back(this, SLOT(prev()), actionCollection());
+	backAct->plug(toolBar());
 	cheatAct = new KAction(i18n("&Cheat"), CTRL + Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
-	(void) new KAction(i18n("&Random"), "goto", CTRL + Key_R, this, SLOT(random()), actionCollection(), "random");
+	randomAct = new KAction(i18n("&Random"), "goto", CTRL + Key_R, this, SLOT(random()), actionCollection(), "random");
 	gradeAct = new KListAction(i18n("Grade"), 0, this, SLOT(updateGrade()), actionCollection(), "grade");
 	gradeAct->setItems(grades);
 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
-	(void) KStdAction::prior(this, SLOT(prev()), actionCollection());
 	(void) new KAction(i18n("&Delete"), "editdelete", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
 	newAct = KStdAction::openNew(this, SLOT(add()), actionCollection());
 	saveAct = KStdAction::save(this, SLOT(writeConfiguration()), actionCollection());
@@ -319,12 +321,11 @@ void Learn::prev()
 	update();
 }
 
-void Learn::update(Kanji *curKanji)
+void Learn::update()
 {
 	View->clear();
 	
-	if (!curKanji) // if curKanji isn't set
-		curKanji = list.current();
+	Kanji *curKanji = list.current();
 
 	if (!curKanji)
 	{
@@ -453,22 +454,20 @@ void Learn::showKanji(QListViewItem *item)
 
 	QString kanji(item->text(0));
 
-	unsigned int grade = item->text(1).toUInt() - 1;
-	gradeAct->setCurrentItem(grade);
-	updateGrade();
-	
-	QPtrListIterator<Kanji> it(list);
-	Kanji *curKanji;
-
-	while ((curKanji = it.current()) != 0)
+	int grade = item->text(1).toUInt() - 1;
+	if ((gradeAct->currentItem() + 1) != grade)
 	{
-		++it;
-		if (curKanji->kanji() == kanji) // match
-			break;
+		gradeAct->setCurrentItem(grade);
+		updateGrade();
 	}
+	
+	list.first();
 
-	update(curKanji);
-	setCaption(kapp->makeStdCaption(item->text(0)));
+	while (list.next()->kanji() != kanji)
+	{}
+
+	update();
+	setCaption(i18n("%1 - Learn").arg(item->text(0)));
 }
 
 void Learn::del()
@@ -737,8 +736,11 @@ void Learn::tabChanged(QWidget *widget)
 		gradeAct->setEnabled(false);
 		saveAct->setEnabled(false);
 		newAct->setEnabled(false);
+		randomAct->setEnabled(false);
 
 		cheatAct->setEnabled(true);
+
+		setCaption(i18n("%1 - Quiz").arg(curItem->text(0)));
 	}
 	else
 	{
@@ -746,8 +748,11 @@ void Learn::tabChanged(QWidget *widget)
 		gradeAct->setEnabled(true);
 		saveAct->setEnabled(true);
 		newAct->setEnabled(true);
+		randomAct->setEnabled(true);
 
 		cheatAct->setEnabled(false);
+
+		setCaption(i18n("%1 - Learn").arg(list.current()->kanji()));
 	}
 }
 

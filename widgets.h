@@ -90,7 +90,7 @@ class Learn : public KMainWindow
 
 	Dict *dict;
 
-	void update(Kanji *curKanji= 0);
+	void update();
 
 	KListView *List;
 	KPushButton *Save;
@@ -120,9 +120,11 @@ class Learn : public KMainWindow
 	QStringList oldMeanings;
 
 	KAction *forwardAct;
+	KAction *backAct;
 	KAction *cheatAct;
 	KAction *saveAct;
 	KAction *newAct;
+	KAction *randomAct;
 	KListAction *gradeAct;
 };
 
