@@ -25,8 +25,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-07-20</date>
-<releaseinfo>1.00.00</releaseinfo>
+<date>2002-10-08</date>
+<releaseinfo>1.1</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -43,168 +43,418 @@
 
 </bookinfo>
 
-<chapter id="introduction"> <title>Introduction</title>
-<para>&kiten; is an application with multiple functions - firstly, it is a convenient English->Japanese and Japanese->English dictionary; secondly, it is a Kanji dictionary, with multiple ways to look up specific characters; thirdly, it is a tool to help you learn Kanji.</para>
+<chapter id="introduction"> 
+<title>Introduction</title>
+
+<para>&kiten; is an application with multiple functions.  Firstly, it
+is a convenient English to Japanese and Japanese to English
+dictionary; secondly, it is a Kanji dictionary, with multiple ways to
+look up specific characters; thirdly, it is a tool to help you learn
+Kanji.</para>
+
 <para>Each of these modes is discussed in it's own chapter.</para>
 </chapter>
 
-<chapter id="dictionary"> <title>Using the Dictionary</title>
-<para>&kiten;'s most basic mode is as a dictionary for looking up both English and Japanese words. You can also add other dictionaries to &kiten;'s list.</para>
+<chapter id="dictionary"> 
+<title>Using the Dictionary</title>
 
-<sect1 id="looking-up-words"> <title>Looking Up Words</title>
+<para>&kiten;'s most basic mode is as a dictionary for looking up both
+English and Japanese words. You can also add other dictionaries to
+&kiten;'s list.</para>
 
-<para>To look up words in either language, type them in to the text-edit (much like &konqueror;'s location bar) and press either <keycap>Enter</keycap> or the <guilabel>Search</guilabel> button on the toolbar (again, much like &konqueror;). &kiten; will then look up the word.</para> 
-<para>You can enter Kanji, Kana and English and get back results from &kiten;.  These results of your search will appear in the large results view which takes up the majority of the &kiten; window.</para> 
-<sect2> <title>Filtering</title>
-<para>Often times you will want to filter rare words from your search. &kiten; will do this for you if toggle <menuchoice><guimenu>Settings</guimenu><guimenuitem>Filter Rare</guimenuitem></menuchoice>.</para> <note><para>Not all dictionary files support filtering rare entries - most dictionaries, excluding the two provided by default in &kiten; do not.</para></note>
+<sect1 id="looking-up-words"> 
+<title>Looking Up Words</title>
 
-<para>If you have not enabled filtering rare entries, common entries will be labeled <guilabel>Common</guilabel> in the result view.</para>
+<para>To look up words in either language, type them in to the
+text-edit (much like &konqueror;'s location bar) and press either
+<keycap>Enter</keycap> or the <guilabel>Search</guilabel> button on
+the toolbar (again, much like &konqueror;). &kiten; will then look up
+the word.</para>
+
+<para>You can enter Kanji, Kana and English and get back results from
+&kiten;.  These results of your search will appear in the large
+results view which takes up the majority of the &kiten; window.</para>
+
+<sect2> 
+<title>Filtering</title>
+
+<para>Often times you will want to filter rare words from your
+search. &kiten; will do this for you if toggle
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Filter
+Rare</guimenuitem></menuchoice>.</para>
+
+<note><para>Not all dictionary files support filtering rare entries -
+most dictionaries, excluding the two provided by default in &kiten; do
+not.</para></note>
+
+<para>If you have not enabled filtering rare entries, common entries
+will be labeled <guilabel>Common</guilabel> in the result view.</para>
+
 </sect2>
 
 </sect1>
 
-<sect1 id="advanced-searches"> <title>Advanced Searches</title>
+<sect1 id="advanced-searches"> 
+<title>Advanced Searches</title>
+
 <para>&kiten; supports more advanced searches than plain normal word
 searches.</para>
 
-<sect2> <title>Options for Matching English</title>
-<para>Case sensitivity and whole-word matching can be enabled or disabled by choosing <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kiten...</guimenuitem></menuchoice>, and then choosing the <guilabel>Searching</guilabel> item on the list on the left. The options can be enabled by checking the checkboxes and disabled by un-checking the checkboxes on this page. These options are global and affect all searches.</para>
+<sect2> 
+<title>Options for Matching English</title>
+
+<para>Case sensitivity and whole-word matching can be enabled or
+disabled by choosing
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+Kiten...</guimenuitem></menuchoice>, and then choosing the
+<guilabel>Searching</guilabel> item on the list on the left. The
+options can be enabled by checking the checkboxes and disabled by
+un-checking the checkboxes on this page. These options are global and
+affect all searches.</para>
+
 </sect2>
 
-<sect2> <title>Beginning/Anywhere Searches</title>
-<para>To search for the beginning of a word, instead of pressing the <guilabel>Search</guilabel> button on the toolbar or pressing <keycap>Return</keycap> on the text-entry in the toolbar, choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Search with Beginning of Word</guimenuitem></menuchoice>. Similiarly, choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Search Anywhere</guimenuitem></menuchoice> to search for your text anywhere in a word. These search modes work for searches of both languages.</para>
+<sect2> 
+<title>Beginning/Anywhere Searches</title>
+
+<para>To search for the beginning of a word, instead of pressing the
+<guilabel>Search</guilabel> button on the toolbar or pressing
+<keycap>Return</keycap> on the text-entry in the toolbar, choose
+<menuchoice><guimenu>Search</guimenu><guimenuitem>Search with
+Beginning of Word</guimenuitem></menuchoice>. Similiarly, choose
+<menuchoice><guimenu>Search</guimenu><guimenuitem>Search
+Anywhere</guimenuitem></menuchoice> to search for your text anywhere
+in a word. These search modes work for searches of both
+languages.</para>
+
 </sect2>
 
-<sect2> <title>Searching in Results</title>
-<para>&kiten; can also help you refine your searches by allowing you to search for new text in the results generated by a previous search. To do this, just choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Search in Results</guimenuitem></menuchoice> to perform your search.</para>
+<sect2> 
+<title>Searching in Results</title>
+
+<para>&kiten; can also help you refine your searches by allowing you
+to search for new text in the results generated by a previous
+search. To do this, just choose
+<menuchoice><guimenu>Search</guimenu><guimenuitem>Search in
+Results</guimenuitem></menuchoice> to perform your search.</para>
+
 </sect2>
 
 </sect1>
 
-<sect1 id="deinf"> <title>Verb Deinflection</title>
-<para>&kiten; can deinflect verbs you search for. To enable this, make sure <menuchoice><guimenu>Settings</guimenu><guimenuitem>Deinflect Verbs in Regular Search</guimenuitem></menuchoice> is checked. &kiten; will then deinflect Japanese you search for that starts with a Kanji and ends with a Kana.</para>
+<sect1 id="deinf"> 
+<title>Verb Deinflection</title>
+
+<para>&kiten; can deinflect verbs you search for. To enable this, make
+sure <menuchoice><guimenu>Settings</guimenu><guimenuitem>Deinflect
+Verbs in Regular Search</guimenuitem></menuchoice> is checked. &kiten;
+will then deinflect Japanese you search for that starts with a Kanji
+and ends with a Kana.</para>
+
 </sect1>
 
 </chapter>
 
-<chapter id="looking-up-kanji"> <title>Looking Up Kanji</title>
-<para>&kiten; has features that makes finding the one kanji you want easy from over 14,000 in the default dictionary.</para>
+<chapter id="looking-up-kanji"> 
+<title>Looking Up Kanji</title>
 
-<note><para>Clicking on any Kanji in the main result view will show details on that particular Kanji. This can sometimes be the fastest way to look up a kanji.</para></note>
+<para>&kiten; has features that makes finding the one kanji you want
+easy from over 14,000 in the default dictionary.</para>
 
-<tip><para>Kanji searches are also filtered according to whether <menuchoice><guimenu>Settings</guimenu><guimenuitem>Filter Rare</guimenuitem></menuchoice> is checked.</para></tip>
+<note> <para>Clicking on any Kanji in the main result view will show
+details on that particular Kanji. This can sometimes be the fastest
+way to look up a kanji.</para></note>
 
-<sect1 id="regular-kanji-search"> <title>Regular Searching</title>
-<para>To enable regular searching on the Kanji dictionary, check <menuchoice><guimenu>Settings</guimenu><guimenuitem>Kanjidic</guimenuitem></menuchoice>.</para>
-<para>You can search with English and Japanese search strings the exact same way you can with the normal dictionary.</para>
+<tip><para>Kanji searches are also filtered according to whether
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Filter
+Rare</guimenuitem></menuchoice> is checked.</para></tip>
 
-<caution><para>When searching for Kana readings in the Kanji dictionary, you will have to put a period before the okurigana (the kana that are not part of the Kanji).</para></caution>
+<sect1 id="regular-kanji-search"> 
+<title>Regular Searching</title>
+
+<para>To enable regular searching on the Kanji dictionary, check
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Kanjidic</guimenuitem></menuchoice>.</para>
+
+<para>You can search with English and Japanese search strings the
+exact same way you can with the normal dictionary.</para>
+
+<caution><para>When searching for Kana readings in the Kanji
+dictionary, you will have to put a period before the okurigana (the
+kana that are not part of the Kanji).</para></caution>
+
 </sect1>
 
-<sect1 id="radical-search"> <title>Radical Searching</title>
-<para>You can use &kiten;'s radical search dialog to search for Kanji with a combination of radicals and a certain stroke count. Choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Radical Search...</guimenuitem></menuchoice> to open the radical search dialog.</para>
+<sect1 id="radical-search"> 
+<title>Radical Searching</title>
 
-<para>To choose the radicals you want to be in your Kanji, select them from the middle listbox. To display possible radicals to select from this listbox with a certain number of strokes, choose this number of strokes from the spinbox just above the listbox. The radicals you choose will appear in the listbox to the right.</para>
+<para>You can use &kiten;'s radical search dialog to search for Kanji
+with a combination of radicals and a certain stroke count. Choose
+<menuchoice><guimenu>Search</guimenu><guimenuitem>Radical
+Search...</guimenuitem></menuchoice> to open the radical search
+dialog.</para>
 
-<para>To choose how many strokes your Kanji should have, first check the <guilabel>Search by total strokes</guilabel> checkbox. (If you do not want to search by total strokes, uncheck this checkbox.) Then select the number of strokes from the spinbox on the left, under the checkbox. If you want the stroke count to be fuzzy by a certain number of strokes, select the margin of error from the spinbox to the right of the <guilabel>+/-</guilabel> label.</para>
+<para>To choose the radicals you want to be in your Kanji, select them
+from the middle listbox. To display possible radicals to select from
+this listbox with a certain number of strokes, choose this number of
+strokes from the spinbox just above the listbox. The radicals you
+choose will appear in the listbox to the right.</para>
 
-<para>To perform the lookup, press the <guibutton>Look Up</guibutton> button.</para>
+<para>To choose how many strokes your Kanji should have, first check
+the <guilabel>Search by total strokes</guilabel> checkbox. (If you do
+not want to search by total strokes, uncheck this checkbox.) Then
+select the number of strokes from the spinbox on the left, under the
+checkbox. If you want the stroke count to be fuzzy by a certain number
+of strokes, select the margin of error from the spinbox to the right
+of the <guilabel>+/-</guilabel> label.</para>
+
+<para>To perform the lookup, press the <guibutton>Look Up</guibutton>
+button.</para>
+
 </sect1>
 
-<sect1 id="grade-search"> <title>Grade Search</title>
-<para>To get a list of all Kanji in a certain grade, enter that grade in the main text-entry in the toolbar. Then choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Grade</guimenuitem></menuchoice> to perform your search.</para>
+<sect1 id="grade-search"> 
+<title>Grade Search</title>
 
-<tip><para>You can enter <userinput>Jouyou</userinput> and <userinput>Jinmeiyou</userinput> to get Kanji not in a regular grade but in those groups.</para></tip>
+<para>To get a list of all Kanji in a certain grade, enter that grade
+in the main text-entry in the toolbar. Then choose
+<menuchoice><guimenu>Search</guimenu><guimenuitem>Grade</guimenuitem></menuchoice>
+to perform your search.</para>
+
+<tip><para>You can enter <userinput>Jouyou</userinput> and
+<userinput>Jinmeiyou</userinput> to get Kanji not in a regular grade
+but in those groups.</para></tip>
+
 </sect1>
 
-<sect1 id="stroke-search"> <title>Stroke Search</title>
-<para>To get a list of all Kanji with a certain number of strokes, enter that number in the text-entry in the toolbar. Then choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Strokes</guimenuitem></menuchoice> to perform your search.</para>
+<sect1 id="stroke-search"> 
+<title>Stroke Search</title>
+
+<para>To get a list of all Kanji with a certain number of strokes,
+enter that number in the text-entry in the toolbar. Then choose
+<menuchoice><guimenu>Search</guimenu><guimenuitem>Strokes</guimenuitem></menuchoice>
+to perform your search.</para>
+
 </sect1>
 
 </chapter>
 
-<chapter id="misc"> <title>Miscallaneous</title>
-<para>This chapter describes miscallaneous features that can be used in both modes in &kiten;'s main window.</para>
+<chapter id="misc"> 
+<title>Miscallaneous</title>
 
-<sect1 id="history"> <title>The History</title>
-<para>&kiten; keeps track of all of your queries in a list. You can see your last 20 results by looking under <menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. To go forward one in the history, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To go forward one in the history, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>.</para>
+<para>This chapter describes miscallaneous features that can be used
+in both modes in &kiten;'s main window.</para>
+
+<sect1 id="history"> 
+<title>The History</title>
+
+<para>&kiten; keeps track of all of your queries in a list. You can
+see your last 20 results by looking under
+<menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. To
+go forward one in the history, choose
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To
+go forward one in the history, choose
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>.</para>
+
 </sect1>
 
-<sect1 id="input"> <title>Inputting Japanese</title>
-<para>If you are unable to input Japanese normally into &kde; applications, you can use &kiten;'s Kana input system that is built in to the text-entry.</para>
-<para>To start Kana input, press <keycombo action="simul">&Shift;<keycap>Space</keycap></keycombo>. Now inputted syllables will be transformed into Hiragana. If you type a syllable in capital letters, it will be transformed into Katakana instead. Press <keycombo action="simul">&Shift;<keycap>Space</keycap></keycombo> again to go back to regular input.</para>
+<sect1 id="input"> 
+<title>Inputting Japanese</title>
+
+<para>If you are unable to input Japanese normally into &kde;
+applications, you can use &kiten;'s Kana input system that is built in
+to the text-entry.</para>
+
+<para>To start Kana input, press <keycombo
+action="simul">&Shift;<keycap>Space</keycap></keycombo>. Now inputted
+syllables will be transformed into Hiragana. If you type a syllable in
+capital letters, it will be transformed into Katakana instead. Press
+<keycombo action="simul">&Shift;<keycap>Space</keycap></keycombo>
+again to go back to regular input.</para>
+
 </sect1>
 
-<sect1 id="global-keys"> <title>Global Shortcuts</title>
-<para>You can set global &kiten; shortcuts that work everywhere on your desktop. Go to the &kiten; configuration dialog, which can be opened by choosing <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kiten...</guimenuitem></menuchoice>. Select the <guilabel>Global Keys</guilabel> section of the dialog. Here you can set the keys for a global word search and a global Kanji search like in other &kde; shortcut configuration panels.</para>
+<sect1 id="global-keys"> 
+<title>Global Shortcuts</title>
+
+<para>You can set global &kiten; shortcuts that work everywhere on
+your desktop. Go to the &kiten; configuration dialog, which can be
+opened by choosing
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+Kiten...</guimenuitem></menuchoice>. Select the <guilabel>Global
+Keys</guilabel> section of the dialog. Here you can set the keys for a
+global word search and a global Kanji search like in other &kde;
+shortcut configuration panels.</para>
+
 </sect1>
 
-<sect1 id="printing"> <title>Printing</title>
-<para>You can print the result view by choosing <menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. &kiten; will add an informative header to the printout.</para>
+<sect1 id="printing"> 
+<title>Printing</title>
+
+<para>You can print the result view by choosing
+<menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. &kiten;
+will add an informative header to the printout.</para>
+
 </sect1>
 
-<sect1 id="fonts"> <title>Fonts</title>
-<para>You can choose the font that &kiten; uses in its result view and while printing. Go to the &kiten; configuration dialog, which can be opened by choosing <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kiten...</guimenuitem></menuchoice>. Select the <guilabel>Font</guilabel> section of the dialog and select the font in the font-chooser.</para>
-<note><para>Qt 3's new font-substitution system makes it so a Japanese font will always be substituted for Japanese characters, even if the font you specify doesn't include them. Thus, you can choose any font in the chooser and everything should still display fine.</para></note>
+<sect1 id="fonts"> 
+<title>Fonts</title>
+
+<para>You can choose the font that &kiten; uses in its result view and
+while printing. Go to the &kiten; configuration dialog, which can be
+opened by choosing
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+Kiten...</guimenuitem></menuchoice>. Select the
+<guilabel>Font</guilabel> section of the dialog and select the font in
+the font-chooser.</para>
+
+<note><para>&Qt; 3's new font-substitution system makes it so a
+Japanese font will always be substituted for Japanese characters, even
+if the font you specify doesn't include them. Thus, you can choose any
+font in the chooser and everything should still display
+fine.</para></note>
+
 </sect1>
 
 </chapter>
 
 <chapter id="learn"> <title>Learn Mode</title>
-<para>&kiten;'s last mode is its Learn mode which is in a separate window. To open it, choose <menuchoice><guimenu>File</guimenu><guimenuitem>Learn...</guimenuitem></menuchoice>.</para>
 
-<para>The Learn mode window in turn has two main tabs - one where where you maintain your "Learning List", which is the list of Kanji that you are currently trying to learn. The other tab is the quiz area, where you are given a never-ending quiz on the Kanji on your Learning List.</para>
+<para>&kiten;'s last mode is its Learn mode which is in a separate
+window. To open it, choose
+<menuchoice><guimenu>File</guimenu><guimenuitem>Learn...</guimenuitem></menuchoice>.</para>
 
-<tip><para>If you want the Learn window to open every time you start up &kiten;, check the <guilabel>Start Learn on Kiten startup</guilabel> checkbox in the <guilabel>Learn</guilabel> section of the configuration dialog, which can be opened by choosing <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kiten...</guimenuitem></menuchoice>.</para></tip>
+<para>The Learn mode window in turn has two main tabs - one where
+where you maintain your <quote>Learning List</quote>, which is the
+list of Kanji that you are currently trying to learn. The other tab is
+the quiz area, where you are given a never-ending quiz on the Kanji on
+your Learning List.</para>
 
-<sect1 id="browsing-learn"> <title>The Learn Browser</title>
-<para>The first tab of the Learn mode window, the <guilabel>List</guilabel> tab, provides an area to browse the Kanji in the 8 Kanji grades - 1st-6th grade, <guilabel>Others in Jouyou</guilabel>, and <guilabel>Jinmeiyou</guilabel>. Also in the top half of the tab is a listview which contains all of the Kanji on your Learning List.</para>
+<tip><para>If you want the Learn window to open every time you start
+up &kiten;, check the <guilabel>Start Learn on Kiten
+startup</guilabel> checkbox in the <guilabel>Learn</guilabel> section
+of the configuration dialog, which can be opened by choosing
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+Kiten...</guimenuitem></menuchoice>.</para></tip>
 
-<para>To choose a grade to browse, choose it from the list in <menuchoice><guimenu>Go</guimenu><guimenuitem>Grade</guimenuitem></menuchoice>. After selecting a grade, the first Kanji in that grade will be shown.</para>
+<sect1 id="browsing-learn"> 
+<title>The Learn Browser</title>
 
-<para>To go forward one Kanji in the current grade, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To go back one Kanji, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>. To go to a random Kanji, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Random</guimenuitem></menuchoice>.</para>
+<para>The first tab of the Learn mode window, the
+<guilabel>List</guilabel> tab, provides an area to browse the Kanji in
+the 8 Kanji grades - 1st-6th grade, <guilabel>Others in
+Jouyou</guilabel>, and <guilabel>Jinmeiyou</guilabel>. Also in the top
+half of the tab is a listview which contains all of the Kanji on your
+Learning List.</para>
 
-<tip><para>If you click on a Kanji in the top view, the main &kiten; window will give detailed information on the Kanji you clicked.</para></tip>
+<para>To choose a grade to browse, choose it from the list in
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Grade</guimenuitem></menuchoice>. After
+selecting a grade, the first Kanji in that grade will be shown.</para>
+
+<para>To go forward one Kanji in the current grade, choose
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To
+go back one Kanji, choose
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>. To
+go to a random Kanji, choose
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Random</guimenuitem></menuchoice>.</para>
+
+<tip><para>If you click on a Kanji in the top view, the main &kiten;
+window will give detailed information on the Kanji you
+clicked.</para></tip>
+
 </sect1>
 
-<sect1 id="populating-learning-list"> <title>Populating the Learning List</title>
-<para>There are three ways to add Kanji to the Learning List. To add the current Kanji (the one displayed in the view on the top) to your list, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Add</guimenuitem></menuchoice>. To add all Kanji in the current grade to your list, choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Add All</guimenuitem></menuchoice>.</para>
+<sect1 id="populating-learning-list"> 
+<title>Populating the Learning List</title>
 
-<para>The current Kanji in the main &kiten; window can also be added by choosing (in the main &kiten; window) <menuchoice><guimenu>File</guimenu><guimenuitem>Add Kanji to Learning List</guimenuitem></menuchoice>.</para>
+<para>There are three ways to add Kanji to the Learning List. To add
+the current Kanji (the one displayed in the view on the top) to your
+list, choose
+<menuchoice><guimenu>Edit</guimenu><guimenuitem>Add</guimenuitem></menuchoice>. To
+add all Kanji in the current grade to your list, choose
+<menuchoice><guimenu>Edit</guimenu><guimenuitem>Add
+All</guimenuitem></menuchoice>.</para>
 
-<para>To delete a Kanji on your Learning List, select it and choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>. You can also select a range of Kanji to delete by clicking in the list while holding down the <keycap>Shift</keycap> or <keycap>Control</keycap> keys.</para>
+<para>The current Kanji in the main &kiten; window can also be added
+by choosing (in the main &kiten; window)
+<menuchoice><guimenu>File</guimenu><guimenuitem>Add Kanji to Learning
+List</guimenuitem></menuchoice>.</para>
+
+<para>To delete a Kanji on your Learning List, select it and choose
+<menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete</guimenuitem></menuchoice>. You
+can also select a range of Kanji to delete by clicking in the list
+while holding down the &Shift; or &Ctrl; keys.</para>
+
 </sect1>
 
-<sect1 id="file-list"> <title>Managing Learning List Files</title>
+<sect1 id="file-list"> 
+<title>Managing Learning List Files</title>
+
 <para>Learning Lists can be saved to files for easy storage.</para>
 
-<para>To open a list, choose <menuchoice><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice> and choose the existing list file in the file dialog.</para>
+<para>To open a list, choose
+<menuchoice><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>
+and choose the existing list file in the file dialog.</para>
 
-<para>To open a new list, choose <menuchoice><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>.</para>
+<para>To open a new list, choose
+<menuchoice><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>.</para>
 
-<para>To save a list, choose <menuchoice><guimenu>File</guimenu><guimenuitem>Save</guimenuitem></menuchoice> and choose the file to save your list to. To save the list under a different filename, choose <menuchoice><guimenu>File</guimenu><guimenuitem>Save As...</guimenuitem></menuchoice>.</para>
+<para>To save a list, choose
+<menuchoice><guimenu>File</guimenu><guimenuitem>Save</guimenuitem></menuchoice>
+and choose the file to save your list to. To save the list under a
+different filename, choose
+<menuchoice><guimenu>File</guimenu><guimenuitem>Save
+As...</guimenuitem></menuchoice>.</para>
 
-<note><para>When you close the Learn window the list you have opened will be re-opened the next time you start Learn mode.</para></note>
+<note><para>When you close the Learn window the list you have opened
+will be re-opened the next time you start Learn mode.</para></note>
 
-<para>To print out your Learning List, choose <menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>.</para>
+<para>To print out your Learning List, choose
+<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>.</para>
 </sect1>
 
-<sect1 id="quizzing"> <title>Quizzing</title>
-<para>The second tab of the Learn window is the <guilabel>Quiz</guilabel> tab. If you have at least two Kanji on your Learning List, this tab will be enabled. Click on the tab to switch to it.</para>
+<sect1 id="quizzing"> 
+<title>Quizzing</title>
 
-<para>To answer the question, click on the pushbutton that contains the answer that matches with the Kanji on the centered pushbutton.</para>
+<para>The second tab of the Learn window is the
+<guilabel>Quiz</guilabel> tab. If you have at least two Kanji on your
+Learning List, this tab will be enabled. Click on the tab to switch to
+it.</para>
 
-<para>If you do not know the answer, you can cheat by choosing <menuchoice><guimenu>Go</guimenu><guimenuitem>Cheat</guimenuitem></menuchoice>. This will set the correct pushbutton's focus.</para>
+<para>To answer the question, click on the pushbutton that contains
+the answer that matches with the Kanji on the centered
+pushbutton.</para>
 
-<tip><para>To see full information about the Kanji, click on the button it is drawn on. This will be counted as a wrong answer, however, in the same way as if you cheated.</para></tip>
+<para>If you do not know the answer, you can cheat by choosing
+<menuchoice><guimenu>Go</guimenu><guimenuitem>Cheat</guimenuitem></menuchoice>. This
+will set the correct pushbutton's focus.</para>
 
-<para>If you choose the wrong answer, or cheat, your score for that Kanji will be decremented. If you choose the correct answer, your score will be incremented by two. Your score on the Kanji are shown on the very right-hand column of your Learning List (on the <guilabel>List</guilabel> tab of the Learn window).</para>
+<tip><para>To see full information about the Kanji, click on the
+button it is drawn on. This will be counted as a wrong answer,
+however, in the same way as if you cheated.</para></tip>
 
-<note><para>Your scores are stored globally for each Kanji - thus, the same Kanji in two different files will always have the same score.</para></note>
+<para>If you choose the wrong answer, or cheat, your score for that
+Kanji will be decremented. If you choose the correct answer, your
+score will be incremented by two. Your score on the Kanji are shown on
+the very right-hand column of your Learning List (on the
+<guilabel>List</guilabel> tab of the Learn window).</para>
+
+<note><para>Your scores are stored globally for each Kanji - thus, the
+same Kanji in two different files will always have the same
+score.</para></note> 
 </sect1>
 
-<sect1 id="config-quiz"> <title>Configuring Quizzing</title>
-<para>You can change the way quizzing works in the &kiten; configuration dialog, which can be opened by choosing <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Kiten...</guimenuitem></menuchoice>. Go to the <guilabel>Learn</guilabel> section, and look at the <guilabel>Quizzing</guilabel> groupbox. Here you can change whether the Kanji, meaning, or reading is given for the clue, and what is given for you to guess on.</para>
+<sect1 id="config-quiz"> 
+<title>Configuring Quizzing</title>
+
+<para>You can change the way quizzing works in the &kiten;
+configuration dialog, which can be opened by choosing
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+Kiten...</guimenuitem></menuchoice>. Go to the
+<guilabel>Learn</guilabel> section, and look at the
+<guilabel>Quizzing</guilabel> groupbox. Here you can change whether
+the Kanji, meaning, or reading is given for the clue, and what is
+given for you to guess on.</para>
+
 </sect1>
 
 </chapter>
@@ -233,13 +483,13 @@ searches.</para>
 
 </chapter>
 
-<appendix id="installation">
+<!-- <appendix id="installation">
 <title>Installation</title>
 
 &install.intro.documentation;
 &install.compile.documentation;
 
-</appendix>
+</appendix> -->
 
 &documentation.index; 
 </book>
