@@ -654,7 +654,7 @@ QRegExp TopLevel::searchItems()
 	}
 
 	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
-	if (contains == text.length())
+	if (wholeWord && contains == text.length())
 		regexp = "\\W%1\\W";
 	else
 		regexp = "%1";
