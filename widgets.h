@@ -57,6 +57,30 @@ class ResultView : public QTextBrowser
 	bool links;
 };
 
+class eEdit : public KMainWindow
+{
+	Q_OBJECT
+	
+	public:
+	eEdit(const QString &, QWidget *parent = 0, const char *name = 0);
+	~eEdit();
+
+	private slots:
+	void add();
+	void save();
+	void del();
+	void openFile(const QString &);
+
+	private:
+	KListView *List;
+	QString filename;
+	KStatusBar *StatusBar;
+	KAction *addAct;
+	KAction *removeAct;
+	KAction *saveAct;
+	bool isMod;
+};
+
 class Learn : public KMainWindow
 {
 	Q_OBJECT

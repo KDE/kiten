@@ -64,6 +64,7 @@ class TopLevel : public KMainWindow
 	void print();
 
 	void createLearn();
+	void createEEdit();
 	void configureToolBars();
 	void newToolBarConfig();
 
@@ -116,6 +117,8 @@ class TopLevel : public KMainWindow
 	void enableHistoryButtons();
 
 	Dict::Entry firstEntry(Dict::SearchResult);
+
+	QString personalDict;
 };
 
 #endif

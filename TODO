@@ -16,8 +16,6 @@ learn a separate app.
 
 - factor out the gjiten heuristic of figuring out kanji/kana/roomaji
 
-- add load and save as to Learn mode
-
 - move all dialogs to KDialogBase, and have them used by exec()ing them
 
 Jason's:

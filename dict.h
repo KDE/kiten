@@ -157,13 +157,12 @@ private:
 	SearchResult scanResults(QRegExp regexp, QStringList results, bool common);
 	SearchResult scanKanjiResults(QRegExp regexp, QStringList results, bool common);
 	int stringCompare(File &, int index, QCString);
-
-	Entry parse(const QString &);
-	Entry kanjiParse(const QString &);
 };
 
 QString prettyKanjiReading(QStringList);
 QString prettyMeaning(QStringList);
+Entry parse(const QString &);
+Entry kanjiParse(const QString &);
 	
 }
 

@@ -21,15 +21,7 @@
 #include <qstrlist.h>
 
 #include <cassert>
-
-// TODO: check which of these C headers are stll needed
-#include <unistd.h> 
-#include <stdio.h> 
 #include <sys/mman.h> 
-#include <sys/types.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <inttypes.h>
 
 namespace
 {
@@ -277,8 +269,10 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 			++fullNum;
 			if ((*itr).find(QString("(P)")) >= 0 || !common)
 			{
-				ret.results.append(*itr); // we append HERE, so we get the exact
-				                          // results we have in ret.list
+				// we append HERE, so we get the exact
+				// results we have in ret.list
+				
+				ret.results.append(*itr);
 				ret.list.append(parse(*itr));
 				++num;
 			}
@@ -401,7 +395,7 @@ int Index::stringCompare(File &file, int index, QCString str)
 	return 0;
 }
 
-Entry Index::parse(const QString &raw)
+Entry Dict::parse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
@@ -464,7 +458,7 @@ Entry Index::parse(const QString &raw)
 	return (Entry(kanji, reading, meanings));
 }
 
-Entry Index::kanjiParse(const QString &raw)
+Entry Dict::kanjiParse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")

@@ -4,6 +4,7 @@
 #include <kiconloader.h>
 #include <qcheckbox.h>
 #include <qclipboard.h>
+#include <qfile.h>
 #include <qpushbutton.h>
 #include <kconfig.h>
 #include <kedittoolbar.h>
@@ -41,6 +42,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+	(void) new KAction(i18n("&Dictionary Editor"), 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	(void) new KAction(i18n("Ra&dical Search"), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
@@ -72,14 +74,11 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	if (autoCreateLearn)
 		createLearn();
 
-	/* TODO new Accel
-	Accel = new KGlobalAccel();
-	Accel->insertItem(i18n("Lookup Kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
-	Accel->insertItem(i18n("Lookup English/Japanese word"), "LookupWord", "CTRL+SHIFT+A");
-	Accel->connectItem("LookupKanji", this, SLOT(kanjiSearchAccel()));
-	Accel->connectItem("LookupWord", this, SLOT(searchAccel()));
-	Accel->readSettings();
-	*/
+	Accel = new KGlobalAccel(this);
+	Accel->insertAction(i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), KShortcuts("CTRL + ALT + K"), KShortcuts("CTRL + ALT + K"), this, SLOT(kanjiSearchAccel()));
+	Accel->insertAction(i18n("Lookup English/Japanese word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), KShortcuts(), KShortcuts(), this, SLOT(searchAccel()));
+	Accel->readSettings(KGlobal::config());
+	
 	isListMod = false;
 
 	resize(600, 400);
@@ -396,17 +395,19 @@ QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 
 void TopLevel::searchAccel()
 {
+	kdDebug() << "TopLevel::kanjiAccel()" << endl;
 	kanjiCB->setChecked(false);
 
-	clipBoardText();
+	Edit->setText(clipBoardText());
 	search();
 }
 
 void TopLevel::kanjiSearchAccel()
 {
+	kdDebug() << "TopLevel::kanjiSearchAccel()" << endl;
 	kanjiCB->setChecked(true);
 
-	clipBoardText();
+	Edit->setText(clipBoardText());
 	search();
 }
 
@@ -427,6 +428,7 @@ void TopLevel::slotUpdateConfiguration()
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString globaledict = dirs->findResource("appdata", "edict");
 	QString globalkanjidic = dirs->findResource("appdata", "kanjidic");
+	personalDict = KGlobal::dirs()->saveLocation("appdata", "dictionaries/", true).append("personal");
 
 	config->setGroup("app");
 	bool com = config->readBoolEntry("com", false);
@@ -448,6 +450,12 @@ void TopLevel::slotUpdateConfiguration()
 	{
 		DictList.prepend(globaledict);
 		DictNameList.prepend("Edict");
+	}
+
+	if (QFile::exists(personalDict))
+	{
+		DictList.prepend(personalDict);
+		DictNameList.prepend(i18n("Personal"));
 	}
 
 	_Index.setDictList(DictList, DictNameList);
@@ -526,6 +534,12 @@ void TopLevel::createLearn()
 	connect(this, SIGNAL(add(Dict::Entry)), _Learn, SLOT(externAdd(Dict::Entry)));
 
 	_Learn->show();
+}
+
+void TopLevel::createEEdit()
+{
+	eEdit *_eEdit = new eEdit(personalDict, this);
+	_eEdit->show();
 }
 
 void TopLevel::globalListChanged()

@@ -6,6 +6,7 @@
 
 class KListView;
 class QString;
+class KKeyChooser;
 class KFontChooser;
 class QLabel;
 class QPushButton;
@@ -41,9 +42,7 @@ class ConfigureDialog : public KDialogBase
 	KFontChooser *font;
 
 	KGlobalAccel *Accel;
-	/* TODO new Accel
-	KKeyEntryMap m_keys;
-	*/
+	KKeyChooser *Chooser;
 	
 	signals:
 	void valueChanged();

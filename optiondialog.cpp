@@ -90,11 +90,9 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	learnBox->addStretch();
 
 	QFrame *Page5 = addPage(i18n("Global Keys"));
-	/* TODO new Accel
-	m_keys = Accel->keyDict();
 	QVBoxLayout *layout = new QVBoxLayout(Page5);
-	layout->addWidget(new KKeyChooser(&m_keys, Page5));
-	*/
+	Chooser = new KKeyChooser(Accel, Page5);
+	layout->addWidget(Chooser);
 
 	QFrame *Page6 = addPage(i18n("Font"));
 	QVBoxLayout *fontLayout = new QVBoxLayout(Page6);
@@ -156,10 +154,8 @@ void ConfigureDialog::writeConfig()
 
 	config->sync();
 
-	/* TODO new Accel
-	Accel->setKeyDict(m_keys);
-	Accel->writeSettings();
-	*/
+	Chooser->commitChanges();
+	Accel->writeSettings(KGlobal::config());
 }
 
 void ConfigureDialog::slotOk()
