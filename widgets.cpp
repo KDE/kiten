@@ -41,23 +41,23 @@
 #include "kromajiedit.h"
 #include "widgets.h"
 
-ResultView::ResultView(bool _links, QWidget *parent, const char *name)
+ResultView::ResultView(bool showLinks, QWidget *parent, const char *name)
 	: KTextBrowser(parent, name)
 {
 	setReadOnly(true);
 	setLinkUnderline(false);
 	basicMode = false;
-	links = _links;
+	links = showLinks;
 
 	// don't let ktextbrowser internally handle link clicks
 	setNotifyClick(true);
 }
 
-void ResultView::addResult(Dict::Entry result, bool com)
+void ResultView::addResult(Dict::Entry result, bool common)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		addHeader((com? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
+		addHeader((common? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
 		return;
 	}
 	if (result.header() != "__NOTSET")
@@ -78,7 +78,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 	{
 		if ((*it).find("(P)") >= 0)
 		{
-			if (com)
+			if (common)
 				continue;
 			else
 			{
@@ -97,11 +97,11 @@ void ResultView::addResult(Dict::Entry result, bool com)
 	append(html);
 }
 
-void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
+void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		addHeader((com? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
+		addHeader((common? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
 		return;
 	}
 	if (result.header() != "__NOTSET")
@@ -117,7 +117,9 @@ void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
 	if (freq == 0) // does it have a frequency?
 		html = html.arg(i18n("Rare"));
 	else
-		html = html.arg(i18n("#%1").arg(freq));
+		// this isn't a number of times, it's simply an index of
+		// probability
+		html = html.arg(i18n("Probability rank #%1").arg(freq));
 
 	html += "<br />";
 
@@ -205,14 +207,9 @@ QString ResultView::putchars(const QString &text)
 	unsigned int len = text.length();
 	QString ret;
 
-	QTextCodec *codec = QTextCodec::codecForName("eucJP");
-
 	for (unsigned i = 0; i < len; i++)
 	{
-		QCString str = codec->fromUnicode(QString(text.at(i)));
-		unsigned char first = str[0];
-
-		if (first > 0xa8)
+		if (Dict::textType(QString(text.at(i))) == Dict::Text_Kanji)
 			ret.append(QString("<a href=\"%1\">%1</a>").arg(text.at(i)).arg(text.at(i)));
 		else
 			ret.append(text.at(i));
@@ -410,7 +407,7 @@ void eEdit::save()
 
 	// find the index generator executable
 	KProcess proc;
-	proc << KStandardDirs::findExe("kitengen") << filename << KGlobal::dirs()->saveLocation("appdata", "xjdx/", true) + QFileInfo(filename).baseName() + ".xjdx";
+	proc << KStandardDirs::findExe("kitengen") << filename << KGlobal::dirs()->saveLocation("data", "kiten/xjdx/", true) + QFileInfo(filename).baseName() + ".xjdx";
 	// TODO: put up a status dialog and event loop instead of blocking
 	proc.start(KProcess::Block, KProcess::NoCommunication);
 	
@@ -502,7 +499,7 @@ void EditAction::clear()
 	m_combo->setFocus();
 }
 
-void EditAction::insert(QString text)
+void EditAction::insert(const QString text)
 {
 	m_combo->insert(text);
 }

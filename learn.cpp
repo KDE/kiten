@@ -43,6 +43,18 @@
 #include "ksaver.h"
 #include "learn.h"
 
+LearnItem::LearnItem(QListView *parent, QString label1, QString label2, QString label3, QString label4, QString label5, QString label6, QString label7, QString label8)
+	: QListViewItem(parent, label1, label2, label3, label4, label5, label6, label7, label8)
+{
+}
+
+int LearnItem::compare(QListViewItem *item, int col, bool ascending) const
+{
+	// "Returns < 0 if this item is less than i [item] , 0 if they
+	// are equal and > 0 if this item is greater than i [item]."
+	return key(col, ascending).toInt() - item->key(col, ascending).toInt();
+}
+
 const int Learn::numberOfAnswers = 5;
 
 Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
@@ -495,7 +507,7 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 	score = config.readNumEntry(kanji, score);
 
 	unsigned int grade = toAdd.grade();
-	addItem(new QListViewItem(List, kanji, meanings, readings, QString::number(grade), QString::number(score)), noEmit);
+	addItem(new LearnItem(List, kanji, meanings, readings, QString::number(grade), QString::number(score)), noEmit);
 
 	numChanged();
 }
@@ -583,24 +595,19 @@ void Learn::del()
 			delete *i;
 		}
 
-		if (List->childCount() < 1)
+		curItem = List->firstChild();
+		prevItem = curItem;
+		backAct->setEnabled(false);
+
+		if (makenewq)
 		{
-			// this isn't a good state, quizzing is unstable
-		}
-		else
-		{
-			if (makenewq)
-			{
-				curItem = List->firstChild();
-				backAct->setEnabled(false);
-				prevItem = curItem;
-				qnew();
-			}
+			qnew();
 		}
 
 		setDirty();
 	}
 
+	itemSelectionChanged();
 	numChanged();
 }
 
@@ -666,9 +673,11 @@ void Learn::answerClicked(int i)
 
 	//config.writeEntry(curItem->text(0) + "_4", newscore);
 
-	QListViewItem *newItem = new QListViewItem(List, curItem->text(0), curItem->text(1), curItem->text(2), curItem->text(3), QString::number(newscore));
+	QListViewItem *newItem = new LearnItem(List, curItem->text(0), curItem->text(1), curItem->text(2), curItem->text(3), QString::number(newscore));
 
 	// readd, so it sorts
+	// 20 November 2004: why?? why not List->sort() ??
+	// haha I used to be naive
 	delete curItem;
 	curItem = newItem;
 
@@ -818,7 +827,7 @@ void Learn::cheat()
 	nogood = true;
 }
 
-QString Learn::shortenString(QString thestring)
+QString Learn::shortenString(const QString &thestring)
 {
 	return KStringHandler::rsqueeze(thestring, 60).stripWhiteSpace();
 }

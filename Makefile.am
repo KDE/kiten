@@ -21,7 +21,6 @@ bin_PROGRAMS = kiten kitengen
 
 kitengen_SOURCES = xjdxgen.c
 kitengen_LDFLAGS = $(all_libraries) $(KDE_RPATH) 
-kitengen_LDADD = $(LIB_QT)
 
 METASOURCES = AUTO
 

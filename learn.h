@@ -21,18 +21,27 @@
 #ifndef LEARN_H
 #define LEARN_H
 
+#include <qlistview.h>
+
 #include <kurl.h>
 
 #include "widgets.h"
 
 class KAction;
 class KConfig;
-class KListView;
 class KPushButton;
 class QButtonGroup;
 class QListViewItem;
 class QSplitter;
 class QTabWidget;
+
+// Item that sorts all columns numerically
+class LearnItem : public QListViewItem
+{
+public:
+	LearnItem(QListView *parent, QString label1, QString label2 = QString::null, QString label3 = QString::null, QString label4 = QString::null, QString label5 = QString::null, QString label6 = QString::null, QString label7 = QString::null, QString label8 = QString::null);
+	int compare(QListViewItem *item, int col, bool ascending) const;
+};
 
 class Learn : public KMainWindow
 {
@@ -128,7 +137,7 @@ class Learn : public KMainWindow
 
 	int seikai;
 	bool nogood;
-	QString shortenString(QString);
+	QString shortenString(const QString &);
 
 	// Creates a random meaning not on the lists and adds the meaning
 	// to the list.
