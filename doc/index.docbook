@@ -62,6 +62,8 @@ Kanji.</para>
 English and Japanese words. You can also add other dictionaries to
 &kiten;'s list.</para>
 
+<para>&kiten; uses Jim Breen's Edict and Kanjidic as the default dictionaries. You can find more information at <ulink url="http://www.csse.monash.edu.au/~jwb/edict.html">the Edict web site</ulink> and <ulink url="http://www.csse.monash.edu.au/~jwb/kanjidic.html">the Kanjidic web site</ulink>.</para>
+
 <sect1 id="looking-up-words"> 
 <title>Looking Up Words</title>
 
@@ -239,9 +241,9 @@ to perform your search.</para>
 </chapter>
 
 <chapter id="misc"> 
-<title>Miscallaneous</title>
+<title>Miscellaneous</title>
 
-<para>This chapter describes miscallaneous features that can be used
+<para>This chapter describes miscellaneous features that can be used
 in both modes in &kiten;'s main window.</para>
 
 <sect1 id="history"> 
@@ -471,6 +473,9 @@ given for you to guess on.</para>
 </listitem>
 <listitem>
 <para>Neil Stevens <email>neil@qualityassistant.com</email></para>
+</listitem>
+<listitem>
+<para>Jim Breen <email>jwb@csse.monash.edu.au</email> - Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator. Also is main author of edict and kanjidic, which Kiten essentially require.</para>
 </listitem>
 </itemizedlist>
 
