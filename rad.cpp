@@ -42,7 +42,7 @@ void Rad::load()
 	}
 
 	QFile f(radkfile);
-	
+
 	if (!f.open(IO_ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Kanji radical information could not be loaded, so radical searching cannot be used."));
@@ -76,7 +76,7 @@ void Rad::load()
 			cur.addKanji(s);
 		}
 	}
-	
+
 	// we gotta append the last one!!
 	// this nagged jasonkb for a bit wondering why fue wasn't showing up ;)
 	list.append(cur);
@@ -230,7 +230,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
 
 	QVBoxLayout *layout = new QVBoxLayout(vlayout, KDialog::spacingHint());
-	
+
 	totalStrokes = new QCheckBox(i18n("Search by total strokes"), this);
 	connect(totalStrokes, SIGNAL(clicked()), this, SLOT(totalClicked()));
 	layout->addWidget(totalStrokes);
@@ -239,11 +239,11 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	totalSpin = new QSpinBox(1, 30, 1, this);
 	strokesLayout->addWidget(totalSpin);
 	strokesLayout->addStretch();
-	totalErrLabel = new QLabel(i18n("+/-"), this);;
+	totalErrLabel = new QLabel(i18n("+/-"), this);
 	strokesLayout->addWidget(totalErrLabel);
 	totalErrSpin = new QSpinBox(0, 15, 1, this);
 	strokesLayout->addWidget(totalErrSpin);
-	
+
 	ok = new KPushButton(i18n("&Look Up"), this);
 	ok->setEnabled(false);
 	connect(ok, SIGNAL(clicked()), SLOT(apply()));
