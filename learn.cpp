@@ -109,10 +109,11 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 
 	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 0, KDialog::spacingHint());
 
+	QHBoxLayout *hlayout = new QHBoxLayout(quizLayout);
 	qKanji = new QLabel(quizTop);
-	quizLayout->addStretch();
-	quizLayout->addWidget(qKanji);
-	quizLayout->addStretch();
+	hlayout->addStretch();
+	hlayout->addWidget(qKanji);
+	hlayout->addStretch();
 
 	answers = new QButtonGroup(1, Horizontal, quizTop);
 	for(int i = 0; i < numberOfAnswers; ++i)
@@ -127,7 +128,18 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
 
+	setCurrentGrade(config.readNumEntry("grade", 1));
+
+	/*
+	 * this must be done now, because
+	 * to start a quiz, we need a working randomMeaning()
+	 * and that needs a loaded grade!
+	 */
+	updateGrade();
+	updateQuizConfiguration(); // first
+
 	QString entry = config.readEntry("lastFile", QString::null);
+	kdDebug() << "lastFile: " << entry << endl;
 	if(!entry.isNull())
 	{
 		filename = entry;
@@ -137,11 +149,6 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	{
 		setClean();
 	}
-
-	setCurrentGrade(config.readNumEntry("grade", 1));
-
-	updateGrade();
-	updateQuizConfiguration(); // first
 
 	resize(600, 400);
 	applyMainWindowSettings(&config, "LearnWindow");
@@ -193,6 +200,8 @@ void Learn::closeEvent(QCloseEvent *e)
 {
 	if (!warnClose())
 		return;
+
+	kapp->config()->sync();
 
 	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
 	KMainWindow::closeEvent(e);
@@ -332,6 +341,7 @@ void Learn::open()
 
 	read(filename);
 
+	kdDebug() << "saving lastFile\n";
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
 	config.writeEntry("lastFile", filename.url());
@@ -356,6 +366,7 @@ void Learn::save()
 	write(filename);
 
 	KConfig &config = *kapp->config();
+	kdDebug() << "saving lastFile\n";
 	config.setGroup("Learn");
 	config.writeEntry("lastFile", filename.url());
 	config.sync();
@@ -591,10 +602,14 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		float rand = kapp->random();
 		if ((rand > (RAND_MAX / 2)) || (List->childCount() < numberOfAnswers))
 		{
+			// get a meaning from dict
+			kdDebug() << "from our dict\n";
 			rand = kapp->random();
 			float rand2 = RAND_MAX / rand;
-			rand = list.count() / rand2;
-			rand -= 1;
+			rand = ((float)list.count() - 1) / rand2;
+			//rand -= 1;
+			kdDebug() << "rand: " << rand << endl;
+			kdDebug() << "list.count(): " << list.count() << endl;
 
 			switch (guessOn)
 			{
@@ -610,6 +625,8 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		}
 		else
 		{
+			// get a meaning from our list
+			kdDebug() << "from our list\n";
 			rand = kapp->random();
 			float rand2 = RAND_MAX / rand;
 			rand = List->childCount() / rand2;
@@ -621,6 +638,13 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 
 			meaning = it.current()->text(guessOn);
 		}
+
+		kdDebug() << "meaning: " << meaning << endl;
+		for (QStringList::Iterator it = oldMeanings.begin(); it != oldMeanings.end(); ++it)
+		{
+			kdDebug() << "oldMeaning: " << *it << endl;
+		}
+		kdDebug() << "curMeaning: " << curItem->text(guessOn) << endl;
 	}
 	while (oldMeanings.contains(meaning) || meaning == curItem->text(guessOn));
 
@@ -636,9 +660,10 @@ void Learn::qupdate()
 		return;
 
 	if (quizOn == 0)
-		qKanji->setText(QString("<center><font size=\"+3\">%1</font></center>").arg(curItem->text(0)));
+		qKanji->setText(QString("<font size=\"+3\">%1</font>").arg(curItem->text(0)));
 	else
-		qKanji->setText(QString("<center>%1</center>").arg(curItem->text(quizOn)));
+		//qKanji->setText(QString("%1").arg(curItem->text(quizOn)));
+		qKanji->setText(curItem->text(quizOn));
 
 	float rand = kapp->random();
 	float rand2 = RAND_MAX / rand;
