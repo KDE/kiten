@@ -24,10 +24,10 @@
 </Menu>
 
 <Menu name="settings">
-  <Action name="kanji_toggle" />
-  <Action name="deinf_toggle" />
-  <Action name="autosearch_toggle" />
-  <Action name="common" />
+  <Action name="kanji_toggle" append="save_merge"/>
+  <Action name="deinf_toggle" append="save_merge" />
+  <Action name="autosearch_toggle" append="save_merge" />
+  <Action name="common" append="save_merge"/>
 </Menu>
 
 </MenuBar>
