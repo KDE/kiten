@@ -173,8 +173,8 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	{
 		//kdDebug() << "replace is empty\n";
 		QString farRight(ji.right(ji.length() - 1));
-		kdDebug() << "ji = " << ji << endl;
-		kdDebug() << "farRight = " << farRight << endl;
+		//kdDebug() << "ji = " << ji << endl;
+		//kdDebug() << "farRight = " << farRight << endl;
 
 		// test if we need small tsu
 		if (ji.at(0) == farRight.at(0)) // if two letters are same, and we can add a twoletter length kana

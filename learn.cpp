@@ -744,6 +744,7 @@ void Learn::qupdate()
 
 void Learn::qnew() // new quiz kanji
 {
+	//kdDebug() << "qnew\n";
 	nogood = false;
 
 	statusBar()->clear();

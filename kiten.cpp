@@ -308,9 +308,18 @@ void TopLevel::search(bool inResults)
 				hist.common = common;
 				hist.text = text;
 
+				QStringList done;
+
+				res.prepend(text);
+				names.prepend(i18n("No deinflection"));
+
 				QStringList::Iterator nit = names.begin();
 				for (QStringList::Iterator it = res.begin(); it != res.end(); ++it, ++nit)
 				{
+					if (done.contains(*it) > 0)
+						continue;
+
+					//kdDebug() << "currently on deinflection " << *it << endl;
 					Dict::SearchResult results = _Index.search(QRegExp(QString("^") + (*it) + "\\W"), *it, common);
 					
 					if (results.count < 1) // stop if it isn't in the dictionary
@@ -323,6 +332,8 @@ void TopLevel::search(bool inResults)
 
 					hist.count += results.count;
 					hist.outOf += results.outOf;
+
+					done.append(*it);
 				}
 
 				handleSearchResult(hist);
