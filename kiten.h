@@ -98,6 +98,7 @@ private:
 	void doSearch(QString text, QRegExp regexp);
 	void doSearchInResults(QString text, QRegExp regexp);
 	void handleSearchResult(Dict::SearchResult);
+	QString filteredClipboardText();
 	QString clipBoardText();
 
 	ConfigureDialog *optionDialog;

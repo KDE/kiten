@@ -1,22 +1,22 @@
     ****************************************
    **                Kiten                 **
-   ** the only KDE Japanese reference tool **
+   **      a Japanese reference tool       **
     ****************************************
 
 Kiten comes ready to use. It will take a bit of time to start up the first time as it indexes your dictionary files. Later, be sure to try File->Learn...
 
-Kiten does do Japanese input of Kana for you. If you set up Kinput2 to use XIM, however, and you tell Kiten to use it, you will be able to input Kanji and search with it. For a tutorial on getting Japanese Kanji input in KDE (and thus Kiten) working, please see
+	Kiten does do Japanese input of Kana for you. If you set up a Japanese XIM server (like Kinput2), however, and you tell Kiten to use it, you will be able to input Kanji and search with it. For a tutorial on getting Japanese Kanji input in KDE (and thus Kiten) working, please see
 
 http://www.katzbrown.com/shiritsu/unix help/japanese on kde/
 
-If you have extra dictionaries in the correct formats, visit the "edict" and "kanjidic" configuration pages, under the "Dictionaries" configuration page, and use the "Add" button. Then Kiten will search under all of these and display the results seperately.
+	If you have extra dictionaries in the correct formats, visit the "edict" and "kanjidic" configuration pages, under the "Dictionaries" configuration page, and use the "Add" button. Then Kiten will search under all of these and display the results seperately.
 
-Information about edict and kanjidic is available at the urls
+	Information about edict and kanjidic is available at the urls
 
 http://www.csse.monash.edu.au/~jwb/edict.html
 http://www.csse.monash.edu.au/~jwb/kanjidic.html
 
-respectively. Jim Breen wrote these fine files, so many thanks to him.
+respectively. Jim Breen compiled these fine files, so many thanks to him.
 
 --
 Hope Kiten is useful to you!

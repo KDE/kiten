@@ -532,6 +532,16 @@ QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 	return text;
 }
 
+QString TopLevel::filteredClipboardText()
+{
+	QString newText = clipBoardText();
+	QString currentText = Edit->text();
+	if (newText.length() < 80 && newText.find(':') < 0 && newText.find('#') < 0 && newText.find("-") != 0 && newText.find("+") < 0 && currentText.find(newText) < 0)
+		return newText;
+	else
+		return QString::null;
+}
+
 void TopLevel::autoSearch()
 {
 	if (autoSearchToggle->isChecked())
@@ -540,22 +550,30 @@ void TopLevel::autoSearch()
 
 void TopLevel::searchAccel()
 {
-	kanjiCB->setChecked(false);
+	QString newText = filteredClipboardText();
+	if (!newText.isNull())
+	{
+		kanjiCB->setChecked(false);
 
-	raise();
+		raise();
 
-	Edit->setText(clipBoardText());
-	search();
+		Edit->setText(newText);
+		search();
+	}
 }
 
 void TopLevel::kanjiSearchAccel()
 {
-	kanjiCB->setChecked(true);
+	QString newText = filteredClipboardText();
+	if (!newText.isNull())
+	{
+		kanjiCB->setChecked(true);
 
-	raise();
+		raise();
 
-	Edit->setText(clipBoardText());
-	search();
+		Edit->setText(newText);
+		search();
+	}
 }
 
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)
