@@ -50,13 +50,18 @@ using namespace Dict;
 
 TextType Dict::textType(const QString &text)
 {
-	unsigned char first = QTextCodec::codecForName("eucJP")->fromUnicode(text)[0];
+	ushort first = text.at(0).unicode();
 	
-	if (first <= 128)
+	if (first < 0x3000)
 		return Text_Latin;
-	else if (first < 0xa8)
+	// else if (first < 0x3040) // CJK Symbols and Punctuation
+			// return Text_Kana;
+		// else if (first < 0x30A0) // Hiragana
+			// return Text_Kana;
+	else if (first < 0x3100) // Katakana
 		return Text_Kana;
-	else
+	
+	else if (first >= 0x3400 && first < 0x4DC0) // CJK Unified Ideographs Extension A
 		return Text_Kanji;
 }
 
