@@ -1,5 +1,3 @@
-// jason@katzbrown.com
-
 #include "dict.h"
 #include <kdebug.h>
 #include <qfile.h>
@@ -22,6 +20,7 @@
 
 #include <cassert>
 #include <sys/mman.h> 
+#include <stdio.h>
 
 namespace
 {
@@ -43,8 +42,25 @@ File::File(QString path, QString n)
 	, indexPtr((const uint32_t *)MAP_FAILED)
 	, valid(false)
 {
-	if(!indexFile.exists())
+	// ### change this if need be!!
+	// this up-to-date code from xjdservcomm.c
+
+	int dictionaryLength = 0;
+	QFile dictionary(path);
+	dictionaryLength = dictionary.size();
+  	dictionaryLength++;
+	//kdDebug() << "dictionaryLength = " << dictionaryLength << endl;
+
+	int32_t testWord[1];
+	fread(&testWord[0], sizeof(int32_t), 1, fopen(indexFile.name().latin1(), "rb"));
+
+	//kdDebug() << "testWord[0] = " << testWord[0] << endl;
+
+	const int indexFileVersion = 14;
+
+	if (!indexFile.exists() || testWord[0] != (dictionaryLength + indexFileVersion))
 	{
+		//kdDebug() << "creating " << indexFile.name() << endl;
 		// find the index generator executable
 		KProcess proc;
 		proc << KStandardDirs::findExe("kitengen") << path << indexFile.name();
@@ -52,20 +68,20 @@ File::File(QString path, QString n)
 		proc.start(KProcess::Block, KProcess::NoCommunication);
 	}
 
-	if(!dictFile.open(IO_ReadOnly))
+	if (!dictFile.open(IO_ReadOnly))
 	{
 		msgerr(i18n("Could not open dictionary %1."), path);
 		return;
 	}
 
 	dictPtr = (const unsigned char *)mmap(0, dictFile.size(), PROT_READ, MAP_SHARED, dictFile.handle(), 0);
-	if(dictPtr == MAP_FAILED)
+	if (dictPtr == MAP_FAILED)
 	{
 		msgerr(i18n("Memory error when loading dictionary %1."), path);
 		return;
 	}
 
-	if(!indexFile.open(IO_ReadOnly))
+	if (!indexFile.open(IO_ReadOnly))
 	{
 		msgerr(i18n("Could not open index for dictionary %1."), path);
 		return;
