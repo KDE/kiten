@@ -103,6 +103,7 @@ void KRomajiEdit::setKana(int _kana)
 	}
 }
 
+// TODO allow editing not only at end
 void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 {
 	bool shift = e->state() & ShiftButton;
@@ -232,6 +233,20 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 					kana = "hiragana";
 				return;
 			}
+		}
+	}
+
+	if ( e->key() == Key_Return || e->key() == Key_Enter ) // take care of pending n
+	{
+		if (kana == "hiragana")
+		{
+			if (_text[len-1] == 'n')
+				setText(curKana + hiragana["n'"]);
+		}
+		else
+		{
+			if (_text[len-1] == 'N')
+				setText(curKana + katakana["n'"]);
 		}
 	}
 
