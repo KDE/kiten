@@ -440,6 +440,8 @@ void TopLevel::searchAccel()
 {
 	kanjiCB->setChecked(false);
 
+	raise();
+
 	Edit->setText(clipBoardText());
 	search();
 }
@@ -447,6 +449,8 @@ void TopLevel::searchAccel()
 void TopLevel::kanjiSearchAccel()
 {
 	kanjiCB->setChecked(true);
+
+	raise();
 
 	Edit->setText(clipBoardText());
 	search();
