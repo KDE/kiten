@@ -47,4 +47,4 @@ data_DATA = edict kanjidic radkfile vconj romkana.cnv
 datadir = $(kde_datadir)/kiten
 
 messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/Kiten.pot
+	$(XGETTEXT) *.cpp *.h -o $(podir)/kiten.pot
