@@ -52,7 +52,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) new KAction(i18n("&Learn..."), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	(void) new KAction(i18n("&Dictionary Editor..."), 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
-	(void) new KAction(i18n("Ra&dical Search"), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
+	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
