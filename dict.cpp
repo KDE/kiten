@@ -46,9 +46,9 @@ using namespace Dict;
 File::File(QString path, QString n)
 	: myName(n)
 	, dictFile(path)
-	, dictPtr(static_cast<unsigned char *>(MAP_FAILED))
-	, indexFile(KGlobal::dirs()->saveLocation("appdata", "xjdx/", true) + path + ".xjdx")
-	, indexPtr(static_cast<uint32_t *>(MAP_FAILED))
+	, dictPtr((const unsigned char *)MAP_FAILED)
+	, indexFile(KGlobal::dirs()->saveLocation("appdata", "xjdx/", true) + QFileInfo(path).baseName() + ".xjdx")
+	, indexPtr((const uint32_t *)MAP_FAILED)
 	, valid(false)
 {
 	if(!indexFile.exists())
@@ -66,7 +66,7 @@ File::File(QString path, QString n)
 		return;
 	}
 
-	dictPtr = static_cast<unsigned char *>(mmap(0, dictFile.size(), PROT_READ, MAP_FILE | MAP_SHARED, dictFile.handle(), 0));
+	dictPtr = (const unsigned char *)mmap(0, dictFile.size(), PROT_READ, MAP_SHARED, dictFile.handle(), 0);
 	if(dictPtr == MAP_FAILED)
 	{
 		msgerr(i18n("Memory error when loading dictionary %1."), path);
@@ -79,7 +79,7 @@ File::File(QString path, QString n)
 		return;
 	}
 
-	indexPtr = static_cast<uint32_t *>(mmap(0, indexFile.size(), PROT_READ, MAP_FILE | MAP_SHARED, indexFile.handle(), 0));
+	indexPtr = (const uint32_t*)mmap(0, indexFile.size(), PROT_READ, MAP_SHARED, indexFile.handle(), 0);
 	if(indexPtr == MAP_FAILED)
 	{
 		msgerr(i18n("Memory error when loading dictionary %1's index file."), path);
@@ -92,11 +92,11 @@ File::File(QString path, QString n)
 File::~File(void)
 {
 	if(dictPtr != MAP_FAILED)
-		munmap(static_cast<void *>(dictPtr), dictFile.size());
+		munmap((void *)dictPtr, dictFile.size());
 	dictFile.close();
 
 	if(indexPtr != MAP_FAILED)
-		munmap(static_cast<void *>(indexPtr), indexFile.size());
+		munmap((void *)indexPtr, indexFile.size());
 	indexFile.close();
 }
 
@@ -105,16 +105,16 @@ QString File::name(void)
 	return myName;
 }
 
-Array<unsigned char> File::dict(void)
+Array<const unsigned char> File::dict(void)
 {
 	assert(valid);
-	return Array<unsigned char>(dictPtr, dictFile.size());
+	return Array<const unsigned char>(dictPtr, dictFile.size());
 }
 
-Array<uint32_t> File::index(void)
+Array<const uint32_t> File::index(void)
 {
 	assert(valid);
-	return Array<uint32_t>(indexPtr, indexFile.size());
+	return Array<const uint32_t>(indexPtr, indexFile.size());
 }
 
 int File::dictLength(void)
@@ -135,8 +135,7 @@ bool File::isValid(void)
 // returns specified character from a dictionary
 unsigned char File::lookup(unsigned i, int offset)
 {
-	if(i > indexFile.size()) return 10;
-	uint32_t pos = indexPtr[i] + offset;
+	uint32_t pos = indexPtr[i] + offset - 1;
 	if(pos > dictFile.size()) return 10;
 	return dictPtr[pos];
 }
@@ -187,40 +186,33 @@ void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, 
 	}
 }
 
-// Made possible by Jim
-// Made working by Jason
-// Made sane by Neil
 QStringList Index::doSearch(File &file, QString text)
 {
 	// Do a binary search to find an entry that matches text
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
 	QCString eucString = codec.fromUnicode(text);
 
-	Array<uint32_t> index = file.index();
-	Array<unsigned char> dict = file.dict();
+	Array<const uint32_t> index = file.index();
+	Array<const unsigned char> dict = file.dict();
 	int lo = 0;
-	int hi = index.size() - 1;
+	int hi = index.size() / sizeof(uint32_t) - 1;
 	unsigned cur;
 	int comp = 0;
 
+	kdDebug() << "Search for " << text << endl;
 	do
 	{
 		cur = (hi + lo) / 2;
 		comp = stringCompare(file, cur, eucString);
 
 		if(comp < 0)
-		{
 			hi = cur - 1;
-		}
 		else if(comp > 0)
-		{
 			lo = cur + 1;
-		}
 	}
-	while(hi > lo && comp != 0);
-
-	// We got a match
+	while(hi >= lo && comp != 0);
 	QStringList results;
+	// A match?
 	if(comp == 0)
 	{
 		// wheel back to make sure we get the first matching entry
@@ -348,16 +340,18 @@ KanjiSearchResult Index::searchPreviousKanji(QRegExp regexp, KanjiSearchResult l
 // except it will make katakana and hiragana match (EUC A4 & A5)
 int Index::stringCompare(File &file, int index, QCString str)
 {
-
+	QString d;
 	for(unsigned i = 0; i < str.length(); ++i)
 	{
 		unsigned char c1 = static_cast<unsigned char>(str[i]);
 		unsigned char c2 = file.lookup(index, i);
-
 		if ((c1 == '\0') || (c2 == '\0'))
+		{
+			kdDebug() << index << " " << d << "MATCH?" << endl;
 			return 0;
+		}
 
-		if ((i % 2) ==0)
+		if ((i % 2) == 0)
 		{
 			if (c1 == 0xA5)
 				c1 = 0xA4;
@@ -369,12 +363,15 @@ int Index::stringCompare(File &file, int index, QCString str)
 		if ((c1 >= 'A') && (c1 <= 'Z')) c1 |= 0x20; /*fix ucase*/
 		if ((c2 >= 'A') && (c2 <= 'Z')) c2 |= 0x20;
 
+		d += QString(QChar(c2));
 		if (c1 != c2)
 		{
+			kdDebug() << index << " " << d << endl;
 			return (int)c1 - (int)c2;
 		}
 	}
 
+	kdDebug() << index << " " << d << " MATCH" << endl;
 	return 0;
 }
 

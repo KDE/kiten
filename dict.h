@@ -58,8 +58,8 @@ public:
 
 	QString name(void);
 
-	Array<unsigned char> dict(void);
-	Array<uint32_t> index(void);
+	Array<const unsigned char> dict(void);
+	Array<const uint32_t> index(void);
 
 	int dictLength(void);
 	int indexLength(void);
@@ -72,10 +72,10 @@ private:
 	QString myName;
 
 	QFile dictFile;
-	unsigned char *dictPtr;
+	const unsigned char * dictPtr;
 
 	QFile indexFile;
-	uint32_t *indexPtr;
+	const uint32_t * indexPtr;
 
 	bool valid;
 };

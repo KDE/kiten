@@ -5,9 +5,9 @@
 #include <qstring.h>
 
 #include <qregexp.h>
-#include <dict.h>
+#include "dict.h"
+#include "rad.h"
 
-class Dict;
 class Rad;
 class Entry;
 class EditAction;
@@ -28,13 +28,14 @@ class TopLevel : public KMainWindow
 	signals:
 	void updateLists();
 	void saveLists();
-	void add(Kanji *);
+	void add(Dict::Kanji);
 
 	protected:
 	void closeEvent(QCloseEvent *);
 
 	private slots:
 	void search();
+	void search(bool inResults);
 	void searchBeginning();
 	void searchEnd();
 	void resultSearch();
@@ -46,7 +47,6 @@ class TopLevel : public KMainWindow
 	void slotConfigureHide();
 	void slotConfigureDestroy();
 	void slotUpdateConfiguration();
-	void loadDict();
 	void kanjiDictChange();
 	void globalListChanged();
 	void globalListDirty();
@@ -60,25 +60,20 @@ class TopLevel : public KMainWindow
 	void newToolBarConfig();
 
 	private:
-	Dict * _Dict;
-	Rad * _Rad;
+	Dict::Index _Index;
+	Rad _Rad;
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
 	KAction *irAction;
 	KAction *addAction;
 	KToggleAction *comCB;
 
-	bool noInit;
-	bool noKanjiInit;
 	bool wholeWord;
 	bool caseSensitive;
 
 	KGlobalAccel *Accel;
 
-	QString regexp; // is searched for in dict
-	QRegExp realregexp; // is searched on real dict strings
-	                    // things that match dict in dictionary
-	void doSearch();
+	void doSearch(QString text, QRegExp regexp, bool inResults = false);
 	QString clipBoardText();
 
 	ConfigureDialog *optionDialog;
@@ -97,7 +92,10 @@ class TopLevel : public KMainWindow
 	bool readingSearch; // if this is true and no results, try with kanjiSearchItems
 	bool beginningReadingSearch;
 
-	Kanji *toAddKanji;
+	Dict::Kanji toAddKanji;
+
+	QValueList<Dict::SearchResult> resultHistory;
+	QValueList<Dict::KanjiSearchResult> kanjiResultHistory;
 };
 
 #endif
