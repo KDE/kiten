@@ -46,15 +46,13 @@
 unsigned char *db;
 unsigned char ENVname[50];
 unsigned char *dicenv;
-struct stat *buf;
+struct stat buf;
 u_int32_t dbyte;
 u_int32_t  *jindex;
 u_int32_t indptr,llone;
-unsigned char ctl_file[80] = {".xjdicrc"};
-unsigned char Dname[80] = {"edict"};
-unsigned char JDXname[80] = {"edict.xjdx"};
-unsigned char EDname[80] = {"edict"};
-unsigned char EJDXname[80] = {"edict.xjdx"};
+const char *ctl_file = ".xjdicrc";
+const char *Dname;
+const char *JDXname;
 unsigned char exlist[EXLIM][11];	/* list of words to be excluded */
 int excount,exlens[EXLIM];
 int jiver = 14;		/*The last time the index structure changed was Version1.4*/
@@ -95,58 +93,6 @@ unsigned char **argv;
   int i,inwd,cstrp,saving,isc,nodread;
   unsigned char c;
   unsigned char currstr[TOKENLIM];
-  /*
-  unsigned char **ap;
-
-  printf("\nXJDXGEN V2.3 Index Table Generator for XJDIC. \n      Copyright J.W. Breen, 1998\n");
-  ap = argv;
-  arg_c = argc;
-  while (arg_c > 1)
-  {
-	ap++;
-
-	if(strcmp(*ap,"-h") == 0)
-	{
-		printf("\nThe command-line options are:\n");
-		printf("  -h  this display\n");
-		printf("  -c  control file\n");
-		printf("  -o  output file\n");
-		printf("  filename - file to be indexed\n\n");
-		exit(0);
-	}
-
-	if(strcmp(*ap, "-c") == 0)
-	{
-		ap++;
-		strcpy(ctl_file, *ap);
-    		printf("Commandline request to use control file %s\n", ctl_file);
-		arg_c-=2;
-	strcpy(strtmp,*ap);
-		continue;
-	}
-
-	if(strcmp(*ap, "-o") == 0)
-	{
-		ap++;
-		strcpy(JDXname, *ap);
-    		printf("Commandline request to use output file %s\n", JDXname);
-		arg_c-=2;
-	strcpy(strtmp,*ap);
-		continue;
-	}
-
-	strcpy(strtmp,*ap);
-	strcpy(Dname,*ap);
-
-	strcpy(JDXname,*ap);
-	strcat(JDXname,".xjdx");
-
-    	printf("Commandline request to use files %s and %s \n",Dname,JDXname);
-	ap++;
-	arg_c--;
-  }
-  xjdicrc();
-  */
 
   printf("\nNOTE: running this program by itself is never necessary. Kiten will run it automatically.\n");
   printf("\nXJDXGEN V2.3 Index Table Generator for XJDIC. \n      Copyright J.W. Breen, 1998\n");
@@ -154,24 +100,23 @@ unsigned char **argv;
   if (argc < 3)
   {
     printf("\nUSAGE: kitengen input output.xjdx\n");
-    return;
+    exit(2);
   }
 
-  strcpy(Dname, argv[1]);
-  strcpy(JDXname, argv[2]);
+  Dname = argv[1];
+  JDXname = argv[2];
   printf("Commandline request to use files %s and %s \n", Dname, JDXname);
 
   inwd = FALSE;
   indptr = 1;
   llone = 1;
-  buf = (void *)malloc(1000);
-  if(stat(Dname, buf) != 0)
+  if(stat(Dname, &buf) != 0)
   {
 	 perror(NULL);
 	 printf("Cannot stat: %s \n",Dname);
 	 exit(1);
   }
-  diclen = buf->st_size;
+  diclen = buf.st_size;
   printf("\nWARNING!!  This program may take a long time to run .....\n");
 
   puts ("\nLoading Dictionary file.  Please wait.....\n");
@@ -382,7 +327,7 @@ int Kstrcmp(uint32_t lhs, uint32_t rhs)
 /*
 void xjdicrc()
 {
-	unsigned char xjdicdir[128],rcstr[80],*rcwd;
+	unsigned char xjdicdir[PATH_MAX],rcstr[80],*rcwd;
 	int iex;
 	FILE *fm,*fopen();
 
@@ -401,24 +346,28 @@ void xjdicrc()
 	}
 	else
 	{
-		strcpy (ENVname,dicenv);
+		strncpy(ENVname,dicenv,sizeof(ENVname));
         }
+        ENVname[sizeof(ENVname)-1] = '\0';
+        
+	xjdicdir[sizeof(xjdicdir)-1] = '\0';
 	if (strlen(ENVname) > 2)
 	{
-		strcpy(xjdicdir,ENVname);
-		strcat(xjdicdir,"/");
+		strncpy(xjdicdir,ENVname, sizeof(xjdicdir)-1);
+		strncat(xjdicdir,"/", sizeof(xjdicdir)-1-strlen(xjdicdir));
 	}
 	else    
 	{
-		strcpy(xjdicdir,(unsigned char *)getenv("HOME"));
-		strcat(xjdicdir,"/");
+		strncpy(xjdicdir,(unsigned char *)getenv("HOME"), sizeof(xjdicdir)-1);
+		strncat(xjdicdir,"/", sizeof(xjdicdir)-1-strlen(xjdicdir));
 	}
 
-	strcat(xjdicdir,ctl_file);
+	strncat(xjdicdir, ctl_file, sizeof(xjdicdir)-1-strlen(xjdicdir));
 	fm = fopen(xjdicdir,"r");
 	if (fm == NULL)
 	{
-		strcpy(xjdicdir,ctl_file);
+		// Weird code --waba
+		strncat(xjdicdir, ctl_file, sizeof(xjdicdir)-1-strlen(xjdicdir));
 		fm = fopen(xjdicdir,"r");
 	}
 	if (fm != NULL)
@@ -432,7 +381,8 @@ void xjdicrc()
 				{
                                 	rcwd = (unsigned char *)strtok(NULL," \t\f\r\n");
 					if (rcwd == NULL) break;
-					strcpy(exlist[iex],rcwd);
+					strncpy(exlist[iex],rcwd, sizeof(exlist[iex]));
+					exlist[iex][sizeof(exlist[iex])-1] = '\0';
 					exlens[iex] = strlen(rcwd);
 					if (iex < EXLIM) iex++;
 				}
