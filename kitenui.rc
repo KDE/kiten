@@ -4,8 +4,8 @@
 <MenuBar>
 
 <Menu name="file"><text>&amp;File</text>
- <Action name="file_learn" />
- <Action name="add" />
+  <Action name="file_learn" />
+  <Action name="add" />
 </Menu>
 
 <Menu name="search"><text>&amp;Search</text>
@@ -15,6 +15,7 @@
   <Action name="search_end" />
   <Action name="search_grade" />
   <Action name="search_stroke" />
+  <Action name="search_radical" />
 </Menu>
 
 <Menu name="settings"><text>&amp;Settings</text>

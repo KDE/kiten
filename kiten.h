@@ -8,6 +8,7 @@
 #include <dict.h>
 
 class Dict;
+class Rad;
 class Entry;
 class EditAction;
 class QCheckBox;
@@ -51,6 +52,8 @@ class TopLevel : public KMainWindow
 	void globalListDirty();
 	void toggleCom();
 	void addToList();
+	void radicalSearch();
+	void radSearch(QString &);
 
 	void createLearn();
 	void configureToolBars();
@@ -58,6 +61,7 @@ class TopLevel : public KMainWindow
 
 	private:
 	Dict * _Dict;
+	Rad * _Rad;
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
 	KAction *irAction;

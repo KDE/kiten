@@ -37,7 +37,7 @@ class ResultView : public QTextEdit
 	void addResult(Entry *, bool = false);
 	void addKanjiResult(Kanji *);
 
-	void addHeader(const QString &);
+	void addHeader(const QString &, unsigned int degree = 3);
 };
 
 class Learn : public KMainWindow
@@ -144,6 +144,7 @@ public:
 
 public slots:
 	void clear();
+	void insert(QString &);
 
 signals:
     void plugged();

@@ -8,6 +8,7 @@ kiten_la_SOURCES = main.cpp \
 			dict.cpp \
 			kiten.cpp \
 			optiondialog.cpp \
+			rad.cpp \
 			widgets.cpp
 
 kiten_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -avoid-version
@@ -32,7 +33,7 @@ dummy.cpp:
 applnk_DATA = kiten.desktop
 applnkdir = $(kde_appsdir)/Utilities
 
-data_DATA = edict kanjidic
+data_DATA = edict kanjidic radkfile
 datadir = $(kde_datadir)/kiten
 
 messages: $(XGETTEXT) *.cpp *.h -o $(podir)/Kiten.pot

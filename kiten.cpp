@@ -27,16 +27,19 @@
 #include "optiondialog.h"
 #include "widgets.h"
 #include "dict.h"
+#include "rad.h"
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
 	_ResultView = new ResultView(this, "_ResultView");
 	_Dict = new Dict();
+	_Rad = new Rad();
 	setCentralWidget(_ResultView);
 
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+	(void) new KAction(i18n("Ra&dical Search"), 0, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
@@ -221,9 +224,10 @@ void TopLevel::searchBeginning()
 	regexp = Edit->text();
 
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
+
 	QCString csch_str = codec->fromUnicode(regexp);
-	unsigned char *sch_str = (const char *)(csch_str);
-	sch_str = (const unsigned char *)(sch_str);
+	const char *charsch_str = (const char *)(csch_str);
+	unsigned char *sch_str = (unsigned char *)(charsch_str);
 
 	if (sch_str[0] <= 128)
 		realregexp = QRegExp(QString("\\W").append(regexp));
@@ -265,9 +269,10 @@ void TopLevel::search()
 	regexp = Edit->text();
 
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
+
 	QCString csch_str = codec->fromUnicode(regexp);
-	unsigned char *sch_str = (const char *)(csch_str);
-	sch_str = (const unsigned char *)(sch_str);
+	const char *charsch_str = (const char *)(csch_str);
+	unsigned char *sch_str = (unsigned char *)(charsch_str);
 
 	// gjiten seems to do this stuff to tell between the three...
 	if (sch_str[0] <= 128)
@@ -584,6 +589,26 @@ void TopLevel::configureToolBars()
 void TopLevel::newToolBarConfig()
 {
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+}
+
+void TopLevel::radicalSearch()
+{
+	RadWidget *rw = new RadWidget(_Rad, 0, "rw");
+	connect(rw, SIGNAL(set(QString &)), this, SLOT(radSearch(QString &)));
+	rw->show();
+}
+
+void TopLevel::radSearch(QString &text)
+{
+	_ResultView->clear();
+
+	QStringList list = _Rad->kanjiByRad(text);
+
+	QStringList::iterator it;
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		_ResultView->addHeader(*it, 1);
+	}
 }
 
 #include "kiten.moc"

@@ -154,9 +154,9 @@ void ResultView::addKanjiResult(Kanji *result)
 	insertParagraph(html, paragraphs() + 1);
 }
 
-void ResultView::addHeader(const QString &header)
+void ResultView::addHeader(const QString &header, unsigned int degree)
 {
-	insertParagraph(QString("<h3>%1</h3>").arg(header), paragraphs() + 1);
+	insertParagraph(QString("<h%1>%2</h%3>").arg(degree).arg(header).arg(degree), paragraphs() + 1);
 }
 
 ////////////////////////////////////////////////
@@ -856,6 +856,11 @@ void EditAction::unplug( QWidget *w )
 void EditAction::clear()
 {
 	m_combo->clear();
+}
+
+void EditAction::insert(QString &text)
+{
+	m_combo->insert(text);
 }
 
 #include "widgets.moc"
