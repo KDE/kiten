@@ -180,7 +180,7 @@ bool Learn::warnClose()
 {
 	if (isMod)
 	{
-		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved Changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
+		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved Changes"), KStdGuiItem::save(), KStdGuiItem::discard(), "DiscardAsk", true);
 		switch (result)
 		{
 		case KMessageBox::Yes:
