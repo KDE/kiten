@@ -29,7 +29,7 @@ class TopLevel : public KMainWindow
 	signals:
 	void updateLists();
 	void saveLists();
-	void add(Dict::Kanji);
+	void add(Dict::Entry);
 
 	protected:
 	void closeEvent(QCloseEvent *);
@@ -96,12 +96,11 @@ class TopLevel : public KMainWindow
 	bool readingSearch; // if this is true and no results, try with kanjiSearchItems
 	bool beginningReadingSearch;
 
-	Dict::Kanji toAddKanji;
+	Dict::Entry toAddKanji;
 
 	QValueList<Dict::SearchResult> resultHistory;
-	QValueList<Dict::KanjiSearchResult> kanjiResultHistory;
 
-	Dict::Kanji firstKanji(Dict::KanjiSearchResult);
+	Dict::Entry firstKanji(Dict::SearchResult);
 
 	QString name;
 	QString dicform;

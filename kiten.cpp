@@ -163,7 +163,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 	}
 	else
 	{
-		Dict::KanjiSearchResult results = _Index.searchKanji(regexp, text, num, fullNum, comCB->isChecked());
+		Dict::SearchResult results = _Index.searchKanji(regexp, text, num, fullNum, comCB->isChecked());
 
 		if (num == 1) // if its only one entry, give compounds too!
 		{
@@ -188,7 +188,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 		}
 		else
 		{
-			for(QValueListIterator<Dict::Kanji> it = results.list.begin(); it != results.list.end(); ++it)
+			for(QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
 				_ResultView->addKanjiResult(*it);
 		}
 	}
@@ -468,7 +468,7 @@ void TopLevel::createLearn()
 	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
 	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
 	connect(this, SIGNAL(saveLists()), _Learn, SLOT(writeConfiguration()));
-	connect(this, SIGNAL(add(Dict::Kanji)), _Learn, SLOT(externAdd(Dict::Kanji)));
+	connect(this, SIGNAL(add(Dict::Entry)), _Learn, SLOT(externAdd(Dict::Entry)));
 
 	_Learn->show();
 }
@@ -594,11 +594,11 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 	else
 		_ResultView->addHeader(i18n("Kanji with radical %1").arg(text));
 
-	Dict::Kanji kanji;
+	Dict::Entry kanji;
 
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		Dict::KanjiSearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), num, fullNum, comCB->isChecked());
+		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), num, fullNum, comCB->isChecked());
 
 		if(num < 1)
 			continue;
@@ -613,15 +613,15 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 	setResults(realNum, realFullNum);
 }
 
-Dict::Kanji TopLevel::firstKanji(Dict::KanjiSearchResult result)
+Dict::Entry TopLevel::firstKanji(Dict::SearchResult result)
 {
-	for(QValueListIterator<Dict::Kanji> it = result.list.begin(); it != result.list.end(); ++it)
+	for(QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
 	{
 		if ((*it).dictName() == "__NOTSET")
 			return (*it);
 	}
 
-	return Dict::Kanji("__NOTHING");
+	return Dict::Entry("__NOTHING");
 }
 
 #include "kiten.moc"

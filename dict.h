@@ -83,62 +83,45 @@ private:
 class Entry
 {
 public:
+	// EDict ctor
 	Entry(const QString &, const QString &, const QStringList &);
+	// Kanjidic ctor
+	Entry(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
+	// default (for containers)
 	Entry(const QString & = QString::null);
+
+	QString dictName();
+	QStringList meanings();
+	QStringList readings();
+	QString firstReading();
 
 	bool kanaOnly();
 	QString kanji();
-	QString reading();
-	QStringList meanings();
-	QString dictName();
-	
-private:
-	QString Kanji;
-	QString Reading;
-	bool KanaOnly;
 
-	QStringList Meanings;
-
-	QString DictName;
-};
-
-class Kanji
-{
-public:
-	Kanji(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
-	Kanji(const QString & = QString::null);
-
-	QString kanji();
+	bool extendedKanjiInfo();
 	unsigned int grade();
 	unsigned int strokes();
 	unsigned int miscount();
 	unsigned int freq();
-	QStringList readings();
-	QStringList meanings();
 
-	QString dictName();
+protected:
+	QString DictName;
+	QStringList Meanings;
 
-private:
-	QString TheKanji;
+	QString Kanji;
+	bool KanaOnly;
+	QStringList Readings;
+
+	bool ExtendedKanjiInfo;
 	unsigned int Grade;
 	unsigned int Strokes;
 	unsigned int Miscount;
 	unsigned int Freq;
-	QStringList Readings;
-	QStringList Meanings;
-
-	QString DictName;
 };
 
 struct SearchResult
 {
 	QValueList<Entry> list;
-	QStringList results;
-};
-
-struct KanjiSearchResult
-{
-	QValueList<Kanji> list;
 	QStringList results;
 };
 
@@ -154,10 +137,8 @@ public:
 	void setKanjiDictList(const QStringList &files, const QStringList &names);
 
 	SearchResult search(QRegExp, QString, unsigned int &, unsigned int &, bool common);
+	SearchResult searchKanji(QRegExp, const QString &, unsigned int &, unsigned int &, bool common);
 	SearchResult searchPrevious(QRegExp, SearchResult, unsigned int &, unsigned int &, bool common);
-	KanjiSearchResult searchKanji(QRegExp, const QString &, unsigned int &, unsigned int &, bool common);
-	KanjiSearchResult searchPreviousKanji(QRegExp, KanjiSearchResult, unsigned int &, unsigned int &, bool common);
-
 
 private:
 	QPtrList<File> dictFiles;
@@ -167,11 +148,11 @@ private:
 
 	QStringList doSearch(File &, QString);
 	SearchResult scanResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
-	KanjiSearchResult scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
+	SearchResult scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common);
 	int stringCompare(File &, int index, QCString);
 
 	Entry parse(const QString &);
-	Kanji kanjiParse(const QString &);
+	Entry kanjiParse(const QString &);
 };
 
 QString prettyKanjiReading(QStringList);

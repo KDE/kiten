@@ -37,7 +37,7 @@ class ResultView : public QTextBrowser
 	ResultView(bool, QWidget *parent = 0, const char *name = 0);
 
 	void addResult(Dict::Entry, bool = false);
-	void addKanjiResult(Dict::Kanji, Radical = Radical());
+	void addKanjiResult(Dict::Entry, Radical = Radical());
 
 	void addHeader(const QString &, unsigned int degree = 3);
 
@@ -74,7 +74,7 @@ class Learn : public KMainWindow
 	void random();
 	void add();
 	void addAll();
-	void externAdd(Dict::Kanji);
+	void externAdd(Dict::Entry);
 	void del();
 	void cheat();
 	void tabChanged(QWidget *);
@@ -91,8 +91,8 @@ class Learn : public KMainWindow
 	QWidget *quizTop;
 
 	ResultView *View;
-	QValueList<Dict::Kanji> list;
-	QValueListIterator<Dict::Kanji> current;
+	QValueList<Dict::Entry> list;
+	QValueListIterator<Dict::Entry> current;
 	KStatusBar *StatusBar;
 
 	Dict::Index *index;

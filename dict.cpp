@@ -296,17 +296,10 @@ SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsi
 	return scanResults(regexp, results, num, fullNum, common);
 }
 
-SearchResult Index::searchPrevious(QRegExp regexp, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
-{
-	num = 0;
-	fullNum = 0;
-	return scanResults(regexp, list.results, num, fullNum, common);
-}
-
-KanjiSearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
 {
 	const bool jmyCount = false; // don't count JinMeiYou as common
-	KanjiSearchResult ret;
+	SearchResult ret;
 	ret.results = results;
 
 	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
@@ -335,7 +328,7 @@ KanjiSearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, u
 	return ret;
 }
 
-KanjiSearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsigned int &num, unsigned int &fullNum, bool common)
 {
 	num = 0;
 	fullNum = 0;
@@ -351,12 +344,15 @@ KanjiSearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsign
 	return scanKanjiResults(regexp, results, num, fullNum, common);
 }
 
-KanjiSearchResult Index::searchPreviousKanji(QRegExp regexp, KanjiSearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::searchPrevious(QRegExp regexp, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
 {
 	num = 0;
 	fullNum = 0;
 
-	return scanKanjiResults(regexp, list.results, num, fullNum, common);
+	if((*list.list.at(0)).extendedKanjiInfo())
+		return scanKanjiResults(regexp, list.results, num, fullNum, common);
+	else
+		return scanResults(regexp, list.results, num, fullNum, common);
 }
 
 // effectively does a strnicmp on two "strings" 
@@ -450,11 +446,11 @@ Entry Index::parse(const QString &raw)
 	return (Entry(kanji, reading, meanings));
 }
 
-Kanji Index::kanjiParse(const QString &raw)
+Entry Index::kanjiParse(const QString &raw)
 {
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
-		return Kanji(raw.right(length - 5));
+		return Entry(raw.right(length - 5));
 
 	QStringList readings;
 	QString kanji;
@@ -560,7 +556,7 @@ Kanji Index::kanjiParse(const QString &raw)
 		}
 	}
 
-	return (Kanji(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
+	return (Entry(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
 }
 
 QString Dict::prettyMeaning(QStringList Meanings)
@@ -602,22 +598,31 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 ///////////////////////////////////////////////////////////////
 
 Entry::Entry(const QString & kanji, const QString & reading, const QStringList &meanings)
+	: DictName(QString::fromLatin1("__NOTSET"))
+	, Meanings(meanings)
+	, Kanji(kanji)
+	, KanaOnly(reading.isEmpty())
+	, Readings(KanaOnly ? kanji : reading)
+	, ExtendedKanjiInfo(false)
+	, Grade(0)
+	, Strokes(0)
+	, Miscount(0)
+	, Freq(0)
 {
-	Kanji = kanji;
-	Meanings = meanings;
+}
 
-	if (reading.isEmpty()) // empty, because its kanaonly
-	{
-		KanaOnly = true;
-		Reading = kanji;
-	}
-	else
-	{
-		KanaOnly = false;
-		Reading = reading;
-	}
-
-	DictName = "__NOTSET";
+Entry::Entry(QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
+	: DictName(QString::fromLatin1("__NOTSET"))
+	, Meanings(meanings)
+	, Kanji(kanji)
+	, KanaOnly(false)
+	, Readings(readings)
+	, ExtendedKanjiInfo(true)
+	, Grade(grade)
+	, Strokes(strokes)
+	, Miscount(miscount)
+	, Freq(freq)
+{
 }
 
 Entry::Entry(const QString &dictname)
@@ -640,9 +645,14 @@ QString Entry::kanji()
 	return Kanji;
 }
 
-QString Entry::reading()
+QStringList Entry::readings()
 {
-	return Reading;
+	return Readings;
+}
+
+QString Entry::firstReading()
+{
+	return *Readings.at(0);
 }
 
 QStringList Entry::meanings()
@@ -650,66 +660,29 @@ QStringList Entry::meanings()
 	return Meanings;
 }
 
-///////////////////////////////////////////////////////////////
-
-Kanji::Kanji(QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
-{
-	//kdDebug() << "new kanji\n";
-	TheKanji = kanji;
-	Readings = readings;
-	Meanings = meanings;
-	Grade = grade;
-	Freq = freq;
-	Strokes = strokes;
-	Miscount = miscount;
-
-	DictName = "__NOTSET";
-}
-
-Kanji::Kanji(const QString &dictname)
-{
-	//kdDebug() << "new kanji header\n";
-	DictName = dictname;
-}
-
-QString Kanji::dictName()
-{
-	return DictName;
-}
-
-QString Kanji::kanji()
-{
-	return TheKanji;
-}
-
-unsigned int Kanji::grade()
+unsigned int Entry::grade()
 {
 	return Grade;
 }
 
-unsigned int Kanji::freq()
+unsigned int Entry::freq()
 {
 	return Freq;
 }
 
-unsigned int Kanji::miscount()
+unsigned int Entry::miscount()
 {
 	return Miscount;
 }
 
-unsigned int Kanji::strokes()
+unsigned int Entry::strokes()
 {
 	return Strokes;
 }
 
-QStringList Kanji::readings()
+bool Entry::extendedKanjiInfo()
 {
-	return Readings;
-}
-
-QStringList Kanji::meanings()
-{
-	return Meanings;
+	return ExtendedKanjiInfo;
 }
 
 #include "dict.moc"

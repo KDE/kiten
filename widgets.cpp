@@ -51,9 +51,9 @@ void ResultView::addResult(Dict::Entry result, bool com)
 
 	QString html;
 	if (result.kanaOnly())
-		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result.reading());
+		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result.firstReading());
 	else
-		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(putchars(result.kanji())).arg(result.reading());
+		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(putchars(result.kanji())).arg(result.firstReading());
 
 	QStringList::Iterator it;
 	QStringList Meanings = result.meanings();
@@ -80,7 +80,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 	insertParagraph(html, paragraphs() + 1);
 }
 
-void ResultView::addKanjiResult(Dict::Kanji result, Radical rad)
+void ResultView::addKanjiResult(Dict::Entry result, Radical rad)
 {
 	if (result.dictName() != "__NOTSET")
 	{
@@ -367,7 +367,7 @@ void Learn::update()
 {
 	View->clear();
 	
-	Dict::Kanji curKanji = *current;
+	Dict::Entry curKanji = *current;
 
 	if (!curKanji.kanji())
 	{
@@ -397,7 +397,7 @@ void Learn::updateGrade()
 	regexp = regexp.arg(grade);
 
 	unsigned int num, fullNum;
-	Dict::KanjiSearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
+	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
 	list = result.list;
 
 	StatusBar->message(i18n("%1 entries in grade %2").arg(list.count()).arg(grade));
@@ -457,7 +457,7 @@ void Learn::writeConfiguration()
 	emit listChanged();
 }
 
-void Learn::externAdd(Dict::Kanji toAdd)
+void Learn::externAdd(Dict::Entry toAdd)
 {
 	// Remove peripheral readings: This is a study mode, not a reference mode
 	QRegExp inNames = QString::fromLatin1(",\\s*[A-Za-z ]+:.*");
@@ -480,8 +480,8 @@ void Learn::addAll()
 	regexp = regexp.arg(grade);
 
 	unsigned int num, fullNum;
-	Dict::KanjiSearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
-	for(QValueListIterator<Dict::Kanji> i = result.list.begin(); i != result.list.end(); ++i)
+	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, num, fullNum, false);
+	for(QValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
 		externAdd(*i);
 }
 
