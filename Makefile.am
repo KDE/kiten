@@ -27,11 +27,8 @@ libkiteninclude_HEADERS = \
 
 kitengen_SOURCES = xjdxgen.c
 kitengen_LDFLAGS = $(all_libraries) $(KDE_RPATH) 
-kitengen_LDADD = $(LIB_QT)
 
 METASOURCES = AUTO
-
-CLEANFILES = dummy.cpp
 
 rcdir = $(kde_datadir)/kiten
 rc_DATA = kitenui.rc learnui.rc eeditui.rc
