@@ -33,6 +33,7 @@ ResultView::ResultView(bool _links, QWidget *parent, const char *name)
 	: QTextBrowser(parent, name)
 {
 	setReadOnly(true);
+	setLinkUnderline(false);
 	links = _links;
 
 	// qtextbrowser.cpp connects this... we don't need it
