@@ -32,10 +32,10 @@
   <Action name="go_back" />
   <Action name="go_forward" />
   <Action name="random" />
-  <Seperator />
+  <Separator />
   <Action name="add" />
   <Action name="del" />
-  <Seperator />
+  <Separator />
   <Action name="grade" />
 </ToolBar>
 
