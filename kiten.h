@@ -35,7 +35,7 @@ class TopLevel : public KMainWindow
 	void closeEvent(QCloseEvent *);
 
 	private slots:
-	void search();
+	void search(bool inResults = false);
 	void ressearch(const QString&);
 	void searchBeginning();
 	void searchEnd();
@@ -81,6 +81,7 @@ class TopLevel : public KMainWindow
 	KGlobalAccel *Accel;
 
 	void doSearch(QString text, QRegExp regexp);
+	void doSearchInResults(QString text, QRegExp regexp);
 	void handleSearchResult(Dict::SearchResult);
 	QString clipBoardText();
 

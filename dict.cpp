@@ -337,7 +337,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsign
 	return ret;
 }
 
-SearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::searchKanji(QRegExp regexp, QString text, unsigned int &num, unsigned int &fullNum, bool common)
 {
 	num = 0;
 	fullNum = 0;
@@ -355,15 +355,19 @@ SearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsigned in
 	return res;
 }
 
-SearchResult Index::searchPrevious(QRegExp regexp, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
+SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
 {
 	num = 0;
 	fullNum = 0;
+	SearchResult res;
 
 	if((*list.list.at(0)).extendedKanjiInfo())
-		return scanKanjiResults(regexp, list.results, num, fullNum, common);
+		res = scanKanjiResults(regexp, list.results, num, fullNum, common);
 	else
-		return scanResults(regexp, list.results, num, fullNum, common);
+		res = scanResults(regexp, list.results, num, fullNum, common);
+
+	res.text = text;
+	return res;
 }
 
 // effectively does a strnicmp on two "strings" 

@@ -140,8 +140,8 @@ public:
 	void setKanjiDictList(const QStringList &files, const QStringList &names);
 
 	SearchResult search(QRegExp, QString, unsigned int &, unsigned int &, bool common);
-	SearchResult searchKanji(QRegExp, const QString &, unsigned int &, unsigned int &, bool common);
-	SearchResult searchPrevious(QRegExp, SearchResult, unsigned int &, unsigned int &, bool common);
+	SearchResult searchKanji(QRegExp, QString, unsigned int &, unsigned int &, bool common);
+	SearchResult searchPrevious(QRegExp, QString, SearchResult, unsigned int &, unsigned int &, bool common);
 
 private:
 	QPtrList<File> dictFiles;

@@ -172,6 +172,23 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 	readingSearch = false;
 }
 
+void TopLevel::doSearchInResults(QString text, QRegExp regexp)
+{
+	if (text.isEmpty())
+	{
+		statusBar()->message(i18n("Empty search items"));
+		return;
+	}
+
+	statusBar()->message(i18n("Searching..."));
+	unsigned int fullNum;
+	unsigned int num;
+	Dict::SearchResult results = _Index.searchPrevious(regexp, text, *currentResult, num, fullNum, comCB->isChecked());
+	addHistory(results);
+	handleSearchResult(results);
+	readingSearch = false;
+}
+
 void TopLevel::handleSearchResult(Dict::SearchResult results)
 {
 	Edit->setText(results.text);
@@ -253,7 +270,7 @@ void TopLevel::searchEnd()
 
 void TopLevel::resultSearch()
 {
-	// TODO
+	search(true);
 }
 
 void TopLevel::ressearch(const QString &text)
@@ -264,7 +281,7 @@ void TopLevel::ressearch(const QString &text)
 	search();
 }
 
-void TopLevel::search()
+void TopLevel::search(bool inResults)
 {
 	QString text = Edit->text();
 	QRegExp regexp;
@@ -306,7 +323,10 @@ void TopLevel::search()
 
 	dicform = QString::null;
 
-	doSearch(text, regexp);
+	if(inResults)
+		doSearchInResults(text, regexp);
+	else
+		doSearch(text, regexp);
 }
 
 void TopLevel::strokeSearch()
