@@ -14,11 +14,11 @@
 #include <ktoolbar.h>
 #include <qbuttongroup.h>
 #include <qheader.h>
-#include <qlabel.h>
 #include <qlayout.h>
 #include <qregexp.h>
 #include <qsplitter.h>
 #include <qtabwidget.h>
+#include <qtimer.h>
 #include <qtextcodec.h>
 
 #include <stdlib.h> // RAND_MAX
@@ -40,7 +40,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	QWidget *dummy = new QWidget(this);
 	setCentralWidget(dummy);
 
-	QVBoxLayout *veryTop = new QVBoxLayout(dummy, 0);
+	QVBoxLayout *veryTop = new QVBoxLayout(dummy, KDialog::marginHint(), KDialog::spacingHint());
 	Tabs = new QTabWidget(dummy);
 	connect(Tabs, SIGNAL(currentChanged(QWidget *)), SLOT(tabChanged(QWidget *)));
 	veryTop->addWidget(Tabs);
@@ -75,7 +75,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));
 
 	View = new ResultView(true, listTop, "View");
-	connect(View, SIGNAL(linkClicked(const QString &)), parentWidget(), SLOT(ressearch(const QString &)));
+	connect(View, SIGNAL(linkClicked(const QString &)), this, SIGNAL(linkClicked(const QString &)));
 
 	QStringList grades(i18n("Grade 1"));
 	grades.append(i18n("Grade 2"));
@@ -86,7 +86,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	grades.append(i18n("Others in Jouyou"));
 	grades.append(i18n("Jinmeiyou"));
 
-	KAction *closeAction = KStdAction::close(this, SLOT(close()), actionCollection());
+	/*KAction *closeAction = */(void) KStdAction::close(this, SLOT(close()), actionCollection());
 	printAct = KStdAction::print(this, SLOT(print()), actionCollection());
 	forwardAct = KStdAction::forward(this, SLOT(next()), actionCollection());
 	forwardAct->plug(toolBar());
@@ -100,31 +100,48 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
 	addAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, SLOT(add()), actionCollection(), "add");
 	addAllAct = new KAction(i18n("Add A&ll"), 0, this, SLOT(addAll()), actionCollection(), "addall");
+	newAct = KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	openAct = KStdAction::open(this, SLOT(open()), actionCollection());
 	saveAct = KStdAction::save(this, SLOT(save()), actionCollection());
 	saveAsAct = KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
-	(void) KStdAction::preferences(parentWidget(), SLOT(slotLearnConfigure()), actionCollection());
+	(void) KStdAction::preferences(this, SIGNAL(configureLearn()), actionCollection());
 
 	removeAct->setEnabled(false);
 
-	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 0, KDialog::spacingHint());
+	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, KDialog::marginHint(), KDialog::spacingHint());
 
+	quizLayout->addStretch();
 	QHBoxLayout *hlayout = new QHBoxLayout(quizLayout);
-	qKanji = new QLabel(quizTop);
+	qKanji = new QPushButton(quizTop);
+	connect(qKanji, SIGNAL(clicked()), this, SLOT(qKanjiClicked()));
 	hlayout->addStretch();
 	hlayout->addWidget(qKanji);
 	hlayout->addStretch();
+	quizLayout->addStretch();
 
 	answers = new QButtonGroup(1, Horizontal, quizTop);
-	for(int i = 0; i < numberOfAnswers; ++i)
+	for (int i = 0; i < numberOfAnswers; ++i)
 		answers->insert(new KPushButton(answers), i);
 	quizLayout->addWidget(answers);
 	quizLayout->addStretch();
 	connect(answers, SIGNAL(clicked(int)), this, SLOT(answerClicked(int)));
 
 	createGUI("learnui.rc");
-	closeAction->plug(toolBar());
+	//closeAction->plug(toolBar());
 
+	resize(600, 400);
+	applyMainWindowSettings(kapp->config(), "LearnWindow");
+
+	statusBar()->message(i18n("Put on your thinking cap!"));
+
+	nogood = false;
+
+	// this is so learn doesn't take so long to show itself
+	QTimer::singleShot(200, this, SLOT(finishCtor()));
+}
+
+void Learn::finishCtor()
+{
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
 
@@ -138,24 +155,18 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	updateGrade();
 	updateQuizConfiguration(); // first
 
-	QString entry = config.readEntry("lastFile", QString::null);
-	kdDebug() << "lastFile: " << entry << endl;
-	if(!entry.isNull())
+	config.setGroup("Learn");
+	QString entry = config.readEntry("lastFile", QString(""));
+	//kdDebug() << "lastFile: " << entry << endl;
+	if (!entry.isEmpty())
 	{
 		filename = entry;
 		read(filename);
 	}
 	else
 	{
-		setClean();
+		openNew();
 	}
-
-	resize(600, 400);
-	applyMainWindowSettings(&config, "LearnWindow");
-
-	statusBar()->message(i18n("Put on your thinking cap!"));
-
-	nogood = false;
 }
 
 Learn::~Learn()
@@ -201,10 +212,11 @@ void Learn::closeEvent(QCloseEvent *e)
 	if (!warnClose())
 		return;
 
-	kapp->config()->sync();
+	saveScores(); // also sync()s;
+	//kapp->config()->sync();
 
 	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
-	KMainWindow::closeEvent(e);
+	e->accept();
 }
 
 void Learn::random()
@@ -238,7 +250,7 @@ void Learn::prev()
 		return;
 	}
 
-	if(current == list.begin())
+	if (current == list.begin())
 		current = list.end();
 	--current;
 	update();
@@ -263,7 +275,7 @@ void Learn::update()
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
 	View->addHeader(i18n("%1 in compounds").arg(kanji));
 	
-	for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+	for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{
 		kapp->processEvents();
 		View->addResult(*it, true);
@@ -298,7 +310,7 @@ void Learn::read(const KURL &url)
 	List->clear();
 
 	KLoader loader(url);
-	if(!loader.open())
+	if (!loader.open())
 	{
 		KMessageBox::error(this, loader.error(), i18n("Error"));
 		return;
@@ -308,17 +320,17 @@ void Learn::read(const KURL &url)
 	QTextStream &stream = loader.textStream();
 	stream.setCodec(&codec);
 
-	while(!stream.atEnd())
+	while (!stream.atEnd())
 	{
 		QChar kanji;
 		stream >> kanji;
 		// ignore whitespace
-		if(!kanji.isSpace())
+		if (!kanji.isSpace())
 		{
 			QRegExp regexp = QString("^%1\\W").arg(kanji);
 			Dict::SearchResult res = index->searchKanji(regexp, kanji, false);
 			Dict::Entry first = Dict::firstEntry(res);
-			if(first.extendedKanjiInfo())
+			if (first.extendedKanjiInfo())
 				add(first, true);
 		}
 	}
@@ -341,11 +353,32 @@ void Learn::open()
 
 	read(filename);
 
-	kdDebug() << "saving lastFile\n";
+	//kdDebug() << "saving lastFile\n";
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
 	config.writeEntry("lastFile", filename.url());
 	config.sync();
+
+	// redo quiz, because we deleted the current quiz item
+	curItem = List->firstChild();
+	backAct->setEnabled(false);
+	prevItem = curItem;
+	qnew();
+
+	numChanged();
+}
+
+void Learn::openNew()
+{
+	if (!warnClose())
+		return;
+
+	filename = "";
+
+	List->clear();
+	setClean();
+
+	numChanged();
 }
 
 void Learn::saveAs()
@@ -362,11 +395,15 @@ void Learn::saveAs()
 
 void Learn::save()
 {
-	if(filename.isEmpty()) saveAs();
+	if (filename.isEmpty())
+		saveAs();
+	if (filename.isEmpty())
+		return;
+
 	write(filename);
 
 	KConfig &config = *kapp->config();
-	kdDebug() << "saving lastFile\n";
+	//kdDebug() << "saving lastFile\n";
 	config.setGroup("Learn");
 	config.writeEntry("lastFile", filename.url());
 	config.sync();
@@ -376,7 +413,7 @@ void Learn::write(const KURL &url)
 {
 	KSaver saver(url);
 
-	if(!saver.open())
+	if (!saver.open())
 	{
 		KMessageBox::error(this, saver.error(), i18n("Error"));
 		return;
@@ -389,15 +426,26 @@ void Learn::write(const KURL &url)
 	for (QListViewItemIterator it(List); it.current(); ++it)
 		stream << it.current()->text(0).at(0);
 
-	if(!saver.close())
+	if (!saver.close())
 	{
 		KMessageBox::error(this, saver.error(), i18n("Error"));
 		return;
 	}
 
+	saveScores();
+
 	setClean();
 
 	statusBar()->message(i18n("%1 written").arg(url.prettyURL()));
+}
+
+void Learn::saveScores()
+{
+	KConfig &config = *kapp->config();
+	config.setGroup("Learn Scores");
+	for (QListViewItemIterator it(List); it.current(); ++it)
+		config.writeEntry(it.current()->text(0), it.current()->text(4).toInt());
+	config.sync();
 }
 
 void Learn::add(Dict::Entry toAdd, bool noEmit)
@@ -410,7 +458,7 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 
 	// here's a dirty rotten cheat (well, not really)
 	// noEmit always means it's not added by the user, so this check isn't needed
-	if(!noEmit)
+	if (!noEmit)
 	{
 		for (QListViewItemIterator it(List); it.current(); ++it)
 		{
@@ -424,8 +472,15 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 
 	statusBar()->message(i18n("%1 added to your list").arg(kanji));
 
+	KConfig &config = *kapp->config();
+	int score = 0;
+	config.setGroup("Learn Scores");
+	score = config.readNumEntry(kanji, score);
+
 	unsigned int grade = toAdd.grade();
-	addItem(new QListViewItem(List, kanji, meanings, readings, QString::number(grade), QString::number(0)), noEmit);
+	addItem(new QListViewItem(List, kanji, meanings, readings, QString::number(grade), QString::number(score)), noEmit);
+
+	numChanged();
 }
 
 void Learn::add()
@@ -442,7 +497,7 @@ void Learn::addAll()
 	regexp = regexp.arg(grade);
 
 	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
-	for(QValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
+	for (QValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
 	{
 		// don't add headers
 		if ((*i).dictName() == "__NOTSET" && (*i).header() == "__NOTSET")
@@ -452,15 +507,14 @@ void Learn::addAll()
 
 void Learn::addItem(QListViewItem *item, bool noEmit)
 {
-	if (!curItem)
-	{
-		if (List->childCount() > 1)
+	// 2 is the magic jump
+		if (List->childCount() == 2)
 		{
 			curItem = item;
 			prevItem = curItem;
 			qnew(); // init first quiz
+			//kdDebug() << "initting first quiz in addItem\n";
 		}
-	}
 
 	if (!noEmit)
 	{
@@ -484,7 +538,7 @@ void Learn::showKanji(QListViewItem *item)
 	}
 
 	// Why does this fail to find the kanji sometimes?
-	for(current = list.begin(); current != list.end() && (*current).kanji() != kanji; ++current);
+	for (current = list.begin(); current != list.end() && (*current).kanji() != kanji; ++current);
 
 	update();
 }
@@ -505,23 +559,32 @@ void Learn::del()
 
 		bool makenewq = false; // must make new quiz if we
 		                       // delete the current item
-		for(QPtrListIterator<QListViewItem> i(selected); *i; ++i)
+		for (QPtrListIterator<QListViewItem> i(selected); *i; ++i)
 		{
 			if (curItem == i)
 				makenewq = true;
 			delete *i;
 		}
 
-		if (makenewq)
+		if (List->childCount() < 1)
 		{
-			curItem = List->firstChild();
-			backAct->setEnabled(false);
-			prevItem = curItem;
-			qnew();
+			// this isn't a good state, quizzing is unstable
+		}
+		else
+		{
+			if (makenewq)
+			{
+				curItem = List->firstChild();
+				backAct->setEnabled(false);
+				prevItem = curItem;
+				qnew();
+			}
 		}
 
 		setDirty();
 	}
+
+	numChanged();
 }
 
 // too easy...
@@ -581,7 +644,7 @@ void Learn::answerClicked(int i)
 			return;
 	}
 
-	config.writeEntry(curItem->text(0) + "_4", newscore);
+	//config.writeEntry(curItem->text(0) + "_4", newscore);
 
 	QListViewItem *newItem = new QListViewItem(List, curItem->text(0), curItem->text(1), curItem->text(2), curItem->text(3), QString::number(newscore));
 
@@ -603,13 +666,13 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		if ((rand > (RAND_MAX / 2)) || (List->childCount() < numberOfAnswers))
 		{
 			// get a meaning from dict
-			kdDebug() << "from our dict\n";
+			//kdDebug() << "from our dict\n";
 			rand = kapp->random();
 			float rand2 = RAND_MAX / rand;
 			rand = ((float)list.count() - 1) / rand2;
 			//rand -= 1;
-			kdDebug() << "rand: " << rand << endl;
-			kdDebug() << "list.count(): " << list.count() << endl;
+			//kdDebug() << "rand: " << rand << endl;
+			//kdDebug() << "list.count(): " << list.count() << endl;
 
 			switch (guessOn)
 			{
@@ -626,7 +689,7 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		else
 		{
 			// get a meaning from our list
-			kdDebug() << "from our list\n";
+			//kdDebug() << "from our list\n";
 			rand = kapp->random();
 			float rand2 = RAND_MAX / rand;
 			rand = List->childCount() / rand2;
@@ -639,12 +702,12 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 			meaning = it.current()->text(guessOn);
 		}
 
-		kdDebug() << "meaning: " << meaning << endl;
+		//kdDebug() << "meaning: " << meaning << endl;
 		for (QStringList::Iterator it = oldMeanings.begin(); it != oldMeanings.end(); ++it)
 		{
-			kdDebug() << "oldMeaning: " << *it << endl;
+			//kdDebug() << "oldMeaning: " << *it << endl;
 		}
-		kdDebug() << "curMeaning: " << curItem->text(guessOn) << endl;
+		//kdDebug() << "curMeaning: " << curItem->text(guessOn) << endl;
 	}
 	while (oldMeanings.contains(meaning) || meaning == curItem->text(guessOn));
 
@@ -659,18 +722,18 @@ void Learn::qupdate()
 	if (!curItem)
 		return;
 
+	qKanji->setText(curItem->text(quizOn));
+	QFont newFont = font();
 	if (quizOn == 0)
-		qKanji->setText(QString("<font size=\"+3\">%1</font>").arg(curItem->text(0)));
-	else
-		//qKanji->setText(QString("%1").arg(curItem->text(quizOn)));
-		qKanji->setText(curItem->text(quizOn));
+		newFont.setPixelSize(24);
+	qKanji->setFont(newFont);
 
 	float rand = kapp->random();
 	float rand2 = RAND_MAX / rand;
 	seikai = static_cast<int>(numberOfAnswers / rand2);
 
 	QStringList oldMeanings;
-	for(int i = 0; i < numberOfAnswers; ++i)
+	for (int i = 0; i < numberOfAnswers; ++i)
 		answers->find(i)->setText(randomMeaning(oldMeanings));
 
 	answers->find(seikai)->setText(curItem->text(guessOn));
@@ -750,6 +813,7 @@ void Learn::tabChanged(QWidget *widget)
 	addAllAct->setEnabled(!isQuiz);
 	randomAct->setEnabled(!isQuiz);
 	openAct->setEnabled(!isQuiz);
+	newAct->setEnabled(!isQuiz);
 	saveAsAct->setEnabled(!isQuiz);
 
 	cheatAct->setEnabled(isQuiz);
@@ -787,13 +851,13 @@ void Learn::itemSelectionChanged()
 int Learn::getCurrentGrade(void)
 {
 	int grade = gradeAct->currentItem() + 1;
-	if(grade > 6) ++grade;
+	if (grade > 6) ++grade;
 	return grade;
 }
 
 void Learn::setCurrentGrade(int grade)
 {
-	if(grade > 6) --grade;
+	if (grade > 6) --grade;
 	gradeAct->setCurrentItem(grade - 1);
 }
 
@@ -819,7 +883,18 @@ void Learn::setDirty()
 void Learn::setClean()
 {
 	isMod = false;
-	setCaption(filename.prettyURL(), false);
+	if (!filename.prettyURL().isEmpty())
+		setCaption(filename.prettyURL(), false);
+}
+
+void Learn::qKanjiClicked()
+{
+	showKanji(curItem);
+}
+
+void Learn::numChanged()
+{
+	quizTop->setEnabled(List->childCount() >= 2);
 }
 
 #include "learn.moc"

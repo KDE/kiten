@@ -13,7 +13,6 @@ class KConfig;
 class KListView;
 class KPushButton;
 class QButtonGroup;
-class QLabel;
 class QListViewItem;
 class QSplitter;
 class QTabWidget;
@@ -30,6 +29,8 @@ class Learn : public KMainWindow
 
 	signals:
 	void destroyed(Learn *);
+	void linkClicked(const QString &);
+	void configureLearn();
 
 	public slots:
 	void showKanji(QListViewItem *);
@@ -41,6 +42,7 @@ class Learn : public KMainWindow
 	private slots:
 	void read(const KURL &);
 	void write(const KURL &);
+	void saveScores();
 	void next();
 	void prev();
 	void update();
@@ -60,12 +62,16 @@ class Learn : public KMainWindow
 	void setClean();
 
 	void open();
+	void openNew();
 
 	void print();
 
 	void updateQuiz();
 	void answerClicked(int);
 	void qnew();
+	void qKanjiClicked();
+
+	void finishCtor();
 
 	private:
 	KURL filename;
@@ -92,7 +98,7 @@ class Learn : public KMainWindow
 
 	static const int numberOfAnswers;
 	QButtonGroup *answers;
-	QLabel *qKanji;
+	QPushButton *qKanji;
 
 	QListViewItem *prevItem;
 	QListViewItem *curItem;
@@ -115,6 +121,7 @@ class Learn : public KMainWindow
 	KAction *cheatAct;
 	KAction *saveAct;
 	KAction *openAct;
+	KAction *newAct;
 	KAction *saveAsAct;
 	KAction *addAct;
 	KAction *addAllAct;
@@ -127,6 +134,7 @@ class Learn : public KMainWindow
 
 	int quizOn;
 	int guessOn;
+	inline void numChanged();
 };
 
 #endif
