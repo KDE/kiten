@@ -310,11 +310,11 @@ void TopLevel::resultSearch()
 // called when a kanji is clicked on in result view
 void TopLevel::ressearch(const QString &text)
 {
-	kdDebug() << "ressearch(" << text << endl;
+	//kdDebug() << "ressearch(" << text << endl;
 	if (text.startsWith("__radical:"))
 	{
 		QString radical = text.section(":", 1, 1).right(1);
-		kdDebug() << "radical is " << radical << endl;
+		//kdDebug() << "radical is " << radical << endl;
 		radicalSearch()->addRadical(radical);
 		return;
 	}
@@ -448,7 +448,7 @@ void TopLevel::strokeSearch()
 		strokesString.append(')');
 		strokesString.prepend("(?:");
 
-		kdDebug() << "strokesString is " << strokesString << endl;
+		//kdDebug() << "strokesString is " << strokesString << endl;
 		*/
 		
 		StatusBar->message(i18n("Unparseable number"));
@@ -812,7 +812,7 @@ void TopLevel::radSearch(const QStringList &_list, unsigned int strokes, unsigne
 		strokesString.append(')');
 		strokesString.prepend("(?:");
 
-		kdDebug() << "strokesString is " << strokesString << endl;
+		//kdDebug() << "strokesString is " << strokesString << endl;
 	}
 
 	for (it = list.begin(); it != list.end(); ++it)
