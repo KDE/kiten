@@ -444,7 +444,7 @@ EditAction::~EditAction()
 
 int EditAction::plug( QWidget *w, int index )
 {
-	//  if ( !w->inherits( "KToolBar" ) );
+	//  if ( !w->inherits( "KToolBar" ) )
 	//    return -1;
 
 	KToolBar *toolBar = (KToolBar *)w;
