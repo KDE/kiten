@@ -35,6 +35,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	: KMainWindow(parent, name)
 	, curItem(0)
 {
+	initialized = false;
 	index = parentDict;
 
 	QWidget *dummy = new QWidget(this);
@@ -167,6 +168,8 @@ void Learn::finishCtor()
 	{
 		openNew();
 	}
+
+	initialized = true;
 }
 
 Learn::~Learn()
@@ -872,6 +875,9 @@ void Learn::updateQuizConfiguration()
 	answers->setTitle(List->columnText(guessOn));
 
 	View->updateFont();
+
+	if (List->childCount() >= 2 && initialized)
+		qnew();
 }
 
 void Learn::setDirty()
@@ -894,7 +900,8 @@ void Learn::qKanjiClicked()
 
 void Learn::numChanged()
 {
-	quizTop->setEnabled(List->childCount() >= 2);
+	Tabs->setTabEnabled(quizTop, List->childCount() >= 2);
+	//quizTop->setEnabled(List->childCount() >= 2);
 }
 
 #include "learn.moc"

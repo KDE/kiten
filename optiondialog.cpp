@@ -82,10 +82,10 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	quizzing->setAlignment(QGroupBox::AlignRight);
 	learnBox->addWidget(quizzing);
 
-	(void) new QLabel(i18n("<strong>Quiz</strong> on"), quizzing);
+	(void) new QLabel(i18n("Clue"), quizzing);
 	quizOn = new QComboBox(quizzing);
 	quizOn->insertStringList(quizTypes);
-	(void) new QLabel(i18n("<strong>Guess</strong> on"), quizzing);
+	(void) new QLabel(i18n("Possible answers"), quizzing);
 	guessOn = new QComboBox(quizzing);
 	guessOn->insertStringList(quizTypes);
 	learnBox->addStretch();

@@ -74,6 +74,8 @@ class Learn : public KMainWindow
 	void finishCtor();
 
 	private:
+	bool initialized;
+
 	KURL filename;
 	bool warnClose();
 
