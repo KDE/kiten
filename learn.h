@@ -53,6 +53,8 @@ class Learn : public KMainWindow
 
 	bool closeWindow();
 
+	struct scoreCompare;
+
 	signals:
 	void destroyed(Learn *);
 	void linkClicked(const QString &);

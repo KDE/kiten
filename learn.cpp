@@ -37,6 +37,7 @@
 
 #include <stdlib.h> // RAND_MAX
 #include <cassert>
+#include <set>
 
 #include "dict.h"
 #include "kloader.h"
@@ -97,8 +98,6 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	List->setDragEnabled(true);
 	List->setSorting(4);
 	List->setSelectionModeExt(KListView::Extended);
-
-	List->header()->setClickEnabled(false);
 
 	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));
@@ -768,6 +767,14 @@ void Learn::qupdate()
 	answers->find(seikai)->setText(curItem->text(guessOn));
 }
 
+struct Learn::scoreCompare 
+{
+	bool operator()(const QListViewItem* v1, const QListViewItem* v2)
+	{
+		return v1->text(4).toInt() < v2->text(4).toInt();
+	}
+};
+
 void Learn::qnew() // new quiz kanji
 {
 	//kdDebug() << "qnew\n";
@@ -783,6 +790,11 @@ void Learn::qnew() // new quiz kanji
 	if (count < 2)
 		return;
 
+	// the following lines calculate which kanji will be used next:
+	// use f(2) every third time, f(1) otherwise
+	// where f(1) = numberOfItems * rand[0..1]
+	// and f(2) = numberOfItems * rand[0..1] * rand[0..1]
+	// rand[0..1] = kapp->random() / RAND_MAX
 	float max = static_cast<float>(count) / (static_cast<float>(RAND_MAX) / kapp->random());
 	if (kapp->random() < (static_cast<float>(RAND_MAX) / 3.25))
 		max /= (static_cast<float>(RAND_MAX) / (kapp->random() + 1));
@@ -792,29 +804,36 @@ void Learn::qnew() // new quiz kanji
 	if (max > count)
 		max = count;
 
-	QListViewItemIterator it(List);
-	QListViewItemIterator tmp(List);
+	std::multiset<const QListViewItem*, scoreCompare> scores;
+	QListViewItemIterator sIt(List);
+
+	for (; sIt.current(); ++sIt)
+		scores.insert(sIt.current());
+
+	std::multiset<const QListViewItem*>::iterator it = scores.begin();
+	std::multiset<const QListViewItem*>::iterator tmp = scores.begin();
+
 	int i;
 	for (i = 2; i <= max; ++it)
 		{i++; ++tmp;}
 
-	if (curItem->text(0) == it.current()->text(0)) // same, don't use
+	if (curItem->text(0) == (*it)->text(0)) // same, don't use
 	{
 		++it;
-		if (!it.current())
+		if (it == scores.end())
 		{
 			tmp--;
 			it = tmp;
 		}
 	}
 
-	if (!it.current())
+	if (it == scores.end())
 	{
 		return;
 	}
 
 	prevItem = curItem;
-	curItem = it.current();
+	curItem = const_cast<QListViewItem*>(*it);
 
 	qKanji->setFocus();
 	qupdate();
