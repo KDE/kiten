@@ -508,7 +508,7 @@ void Learn::update()
 	QString kanji = curKanji.kanji();
 
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
-	View->addHeader(i18n("%1 in compunds").arg(kanji));
+	View->addHeader(i18n("%1 in compounds").arg(kanji));
 	
 	for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{

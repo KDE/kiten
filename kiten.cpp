@@ -198,7 +198,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		
 			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
 		
-			_ResultView->addHeader(i18n("%1 in compunds").arg(kanji));
+			_ResultView->addHeader(i18n("%1 in compounds").arg(kanji));
 	
 			for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
