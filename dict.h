@@ -23,6 +23,10 @@
 #define DICT_H
 
 #include <qfile.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
+#include <qregexp.h>
+#include <qstringlist.h>
 
 #include <sys/types.h>
 #ifdef __osf__
@@ -31,8 +35,6 @@ typedef int int32_t;
 #else
 #include <inttypes.h>
 #endif
-
-class QRegExp;
 
 namespace Dict
 {

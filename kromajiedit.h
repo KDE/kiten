@@ -21,6 +21,9 @@
 #ifndef KROMAJIEDIT_H
 #define KROMAJIEDIT_H
 
+#include <qmap.h>
+#include <qcstring.h>
+
 #include <klineedit.h>
 
 class QKeyEvent;

@@ -21,14 +21,17 @@
 #ifndef KITEN_WIDGETS_H
 #define KITEN_WIDGETS_H
 
+#include <qguardedptr.h>
+
+#include <kaction.h>
 #include <klineedit.h>
 #include <kmainwindow.h>
 #include <ktextbrowser.h>
 
-class KAction;
 class KListView;
 class KStatusBar;
 
+#include "dict.h"
 #include "rad.h"
 
 class ResultView : public KTextBrowser
@@ -90,7 +93,7 @@ class EditAction : public KAction
 	Q_OBJECT
 	public:
 	EditAction( const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name );
-	~EditAction();
+	virtual ~EditAction();
 
 	virtual int plug( QWidget *w, int index = -1 );
 

@@ -21,6 +21,8 @@
 #ifndef DEFINF_H
 #define DEFINF_H
 
+#include <qmap.h>
+#include <qstringlist.h>
 
 namespace Deinf
 {
