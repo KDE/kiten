@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Kiten" version="2">
+<kpartgui name="Kiten" version="3">
 
 <MenuBar>
 
@@ -22,7 +22,7 @@
   <Action name="kanji_toggle" />
   <Action name="deinf_toggle" />
   <Action name="common" />
-  <Seperator />
+  <Separator />
   <Action name="input" />
 </Menu>
 
@@ -37,12 +37,15 @@
 </ToolBar>
 
 <ToolBar name="extraToolBar" noMerge="1"><text>Extra Toolbar</text>
+  <Action name="go_back" />
+  <Action name="go_forward" />
+  <Separator/>
   <Action name="search_stroke" />
   <Action name="search_grade" />
-  <Seperator/>
+  <Separator/>
   <Action name="kanji_toggle" />
   <Action name="common" />
-  <Seperator/>
+  <Separator/>
   <Action name="file_learn" />
 </ToolBar>
 

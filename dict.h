@@ -123,6 +123,9 @@ struct SearchResult
 {
 	QValueList<Entry> list;
 	QStringList results;
+	int count, outOf;
+	bool common;
+	QString text;
 };
 
 class Index : public QObject

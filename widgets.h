@@ -152,6 +152,8 @@ class EditAction : public KAction
 	virtual void unplug( QWidget *w );
 
 	QString text() { return m_combo->text(); }
+	void setText(const QString &text);
+
 	QGuardedPtr<KLineEdit> editor();
 
 	public slots:

@@ -37,7 +37,6 @@ class TopLevel : public KMainWindow
 	private slots:
 	void search();
 	void ressearch(const QString&);
-	void search(bool inResults);
 	void searchBeginning();
 	void searchEnd();
 	void resultSearch();
@@ -45,6 +44,8 @@ class TopLevel : public KMainWindow
 	void kanjiSearchAccel();
 	void strokeSearch();
 	void gradeSearch();
+	void back();
+	void forward();
 	void slotConfigure();
 	void slotConfigureHide();
 	void slotConfigureDestroy();
@@ -71,13 +72,16 @@ class TopLevel : public KMainWindow
 	KAction *irAction;
 	KAction *addAction;
 	KToggleAction *comCB;
+	KAction *backAction;
+	KAction *forwardAction;
 
 	bool wholeWord;
 	bool caseSensitive;
 
 	KGlobalAccel *Accel;
 
-	void doSearch(QString text, QRegExp regexp, bool inResults = false);
+	void doSearch(QString text, QRegExp regexp);
+	void handleSearchResult(Dict::SearchResult);
 	QString clipBoardText();
 
 	ConfigureDialog *optionDialog;
@@ -99,6 +103,9 @@ class TopLevel : public KMainWindow
 	Dict::Entry toAddKanji;
 
 	QValueList<Dict::SearchResult> resultHistory;
+	QValueListIterator<Dict::SearchResult> currentResult;
+	void addHistory(Dict::SearchResult);
+	void enableHistoryButtons();
 
 	Dict::Entry firstKanji(Dict::SearchResult);
 

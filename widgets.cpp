@@ -787,6 +787,11 @@ void EditAction::insert(QString text)
 	m_combo->insert(text);
 }
 
+void EditAction::setText(const QString &text)
+{
+	m_combo->setText(text);
+}
+
 QGuardedPtr<KLineEdit> EditAction::editor()
 {
 	return m_combo;

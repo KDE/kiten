@@ -31,6 +31,8 @@
 #include "rad.h"
 #include "deinf.h"
 
+#include <cassert>
+
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
 	_ResultView = new ResultView(true, this, "_ResultView");
@@ -54,6 +56,11 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 	addAction = new KAction(i18n("Add Kanji to learning list"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
+	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
+	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
+	backAction->setEnabled(false);
+	forwardAction->setEnabled(false);
+	currentResult = resultHistory.end();
 
 	QStringList kanamodes(i18n("English"));
 	kanamodes.append(i18n("Hiragana"));
@@ -123,7 +130,7 @@ void TopLevel::addToList()
 	emit add(toAddKanji);
 }
 
-void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
+void TopLevel::doSearch(QString text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{
@@ -131,17 +138,14 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 		return;
 	}
 
-	addAction->setEnabled(false);
-
-	_ResultView->clear();
-
 	statusBar()->message(i18n("Searching..."));
 	unsigned int fullNum;
 	unsigned int num;
 
+	Dict::SearchResult results;
 	if (!kanjiCB->isChecked())
 	{
-		Dict::SearchResult results = _Index.search(regexp, text, num, fullNum, comCB->isChecked());
+		results = _Index.search(regexp, text, num, fullNum, comCB->isChecked());
 
 		// do again... bad because sometimes reading is kanji
 		if ((readingSearch || beginningReadingSearch) && (num < 1))
@@ -157,21 +161,35 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 
 			results = _Index.search(regexp, text, num, fullNum, comCB->isChecked());
 		}
-		
-		for(QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
-			_ResultView->addResult(*it, comCB->isChecked());
 	}
 	else
 	{
-		Dict::SearchResult results = _Index.searchKanji(regexp, text, num, fullNum, comCB->isChecked());
+		results = _Index.searchKanji(regexp, text, num, fullNum, comCB->isChecked());
+	}
 
-		if (num == 1) // if its only one entry, give compounds too!
+	addHistory(results);
+	handleSearchResult(results);
+	readingSearch = false;
+}
+
+void TopLevel::handleSearchResult(Dict::SearchResult results)
+{
+	Edit->setText(results.text);
+	setResults(results.count, results.outOf);
+
+	addAction->setEnabled(false);
+	_ResultView->clear();
+
+	Dict::Entry first = firstKanji(results);
+	if(first.extendedKanjiInfo())
+	{
+		if (results.count == 1) // if its only one entry, give compounds too!
 		{
-			toAddKanji = firstKanji(results);
+			toAddKanji = first;
 			_ResultView->addKanjiResult(toAddKanji, _Rad.radByKanji(toAddKanji.kanji()));
-
+	
 			addAction->setEnabled(true);
-
+	
 			// now show some compounds in which this kanji appears
 			QString kanji = toAddKanji.kanji();
 		
@@ -179,7 +197,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, _num, _fullNum, true);
 		
 			_ResultView->addHeader(i18n("%1 in common compunds").arg(kanji));
-
+	
 			for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
 				//kdDebug() << "adding " << (*it).kanji() << endl;
@@ -192,9 +210,11 @@ void TopLevel::doSearch(QString text, QRegExp regexp, bool inResults)
 				_ResultView->addKanjiResult(*it);
 		}
 	}
-
-	readingSearch = false;
-	setResults(num, fullNum);
+	else
+	{
+		for(QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+			_ResultView->addResult(*it, comCB->isChecked());
+	}
 }
 
 void TopLevel::searchBeginning()
@@ -233,12 +253,7 @@ void TopLevel::searchEnd()
 
 void TopLevel::resultSearch()
 {
-	search(true);
-}
-
-void TopLevel::search()
-{
-	search(false);
+	// TODO
 }
 
 void TopLevel::ressearch(const QString &text)
@@ -246,10 +261,10 @@ void TopLevel::ressearch(const QString &text)
 	Edit->clear();
 	Edit->insert(text);
 	kanjiCB->setChecked(true);
-	search(false);
+	search();
 }
 
-void TopLevel::search(bool inResults)
+void TopLevel::search()
 {
 	QString text = Edit->text();
 	QRegExp regexp;
@@ -291,7 +306,7 @@ void TopLevel::search(bool inResults)
 
 	dicform = QString::null;
 
-	doSearch(text, regexp, inResults);
+	doSearch(text, regexp);
 }
 
 void TopLevel::strokeSearch()
@@ -622,6 +637,37 @@ Dict::Entry TopLevel::firstKanji(Dict::SearchResult result)
 	}
 
 	return Dict::Entry("__NOTHING");
+}
+
+void TopLevel::back(void)
+{
+	assert(currentResult != resultHistory.begin());
+	--currentResult;
+	enableHistoryButtons();
+	handleSearchResult(*currentResult);
+}
+
+void TopLevel::forward(void)
+{
+	++currentResult;
+	assert(currentResult != resultHistory.end());
+	enableHistoryButtons();
+	handleSearchResult(*currentResult);
+}
+
+void TopLevel::addHistory(Dict::SearchResult result)
+{
+	resultHistory.append(result);
+	currentResult = resultHistory.end();
+	--currentResult;
+	enableHistoryButtons();
+}
+
+void TopLevel::enableHistoryButtons()
+{
+	backAction->setEnabled(currentResult != resultHistory.begin());
+	forwardAction->setEnabled(++currentResult != resultHistory.end());
+	--currentResult;
 }
 
 #include "kiten.moc"

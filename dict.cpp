@@ -277,6 +277,10 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, unsigned in
 			}
 		}
 	}
+
+	ret.count = num;
+	ret.outOf = fullNum;
+	ret.common = common;
 	return ret;
 }
 
@@ -293,7 +297,9 @@ SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsi
 		results += doSearch(**file, text);
 	}
 
-	return scanResults(regexp, results, num, fullNum, common);
+	SearchResult res = scanResults(regexp, results, num, fullNum, common);
+	res.text = text;
+	return res;
 }
 
 SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsigned int &num, unsigned int &fullNum, bool common)
@@ -325,6 +331,9 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, unsign
 		}
 	}
 
+	ret.count = num;
+	ret.outOf = fullNum;
+	ret.common = common;
 	return ret;
 }
 
@@ -341,7 +350,9 @@ SearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsigned in
 		results += doSearch(**file, text);
 	}
 
-	return scanKanjiResults(regexp, results, num, fullNum, common);
+	SearchResult res = scanKanjiResults(regexp, results, num, fullNum, common);
+	res.text = text;
+	return res;
 }
 
 SearchResult Index::searchPrevious(QRegExp regexp, SearchResult list, unsigned int &num, unsigned int &fullNum, bool common)
@@ -626,6 +637,8 @@ Entry::Entry(QString &kanji, QStringList &readings, QStringList &meanings, unsig
 }
 
 Entry::Entry(const QString &dictname)
+	: KanaOnly(true)
+	, ExtendedKanjiInfo(false)
 {
 	DictName = dictname;
 }
