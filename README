@@ -5,7 +5,7 @@
 
 Kiten comes ready to use. It will take a bit of time to start up the first time as it indexes your dictionary files. Later, be sure to try File->Learn...
 
-Kiten does do Japanese input for you. If you set up Kinput2 to use XIM, however, and you tell Kiten to use it, you will be able to input Japanese and search with it. For a tutorial on getting Japanese input in KDE (and thus Kiten) working, please see
+Kiten does do Japanese input of Kana for you. If you set up Kinput2 to use XIM, however, and you tell Kiten to use it, you will be able to input Kanji and search with it. For a tutorial on getting Japanese Kanji input in KDE (and thus Kiten) working, please see
 
 http://freekde.org/article.php?sid=5
 
