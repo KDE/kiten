@@ -61,7 +61,7 @@ TextType Dict::textType(const QString &text)
 	else if (first < 0x3100) // Katakana
 		return Text_Kana;
 	
-	else if (first >= 0x3400 && first < 0x4DC0) // CJK Unified Ideographs Extension A
+	else /*if (first >= 0x3400 && first < 0x4DC0)*/ // CJK Unified Ideographs Extension A
 		return Text_Kanji;
 }
 
@@ -278,7 +278,7 @@ QStringList Index::doSearch(File &file, const QString &text)
 		else if (comp > 0)
 			lo = cur + 1;
 	}
-	while(hi >= lo && comp != 0);
+	while(hi >= lo && comp != 0 && !(hi == 0 && lo == 0));
 	QStringList results;
 	// A match?
 	if (comp == 0)
