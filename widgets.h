@@ -125,6 +125,8 @@ class Learn : public KMainWindow
 	KAction *saveAct;
 	KAction *newAct;
 	KListAction *gradeAct;
+
+	void closestuff();
 };
 
 class EditAction : public KAction

@@ -155,7 +155,9 @@ void Dict::doSearch(QString regexp)
 	//our codec
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
 
-	QCString sch_str = codec->fromUnicode(regexp);
+	QCString csch_str = codec->fromUnicode(regexp);
+	unsigned char *sch_str = (const char *)(csch_str);
+	sch_str = (const unsigned char *)(sch_str);
 
 	int32_t lo, hi, itok, lo2, hi2, schix, schiy, index_posn = 0;
 	int res = 0, i;
@@ -485,11 +487,12 @@ QPtrList<Kanji> Dict::kanjiSearch(QRegExp realregexp, const QString &regexp, uns
 ////////////////////////////////////
 
 // looks up str1's equiv at it in the xjdx file
-int Dict::stringCompare(QCString str1)
+int Dict::stringCompare(unsigned char * str1)
 {
+	int klen = strlen((char *)(str1)); // error without cast
+
 	unsigned c1,c2;
 	int i,rc1,rc2;
-	int klen = str1.length();
 
 /* effectively does a strnicmp on two "strings" 
    except it will make katakana and hiragana match (EUC A4 & A5) */

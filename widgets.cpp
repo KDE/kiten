@@ -264,7 +264,13 @@ Learn::~Learn()
 {
 }
 
-void Learn::closeEvent(QCloseEvent *e)
+void Learn::close()
+{
+	closestuff();
+	delete this;
+}
+
+void Learn::closestuff()
 {
 	if (isMod)
 	{
@@ -282,6 +288,11 @@ void Learn::closeEvent(QCloseEvent *e)
 	}
 
 	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
+}
+
+void Learn::closeEvent(QCloseEvent *e)
+{
+	closestuff();
 	KMainWindow::closeEvent(e);
 }
 

@@ -64,7 +64,7 @@ class Dict : public QObject
 
 	unsigned CurrentDict; // dict in all arrays that all functions use for searching
 
-	int stringCompare(QCString str1);
+	int stringCompare(unsigned char *str1);
 	unsigned char DictLookup(uint32_t xit);
 	uint32_t IndexLookup(uint32_t xit);
 
