@@ -9,6 +9,7 @@
 #include <qstringlist.h>
 #include <qstring.h>
 #include <qvaluelist.h>
+#include <kurl.h>
 
 #include <sys/types.h>
 #include <inttypes.h>
@@ -65,7 +66,8 @@ public:
 	// replacement for exceptions thrown in the constructor
 	bool isValid(void);
 
-	unsigned char lookup(unsigned i, int offset = 0);
+	unsigned char lookup(unsigned i, int offset);
+	QCString lookup(unsigned i);
 private:
 	QString myName;
 
@@ -164,7 +166,9 @@ Entry parse(const QString &);
 Entry kanjiParse(const QString &);
 Dict::Entry firstEntry(Dict::SearchResult);
 QString firstEntryText(Dict::SearchResult);
-	
+
+int eucStringCompare(QCString str1, QCString str2);
+
 }
 
 #endif

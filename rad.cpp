@@ -152,7 +152,6 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	for (QStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
 	{
 		//kdDebug() << "kit is " << *kit << endl;
-		bool remove = false;
 		QValueList<bool> outcomes;
 		for (QValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
 		{
@@ -221,7 +220,6 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	while (hotlist.size() > hotlistNum)
 		hotlist.pop_front();
 
-	unsigned int size = hotlist.size();
 	for (unsigned int i = 0; i < hotlistNum; ++i)
 	{
 		if (i >= hotlistNum)

@@ -316,7 +316,7 @@ eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
 	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
 	(void) new KAction(i18n("&Disable Dictionary"), 0, this, SLOT(disable()), actionCollection(), "disable");
 	addAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, SLOT(add()), actionCollection(), "add");
-	KAction *closeAction = KStdAction::close(this, SLOT(close()), actionCollection());
+	(void) KStdAction::close(this, SLOT(close()), actionCollection());
 
 	createGUI("eeditui.rc");
 	//closeAction->plug(toolBar());

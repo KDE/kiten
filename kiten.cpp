@@ -801,7 +801,7 @@ void TopLevel::radSearch(const QStringList &_list, unsigned int strokes, unsigne
 	if (strokes)
 	{
 		strokesString = QString::number(strokes);
-		for (int i = 1; i <= errorMargin; ++i)
+		for (unsigned i = 1; i <= errorMargin; ++i)
 		{
 			strokesString.append('|');
 			strokesString.prepend('|');

@@ -162,6 +162,23 @@ unsigned char File::lookup(unsigned i, int offset)
 	return dictPtr[pos];
 }
 
+QCString File::lookup(unsigned i)
+{
+	uint32_t start = indexPtr[i] - 1;
+	uint32_t pos = start;
+	const unsigned size = dictFile.size();
+	// get the whole word
+	while(pos <= size && dictPtr[pos] != 0)
+		++pos;
+	// put the word in the QCString
+	QCString retval((const char *)(dictPtr + pos), pos - start + 1);
+	// tack on a null
+	char null = 0;
+	retval.append(&null);
+	// and away we go
+	return retval;
+}
+
 // And last, Index itself is the API presented to the rest of Kiten
 Index::Index()
 	: QObject()
@@ -395,31 +412,36 @@ SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult li
 	return res;
 }
 
-// effectively does a strnicmp on two "strings" 
-// except it will make katakana and hiragana match (EUC A4 & A5)
 int Index::stringCompare(File &file, int index, QCString str)
 {
-	for (unsigned i = 0; i < str.length(); ++i)
+	return eucStringCompare(file.lookup(index), str);
+}
+
+// effectively does a strnicmp on two "strings" 
+// except it will make katakana and hiragana match (EUC A4 & A5)
+int Dict::eucStringCompare(QCString str, QCString str2)
+{
+	for (unsigned i = 0; i < str2.length(); ++i)
 	{
-		unsigned char c1 = static_cast<unsigned char>(str[i]);
-		unsigned char c2 = file.lookup(index, i);
-		if ((c1 == '\0') || (c2 == '\0'))
+		unsigned char c = static_cast<unsigned char>(str[i]);
+		unsigned char c2 = static_cast<unsigned char>(str2[i]);
+		if ((c2 == '\0') || (c == '\0'))
 			return 0;
 
 		if ((i % 2) == 0)
 		{
-			if (c1 == 0xA5)
-				c1 = 0xA4;
-
 			if (c2 == 0xA5)
 				c2 = 0xA4;
+
+			if (c == 0xA5)
+				c = 0xA4;
 		}
 
-		if ((c1 >= 'A') && (c1 <= 'Z')) c1 |= 0x20; /*fix ucase*/
-		if ((c2 >= 'A') && (c2 <= 'Z')) c2 |= 0x20;
+		if ((c2 >= 'A') && (c2 <= 'Z')) c2 |= 0x20; /*fix ucase*/
+		if ((c >= 'A') && (c <= 'Z')) c |= 0x20;
 
-		if (c1 != c2)
-			return (int)c1 - (int)c2;
+		if (c2 != c)
+			return (int)c2 - (int)c;
 	}
 
 	return 0;
