@@ -117,7 +117,7 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 	if (freq == 0) // does it have a frequency?
 		html = html.arg(i18n("Rare"));
 	else
-		html = html.arg(i18n("#%1").arg(freq));
+		html = html.arg(i18n("Once", "%1 Times", freq));
 
 	html += "<br />";
 
