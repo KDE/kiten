@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Kiten" version="1">
+<kpartgui name="Kiten" version="2">
 
 <MenuBar>
 
@@ -13,7 +13,9 @@
   <Action name="search_kanji" />
   <Action name="search_stroke" />
   <Action name="search_grade" />
-  <Seperator />
+</Menu>
+
+<Menu name="settings"><text>&amp;Settings</text>
   <Action name="kanji_toggle" />
   <Action name="in_results" />
   <Action name="common" />
@@ -29,6 +31,7 @@
   <Action name="search_kanji" />
   <Action name="search_stroke" />
   <Action name="search_grade" />
+  <Seperator />
   <Action name="kanji_toggle" />
   <Action name="in_results" />
   <Action name="common" />

@@ -25,9 +25,12 @@ class TopLevel : public KMainWindow
 
 	signals:
 	void updateLists();
+	void saveLists();
+
+	protected:
+	void closeEvent(QCloseEvent *);
 
 	private slots:
-	void close();
 	void search();
 	void readingSearch();
 	void readingSearchAccel();

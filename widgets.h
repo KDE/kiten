@@ -55,6 +55,10 @@ class Learn : public KMainWindow
 	public slots:
 	void showKanji(QListViewItem *);
 	void readConfiguration();
+	void writeConfiguration();
+
+	protected:
+	void closeEvent(QCloseEvent *);
 
 	private slots:
 	void next();
@@ -64,9 +68,7 @@ class Learn : public KMainWindow
 	void add();
 	void del();
 	void updateCaption(QListViewItem *);
-	void close();
 	void cheat();
-	void writeConfiguration();
 	void tabChanged(QWidget *);
 
 	void updateQuiz();

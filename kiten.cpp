@@ -71,17 +71,24 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	isListMod = false;
 
 	kanjiDictChange();
+
+	resize(600, 400);
+	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 }
 
-void TopLevel::close()
+void TopLevel::closeEvent(QCloseEvent *)
 {
-	kdDebug() << "TopLevel::close()\n";
-
 	if (isListMod)
 	{
-		if (KMessageBox::warningContinueCancel(this, i18n("Unsaved changes to learning list. Are you sure you want to discard these?"), i18n("Unsaved changes"), i18n("Discard"), "DiscardAsk", true) != KMessageBox::Continue)
+		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
+		switch(result)
 		{
-			statusBar()->message(i18n("Go to the List tab in the Learn dialog to save your learning list"));
+		case KMessageBox::Yes:
+			emit saveLists();
+			// fallthrough
+		case KMessageBox::No:
+			break;
+		case KMessageBox::Cancel:
 			return;
 		}
 	}
@@ -90,6 +97,8 @@ void TopLevel::close()
 	config->setGroup("app");
 	config->writeEntry("com", comCB->isChecked());
 	config->writeEntry("kanji", kanjiCB->isChecked());
+
+	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
 	kapp->quit();
 }
@@ -415,6 +424,7 @@ void TopLevel::createLearn()
 	connect(_Learn, SIGNAL(listChanged()), SLOT(globalListChanged()));
 	connect(_Learn, SIGNAL(listDirty()), SLOT(globalListDirty()));
 	connect(this, SIGNAL(updateLists()), _Learn, SLOT(readConfiguration()));
+	connect(this, SIGNAL(saveLists()), _Learn, SLOT(writeConfiguration()));
 
 	_Learn->show();
 }

@@ -255,21 +255,34 @@ Learn::Learn(Dict *parentDict, QWidget *parent, const char *name) : KMainWindow(
 	curItem = List->firstChild();
 	prevItem = curItem;
 	qnew(); // init first quiz
+
+	resize(600, 400);
+	applyMainWindowSettings(KGlobal::config(), "LearnWindow");
 }
 
 Learn::~Learn()
 {
 }
 
-void Learn::close()
+void Learn::closeEvent(QCloseEvent *e)
 {
 	if (isMod)
-		if (KMessageBox::warningContinueCancel(this, i18n("Unsaved changes to learning list. Are you sure you want to discard these?"), i18n("Unsaved changes"), i18n("Discard"), "DiscardAsk", true) == KMessageBox::Continue)
-			delete this;
-		else
-			StatusBar->message(i18n("File->Save to save your list"));
-	else
-		delete this;
+	{
+		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
+		switch(result)
+		{
+		case KMessageBox::Yes:
+			saveAct->activate();
+			// fallthrough
+		case KMessageBox::No:
+			break;
+		case KMessageBox::Cancel:
+			return;
+		}
+	}
+
+	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
+	KMainWindow::closeEvent(e);
 }
 
 void Learn::random()
