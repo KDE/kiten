@@ -96,6 +96,10 @@ searches.</para>
 
 </sect1>
 
+<sect1 id="deinf"> <title>Verb Deinflection</title>
+<para>&kiten; can deinflect verbs you search for. To enable this, make sure <menuchoice><guimenu>Settings</guimenu><guimenuitem>Deinflect Verbs in Regular Search</guimenuitem></menuchoice> is checked. &kiten; will then deinflect Japanese you search for that starts with a Kanji and ends with a Kana.</para>
+</sect1>
+
 </chapter>
 
 <chapter id="looking-up-kanji"> <title>Looking Up Kanji</title>
@@ -130,6 +134,24 @@ searches.</para>
 
 <sect1> <title>Stroke Search</title>
 <para>To get a list of all Kanji with a certain number of strokes, enter that number in the text-entry in the toolbar. Then choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Strokes</guimenuitem></menuchoice> to perform your search.</para>
+</sect1>
+
+</chapter>
+
+<chapter id="misc"> <title>Miscallaneous</title>
+<para>This chapter describes miscallaneous features that can be used in both modes in &kiten;'s main window.</para>
+
+<sect1 id="history"> <title>The History</title>
+<para>&kiten; keeps track of all of your queries in a list. You can see your last 20 results by looking under <menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. To go forward one in the history, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To go forward one in the history, choose <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>.</para>
+</sect1>
+
+<sect1 id="input"> <title>Inputting Japanese</title>
+<para>If you are unable to input Japanese normally into &kde; applications, you can use &kiten;'s Kana input system that is built in to the text-entry.</para>
+<para>To start Kana input, press <keycombo action="simul">&Shift;<keycap>Space</keycap></keycombo>. Now inputted syllables will be transformed into Hiragana. If you type a syllable in capital letters, it will be transformed into Katakana instead. Press <keycombo action="simul">&Shift;<keycap>Space</keycap></keycombo> again to go back to regular input.</para>
+</sect1>
+
+<sect1 id="printing"> <title>Printing</title>
+<para>You can print the result view by choosing <menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. &kiten; will add an informative header to the printout.</para>
 </sect1>
 
 </chapter>
