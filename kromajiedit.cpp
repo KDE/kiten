@@ -180,9 +180,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		if (ji.at(0) == farRight.at(0)) // if two letters are same, and we can add a twoletter length kana
 		{
 			if (kana == "hiragana")
-				setText(curKana + hiragana["t-"] + farRight.at(0));
+				setText(curKana + hiragana[ji.at(0) == 'n'? "n'" : "t-"] + farRight.at(0));
 			else
-				setText(curKana + katakana["t-"] + farRight.at(0));
+				setText(curKana + katakana[ji.at(0) == 'n'? "n'" : "t-"] + farRight.at(0));
 
 			if (kana == "katakana")
 				kana = "hiragana";
