@@ -6,6 +6,7 @@
 #include <qclipboard.h>
 #include <qpushbutton.h>
 #include <kconfig.h>
+#include <kedittoolbar.h>
 #include <qtextcodec.h>
 #include <kaccel.h>
 #include <qwidget.h>
@@ -44,8 +45,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	kanjiCB = new KToggleAction(i18n("&Kanjidic?"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
-	irCB =  new KToggleAction(i18n("&In Results"), "viewmag+", CTRL+Key_I, this, SLOT(toggleIR()), actionCollection(), "in_results");
-	connect(irCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleIR(bool)));
+	irAction =  new KAction(i18n("Search &in Results"), "viewmag+", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
+	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
 	createGUI();
 
@@ -188,6 +189,13 @@ void TopLevel::doSearch()
 	setResults(num, fullNum);
 }
 
+void TopLevel::resultSearch()
+{
+	_Dict->toggleIR(true);
+	search();
+	_Dict->toggleIR(false);
+}
+
 void TopLevel::search()
 {
 	regexp = Edit->text();
@@ -222,7 +230,7 @@ void TopLevel::strokeSearch()
 	unsigned int strokes = Edit->text().toUInt();
 	if (strokes <= 0 || strokes > 60)
 	{
-		statusBar()->message(i18n("Invalid stroke sount"));
+		statusBar()->message(i18n("Invalid stroke count"));
 		return;
 	}
 	regexp = QString("S%1 ").arg(strokes);
@@ -423,7 +431,7 @@ void TopLevel::kanjiDictChange()
 
 void TopLevel::globalListDirty()
 {
-	isListMod = false;
+	isListMod = true;
 }
 
 QRegExp TopLevel::readingSearchItems(bool kanji)
@@ -487,11 +495,22 @@ QRegExp TopLevel::searchItems()
 
 void TopLevel::toggleCom()
 {
-	//_Dict->setCom(comCB->isChecked());
 }
 
-void TopLevel::toggleIR()
+void TopLevel::configureToolBars()
 {
-	//_Dict->setIR(irCB->isChecked());
+	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+	KEditToolbar dlg(actionCollection(), "kitenui.rc");
+	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
+	if (dlg.exec())
+	{
+		createGUI();
+	}
 }
+
+void TopLevel::newToolBarConfig()
+{
+	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+}
+
 #include "kiten.moc"

@@ -25,11 +25,11 @@
   <Action name="clear_search" />
   <Action name="search_edit" />
   <Action name="search" />
+  <Action name="search_in_results" />
   <Action name="search_stroke" />
   <Action name="search_grade" />
   <Seperator />
   <Action name="kanji_toggle" />
-  <Action name="in_results" />
   <Action name="common" />
   <Action name="file_learn" />
 </ToolBar>

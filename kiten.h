@@ -32,6 +32,7 @@ class TopLevel : public KMainWindow
 
 	private slots:
 	void search();
+	void resultSearch();
 	void searchAccel();
 	void kanjiSearchAccel();
 	void strokeSearch();
@@ -45,15 +46,16 @@ class TopLevel : public KMainWindow
 	void globalListChanged();
 	void globalListDirty();
 	void toggleCom();
-	void toggleIR();
 
 	void createLearn();
+	void configureToolBars();
+	void newToolBarConfig();
 
 	private:
 	Dict * _Dict;
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
-	KToggleAction *irCB;
+	KAction *irAction;
 	KToggleAction *comCB;
 
 	bool noInit;
