@@ -66,7 +66,7 @@ SearchForm::~SearchForm()
 {
 }
 
-QString SearchForm::readingSearchItems(bool kanji)
+QRegExp SearchForm::readingSearchItems(bool kanji)
 {
 	QString text = LineEdit->text();
 	if (text.isEmpty())
@@ -83,10 +83,10 @@ QString SearchForm::readingSearchItems(bool kanji)
 
 	regexp = regexp.arg(text);
 	
-	return regexp;
+	return QRegExp(regexp, caseSensitive);
 }
 
-QString SearchForm::kanjiSearchItems()
+QRegExp SearchForm::kanjiSearchItems()
 {
 	QString text = LineEdit->text();
 	if (text.isEmpty())
@@ -94,13 +94,13 @@ QString SearchForm::kanjiSearchItems()
 
 	CompletionObj->addItem(text);
 
-	QString regexp = "^%1\W";
+	QString regexp = "^%1\\W";
 	regexp = regexp.arg(text);
 	
-	return regexp;
+	return QRegExp(regexp, caseSensitive);
 }
 
-QString SearchForm::searchItems()
+QRegExp SearchForm::searchItems()
 {
 	QString regexp;
 	QString text = LineEdit->text();
@@ -117,8 +117,8 @@ QString SearchForm::searchItems()
 
 	regexp = regexp.arg(text);
 	
-	kdDebug() << "SearchForm::searchItems returning " << regexp << endl;
-	return regexp;
+	//kdDebug() << "SearchForm::searchItems returning " << regexp << endl;
+	return QRegExp(regexp, caseSensitive);
 }
 
 void SearchForm::doSearch()

@@ -19,6 +19,9 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.     */
 
+/* Changed: write to what is specified in -o argument.
+  -- jason */
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -88,6 +91,7 @@ unsigned char **argv;
   int arg_c;
   unsigned char c;
   unsigned char currstr[TOKENLIM],strtmp[50];
+  /*
   unsigned char **ap;
 
   printf("\nXJDXGEN V2.3 Index Table Generator for XJDIC. \n      Copyright J.W. Breen, 1998\n");
@@ -96,31 +100,54 @@ unsigned char **argv;
   while (arg_c > 1)
   {
 	ap++;
+
 	if(strcmp(*ap,"-h") == 0)
 	{
 		printf("\nThe command-line options are:\n");
 		printf("  -h  this display\n");
 		printf("  -c  control file\n");
+		printf("  -o  output file\n");
 		printf("  filename - file to be indexed\n\n");
 		exit(0);
 	}
-	if(strcmp(*ap,"-c") == 0)
+
+	if(strcmp(*ap, "-c") == 0)
 	{
 		ap++;
-		strcpy(ctl_file,*ap);
-    		printf("Commandline request to use control file %s\n",ctl_file);
+		strcpy(ctl_file, *ap);
+    		printf("Commandline request to use control file %s\n", ctl_file);
 		arg_c-=2;
+	strcpy(strtmp,*ap);
 		continue;
 	}
+
+	if(strcmp(*ap, "-o") == 0)
+	{
+		ap++;
+		strcpy(JDXname, *ap);
+    		printf("Commandline request to use output file %s\n", JDXname);
+		arg_c-=2;
+	strcpy(strtmp,*ap);
+		continue;
+	}
+
 	strcpy(strtmp,*ap);
 	strcpy(Dname,*ap);
+
 	strcpy(JDXname,*ap);
 	strcat(JDXname,".xjdx");
+
     	printf("Commandline request to use files %s and %s \n",Dname,JDXname);
 	ap++;
 	arg_c--;
   }
   xjdicrc();
+  */
+
+  strcpy(Dname, argv[1]);
+  strcpy(JDXname, argv[2]);
+  printf("Commandline request to use files %s and %s \n", Dname, JDXname);
+
   inwd = FALSE;
   indptr = 1;
   llone = 1;
@@ -337,7 +364,9 @@ int Kstrcmp(uint32_t lhs, uint32_t rhs)
 	}
 	return(c1-c2);
 }
+
 /*=====xjdicrc - access and analyze "xjdicrc" file (if any)==============*/
+/*
 void xjdicrc()
 {
 	unsigned char xjdicdir[128],rcstr[80],*rcwd;
@@ -410,6 +439,7 @@ void xjdicrc()
 		return;
 	}
 }
+*/
 /*=======function to test a character for alpha or kana/kanji====*/
 int alphaoreuc(unsigned char x)
 {

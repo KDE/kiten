@@ -9,6 +9,7 @@ class KCompletion;
 class Entry;
 class Kanji;
 class QString;
+class QRegExp;
 class KPushButton;
 
 class SearchForm : public QWidget
@@ -18,9 +19,9 @@ class SearchForm : public QWidget
 	SearchForm(QWidget *parent = 0, const char *name = 0);
 	~SearchForm();
 
-	QString searchItems();
-	QString readingSearchItems(bool);
-	QString kanjiSearchItems();
+	QRegExp searchItems();
+	QRegExp readingSearchItems(bool);
+	QRegExp kanjiSearchItems();
 
 	QString lineText();
 

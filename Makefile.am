@@ -12,19 +12,19 @@ kiten_la_SOURCES = main.cpp \
 
 kiten_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -avoid-version
 
-bin_PROGRAMS = kiten xjdxgen
+bin_PROGRAMS = kiten kitengen
 
-kiten_LDADD = kiten.la $(KDE_RPATH) $(LIB_KDEUI)
+kiten_LDADD = kiten.la $(KDE_RPATH) $(LIB_KDEUI) $(LIB_KFILE)
 kiten_LDFLAGS = $(all_libraries)
 kiten_SOURCES = dummy.cpp
-xjdxgen_SOURCES = xjdxgen.c
+kitengen_SOURCES = xjdxgen.c
 
 METASOURCES = AUTO
 
 CLEANFILES = dummy.cpp
 
 rcdir = $(kde_datadir)/kiten
-rc_DATA = kitenui.rc
+#rc_DATA = kitenui.rc
 
 dummy.cpp:
 	echo > dummy.cpp

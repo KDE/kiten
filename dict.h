@@ -7,6 +7,7 @@
 #include <qstringlist.h>
 #include <qstring.h>
 #include <qobject.h>
+#include <qregexp.h>
 
 #include <sys/types.h>
 #include <inttypes.h>
@@ -24,8 +25,8 @@ class Dict : public QObject
 	~Dict();
 	bool init(bool);
 	void search(QString);
-	QPtrList<Entry> search(QString, QString, unsigned int &);
-	QPtrList<Kanji> kanjiSearch(QString, const QString &, unsigned int &);
+	QPtrList<Entry> search(QRegExp, QString, unsigned int &, unsigned int &);
+	QPtrList<Kanji> kanjiSearch(QRegExp, const QString &, unsigned int &, unsigned int &);
 	void setDictList(const QStringList &);
 	void setDictNameList(const QStringList &);
 	void setKanjiDictList(const QStringList &);

@@ -4,9 +4,11 @@
 #include <kdebug.h>
 #include <qfile.h>
 #include <kapp.h>
+#include <kglobal.h>
 #include <krun.h>
 #include <kstandarddirs.h>
 #include <qtextstream.h> 
+#include <qfileinfo.h> 
 #include <iostream.h>
 #include <qstring.h>
 #include <qregexp.h>
@@ -38,8 +40,13 @@ Dict::~Dict()
 
 bool Dict::init(bool kanjidict)
 {
-	kdDebug() << "Dict:init(" << kanjidict << ")\n";
+	KStandardDirs *dirs = KGlobal::dirs();
+
+	//kdDebug() << "Dict:init(" << kanjidict << ")\n";
 	QStringList *theDictList = 0;
+
+	QString indexdir = dirs->saveLocation("appdata", "xjdx/", true);
+	QString index;
 
 	if (kanjidict)
 		theDictList = &KanjiDictList;
@@ -51,7 +58,7 @@ bool Dict::init(bool kanjidict)
 	int numDicts = theDictList->size();
 	if (numDicts < 1)
 	{
-		kdDebug() << "No dictionaries!\n";
+		//kdDebug() << "No dictionaries!\n";
 		return false;
 	}
 
@@ -61,19 +68,26 @@ bool Dict::init(bool kanjidict)
 		// check if the dicts exist
 		if (!QFile::exists(*it))
 		{
-			kdDebug() << *it << " does not exist!\n";
+			//kdDebug() << *it << " does not exist!\n";
 			return false;
 		}
 
-		QString index = QString((*it)).append(".xjdx"))) // the index file
+		index = QString(indexdir).append(QFileInfo(*it).fileName()).append(".xjdx"); // the index file
+
 		if (!QFile::exists(index))
 		{
-			kdDebug() << *it << " does not exist, will make now\n";
+			//kdDebug() << index << " does not exist, will make now\n";
 
 			// find the index generator executable
-			QString file = "";
-			QString cmd = QString("%1 %2").arg(KStandardDirs::findExe("kiten_gen").arg(*it);
+			QString cmd = QString("%1 \"%2\" \"%3\"").arg(KStandardDirs::findExe("kitengen")).arg(*it).arg(index);
+			//kdDebug() << "cmd = " << cmd << endl;
 			KRun::runCommand(cmd);
+
+			if (!QFile::exists(index))
+			{
+				//kdDebug() << index << " still does not exist\n";
+				return false;
+			}
 		}
 	}
 
@@ -83,34 +97,34 @@ bool Dict::init(bool kanjidict)
 
 	for (it = theDictList->begin(); it != theDictList->end(); ++it)
 	{
-		kdDebug() << "starting on " << (*it).latin1() << " now\n";
-		QString index = QString((*it)).append(".xjdx"))) // the index file
+		//kdDebug() << "starting on " << (*it).latin1() << " now\n";
+		index = QString(indexdir).append(QFileInfo(*it).fileName()).append(".xjdx"); // the index file
 		
   		DictFiles[i] = open((*it).latin1(), O_RDONLY);
-		kdDebug() << "DictFiles[" << i << "] = " << DictFiles[i] << endl;
+		//kdDebug() << "DictFiles[" << i << "] = " << DictFiles[i] << endl;
 
 		stat((*it).latin1(), &buf);
 		DictLength[i] = buf.st_size + 1;
-		kdDebug() << "buf.st_size " << buf.st_size << endl;
+		//kdDebug() << "buf.st_size " << buf.st_size << endl;
 
 		if ((DictMap[i] = mmap(0, DictLength[i], PROT_READ, MAP_FILE | MAP_SHARED, DictFiles[i], 0)) == MAP_FAILED)
 		{
 			kapp->quit();
 		}
 
-  		IndexFiles[i] = open(QString((*it)).append(".xjdx").latin1(), O_RDONLY);
-		stat(QString((*it)).append(".xjdx").latin1(), &buf);
+  		IndexFiles[i] = open(index.latin1(), O_RDONLY);
+		stat(index.latin1(), &buf);
 		IndexLength[i] = buf.st_size + 1;
 		
 		indptrt[i] = IndexLength[i] / sizeof(int32_t) - 1;
 
-		kdDebug() << "IndexLength " << IndexLength[i] << endl;
+		//kdDebug() << "IndexLength " << IndexLength[i] << endl;
 		if ((DictIndexMap[i] = (int32_t *) mmap(0, IndexLength[i], PROT_READ, MAP_FILE | MAP_SHARED, IndexFiles[i], 0)) == MAP_FAILED)
 		{
 			kapp->quit();
 		}
 
-		kdDebug() << "Dict #" << i << " is now mmapped!\n";
+		//kdDebug() << "Dict #" << i << " is now mmapped!\n";
 
 		i++;
 	}
@@ -132,16 +146,16 @@ void Dict::doSearch(QString regexp)
 	unsigned char *sch_str = regexp.latin1();
 
 	int sch_str_len = strlen(sch_str);
-	kdDebug() << "Dict::search(), sch_str = " << QString((char *)sch_str) << ", sch_str_len = " << sch_str_len << endl;
+	//kdDebug() << "Dict::search(), sch_str = " << QString((char *)sch_str) << ", sch_str_len = " << sch_str_len << endl;
 
-	int32_t lo, hi, itok, lo2, hi2, schix, schiy, index_posn;
+	int32_t lo, hi, itok, lo2, hi2, schix, schiy, index_posn = 0;
 	int res = 0, i;
 
-	QString ResultString;
+	QString ResultString; // final results
 
 	int32_t dic_loc;
 	int hit_posn;
-	int32_t res_index;
+	int32_t res_index = 0;
 	int32_t oldres_index;
 
 	// get down and da-ti-
@@ -291,11 +305,12 @@ void Dict::doSearch(QString regexp)
 	{
 		if (i == 512)
 		{
-			kdDebug() << "Reply over-run!\n";
+			kdWarning() << "Reply over-run!\n";
 			kapp->quit();
 		}
 
 		unsigned char eucchar = DictLookup(schix + i);
+
 		QChar appendChar(eucchar);
 
 		//kdDebug() << "eucchar = " << eucchar << endl;
@@ -308,6 +323,7 @@ void Dict::doSearch(QString regexp)
 
 	if (oldres_index != res_index) // no repeats
 	{
+		//kdDebug() << "ResultString = " << ResultString << endl;
 		ResultString.append("\n"); // add a newline
 	
 		s.append(ResultString);
@@ -326,34 +342,39 @@ void Dict::doSearch(QString regexp)
 	goto Common; // search for more 
 }
 
-QPtrList<Entry> Dict::search(QString realregexp, QString regexp, unsigned int &fullNum)
+QPtrList<Entry> Dict::search(QRegExp realregexp, QString regexp, unsigned int &num, unsigned int &fullNum)
 {
 	fullNum = 0;
+	num = 0;
 	QPtrList<Entry> ret;
 
-	QRegExp RegExp(realregexp); // make the regexp
 	QStringList::iterator itr;
 
 	for (CurrentDict = 0; CurrentDict < DictList.size(); CurrentDict++)
 	{
 		it = 0;
 
+		// add seperator
 		ret.append(new Entry(*(DictNameList.at(CurrentDict))));
-		kdDebug() << "curdic = " << CurrentDict << endl;
-		kdDebug() << "name = " << *(DictNameList.at(CurrentDict)) << endl;
+		num--;
+		fullNum--;
+
+		//kdDebug() << "curdic = " << CurrentDict << endl;
+		//kdDebug() << "name = " << *(DictNameList.at(CurrentDict)) << endl;
+		
 		doSearch(regexp); // make our s
 
 		for (itr = s.begin(); itr != s.end(); ++itr)
 		{
-			kdDebug() << "Processing: " << *itr << endl;
-			int found = RegExp.search(*itr);
+			//kdDebug() << "Processing: " << *itr << endl;
+			int found = realregexp.search(*itr);
 	
 			if (found < 0)
 				continue;
 	
 			if (((*itr).find(QString("(P)")) < 0) && com) // common entries have (P)
 			{
-				kdDebug() << "Not Common\n";
+				//kdDebug() << "Not Common\n";
 				fullNum++;
 				continue;
 			}
@@ -364,28 +385,30 @@ QPtrList<Entry> Dict::search(QString realregexp, QString regexp, unsigned int &f
 	}
 
 	fullNum += ret.count();
+	num += ret.count();
 
 	return ret;
 }
 
-QPtrList<Kanji> Dict::kanjiSearch(QString realregexp, const QString &regexp, unsigned int &fullNum)
+QPtrList<Kanji> Dict::kanjiSearch(QRegExp realregexp, const QString &regexp, unsigned int &num, unsigned int &fullNum)
 {
+	num = 0;
 	fullNum = 0;
 	QPtrList<Kanji> ret;
 
 	for (CurrentDict = DictList.size(); CurrentDict < (DictList.size() + KanjiDictList.size()); CurrentDict++)
 	{
 		ret.append(new Kanji(*KanjiDictNameList.at(CurrentDict - DictList.size())));
+		num--;
+		fullNum--;
 		doSearch(regexp);
 	}
-
-	QRegExp RegExp(realregexp); // make the regexp
 
 	QStringList::iterator itr;
 	for (itr = s.begin(); itr != s.end(); ++itr)
 	{
 		//kdDebug() << "Processing: " << *itr << endl;
-		int found = RegExp.search(*itr);
+		int found = realregexp.search(*itr);
 
 		if (found < 0)
 			continue;
@@ -403,6 +426,7 @@ QPtrList<Kanji> Dict::kanjiSearch(QString realregexp, const QString &regexp, uns
 	}
 
 	fullNum += ret.count();
+	num += ret.count();
 
 	return ret;
 }

@@ -4,6 +4,8 @@
 #include <kmainwindow.h>
 #include <qstring.h>
 
+#include <qregexp.h>
+
 class Dict;
 class Entry;
 class SearchForm;
@@ -42,7 +44,7 @@ class TopLevel : public KMainWindow
 	KGlobalAccel *Accel;
 
 	QString regexp; // is searched for in dict
-	QString realregexp; // gets turned into a QRegExp to process
+	QRegExp realregexp; // is searched on real dict strings
 	                    // things that match dict in dictionary
 	void doSearch();
 

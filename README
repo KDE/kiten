@@ -1,11 +1,11 @@
-** Kiten **
-** the only KDE Japanese reference tool **
+    ****************************************
+   **                Kiten                 **
+   ** the only KDE Japanese reference tool **
+    ****************************************
 
 Make sure you visit the preferences page. It outlines the necessary dictionaries you will have to install / tell Kiten about.
 
-After you have gotten the flat dictionary files, run 'xjdxgen dictname', where dictname is the name of the dictionary in your current working directory. This creates the index file for that dictionary. Without it, Kiten will not work.
-
-To tell Kiten about your dictionaries, visit the "edict" and "kanjidic" configuration pages, under the "Dictionaries" configuration page. When entering your dictionaries, use the full path, and do not include the .xjdx extension. Kiten will load those automatically.
+To tell Kiten about your dictionaries, visit the "edict" and "kanjidic" configuration pages, under the "Dictionaries" configuration page, and use the "Add" button. Then type in the full path to your dictionary files, and whatever name you want in the first column.
 
 Hope Kiten is useful to you!
 	Jason Katz-Brown <jason@katzbrown.com>

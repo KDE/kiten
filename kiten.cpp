@@ -4,6 +4,7 @@
 #include <kconfig.h>
 #include <qwidget.h>
 #include <kapp.h>
+#include <kstatusbar.h>
 #include <kglobalaccel.h>
 #include <kdebug.h>
 #include <qtimer.h>
@@ -86,9 +87,10 @@ void TopLevel::doSearch()
 		}
 	
 		unsigned int fullNum;
-		QPtrList<Entry> results = _Dict->search(realregexp, regexp, fullNum);
+		unsigned int num;
+		QPtrList<Entry> results = _Dict->search(realregexp, regexp, num, fullNum);
 		
-		setResults(results.count(), fullNum);
+		setResults(num, fullNum);
 		
 		QPtrListIterator<Entry> it(results);
 		Entry *curEntry;
@@ -107,9 +109,10 @@ void TopLevel::doSearch()
 		}
 	
 		unsigned int fullNum;
-		QPtrList<Kanji> results = _Dict->kanjiSearch(realregexp, regexp, fullNum);
+		unsigned int num;
+		QPtrList<Kanji> results = _Dict->kanjiSearch(realregexp, regexp, num, fullNum);
 		
-		setResults(results.count(), fullNum);
+		setResults(num, fullNum);
 		
 		QPtrListIterator<Kanji> it(results);
 		Kanji *curKanji;
