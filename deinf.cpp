@@ -52,7 +52,7 @@ void Deinf::Index::load()
 			names[number] = name;
 		}
 	}
-	for(QString text = t.readLine(); text; text = t.readLine())
+	for(QString text = t.readLine(); !text.isEmpty(); text = t.readLine())
 	{
 		if(text.at(0) != '#')
 		{
