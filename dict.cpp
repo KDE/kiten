@@ -199,7 +199,6 @@ QStringList Index::doSearch(File &file, QString text)
 	unsigned cur;
 	int comp = 0;
 
-	kdDebug() << "Search for " << text << endl;
 	do
 	{
 		cur = (hi + lo) / 2;
@@ -222,12 +221,18 @@ QStringList Index::doSearch(File &file, QString text)
 		// output every matching entry
 		while(cur < index.size() && 0 == stringCompare(file, cur, eucString))
 		{
+			// because the index doesn't point to the start of the line, find the
+			// start of the line:
+			int i = 0;
+			while(file.lookup(cur, i - 1) != 0x0a) --i;
+
 			QByteArray bytes(0);
-			for (int i = 0; file.lookup(cur, i) != 0x0a; i++) // get to end of our line
+			while(file.lookup(cur, i) != 0x0a) // get to end of our line
 			{
 				const char eucchar = file.lookup(cur, i);
 				bytes.resize(bytes.size() + 1);
 				bytes[bytes.size() - 1] = eucchar;
+				++i;
 			}
 			results.append(codec.toUnicode(bytes));
 			results.append("\n");
@@ -340,16 +345,12 @@ KanjiSearchResult Index::searchPreviousKanji(QRegExp regexp, KanjiSearchResult l
 // except it will make katakana and hiragana match (EUC A4 & A5)
 int Index::stringCompare(File &file, int index, QCString str)
 {
-	QString d;
 	for(unsigned i = 0; i < str.length(); ++i)
 	{
 		unsigned char c1 = static_cast<unsigned char>(str[i]);
 		unsigned char c2 = file.lookup(index, i);
 		if ((c1 == '\0') || (c2 == '\0'))
-		{
-			kdDebug() << index << " " << d << "MATCH?" << endl;
 			return 0;
-		}
 
 		if ((i % 2) == 0)
 		{
@@ -363,15 +364,10 @@ int Index::stringCompare(File &file, int index, QCString str)
 		if ((c1 >= 'A') && (c1 <= 'Z')) c1 |= 0x20; /*fix ucase*/
 		if ((c2 >= 'A') && (c2 <= 'Z')) c2 |= 0x20;
 
-		d += QString(QChar(c2));
 		if (c1 != c2)
-		{
-			kdDebug() << index << " " << d << endl;
 			return (int)c1 - (int)c2;
-		}
 	}
 
-	kdDebug() << index << " " << d << " MATCH" << endl;
 	return 0;
 }
 
@@ -455,7 +451,6 @@ Kanji Index::kanjiParse(const QString &raw)
 	for (i = 0; i < length; i++)
 	{
 		ichar = raw.at(i);
-		//kdDebug() << "char: " << QString(ichar) << "parsemode: " << QString(parsemode)  << "prevwasspace: " << prevwasspace << endl;
 
 		if (ichar == ' ')
 		{
@@ -531,7 +526,6 @@ Kanji Index::kanjiParse(const QString &raw)
 			}
 			else
 			{
-				//kdDebug() << QString(ichar) << " isn't a letter\n";
 				curreading = QString(ichar);
 				parsemode = "reading";
 			}
