@@ -22,11 +22,12 @@
 /* Changed: ignore all rc stuff. use args 1 and 2 for input/output file.
   -- jason */
 
+#include <config.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdio.h>
-/*#include <stdlib.h>*/
+#include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 
@@ -46,9 +47,9 @@ unsigned char *db;
 unsigned char ENVname[50];
 unsigned char *dicenv;
 struct stat *buf;
-uint32_t dbyte;
-uint32_t  *jindex;
-uint32_t indptr,llone;
+u_int32_t dbyte;
+u_int32_t  *jindex;
+u_int32_t indptr,llone;
 unsigned char ctl_file[80] = {".xjdicrc"};
 unsigned char Dname[80] = {"edict"};
 unsigned char JDXname[80] = {"edict.xjdx"};
