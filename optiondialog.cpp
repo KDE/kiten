@@ -35,10 +35,11 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	list = i18n("Dictionaries");
 	QFrame *Page0 = addPage(i18n("Dictionaries"));
 	QVBoxLayout *descBox = new QVBoxLayout(Page0);
-	descBox->addWidget(new QLabel(i18n("Kiten includes Edict for a regular word search.\nFor Kanji searching, Kanjidic is included.\n\nFeel free to add your own extras, by adding them in the\nconfiguration pages below this one."), Page0));
+	descBox->addWidget(new QLabel(i18n("Kiten includes Edict for a regular word search.\nFor Kanji searching, Kanjidic is included.\n\nFeel free to add your own extras (see foreign-language link below) by adding them in the\nconfiguration pages below this one."), Page0));
 	descBox->addStretch();
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0));
+	descBox->addWidget(new KURLLabel("http://www.katzbrown.com/kiten/Dictionaries/", i18n("Foreign language Edicts"), Page0));
 	descBox->addStretch();
 
 	list.append(i18n("Edict"));
