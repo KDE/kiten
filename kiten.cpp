@@ -39,6 +39,7 @@
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
+	setStandardToolBarMenuEnabled(true);
 
 	Accel = new KGlobalAccel(this);
 	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), CTRL + ALT + Key_K, CTRL + ALT + Key_K, this, SLOT(kanjiSearchAccel()));
