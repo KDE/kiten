@@ -1,5 +1,3 @@
-// jason@katzbrown.com
-
 #ifndef DICT_H
 #define DICT_H
 
