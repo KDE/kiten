@@ -1,0 +1,23 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="Kiten Learn" version="1">
+
+<MenuBar>
+
+<Menu name="edit"><text>&amp;Edit</text>
+  <Action name="del" />
+</Menu>
+
+<Menu name="go_document"><text>&amp;Go</text>
+  <Action name="random" />
+  <Action name="cheat" />
+</Menu>
+
+</MenuBar>
+
+<ToolBar name="mainToolBar" fullWidth="true"><text>Main Toolbar</text>
+  <Action name="random" />
+  <Action name="del" />
+  <Action name="grade" />
+</ToolBar>
+
+</kpartgui>
