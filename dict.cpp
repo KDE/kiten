@@ -433,7 +433,7 @@ Entry Index::parse(const QString &raw)
 		{
 			if (!firstmeaning)
 			{
-				meanings.prepend(curmeaning);
+				meanings.append(curmeaning);
 				curmeaning = "";
 			}
 			else
@@ -526,7 +526,7 @@ Entry Index::kanjiParse(const QString &raw)
 		}
 		else if (ichar == '}')
 		{
-			meanings.prepend(curmeaning);
+			meanings.append(curmeaning);
 			curmeaning = "";
 		}
 		else if (parsemode == "detail")
