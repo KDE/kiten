@@ -36,10 +36,10 @@
 <ToolBar name="extraToolBar" noMerge="1"><text>Extra Toolbar</text>
   <Action name="search_stroke" />
   <Action name="search_grade" />
-  <Seperator />
+  <Seperator/>
   <Action name="kanji_toggle" />
   <Action name="common" />
-  <Seperator />
+  <Seperator/>
   <Action name="file_learn" />
 </ToolBar>
 

@@ -373,6 +373,7 @@ int Index::stringCompare(File &file, int index, QCString str)
 
 Entry Index::parse(const QString &raw)
 {
+	kdDebug() << "parse on " << raw << endl;
 	unsigned int length = raw.length();
 	QString reading;
 	QString kanji;
@@ -389,6 +390,10 @@ Entry Index::parse(const QString &raw)
 		if (ichar == '[')
 		{
 			parsemode = "reading";
+		}
+		else if (ichar == ']')
+		{
+			// do nothing
 		}
 		else if (ichar == '/')
 		{
