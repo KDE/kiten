@@ -72,11 +72,14 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	addAction = new KAction(i18n("Add &Kanji to Learning List"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
 
+	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
+	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
 	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
 	forwardAction->setEnabled(false);
 	currentResult = resultHistory.end();
+	currentResultIndex = 0;
 
 	createGUI();
 
@@ -152,7 +155,11 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 	StatusBar->message(i18n("Searching..."));
 
 	Dict::SearchResult results;
-	if (!kanjiCB->isChecked())
+	if (kanjiCB->isChecked())
+	{
+		results = _Index.searchKanji(regexp, text, comCB->isChecked());
+	}
+	else
 	{
 		results = _Index.search(regexp, text, comCB->isChecked());
 
@@ -168,10 +175,6 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 
 			results = _Index.search(regexp, text, comCB->isChecked());
 		}
-	}
-	else
-	{
-		results = _Index.searchKanji(regexp, text, comCB->isChecked());
 	}
 
 	addHistory(results);
@@ -204,7 +207,13 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 
 	Dict::Entry first = Dict::firstEntry(results);
 	
-	kanjiCB->setChecked(first.extendedKanjiInfo());
+	if (results.count > 0)
+		kanjiCB->setChecked(first.extendedKanjiInfo());
+	else
+	{
+		_ResultView->flush();
+		return;
+	}
 
 	if (first.extendedKanjiInfo())
 	{
@@ -711,7 +720,7 @@ void TopLevel::radSearch(const QStringList &_list, unsigned int strokes)
 		already = true;
 	}
 
-	hist.text = prettyRadicalString;
+	hist.text = i18n("Radical(s): %1").arg(prettyRadicalString);
 
 	if (strokes)
 		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1 and %2 strokes").arg(prettyRadicalString).arg(strokes), true));
@@ -739,28 +748,57 @@ void TopLevel::back(void)
 {
 	assert(currentResult != resultHistory.begin());
 	--currentResult;
+	--currentResultIndex;
 	enableHistoryButtons();
 	handleSearchResult(*currentResult);
+	historySpotChanged();
 }
 
 void TopLevel::forward(void)
 {
 	assert(currentResult != resultHistory.end());
 	++currentResult;
+	++currentResultIndex;
 	enableHistoryButtons();
 	handleSearchResult(*currentResult);
+	historySpotChanged();
+}
+
+void TopLevel::goInHistory(int index)
+{
+	currentResult = resultHistory.at(index);
+	currentResultIndex = index;
+	enableHistoryButtons();
+	handleSearchResult(*currentResult);
+	historySpotChanged();
+}
+
+void TopLevel::historySpotChanged()
+{
+	historyAction->setCurrentItem(currentResultIndex);
 }
 
 void TopLevel::addHistory(Dict::SearchResult result)
 {
+	QStringList newHistoryList = historyAction->items();
+
 	// remove from back till we hit currentResult
 	while (resultHistory.fromLast() != currentResult)
+	{
 		resultHistory.pop_back();
+		newHistoryList.pop_back();
+	}
 
 	resultHistory.append(result);
+	newHistoryList.append(result.text);
+
+	historyAction->setItems(newHistoryList);
 
 	currentResult = resultHistory.end();
 	--currentResult;
+	currentResultIndex = resultHistory.count() - 1;
+
+	historySpotChanged();
 
 	enableHistoryButtons();
 

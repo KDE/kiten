@@ -406,7 +406,6 @@ int Index::stringCompare(File &file, int index, QCString str)
 		if ((c1 == '\0') || (c2 == '\0'))
 			return 0;
 
-		/*
 		if ((i % 2) == 0)
 		{
 			if (c1 == 0xA5)
@@ -415,7 +414,6 @@ int Index::stringCompare(File &file, int index, QCString str)
 			if (c2 == 0xA5)
 				c2 = 0xA4;
 		}
-		*/
 
 		if ((c1 >= 'A') && (c1 <= 'Z')) c1 |= 0x20; /*fix ucase*/
 		if ((c2 >= 'A') && (c2 <= 'Z')) c2 |= 0x20;

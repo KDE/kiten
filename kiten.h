@@ -16,6 +16,7 @@ class EditAction;
 class KGlobalAccel;
 class KStatusBar;
 class KToggleAction;
+class KListAction;
 class Learn;
 class ResultView;
 
@@ -47,6 +48,8 @@ class TopLevel : public KMainWindow
 	void gradeSearch();
 	void back();
 	void forward();
+	void goInHistory(int);
+	void historySpotChanged();
 	void slotKeyBindings();
 	void slotConfigure();
 	void slotLearnConfigure();
@@ -77,6 +80,7 @@ class TopLevel : public KMainWindow
 	KToggleAction *kanjiCB;
 	KToggleAction *autoSearchToggle;
 	KToggleAction *deinfCB;
+	KListAction *historyAction;
 	KAction *irAction;
 	KAction *addAction;
 	KToggleAction *comCB;
@@ -115,6 +119,7 @@ class TopLevel : public KMainWindow
 
 	QValueList<Dict::SearchResult> resultHistory;
 	QValueListIterator<Dict::SearchResult> currentResult;
+	int currentResultIndex;
 	void addHistory(Dict::SearchResult);
 	void enableHistoryButtons();
 
