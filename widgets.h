@@ -25,6 +25,8 @@ class SearchForm : public QWidget
 	QRegExp kanjiSearchItems();
 
 	QString lineText();
+	void setLineText(const QString&);
+	void setFocusNow();
 
 	private:
 	KPushButton *ClearButton;
@@ -36,8 +38,6 @@ class SearchForm : public QWidget
 
 	bool wholeWord;
 	bool caseSensitive;
-
-	QString goodText();
 
 	private slots:
 	void doSearch();

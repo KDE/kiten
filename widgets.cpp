@@ -3,9 +3,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kconfig.h>
-#include <qclipboard.h>
-#include <qapplication.h>
-#include <kapplication.h>
+#include <kapp.h>
 #include <klineedit.h>
 #include <kpushbutton.h>
 #include <qtextedit.h>
@@ -65,9 +63,9 @@ SearchForm::~SearchForm()
 QRegExp SearchForm::readingSearchItems(bool kanji)
 {
 	QString text = LineEdit->text();
-	if (text.isEmpty())
+	if (text.isEmpty()) // abandon search
 	{
-		text = goodText();
+		return QRegExp(); //empty
 	}
 
 	CompletionObj->addItem(text);
@@ -86,7 +84,9 @@ QRegExp SearchForm::kanjiSearchItems()
 {
 	QString text = LineEdit->text();
 	if (text.isEmpty())
-		text = goodText();
+	{
+		return QRegExp(); //empty
+	}
 
 	CompletionObj->addItem(text);
 
@@ -101,7 +101,9 @@ QRegExp SearchForm::searchItems()
 	QString regexp;
 	QString text = LineEdit->text();
 	if (text.isEmpty())
-		text = goodText();
+	{
+		return QRegExp(); //empty
+	}
 
 	CompletionObj->addItem(text);
 
@@ -132,21 +134,19 @@ void SearchForm::doKanjiSearch()
 	emit kanjiSearch();
 }
 
-QString SearchForm::goodText() // gets text from clipboard
-{
-	QApplication::clipboard()->setSelectionMode(true);
-	QString text = QApplication::clipboard()->text();
-	QApplication::clipboard()->setSelectionMode(false);
-	
-	if (text.isEmpty())
-		text = "Empty";
-
-	return text;
-}
-
 QString SearchForm::lineText()
 {
 	return LineEdit->text();
+}
+
+void SearchForm::setLineText(const QString& text)
+{
+	LineEdit->setText(text);
+}
+
+void SearchForm::setFocusNow()
+{
+	LineEdit->setFocus();
 }
 
 ////////////////////////////////////////////////////////
@@ -167,9 +167,9 @@ void ResultView::addResult(Entry *result, bool com)
 
 	QString html;
 	if (result->kanaOnly())
-		html = QString("<p><u><font size=\"+2\">%1</font></u>  ").arg(result->reading());
+		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result->reading());
 	else
-		html = QString("<p><u><font size=\"+2\">%1</font></u>: %2  ").arg(result->kanji()).arg(result->reading());
+		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(result->kanji()).arg(result->reading());
 
 	QStringList::Iterator it;
 	QStringList Meanings = result->meanings();
@@ -205,7 +205,7 @@ void ResultView::addKanjiResult(Kanji *result)
 	}
 
 	QString html;
-	html = QString("<p><u><font size=\"+2\">%1</font></u>: %2  ").arg(result->kanji());
+	html = QString("<p><font size=\"+3\">%1</font>: %2  ").arg(result->kanji());
 
 	unsigned int freq = result->freq();
 	if (freq == 0) // does it have a frequency?

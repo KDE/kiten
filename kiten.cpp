@@ -2,6 +2,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <qcheckbox.h>
+#include <qclipboard.h>
 #include <qpushbutton.h>
 #include <kconfig.h>
 #include <qwidget.h>
@@ -44,9 +45,9 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	kanjiCB = new QCheckBox(i18n("&Kanjidic?"), dummy, "kanjiCB");
 	botLayout->addWidget(kanjiCB);
 
-	radButton = new QPushButton(i18n("Kanji Ra&dical Search"), dummy, "radButton");
-	botLayout->addWidget(radButton);
-	connect(radButton, SIGNAL(pressed()), SLOT(radSearch()));
+	strokeButton = new QPushButton(i18n("&Stroke Search"), dummy, "strokeButton");
+	botLayout->addWidget(strokeButton);
+	connect(strokeButton, SIGNAL(pressed()), SLOT(strokeSearch()));
 
 	layout->addWidget(_SearchForm);
 	layout->addWidget(_ResultView);
@@ -70,11 +71,17 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	slotUpdateConfiguration();
 
 	Accel = new KGlobalAccel();
-	Accel->insertItem(i18n("Lookup Kanji"), "LookupKanji", "CTRL+SHIFT+K");
-	Accel->insertItem(i18n("Lookup Reading"), "LookupReading", "CTRL+SHIFT+R");
-	Accel->connectItem("LookupKanji", this, SLOT(kanjiSearch()));
-	Accel->connectItem("LookupReading", this, SLOT(readingSearch()));
+	Accel->insertItem(i18n("Lookup kanji (Kanjidic)"), "LookupKanji", "CTRL+SHIFT+K");
+	Accel->insertItem(i18n("Lookup Japanese word (Edict)"), "LookupJpWord", "CTRL+SHIFT+W");
+	Accel->insertItem(i18n("Lookup English word (Edict)"), "LookupEngWord", "CTRL+SHIFT+E");
+	Accel->insertItem(i18n("Lookup reading (Edict)"), "LookupReading", "CTRL+SHIFT+R");
+	Accel->connectItem("LookupKanji", this, SLOT(kanjiSearchAccel()));
+	Accel->connectItem("LookupJpWord", this, SLOT(jpWordAccel()));
+	Accel->connectItem("LookupEngWord", this, SLOT(engWordAccel()));
+	Accel->connectItem("LookupReading", this, SLOT(readingSearchAccel()));
 	Accel->readSettings();
+
+	_SearchForm->setFocusNow();
 }
 
 void TopLevel::close()
@@ -89,6 +96,11 @@ void TopLevel::close()
 
 void TopLevel::doSearch()
 {
+	if (regexp.isEmpty())
+	{
+		statusBar()->message(i18n("Empty search items"));
+		return;
+	}
 	//kdDebug() << "TopLevel::doSearch()\n";
 	_ResultView->clear();
 
@@ -138,6 +150,8 @@ void TopLevel::doSearch()
 			_ResultView->addKanjiResult(curKanji);
 		}
 	}
+
+	_ResultView->updateScrollBars(); // workaround for QTextEdit bug!
 }
 
 void TopLevel::search()
@@ -161,8 +175,70 @@ void TopLevel::kanjiSearch()
 	doSearch();
 }
 
-void TopLevel::radSearch()
+void TopLevel::strokeSearch()
 {
+	unsigned int strokes = _SearchForm->lineText().toUInt();
+	if (strokes <= 0 || strokes > 60)
+	{
+		statusBar()->message(i18n("Invalid stroke sount"));
+		return;
+	}
+	regexp = QString("S%1 ").arg(strokes);
+	realregexp = QRegExp(regexp);
+
+	// must be in kanjidic mode
+	kanjiCB->setChecked(true);
+
+	doSearch();
+}
+
+QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
+{
+	kapp->clipboard()->setSelectionMode(true);
+	QString text = kapp->clipboard()->text();
+	kapp->clipboard()->setSelectionMode(false);
+
+	return text;
+}
+
+void TopLevel::readingSearchAccel()
+{
+	kanjiCB->setChecked(false);
+
+	realregexp = _SearchForm->readingSearchItems(kanjiCB->isChecked());
+	clipBoardText();
+	regexp = _SearchForm->lineText();
+	doSearch();
+}
+
+void TopLevel::kanjiSearchAccel()
+{
+	kanjiCB->setChecked(true);
+
+	realregexp = _SearchForm->kanjiSearchItems();
+	clipBoardText();
+	regexp = _SearchForm->lineText();
+	doSearch();
+}
+
+void TopLevel::jpWordAccel()
+{
+	kanjiCB->setChecked(false);
+
+	realregexp = _SearchForm->kanjiSearchItems();
+	clipBoardText();
+	regexp = _SearchForm->lineText();
+	doSearch();
+}
+
+void TopLevel::engWordAccel()
+{
+	kanjiCB->setChecked(false);
+	
+	realregexp = _SearchForm->searchItems();
+	clipBoardText();
+	regexp = _SearchForm->lineText();
+	doSearch();
 }
 
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)

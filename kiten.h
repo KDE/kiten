@@ -26,8 +26,12 @@ class TopLevel : public KMainWindow
 	void close();
 	void search();
 	void readingSearch();
+	void readingSearchAccel();
 	void kanjiSearch();
-	void radSearch();
+	void kanjiSearchAccel();
+	void jpWordAccel();
+	void engWordAccel();
+	void strokeSearch();
 	void slotConfigure();
 	void slotConfigureHide();
 	void slotConfigureDestroy();
@@ -39,7 +43,7 @@ class TopLevel : public KMainWindow
 	SearchForm *_SearchForm;
 	ResultView *_ResultView;
 	QCheckBox *kanjiCB;
-	QPushButton *radButton;
+	QPushButton *strokeButton;
 	QCheckBox *comCB;
 	QCheckBox *irCB;
 	bool noInit;
@@ -51,6 +55,7 @@ class TopLevel : public KMainWindow
 	QRegExp realregexp; // is searched on real dict strings
 	                    // things that match dict in dictionary
 	void doSearch();
+	QString clipBoardText();
 
 	ConfigureDialog *optionDialog;
 

@@ -60,7 +60,7 @@ bool Dict::init(bool kanjidict)
 	int numDicts = theDictList->size();
 	if (numDicts < 1)
 	{
-		msgerr(i18n("No dictionaries specified."));
+		msgerr(i18n("No dictionaries in list!"));
 		return false;
 	}
 

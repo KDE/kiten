@@ -88,9 +88,8 @@ unsigned char **argv;
   FILE *fp,*fopen();
   uint32_t possav,schi,diclen,indlen;
   int i,inwd,cstrp,saving,isc,nodread;
-  int arg_c;
   unsigned char c;
-  unsigned char currstr[TOKENLIM],strtmp[50];
+  unsigned char currstr[TOKENLIM];
   /*
   unsigned char **ap;
 
@@ -143,6 +142,14 @@ unsigned char **argv;
   }
   xjdicrc();
   */
+
+  printf("\nNOTE: running this program by itself is never necessary. Kiten will run it automatically.\n");
+
+  if (argc < 3)
+  {
+    printf("\nUSAGE: kitengen input output.xjdx\n");
+    return;
+  }
 
   strcpy(Dname, argv[1]);
   strcpy(JDXname, argv[2]);
