@@ -185,7 +185,7 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	QVBoxLayout *biglayout = new QVBoxLayout(this, 0, KDialog::spacingHint());
 	useGlobal = new QCheckBox(i18n("Use preinstalled %1").arg(configKey), this);
 	biglayout->addWidget(useGlobal);
-	useGlobal->setEnabled(globaldict != QString::null);
+	useGlobal->setEnabled(!globaldict.isNull());
 
 	QHBoxLayout *layout = new QHBoxLayout(biglayout, KDialog::spacingHint());
 

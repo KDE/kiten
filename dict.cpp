@@ -29,7 +29,7 @@ namespace
 void msgerr(const QString &msg, const QString &dict = QString::null)
 {
 	QString output = msg;
-	if (dict != QString::null)
+	if (!dict.isNull())
 		output = msg.arg(dict);
 	KMessageBox::error(0, output);
 }

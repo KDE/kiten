@@ -588,7 +588,7 @@ void TopLevel::slotUpdateConfiguration()
 		DictNameList.prepend(i18n("Personal"));
 	}
 
-	if (globaledict != QString::null && edictUseGlobal)
+	if (!globaledict.isNull() && edictUseGlobal)
 	{
 		DictList.prepend(globaledict);
 		DictNameList.prepend("Edict");
@@ -606,7 +606,7 @@ void TopLevel::slotUpdateConfiguration()
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
 		DictList.append(config->readEntry(*it));
 
-	if (globalkanjidic != QString::null && kanjidicUseGlobal)
+	if (!globalkanjidic.isNull() && kanjidicUseGlobal)
 	{
 		DictList.prepend(globalkanjidic);
 		DictNameList.prepend("Kanjidic");
