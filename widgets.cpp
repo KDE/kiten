@@ -231,7 +231,7 @@ void ResultView::print(QString title)
 {
 	KPrinter printer;
 	printer.setFullPage(true);
-	if (printer.setup(this))
+	if (printer.setup(this, i18n("Print japanese reference")))
 	{
 		QPainter p(&printer);
 		QPaintDeviceMetrics metrics(p.device());
