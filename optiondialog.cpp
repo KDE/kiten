@@ -70,7 +70,7 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 
 	QFrame *Page4 = addPage(i18n("Learn"));
 	QVBoxLayout *learnBox = new QVBoxLayout(Page4);
-	startLearnCB = new QCheckBox(i18n("Start Learn on Kiten startup"), Page4);
+	startLearnCB = new QCheckBox(i18n("Start learn on Kiten startup"), Page4);
 	learnBox->addWidget(startLearnCB);
 	learnBox->addStretch();
 
@@ -82,10 +82,10 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	quizzing->setAlignment(QGroupBox::AlignRight);
 	learnBox->addWidget(quizzing);
 
-	(void) new QLabel(i18n("Clue"), quizzing);
+	(void) new QLabel(i18n("Clue:"), quizzing);
 	quizOn = new QComboBox(quizzing);
 	quizOn->insertStringList(quizTypes);
-	(void) new QLabel(i18n("Possible answers"), quizzing);
+	(void) new QLabel(i18n("Possible answers:"), quizzing);
 	guessOn = new QComboBox(quizzing);
 	guessOn->insertStringList(quizTypes);
 	learnBox->addStretch();
@@ -193,7 +193,7 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	layout->addWidget(List);
 
 	QVBoxLayout *buttonLayout = new QVBoxLayout(layout, KDialog::spacingHint());
-	AddButton = new QPushButton(i18n("Add"), this);
+	AddButton = new QPushButton(i18n("Add..."), this);
 	buttonLayout->addWidget(AddButton);
 	connect(AddButton, SIGNAL(clicked()), SLOT(add()));
 	DelButton = new QPushButton(i18n("Delete"), this);
