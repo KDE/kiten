@@ -753,9 +753,15 @@ void TopLevel::forward(void)
 
 void TopLevel::addHistory(Dict::SearchResult result)
 {
+	// remove from back till we hit currentResult
+	while (resultHistory.fromLast() != currentResult)
+		resultHistory.pop_back();
+
 	resultHistory.append(result);
+
 	currentResult = resultHistory.end();
 	--currentResult;
+
 	enableHistoryButtons();
 
 	// we don't want the history list tooo long..
