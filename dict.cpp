@@ -386,7 +386,6 @@ int Index::stringCompare(File &file, int index, QCString str)
 
 Entry Index::parse(const QString &raw)
 {
-	kdDebug() << "raw is " << raw << endl;
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
 		return Entry(raw.right(length - 5));
