@@ -35,7 +35,7 @@ void Rad::load()
 
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString radkfile = dirs->findResource("appdata", "radkfile");
-	if (radkfile == QString::null)
+	if (radkfile.isNull())
 	{
 		KMessageBox::error(0, i18n("Kanji radical information file not installed, so radical searching cannot be used."));
 		return;
@@ -63,7 +63,7 @@ void Rad::load()
 		else if (first == '$') // header
 		{
 			// save previous one
-			if(cur.kanji() != QString::null)
+			if( !cur.kanji().isNull() )
 				list.append(cur);
 
 			//first entry is trim(last 4 chars).. <rad><space><strokes>

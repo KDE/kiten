@@ -25,7 +25,7 @@ void Deinf::Index::load()
 
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString vconj = dirs->findResource("appdata", "vconj");
-	if (vconj == QString::null)
+	if (vconj.isNull())
 	{
 		KMessageBox::error(0, i18n("Verb deinflection information not found, so verb deinflection cannot be used."));
 		return;

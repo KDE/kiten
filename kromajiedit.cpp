@@ -22,7 +22,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString romkana = dirs->findResource("appdata", "romkana.cnv");
-	if (romkana == QString::null)
+	if (romkana.isNull())
 	{
 		KMessageBox::error(0, i18n("Romaji information file not installed, so Romaji conversion cannot be used."));
 		return;
