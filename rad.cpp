@@ -204,3 +204,5 @@ void Radical::addKanji(QString &text)
 {
 	Kanji.append(text);
 }
+
+#include "rad.moc"
