@@ -11,7 +11,6 @@
 #include <kmessagebox.h>
 #include <kapp.h>
 #include <kiconloader.h>
-#include <klineedit.h>
 #include <kpushbutton.h>
 #include <kstatusbar.h>
 #include <kstringhandler.h>
@@ -32,6 +31,7 @@
 
 #include "widgets.h"
 #include "dict.h"
+#include "kromajiedit.h"
 
 
 ResultView::ResultView(bool _links, QWidget *parent, const char *name)
@@ -739,7 +739,7 @@ int EditAction::plug( QWidget *w, int index )
 
 	int id = KAction::getToolButtonID();
 
-	KLineEdit *comboBox = new KLineEdit(toolBar, "search edit");
+	KRomajiEdit *comboBox = new KRomajiEdit(toolBar, "search edit");
 	toolBar->insertWidget( id, 70, comboBox, index );
 	connect( comboBox, SIGNAL( returnPressed()), m_receiver, m_member );
 

@@ -4,13 +4,14 @@
 #include <qwidget.h>
 #include <qtextbrowser.h>
 #include <qptrlist.h>
-#include <klineedit.h>
 #include <kaction.h>
 #include <kstdaction.h>
 #include <kmainwindow.h>
 #include <qstringlist.h>
 #include <qguardedptr.h>
 #include <kaction.h>
+
+#include "kromajiedit.h"
 
 class QButtonGroup;
 class QString;
