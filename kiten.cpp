@@ -62,13 +62,6 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	forwardAction->setEnabled(false);
 	currentResult = resultHistory.end();
 
-	QStringList kanamodes(i18n("English"));
-	kanamodes.append(i18n("Hiragana"));
-	kanamodes.append(i18n("Katakana"));
-	KListAction *kanaAct = new KListAction(i18n("Input mode"), 0, 0, 0, actionCollection(), "input");
-	connect(kanaAct, SIGNAL(activated(int)), Edit->editor(), SLOT(setKana(int)));
-	kanaAct->setItems(kanamodes);
-
 	createGUI();
 
 	statusBar();
