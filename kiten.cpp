@@ -102,8 +102,10 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	autoSearchToggle->setChecked(config->readBoolEntry("autosearch", false));
 	deinfCB->setChecked(config->readBoolEntry("deinf", true));
 
-	slotUpdateConfiguration();
-	if (autoCreateLearn)
+	updateConfiguration();
+
+	config->setGroup("Learn");
+	if (config->readBoolEntry("startLearn", false))
 		createLearn();
 
 	resize(600, 400);
@@ -159,10 +161,12 @@ bool TopLevel::queryClose()
 	config->writeEntry("autosearch", autoSearchToggle->isChecked());
 	config->writeEntry("deinf", deinfCB->isChecked());
 
+	/* this is useless, of course.. right??
 	config->setGroup("kanjidic");
 	config->writeEntry("__useGlobal", kanjidicUseGlobal);
 	config->setGroup("edict");
 	config->writeEntry("__useGlobal", edictUseGlobal);
+	*/
 
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 	return true;
@@ -191,11 +195,11 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 	Dict::SearchResult results;
 	if (kanjiCB->isChecked())
 	{
-		results = _Index.searchKanji(regexp, text, comCB->isChecked());
+		results = _Asyndeta.retrieveIndex()->searchKanji(regexp, text, comCB->isChecked());
 	}
 	else
 	{
-		results = _Index.search(regexp, text, comCB->isChecked());
+		results = _Asyndeta.retrieveIndex()->search(regexp, text, comCB->isChecked());
 
 		// do again... bad because sometimes reading is kanji
 		if ((readingSearch || beginningReadingSearch) && (results.count < 1))
@@ -207,7 +211,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 			else if (readingSearch)
 				regexp = kanjiSearchItems();
 
-			results = _Index.search(regexp, text, comCB->isChecked());
+			results = _Asyndeta.retrieveIndex()->search(regexp, text, comCB->isChecked());
 		}
 	}
 
@@ -225,7 +229,7 @@ void TopLevel::doSearchInResults(QString text, QRegExp regexp)
 	}
 
 	StatusBar->message(i18n("Searching..."));
-	Dict::SearchResult results = _Index.searchPrevious(regexp, text, *currentResult, comCB->isChecked());
+	Dict::SearchResult results = _Asyndeta.retrieveIndex()->searchPrevious(regexp, text, *currentResult, comCB->isChecked());
 	addHistory(results);
 	handleSearchResult(results);
 	readingSearch = false;
@@ -265,11 +269,11 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 
 			_ResultView->addHeader(i18n("%1 in compounds").arg(kanji));
 
-			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
+			Dict::SearchResult compounds = _Asyndeta.retrieveIndex()->search(QRegExp(kanji), kanji, true);
 			bool common = true;
 			if (compounds.count <= 0)
 			{
-				compounds = _Index.search(QRegExp(kanji), kanji, false);
+				compounds = _Asyndeta.retrieveIndex()->search(QRegExp(kanji), kanji, false);
 				_ResultView->addHeader(i18n("(No common compounds)"), 4);
 				common = false;
 			}
@@ -401,7 +405,7 @@ void TopLevel::search(bool inResults)
 						continue;
 
 					//kdDebug() << "currently on deinflection " << *it << endl;
-					Dict::SearchResult results = _Index.search(QRegExp(QString("^") + (*it) + "\\W"), *it, common);
+					Dict::SearchResult results = _Asyndeta.retrieveIndex()->search(QRegExp(QString("^") + (*it) + "\\W"), *it, common);
 
 					if (results.count < 1) // stop if it isn't in the dictionary
 						continue;
@@ -592,65 +596,19 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 	setCaption(str);
 }
 
-void TopLevel::slotUpdateConfiguration()
+void TopLevel::slotConfigurationChanged()
+{
+	updateConfiguration();
+}
+
+void TopLevel::updateConfiguration()
 {
 	KConfig *config = kapp->config();
-	KStandardDirs *dirs = KGlobal::dirs();
-	QString globaledict = dirs->findResource("appdata", "edict");
-	QString globalkanjidic = dirs->findResource("appdata", "kanjidic");
-	personalDict = KGlobal::dirs()->saveLocation("appdata", "dictionaries/", true).append("personal");
-
-	config->setGroup("edict");
-
-	edictUseGlobal = config->readBoolEntry("__useGlobal", true);
-
-	QStringList DictNameList = config->readListEntry("__NAMES");
-	QStringList DictList;
-
-	QStringList::Iterator it;
-
-	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
-		DictList.append(config->readEntry(*it));
-
-	if (QFile::exists(personalDict))
-	{
-		DictList.prepend(personalDict);
-		DictNameList.prepend(i18n("Personal"));
-	}
-
-	if (!globaledict.isNull() && edictUseGlobal)
-	{
-		DictList.prepend(globaledict);
-		DictNameList.prepend("Edict");
-	}
-
-	_Index.setDictList(DictList, DictNameList);
-
-	config->setGroup("kanjidic");
-
-	kanjidicUseGlobal = config->readBoolEntry("__useGlobal", true);
-
-	DictList.clear();
-	DictNameList = config->readListEntry("__NAMES");
-
-	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
-		DictList.append(config->readEntry(*it));
-
-	if (!globalkanjidic.isNull() && kanjidicUseGlobal)
-	{
-		DictList.prepend(globalkanjidic);
-		DictNameList.prepend("Kanjidic");
-	}
-
-	_Index.setKanjiDictList(DictList, DictNameList);
-
-	config->setGroup("Learn");
-	autoCreateLearn = config->readBoolEntry("startLearn", false);
-
 	config->setGroup("Searching Options");
 	wholeWord = config->readBoolEntry("wholeWord", true);
 	caseSensitive = config->readBoolEntry("caseSensitive", false);
 
+	_Asyndeta.readKitenConfiguration();
 	_ResultView->updateFont();
 }
 
@@ -662,7 +620,7 @@ void TopLevel::slotConfigure()
 		if (optionDialog == 0)
 			return;
 		connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
-		connect(optionDialog, SIGNAL(valueChanged()), this, SLOT(slotUpdateConfiguration()));
+		connect(optionDialog, SIGNAL(valueChanged()), this, SLOT(slotConfigurationChanged()));
 		connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
 	}
 
@@ -691,7 +649,7 @@ void TopLevel::slotConfigureDestroy()
 
 void TopLevel::createLearn()
 {
-	Learn *_Learn = new Learn(&_Index, 0);
+	Learn *_Learn = new Learn(_Asyndeta.retrieveIndex(), 0);
 
 	connect(_Learn, SIGNAL(destroyed(Learn *)), this, SLOT(learnDestroyed(Learn *)));
 	connect(_Learn, SIGNAL(linkClicked(const QString &)), this, SLOT(ressearch(const QString &)));
@@ -711,7 +669,7 @@ void TopLevel::learnDestroyed(Learn *learn)
 
 void TopLevel::createEEdit()
 {
-	eEdit *_eEdit = new eEdit(personalDict, this);
+	eEdit *_eEdit = new eEdit(_Asyndeta.personalDictionaryLocation(), this);
 	_eEdit->show();
 }
 
@@ -852,7 +810,7 @@ void TopLevel::radSearch(const QStringList &_list, unsigned int strokes, unsigne
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 
-		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokesString)) : (QString("^") + (*it)) ), (*it), comCB->isChecked());
+		Dict::SearchResult results = _Asyndeta.retrieveIndex()->searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokesString)) : (QString("^") + (*it)) ), (*it), comCB->isChecked());
 		hist.outOf += results.outOf;
 
 		if (results.count < 1)

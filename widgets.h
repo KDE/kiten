@@ -18,8 +18,8 @@
  USA
 **/
 
-#ifndef WIDGETS_H
-#define WIDGETS_H
+#ifndef KITEN_WIDGETS_H
+#define KITEN_WIDGETS_H
 
 #include <klineedit.h>
 #include <kmainwindow.h>
@@ -36,10 +36,10 @@ class ResultView : public KTextBrowser
 	Q_OBJECT
 	
 	public:
-	ResultView(bool, QWidget *parent = 0, const char *name = 0);
+	ResultView(bool showLinks, QWidget *parent = 0, const char *name = 0);
 
-	void addResult(Dict::Entry, bool = false);
-	void addKanjiResult(Dict::Entry, bool = false, Radical = Radical());
+	void addResult(Dict::Entry result, bool common = false);
+	void addKanjiResult(Dict::Entry, bool common = false, Radical = Radical());
 
 	void addHeader(const QString &, unsigned int degree = 3);
 

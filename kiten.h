@@ -22,6 +22,7 @@
 #define KITEN_H
 
 
+#include "asyndeta.h"
 #include "dict.h"
 #include "rad.h"
 #include "deinf.h"
@@ -70,7 +71,8 @@ private slots:
 	void slotLearnConfigure();
 	void slotConfigureHide();
 	void slotConfigureDestroy();
-	void slotUpdateConfiguration();
+	void slotConfigurationChanged(); // calls the below too
+	void updateConfiguration();
 	void kanjiDictChange();
 	void toggleCom();
 	void addToList();
@@ -90,7 +92,7 @@ private slots:
 private:
 	KStatusBar *StatusBar;
 
-	Dict::Index _Index;
+	Asyndeta _Asyndeta;
 	Rad _Rad;
 	Deinf::Index _DeinfIndex;
 	ResultView *_ResultView;
@@ -120,7 +122,6 @@ private:
 	void setResults(unsigned int, unsigned int);
 
 	QPtrList<Learn> learnList;
-	bool autoCreateLearn;
 
 	QRegExp searchItems();
 	QRegExp readingSearchItems(bool);
@@ -130,8 +131,6 @@ private:
 
 	bool readingSearch; // if this is true and no results, try with kanjiSearchItems
 	bool beginningReadingSearch;
-	bool edictUseGlobal;
-	bool kanjidicUseGlobal;
 
 	Dict::Entry toAddKanji;
 

@@ -50,7 +50,7 @@ void Rad::load()
 		return;
 
 	KStandardDirs *dirs = KGlobal::dirs();
-	QString radkfile = dirs->findResource("appdata", "radkfile");
+	QString radkfile = dirs->findResource("data", "kiten/radkfile");
 	if (radkfile.isNull())
 	{
 		KMessageBox::error(0, i18n("Kanji radical information file not installed, so radical searching cannot be used."));

@@ -109,7 +109,7 @@ class Entry
 public:
 	// EDict ctor
 	Entry(const QString &, const QString &, const QStringList &);
-	// Kanjidic ctor
+	// Kanjidict ctor
 	Entry(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
 	// default (for containers)
 	Entry(const QString & = QString::null);
@@ -156,6 +156,9 @@ struct SearchResult
 	QString text;
 };
 
+enum SearchType { Search_Beginning, Search_FullWord, Search_Anywhere };
+enum DictionaryType { Edict, Kanjidict };
+
 class Index : public QObject
 {
 Q_OBJECT
@@ -170,6 +173,9 @@ public:
 	SearchResult search(QRegExp, QString, bool common);
 	SearchResult searchKanji(QRegExp, QString, bool common);
 	SearchResult searchPrevious(QRegExp, QString, SearchResult, bool common);
+
+	// convenience function to create suitable regexps
+	static QRegExp createRegExp(SearchType type, const QString &text, DictionaryType dictionaryType, bool caseSensitive = false);
 
 private:
 	QPtrList<File> dictFiles;

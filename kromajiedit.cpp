@@ -34,7 +34,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 	kana = "unset";
 
 	KStandardDirs *dirs = KGlobal::dirs();
-	QString romkana = dirs->findResource("appdata", "romkana.cnv");
+	QString romkana = dirs->findResource("data", "kiten/romkana.cnv");
 	if (romkana.isNull())
 	{
 		KMessageBox::error(0, i18n("Romaji information file not installed, so Romaji conversion cannot be used."));

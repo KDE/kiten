@@ -30,7 +30,7 @@
 
 #include "dict.h"
 
-#include <iostream.h>
+#include <iostream>
 #include <cassert>
 #include <sys/mman.h> 
 #include <stdio.h>
@@ -64,7 +64,7 @@ File::File(QString path, QString n)
 	: myName(n)
 	, dictFile(path)
 	, dictPtr((const unsigned char *)MAP_FAILED)
-	, indexFile(KGlobal::dirs()->saveLocation("appdata", "xjdx/", true) + QFileInfo(path).baseName() + ".xjdx")
+	, indexFile(KGlobal::dirs()->saveLocation("data", "kiten/xjdx/", true) + QFileInfo(path).baseName() + ".xjdx")
 	, indexPtr((const uint32_t *)MAP_FAILED)
 	, valid(false)
 {
@@ -433,6 +433,56 @@ SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult li
 
 	res.text = text;
 	return res;
+}
+
+QRegExp Dict::Index::createRegExp(SearchType type, const QString &text, DictionaryType dictionaryType, bool caseSensitive)
+{
+	QString regExp;
+	switch (type)
+	{
+	case Search_Beginning:
+		switch (textType(text))
+		{
+		case Dict::Text_Latin:
+			regExp = "\\W%1";
+			break;
+
+		case Dict::Text_Kana:
+			if (dictionaryType == Kanjidict)
+				regExp = "\\W%1";
+			else // edict
+				regExp = "\\[%1";
+			break;
+
+		case Dict::Text_Kanji:
+			regExp = "^%1";
+		}
+		break;
+	
+	case Search_FullWord:
+		switch (textType(text))
+		{
+		case Dict::Text_Latin:
+			regExp = "\\W%1\\W";
+			break;
+
+		case Dict::Text_Kana:
+			if (dictionaryType == Kanjidict)
+				regExp = " %1 ";
+			else // edict
+				regExp = "\\[%1\\]";
+			break;
+
+		case Dict::Text_Kanji:
+			regExp = "^%1\\W";
+		}
+		break;
+	
+	case Search_Anywhere:
+		regExp = "%1";
+	}
+
+	return QRegExp(regExp.arg(text), caseSensitive);
 }
 
 int Index::stringCompare(File &file, int index, QCString str)
