@@ -1,3 +1,19 @@
 - hmm
 - nothing else! :))
 
+2.0 wishlist by Neil:
+
+- move all QRegExp generation into namespace Dict, so Kiten et. al. just tell
+Dict what kind of search they want, and Dict tells them the regexp they need
+to pass Dict::Index.
+
+- get all SearchResults and Entries into one hierarchy.
+
+- split the two tabs of the learn mode into separate dialogs, or even make
+learn a separate app.
+
+- rewrite the index generator
+
+- factor out the gjiten heuristic of figuring out kanji/kana/roomaji
+
+- add load and save as to Learn mode
