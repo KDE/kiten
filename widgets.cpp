@@ -17,9 +17,11 @@
 #include <kstringhandler.h>
 #include <qbuttongroup.h>
 #include <qlabel.h>
-#include <qtextedit.h>
+#include <qtextbrowser.h>
 #include <qspinbox.h>
 #include <qstring.h>
+#include <qcstring.h>
+#include <qtextcodec.h>
 #include <qregexp.h>
 #include <qtabwidget.h>
 //#include <qtimer.h>
@@ -33,7 +35,7 @@
 
 
 ResultView::ResultView(QWidget *parent, const char *name)
-	: QTextEdit(parent, name)
+	: QTextBrowser(parent, name)
 {
 	setReadOnly(true);
 }
@@ -50,7 +52,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 	if (result.kanaOnly())
 		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result.reading());
 	else
-		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(result.kanji()).arg(result.reading());
+		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(putchars(result.kanji())).arg(result.reading());
 
 	QStringList::Iterator it;
 	QStringList Meanings = result.meanings();
@@ -86,7 +88,7 @@ void ResultView::addKanjiResult(Dict::Kanji result)
 	}
 
 	QString html;
-	html = QString("<p><font size=\"+3\">%1</font>: %2  ").arg(result.kanji());
+	html = QString("<p><font size=\"+3\">%1</font>: %2  ").arg(putchars(result.kanji()));
 
 	unsigned int freq = result.freq();
 	if (freq == 0) // does it have a frequency?
@@ -160,6 +162,30 @@ void ResultView::addKanjiResult(Dict::Kanji result)
 void ResultView::addHeader(const QString &header, unsigned int degree)
 {
 	insertParagraph(QString("<h%1>%2</h%3>").arg(degree).arg(header).arg(degree), paragraphs() + 1);
+}
+
+QString ResultView::putchars(const QString &text)
+{
+	unsigned int len = text.length();
+	int i;
+	QString ret;
+
+	QTextCodec *codec = QTextCodec::codecForName("eucJP");
+
+	for (i = 0; i < len; i++)
+	{
+		if ((codec->fromUnicode(QString(text.at(i)))[0]) > 0xa8) // if its a kanji..
+		{
+			ret.append(QString("<a href=\"%1\">%1</a>").arg(text.at(i)).arg(text.at(i)));
+		}
+		else
+		{
+			kdDebug() << QString(text.at(i)) << " isn't kanji\n";
+			ret.append(text.at(i));
+		}
+	}
+	
+	return ret;
 }
 
 ////////////////////////////////////////////////

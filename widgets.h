@@ -2,7 +2,7 @@
 #define WIDGETS_H
 
 #include <qwidget.h>
-#include <qtextedit.h>
+#include <qtextbrowser.h>
 #include <qptrlist.h>
 #include <klineedit.h>
 #include <kaction.h>
@@ -27,7 +27,7 @@ class QToolButton;
 
 #include "dict.h"
 
-class ResultView : public QTextEdit
+class ResultView : public QTextBrowser
 {
 	Q_OBJECT
 	
@@ -38,6 +38,9 @@ class ResultView : public QTextEdit
 	void addKanjiResult(Dict::Kanji);
 
 	void addHeader(const QString &, unsigned int degree = 3);
+
+	private:
+	QString putchars(const QString &);
 };
 
 class Learn : public KMainWindow

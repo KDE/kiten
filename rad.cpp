@@ -129,7 +129,8 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	totalSpin = new QSpinBox(1, 20, 1, this);
 	layout->addWidget(totalSpin);
 	
-	ok = new QPushButton(i18n("&OK"), this);
+	ok = new QPushButton(i18n("&Look Up"), this);
+	ok->setEnabled(false);
 	connect(ok, SIGNAL(clicked()), SLOT(apply()));
 	layout->addWidget(ok);
 	cancel = new QPushButton(i18n("&Cancel"), this);
@@ -137,6 +138,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	layout->addWidget(cancel);
 
 	List = new QListBox(this);
+	connect(List, SIGNAL(highlighted(int)), SLOT(highlighted(int)));
 	hlayout->addWidget(List);
 	connect(strokesSpin, SIGNAL(valueChanged(int)), SLOT(updateList(int)));
 
@@ -153,6 +155,11 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 RadWidget::~RadWidget()
 {
+}
+
+void RadWidget::highlighted(int)
+{
+	ok->setEnabled(true);
 }
 
 void RadWidget::updateList(int strokes)

@@ -62,6 +62,7 @@ class RadWidget : public QWidget
 	void updateList(int);
 	void apply();
 	void totalClicked(void);
+	void highlighted(int);
 	
 	private:
 	QSpinBox *strokesSpin;
