@@ -105,7 +105,7 @@ class EditAction : public KAction
 	QGuardedPtr<KLineEdit> editor();
 
 	public slots:
-	void insert(QString);
+	void insert(const QString &);
 
 	// also sets focus to the lineedit widget
 	void clear();

@@ -248,7 +248,7 @@ void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, 
 	}
 }
 
-QStringList Index::doSearch(File &file, QString text)
+QStringList Index::doSearch(File &file, const QString &text)
 {
 	// Do a binary search to find an entry that matches text
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
@@ -355,7 +355,7 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 	return ret;
 }
 
-SearchResult Index::search(QRegExp regexp, QString text, bool common)
+SearchResult Index::search(QRegExp regexp, const QString &text, bool common)
 {
 	QStringList results;
 	for (QPtrListIterator<File> file(dictFiles); *file; ++file)
@@ -407,7 +407,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 	return ret;
 }
 
-SearchResult Index::searchKanji(QRegExp regexp, QString text,  bool common)
+SearchResult Index::searchKanji(QRegExp regexp, const QString &text,  bool common)
 {
 	QStringList results;
 	for (QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
@@ -422,7 +422,7 @@ SearchResult Index::searchKanji(QRegExp regexp, QString text,  bool common)
 	return res;
 }
 
-SearchResult Index::searchPrevious(QRegExp regexp, QString text, SearchResult list, bool common)
+SearchResult Index::searchPrevious(QRegExp regexp, const QString &text, SearchResult list, bool common)
 {
 	SearchResult res;
 
@@ -778,7 +778,7 @@ Entry::Entry(const QString & kanji, const QString & reading, const QStringList &
 {
 }
 
-Entry::Entry(QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
+Entry::Entry(const QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
 	: DictName(QString::fromLatin1("__NOTSET"))
 	, Header(QString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)

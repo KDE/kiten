@@ -818,7 +818,7 @@ void Learn::cheat()
 	nogood = true;
 }
 
-QString Learn::shortenString(QString thestring)
+QString Learn::shortenString(const QString &thestring)
 {
 	return KStringHandler::rsqueeze(thestring, 60).stripWhiteSpace();
 }

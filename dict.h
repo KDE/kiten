@@ -112,7 +112,7 @@ public:
 	// EDict ctor
 	Entry(const QString &, const QString &, const QStringList &);
 	// Kanjidict ctor
-	Entry(QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
+	Entry(const QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
 	// default (for containers)
 	Entry(const QString & = QString::null);
 	// for a heading
@@ -172,9 +172,9 @@ public:
 	void setDictList(const QStringList &files, const QStringList &names);
 	void setKanjiDictList(const QStringList &files, const QStringList &names);
 
-	SearchResult search(QRegExp, QString, bool common);
-	SearchResult searchKanji(QRegExp, QString, bool common);
-	SearchResult searchPrevious(QRegExp, QString, SearchResult, bool common);
+	SearchResult search(QRegExp, const QString &, bool common);
+	SearchResult searchKanji(QRegExp, const QString &, bool common);
+	SearchResult searchPrevious(QRegExp, const QString &, SearchResult, bool common);
 
 	// convenience function to create suitable regexps
 	static QRegExp createRegExp(SearchType type, const QString &text, DictionaryType dictionaryType, bool caseSensitive = false);
@@ -185,7 +185,7 @@ private:
 
 	void loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList);
 
-	QStringList doSearch(File &, QString);
+	QStringList doSearch(File &, const QString &);
 	SearchResult scanResults(QRegExp regexp, QStringList results, bool common);
 	SearchResult scanKanjiResults(QRegExp regexp, QStringList results, bool common);
 	int stringCompare(File &, int index, QCString);

@@ -40,7 +40,7 @@ class Radical
 	unsigned int strokes() { return Strokes; };
 	QString kanji() { return Kanji; };
 
-	void addKanji(QString &);
+	void addKanji(const QString &);
 
 	private:
 	QString _Radical;
@@ -59,11 +59,10 @@ class Rad : public QObject
 	QStringList radByStrokes(unsigned int);
 	QStringList kanjiByRad(const QString &);
 	QStringList kanjiByRad(const QStringList &);
-	Radical radByKanji(QString);
-	unsigned int strokesByRad(QString);
+	Radical radByKanji(const QString &);
+	unsigned int strokesByRad(const QString &);
 
 	private:
-	void loadLine(QString &);
 	void load();
 
 	QValueList<Radical> list;

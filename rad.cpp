@@ -190,7 +190,7 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	return ret;
 }
 
-Radical Rad::radByKanji(QString text)
+Radical Rad::radByKanji(const QString &text)
 {
 	load();
 	QString ret;
@@ -201,7 +201,7 @@ Radical Rad::radByKanji(QString text)
 	return (*it);
 }
 
-unsigned int Rad::strokesByRad(QString text)
+unsigned int Rad::strokesByRad(const QString &text)
 {
 	load();
 	QValueListIterator<Radical> it;
@@ -427,7 +427,7 @@ Radical::Radical(QString text, unsigned int strokes)
 	Strokes = strokes;
 }
 
-void Radical::addKanji(QString &text)
+void Radical::addKanji(const QString &text)
 {
 	Kanji.append(text);
 }

@@ -497,7 +497,7 @@ void EditAction::clear()
 	m_combo->setFocus();
 }
 
-void EditAction::insert(QString text)
+void EditAction::insert(const QString &text)
 {
 	m_combo->insert(text);
 }

@@ -128,7 +128,7 @@ class Learn : public KMainWindow
 
 	int seikai;
 	bool nogood;
-	QString shortenString(QString);
+	QString shortenString(const QString &);
 
 	// Creates a random meaning not on the lists and adds the meaning
 	// to the list.

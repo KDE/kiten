@@ -182,7 +182,7 @@ void TopLevel::addToList()
 	emit add(toAddKanji);
 }
 
-void TopLevel::doSearch(QString text, QRegExp regexp)
+void TopLevel::doSearch(const QString &text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{
@@ -220,7 +220,7 @@ void TopLevel::doSearch(QString text, QRegExp regexp)
 	readingSearch = false;
 }
 
-void TopLevel::doSearchInResults(QString text, QRegExp regexp)
+void TopLevel::doSearchInResults(const QString &text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{

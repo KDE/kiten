@@ -111,8 +111,8 @@ private:
 
 	KGlobalAccel *Accel;
 
-	void doSearch(QString text, QRegExp regexp);
-	void doSearchInResults(QString text, QRegExp regexp);
+	void doSearch(const QString &text, QRegExp regexp);
+	void doSearchInResults(const QString &text, QRegExp regexp);
 	void handleSearchResult(Dict::SearchResult);
 	QString filteredClipboardText();
 	QString clipBoardText();
