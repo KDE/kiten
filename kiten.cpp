@@ -129,13 +129,13 @@ void TopLevel::finishInit()
 	setCaption(QString::null);
 }
 
-void TopLevel::closeEvent(QCloseEvent *)
+bool TopLevel::queryClose()
 {
 	for (QPtrListIterator<Learn> i(learnList); *i;)
 	{
 		(*i)->show();
 		if (!(*i)->closeWindow())
-			return;
+			return false; // cancel
 		Learn *old = *i;
 		++i;
 		learnList.remove(old);
@@ -154,8 +154,7 @@ void TopLevel::closeEvent(QCloseEvent *)
 	config->writeEntry("__useGlobal", edictUseGlobal);
 
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
-
-	kapp->quit();
+	return true;
 }
 
 void TopLevel::addToList()

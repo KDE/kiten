@@ -37,7 +37,7 @@ class Learn : public KMainWindow
 	void updateQuizConfiguration();
 
 	protected:
-	void closeEvent(QCloseEvent *);
+	virtual bool queryClose();
 
 	private slots:
 	void read(const KURL &);

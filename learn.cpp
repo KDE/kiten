@@ -209,16 +209,16 @@ bool Learn::closeWindow()
 	}
 }
 
-void Learn::closeEvent(QCloseEvent *e)
+bool Learn::queryClose()
 {
 	if (!warnClose())
-		return;
+		return false; // cancel
 
 	saveScores(); // also sync()s;
 	//kapp->config()->sync();
 
 	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
-	e->accept();
+	return true;
 }
 
 void Learn::random()

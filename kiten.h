@@ -34,7 +34,7 @@ signals:
 	void quizConfChanged();
 
 protected:
-	void closeEvent(QCloseEvent *);
+	virtual bool queryClose();
 
 private slots:
 	void search(bool inResults = false);
