@@ -117,7 +117,9 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 	if (freq == 0) // does it have a frequency?
 		html = html.arg(i18n("Rare"));
 	else
-		html = html.arg(i18n("Once", "%1 Times", freq));
+		// this isn't a number of times, it's simply an index of
+		// probability
+		html = html.arg(i18n("Probability rank #%1").arg(freq));
 
 	html += "<br />";
 
