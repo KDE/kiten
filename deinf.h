@@ -8,7 +8,7 @@
 namespace Deinf
 {
 
-struct Result
+struct Conjugation
 {
 	QString ending;
 	QString replace;
@@ -24,7 +24,7 @@ class Index
 
 	private:
 	QMap<unsigned int, QString> names;
-	QValueList<Result> list;
+	QValueList<Conjugation> list;
 
 	void loadLine(const QString &);
 };

@@ -52,12 +52,12 @@ Index::Index()
 		{
 			QStringList things(QStringList::split(QChar('\t'), text));
 
-			Result result;
-			result.ending = things.first();
-			result.replace = (*things.at(1));
-			result.num = things.last().toUInt();
+			Conjugation conj;
+			conj.ending = things.first();
+			conj.replace = (*things.at(1));
+			conj.num = things.last().toUInt();
 
-			list.append(result);
+			list.append(conj);
 		}
 	}
 
@@ -66,7 +66,7 @@ Index::Index()
 
 namespace
 {
-QStringList possibleEndings(const QString &text)
+QStringList possibleConjugations(const QString &text)
 {
 	QStringList endings;
 	for(unsigned i = 0; i < text.length(); ++i)
@@ -77,8 +77,8 @@ QStringList possibleEndings(const QString &text)
 
 QString Index::deinflect(QString text, QString &name)
 {
-	QStringList endings = possibleEndings(text);
-	for (QValueListIterator <Result> it = list.begin(); it != list.end(); ++it)
+	QStringList endings = possibleConjugations(text);
+	for (QValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
 	{
 		QStringList::Iterator ending = endings.find((*it).ending);
 		if(ending != endings.end()) // a match
