@@ -250,15 +250,22 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, unsigned in
 	ret.results = results;
 	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
 	{
-		int found = regexp.search(*itr);
-
-		if (found >= 0)
+		if ((*itr).left(5) == "DICT ")
 		{
-			++fullNum;
-			if ((*itr).find(QString("(P)")) >= 0 || !common)
+			ret.list.append(parse(*itr));
+		}
+		else
+		{
+			int found = regexp.search(*itr);
+
+			if (found >= 0)
 			{
-				ret.list.append(parse(*itr));
-				++num;
+				++fullNum;
+				if ((*itr).find(QString("(P)")) >= 0 || !common)
+				{
+					ret.list.append(parse(*itr));
+					++num;
+				}
 			}
 		}
 	}
@@ -273,10 +280,9 @@ SearchResult Index::search(QRegExp regexp, QString text, unsigned int &num, unsi
 	QStringList results;
 	for(QPtrListIterator<File> file(dictFiles); *file; ++file)
 	{
-		// TODO ret.append(new Entry((*file)->name()));
-		// ++num;
-		// ++fullNum;
-
+		// add header for this dict
+		results.append(QString("DICT ") + (*file)->name());
+		// add results for this dict
 		results += doSearch(**file, text);
 	}
 
@@ -298,17 +304,24 @@ KanjiSearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, u
 
 	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
 	{
-		int found = regexp.search(*itr);
-
-		if (found >= 0)
+		if ((*itr).left(5) == "DICT ")
 		{
-			++fullNum;
-			// common entries have G[1-8] (jouyou)
-			QRegExp comregexp(jmyCount ? "G[1-9]" : "G[1-8]");
-			if ((*itr).find(comregexp) >= 0 || !common)
+			ret.list.append(kanjiParse(*itr));
+		}
+		else
+		{
+			int found = regexp.search(*itr);
+	
+			if (found >= 0)
 			{
-				ret.list.append(kanjiParse(*itr));
-				++num;
+				++fullNum;
+				// common entries have G[1-8] (jouyou)
+				QRegExp comregexp(jmyCount ? "G[1-9]" : "G[1-8]");
+				if ((*itr).find(comregexp) >= 0 || !common)
+				{
+					ret.list.append(kanjiParse(*itr));
+					++num;
+				}
 			}
 		}
 	}
@@ -324,9 +337,9 @@ KanjiSearchResult Index::searchKanji(QRegExp regexp, const QString &text, unsign
 	QStringList results;
 	for(QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
-		// TODO ret.append(new Kanji((*file)->name()));
-		// ++num;
-		// ++fullNum;
+		// add header for this dict
+		results.append(QString("DICT ") + (*file)->name());
+		// add results for this dict
 		results += doSearch(**file, text);
 	}
 
@@ -374,6 +387,11 @@ int Index::stringCompare(File &file, int index, QCString str)
 Entry Index::parse(const QString &raw)
 {
 	unsigned int length = raw.length();
+
+	// shortcut for header entries
+	if (raw.left(5) == "DICT ")
+		return Entry(raw.right(length - 5));
+
 	QString reading;
 	QString kanji;
 	QStringList meanings;
@@ -432,6 +450,11 @@ Entry Index::parse(const QString &raw)
 Kanji Index::kanjiParse(const QString &raw)
 {
 	unsigned int length = raw.length();
+
+	// shortcut for header entries
+	if (raw.left(5) == "DICT ")
+		return Kanji(raw.right(length - 5));
+
 	QStringList readings;
 	QString kanji;
 	QStringList meanings;
