@@ -48,7 +48,7 @@ File::File(QString path, QString n)
 	bool forceUpdate = false;
 
 	bool indexFileExists = indexFile.exists();
-	if (!indexFileExists)
+	if (indexFileExists)
 	{
 		// ### change this if need be!!
 		const int indexFileVersion = 14;
