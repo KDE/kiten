@@ -66,7 +66,6 @@ private slots:
 	void forward();
 	void goInHistory(int);
 	void historySpotChanged();
-	void slotKeyBindings();
 	void slotConfigure();
 	void slotLearnConfigure();
 	void slotConfigureHide();

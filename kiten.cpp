@@ -26,7 +26,6 @@
 #include <kedittoolbar.h>
 #include <kglobalaccel.h>
 #include <kiconloader.h>
-#include <kkeydialog.h>
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <kstandarddirs.h>
@@ -61,7 +60,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) KStdAction::keyBindings(this, SLOT(slotKeyBindings()), actionCollection());
+	KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), actionCollection());
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
@@ -780,11 +779,6 @@ QRegExp TopLevel::searchItems()
 
 void TopLevel::toggleCom()
 {
-}
-
-void TopLevel::slotKeyBindings()
-{
-	KKeyDialog::configure(actionCollection());
 }
 
 void TopLevel::configureToolBars()
