@@ -1,13 +1,23 @@
 [Desktop Entry]
-Comment=Kanji Tool
+Comment=Japanese Reference/Study tool
 Comment[az]=Kanji Vasitəsi
 Comment[da]=Kanji-værktøj
+Comment[es]=Herramienta Kanji
 Comment[he]=כלי קאנג'י
 Comment[hu]=Kanji-kezelő segédprogram
+Comment[lv]=Kanji Rīks
 Comment[nl]=Kanji-hulpprogramma
+Comment[pt]=Ferramenta de Kanji
+Comment[pt_BR]=Ferramenta de Kanji
+Comment[sk]=Nástroj Kanji
+Comment[sv]=Kanji-verktyg
+Comment[tr]=Kanji Aracı
+Comment[xh]=Kanji isixhobo
+Comment[xx]=xx
 DocPath=kiten/index.html
 Exec=kiten -caption "%c" %i %m
 Name=Kiten
+Name[xx]=xx
 Terminal=0
 Type=Application
 Icon=kiten
