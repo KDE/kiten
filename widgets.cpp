@@ -769,6 +769,8 @@ void Learn::tabChanged(QWidget *widget)
 		cheatAct->setEnabled(true);
 
 		setCaption(i18n("%1 - Quiz").arg(curItem->text(0)));
+
+		qKanji->setFocus();
 	}
 	else
 	{
@@ -798,8 +800,8 @@ void Learn::updateQuiz()
 EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name)
     : KAction(text, accel, parent, name)
 {
-  m_receiver = receiver;
-  m_member = member;
+	m_receiver = receiver;
+	m_member = member;
 }
 
 EditAction::~EditAction()
@@ -808,31 +810,31 @@ EditAction::~EditAction()
 
 int EditAction::plug( QWidget *w, int index )
 {
-  //  if ( !w->inherits( "KToolBar" ) );
-  //    return -1;
+	//  if ( !w->inherits( "KToolBar" ) );
+	//    return -1;
 
-  KToolBar *toolBar = (KToolBar *)w;
+	KToolBar *toolBar = (KToolBar *)w;
 
-  int id = KAction::getToolButtonID();
-  //kdDebug() << "KonqComboAction::plug id=" << id << endl;
+	int id = KAction::getToolButtonID();
+	//kdDebug() << "KonqComboAction::plug id=" << id << endl;
 
-  KLineEdit *comboBox = new KLineEdit(toolBar, "search edit");
-  toolBar->insertWidget( id, 70, comboBox, index );
-  connect( comboBox, SIGNAL( returnPressed()), m_receiver, m_member );
+	KLineEdit *comboBox = new KLineEdit(toolBar, "search edit");
+	toolBar->insertWidget( id, 70, comboBox, index );
+	connect( comboBox, SIGNAL( returnPressed()), m_receiver, m_member );
 
-  addContainer(toolBar, id);
+	addContainer(toolBar, id);
 
-  connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+	connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
 
-  toolBar->setItemAutoSized( id, true );
+	toolBar->setItemAutoSized( id, true );
 
-  m_combo = comboBox;
+	m_combo = comboBox;
 
-  emit plugged();
+	emit plugged();
 
-  //QWhatsThis::add( comboBox, whatsThis() );
+	//QWhatsThis::add( comboBox, whatsThis() );
 
-  return containerCount() - 1;
+	return containerCount() - 1;
 }
 
 void EditAction::unplug( QWidget *w )
@@ -840,15 +842,15 @@ void EditAction::unplug( QWidget *w )
 //  if ( !w->inherits( "KToolBar" ) )
 //    return;
 
-  KToolBar *toolBar = (KToolBar *)w;
+	KToolBar *toolBar = (KToolBar *)w;
 
-  int idx = findContainer( w );
-  //kdDebug() << "KonqComboAction::unplug idx=" << idx << " menuId=" << menuId(idx) << endl;
+	int idx = findContainer( w );
+	//kdDebug() << "KonqComboAction::unplug idx=" << idx << " menuId=" << menuId(idx) << endl;
 
-  toolBar->removeItem( menuId( idx ) );
+	toolBar->removeItem( menuId( idx ) );
 
-  removeContainer( idx );
-  m_combo = 0L;
+	removeContainer( idx );
+	m_combo = 0L;
 }
 
 void EditAction::clear()

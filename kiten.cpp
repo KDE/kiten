@@ -236,7 +236,7 @@ void TopLevel::searchBeginning()
 		else
 		{
 			beginningReadingSearch = true;
-			realregexp = QRegExp(QString("[").append(regexp));
+			realregexp = QRegExp(QString("\\[").append(regexp));
 		}
 	}
 	else if (sch_str[0] > 0xa8)

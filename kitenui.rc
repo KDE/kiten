@@ -24,16 +24,20 @@
 
 </MenuBar>
 
-<ToolBar name="mainToolBar" noMerge="1" fullWidth="true"><text>Main Toolbar</text>
+<ToolBar name="mainToolBar" noMerge="1" fullWidth="true" noEdit="true"><text>Main Toolbar</text>
   <Action name="clear_search" />
   <Action name="search_edit" />
   <Action name="search" />
   <Action name="search_in_results" />
+</ToolBar>
+
+<ToolBar name="extraToolBar" noMerge="1"><text>Extra Toolbar</text>
   <Action name="search_stroke" />
   <Action name="search_grade" />
   <Seperator />
   <Action name="kanji_toggle" />
   <Action name="common" />
+  <Seperator />
   <Action name="file_learn" />
 </ToolBar>
 
