@@ -3,6 +3,7 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kdebug.h>
+#include <kdeversion.h>
 #include <kedittoolbar.h>
 #include <kglobal.h>
 #include <kglobalaccel.h>
@@ -39,7 +40,9 @@
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
-	setStandardToolBarMenuEnabled(true);
+#if KDE_VERSION > 305
+	    setStandardToolBarMenuEnabled(true);
+#endif
 
 	Accel = new KGlobalAccel(this);
 	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), CTRL + ALT + Key_K, CTRL + ALT + Key_K, this, SLOT(kanjiSearchAccel()));
