@@ -15,11 +15,13 @@ kiten_SOURCES = 	main.cpp \
 				ksaver.cpp
 
 kiten_LDFLAGS = $(all_libraries) $(KDE_RPATH) 
+kiten_LDADD = $(LIB_KDEPRINT) $(LIB_KIO)
 
 bin_PROGRAMS = kiten kitengen
 
 kitengen_SOURCES = xjdxgen.c
-kitengen_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(LIB_QT)
+kitengen_LDFLAGS = $(all_libraries) $(KDE_RPATH) 
+kitengen_LDADD = $(LIB_QT)
 
 METASOURCES = AUTO
 
