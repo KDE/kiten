@@ -5,7 +5,7 @@
 #include <qfile.h>
 #include <kapp.h>
 #include <kglobal.h>
-#include <krun.h>
+#include <kprocess.h>
 #include <kstandarddirs.h>
 #include <qtextstream.h> 
 #include <qfileinfo.h> 
@@ -79,9 +79,10 @@ bool Dict::init(bool kanjidict)
 			//kdDebug() << index << " does not exist, will make now\n";
 
 			// find the index generator executable
-			QString cmd = QString("%1 \"%2\" \"%3\"").arg(KStandardDirs::findExe("kitengen")).arg(*it).arg(index);
-			//kdDebug() << "cmd = " << cmd << endl;
-			KRun::runCommand(cmd);
+			KProcess proc;
+			proc << KStandardDirs::findExe("kitengen") << *it << index;
+			// TODO: put up a status dialog and event loop instead of blocking
+			proc.start(KProcess::Block, KProcess::NoCommunication);
 
 			if (!QFile::exists(index))
 			{
