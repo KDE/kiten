@@ -544,7 +544,7 @@ Kanji Index::kanjiParse(const QString &raw)
 	return (Kanji(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
 }
 
-QString Index::prettyMeaning(QStringList Meanings)
+QString Dict::prettyMeaning(QStringList Meanings)
 {
 	QString meanings;
 	QStringList::Iterator it;
@@ -555,7 +555,7 @@ QString Index::prettyMeaning(QStringList Meanings)
 	return meanings;
 }
 
-QString Index::prettyKanjiReading(QStringList Readings)
+QString Dict::prettyKanjiReading(QStringList Readings)
 {
 	QStringList::Iterator it;
 	QString html;

@@ -158,9 +158,7 @@ public:
 	KanjiSearchResult searchKanji(QRegExp, const QString &, unsigned int &, unsigned int &, bool common);
 	KanjiSearchResult searchPreviousKanji(QRegExp, KanjiSearchResult, unsigned int &, unsigned int &, bool common);
 
-	static QString prettyKanjiReading(QStringList);
-	static QString prettyMeaning(QStringList);
-	
+
 private:
 	QPtrList<File> dictFiles;
 	QPtrList<File> kanjiDictFiles;
@@ -176,6 +174,9 @@ private:
 	Kanji kanjiParse(const QString &);
 };
 
+QString prettyKanjiReading(QStringList);
+QString prettyMeaning(QStringList);
+	
 }
 
 #endif
