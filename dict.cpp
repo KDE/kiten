@@ -146,6 +146,7 @@ Index::Index()
 	: QObject()
 {
 	dictFiles.setAutoDelete(true);
+	kanjiDictFiles.setAutoDelete(true);
 }
 
 Index::~Index()
@@ -164,6 +165,8 @@ void Index::setKanjiDictList(const QStringList &list, const QStringList &names)
 
 void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList)
 {
+	fileList.clear();
+
 	// check if we have a dict
 	if (dictList.size() < 1)
 	{
