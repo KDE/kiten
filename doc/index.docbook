@@ -52,7 +52,16 @@ dictionary; secondly, it is a Kanji dictionary, with multiple ways to
 look up specific characters; thirdly, it is a tool to help you learn
 Kanji.</para>
 
-<para>Each of these modes is discussed in it's own chapter.</para>
+<para>Each of these modes is discussed in its own chapter.</para>
+
+<screenshot>
+<screeninfo>Here's a screenshot of &kiten;</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="kiten1.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; screenshot</phrase></textobject>
+</mediaobject>
+</screenshot>
+
 </chapter>
 
 <chapter id="dictionary"> 
@@ -76,6 +85,14 @@ the word.</para>
 <para>You can enter Kanji, Kana and English and get back results from
 &kiten;.  These results of your search will appear in the large
 results view which takes up the majority of the &kiten; window.</para>
+
+<screenshot>
+<screeninfo>searching for an English translation</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="kiten2.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; search screenshot</phrase></textobject>
+</mediaobject>
+</screenshot>
 
 <sect2> 
 <title>Filtering</title>
@@ -111,7 +128,7 @@ disabled by choosing
 Kiten...</guimenuitem></menuchoice>, and then choosing the
 <guilabel>Searching</guilabel> item on the list on the left. The
 options can be enabled by checking the checkboxes and disabled by
-un-checking the checkboxes on this page. These options are global and
+unchecking the checkboxes on this page. These options are global and
 affect all searches.</para>
 
 </sect2>
@@ -152,7 +169,9 @@ sure <menuchoice><guimenu>Settings</guimenu><guimenuitem>Deinflect
 Verbs in Regular Search</guimenuitem></menuchoice> is checked. &kiten;
 will then deinflect Japanese you search for that starts with a Kanji
 and ends with a Kana.</para>
-
+<para>
+The "Deinflect" option tries to unconjugate Japanese verbs. Deinflect only supports the common verb conjugations. If you search a lot of Japanese text you might consider using this option until you get used to handling Japanese verb forms.
+</para>
 </sect1>
 
 </chapter>
