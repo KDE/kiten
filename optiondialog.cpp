@@ -69,7 +69,7 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 
 	QFrame *Page4 = addPage(i18n("Learn"));
 	QVBoxLayout *learnBox = new QVBoxLayout(Page4);
-	startLearnCB = new QCheckBox(i18n("Start Learn on Kiten startup"), Page4);
+	startLearnCB = new QCheckBox(i18n("Start learn on Kiten startup"), Page4);
 	learnBox->addWidget(startLearnCB);
 	learnBox->addStretch();
 
