@@ -899,6 +899,7 @@ void Learn::setClean()
 void Learn::qKanjiClicked()
 {
 	showKanji(curItem);
+	nogood = true;
 }
 
 void Learn::numChanged()
