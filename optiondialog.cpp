@@ -25,7 +25,7 @@
 #include "optiondialog.h"
 
 ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *name, bool modal)
-  :KDialogBase(KDialogBase::TreeList, i18n("Configure"), Apply|Ok|Cancel, Ok, parent, name, modal )
+  : KDialogBase(KDialogBase::TreeList, i18n("Configure"), Apply|Ok|Cancel, Ok, parent, name, modal )
 {
 	Accel = accel;
 
@@ -35,7 +35,7 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	list = i18n("Dictionaries");
 	QFrame *Page0 = addPage(i18n("Dictionaries"));
 	QVBoxLayout *descBox = new QVBoxLayout(Page0);
-	descBox->addWidget(new QLabel(i18n("Kiten includes Edict for a regular word search.\nFor Kanji searching, Kanjidic is included.\n\nFeel free to add your own extras (see foreign-language link below) by adding them in the\nconfiguration pages below this one."), Page0));
+	descBox->addWidget(new QLabel(QString("<p>") + i18n("Kiten includes Edict for a regular word search. For Kanji searching, Kanjidic is included. Feel free to add your own extras (see foreign-language link below) by adding them in the configuration pages below this one.") + QString("</p>"), Page0));
 	descBox->addStretch();
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0));
 	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0));
