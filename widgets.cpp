@@ -487,7 +487,7 @@ void EditAction::unplug( QWidget *w )
 
 	int idx = findContainer( w );
 
-	toolBar->removeItem( menuId( idx ) );
+	toolBar->removeItem( itemId( idx ) );
 
 	removeContainer( idx );
 	m_combo = 0L;
