@@ -29,7 +29,11 @@
 /*#include <stdlib.h>*/
 #include <ctype.h>
 #include <string.h>
+
+#ifndef __FreeBSD__
 #include <stdint.h>
+#endif
+
 #include "xjdic.h"
 
 #define TRUE 1
