@@ -168,10 +168,10 @@ QCString File::lookup(unsigned i)
 	uint32_t pos = start;
 	const unsigned size = dictFile.size();
 	// get the whole word
-	while(pos <= size && dictPtr[pos] != 0)
+	while(pos <= size && dictPtr[pos] != 0 && dictPtr[pos] != 0x0a)
 		++pos;
 	// put the word in the QCString
-	QCString retval((const char *)(dictPtr + pos), pos - start + 1);
+	QCString retval((const char *)(dictPtr + start), pos - start);
 	// tack on a null
 	char null = 0;
 	retval.append(&null);
@@ -419,9 +419,9 @@ int Index::stringCompare(File &file, int index, QCString str)
 
 // effectively does a strnicmp on two "strings" 
 // except it will make katakana and hiragana match (EUC A4 & A5)
-int Dict::eucStringCompare(QCString str, QCString str2)
+int Dict::eucStringCompare(const char *str, const char *str2)
 {
-	for (unsigned i = 0; i < str2.length(); ++i)
+	for (unsigned i = 0; ; ++i)
 	{
 		unsigned char c = static_cast<unsigned char>(str[i]);
 		unsigned char c2 = static_cast<unsigned char>(str2[i]);
@@ -445,6 +445,11 @@ int Dict::eucStringCompare(QCString str, QCString str2)
 	}
 
 	return 0;
+}
+
+bool Dict::isEUC(unsigned char c)
+{
+	return (c & 0x80);
 }
 
 Entry Dict::parse(const QString &raw)

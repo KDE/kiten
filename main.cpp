@@ -9,6 +9,10 @@
 
 #include "kiten.h"
 
+void noMessageOutput(QtMsgType, const char *)
+{
+}
+
 static KCmdLineOptions options[] =
 {
 	{ 0, 0, 0 }
@@ -17,6 +21,7 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char *argv[])
 {
+	qInstallMsgHandler(noMessageOutput);
 	KAboutData aboutData( "kiten", I18N_NOOP("Kiten"),
 	  "0.5", I18N_NOOP("Japanese Reference Tool"), KAboutData::License_GPL,
 	  "(c) 2001, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten", "submit@bugs.kde.org");

@@ -167,8 +167,8 @@ Entry kanjiParse(const QString &);
 Dict::Entry firstEntry(Dict::SearchResult);
 QString firstEntryText(Dict::SearchResult);
 
-int eucStringCompare(QCString str1, QCString str2);
-
+int eucStringCompare(const char *str1, const char *str2);
+bool isEUC(unsigned char c);
 }
 
 #endif
