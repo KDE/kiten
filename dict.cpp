@@ -89,7 +89,7 @@ File::File(QString path, QString n)
 	}
 
 	dictPtr = (const unsigned char *)mmap(0, dictFile.size(), PROT_READ, MAP_SHARED, dictFile.handle(), 0);
-	if (dictPtr == MAP_FAILED)
+	if (dictPtr == (unsigned char*) MAP_FAILED)
 	{
 		msgerr(i18n("Memory error when loading dictionary %1."), path);
 		return;
@@ -102,7 +102,7 @@ File::File(QString path, QString n)
 	}
 
 	indexPtr = (const uint32_t*)mmap(0, indexFile.size(), PROT_READ, MAP_SHARED, indexFile.handle(), 0);
-	if (indexPtr == MAP_FAILED)
+	if (indexPtr == (uint32_t*) MAP_FAILED)
 	{
 		msgerr(i18n("Memory error when loading dictionary %1's index file."), path);
 		return;
@@ -113,11 +113,11 @@ File::File(QString path, QString n)
 
 File::~File(void)
 {
-	if (dictPtr != MAP_FAILED)
+	if (dictPtr != (unsigned char*) MAP_FAILED)
 		munmap((void *)dictPtr, dictFile.size());
 	dictFile.close();
 
-	if (indexPtr != MAP_FAILED)
+	if (indexPtr != (uint32_t*) MAP_FAILED)
 		munmap((void *)indexPtr, indexFile.size());
 	indexFile.close();
 }
