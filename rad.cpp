@@ -273,7 +273,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(remove, SIGNAL(clicked()), this, SLOT(removeSelected()));
 	remove->setEnabled(false);
 
-	clear = new KPushButton(i18n("C&lear"), this);
+	clear = new KPushButton(KStdGuiItem::clear(), this);
 	rightvlayout->addWidget(clear);
 	connect(clear, SIGNAL(clicked()), this, SLOT(clearSelected()));
 	clear->setEnabled(false);
