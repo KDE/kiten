@@ -186,6 +186,8 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 			_ResultView->addKanjiResult(toAddKanji, results.common, _Rad.radByKanji(toAddKanji.kanji()));
 	
 			addAction->setEnabled(true);
+
+			_ResultView->append(QString("<p>%1</p>").arg(i18n("HTML Entity: %1").arg(QString("&amp;#x%1;").arg(QString::number(toAddKanji.kanji().at(0).unicode(), 16))))); // show html entity
 	
 			// now show some compounds in which this kanji appears
 			QString kanji = toAddKanji.kanji();
