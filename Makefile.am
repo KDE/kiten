@@ -24,7 +24,7 @@ METASOURCES = AUTO
 CLEANFILES = dummy.cpp
 
 rcdir = $(kde_datadir)/kiten
-rc_DATA = kitenui.rc
+rc_DATA = kitenui.rc learnui.rc
 
 dummy.cpp:
 	echo > dummy.cpp

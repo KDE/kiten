@@ -32,50 +32,20 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	_Dict = new Dict();
 	setCentralWidget(_ResultView);
 
-	/*
-	QVBoxLayout *layout = new QVBoxLayout(dummy, 6);
-
-	QHBoxLayout *botLayout = new QHBoxLayout(layout, 6);
-	QHBoxLayout *topLayout = new QHBoxLayout(layout, 6);
-
-	comCB = new QCheckBox(i18n("&Only common entries"), dummy, "comCB");
-	topLayout->addWidget(comCB);
-
-	irCB = new QCheckBox(i18n("Search &in results"), dummy, "irCB");
-	topLayout->addWidget(irCB);
-
-	kanjiCB = new QCheckBox(i18n("&Kanjidic?"), dummy, "kanjiCB");
-	connect(kanjiCB, SIGNAL(toggled(bool)), SLOT(kanjiDictChange(bool)));
-	botLayout->addWidget(kanjiCB);
-
-	strokeButton = new QPushButton(i18n("&Stroke Search"), dummy, "strokeButton");
-	botLayout->addWidget(strokeButton);
-	connect(strokeButton, SIGNAL(clicked()), SLOT(strokeSearch()));
-	gradeButton = new QPushButton(i18n("&Grade Search"), dummy, "gradeButton");
-	botLayout->addWidget(gradeButton);
-	connect(gradeButton, SIGNAL(clicked()), SLOT(gradeSearch()));
-
-	layout->addWidget(_SearchForm);
-	layout->addWidget(_ResultView);
-
-	connect(_SearchForm, SIGNAL(search()), SLOT(search()));
-	connect(_SearchForm, SIGNAL(readingSearch()), SLOT(readingSearch()));
-	connect(_SearchForm, SIGNAL(kanjiSearch()), SLOT(kanjiSearch()));
-	*/
-
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
-	(void)new KAction(i18n( "Clear location bar" ), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
-
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
-	(void) new KAction(i18n("&Anywhere Search"), "find", 0, this, SLOT(search()), actionCollection(), "search_anywhere");
-	(void) new KAction(i18n("&Reading Search"), "find", CTRL+Key_R, this, SLOT(readingSearch()), actionCollection(), "search_reading");
-	(void) new KAction(i18n("&Kanji Search"), "find", CTRL+Key_K, this, SLOT(kanjiSearch()), actionCollection(), "search_kanji");
+	(void) new KAction(i18n("Clear"), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
+	(void) new KAction(i18n("&Anywhere"), "find", 0, this, SLOT(search()), actionCollection(), "search_anywhere");
+	(void) new KAction(i18n("&Reading"), "find", CTRL+Key_R, this, SLOT(readingSearch()), actionCollection(), "search_reading");
+	(void) new KAction(i18n("&Kanji"), "find", CTRL+Key_K, this, SLOT(kanjiSearch()), actionCollection(), "search_kanji");
+	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
+	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
 	kanjiCB = new KToggleAction(i18n("Kan&jidic?"), "kanjidic", CTRL+Key_J, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
-	comCB = new KToggleAction(i18n("&Filter Out Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
+	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
-	irCB =  new KToggleAction(i18n("Search &in Results"), "viewmag+", CTRL+Key_I, this, SLOT(toggleIR()), actionCollection(), "in_results");
+	irCB =  new KToggleAction(i18n("&In Results"), "viewmag+", CTRL+Key_I, this, SLOT(toggleIR()), actionCollection(), "in_results");
 	connect(irCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleIR(bool)));
 
 	createGUI();
@@ -131,6 +101,7 @@ void TopLevel::doSearch()
 		statusBar()->message(i18n("Empty search items"));
 		return;
 	}
+
 	//kdDebug() << "TopLevel::doSearch()\n";
 	_ResultView->clear();
 
@@ -256,9 +227,9 @@ void TopLevel::gradeSearch()
 	QString text = Edit->text();
 	unsigned int grade;
 
-	if (text == "Jouyou")
+	if (text == "Jouyou" || text == "jouyou")
 		grade = 8;
-	else if (text == "Jinmeiyou")
+	else if (text == "Jinmeiyou" || text == "jinmeiyou")
 		grade = 9;
 	else
 		grade = text.toUInt();

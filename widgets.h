@@ -5,14 +5,17 @@
 #include <qtextedit.h>
 #include <qptrlist.h>
 #include <klineedit.h>
+#include <kaction.h>
+#include <kstdaction.h>
+#include <kmainwindow.h>
 #include <qstringlist.h>
 #include <qguardedptr.h>
 #include <kaction.h>
 
-class KCompletion;
 class Entry;
 class Kanji;
 class QString;
+class QSplitter;
 class QTabWidget;
 class QListViewItem;
 class KListView;
@@ -37,7 +40,7 @@ class ResultView : public QTextEdit
 	void addHeader(const QString &);
 };
 
-class Learn : public QWidget
+class Learn : public KMainWindow
 {
 	Q_OBJECT
 	
@@ -56,17 +59,17 @@ class Learn : public QWidget
 	private slots:
 	void next();
 	void prev();
-	void qprev();
 	void updateGrade();
 	void random();
-	void gradeChange(int);
 	void add();
 	void del();
-	void qdelete();
 	void updateCaption(QListViewItem *);
 	void close();
 	void cheat();
 	void writeConfiguration();
+	void tabChanged(QWidget *);
+
+	void updateQuiz();
 
 	void q1();
 	void q2();
@@ -77,19 +80,12 @@ class Learn : public QWidget
 
 	private:
 	QTabWidget *Tabs;
+	QSplitter *listTop;
+	QWidget *quizTop;
 
-	KPushButton *UpdateGrade;
-	QSpinBox *GradeSpin;
 	ResultView *View;
-	KPushButton *Next;
-	KPushButton *Prev;
-	KPushButton *Rand;
-	KPushButton *Cheat;
 	QPtrList<Kanji> list;
 	KStatusBar *StatusBar;
-
-	KPushButton *Add;
-	KPushButton *Close;
 
 	Dict *dict;
 
@@ -104,7 +100,6 @@ class Learn : public QWidget
 
 	// Quiz, an app to itself in a tabwidget :)
 	
-	KPushButton *qPrev;
 	KPushButton *Q1;
 	KPushButton *Q2;
 	KPushButton *Q3;
@@ -122,6 +117,12 @@ class Learn : public QWidget
 
 	QString randomMeaning();
 	QStringList oldMeanings;
+
+	KAction *forwardAct;
+	KAction *cheatAct;
+	KAction *saveAct;
+	KAction *newAct;
+	KListAction *gradeAct;
 };
 
 class EditAction : public KAction

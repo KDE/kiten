@@ -11,6 +11,8 @@
   <Action name="search_anywhere" />
   <Action name="search_reading" />
   <Action name="search_kanji" />
+  <Action name="search_stroke" />
+  <Action name="search_grade" />
   <Seperator />
   <Action name="kanji_toggle" />
   <Action name="in_results" />
@@ -25,6 +27,8 @@
   <Action name="search_anywhere" />
   <Action name="search_reading" />
   <Action name="search_kanji" />
+  <Action name="search_stroke" />
+  <Action name="search_grade" />
   <Action name="kanji_toggle" />
   <Action name="in_results" />
   <Action name="common" />
