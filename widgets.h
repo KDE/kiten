@@ -67,7 +67,7 @@ class Learn : public KMainWindow
 	void random();
 	void add();
 	void del();
-	void updateCaption(QListViewItem *);
+	void close();
 	void cheat();
 	void tabChanged(QWidget *);
 

@@ -186,7 +186,7 @@ Learn::Learn(Dict *parentDict, QWidget *parent, const char *name) : KMainWindow(
 	List->addColumn(i18n("Grade"));
 	List->addColumn(i18n("Readings"));
 	List->addColumn(i18n("Meanings"));
-	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(updateCaption(QListViewItem *)));
+	//connect(List, SIGNAL(executed(QListViewItem *)), SLOT(updateCaption(QListViewItem *)));
 	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
 
 	View = new ResultView(listTop, "View");
@@ -468,10 +468,6 @@ void Learn::showKanji(QListViewItem *item)
 	}
 
 	update(curKanji);
-}
-
-void Learn::updateCaption(QListViewItem *item)
-{
 	setCaption(kapp->makeStdCaption(item->text(0)));
 }
 

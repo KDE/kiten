@@ -19,7 +19,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.     */
 
-/* Changed: write to what is specified in -o argument.
+/* Changed: ignore all rc stuff. use args 1 and 2 for input/output file.
   -- jason */
 
 #include <sys/types.h>
