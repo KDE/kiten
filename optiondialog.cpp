@@ -172,7 +172,7 @@ void ConfigureDialog::writeConfig()
 
 void ConfigureDialog::openURL(const QString &url)
 {
-	KRun::runURL(url, "text/html");
+	KRun::runURL(KURL(url), "text/html");
 }
 
 void ConfigureDialog::slotOk()
