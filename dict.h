@@ -40,12 +40,12 @@ template<class T> Array<T>::Array(T *d, int s)
 	, data(d)
 	, dataSize(s)
 {
-	setRawData(data, dataSize);
+	setRawData(data, dataSize / sizeof(T));
 }
 
 template<class T> Array<T>::~Array()
 {
-	resetRawData(data, dataSize);
+	resetRawData(data, dataSize / sizeof(T));
 }
 
 // File manages all the files, pointers, and memory management associated

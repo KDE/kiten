@@ -195,7 +195,7 @@ QStringList Index::doSearch(File &file, QString text)
 	Array<const uint32_t> index = file.index();
 	Array<const unsigned char> dict = file.dict();
 	int lo = 0;
-	int hi = index.size() / sizeof(uint32_t) - 1;
+	int hi = index.size() - 1;
 	unsigned cur;
 	int comp = 0;
 
