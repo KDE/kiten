@@ -221,7 +221,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		{
 			toAddKanji = first;
 			_ResultView->addKanjiResult(toAddKanji, results.common, _Rad.radByKanji(toAddKanji.kanji()));
-	
+
 			addAction->setEnabled(true);
 
 			_ResultView->append(QString("<p>%1</p>").arg(i18n("HTML Entity: %1").arg(QString("&amp;#x%1;").arg(QString::number(toAddKanji.kanji().at(0).unicode(), 16))))); // show html entity
@@ -536,7 +536,7 @@ void TopLevel::kanjiSearchAccel()
 
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 {
-	QString str = i18n("%1 result(s)").arg(results);
+	QString str = i18n("%n result","%n results",results);
 	
 	if (results < fullNum)
 		str += i18n(" out of %1").arg(fullNum);
