@@ -1,6 +1,9 @@
 Jason Katz-Brown <jason@katzbrown.com>
-Lots of encoding help and cheering from Neil Stevens <neil@qualityassistant.com>
+	Wrote the app
 
-Jim Breen, who wrote the algorithms for accessing .xjdx files for his own
-           excellent xjdic, and xjdxgen.c for generating index files.
-		 <jwb@csse.monash.edu.au>
+Jim Breen <jwb@csse.monash.edu.au>
+	Wrote the algorithms for accessing .xjdx files for his own excellent
+	xjdic, and xjdxgen.c for generating index files.
+
+Neil Stevens <neil@qualityassistant.com>
+	Simplified some code and made UI suggestions.
