@@ -2,9 +2,7 @@ INCLUDES = $(all_includes)
 
 SUBDIRS = pics
 
-lib_LTLIBRARIES = kiten.la
-
-kiten_la_SOURCES = 	main.cpp \
+kiten_SOURCES = 	main.cpp \
 				dict.cpp \
 				kiten.cpp \
 				optiondialog.cpp \
@@ -16,13 +14,9 @@ kiten_la_SOURCES = 	main.cpp \
 				kloader.cpp \
 				ksaver.cpp
 
-kiten_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -avoid-version
+kiten_LDFLAGS = $(all_libraries) $(KDE_RPATH) 
 
 bin_PROGRAMS = kiten kitengen
-
-kiten_LDADD = kiten.la $(KDE_RPATH) $(LIB_KDEUI) $(LIB_KIO) $(LIB_KDEPRINT)
-kiten_LDFLAGS = $(all_libraries)
-kiten_SOURCES = dummy.cpp
 
 kitengen_SOURCES = xjdxgen.c
 kitengen_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(LIB_QT)
@@ -33,9 +27,6 @@ CLEANFILES = dummy.cpp
 
 rcdir = $(kde_datadir)/kiten
 rc_DATA = kitenui.rc learnui.rc eeditui.rc
-
-dummy.cpp:
-	echo > dummy.cpp
 
 applnk_DATA = kiten.desktop
 applnkdir = $(kde_appsdir)/Edutainment/Languages
