@@ -7,14 +7,16 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qmap.h>
+#include <qregexp.h>
 #include <qstringlist.h>
+#include <qtextcodec.h>
 #include <qvaluelist.h>
 #include "deinf.h"
 
-Deinf::Deinf()
-{
-	body = false;
+using namespace Deinf;
 
+Index::Index()
+{
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString vconj = dirs->findResource("appdata", "vconj");
 	if (vconj == QString::null)
@@ -24,7 +26,6 @@ Deinf::Deinf()
 	}
 
 	QFile f(vconj);
-	QString s;
 	
 	if (!f.open(IO_ReadOnly))
 	{
@@ -33,68 +34,58 @@ Deinf::Deinf()
 	}
 
 	QTextStream t(&f);
-	while (!t.eof())
-	{
-		s = t.readLine();
+	t.setCodec(QTextCodec::codecForName("eucJP"));
 
-		loadLine(s);
+	for(QString text = t.readLine(); !t.eof() && text.at(0) != '$'; text = t.readLine())
+	{
+		if(text.at(0) != '#')
+		{
+			unsigned int number = text.left(2).stripWhiteSpace().toUInt();
+			QString name = text.right(text.length() - 2).stripWhiteSpace();
+
+			names[number] = name;
+		}
+	}
+	for(QString text = t.readLine(); text; text = t.readLine())
+	{
+		if(text.at(0) != '#')
+		{
+			QStringList things(QStringList::split(QChar('\t'), text));
+
+			Result result;
+			result.ending = things.first();
+			result.replace = (*things.at(1));
+			result.num = things.last().toUInt();
+
+			list.append(result);
+		}
 	}
 
 	f.close();
 }
 
-Deinf::~Deinf()
+namespace
 {
+QStringList possibleEndings(const QString &text)
+{
+	QStringList endings;
+	for(unsigned i = 0; i < text.length(); ++i)
+		endings.append(text.right(i));
+	return endings;
+}
 }
 
-void Deinf::loadLine(const QString &text)
+QString Index::deinflect(QString text, QString &name)
 {
-	QChar first = text.at(0);
-	if (first == '#')
-		return;
-	if (first == '$')
+	QStringList endings = possibleEndings(text);
+	for (QValueListIterator <Result> it = list.begin(); it != list.end(); ++it)
 	{
-		body = true;
-		return;
-	}
-	if (!body)
-	{
-		unsigned int number = text.left(2).stripWhiteSpace().toUInt();
-		QString name = text.right(text.length() - 2).stripWhiteSpace();
-
-		names[number] = name;
-		return;
-	}
-	
-	QStringList things(QStringList::split(QChar('\t'), text));
-
-	conj Conj;
-	Conj.ending = things.first();
-	Conj.replace = (*things.at(1));
-	Conj.num = things.last().toUInt();
-
-	list.append(Conj);
-}
-
-QString Deinf::deinf(const QString &text, QString &name)
-{
-	QValueList<conj>::Iterator it;
-	unsigned int len = text.length();
-	int i;
-	for (i = len; i > 0; i--)
-	{
-		for (it = list.begin(); it != list.end(); ++it)
+		QStringList::Iterator ending = endings.find((*it).ending);
+		if(ending != endings.end()) // a match
 		{
-			//kdDebug() << "ending = " << (*it).ending << endl;
-			unsigned int rlen = (*it).ending.length();
-			if (rlen >= len)
-				continue;
-
-			if (text.right(i).find((*it).ending) == 0)
-			{
-				name = names[(*it).num];
-				return (text.left(len - i) + (*it).replace);
-			}
+			name = names[(*it).num];
+			text.replace(QRegExp((*ending) + "$"), (*it).replace);
+			return text;
 		}
 	}
 

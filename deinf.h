@@ -5,29 +5,30 @@
 #include <qvaluelist.h>
 #include <qmap.h>
 
-struct conj
+namespace Deinf
+{
+
+struct Result
 {
 	QString ending;
 	QString replace;
 	unsigned int num;
 };
 
-class Deinf
+class Index
 {
 	public:
-	Deinf();
-	~Deinf();
+	Index();
 
-	QString deinf(const QString &, QString &);
+	QString deinflect(QString, QString &);
 
 	private:
-	QString curLine;
 	QMap<unsigned int, QString> names;
-	QValueList<conj> list;
+	QValueList<Result> list;
 
 	void loadLine(const QString &);
-
-	bool body;
 };
+
+}
 
 #endif

@@ -260,7 +260,7 @@ void TopLevel::search(bool inResults)
 	{
 		if (last < 0xa5 && deinfCB->isChecked() && name == QString::null) // deinflect
 		{
-			dicform = _Deinf.deinf(text, name);
+			dicform = _DeinfIndex.deinflect(text, name);
 			if (name == QString::null)
 				goto Normal;
 
@@ -504,8 +504,6 @@ QRegExp TopLevel::kanjiSearchItems(bool beginning)
 		return QRegExp(); //empty
 	}
 
-	kdDebug() << text << endl;
-
 	QString regexp;
 	if (beginning)
 		regexp = "^%1";
@@ -514,8 +512,6 @@ QRegExp TopLevel::kanjiSearchItems(bool beginning)
 
 	regexp = regexp.arg(text);
 
-	kdDebug() << "regexp = " << regexp << endl;
-	
 	return QRegExp(regexp, caseSensitive);
 }
 
@@ -527,8 +523,6 @@ QRegExp TopLevel::searchItems()
 	{
 		return QRegExp(); //empty
 	}
-
-	//CompletionObj->addItem(text);
 
 	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
 	if (contains == text.length())

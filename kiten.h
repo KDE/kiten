@@ -64,7 +64,7 @@ class TopLevel : public KMainWindow
 	private:
 	Dict::Index _Index;
 	Rad _Rad;
-	Deinf _Deinf;
+	Deinf::Index _DeinfIndex;
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
 	KToggleAction *deinfCB;
