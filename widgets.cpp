@@ -254,9 +254,12 @@ Learn::Learn(Dict *parentDict, QWidget *parent, const char *name) : KMainWindow(
 	connect(this, SIGNAL(listDirty()), this, SLOT(updateQuiz()));
 	emit listDirty();
 
-	curItem = List->firstChild();
-	prevItem = curItem;
-	qnew(); // init first quiz
+	if (List->childCount() >= 1)
+	{
+		curItem = List->firstChild();
+		prevItem = curItem;
+		qnew(); // init first quiz
+	}
 
 	resize(600, 400);
 	applyMainWindowSettings(KGlobal::config(), "LearnWindow");
@@ -277,6 +280,7 @@ void Learn::closeEvent(QCloseEvent *e)
 			saveAct->activate();
 			// fallthrough
 		case KMessageBox::No:
+			emit listChanged(); // make it seem clean, changes aren't desired
 			break;
 		case KMessageBox::Cancel:
 			return;
@@ -456,6 +460,14 @@ void Learn::add()
 
 	isMod = true;
 	emit listDirty();
+
+	if (List->childCount() == 1)
+	{
+		kdDebug() << "qnew\n";
+		curItem = List->firstChild();
+		prevItem = curItem;
+		qnew(); // init first quiz
+	}
 }
 
 void Learn::showKanji(QListViewItem *item)
@@ -473,9 +485,14 @@ void Learn::showKanji(QListViewItem *item)
 	}
 	
 	list.first();
+	//kdDebug() << list.count() << endl;
+	//kdDebug() << list.current()->kanji() << endl;
+	//kdDebug() << kanji << endl;
 
-	while (list.next()->kanji() != kanji)
-	{}
+	while (list.current()->kanji() != kanji)
+	{ 
+		list.next();
+	}
 
 	update();
 	setCaption(i18n("%1 - Learn").arg(item->text(0)));
