@@ -229,14 +229,21 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 			// now show some compounds in which this kanji appears
 			QString kanji = toAddKanji.kanji();
 		
-			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
-		
 			_ResultView->addHeader(i18n("%1 in compounds").arg(kanji));
+		
+			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
+			bool common = true;
+			if (compounds.count <= 0)
+			{
+				compounds = _Index.search(QRegExp(kanji), kanji, false);
+				_ResultView->addHeader(i18n("(No common compounds)"), 4);
+				common = false;
+			}
 	
 			for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
 				//kdDebug() << "adding " << (*it).kanji() << endl;
-				_ResultView->addResult(*it, true);
+				_ResultView->addResult(*it, common);
 				kapp->processEvents();
 			}
 		}
@@ -390,29 +397,82 @@ void TopLevel::search(bool inResults)
 
 void TopLevel::strokeSearch()
 {
-	unsigned int strokes = Edit->text().toUInt();
-	if (strokes <= 0 || strokes > 60)
+	QString strokesString;
+
+	bool ok = false;
+	QString text = Edit->text().stripWhiteSpace();
+	unsigned int strokes = text.toUInt(&ok);
+
+	if (!ok)
+	{
+		/*
+		if (text.find("-") < 0)
+		{
+			StatusBar->message(i18n("For a range between 4 and 8 strokes, use '4-8'"));
+			return;
+		}
+
+		unsigned int first = text.section('-', 0, 0).toUInt(&ok);
+		if (!ok)
+		{
+			StatusBar->message(i18n("First number not parseable\n"));
+			return;
+		}
+
+		unsigned int second = text.section('-', 1, 1).toUInt(&ok);
+		if (!ok)
+		{
+			StatusBar->message(i18n("Second number not parseable\n"));
+			return;
+		}
+
+		bool already = false;
+		for (int i = first; i <= second; ++i)
+		{
+			if (already)
+				strokesString.append('|');
+
+			already = true;
+
+			strokesString.append(QString::number(i));
+		}
+
+		strokesString.append(')');
+		strokesString.prepend("(?:");
+
+		kdDebug() << "strokesString is " << strokesString << endl;
+		*/
+		
+		StatusBar->message(i18n("Unparseable number"));
+		return;
+	}
+	else if (strokes <= 0 || strokes > 60)
 	{
 		StatusBar->message(i18n("Invalid stroke count"));
 		return;
 	}
-	QString text = QString("S%1 ").arg(strokes);
+	else
+	{
+		strokesString = QString::number(strokes);
+	}
+
+
 	QRegExp regexp = QRegExp(text);
 
 	// must be in kanjidic mode
 	kanjiCB->setChecked(true);
 
-	doSearch(text, regexp);
+	doSearch(QString("S%1 ").arg(strokesString), regexp);
 }
 
 void TopLevel::gradeSearch()
 {
-	QString editText = Edit->text();
+	QString editText = Edit->text().stripWhiteSpace();
 	unsigned int grade;
 
-	if (editText == "Jouyou" || editText == "jouyou")
+	if (editText.lower() == "Jouyou")
 		grade = 8;
-	else if (editText == "Jinmeiyou" || editText == "jinmeiyou")
+	else if (editText.lower() == "Jinmeiyou")
 		grade = 9;
 	else
 		grade = editText.toUInt();
@@ -422,6 +482,7 @@ void TopLevel::gradeSearch()
 		StatusBar->message(i18n("Invalid grade"));
 		return;
 	}
+
 	QString text = QString("G%1 ").arg(grade);
 	QRegExp regexp = QRegExp(text);
 
@@ -433,7 +494,7 @@ void TopLevel::gradeSearch()
 QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 {
 	kapp->clipboard()->setSelectionMode(true);
-	QString text = kapp->clipboard()->text();
+	QString text = kapp->clipboard()->text().stripWhiteSpace();
 	kapp->clipboard()->setSelectionMode(false);
 
 	return text;
@@ -692,11 +753,11 @@ void TopLevel::newToolBarConfig()
 void TopLevel::radicalSearch()
 {
 	RadWidget *rw = new RadWidget(&_Rad, 0, "rw");
-	connect(rw, SIGNAL(set(const QStringList &, unsigned int)), this, SLOT(radSearch(const QStringList &, unsigned int)));
+	connect(rw, SIGNAL(set(const QStringList &, unsigned int, unsigned int)), this, SLOT(radSearch(const QStringList &, unsigned int, unsigned int)));
 	rw->show();
 }
 
-void TopLevel::radSearch(const QStringList &_list, unsigned int strokes)
+void TopLevel::radSearch(const QStringList &_list, unsigned int strokes, unsigned int errorMargin)
 {
 	//kdDebug() << "TopLevel::radSearch\n";
 
@@ -727,9 +788,28 @@ void TopLevel::radSearch(const QStringList &_list, unsigned int strokes)
 	else
 		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1").arg(prettyRadicalString), true));
 
+	QString strokesString;
+	if (strokes)
+	{
+		strokesString = QString::number(strokes);
+		for (int i = 1; i <= errorMargin; ++i)
+		{
+			strokesString.append('|');
+			strokesString.prepend('|');
+			strokesString.append(QString::number(strokes + i));
+			strokesString.prepend(QString::number(strokes - i));
+		}
+
+		strokesString.append(')');
+		strokesString.prepend("(?:");
+
+		kdDebug() << "strokesString is " << strokesString << endl;
+	}
+
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokes)) : (QString("^") + (*it)) ), (*it), comCB->isChecked());
+
+		Dict::SearchResult results = _Index.searchKanji(QRegExp(strokes? (QString("S%1 ").arg(strokesString)) : (QString("^") + (*it)) ), (*it), comCB->isChecked());
 		hist.outOf += results.outOf;
 
 		if (results.count < 1)

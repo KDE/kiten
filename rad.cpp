@@ -232,17 +232,19 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
 
 	QVBoxLayout *layout = new QVBoxLayout(vlayout, KDialog::spacingHint());
-	layout->addWidget(new QLabel(i18n("<strong>Radical</strong> strokes:"), this));
-	strokesSpin = new QSpinBox(1, 17, 1, this);
-	layout->addWidget(strokesSpin);
-	layout->addStretch();
 	
 	totalStrokes = new QCheckBox(i18n("Search by total strokes"), this);
 	connect(totalStrokes, SIGNAL(clicked()), this, SLOT(totalClicked()));
 	layout->addWidget(totalStrokes);
-	layout->addWidget(new QLabel(i18n("<strong>Total</strong> strokes:"), this));
+
+	QHBoxLayout *strokesLayout = new QHBoxLayout(layout, KDialog::spacingHint());
 	totalSpin = new QSpinBox(1, 30, 1, this);
-	layout->addWidget(totalSpin);
+	strokesLayout->addWidget(totalSpin);
+	strokesLayout->addStretch();
+	totalErrLabel = new QLabel(i18n("+/-"), this);;
+	strokesLayout->addWidget(totalErrLabel);
+	totalErrSpin = new QSpinBox(0, 15, 1, this);
+	strokesLayout->addWidget(totalErrSpin);
 	
 	ok = new KPushButton(i18n("&Look Up"), this);
 	ok->setEnabled(false);
@@ -252,8 +254,13 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(cancel, SIGNAL(clicked()), SLOT(close()));
 	layout->addWidget(cancel);
 
+	QVBoxLayout *middlevLayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+
+	strokesSpin = new QSpinBox(1, 17, 1, this);
+	middlevLayout->addWidget(strokesSpin);
+
 	List = new KListBox(this);
-	hlayout->addWidget(List);
+	middlevLayout->addWidget(List);
 	connect(List, SIGNAL(executed(QListBoxItem *)), this, SLOT(executed(QListBoxItem *)));
 	connect(strokesSpin, SIGNAL(valueChanged(int)), this, SLOT(updateList(int)));
 
@@ -267,7 +274,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(remove, SIGNAL(clicked()), this, SLOT(removeSelected()));
 	remove->setEnabled(false);
 
-	clear = new KPushButton(i18n("&Clear"), this);
+	clear = new KPushButton(i18n("C&lear"), this);
 	rightvlayout->addWidget(clear);
 	connect(clear, SIGNAL(clicked()), this, SLOT(clearSelected()));
 	clear->setEnabled(false);
@@ -276,6 +283,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 	strokesSpin->setValue(config->readNumEntry("Strokes", 1));
 	totalSpin->setValue(config->readNumEntry("Total Strokes", 1));
+	totalErrSpin->setValue(config->readNumEntry("Total Strokes Error Margin", 0));
 	totalStrokes->setChecked(config->readBoolEntry("Search By Total", false));
 
 	totalClicked();
@@ -354,12 +362,13 @@ void RadWidget::apply()
 		return;
 	}
 
-	emit set(selected, totalStrokes->isChecked() ? totalSpin->value() : 0);
+	emit set(selected, totalStrokes->isChecked() ? totalSpin->value() : 0, totalErrSpin->value());
 
 	KConfig *config = kapp->config();
 	config->setGroup("Radical Searching");
 	config->writeEntry("Strokes", strokesSpin->value());
 	config->writeEntry("Total Strokes", totalSpin->value());
+	config->writeEntry("Total Strokes Error Margin", totalErrSpin->value());
 	config->writeEntry("Search By Total", totalStrokes->isChecked());
 
 	for (QStringList::Iterator it = selected.begin(); it != selected.end(); ++it)
@@ -378,9 +387,12 @@ void RadWidget::apply()
 	close();
 }
 
-void RadWidget::totalClicked(void)
+void RadWidget::totalClicked()
 {
-	totalSpin->setEnabled(totalStrokes->isChecked());
+	bool enable = totalStrokes->isChecked();
+	totalSpin->setEnabled(enable);
+	totalErrSpin->setEnabled(enable);
+	totalErrLabel->setEnabled(enable);
 }
 
 //////////////////////////////////////////////

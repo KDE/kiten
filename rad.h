@@ -8,6 +8,7 @@
 #include <qwidget.h>
 
 class QCheckBox;
+class QLabel;
 class QListBoxItem;
 class QSpinBox;
 class KPushButton;
@@ -63,7 +64,7 @@ class RadWidget : public QWidget
 
 	signals:
 	// if totalStrokes == 0, then don't search by total strokes
-	void set(const QStringList &radical, unsigned int totalStrokes);
+	void set(const QStringList &radical, unsigned int totalStrokes, unsigned int totalStrokesErr);
 
 	private slots:
 	void updateList(int);
@@ -79,6 +80,8 @@ class RadWidget : public QWidget
 	private:
 	QSpinBox *strokesSpin;
 	QSpinBox *totalSpin;
+	QSpinBox *totalErrSpin;
+	QLabel *totalErrLabel;
 	KPushButton *ok;
 	KPushButton *cancel;
 	KPushButton *remove;

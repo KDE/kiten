@@ -60,7 +60,7 @@ class TopLevel : public KMainWindow
 	void toggleCom();
 	void addToList();
 	void radicalSearch();
-	void radSearch(const QStringList &, unsigned int);
+	void radSearch(const QStringList &, unsigned int, unsigned int);
 
 	void print();
 
