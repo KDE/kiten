@@ -77,7 +77,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	name = QString::null;
 
-	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(search(const QString &)));
+	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(ressearch(const QString &)));
 }
 
 void TopLevel::closeEvent(QCloseEvent *)
@@ -227,10 +227,11 @@ void TopLevel::search()
 	search(false);
 }
 
-void TopLevel::search(const QString &text)
+void TopLevel::ressearch(const QString &text)
 {
 	Edit->clear();
 	Edit->insert(text);
+	kanjiCB->setChecked(true);
 	search(false);
 }
 
@@ -494,10 +495,9 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 	return QRegExp(regexp, caseSensitive);
 }
 
-QRegExp TopLevel::kanjiSearchItems(bool beginning, QString text)
+QRegExp TopLevel::kanjiSearchItems(bool beginning)
 {
-	if (text == QString::null)
-		QString text = Edit->text();
+	QString text = Edit->text();
 
 	if (text.isEmpty())
 	{
@@ -513,6 +513,8 @@ QRegExp TopLevel::kanjiSearchItems(bool beginning, QString text)
 		regexp = "^%1\\W";
 
 	regexp = regexp.arg(text);
+
+	kdDebug() << "regexp = " << regexp << endl;
 	
 	return QRegExp(regexp, caseSensitive);
 }

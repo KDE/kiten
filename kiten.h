@@ -36,7 +36,7 @@ class TopLevel : public KMainWindow
 
 	private slots:
 	void search();
-	void search(const QString&);
+	void ressearch(const QString&);
 	void search(bool inResults);
 	void searchBeginning();
 	void searchEnd();
@@ -89,7 +89,7 @@ class TopLevel : public KMainWindow
 
 	QRegExp searchItems();
 	QRegExp readingSearchItems(bool);
-	QRegExp kanjiSearchItems(bool = false, QString = QString::null);
+	QRegExp kanjiSearchItems(bool = false);
 
 	EditAction *Edit;
 
