@@ -71,7 +71,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 				continue;
 			else
 			{
-				html += "<strong>Common</strong>  ";
+				html += QString("<strong>") + i18n("Common") + QString("</strong>   ");
 			}
 		}
 		else
