@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
 	aboutData.addAuthor("Neil Stevens", I18N_NOOP("Code simplification, UI suggestions."), "neil@qualityassistant.com");
 	aboutData.addCredit("David Vignoni", I18N_NOOP("svg icon"), "david80v@tin.it");
-	aboutData.addCredit("Paul Temple", I18N_NOOP("Patches and bugs fixing"), "paul.temple@gmx.net");
+	aboutData.addCredit("Paul Temple", I18N_NOOP("Patches and bug fixing"), "paul.temple@gmx.net");
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions(options); // Add our own options.
 
