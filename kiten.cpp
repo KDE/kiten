@@ -107,13 +107,19 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	connect(_ResultView, SIGNAL(linkClicked(const QString &)), SLOT(ressearch(const QString &)));
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(autoSearch()));
+	
+	QTimer::singleShot(10, this, SLOT(finishInit()));
+}
 
+void TopLevel::finishInit()
+{
 	if (kanjiCB->isChecked())
 		Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­")));
 	else
 		Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­½ñ")));
-	
-	QTimer::singleShot(0, this, SLOT(search()));
+
+	search();
+	setCaption(QString::null);
 }
 
 void TopLevel::closeEvent(QCloseEvent *)

@@ -24,18 +24,18 @@ class TopLevel : public KMainWindow
 {
 	Q_OBJECT
 
-	public:
+public:
 	TopLevel(QWidget *parent = 0, const char *name = 0);
 
-	signals:
+signals:
 	void saveLists();
 	void add(Dict::Entry);
 	void quizConfChanged();
 
-	protected:
+protected:
 	void closeEvent(QCloseEvent *);
 
-	private slots:
+private slots:
 	void search(bool inResults = false);
 	void ressearch(const QString&);
 	void searchBeginning();
@@ -70,7 +70,9 @@ class TopLevel : public KMainWindow
 	void configureToolBars();
 	void newToolBarConfig();
 
-	private:
+	void finishInit();
+
+private:
 	KStatusBar *StatusBar;
 
 	Dict::Index _Index;
