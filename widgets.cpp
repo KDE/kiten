@@ -883,17 +883,17 @@ void Learn::qnew() // new quiz kanji
 	rand = List->childCount() / rand2;
 	int max = (int) rand;
 
-	kdDebug() << "max = " << max << endl;
+	//kdDebug() << "max = " << max << endl;
 
 	QListViewItemIterator it(List);
 	int i;
 	for (i = 0; i < max; ++it)
 		{i++;}
 
-	kdDebug() << "still here 1\n";
+	//kdDebug() << "still here 1\n";
 	if (curItem->text(0) == it.current()->text(0)) // same, don't use
 	{
-		kdDebug() << "uh oh they are same\n";
+		//kdDebug() << "uh oh they are same\n";
 		++it;
 		if (!it.current())
 		{
@@ -901,7 +901,7 @@ void Learn::qnew() // new quiz kanji
 			it--;
 		}
 	}
-	kdDebug() << "still here 2\n";
+	//kdDebug() << "still here 2\n";
 
 	if (!it.current())
 		return;
