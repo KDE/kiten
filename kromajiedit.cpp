@@ -24,7 +24,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 	QString romkana = dirs->findResource("appdata", "romkana.cnv");
 	if (romkana == QString::null)
 	{
-		KMessageBox::error(0, i18n("Romaji information file not installed, so Romaji searching cannot be used."));
+		KMessageBox::error(0, i18n("Romaji information file not installed, so Romaji conversion cannot be used."));
 		return;
 	}
 
@@ -32,7 +32,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 	
 	if (!f.open(IO_ReadOnly))
 	{
-		KMessageBox::error(0, i18n("Romaji information could not be loaded, so Romaji searching cannot be used."));
+		KMessageBox::error(0, i18n("Romaji information could not be loaded, so Romaji conversion cannot be used."));
 	}
 
 	QTextStream t(&f);
@@ -84,14 +84,38 @@ void KRomajiEdit::setKana(int _kana)
 		case 1:
 		kana = "hiragana";
 		break;
-		case 2:
-		kana = "katakana";
-		break;
+		//case 2:
+		//kana = "katakana";
+		//break;
 	}
 }
 
 void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 {
+	bool shift = e->state() & ShiftButton;
+
+	if (shift && e->key() == Key_Space) // switch hiragana/english
+	{
+		if (kana == "hiragana")
+			kana = "english";
+		else if (kana == "english")
+			kana = "hiragana";
+
+		return;
+	}
+
+	if (kana == "english")
+	{
+		KLineEdit::keyPressEvent(e);
+		return;
+	}
+
+	if (shift) // shift for katakana
+	{
+		if (kana == "hiragana")
+			kana = "katakana";
+	}
+
 	//kdDebug() << "--------------------\n";
 	QString ji = e->text();
 
@@ -122,6 +146,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	curKana = _text.left(i);
 
 	ji.prepend(curEng);
+	ji = ji.lower();
 	//kdDebug() << "ji = " << ji << endl;
 
 	QString replace;
@@ -139,6 +164,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		//kdDebug() << "replace isn't empty\n";
 
 		setText(curKana + replace);
+
+		if (kana == "katakana")
+			kana = "hiragana";
 		return;
 	}
 	else
@@ -154,6 +182,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 				setText(curKana + hiragana["t-"] + hiragana[farRight]);
 			else
 				setText(curKana + katakana["t-"] + katakana[farRight]);
+
+			if (kana == "katakana")
+				kana = "hiragana";
 			return;
 		}
 
@@ -168,6 +199,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 				//kdDebug() << "doing the n thing\n";
 				
 				setText(curKana + hiragana["n'"] + newkana);
+
+				if (kana == "katakana")
+					kana = "hiragana";
 				return;
 			}
 		}
@@ -179,12 +213,16 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 				//kdDebug() << "doing the n thing - katakana\n";
 				
 				setText(curKana + katakana["n'"] + newkana);
+
+				if (kana == "katakana")
+					kana = "hiragana";
 				return;
 			}
 		}
 
 	}
-	KLineEdit::keyPressEvent(e);
+
+	KLineEdit::keyPressEvent(e); // don't think we'll get here :)
 }
 
 QPopupMenu *KRomajiEdit::createPopupMenu()
@@ -192,8 +230,12 @@ QPopupMenu *KRomajiEdit::createPopupMenu()
     QPopupMenu *popup = KLineEdit::createPopupMenu();
     popup->insertSeparator();
     popup->insertItem(i18n("English"), 0);
-    popup->insertItem(i18n("Hiragana"), 1);
-    popup->insertItem(i18n("Katakana"), 2);
+    popup->insertItem(i18n("Kana"), 1);
+
+    if (kana == "english")
+		popup->setItemChecked(0, true);
+    else if (kana == "hiragana")
+		popup->setItemChecked(1, true);
 
     connect(popup, SIGNAL(activated(int)), SLOT(setKana(int)));
 

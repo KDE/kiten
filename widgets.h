@@ -37,7 +37,7 @@ class ResultView : public QTextBrowser
 	ResultView(bool, QWidget *parent = 0, const char *name = 0);
 
 	void addResult(Dict::Entry, bool = false);
-	void addKanjiResult(Dict::Entry, Radical = Radical());
+	void addKanjiResult(Dict::Entry, bool = false, Radical = Radical());
 
 	void addHeader(const QString &, unsigned int degree = 3);
 

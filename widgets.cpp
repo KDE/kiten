@@ -45,7 +45,7 @@ void ResultView::addResult(Dict::Entry result, bool com)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		addHeader(i18n("Results from %1").arg(result.dictName()), 5);
+		addHeader((com? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
 		return;
 	}
 	if (result.header() != "__NOTSET")
@@ -85,11 +85,11 @@ void ResultView::addResult(Dict::Entry result, bool com)
 	append(html);
 }
 
-void ResultView::addKanjiResult(Dict::Entry result, Radical rad)
+void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		addHeader(i18n("Results from %1").arg(result.dictName()), 5);
+		addHeader((com? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
 		return;
 	}
 	if (result.header() != "__NOTSET")
@@ -392,7 +392,7 @@ void Learn::update()
 	QString kanji = curKanji.kanji();
 
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
-	View->addHeader(i18n("%1 in common compunds").arg(kanji));
+	View->addHeader(i18n("%1 in compunds").arg(kanji));
 	
 	for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 		View->addResult(*it, true);

@@ -189,7 +189,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		if (results.count == 1) // if its only one entry, give compounds too!
 		{
 			toAddKanji = first;
-			_ResultView->addKanjiResult(toAddKanji, _Rad.radByKanji(toAddKanji.kanji()));
+			_ResultView->addKanjiResult(toAddKanji, results.common, _Rad.radByKanji(toAddKanji.kanji()));
 	
 			addAction->setEnabled(true);
 	
@@ -198,7 +198,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		
 			Dict::SearchResult compounds = _Index.search(QRegExp(kanji), kanji, true);
 		
-			_ResultView->addHeader(i18n("%1 in common compunds").arg(kanji));
+			_ResultView->addHeader(i18n("%1 in compunds").arg(kanji));
 	
 			for(QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
@@ -209,7 +209,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		else
 		{
 			for(QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
-				_ResultView->addKanjiResult(*it);
+				_ResultView->addKanjiResult(*it, results.common);
 		}
 	}
 	else
@@ -643,7 +643,7 @@ void TopLevel::radSearch(QString &text, unsigned int strokes)
 			continue;
 
 		kanji = firstEntry(results);
-		_ResultView->addKanjiResult(kanji);
+		_ResultView->addKanjiResult(kanji, hist.common);
 
 		hist.list.append(kanji);
 		hist.results.append(results.results.first());
