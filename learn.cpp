@@ -180,7 +180,7 @@ bool Learn::warnClose()
 {
 	if (isMod)
 	{
-		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved Changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
+		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to learning list. Save them?"), i18n("Unsaved Changes"), KStdGuiItem::save(), KStdGuiItem::discard(), "DiscardAsk", true);
 		switch (result)
 		{
 		case KMessageBox::Yes:
@@ -244,7 +244,7 @@ void Learn::prev()
 		if (!prevItem)
 			return;
 		curItem = prevItem;
-	
+
 		statusBar()->clear();
 		qupdate();
 		nogood = true;
@@ -271,12 +271,12 @@ void Learn::update()
 	View->addKanjiResult(curKanji);
 
 	// now show some compounds in which this kanji appears
-	
+
 	QString kanji = curKanji.kanji();
 
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
 	View->addHeader(i18n("%1 in compounds").arg(kanji));
-	
+
 	for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{
 		kapp->processEvents();
@@ -618,7 +618,7 @@ void Learn::answerClicked(int i)
 {
 	if (!curItem)
 		return;
-		
+
 	int newscore = 0;
 	KConfig &config = *kapp->config();
 	config.setGroup("Learn");
@@ -701,7 +701,7 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 			rand = List->childCount() / rand2;
 
 			int max = (int) rand;
-		
+
 			QListViewItemIterator it(List);
 			it += max;
 
