@@ -2,12 +2,9 @@ INCLUDES = $(all_includes)
 
 SUBDIRS = pics
 
-kiten_SOURCES = 	main.cpp \
-			kiten.cpp \
-			optiondialog.cpp \
-			learn.cpp \
-			kloader.cpp \
-			ksaver.cpp
+kiten_SOURCES = main.cpp kiten.cpp learn.cpp kloader.cpp ksaver.cpp \
+	configsearching.ui configlearn.ui configfont.ui configdictionariesbase.ui \
+	configdictionaries.cpp optiondialog.cpp kitenconfig.kcfgc
 
 kiten_LDFLAGS = $(all_libraries) $(KDE_RPATH) 
 kiten_LDADD = libkiten.la $(LIB_KIO)
@@ -18,8 +15,8 @@ lib_LTLIBRARIES = libkiten.la
 libkiten_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -no-undefined -version-info 1:0:0
 libkiten_la_LIBADD = $(LIB_KDEUI) $(LIB_KDEPRINT)
 
-libkiten_la_SOURCES = \
-	asyndeta.cpp dict.cpp widgets.cpp kromajiedit.cpp rad.cpp deinf.cpp
+libkiten_la_SOURCES = asyndeta.cpp dict.cpp widgets.cpp kromajiedit.cpp rad.cpp \
+	deinf.cpp kitenconfig.kcfgc
 
 libkitenincludedir = $(includedir)/libkiten
 libkiteninclude_HEADERS = \
@@ -38,5 +35,11 @@ xdg_apps_DATA = kiten.desktop
 kiten_DATA = edict kanjidic radkfile vconj romkana.cnv
 kitendir = $(kde_datadir)/kiten
 
+kde_kcfg_DATA = kiten.kcfg
+
 messages: rc.cpp
 	$(XGETTEXT) *.cpp *.h -o $(podir)/kiten.pot
+
+
+
+

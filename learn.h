@@ -1,6 +1,7 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
+	       (C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,7 +29,6 @@
 #include "widgets.h"
 
 class KAction;
-class KConfig;
 class KPushButton;
 class QButtonGroup;
 class QListViewItem;

@@ -1,7 +1,6 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-	       (C) 2005 Paul Temple <paul.temple@gmx.net>
+ Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -19,49 +18,43 @@
  USA
 **/
 
-#ifndef OPTIONDIALOG_H
-#define OPTIONDIALOG_H
-
-class KListView;
-class QString;
-class KKeyChooser;
-class KFontChooser;
-class QLabel;
-class QPushButton;
-class QComboBox;
-class QCheckBox;
-class KGlobalAccel;
-class DictList;
-
-#include <kconfigdialog.h>
-#include <kglobalaccel.h>
-#include <kkeydialog.h>
+#ifndef CONFIGDICTIONARIES_H
+#define CONFIGDICTIONARIES_H
 
 #include "kitenconfig.h"
-#include "configdictionaries.h"
+#include "configdictionariesbase.h"
 
-class ConfigureDialog : public KConfigDialog
+class ConfigDictionaries : public ConfigDictionariesBase
 {
 	Q_OBJECT
 public:
-	ConfigureDialog(KGlobalAccel* accel, QWidget *parent=0, const char *name=0);
-	~ConfigureDialog();
-signals:
-	void settingsUpdated();
-
-private slots:
+	ConfigDictionaries(QWidget *parent = 0, const char* name = 0, WFlags f = 0);
+	void readDictionaries();
+        
+	// KConfig stuff
 	void updateWidgets();
 	void updateWidgetsDefault();
 	void updateSettings();
-	void slotKeyChanged();
-
-private:
 	bool hasChanged();
 	bool isDefault();
-	ConfigDictionaries* configDic;
-	KKeyChooser* keyChooser;
-	KGlobalAccel* accel;
-	bool keyChanged;
+	// KConfig stuff
+
+signals:
+	void widgetChanged();
+public slots:
+	void writeDictionaries();
+private slots:
+	void slotAddEdict();
+	void slotAddKanjidic();
+	void slotDelSelEdict();
+	void slotDelSelKanjidic();
+private:
+	bool changed;
+	Config* config;
+	void readDictionaryList(const QString& group);
+	void writeDictionaryList(const QString& group);
+	void add(KListView* list);
+	void delSel(KListView* list);
 };
 
 #endif

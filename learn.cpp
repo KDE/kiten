@@ -1,6 +1,7 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
+	       (C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -39,6 +40,7 @@
 #include <cassert>
 #include <set>
 
+#include "kitenconfig.h"
 #include "dict.h"
 #include "kloader.h"
 #include "ksaver.h"
@@ -155,7 +157,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	//closeAction->plug(toolBar());
 
 	resize(600, 400);
-	applyMainWindowSettings(kapp->config(), "LearnWindow");
+	applyMainWindowSettings(Config::self()->config(), "LearnWindow");
 
 	statusBar()->message(i18n("Put on your thinking cap!"));
 
@@ -167,10 +169,9 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 
 void Learn::finishCtor()
 {
-	KConfig &config = *kapp->config();
-	config.setGroup("Learn");
-
-	setCurrentGrade(config.readNumEntry("grade", 1));
+	Config* config = Config::self();
+	
+	setCurrentGrade(config->grade());
 
 	/*
 	 * this must be done now, because
@@ -180,8 +181,7 @@ void Learn::finishCtor()
 	updateGrade();
 	updateQuizConfiguration(); // first
 
-	config.setGroup("Learn");
-	QString entry = config.readPathEntry("lastFile");
+	QString entry = config->lastFile();
 	//kdDebug() << "lastFile: " << entry << endl;
 	if (!entry.isEmpty())
 	{
@@ -240,9 +240,8 @@ bool Learn::queryClose()
 		return false; // cancel
 
 	saveScores(); // also sync()s;
-	//kapp->config()->sync();
 
-	saveMainWindowSettings(KGlobal::config(), "LearnWindow");
+	saveMainWindowSettings(Config::self()->config(), "LearnWindow");
 	return true;
 }
 
@@ -327,9 +326,7 @@ void Learn::updateGrade()
 	current = list.begin();
 	update();
 
-	KConfig &config = *KGlobal::config();
-	config.setGroup("Learn");
-	config.writeEntry("grade", grade);
+	Config::self()->setGrade(grade);
 }
 
 void Learn::read(const KURL &url)
@@ -381,10 +378,8 @@ void Learn::open()
 	read(filename);
 
 	//kdDebug() << "saving lastFile\n";
-	KConfig &config = *kapp->config();
-	config.setGroup("Learn");
-	config.writePathEntry("lastFile", filename.url());
-	config.sync();
+	Config* config = Config::self();
+	config->setLastFile(filename.url());
 
 	// redo quiz, because we deleted the current quiz item
 	curItem = List->firstChild();
@@ -430,11 +425,8 @@ void Learn::save()
 
 	write(filename);
 
-	KConfig &config = *kapp->config();
-	//kdDebug() << "saving lastFile\n";
-	config.setGroup("Learn");
-	config.writePathEntry("lastFile", filename.url());
-	config.sync();
+	Config* config = Config::self();
+	config->setLastFile(filename.url());
 }
 
 void Learn::write(const KURL &url)
@@ -469,11 +461,12 @@ void Learn::write(const KURL &url)
 
 void Learn::saveScores()
 {
-	KConfig &config = *kapp->config();
+	KConfig &config = *Config::self()->config();
 	config.setGroup("Learn Scores");
 	for (QListViewItemIterator it(List); it.current(); ++it)
 		config.writeEntry(it.current()->text(0), it.current()->text(4).toInt());
 	config.sync();
+	Config::self()->writeConfig();
 }
 
 void Learn::add(Dict::Entry toAdd, bool noEmit)
@@ -500,7 +493,7 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 
 	statusBar()->message(i18n("%1 added to your list").arg(kanji));
 
-	KConfig &config = *kapp->config();
+	KConfig &config = *Config::self()->config();
 	int score = 0;
 	config.setGroup("Learn Scores");
 	score = config.readNumEntry(kanji, score);
@@ -640,8 +633,8 @@ void Learn::answerClicked(int i)
 		return;
 		
 	int newscore = 0;
-	KConfig &config = *kapp->config();
-	config.setGroup("Learn");
+//	KConfig &config = *Config::self()->config();
+//	config.setGroup("Learn");
 	bool donew = false;
 
 	if (seikai == i)
@@ -917,11 +910,10 @@ void Learn::setCurrentGrade(int grade)
 
 void Learn::updateQuizConfiguration()
 {
-	KConfig &config = *kapp->config();
-	config.setGroup("Learn");
+	Config* config = Config::self();
 
-	quizOn = config.readNumEntry("Quiz On", 0);
-	guessOn = config.readNumEntry("Guess On", 1);
+	quizOn = config->quizOn();
+	guessOn = config->guessOn();
 
 	answers->setTitle(List->columnText(guessOn));
 

@@ -1,6 +1,7 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
+		(C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -37,6 +38,7 @@
 
 #include <cassert>
 
+#include "kitenconfig.h"
 #include "dict.h"
 #include "kromajiedit.h"
 #include "widgets.h"
@@ -284,12 +286,7 @@ void ResultView::print(QString title)
 
 void ResultView::updateFont()
 {
-	KConfig *config = kapp->config();
-	
-	config->setGroup("General");
-	QFont defaultFont(config->readFontEntry("font"));
-	config->setGroup("Font");
-	setFont(config->readFontEntry("font", &defaultFont));
+	setFont(Config::self()->font());
 }
 
 /////////////////////////////////////////////////////

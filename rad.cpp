@@ -1,6 +1,7 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
+	       (C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -37,6 +38,7 @@
 #include <qtextcodec.h>
 #include <qtooltip.h>
 
+#include "kitenconfig.h"
 #include "rad.h"
 
 Rad::Rad() : QObject()
@@ -228,10 +230,9 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	//hotlistGroup->setRadioButtonExclusive(true);
 	vlayout->addWidget(hotlistGroup);
 
-	KConfig *config = kapp->config();
-	config->setGroup("Radical Searching");
+	Config* config = Config::self();
 
-	hotlist = config->readListEntry("Hotlist");
+	hotlist = config->hotlist();
 
 	while (hotlist.size() > hotlistNum)
 		hotlist.pop_front();
@@ -297,12 +298,12 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 	setCaption(kapp->makeStdCaption(i18n("Radical Selector")));
 
-	strokesSpin->setValue(config->readNumEntry("Strokes", 1));
+	strokesSpin->setValue(config->strokes());
 	strokesSpin->setFocus();
 
-	totalSpin->setValue(config->readNumEntry("Total Strokes", 1));
-	totalErrSpin->setValue(config->readNumEntry("Total Strokes Error Margin", 0));
-	totalStrokes->setChecked(config->readBoolEntry("Search By Total", false));
+	totalSpin->setValue(config->totalStrokes());
+	totalErrSpin->setValue(config->totalStrokesErrorMargin());
+	totalStrokes->setChecked(config->searchByTotal());
 
 	// make sure the right parts of the total stroke
 	// selection system are enabled
@@ -383,17 +384,17 @@ void RadWidget::updateList(int strokes)
 
 void RadWidget::apply()
 {
+	
 	if (selected.count() < 1)
 		return;
 
 	emit set(selected, totalStrokes->isChecked() ? totalSpin->value() : 0, totalErrSpin->value());
 
-	KConfig *config = kapp->config();
-	config->setGroup("Radical Searching");
-	config->writeEntry("Strokes", strokesSpin->value());
-	config->writeEntry("Total Strokes", totalSpin->value());
-	config->writeEntry("Total Strokes Error Margin", totalErrSpin->value());
-	config->writeEntry("Search By Total", totalStrokes->isChecked());
+	Config* config = Config::self();
+	config->setStrokes(strokesSpin->value());
+	config->setTotalStrokes(totalSpin->value());
+	config->setTotalStrokesErrorMargin(totalErrSpin->value());
+	config->setSearchByTotal(totalStrokes->isChecked());
 
 	for (QStringList::Iterator it = selected.begin(); it != selected.end(); ++it)
 	{
@@ -403,11 +404,10 @@ void RadWidget::apply()
 				hotlist.pop_front(); // stupid stl functions in Qt .. ;)
 			hotlist.append(*it);
 
-			config->writeEntry("Hotlist", hotlist);
+			config->setHotlist(hotlist);
 		}
 	}
-	config->sync();
-
+	config->writeConfig();
 	close();
 }
 

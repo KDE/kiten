@@ -1,6 +1,7 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
+	       (C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kmainwindow.h>
+#include <qsqlpropertymap.h>
 
 #include "kiten.h"
 
@@ -46,11 +48,15 @@ int main(int argc, char *argv[])
 	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
 	aboutData.addAuthor("Neil Stevens", I18N_NOOP("Code simplification, UI suggestions."), "neil@qualityassistant.com");
 	aboutData.addCredit("David Vignoni", I18N_NOOP("svg icon"), "david80v@tin.it");
-	aboutData.addCredit("Paul Temple", I18N_NOOP("Patches and bug fixing"), "paul.temple@gmx.net");
+	aboutData.addCredit("Paul Temple", I18N_NOOP("Porting to KConfig XT, bug fixing"), "paul.temple@gmx.net");
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions(options); // Add our own options.
 
 	KApplication a;
+//	a.installKDEPropertyMap();
+//	QSqlPropertyMap *map = QSqlPropertyMap::defaultMap();
+//	map->insert("MyStringList", "value");
+
 	TopLevel *t = new TopLevel();
 	t->show();
 	return a.exec();

@@ -1,0 +1,33 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ConfigFont</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ConfigFont</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>587</width>
+            <height>554</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Font</string>
+    </property>
+    <hbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="KFontChooser">
+            <property name="name">
+                <cstring>kcfg_font</cstring>
+            </property>
+        </widget>
+    </hbox>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kfontdialog.h</includehint>
+</includehints>
+</UI>

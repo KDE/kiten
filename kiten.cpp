@@ -1,6 +1,7 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
+	       (C) 2005 Paul Temple <paul.temple@gmx.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
+#include <kconfigdialog.h>
 #include <kdebug.h>
 #include <kdeversion.h>
 #include <kedittoolbar.h>
@@ -38,6 +40,7 @@
 
 #include "kiten.h"
 #include "learn.h"
+#include "kitenconfig.h"
 #include "optiondialog.h"
 
 #include <cassert>
@@ -48,6 +51,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	    setStandardToolBarMenuEnabled(true);
 #endif
 
+	config = Config::self();
+	config->readConfig();
 	Accel = new KGlobalAccel(this);
 	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), CTRL + ALT + Key_K, CTRL + ALT + Key_K, this, SLOT(kanjiSearchAccel()));
 	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), CTRL + ALT + Key_S, CTRL + ALT + Key_S, this, SLOT(searchAccel()));
@@ -94,18 +99,14 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	StatusBar = statusBar();
 	optionDialog = 0;
 
-	KConfig *config = kapp->config();
-	config->setGroup("app");
-	bool com = config->readBoolEntry("com", false);
-	comCB->setChecked(com);
-	kanjiCB->setChecked(config->readBoolEntry("kanji", false));
-	autoSearchToggle->setChecked(config->readBoolEntry("autosearch", false));
-	deinfCB->setChecked(config->readBoolEntry("deinf", true));
+	comCB->setChecked(config->com());
+	kanjiCB->setChecked(config->kanji());
+	autoSearchToggle->setChecked(config->autosearch());
+	deinfCB->setChecked(config->deinf());
 
 	updateConfiguration();
 
-	config->setGroup("Learn");
-	if (config->readBoolEntry("startLearn", false))
+	if (config->startLearn())
 		createLearn();
 
 	resize(600, 400);
@@ -130,9 +131,9 @@ void TopLevel::finishInit()
 	if (!kapp->config()->hasGroup("app"))
 	{
 		if (kanjiCB->isChecked())
-			Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­")));
+		  	Edit->setText(QString::fromUtf8("è¾ž"));
 		else
-			Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­½ñ")));
+		  	Edit->setText(QString::fromUtf8("è¾žæ›¸"));
 
 		search();
 	}
@@ -154,19 +155,11 @@ bool TopLevel::queryClose()
 		learnList.remove(old);
 	}
 
-	KConfig *config = kapp->config();
-	config->setGroup("app");
-	config->writeEntry("com", comCB->isChecked());
-	config->writeEntry("kanji", kanjiCB->isChecked());
-	config->writeEntry("autosearch", autoSearchToggle->isChecked());
-	config->writeEntry("deinf", deinfCB->isChecked());
-
-	/* this is useless, of course.. right??
-	config->setGroup("kanjidic");
-	config->writeEntry("__useGlobal", kanjidicUseGlobal);
-	config->setGroup("edict");
-	config->writeEntry("__useGlobal", edictUseGlobal);
-	*/
+	config->setCom(comCB->isChecked());
+	config->setKanji(kanjiCB->isChecked());
+	config->setAutosearch(autoSearchToggle->isChecked());
+	config->setDeinf(deinfCB->isChecked());
+	config->writeConfig();
 
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 	return true;
@@ -603,34 +596,29 @@ void TopLevel::slotConfigurationChanged()
 
 void TopLevel::updateConfiguration()
 {
-	KConfig *config = kapp->config();
-	config->setGroup("Searching Options");
-	wholeWord = config->readBoolEntry("wholeWord", true);
-	caseSensitive = config->readBoolEntry("caseSensitive", false);
-
 	_Asyndeta.readKitenConfiguration();
 	_ResultView->updateFont();
 }
 
 void TopLevel::slotConfigure()
 {
-	if (optionDialog == 0)
-	{
-		optionDialog = new ConfigureDialog(Accel, 0);
-		if (optionDialog == 0)
-			return;
-		connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
-		connect(optionDialog, SIGNAL(valueChanged()), this, SLOT(slotConfigurationChanged()));
-		connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
-	}
-
+	if (ConfigureDialog::showDialog("settings"))
+		return;
+	
+	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
+	optionDialog = new ConfigureDialog(Accel, this, "settings");
+	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
+	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(slotConfigurationChanged()));
+	connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
 	optionDialog->show();
+
+	return;
 }
 
 void TopLevel::slotLearnConfigure()
 {
 	slotConfigure();
-	optionDialog->showPage(4);
+	optionDialog->showPage(2);
 }
 
 void TopLevel::slotConfigureHide()
@@ -693,7 +681,7 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 
 	regexp = regexp.arg(text);
 
-	return QRegExp(regexp, caseSensitive);
+	return QRegExp(regexp, Config::caseSensitive());
 }
 
 QRegExp TopLevel::kanjiSearchItems(bool beginning)
@@ -711,7 +699,7 @@ QRegExp TopLevel::kanjiSearchItems(bool beginning)
 
 	regexp = regexp.arg(text);
 
-	return QRegExp(regexp, caseSensitive);
+	return QRegExp(regexp, Config::caseSensitive());
 }
 
 QRegExp TopLevel::searchItems()
@@ -722,14 +710,14 @@ QRegExp TopLevel::searchItems()
 		return QRegExp(); //empty
 
 	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
-	if (wholeWord && contains == text.length())
+	if (Config::wholeWord() && contains == text.length())
 		regexp = "\\W%1\\W";
 	else
 		regexp = "%1";
 
 	regexp = regexp.arg(text);
 
-	return QRegExp(regexp, caseSensitive);
+	return QRegExp(regexp, Config::caseSensitive());
 }
 
 void TopLevel::toggleCom()
