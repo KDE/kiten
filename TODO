@@ -28,19 +28,5 @@ learn a separate app.
   to repeated effort, and so shall the generator.  Hey, maybe it won't even
   have to be a separate executible, but just a function under namespace Dict.
 
-- factor out the gjiten heuristic of figuring out kanji/kana/roomaji
-  jasonkb says: yes :)
-
-  Neil replies: Why don't you do this one?
-
-  namespace Dict
-  {
-  enum TextType {Kanji, Kana, Latin};
-
-  TextType textType(QString);
-  }
-
-  or something like that.
-
 - move all dialogs to KDialogBase, and have them used by exec()ing them
   jasonkb says: sure

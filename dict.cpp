@@ -48,6 +48,18 @@ void msgerr(const QString &msg, const QString &dict = QString::null)
 
 using namespace Dict;
 
+TextType Dict::textType(const QString &text)
+{
+	unsigned char first = QTextCodec::codecForName("eucJP")->fromUnicode(text)[0];
+	
+	if (first <= 128)
+		return Text_Latin;
+	else if (first < 0xa8)
+		return Text_Kana;
+	else
+		return Text_Kanji;
+}
+
 File::File(QString path, QString n)
 	: myName(n)
 	, dictFile(path)

@@ -35,6 +35,7 @@
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <qtextcodec.h>
+#include <qtooltip.h>
 
 #include "rad.h"
 
@@ -271,6 +272,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	QVBoxLayout *middlevLayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
 
 	strokesSpin = new QSpinBox(1, 17, 1, this);
+	QToolTip::add(strokesSpin, i18n("Show radicals having this number of strokes"));
 	middlevLayout->addWidget(strokesSpin);
 
 	List = new KListBox(this);
@@ -296,11 +298,18 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	setCaption(kapp->makeStdCaption(i18n("Radical Selector")));
 
 	strokesSpin->setValue(config->readNumEntry("Strokes", 1));
+	strokesSpin->setFocus();
+
 	totalSpin->setValue(config->readNumEntry("Total Strokes", 1));
 	totalErrSpin->setValue(config->readNumEntry("Total Strokes Error Margin", 0));
 	totalStrokes->setChecked(config->readBoolEntry("Search By Total", false));
 
+	// make sure the right parts of the total stroke
+	// selection system are enabled
 	totalClicked();
+
+ 	// initially show the list of radicals to choose from
+	updateList(strokesSpin->value());
 }
 
 RadWidget::~RadWidget()
@@ -348,7 +357,7 @@ void RadWidget::addRadical(const QString &radical)
 
 void RadWidget::addToSelected(const QString &text)
 {
-	if (!selected.contains(text))
+	if (!text.isNull() && !selected.contains(text))
 	{
 		selectedList->insertItem(text);
 		selected.append(text);
@@ -367,19 +376,13 @@ void RadWidget::selectionChanged()
 void RadWidget::updateList(int strokes)
 {
 	List->clear();
-
 	List->insertStringList(rad->radByStrokes(static_cast<unsigned int>(strokes)));
 }
 
 void RadWidget::apply()
 {
-	//kdDebug() << "apply\n";
-
 	if (selected.count() < 1)
-	{
-		//kdDebug() << "selected.count() is " << selected.count() << endl;
 		return;
-	}
 
 	emit set(selected, totalStrokes->isChecked() ? totalSpin->value() : 0, totalErrSpin->value());
 

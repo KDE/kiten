@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Kiten" version="10">
+<kpartgui name="Kiten" version="11">
 
 <MenuBar>
 
@@ -10,6 +10,8 @@
 
 <Menu name="go_web">
   <Action name="history" />
+  <Separator/>
+  <Action name="clear_search" />
 </Menu>
 
 <Menu name="search"><text>&amp;Search</text>

@@ -36,6 +36,12 @@ class QRegExp;
 
 namespace Dict
 {
+
+enum TextType { Text_Kanji, Text_Kana, Text_Latin };
+
+// returns the TextType of the first part of the text
+TextType textType(const QString &text);
+
 // File needs to be able to give out Arrays based on its mmap'd data.
 // But, we don't want the users of the arrays to have to remember to
 // resetRawData() after using them, since that's bound to fail sooner or later.

@@ -49,9 +49,8 @@ ResultView::ResultView(bool _links, QWidget *parent, const char *name)
 	basicMode = false;
 	links = _links;
 
-	// qtextbrowser.cpp connects this... we don't need it
-	// it gives console output ;)
-	disconnect(this, SIGNAL(linkClicked(const QString &)), this, SLOT(setSource(const QString &)));
+	// don't let ktextbrowser internally handle link clicks
+	setNotifyClick(true);
 }
 
 void ResultView::addResult(Dict::Entry result, bool com)
@@ -500,6 +499,7 @@ void EditAction::unplug( QWidget *w )
 void EditAction::clear()
 {
 	m_combo->clear();
+	m_combo->setFocus();
 }
 
 void EditAction::insert(QString text)

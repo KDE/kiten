@@ -697,13 +697,13 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 			switch (guessOn)
 			{
 				case 1:
-				meaning = shortenString(Dict::prettyMeaning((*list.at(rand)).meanings()));
+				meaning = shortenString(Dict::prettyMeaning((*list.at(static_cast<unsigned int>(rand))).meanings()));
 				break;
 				case 2:
-				meaning = Dict::prettyKanjiReading((*list.at(rand)).readings());
+				meaning = Dict::prettyKanjiReading((*list.at(static_cast<unsigned int>(rand))).readings());
 				break;
 				case 0:
-				meaning = (*list.at(rand)).kanji();
+				meaning = (*list.at(static_cast<unsigned int>(rand))).kanji();
 			}
 		}
 		else

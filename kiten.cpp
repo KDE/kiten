@@ -65,7 +65,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
-	(void) new KAction(KStdGuiItem::clear().text(), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
+	(void) new KAction(i18n("&Clear Search Bar"), BarIcon("locationbar_erase", 16), CTRL+Key_N, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
 	(void) new KAction(i18n("Search with &Beginning of Word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
 	(void) new KAction(i18n("&Search Anywhere"), 0, this, SLOT(searchAnywhere()), actionCollection(), "search_anywhere");
@@ -123,12 +123,20 @@ TopLevel::~TopLevel()
 
 void TopLevel::finishInit()
 {
-	if (kanjiCB->isChecked())
-		Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­")));
-	else
-		Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­½ñ")));
+	// if it's the application's first time starting, 
+	// the app group won't exist and we show demo
+	if (!kapp->config()->hasGroup("app"))
+	{
+		if (kanjiCB->isChecked())
+			Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­")));
+		else
+			Edit->setText(QTextCodec::codecForName("eucJP")->toUnicode(QCString("¼­½ñ")));
 
-	search();
+		search();
+	}
+
+	Edit->clear(); // make sure the edit is focused initially
+	StatusBar->message(i18n("Welcome to Kiten"));
 	setCaption(QString::null);
 }
 
@@ -299,14 +307,13 @@ void TopLevel::searchBeginning()
 	QString text = Edit->text();
 	QRegExp regexp;
 
-	QTextCodec *codec = QTextCodec::codecForName("eucJP");
-	QCString csch_str = codec->fromUnicode(text);
-	unsigned char first = csch_str[0];
-
-	if (first <= 128)
-		regexp = QRegExp(QString("\\W").append(text));
-	else if (first < 0xa5)
+	switch (Dict::textType(text))
 	{
+	case Dict::Text_Latin:
+		regexp = QRegExp(QString("\\W").append(text));
+		break;
+
+	case Dict::Text_Kana:
 		if (kanjiCB->isChecked())
 		{
 			regexp = QRegExp(QString("\\W").append(text));
@@ -316,9 +323,11 @@ void TopLevel::searchBeginning()
 			beginningReadingSearch = true;
 			regexp = QRegExp(QString("\\[").append(text));
 		}
-	}
-	else if (first > 0xa8)
+		break;
+
+	case Dict::Text_Kanji:
 		regexp = QRegExp(QString("^").append(text));
+	}
 
 	doSearch(text, regexp);
 }
@@ -354,25 +363,19 @@ void TopLevel::search(bool inResults)
 	QString text = Edit->text();
 	QRegExp regexp;
 
-	QTextCodec *codec = QTextCodec::codecForName("eucJP");
-	QCString csch_str = codec->fromUnicode(text);
-	unsigned char first = csch_str[0];
-	unsigned char last = csch_str[csch_str.length()];
-
-	// gjiten seems to do this stuff to tell between the three...
-	// TODO: factor out this gjiten heuristic
-	if (first <= 128)
+	switch (Dict::textType(text))
 	{
+	case Dict::Text_Latin:
 		regexp = searchItems();
-	}
-	else if (first < 0xa8)
-	{
+		break;
+
+	case Dict::Text_Kana:
 		regexp = readingSearchItems(kanjiCB->isChecked());
 		readingSearch = true;
-	}
-	else if (first > 0xa8)
-	{
-		if (last < 0xa5 && deinfCB->isChecked()) // deinflect
+		break;
+
+	case Dict::Text_Kanji:
+		if (deinfCB->isChecked()) // deinflect
 		{
 			bool common = comCB->isChecked();
 			QStringList names;
@@ -721,9 +724,7 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 {
 	QString text = Edit->text();
 	if (text.isEmpty()) // abandon search
-	{
 		return QRegExp(); //empty
-	}
 
 	//CompletionObj->addItem(text);
 	QString regexp;
@@ -742,9 +743,7 @@ QRegExp TopLevel::kanjiSearchItems(bool beginning)
 	QString text = Edit->text();
 
 	if (text.isEmpty())
-	{
 		return QRegExp(); //empty
-	}
 
 	QString regexp;
 	if (beginning)
@@ -762,9 +761,7 @@ QRegExp TopLevel::searchItems()
 	QString regexp;
 	QString text = Edit->text();
 	if (text.isEmpty())
-	{
 		return QRegExp(); //empty
-	}
 
 	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
 	if (wholeWord && contains == text.length())
@@ -932,7 +929,6 @@ void TopLevel::addHistory(Dict::SearchResult result)
 
 	enableHistoryButtons();
 
-	// we don't want the history list tooo long..
 	if (resultHistory.size() > 50)
 		resultHistory.pop_front();
 }
