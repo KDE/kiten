@@ -1,4 +1,4 @@
 Jason Katz-Brown <jason@katzbrown.com>
 
 Jim Breen, who wrote the algorithms for accessing .xjdx files for his own
-           excellent xjdic
+           excellent xjdic, and xjdxgen.c for generating index files.
