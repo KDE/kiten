@@ -1,3 +1,4 @@
+#include <kdebug.h>
 #include <kapplication.h>
 #include <qvgroupbox.h>
 #include <kkeydialog.h>
@@ -12,6 +13,7 @@
 #include <kfiledialog.h>
 #include <kstandarddirs.h>
 #include <kurllabel.h>
+#include <krun.h>
 #include <klistview.h>
 
 #include <qlayout.h>
@@ -36,10 +38,19 @@ ConfigureDialog::ConfigureDialog(KGlobalAccel *accel, QWidget *parent, char *nam
 	QFrame *Page0 = addPage(i18n("Dictionaries"));
 	QVBoxLayout *descBox = new QVBoxLayout(Page0);
 	descBox->addWidget(new QLabel(QString("<p>") + i18n("Kiten includes Edict for a regular word search. For Kanji searching, Kanjidic is included. Feel free to add your own extras (see foreign-language link below) by adding them in the configuration pages below this one.") + QString("</p>"), Page0));
+
 	descBox->addStretch();
-	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0));
-	descBox->addWidget(new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0));
-	descBox->addWidget(new KURLLabel("http://www.katzbrown.com/kiten/Dictionaries/", i18n("Foreign language Edicts"), Page0));
+
+	KURLLabel *edictLabel = new KURLLabel("http://www.csse.monash.edu.au/~jwb/edict.html", i18n("Edict information page"), Page0);
+	connect(edictLabel, SIGNAL(leftClickedURL(const QString &)), this, SLOT(openURL(const QString &)));
+	descBox->addWidget(edictLabel);
+	KURLLabel *kanjidicLabel = new KURLLabel("http://www.csse.monash.edu.au/~jwb/kanjidic.html", i18n("Kanjidic information page"), Page0);
+	connect(kanjidicLabel, SIGNAL(leftClickedURL(const QString &)), this, SLOT(openURL(const QString &)));
+	descBox->addWidget(kanjidicLabel);
+	KURLLabel *foreignLabel = new KURLLabel("http://www.katzbrown.com/kiten/Dictionaries/", i18n("Foreign language Edicts"), Page0);
+	connect(foreignLabel, SIGNAL(leftClickedURL(const QString &)), this, SLOT(openURL(const QString &)));
+	descBox->addWidget(foreignLabel);
+
 	descBox->addStretch();
 
 	list.append(i18n("Edict"));
@@ -157,6 +168,11 @@ void ConfigureDialog::writeConfig()
 
 	Chooser->commitChanges();
 	Accel->writeSettings(KGlobal::config());
+}
+
+void ConfigureDialog::openURL(const QString &url)
+{
+	KRun::runURL(url, "text/html");
 }
 
 void ConfigureDialog::slotOk()

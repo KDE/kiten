@@ -27,6 +27,9 @@ class ConfigureDialog : public KDialogBase
 	virtual void slotOk();
 	virtual void slotApply();
 
+	public slots:
+	void openURL(const QString &url);
+
 	private slots:
 	void readConfig();
 	void writeConfig();
