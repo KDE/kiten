@@ -273,7 +273,7 @@ see your last 20 results by looking under
 <menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. To
 go forward one in the history, choose
 <menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To
-go forward one in the history, choose
+go backward one in the history, choose
 <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>.</para>
 
 </sect1>
@@ -312,7 +312,7 @@ shortcut configuration panels.</para>
 <title>Printing</title>
 
 <para>You can print the result view by choosing
-<menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. &kiten;
+<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>. &kiten;
 will add an informative header to the printout.</para>
 
 </sect1>
