@@ -3,9 +3,9 @@
 
 <MenuBar>
 
-<Menu name="file"><text>&amp;File</text>
-  <Action name="file_learn" />
-  <Action name="dict_editor" />
+<Menu name="file">
+  <Action name="file_learn" append="new_merge" />
+  <Action name="dict_editor" append="new_merge" />
   <Action name="add" />
 </Menu>
 
@@ -20,7 +20,7 @@
   <Action name="search_radical" />
 </Menu>
 
-<Menu name="settings"><text>&amp;Settings</text>
+<Menu name="settings">
   <Action name="kanji_toggle" />
   <Action name="deinf_toggle" />
   <Action name="common" />
