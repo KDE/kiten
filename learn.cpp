@@ -41,7 +41,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	QWidget *dummy = new QWidget(this);
 	setCentralWidget(dummy);
 
-	QVBoxLayout *veryTop = new QVBoxLayout(dummy, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *veryTop = new QVBoxLayout(dummy, 0, KDialog::spacingHint());
 	Tabs = new QTabWidget(dummy);
 	connect(Tabs, SIGNAL(currentChanged(QWidget *)), SLOT(tabChanged(QWidget *)));
 	veryTop->addWidget(Tabs);
