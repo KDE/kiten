@@ -30,8 +30,7 @@ CLEANFILES = dummy.cpp
 rcdir = $(kde_datadir)/kiten
 rc_DATA = kitenui.rc learnui.rc eeditui.rc
 
-applnk_DATA = kiten.desktop
-applnkdir = $(kde_appsdir)/Edutainment/Languages
+xdg_apps_DATA = kiten.desktop
 
 kiten_DATA = edict kanjidic radkfile vconj romkana.cnv
 kitendir = $(kde_datadir)/kiten
