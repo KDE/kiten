@@ -5,12 +5,14 @@
 #include <klistview.h>
 #include <klocale.h>
 #include <kconfig.h>
+#include <kmessagebox.h>
 #include <kapp.h>
 #include <kiconloader.h>
 #include <klineedit.h>
 #include <kpushbutton.h>
 #include <kstatusbar.h>
 #include <qtoolbutton.h>
+#include <qlabel.h>
 #include <qtextedit.h>
 #include <qspinbox.h>
 #include <qstring.h>
@@ -303,50 +305,125 @@ Learn::Learn(Dict *parentDict, QWidget *parent, const char *name) : QWidget(pare
 {
 	dict = parentDict;
 
-	QVBoxLayout *layout = new QVBoxLayout(this, 6);
+	QVBoxLayout *veryTop = new QVBoxLayout(this, 0);
+	Tabs = new QTabWidget(this);
+	veryTop->addWidget(Tabs);
+
+	QWidget *browseTop = new QWidget(Tabs);
+	QWidget *listTop = new QWidget(Tabs);
+	QWidget *quizTop = new QWidget(Tabs);
+
+	QVBoxLayout *layout = new QVBoxLayout(browseTop, 6);
 
 	QHBoxLayout *topLayout = new QHBoxLayout(layout, 6);
-	UpdateGrade = new KPushButton(i18n("&Update Grade"), this);
+	UpdateGrade = new KPushButton(i18n("&Update Grade"), browseTop);
 	topLayout->addWidget(UpdateGrade);
 	connect(UpdateGrade, SIGNAL(pressed()), SLOT(updateGrade()));
-	GradeSpin = new QSpinBox(1, 9, 1, this);
+	GradeSpin = new QSpinBox(1, 9, 1, browseTop);
 	topLayout->addWidget(GradeSpin);
 	connect(GradeSpin, SIGNAL(valueChanged(int)), SLOT(gradeChange(int)));
 
 	QHBoxLayout *botLayout = new QHBoxLayout(layout, 6);
-	Rand = new KPushButton(i18n("&Random"), this);
+	Rand = new KPushButton(i18n("&Random"), browseTop);
 	connect(Rand, SIGNAL(pressed()), SLOT(random()));
 	botLayout->addWidget(Rand);
-	Prev = new KPushButton(i18n("&Previous"), this);
+	Prev = new KPushButton(i18n("&Previous"), browseTop);
 	connect(Prev, SIGNAL(pressed()), SLOT(prev()));
 	botLayout->addWidget(Prev);
-	Next = new KPushButton(i18n("&Next"), this);
+	Next = new KPushButton(i18n("&Next"), browseTop);
 	connect(Next, SIGNAL(pressed()), SLOT(next()));
 	botLayout->addWidget(Next);
 
-	View = new ResultView(this, "View");
+	View = new ResultView(browseTop, "View");
 	layout->addWidget(View);
 
 	QHBoxLayout *deepLayout = new QHBoxLayout(layout, 6);
-	Add = new KPushButton(i18n("&Add to list"), this);
+	Add = new KPushButton(i18n("&Add to list"), browseTop);
 	deepLayout->addWidget(Add);
-	connect(Add, SIGNAL(pressed()), SLOT(slotAdd()));
-	Show = new KPushButton(i18n("&Show list"), this);
-	deepLayout->addWidget(Show);
-	connect(Show, SIGNAL(pressed()), SLOT(showList()));
+	connect(Add, SIGNAL(pressed()), SLOT(add()));
+	Close = new KPushButton(i18n("&Close"), browseTop);
+	deepLayout->addWidget(Close);
+	connect(Close, SIGNAL(pressed()), SLOT(close()));
+
+	QVBoxLayout *listLayout = new QVBoxLayout(listTop, 6);
+
+	List = new KListView(listTop);
+	listLayout->addWidget(List);
+
+	List->addColumn(i18n("Kanji"));
+	List->addColumn(i18n("Grade"));
+	List->addColumn(i18n("Readings"));
+	List->addColumn(i18n("Meanings"));
+	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(updateCaption(QListViewItem *)));
+	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
+
+	topLayout = new QHBoxLayout(listLayout, 6);
+	Del = new KPushButton(i18n("&Delete"), listTop);
+	topLayout->addWidget(Del);
+	connect(Del, SIGNAL(pressed()), SLOT(del()));
+	Save = new KPushButton(i18n("&Save"), listTop);
+	connect(Save, SIGNAL(pressed()), SLOT(writeConfiguration()));
+	topLayout->addWidget(Save);
+
+	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 6);
+
+	qKanji = new QLabel("", quizTop);
+	quizLayout->addWidget(qKanji);
+
+	Q1 = new KPushButton("", quizTop);
+	quizLayout->addWidget(Q1);
+	connect(Q1, SIGNAL(pressed()), SLOT(q1()));
+	Q2 = new KPushButton("", quizTop);
+	quizLayout->addWidget(Q2);
+	connect(Q2, SIGNAL(pressed()), SLOT(q2()));
+	Q3 = new KPushButton("", quizTop);
+	quizLayout->addWidget(Q3);
+	connect(Q3, SIGNAL(pressed()), SLOT(q3()));
+	Q4 = new KPushButton("", quizTop);
+	quizLayout->addWidget(Q4);
+	connect(Q4, SIGNAL(pressed()), SLOT(q4()));
+	Q5 = new KPushButton("", quizTop);
+	quizLayout->addWidget(Q5);
+	connect(Q5, SIGNAL(pressed()), SLOT(q5()));
+
+	botLayout = new QHBoxLayout(quizLayout, 6);
+	qPrev = new KPushButton(i18n("&Previous"), quizTop);
+	connect(qPrev, SIGNAL(pressed()), SLOT(prev()));
+	botLayout->addWidget(qPrev);
+	Cheat = new KPushButton(i18n("&New"), quizTop);
+	connect(Cheat, SIGNAL(pressed()), SLOT(cheat()));
+	botLayout->addWidget(Cheat);
+
+	Tabs->addTab(browseTop, i18n("&Browse"));
+	Tabs->addTab(listTop, i18n("&List"));
+	Tabs->addTab(quizTop, i18n("&Quiz"));
 
 	StatusBar = new KStatusBar(this);
-	layout->addWidget(StatusBar);
+	veryTop->addWidget(StatusBar);
 
 	KConfig *config = kapp->config(); // do this here so writeConfig only does the learnlist stuff
 	config->setGroup("Learn");
 	GradeSpin->setValue(config->readNumEntry("grade", 1));
 
+	isMod = false;
+
 	updateGrade();
+	readConfiguration();
 }
 
 Learn::~Learn()
 {
+}
+
+void Learn::close()
+{
+	if (isMod)
+		if (KMessageBox::warningContinueCancel(this, i18n("Unsaved changes to learning list. Are you sure you want to discard these?"), i18n("Unsaved changes"), i18n("Discard"), "DiscardAsk", true) == KMessageBox::Continue)
+			delete this;
+		else
+			StatusBar->message(i18n("Go to the List tab to save your learning list"));
+	else
+		delete this;
 }
 
 void Learn::random()
@@ -369,10 +446,7 @@ void Learn::next()
 void Learn::prev()
 {
 	if (!list.prev())
-	{
-		kdDebug() << "first, going to last\n";
 		list.last();
-	}
 	update();
 }
 
@@ -455,37 +529,27 @@ void Learn::updateGrade()
 
 void Learn::readConfiguration()
 {
-	if (!_LearnList)
-		return;
 	KConfig *config = kapp->config();
 
 	config->setGroup("Learn");
 	GradeSpin->setValue(config->readNumEntry("grade", 1));
-
-	if (!_LearnList)
-	{
-		showList();
-	}
 
 	QStringList kanji = config->readListEntry("__KANJI");
 	QStringList::Iterator it;
 
 	for (it = kanji.begin(); it != kanji.end(); ++it)
 	{
-		(void) new QListViewItem(_LearnList->list(), *it, config->readEntry(*it), config->readEntry(QString(*it).append("_readings")), config->readEntry(QString(*it).append("_meanings"))); // make new list view item(parent, kanji, grade, readings)
+		(void) new QListViewItem(List, *it, config->readEntry(*it), config->readEntry(QString(*it).append("_readings")), config->readEntry(QString(*it).append("_meanings"))); // make new list view item(parent, kanji, grade, readings)
 	}
 }
 
 void Learn::writeConfiguration()
 {
-	if (!_LearnList)
-		return;
-
 	KConfig *config = kapp->config();
 	config->setGroup("Learn");
 
 	QStringList kanji;
-	QListViewItemIterator it(_LearnList->list());
+	QListViewItemIterator it(List);
 	QString curKanji;
 
 	for (; it.current(); ++it)
@@ -498,27 +562,12 @@ void Learn::writeConfiguration()
 	}
 
 	config->writeEntry("__KANJI", kanji);
-}
 
-void Learn::slotAdd()
-{
-	addNew = true;
-
-	if (!_LearnList) // popup the learn list if it isn't already
-		showList();
-}
-
-void Learn::listLoaded()
-{
-	if (addNew)
-		add();
+	isMod = false;
 }
 
 void Learn::add()
 {
-	if (!_LearnList) // popup the learn list if it isn't already
-		showList();
-
 	QStringList::Iterator it;
 
 	QStringList readingslist = list.current()->readings();
@@ -527,13 +576,14 @@ void Learn::add()
 		readings.append(*it).append(", ");
 	readings.truncate(readings.length() - 2);
 
-	QStringList meaningslist = list.current()->readings();
+	QStringList meaningslist = list.current()->meanings();
 	QString meanings;
 	for (it = meaningslist.begin(); it != meaningslist.end(); ++it)
-		meanings.append(*it).append(", ");
-	readings.truncate(readings.length() - 2);
+		meanings.append(*it).append("; ");
 
-	(void) new QListViewItem(_LearnList->list(), list.current()->kanji(), QString::number(list.current()->grade()), readings, meanings);
+	(void) new QListViewItem(List, list.current()->kanji(), QString::number(list.current()->grade()), readings, meanings);
+
+	isMod = true;
 }
 
 void Learn::gradeChange(int grade)
@@ -557,6 +607,10 @@ void Learn::showKanji(QListViewItem *item)
 		return;
 
 	QString kanji(item->text(0));
+
+	unsigned int grade = item->text(1).toUInt();
+	GradeSpin->setValue(grade);
+	updateGrade();
 	
 	QPtrListIterator<Kanji> it(list);
 	Kanji *curKanji;
@@ -571,63 +625,12 @@ void Learn::showKanji(QListViewItem *item)
 	update(curKanji);
 }
 
-void Learn::showList()
-{
-	_LearnList = new LearnList(0, "_LearnList");
-	_LearnList->show();
-
-	connect(_LearnList->list(), SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
-	connect(_LearnList->save(), SIGNAL(pressed()), SLOT(writeConfiguration()));
-	connect(_LearnList, SIGNAL(initDone()), SLOT(listLoaded()));
-
-	readConfiguration();
-}
-
-//////////////////////////////////////////////////////////////////
-
-LearnList::LearnList(QWidget *parent, const char *name) : QWidget(parent, name)
-{
-	Tabs = new QTabWidget(this);
-
-	QWidget *listTop = new QWidget(Tabs);
-	QWidget *quizTop = new QWidget(Tabs);
-
-	QVBoxLayout *layout = new QVBoxLayout(listTop, 6);
-
-	QHBoxLayout *topLayout = new QHBoxLayout(layout, 6);
-	Del = new KPushButton(i18n("&Delete"), listTop);
-	topLayout->addWidget(Del);
-	connect(Del, SIGNAL(pressed()), SLOT(del()));
-	Save = new KPushButton(i18n("&Save"), listTop);
-	topLayout->addWidget(Save);
-
-	List = new KListView(listTop);
-	layout->addWidget(List);
-
-	List->addColumn(i18n("Kanji"));
-	List->addColumn(i18n("Grade"));
-	List->addColumn(i18n("Meanings"));
-	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(updateCaption(QListViewItem *)));
-
-	QVBoxLayout *quizLayout = new QVBoxLayout(quizTop, 6);
-
-	Tabs->addTab(listTop, i18n("&List"));
-	Tabs->addTab(quizTop, i18n("&Quiz"));
-
-	setCaption("Your List - Kiten Learn");
-	emit initDone();
-}
-
-void LearnList::updateCaption(QListViewItem *item)
+void Learn::updateCaption(QListViewItem *item)
 {
 	setCaption(kapp->makeStdCaption(item->text(0)));
 }
 
-LearnList::~LearnList()
-{
-}
-
-void LearnList::del()
+void Learn::del()
 {
 	QListViewItem *kanji = List->selectedItem();
 	if (!kanji)
@@ -636,12 +639,187 @@ void LearnList::del()
 	delete kanji;
 }
 
-KListView *LearnList::list()
+void Learn::q1()
 {
-	return List;
+	if (seikai == 1)
+	{
+		StatusBar->message(i18n("Good!"));
+		qnew();
+	}
+	else
+	{
+		StatusBar->message(i18n("Wrong"));
+	}
 }
 
-KPushButton *LearnList::save()
+void Learn::q2()
 {
-	return Save;
+	if (seikai == 2)
+	{
+		StatusBar->message(i18n("Good!"));
+		qnew();
+	}
+	else
+	{
+		StatusBar->message(i18n("Wrong"));
+	}
+}
+
+void Learn::q3()
+{
+	if (seikai == 3)
+	{
+		StatusBar->message(i18n("Good!"));
+		qnew();
+	}
+	else
+	{
+		StatusBar->message(i18n("Wrong"));
+	}
+}
+
+void Learn::q4()
+{
+	if (seikai == 4)
+	{
+		StatusBar->message(i18n("Good!"));
+		qnew();
+	}
+	else
+	{
+		StatusBar->message(i18n("Wrong"));
+	}
+}
+
+void Learn::q5()
+{
+	if (seikai == 5)
+	{
+		StatusBar->message(i18n("Good!"));
+		qnew();
+	}
+	else
+	{
+		StatusBar->message(i18n("Wrong"));
+	}
+}
+
+QString Learn::randomMeaning()
+{
+	kdDebug() << "randomMeaning\n";
+	float rand = kapp->random();
+	if (rand > (RAND_MAX / 2))
+	{
+		kdDebug() << "will fetch from grade\n";
+		rand = kapp->random();
+		float rand2 = RAND_MAX / rand;
+		rand = list.count() / rand2;
+	
+		QPtrListIterator<Kanji> it(list);
+
+		int i;
+		for (i = 0; i < rand; ++it)
+		{i++;}
+
+		QStringList Meanings = it.current()->meanings();
+		QStringList::Iterator itr;
+		QString meaning;
+
+		for (itr = Meanings.begin(); itr != Meanings.end(); ++itr)
+		{
+			meaning.append(*itr);
+			meaning.append("; ");
+		}
+
+		return meaning;
+	}
+
+	kdDebug() << "will fetch from list\n";
+	rand = kapp->random();
+	float rand2 = RAND_MAX / rand;
+	rand = List->childCount() / rand2;
+
+	QListViewItemIterator it(List);
+	int i;
+	for (i = 0; i <= rand; ++it)
+	{i++;}
+
+	return it.current()->text(3);
+}
+
+void Learn::qupdate()
+{
+	qKanji->setText(QString("<font size=\"+3\">%1</font>").arg(curItem->text(0)));
+
+	float rand = kapp->random();
+	float rand2 = RAND_MAX / rand;
+	seikai = (int) 5 / rand2;
+	seikai++;
+
+	kdDebug() << "seikai = " << seikai << endl;
+
+	Q1->setText(randomMeaning());
+	Q2->setText(randomMeaning());
+	Q3->setText(randomMeaning());
+	Q4->setText(randomMeaning());
+	Q5->setText(randomMeaning());
+
+	switch (seikai)
+	{
+		case 1:
+			Q1->setText(curItem->text(3));
+			break;
+		case 2:
+			Q2->setText(curItem->text(3));
+			break;
+		case 3:
+			Q3->setText(curItem->text(3));
+			break;
+		case 4:
+			Q4->setText(curItem->text(3));
+			break;
+		case 5:
+			Q5->setText(curItem->text(3));
+			break;
+	}
+}
+
+void Learn::qnew()
+{
+	float rand = kapp->random();
+	float rand2 = RAND_MAX / rand;
+	rand = List->childCount() / rand2;
+
+	QListViewItemIterator it(List);
+	int i;
+	for (i = 0; i < rand; ++it)
+	{i++; kdDebug() << i << endl;}
+
+	if (!it.current())
+		curItem = List->lastChild();
+	else
+		curItem = it.current();
+
+	qupdate();
+}
+
+void Learn::qprev()
+{
+	curItem = prevItem;
+	qPrev->setEnabled(false);
+
+	qupdate();
+}
+
+void Learn::cheat()
+{
+	QString text = Cheat->text();
+	if (text == "&New")
+	{
+		Cheat->setText(i18n("&Cheat"));
+		qnew();
+		return;
+	}
+
+	StatusBar->message(curItem->text(3));
 }

@@ -23,7 +23,7 @@ METASOURCES = AUTO
 
 CLEANFILES = dummy.cpp
 
-rcdir = $(kde_datadir)/Kiten
+rcdir = $(kde_datadir)/kiten
 rc_DATA = kitenui.rc
 
 dummy.cpp:
