@@ -30,7 +30,7 @@
 #include "widgets.h"
 
 ResultView::ResultView(bool _links, QWidget *parent, const char *name)
-	: QTextBrowser(parent, name)
+	: KTextBrowser(parent, name)
 {
 	setReadOnly(true);
 	setLinkUnderline(false);
