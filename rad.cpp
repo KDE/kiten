@@ -329,6 +329,8 @@ void RadWidget::executed(QListBoxItem *item)
 void RadWidget::clearSelected()
 {
 	selectedList->clear();
+	selected.clear();
+	numChanged();
 }
 
 void RadWidget::removeSelected()
