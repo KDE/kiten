@@ -24,8 +24,10 @@ class Index
 	QStringList deinflect(QString, QStringList &);
 
 	private:
+	void load();
 	QMap<unsigned int, QString> names;
 	QValueList<Conjugation> list;
+	bool loaded;
 };
 
 }

@@ -1,23 +1,20 @@
-- hmm
-- nothing else! :))
-
-2.0 wishlist by Neil:
-
 - move all QRegExp generation into namespace Dict, so Kiten et. al. just tell
 Dict what kind of search they want, and Dict tells them the regexp they need
 to pass Dict::Index.
+  jasonkb says: err maybe, don't see the advantages of this.
 
 - get all SearchResults and Entries into one hierarchy.
+  jasonkb says: I don't understand ;)
 
 - split the two tabs of the learn mode into separate dialogs, or even make
 learn a separate app.
+  jasonkb says: hmm perhaps.
 
 - rewrite the index generator
+  jasonkb says: not me :P
 
 - factor out the gjiten heuristic of figuring out kanji/kana/roomaji
+  jasonkb says: yes :)
 
 - move all dialogs to KDialogBase, and have them used by exec()ing them
-
-Jason's:
-- load radkfile and vconj only when asked for
-- TODO in void TopLevel::addToList()
+  jasonkb says: sure

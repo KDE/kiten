@@ -219,7 +219,6 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 				return;
 			}
 		}
-
 	}
 
 	KLineEdit::keyPressEvent(e); // don't think we'll get here :)

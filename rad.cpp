@@ -4,7 +4,6 @@
 #include <kdialog.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
-//#include <qradiobutton.h>
 #include <kconfig.h>
 #include <klocale.h>
 #include <kapp.h>
@@ -25,6 +24,14 @@
 
 Rad::Rad() : QObject()
 {
+	loaded = false;
+}
+
+void Rad::load()
+{
+	if (loaded)
+		return;
+
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString radkfile = dirs->findResource("appdata", "radkfile");
 	if (radkfile == QString::null)
@@ -74,10 +81,14 @@ Rad::Rad() : QObject()
 	list.append(cur);
 
 	f.close();
+
+	loaded = true;
 }
 
 QStringList Rad::radByStrokes(unsigned int strokes)
 {
+	load();
+
 	QStringList ret;
 	bool hadOne = false;
 	QValueListIterator<Radical> it = list.begin();
@@ -101,6 +112,7 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 
 QStringList Rad::kanjiByRad(QString &text)
 {
+	load();
 	QStringList ret;
 
 	QValueListIterator<Radical> it;
@@ -115,6 +127,7 @@ QStringList Rad::kanjiByRad(QString &text)
 
 Radical Rad::radByKanji(QString text)
 {
+	load();
 	QString ret;
 
 	QValueListIterator<Radical> it;
@@ -125,6 +138,7 @@ Radical Rad::radByKanji(QString text)
 
 unsigned int Rad::strokesByRad(QString text)
 {
+	load();
 	QValueListIterator<Radical> it;
 	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
 

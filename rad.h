@@ -45,8 +45,10 @@ class Rad : public QObject
 
 	private:
 	void loadLine(QString &);
+	void load();
 
 	QValueList<Radical> list;
+	bool loaded;
 };
 
 class RadWidget : public QWidget

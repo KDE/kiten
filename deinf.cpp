@@ -17,6 +17,14 @@ using namespace Deinf;
 
 Index::Index()
 {
+	loaded = false;
+}
+
+void Index::load()
+{
+	if (loaded)
+		return;
+
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString vconj = dirs->findResource("appdata", "vconj");
 	if (vconj == QString::null)
@@ -62,6 +70,7 @@ Index::Index()
 	}
 
 	f.close();
+	loaded = true;
 }
 
 namespace
@@ -77,6 +86,7 @@ QStringList possibleConjugations(const QString &text)
 
 QStringList Index::deinflect(QString text, QStringList &name)
 {
+	load();
 	QStringList endings = possibleConjugations(text);
 	QStringList ret;
 

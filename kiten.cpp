@@ -121,6 +121,7 @@ void TopLevel::addToList()
 {
 	// TODO! make this write to the kconfig file, and emit listDirty
 	emit add(toAddKanji);
+	StatusBar->message(i18n("%1 added to learn list of all OPEN learn windows").arg(toAddKanji().kanji());
 }
 
 void TopLevel::doSearch(QString text, QRegExp regexp)
