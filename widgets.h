@@ -148,7 +148,7 @@ public:
 
 public slots:
 	void clear();
-	void insert(QString &);
+	void insert(QString);
 
 signals:
     void plugged();

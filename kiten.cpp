@@ -28,6 +28,7 @@
 #include "widgets.h"
 #include "dict.h"
 #include "rad.h"
+#include "deinf.h"
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
@@ -45,7 +46,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) new KAction(i18n("&Search with end of word"), 0, this, SLOT(searchEnd()), actionCollection(), "search_end");
 	(void) new KAction(i18n("&Strokes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
-	kanjiCB = new KToggleAction(i18n("&Kanjidic?"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
+	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
+	deinfCB = new KToggleAction(i18n("&Deinflect verbs"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	irAction =  new KAction(i18n("Search &in Results"), "find", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
@@ -72,6 +74,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	resize(600, 400);
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+
+	name = QString::null;
 }
 
 void TopLevel::closeEvent(QCloseEvent *)
@@ -95,6 +99,7 @@ void TopLevel::closeEvent(QCloseEvent *)
 	config->setGroup("app");
 	config->writeEntry("com", comCB->isChecked());
 	config->writeEntry("kanji", kanjiCB->isChecked());
+	config->writeEntry("deinf", deinfCB->isChecked());
 
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
@@ -228,6 +233,7 @@ void TopLevel::search(bool inResults)
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
 	QCString csch_str = codec->fromUnicode(text);
 	unsigned char first = csch_str[0];
+	unsigned char last = csch_str[csch_str.length()];
 
 	// gjiten seems to do this stuff to tell between the three...
 	// TODO: factor out this gjiten heuristic
@@ -242,8 +248,24 @@ void TopLevel::search(bool inResults)
 	}
 	else if (first > 0xa8)
 	{
+		if (last < 0xa5 && deinfCB->isChecked() && name == QString::null) // deinflect
+		{
+			dicform = _Deinf.deinf(text, name);
+			if (name == QString::null)
+				goto Normal;
+
+			statusBar()->message(name);
+
+			Edit->clear();
+			Edit->insert(dicform);
+			return;
+		}
+
+		Normal:
 		regexp = kanjiSearchItems();
 	}
+
+	dicform = QString::null;
 
 	doSearch(text, regexp, inResults);
 }
@@ -323,7 +345,7 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 		str += i18n(" out of %1").arg(fullNum);
 
 	statusBar()->message(str);
-	setCaption(kapp->makeStdCaption(str));
+	setCaption(str);
 
 	_ResultView->updateContents();
 }
@@ -339,6 +361,7 @@ void TopLevel::slotUpdateConfiguration()
 	bool com = config->readBoolEntry("com", false);
 	comCB->setChecked(com);
 	kanjiCB->setChecked(config->readBoolEntry("kanji", false));
+	deinfCB->setChecked(config->readBoolEntry("deinf", true));
 	
 	config->setGroup("edict");
 
@@ -460,15 +483,17 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 	return QRegExp(regexp, caseSensitive);
 }
 
-QRegExp TopLevel::kanjiSearchItems(bool beginning)
+QRegExp TopLevel::kanjiSearchItems(bool beginning, QString text)
 {
-	QString text = Edit->text();
+	if (text == QString::null)
+		QString text = Edit->text();
+
 	if (text.isEmpty())
 	{
 		return QRegExp(); //empty
 	}
 
-	//CompletionObj->addItem(text);
+	kdDebug() << text << endl;
 
 	QString regexp;
 	if (beginning)

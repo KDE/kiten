@@ -751,7 +751,7 @@ void EditAction::clear()
 	m_combo->clear();
 }
 
-void EditAction::insert(QString &text)
+void EditAction::insert(QString text)
 {
 	m_combo->insert(text);
 }

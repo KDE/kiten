@@ -7,6 +7,7 @@
 #include <qregexp.h>
 #include "dict.h"
 #include "rad.h"
+#include "deinf.h"
 
 class Rad;
 class Entry;
@@ -62,8 +63,10 @@ class TopLevel : public KMainWindow
 	private:
 	Dict::Index _Index;
 	Rad _Rad;
+	Deinf _Deinf;
 	ResultView *_ResultView;
 	KToggleAction *kanjiCB;
+	KToggleAction *deinfCB;
 	KAction *irAction;
 	KAction *addAction;
 	KToggleAction *comCB;
@@ -85,7 +88,7 @@ class TopLevel : public KMainWindow
 
 	QRegExp searchItems();
 	QRegExp readingSearchItems(bool);
-	QRegExp kanjiSearchItems(bool = false);
+	QRegExp kanjiSearchItems(bool = false, QString = QString::null);
 
 	EditAction *Edit;
 
@@ -98,6 +101,9 @@ class TopLevel : public KMainWindow
 	QValueList<Dict::KanjiSearchResult> kanjiResultHistory;
 
 	Dict::Kanji firstKanji(Dict::KanjiSearchResult);
+
+	QString name;
+	QString dicform;
 };
 
 #endif
