@@ -327,6 +327,11 @@ void RadWidget::numChanged()
 	clear->setEnabled(selectedList->count() > 0);
 }
 
+void RadWidget::addRadical(const QString &radical)
+{
+	addToSelected(radical);
+}
+
 void RadWidget::addToSelected(const QString &text)
 {
 	if (!selected.contains(text))

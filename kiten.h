@@ -59,7 +59,7 @@ class TopLevel : public KMainWindow
 	void kanjiDictChange();
 	void toggleCom();
 	void addToList();
-	void radicalSearch();
+	RadWidget *radicalSearch();
 	void radSearch(const QStringList &, unsigned int, unsigned int);
 
 	void print();

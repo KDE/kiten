@@ -174,7 +174,7 @@ void ResultView::addKanjiResult(Dict::Entry result, bool com, Radical rad)
 		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
 
 	if (!!rad.radical())
-		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(rad.radical()).arg(rad.strokes()));
+		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(QString("<a href=\"__radical:%1\">%2</a>").arg(rad.radical()).arg(rad.radical())).arg(rad.strokes()));
 
 	html += "</p>";
 

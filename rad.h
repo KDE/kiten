@@ -66,6 +66,9 @@ class RadWidget : public QWidget
 	// if totalStrokes == 0, then don't search by total strokes
 	void set(const QStringList &radical, unsigned int totalStrokes, unsigned int totalStrokesErr);
 
+	public slots:
+	void addRadical(const QString &);
+
 	private slots:
 	void updateList(int);
 	void apply();

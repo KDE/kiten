@@ -310,6 +310,14 @@ void TopLevel::resultSearch()
 // called when a kanji is clicked on in result view
 void TopLevel::ressearch(const QString &text)
 {
+	kdDebug() << "ressearch(" << text << endl;
+	if (text.startsWith("__radical:"))
+	{
+		QString radical = text.section(":", 1, 1).right(1);
+		kdDebug() << "radical is " << radical << endl;
+		radicalSearch()->addRadical(radical);
+		return;
+	}
 	Edit->setText(text);
 	kanjiCB->setChecked(true);
 	search();
@@ -750,11 +758,12 @@ void TopLevel::newToolBarConfig()
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 }
 
-void TopLevel::radicalSearch()
+RadWidget *TopLevel::radicalSearch()
 {
 	RadWidget *rw = new RadWidget(&_Rad, 0, "rw");
 	connect(rw, SIGNAL(set(const QStringList &, unsigned int, unsigned int)), this, SLOT(radSearch(const QStringList &, unsigned int, unsigned int)));
 	rw->show();
+	return rw;
 }
 
 void TopLevel::radSearch(const QStringList &_list, unsigned int strokes, unsigned int errorMargin)
