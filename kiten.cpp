@@ -1,6 +1,7 @@
 #include <kmainwindow.h>
 #include <klocale.h>
 #include <kglobal.h>
+#include <kiconloader.h>
 #include <qcheckbox.h>
 #include <qclipboard.h>
 #include <qpushbutton.h>
@@ -26,12 +27,11 @@
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
-	QWidget *dummy = new QWidget(this);
-	setCentralWidget(dummy);
+	_ResultView = new ResultView(this, "_ResultView");
+	_Dict = new Dict();
+	setCentralWidget(_ResultView);
 
-	_SearchForm = new SearchForm(dummy, "SearchForm");
-	_ResultView = new ResultView(dummy, "ResultView");
-
+	/*
 	QVBoxLayout *layout = new QVBoxLayout(dummy, 6);
 
 	QHBoxLayout *botLayout = new QHBoxLayout(layout, 6);
@@ -57,22 +57,30 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	layout->addWidget(_SearchForm);
 	layout->addWidget(_ResultView);
 
-	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
-	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) new KAction(i18n("&Learn..."), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
-
 	connect(_SearchForm, SIGNAL(search()), SLOT(search()));
 	connect(_SearchForm, SIGNAL(readingSearch()), SLOT(readingSearch()));
 	connect(_SearchForm, SIGNAL(kanjiSearch()), SLOT(kanjiSearch()));
+	*/
+
+	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
+	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+	(void)new KAction(i18n( "Clear location bar" ), BarIcon("locationbar_erase", 16), 0, Edit, SLOT(clear()), actionCollection(), "clear_search");
+
+	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
+	(void) new KAction(i18n("&Anywhere Search"), "find", 0, this, SLOT(search()), actionCollection(), "search_anywhere");
+	(void) new KAction(i18n("&Reading Search"), "find", CTRL+Key_R, this, SLOT(readingSearch()), actionCollection(), "search_reading");
+	(void) new KAction(i18n("&Kanji Search"), "find", CTRL+Key_K, this, SLOT(kanjiSearch()), actionCollection(), "search_kanji");
+	kanjiCB = new KToggleAction(i18n("Kan&jidic?"), "kanjidic", CTRL+Key_J, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
+	comCB = new KToggleAction(i18n("&Filter Out Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
+	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
+	irCB =  new KToggleAction(i18n("Search &in Results"), "viewmag+", CTRL+Key_I, this, SLOT(toggleIR()), actionCollection(), "in_results");
+	connect(irCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleIR(bool)));
 
 	createGUI();
 
 	statusBar();
 	optionDialog = 0;
-
-	_Dict = new Dict();
-	connect(comCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleCom(bool)));
-	connect(irCB, SIGNAL(toggled(bool)), _Dict, SLOT(toggleIR(bool)));
 
 	slotUpdateConfiguration();
 	if (autoCreateLearn)
@@ -91,8 +99,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	isListMod = false;
 
-	kanjiDictChange(kanjiCB->isChecked());
-	_SearchForm->setFocusNow();
+	kanjiDictChange();
 }
 
 void TopLevel::close()
@@ -207,28 +214,28 @@ void TopLevel::doSearch()
 
 void TopLevel::search()
 {
-	realregexp = _SearchForm->searchItems();
-	regexp = _SearchForm->lineText();
+	realregexp = searchItems();
+	regexp = Edit->text();
 	doSearch();
 }
 
 void TopLevel::readingSearch()
 {
-	realregexp = _SearchForm->readingSearchItems(kanjiCB->isChecked());
-	regexp = _SearchForm->lineText();
+	realregexp = readingSearchItems(kanjiCB->isChecked());
+	regexp = Edit->text();
 	doSearch();
 }
 
 void TopLevel::kanjiSearch()
 {
-	realregexp = _SearchForm->kanjiSearchItems();
-	regexp = _SearchForm->lineText();
+	realregexp = kanjiSearchItems();
+	regexp = Edit->text();
 	doSearch();
 }
 
 void TopLevel::strokeSearch()
 {
-	unsigned int strokes = _SearchForm->lineText().toUInt();
+	unsigned int strokes = Edit->text().toUInt();
 	if (strokes <= 0 || strokes > 60)
 	{
 		statusBar()->message(i18n("Invalid stroke sount"));
@@ -245,7 +252,7 @@ void TopLevel::strokeSearch()
 
 void TopLevel::gradeSearch()
 {
-	QString text = _SearchForm->lineText();
+	QString text = Edit->text();
 	unsigned int grade;
 
 	if (text == "Jouyou")
@@ -281,9 +288,9 @@ void TopLevel::readingSearchAccel()
 {
 	kanjiCB->setChecked(false);
 
-	realregexp = _SearchForm->readingSearchItems(kanjiCB->isChecked());
+	realregexp = readingSearchItems(kanjiCB->isChecked());
 	clipBoardText();
-	regexp = _SearchForm->lineText();
+	regexp = Edit->text();
 	doSearch();
 }
 
@@ -291,9 +298,9 @@ void TopLevel::kanjiSearchAccel()
 {
 	kanjiCB->setChecked(true);
 
-	realregexp = _SearchForm->kanjiSearchItems();
+	realregexp = kanjiSearchItems();
 	clipBoardText();
-	regexp = _SearchForm->lineText();
+	regexp = Edit->text();
 	doSearch();
 }
 
@@ -301,9 +308,9 @@ void TopLevel::jpWordAccel()
 {
 	kanjiCB->setChecked(false);
 
-	realregexp = _SearchForm->kanjiSearchItems();
+	realregexp = kanjiSearchItems();
 	clipBoardText();
-	regexp = _SearchForm->lineText();
+	regexp = Edit->text();
 	doSearch();
 }
 
@@ -311,9 +318,9 @@ void TopLevel::engWordAccel()
 {
 	kanjiCB->setChecked(false);
 	
-	realregexp = _SearchForm->searchItems();
+	realregexp = searchItems();
 	clipBoardText();
-	regexp = _SearchForm->lineText();
+	regexp = Edit->text();
 	doSearch();
 }
 
@@ -381,6 +388,10 @@ void TopLevel::slotUpdateConfiguration()
 
 	config->setGroup("Learn");
 	autoCreateLearn = config->readBoolEntry("startLearn", false);
+
+	config->setGroup("Searching Options");
+	wholeWord = config->readBoolEntry("wholeWord", true);
+	caseSensitive = config->readBoolEntry("caseSensitive", false);
 }
 
 void TopLevel::loadDict()
@@ -405,7 +416,6 @@ void TopLevel::slotConfigure()
 			return;
 		connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
 		connect(optionDialog, SIGNAL(valueChanged()), this, SLOT(slotUpdateConfiguration()));
-		connect(optionDialog, SIGNAL(valueChanged()), _SearchForm, SLOT(slotUpdateConfiguration()));
 	}
 
 	optionDialog->show();
@@ -443,10 +453,11 @@ void TopLevel::globalListChanged()
 	emit updateLists();
 }
 
-void TopLevel::kanjiDictChange(bool on)
+void TopLevel::kanjiDictChange()
 {
-	strokeButton->setEnabled(on);
-	gradeButton->setEnabled(on);
+	bool on = kanjiCB->isChecked();
+	//strokeButton->setEnabled(on);
+	//gradeButton->setEnabled(on);
 }
 
 void TopLevel::globalListDirty()
@@ -454,4 +465,72 @@ void TopLevel::globalListDirty()
 	isListMod = false;
 }
 
+QRegExp TopLevel::readingSearchItems(bool kanji)
+{
+	QString text = Edit->text();
+	if (text.isEmpty()) // abandon search
+	{
+		return QRegExp(); //empty
+	}
+
+	//CompletionObj->addItem(text);
+	QString regexp;
+	if (kanji)
+		regexp = " %1 ";
+	else
+		regexp = "\\[%1\\]";
+
+	regexp = regexp.arg(text);
+	
+	return QRegExp(regexp, caseSensitive);
+}
+
+QRegExp TopLevel::kanjiSearchItems()
+{
+	QString text = Edit->text();
+	if (text.isEmpty())
+	{
+		return QRegExp(); //empty
+	}
+
+	//CompletionObj->addItem(text);
+
+	QString regexp = "^%1\\W";
+	regexp = regexp.arg(text);
+	
+	return QRegExp(regexp, caseSensitive);
+}
+
+QRegExp TopLevel::searchItems()
+{
+	QString regexp;
+	QString text = Edit->text();
+	if (text.isEmpty())
+	{
+		return QRegExp(); //empty
+	}
+
+	//CompletionObj->addItem(text);
+
+	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
+	if (contains == text.length())
+		regexp = "\\W%1\\W";
+	else
+		regexp = "%1";
+
+	regexp = regexp.arg(text);
+	
+	//kdDebug() << "SearchForm::searchItems returning " << regexp << endl;
+	return QRegExp(regexp, caseSensitive);
+}
+
+void TopLevel::toggleCom()
+{
+	//_Dict->setCom(comCB->isChecked());
+}
+
+void TopLevel::toggleIR()
+{
+	//_Dict->setIR(irCB->isChecked());
+}
 #include "kiten.moc"

@@ -8,12 +8,13 @@
 
 class Dict;
 class Entry;
-class SearchForm;
+class EditAction;
 class QCheckBox;
 class QPushButton;
 class ResultView;
 class ConfigureDialog;
 class KGlobalAccel;
+class KToggleAction;
 
 class TopLevel : public KMainWindow
 {
@@ -41,23 +42,25 @@ class TopLevel : public KMainWindow
 	void slotConfigureDestroy();
 	void slotUpdateConfiguration();
 	void loadDict();
-	void kanjiDictChange(bool);
+	void kanjiDictChange();
 	void globalListChanged();
 	void globalListDirty();
+	void toggleCom();
+	void toggleIR();
 
 	void createLearn();
 
 	private:
 	Dict * _Dict;
-	SearchForm *_SearchForm;
 	ResultView *_ResultView;
-	QCheckBox *kanjiCB;
-	QPushButton *strokeButton;
-	QPushButton *gradeButton;
-	QCheckBox *comCB;
-	QCheckBox *irCB;
+	KToggleAction *kanjiCB;
+	KToggleAction *irCB;
+	KToggleAction *comCB;
+
 	bool noInit;
 	bool noKanjiInit;
+	bool wholeWord;
+	bool caseSensitive;
 
 	KGlobalAccel *Accel;
 
@@ -73,6 +76,12 @@ class TopLevel : public KMainWindow
 
 	bool autoCreateLearn;
 	bool isListMod;
+
+	QRegExp searchItems();
+	QRegExp readingSearchItems(bool);
+	QRegExp kanjiSearchItems();
+
+	EditAction *Edit;
 };
 
 #endif

@@ -381,14 +381,9 @@ QPtrList<Entry> Dict::search(QRegExp realregexp, QString regexp, unsigned int &n
 			if (com)
 			{
 				if (*(DictNameList.at(CurrentDict)) == "Edict") // if com, nothing but edict
-				{
 					doSearch(regexp); // make our s, only from edict so no header
-				}
-				else
-				{
-					num++; // counteract what happens below
-					fullNum++;
-				}
+				num++; // counteract what happens below
+				fullNum++;
 			}
 			else
 			{

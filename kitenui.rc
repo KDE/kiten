@@ -4,13 +4,31 @@
 <MenuBar>
 
 <Menu name="file"><text>&amp;File</text>
- <Action name="file_learn"/>
+ <Action name="file_learn" />
 </Menu>
 
-<Menu name="settings"><text>&amp;Settings</text>
- <Action name="settings_preferences"/>
+<Menu name="search"><text>&amp;Search</text>
+  <Action name="search_anywhere" />
+  <Action name="search_reading" />
+  <Action name="search_kanji" />
+  <Seperator />
+  <Action name="kanji_toggle" />
+  <Action name="in_results" />
+  <Action name="common" />
 </Menu>
 
 </MenuBar>
+
+<ToolBar name="mainToolBar" noMerge="1" fullWidth="true"><text>Main Toolbar</text>
+  <Action name="clear_search" />
+  <Action name="search_edit" />
+  <Action name="search_anywhere" />
+  <Action name="search_reading" />
+  <Action name="search_kanji" />
+  <Action name="kanji_toggle" />
+  <Action name="in_results" />
+  <Action name="common" />
+  <Action name="file_learn" />
+</ToolBar>
 
 </kpartgui>

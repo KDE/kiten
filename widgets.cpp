@@ -4,6 +4,7 @@
 #include <kdebug.h>
 #include <klistview.h>
 #include <klocale.h>
+#include <ktoolbar.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
 #include <kapp.h>
@@ -12,7 +13,6 @@
 #include <kpushbutton.h>
 #include <kstatusbar.h>
 #include <kstringhandler.h>
-#include <qtoolbutton.h>
 #include <qlabel.h>
 #include <qtextedit.h>
 #include <qspinbox.h>
@@ -26,156 +26,6 @@
 
 #include "widgets.h"
 #include "dict.h"
-
-// Noatun wuz heer
-namespace
-{
-QToolButton *newButton(const QIconSet &iconSet, const QString &textLabel, QObject *receiver, const char * slot, QWidget *parent, const char *name = 0)
-{
-	QToolButton *button = new QToolButton(parent, name);
-	button->setIconSet(iconSet);
-	button->setTextLabel(textLabel, true);
-	QObject::connect(button, SIGNAL(clicked()), receiver, slot);
-	button->setFixedSize(QSize(22, 22));
-	return button;
-}
-}
-
-SearchForm::SearchForm(QWidget *parent, const char *name)
-	: QWidget(parent, name)
-{
-	QHBoxLayout *layout = new QHBoxLayout(this, 6);
-
-	LineEdit = new KLineEdit(this);
-	CompletionObj = LineEdit->completionObject();
-	ClearButton = newButton(BarIconSet("editclear", KIcon::SizeSmall), "Clear", LineEdit, SLOT(clear()), this);
-	layout->addWidget(ClearButton);
-	layout->addWidget(LineEdit);
-
-
-	SearchDictButton = new KPushButton(i18n("&Anywhere"), this);
-	layout->addWidget(SearchDictButton);
-	SearchReadingButton = new KPushButton(i18n("&Reading"), this);
-	layout->addWidget(SearchReadingButton);
-	SearchKanjiButton = new KPushButton(i18n("Kan&ji"), this);
-	layout->addWidget(SearchKanjiButton);
-
-	// both do same thing
-	connect(LineEdit, SIGNAL(returnPressed()), SLOT(returnPressed()));
-	connect(SearchDictButton, SIGNAL(clicked()), SLOT(doSearch()));
-	connect(SearchReadingButton, SIGNAL(clicked()), SLOT(doReadingSearch()));
-	connect(SearchKanjiButton, SIGNAL(clicked()), SLOT(doKanjiSearch()));
-
-	slotUpdateConfiguration();
-}
-
-void SearchForm::returnPressed()
-{
-	doSearch();
-}
-
-void SearchForm::slotUpdateConfiguration()
-{
-	KConfig *config = kapp->config();
-	config->setGroup("Searching Options");
-	wholeWord = config->readBoolEntry("wholeWord", true);
-	caseSensitive = config->readBoolEntry("caseSensitive", false);
-}
-
-SearchForm::~SearchForm()
-{
-}
-
-QRegExp SearchForm::readingSearchItems(bool kanji)
-{
-	QString text = LineEdit->text();
-	if (text.isEmpty()) // abandon search
-	{
-		return QRegExp(); //empty
-	}
-
-	CompletionObj->addItem(text);
-	QString regexp;
-	if (kanji)
-		regexp = " %1 ";
-	else
-		regexp = "\\[%1\\]";
-
-	regexp = regexp.arg(text);
-	
-	return QRegExp(regexp, caseSensitive);
-}
-
-QRegExp SearchForm::kanjiSearchItems()
-{
-	QString text = LineEdit->text();
-	if (text.isEmpty())
-	{
-		return QRegExp(); //empty
-	}
-
-	CompletionObj->addItem(text);
-
-	QString regexp = "^%1\\W";
-	regexp = regexp.arg(text);
-	
-	return QRegExp(regexp, caseSensitive);
-}
-
-QRegExp SearchForm::searchItems()
-{
-	QString regexp;
-	QString text = LineEdit->text();
-	if (text.isEmpty())
-	{
-		return QRegExp(); //empty
-	}
-
-	CompletionObj->addItem(text);
-
-	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
-	if (contains == text.length())
-		regexp = "\\W%1\\W";
-	else
-		regexp = "%1";
-
-	regexp = regexp.arg(text);
-	
-	//kdDebug() << "SearchForm::searchItems returning " << regexp << endl;
-	return QRegExp(regexp, caseSensitive);
-}
-
-void SearchForm::doSearch()
-{
-	emit search();
-}
-
-void SearchForm::doReadingSearch()
-{
-	emit readingSearch();
-}
-
-void SearchForm::doKanjiSearch()
-{
-	emit kanjiSearch();
-}
-
-QString SearchForm::lineText()
-{
-	return LineEdit->text();
-}
-
-void SearchForm::setLineText(const QString& text)
-{
-	LineEdit->setText(text);
-}
-
-void SearchForm::setFocusNow()
-{
-	LineEdit->setFocus();
-}
-
-////////////////////////////////////////////////////////
 
 ResultView::ResultView(QWidget *parent, const char *name)
 	: QTextEdit(parent, name)
@@ -963,3 +813,68 @@ QString Learn::shortenString(QString thestring)
 {
 	return KStringHandler::rsqueeze(thestring, 60);
 }
+
+/////////////////////////////////////////////////////
+// sorta taken from konqy
+
+EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name)
+    : KAction(text, accel, parent, name)
+{
+  m_receiver = receiver;
+  m_member = member;
+}
+
+EditAction::~EditAction()
+{
+}
+
+int EditAction::plug( QWidget *w, int index )
+{
+  //  if ( !w->inherits( "KToolBar" ) );
+  //    return -1;
+
+  KToolBar *toolBar = (KToolBar *)w;
+
+  int id = KAction::getToolButtonID();
+  //kdDebug() << "KonqComboAction::plug id=" << id << endl;
+
+  KLineEdit *comboBox = new KLineEdit(toolBar, "search edit");
+  toolBar->insertWidget( id, 70, comboBox, index );
+  connect( comboBox, SIGNAL( returnPressed()), m_receiver, m_member );
+
+  addContainer(toolBar, id);
+
+  connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+
+  toolBar->setItemAutoSized( id, true );
+
+  m_combo = comboBox;
+
+  emit plugged();
+
+  //QWhatsThis::add( comboBox, whatsThis() );
+
+  return containerCount() - 1;
+}
+
+void EditAction::unplug( QWidget *w )
+{
+//  if ( !w->inherits( "KToolBar" ) )
+//    return;
+
+  KToolBar *toolBar = (KToolBar *)w;
+
+  int idx = findContainer( w );
+  //kdDebug() << "KonqComboAction::unplug idx=" << idx << " menuId=" << menuId(idx) << endl;
+
+  toolBar->removeItem( menuId( idx ) );
+
+  removeContainer( idx );
+  m_combo = 0L;
+}
+
+void EditAction::clear()
+{
+	m_combo->clear();
+}
+

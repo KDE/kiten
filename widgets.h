@@ -4,9 +4,11 @@
 #include <qwidget.h>
 #include <qtextedit.h>
 #include <qptrlist.h>
+#include <klineedit.h>
 #include <qstringlist.h>
+#include <qguardedptr.h>
+#include <kaction.h>
 
-class KLineEdit;
 class KCompletion;
 class Entry;
 class Kanji;
@@ -21,48 +23,6 @@ class KStatusBar;
 class QSpinBox;
 class Dict;
 class QToolButton;
-
-class SearchForm : public QWidget
-{
-	Q_OBJECT
-
-	public:
-	SearchForm(QWidget *parent = 0, const char *name = 0);
-	~SearchForm();
-
-	QRegExp searchItems();
-	QRegExp readingSearchItems(bool);
-	QRegExp kanjiSearchItems();
-
-	QString lineText();
-	void setLineText(const QString&);
-	void setFocusNow();
-
-	private:
-	QToolButton *ClearButton;
-	KLineEdit *LineEdit;
-	KCompletion *CompletionObj;
-	KPushButton *SearchDictButton;
-	KPushButton *SearchReadingButton;
-	KPushButton *SearchKanjiButton;
-
-	bool wholeWord;
-	bool caseSensitive;
-
-	private slots:
-	void doSearch();
-	void doReadingSearch();
-	void doKanjiSearch();
-	void returnPressed();
-
-	public slots:
-	void slotUpdateConfiguration();
-	
-	signals:
-	void search();
-	void readingSearch();
-	void kanjiSearch();
-};
 
 class ResultView : public QTextEdit
 {
@@ -164,5 +124,29 @@ class Learn : public QWidget
 	QStringList oldMeanings;
 };
 
+class EditAction : public KAction
+{
+  Q_OBJECT
+public:
+    EditAction( const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name );
+    ~EditAction();
+
+    virtual int plug( QWidget *w, int index = -1 );
+
+    virtual void unplug( QWidget *w );
+
+    QString text() { return m_combo->text(); }
+
+public slots:
+	void clear();
+
+signals:
+    void plugged();
+
+private:
+    QGuardedPtr<KLineEdit> m_combo;
+    const QObject *m_receiver;
+    const char *m_member;
+};
 
 #endif
