@@ -497,7 +497,7 @@ given for you to guess on.</para>
 <para>Jim Breen <email>jwb@csse.monash.edu.au</email> - Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator. Also is main author of edict and kanjidic, which Kiten essentially require.</para>
 </listitem>
 <listitem>
-  <para>Paul Temple <email>paul.temple@gmx.net</email> - Patches and bug fixing.</para>
+  <para>Paul Temple <email>paul.temple@gmx.net</email> - Port to KConfig XT and bug fixing.</para>
 </listitem>
 </itemizedlist>
 
