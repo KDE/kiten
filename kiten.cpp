@@ -66,9 +66,9 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	(void) new KAction(i18n("&Clear Search Bar"), BarIcon("locationbar_erase", 16), CTRL+Key_N, Edit, SLOT(clear()), actionCollection(), "clear_search");
-	(void) new KAction(i18n("&Search"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
+	(void) new KAction(i18n("S&earch"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
 	(void) new KAction(i18n("Search with &Beginning of Word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
-	(void) new KAction(i18n("&Search Anywhere"), 0, this, SLOT(searchAnywhere()), actionCollection(), "search_anywhere");
+	(void) new KAction(i18n("Search &Anywhere"), 0, this, SLOT(searchAnywhere()), actionCollection(), "search_anywhere");
 	(void) new KAction(i18n("Stro&kes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
 	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");

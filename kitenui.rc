@@ -14,7 +14,7 @@
   <Action name="clear_search" />
 </Menu>
 
-<Menu name="search"><text>&amp;Search</text>
+<Menu name="search"><text>S&amp;earch</text>
   <Action name="search" />
   <Action name="search_in_results" />
   <Action name="search_beginning" />
@@ -34,7 +34,7 @@
 
 </MenuBar>
 
-<ToolBar name="locationToolBar" fullWidth="true" newline="true"><text>Search Toolbar</text>
+<ToolBar name="locationToolBar" fullWidth="true" newline="true"><text>&amp;Search Toolbar</text>
   <Action name="clear_search" />
   <Action name="search_edit" />
   <Action name="search" />
