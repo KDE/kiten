@@ -13,8 +13,8 @@
 #include <qtextstream.h>
 #include <qstringlist.h>
 #include <qptrlist.h>
-#include <qlistbox.h>
-#include <qpushbutton.h>
+#include <klistbox.h>
+#include <kpushbutton.h>
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <qstring.h>
@@ -173,7 +173,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 		if (i >= size)
 			break;
 		//hotlistGroup->insert(new QRadioButton(*hotlist.at(i), hotlistGroup), i);
-		hotlistGroup->insert(new QPushButton(*hotlist.at(i), hotlistGroup), i);
+		hotlistGroup->insert(new KPushButton(*hotlist.at(i), hotlistGroup), i);
 	}
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
 
@@ -190,15 +190,15 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	totalSpin = new QSpinBox(1, 30, 1, this);
 	layout->addWidget(totalSpin);
 	
-	ok = new QPushButton(i18n("&Look Up"), this);
+	ok = new KPushButton(i18n("&Look Up"), this);
 	ok->setEnabled(false);
 	connect(ok, SIGNAL(clicked()), SLOT(apply()));
 	layout->addWidget(ok);
-	cancel = new QPushButton(i18n("&Cancel"), this);
+	cancel = new KPushButton(i18n("&Cancel"), this);
 	connect(cancel, SIGNAL(clicked()), SLOT(close()));
 	layout->addWidget(cancel);
 
-	List = new QListBox(this);
+	List = new KListBox(this);
 	connect(List, SIGNAL(highlighted(int)), SLOT(highlighted(int)));
 	hlayout->addWidget(List);
 	connect(strokesSpin, SIGNAL(valueChanged(int)), SLOT(updateList(int)));

@@ -9,8 +9,8 @@
 
 class QCheckBox;
 class QSpinBox;
-class QPushButton;
-class QListBox;
+class KPushButton;
+class KListBox;
 class QButtonGroup;
 
 class Radical
@@ -73,11 +73,11 @@ class RadWidget : public QWidget
 	private:
 	QSpinBox *strokesSpin;
 	QSpinBox *totalSpin;
-	QPushButton *ok;
-	QPushButton *cancel;
+	KPushButton *ok;
+	KPushButton *cancel;
 	QButtonGroup *hotlistGroup;
 	QCheckBox *totalStrokes;
-	QListBox *List;
+	KListBox *List;
 
 	Rad *rad;
 

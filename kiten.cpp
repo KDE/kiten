@@ -65,7 +65,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	irAction =  new KAction(i18n("Search &in Results"), "find", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
-	addAction = new KAction(i18n("Add Kanji to learning list"), 0, this, SLOT(addToList()), actionCollection(), "add");
+	addAction = new KAction(i18n("Add &Kanji to Learning List"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
 
 	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
@@ -519,9 +519,11 @@ void TopLevel::slotConfigureDestroy()
 
 void TopLevel::createLearn()
 {
-	Learn *_Learn = new Learn(&_Index, this);
+	Learn *_Learn = new Learn(&_Index, 0);
 
 	connect(_Learn, SIGNAL(destroyed(Learn *)), this, SLOT(learnDestroyed(Learn *)));
+	connect(_Learn, SIGNAL(linkClicked(const QString &)), this, SLOT(ressearch(const QString &)));
+	connect(_Learn, SIGNAL(configureLearn()), this, SLOT(slotLearnConfigure()));
 	connect(this, SIGNAL(quizConfChanged()), _Learn, SLOT(updateQuizConfiguration()));
 	connect(this, SIGNAL(add(Dict::Entry)), _Learn, SLOT(add(Dict::Entry)));
 

@@ -311,7 +311,7 @@ eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
 	KAction *closeAction = KStdAction::close(this, SLOT(close()), actionCollection());
 
 	createGUI("eeditui.rc");
-	closeAction->plug(toolBar());
+	//closeAction->plug(toolBar());
 
 	openFile(filename);
 

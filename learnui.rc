@@ -21,6 +21,7 @@
 </Menu>
 
 <Menu name="go_web">
+  <Action name="grade" />
   <Action name="random" />
   <Action name="cheat" />
 </Menu>
