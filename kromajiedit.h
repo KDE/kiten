@@ -22,7 +22,6 @@
 #define KROMAJIEDIT_H
 
 #include <klineedit.h>
-#include <qcstring.h>
 
 class QKeyEvent;
 class QWidget;

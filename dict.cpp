@@ -18,24 +18,15 @@
  USA
 **/
 
-#include <kapplication.h>
 #include <kdebug.h>
-#include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
 #include <kstandarddirs.h>
 
-#include <qcstring.h>
-#include <qfile.h>
 #include <qfileinfo.h> 
-#include <qobject.h>
 #include <qregexp.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qstrlist.h>
 #include <qtextcodec.h>
-#include <qtextstream.h> 
 
 #include "dict.h"
 

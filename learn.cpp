@@ -20,8 +20,6 @@
 
 #include <kaction.h>
 #include <kapplication.h>
-#include <kconfig.h>
-#include <kdialog.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
 #include <klistview.h>
@@ -29,14 +27,10 @@
 #include <kmessagebox.h>
 #include <kpushbutton.h>
 #include <kstatusbar.h>
-#include <kstdaction.h>
 #include <kstringhandler.h>
-#include <ktoolbar.h>
 #include <qbuttongroup.h>
 #include <qheader.h>
 #include <qlayout.h>
-#include <qregexp.h>
-#include <qsplitter.h>
 #include <qtabwidget.h>
 #include <qtimer.h>
 #include <qtextcodec.h>

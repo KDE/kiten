@@ -23,15 +23,12 @@
 
 #include <klineedit.h>
 #include <kmainwindow.h>
-#include <qguardedptr.h>
 #include <ktextbrowser.h>
-#include <qwidget.h>
 
 class KAction;
 class KListView;
 class KStatusBar;
 
-#include "dict.h"
 #include "rad.h"
 
 class ResultView : public KTextBrowser

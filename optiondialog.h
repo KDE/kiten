@@ -21,8 +21,6 @@
 #ifndef OPTIONDIALOG_H
 #define OPTIONDIALOG_H
 
-#include <kdialogbase.h>
-#include <qwidget.h>
 
 class KListView;
 class QString;
@@ -35,6 +33,7 @@ class QCheckBox;
 class KGlobalAccel;
 class DictList;
 
+//This is the Configure Kiten dialog, should be ported to ui files and KConfig XT
 class ConfigureDialog : public KDialogBase
 {
 	Q_OBJECT

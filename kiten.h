@@ -21,11 +21,6 @@
 #ifndef KITEN_H
 #define KITEN_H
 
-#include <kmainwindow.h>
-#include <qptrlist.h>
-#include <qregexp.h>
-#include <qstring.h>
-#include <qstringlist.h>
 
 #include "dict.h"
 #include "rad.h"

@@ -23,14 +23,6 @@
 #define DICT_H
 
 #include <qfile.h>
-#include <qmemarray.h>
-#include <qobject.h>
-#include <qptrlist.h>
-#include <qregexp.h>
-#include <qstringlist.h>
-#include <qstring.h>
-#include <qvaluelist.h>
-#include <kurl.h>
 
 #include <sys/types.h>
 #ifdef __osf__

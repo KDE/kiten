@@ -18,44 +18,28 @@
  USA
 **/
 
-#include <kaccel.h>
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kdeversion.h>
 #include <kedittoolbar.h>
-#include <kglobal.h>
 #include <kglobalaccel.h>
 #include <kiconloader.h>
 #include <kkeydialog.h>
 #include <klocale.h>
 #include <kmainwindow.h>
-#include <kmessagebox.h>
-#include <kshortcut.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
-#include <kstdaction.h>
-#include <kstdguiitem.h>
 
-#include <qcheckbox.h>
 #include <qclipboard.h>
-#include <qfile.h>
-#include <qguardedptr.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
 #include <qtimer.h>
-#include <qwidget.h>
 
-#include "deinf.h"
-#include "dict.h"
 #include "kiten.h"
 #include "learn.h"
 #include "optiondialog.h"
-#include "rad.h"
-#include "widgets.h"
 
 #include <cassert>
 

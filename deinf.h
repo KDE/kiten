@@ -21,10 +21,6 @@
 #ifndef DEFINF_H
 #define DEFINF_H
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
-#include <qmap.h>
 
 namespace Deinf
 {

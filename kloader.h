@@ -24,11 +24,7 @@
 #ifndef KLOADER_H
 #define KLOADER_H
 
-#include <kurl.h>
 #include <qfile.h>
-#include <qstring.h>
-#include <qtextstream.h>
-#include <qdatastream.h>
 
 /**
  * KLoader provides a way to load files in the most efficient way for

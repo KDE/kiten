@@ -25,24 +25,16 @@
 #include <kfontdialog.h>
 #include <qtextcodec.h>
 #include <kglobalaccel.h>
-#include <kglobal.h>
-#include <kdebug.h>
 #include <klocale.h>
 #include <qcombobox.h>
-#include <kconfig.h>
 #include <kfiledialog.h>
 #include <kstandarddirs.h>
 #include <kurllabel.h>
 #include <krun.h>
-#include <klistview.h>
 
 #include <qlayout.h>
-#include <qstring.h>
 #include <qcheckbox.h>
-#include <qstringlist.h>
-#include <qlabel.h>
 #include <qpushbutton.h>
-#include <qfileinfo.h>
 
 #include "optiondialog.h"
 

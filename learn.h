@@ -21,11 +21,8 @@
 #ifndef LEARN_H
 #define LEARN_H
 
-#include <kmainwindow.h>
 #include <kurl.h>
-#include <qstringlist.h>
 
-#include "dict.h"
 #include "widgets.h"
 
 class KAction;

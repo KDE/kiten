@@ -24,11 +24,7 @@
 #ifndef KSAVER_H
 #define KSAVER_H
 
-#include <kurl.h>
 #include <qfile.h>
-#include <qstring.h>
-#include <qtextstream.h>
-#include <qdatastream.h>
 
 /**
  * KSaver provides a way to save files in the most efficient way for

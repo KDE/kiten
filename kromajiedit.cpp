@@ -18,19 +18,12 @@
  USA
 **/
 
-#include <qwidget.h>
-#include <qevent.h>
 #include <kdebug.h>
-#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <qfile.h>
 #include <qpopupmenu.h>
-#include <qcstring.h>
-#include <qstring.h>
-#include <qtextstream.h>
-#include <qstringlist.h>
 #include <qtextcodec.h>
 
 #include "kromajiedit.h"

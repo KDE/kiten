@@ -21,8 +21,6 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kapplication.h>
-#include <klocale.h>
-#include <qnamespace.h>
 #include <kmainwindow.h>
 
 #include "kiten.h"

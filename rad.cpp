@@ -22,7 +22,6 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kdialog.h>
-#include <kglobal.h>
 #include <klistbox.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -34,12 +33,8 @@
 #include <qfile.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qptrlist.h>
 #include <qspinbox.h>
-#include <qstring.h>
-#include <qstringlist.h>
 #include <qtextcodec.h>
-#include <qtextstream.h>
 
 #include "rad.h"
 

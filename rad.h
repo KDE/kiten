@@ -21,11 +21,6 @@
 #ifndef RAD_H
 #define RAD_H
 
-#include <qstring.h>
-#include <qobject.h>
-#include <qstringlist.h>
-#include <qptrlist.h>
-#include <qwidget.h>
 
 class QCheckBox;
 class QLabel;

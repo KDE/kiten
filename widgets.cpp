@@ -26,22 +26,14 @@
 #include <kmessagebox.h>
 #include <kprinter.h>
 #include <kprocess.h>
-#include <kpushbutton.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
-#include <kstdaction.h>
-#include <ktoolbar.h>
-#include <qcstring.h>
-#include <qfile.h>
 #include <qfileinfo.h>
-#include <qfont.h>
 #include <qpaintdevicemetrics.h>
 #include <qpainter.h>
-#include <qrect.h>
 #include <qregexp.h>
 #include <qsimplerichtext.h>
 #include <qtextcodec.h>
-#include <qtextstream.h>
 
 #include <cassert>
 

@@ -18,19 +18,13 @@
  USA
 **/
 
-#include <kglobal.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <qstring.h>
 #include <qfile.h>
-#include <qtextstream.h>
-#include <qmap.h>
 #include <qregexp.h>
-#include <qstringlist.h>
 #include <qtextcodec.h>
-#include <qvaluelist.h>
 #include "deinf.h"
 
 Deinf::Index::Index()
