@@ -1,0 +1,9 @@
+[Desktop Entry]
+Comment=Kanji Tool
+Comment[ja]=漢字ツール
+DocPath=kiten/index.html
+Exec=krpn -caption "%c" %i %m
+Name=Kiten
+Terminal=0
+Type=Application
+Icon=kiten
