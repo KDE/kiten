@@ -45,6 +45,7 @@ class TopLevel : public KMainWindow
 	void gradeSearch();
 	void back();
 	void forward();
+	void slotKeyBindings();
 	void slotConfigure();
 	void slotLearnConfigure();
 	void slotConfigureHide();

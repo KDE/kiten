@@ -7,6 +7,7 @@
 #include <kglobal.h>
 #include <kglobalaccel.h>
 #include <kiconloader.h>
+#include <kkeydialog.h>
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <kmessagebox.h>
@@ -50,6 +51,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) KStdAction::keyBindings(this, SLOT(slotKeyBindings()), actionCollection());
 	(void) new KAction(i18n("&Learn..."), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	(void) new KAction(i18n("&Dictionary Editor..."), 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
@@ -179,7 +181,10 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 	_ResultView->clear();
 
 	Dict::Entry first = Dict::firstEntry(results);
-	if(first.extendedKanjiInfo())
+	
+	kanjiCB->setChecked(first.extendedKanjiInfo());
+
+	if (first.extendedKanjiInfo())
 	{
 		if (results.count == 1) // if its only one entry, give compounds too!
 		{
@@ -623,6 +628,11 @@ void TopLevel::toggleCom()
 {
 }
 
+void TopLevel::slotKeyBindings()
+{
+	KKeyDialog::configure(actionCollection());
+}
+
 void TopLevel::configureToolBars()
 {
 	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
@@ -690,8 +700,8 @@ void TopLevel::back(void)
 
 void TopLevel::forward(void)
 {
-	++currentResult;
 	assert(currentResult != resultHistory.end());
+	++currentResult;
 	enableHistoryButtons();
 	handleSearchResult(*currentResult);
 }
