@@ -206,8 +206,7 @@ void Dict::doSearch(QString regexp)
 
 	if (res != 0) // never got a match
 	{
-		//kdDebug() << "NoMoreResults\n";
-		goto NoMoreResults;
+		return;
 	}
 
 	// as the above sometimes misses the first matching entry, step back to the first
@@ -251,7 +250,7 @@ void Dict::doSearch(QString regexp)
 
 		if (index_posn > hi)
 		{
-			goto NoMoreResults;
+			return;
 		}
 		it = index_posn;
 	
@@ -261,8 +260,7 @@ void Dict::doSearch(QString regexp)
 	
 		if (res != 0)
 		{
-			// thats all, folks!
-			goto NoMoreResults;
+			return;
 		}
 	}
 
@@ -317,10 +315,6 @@ void Dict::doSearch(QString regexp)
 	}
 	
 	goto Common; // search for more 
-
-	NoMoreResults: // we get sent here when its time to output
-
-	kdDebug() << "doSearch() done!\n";
 }
 
 QPtrList<Entry> Dict::search(QString realregexp, QString regexp, unsigned int &fullNum)
