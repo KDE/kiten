@@ -12,8 +12,8 @@ kiten_la_SOURCES = main.cpp \
 
 kiten_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -avoid-version
 
-bin_PROGRAMS = kiten
-bin_PROGRAMS = xjdxgen
+bin_PROGRAMS = kiten xjdxgen
+
 kiten_LDADD = kiten.la $(KDE_RPATH) $(LIB_KDEUI)
 kiten_LDFLAGS = $(all_libraries)
 kiten_SOURCES = dummy.cpp
