@@ -118,6 +118,8 @@ void ConfigureDialog::slotApply()
 	emit valueChanged();
 }
 
+//////////////////////////////////////////////////////////////////////
+
 DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	: QWidget(parent, name)
 {
@@ -146,8 +148,8 @@ DictList::DictList(const QString &configKey, QWidget *parent, char *name)
 	buttonLayout->addWidget(DelButton);
 	connect(DelButton, SIGNAL(pressed()), SLOT(del()));
 
-	List->addColumn("Name");
-	List->addColumn("File");
+	List->addColumn(i18n("Name"));
+	List->addColumn(i18n("File"));
 
 	List->setItemsRenameable(true);
 	List->setRenameable(1);

@@ -54,6 +54,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) new KAction(i18n("&Learn..."), "pencil", 0, this, SLOT(createLearn()), actionCollection(), "file_learn");
 
 	connect(_SearchForm, SIGNAL(search()), SLOT(search()));
 	connect(_SearchForm, SIGNAL(readingSearch()), SLOT(readingSearch()));
@@ -105,6 +106,8 @@ void TopLevel::doSearch()
 	_ResultView->clear();
 
 	statusBar()->message(i18n("Searching..."));
+	unsigned int fullNum;
+	unsigned int num;
 
 	if (!kanjiCB->isChecked())
 	{
@@ -114,11 +117,7 @@ void TopLevel::doSearch()
 			return;
 		}
 	
-		unsigned int fullNum;
-		unsigned int num;
 		QPtrList<Entry> results = _Dict->search(realregexp, regexp, num, fullNum);
-		
-		setResults(num, fullNum);
 		
 		QPtrListIterator<Entry> it(results);
 		Entry *curEntry;
@@ -136,11 +135,7 @@ void TopLevel::doSearch()
 			return;
 		}
 	
-		unsigned int fullNum;
-		unsigned int num;
 		QPtrList<Kanji> results = _Dict->kanjiSearch(realregexp, regexp, num, fullNum);
-		
-		setResults(num, fullNum);
 		
 		QPtrListIterator<Kanji> it(results);
 		Kanji *curKanji;
@@ -151,7 +146,7 @@ void TopLevel::doSearch()
 		}
 	}
 
-	_ResultView->updateScrollBars(); // workaround for QTextEdit bug!
+	setResults(num, fullNum);
 }
 
 void TopLevel::search()
@@ -249,6 +244,7 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 		str += i18n(" out of %1").arg(fullNum);
 
 	statusBar()->message(str);
+	setCaption(kapp->makeStdCaption(str));
 }
 
 void TopLevel::slotUpdateConfiguration()
@@ -343,6 +339,12 @@ void TopLevel::slotConfigureDestroy()
 		delete optionDialog;
 		optionDialog = 0;
 	}
+}
+
+void TopLevel::createLearn()
+{
+	Learn *_Learn = new Learn(_Dict, 0);
+	_Learn->show();
 }
 
 #include "kiten.moc"

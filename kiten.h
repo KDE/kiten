@@ -38,6 +38,8 @@ class TopLevel : public KMainWindow
 	void slotUpdateConfiguration();
 	void loadDict();
 
+	void createLearn();
+
 	private:
 	Dict * _Dict;
 	SearchForm *_SearchForm;

@@ -370,19 +370,23 @@ QPtrList<Entry> Dict::search(QRegExp realregexp, QString regexp, unsigned int &n
 		{
 			s = *results;
 			CurrentDict = DictList.size(); // make sure we only do once
-			ret.append(new Entry("Previous Results"));
+			ret.append(new Entry(i18n("previous results")));
 		}
 		else
 		{
 			it = 0;
 	
 			// add seperator
-			ret.append(new Entry(*(DictNameList.at(CurrentDict))));
-	
-			//kdDebug() << "curdic = " << CurrentDict << endl;
-			//kdDebug() << "name = " << *(DictNameList.at(CurrentDict)) << endl;
-			
-			doSearch(regexp); // make our s
+			if (*(DictNameList.at(CurrentDict)) == "Edict" && com) // if com, nothing but edict
+			{
+				ret.append(new Entry("Edict"));
+				doSearch(regexp); // make our s
+			}
+			else
+			{
+				num++; // counteract what happens below
+				fullNum++;
+			}
 		}
 		num--; // we added a dummy divider, so lets take one off
 		fullNum--;
@@ -395,7 +399,8 @@ QPtrList<Entry> Dict::search(QRegExp realregexp, QString regexp, unsigned int &n
 			if (found < 0)
 				continue;
 	
-			if (((*itr).find(QString("(P)")) < 0) && com && (*(DictNameList.at(CurrentDict)) == "Edict")) // common entries have (P), but only in EDICT
+			// i think that all other dict's entries are non-common because, well, they are extra
+			if (((*itr).find(QString("(P)")) < 0) && com) // && (*(DictNameList.at(CurrentDict)) == "Edict"))
 			{
 				//kdDebug() << "Not Common\n";
 				fullNum++;
@@ -435,7 +440,7 @@ QPtrList<Kanji> Dict::kanjiSearch(QRegExp realregexp, const QString &regexp, uns
 		{
 			s = *results;
 			CurrentDict = DictList.size() + KanjiDictList.size(); // make sure we only do once
-			ret.append(new Kanji("Previous Results"));
+			ret.append(new Kanji(i18n("previous results")));
 		}
 		else
 		{

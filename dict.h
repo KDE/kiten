@@ -31,6 +31,9 @@ class Dict : public QObject
 	void setDictNameList(const QStringList &);
 	void setKanjiDictList(const QStringList &);
 	void setKanjiDictNameList(const QStringList &);
+
+	bool isir() { return ir; };
+	bool iscom() { return com; };
 	
 	public slots:
 	void toggleCom(bool);

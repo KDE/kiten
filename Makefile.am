@@ -23,13 +23,13 @@ METASOURCES = AUTO
 
 CLEANFILES = dummy.cpp
 
-rcdir = $(kde_datadir)/kiten
-#rc_DATA = kitenui.rc
+rcdir = $(kde_datadir)/Kiten
+rc_DATA = kitenui.rc
 
 dummy.cpp:
 	echo > dummy.cpp
 
-applnk_DATA = kiten.desktop
+applnk_DATA = Kiten.desktop
 applnkdir = $(kde_appsdir)/Utilities
 
 data_DATA = edict kanjidic

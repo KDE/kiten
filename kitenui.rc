@@ -1,0 +1,16 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="Kiten" version="1">
+
+<MenuBar>
+
+<Menu name="file"><text>&amp;File</text>
+ <Action name="file_learn"/>
+</Menu>
+
+<Menu name="settings"><text>&amp;Settings</text>
+ <Action name="settings_preferences"/>
+</Menu>
+
+</MenuBar>
+
+</kpartgui>
