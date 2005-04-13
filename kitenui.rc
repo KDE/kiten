@@ -30,6 +30,7 @@
   <Action name="deinf_toggle" append="save_merge" />
   <Action name="autosearch_toggle" append="save_merge" />
   <Action name="common" append="save_merge"/>
+  <Action name="options_configure_global_keybinding" append="configure_merge"/>
 </Menu>
 
 </MenuBar>

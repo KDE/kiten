@@ -24,13 +24,11 @@
 
 class KListView;
 class QString;
-class KKeyChooser;
 class KFontChooser;
 class QLabel;
 class QPushButton;
 class QComboBox;
 class QCheckBox;
-class KGlobalAccel;
 class DictList;
 
 #include <kconfigdialog.h>
@@ -44,7 +42,7 @@ class ConfigureDialog : public KConfigDialog
 {
 	Q_OBJECT
 public:
-	ConfigureDialog(KGlobalAccel* accel, QWidget *parent=0, const char *name=0);
+	ConfigureDialog(QWidget *parent=0, const char *name=0);
 	~ConfigureDialog();
 signals:
 	void settingsUpdated();
@@ -53,15 +51,11 @@ private slots:
 	void updateWidgets();
 	void updateWidgetsDefault();
 	void updateSettings();
-	void slotKeyChanged();
 
 private:
 	bool hasChanged();
 	bool isDefault();
 	ConfigDictionaries* configDic;
-	KKeyChooser* keyChooser;
-	KGlobalAccel* accel;
-	bool keyChanged;
 };
 
 #endif

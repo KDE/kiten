@@ -22,7 +22,6 @@
 #include <kdebug.h>
 #include <kapplication.h>
 #include <qvgroupbox.h>
-#include <kkeydialog.h>
 #include <kfontdialog.h>
 #include <qtextcodec.h>
 #include <klocale.h>
@@ -41,21 +40,15 @@
 #include "configlearn.h"
 #include "configsearching.h"
 
-ConfigureDialog::ConfigureDialog(KGlobalAccel* Accel, QWidget *parent, const char *name) : KConfigDialog(parent, name, Config::self())
+ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDialog(parent, name, Config::self())
 {
-	keyChanged = false;
-	accel = Accel;
 	configDic = new ConfigDictionaries(0, "dictionaries_page");
 	connect(configDic, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 	addPage(configDic, i18n("Dictionaries"), "contents");
 	addPage(new ConfigSearching(0, "searching_page"), i18n("Searching"), "find");
 	addPage(new ConfigLearn(0, "learn_page"), i18n("Learn"), "pencil");
-	keyChooser = new KKeyChooser(accel, this);
-	connect(keyChooser, SIGNAL(keyChange()), this, SLOT(slotKeyChanged()));
-	addPage(keyChooser, i18n("Global Keys"), "find");
 	ConfigFont* configFont = new ConfigFont(0, "font_page");
-	configFont->kcfg_font->setSampleText(i18n("Result View Font"));
-	QString::fromUtf8(" - いろはにほへと 漢字");
+	configFont->kcfg_font->setSampleText(i18n("Result View Font")+QString::fromUtf8(" - いろはにほへと 漢字"));
 	addPage(configFont, i18n("Font"), "fonts");
 }
 
@@ -64,31 +57,19 @@ ConfigureDialog::~ConfigureDialog()
 }
 
 
-void ConfigureDialog::slotKeyChanged()
-{
-	keyChanged = true;
-	updateButtons();
-}
-
 void ConfigureDialog::updateWidgets()
 {
 	configDic->updateWidgets();
-	accel->readSettings(KGlobal::config());
 }
 
  void ConfigureDialog::updateWidgetsDefault()
 {
 	configDic->updateWidgetsDefault();
-	keyChooser->allDefault();
 }
 
  void ConfigureDialog::updateSettings()
 {
 	bool changed = hasChanged();
-	keyChooser->commitChanges();
-	accel->writeSettings(KGlobal::config());
-	accel->updateConnections();
-	keyChanged = false;
 	configDic->updateSettings();
 	if (changed) KConfigDialog::settingsChangedSlot();
 }
@@ -97,7 +78,7 @@ void ConfigureDialog::updateWidgets()
 
 bool ConfigureDialog::hasChanged()
 {
-	return configDic->hasChanged() || keyChanged;
+	return configDic->hasChanged();
 }
 
 bool ConfigureDialog::isDefault()

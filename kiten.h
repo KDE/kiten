@@ -87,6 +87,7 @@ private slots:
 	void learnDestroyed(Learn *);
 	void createEEdit();
 	void configureToolBars();
+	void configureGlobalKeys();
 	void newToolBarConfig();
 
 	void finishInit();

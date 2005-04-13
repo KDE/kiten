@@ -28,6 +28,7 @@
 #include <kedittoolbar.h>
 #include <kglobalaccel.h>
 #include <kiconloader.h>
+#include <kkeydialog.h>
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <kstandarddirs.h>
@@ -84,6 +85,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 	addAction = new KAction(i18n("Add &Kanji to Learning List"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
+	(void) new KAction(i18n("Configure &Global Shortcuts..."), "configure_shortcuts", 0, this, SLOT(configureGlobalKeys()), actionCollection(), "options_configure_keybinding");
 
 	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
 	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
@@ -606,7 +608,7 @@ void TopLevel::slotConfigure()
 		return;
 	
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
-	optionDialog = new ConfigureDialog(Accel, this, "settings");
+	optionDialog = new ConfigureDialog(this, "settings");
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
 	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(slotConfigurationChanged()));
 	connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
@@ -889,6 +891,11 @@ void TopLevel::enableHistoryButtons()
 void TopLevel::print()
 {
 	_ResultView->print((*currentResult).text);
+}
+
+void TopLevel::configureGlobalKeys()
+{
+	KKeyDialog::configure(Accel, this);
 }
 
 #include "kiten.moc"
