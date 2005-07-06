@@ -43,3 +43,5 @@ messages: rc.cpp
 
 
 
+
+include ../admin/Doxyfile.am
