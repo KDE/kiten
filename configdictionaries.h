@@ -28,7 +28,7 @@ class ConfigDictionaries : public ConfigDictionariesBase
 {
 	Q_OBJECT
 public:
-	ConfigDictionaries(QWidget *parent = 0, const char* name = 0, WFlags f = 0);
+	ConfigDictionaries(QWidget *parent = 0, const char* name = 0, Qt::WFlags f = 0);
 	void readDictionaries();
         
 	// KConfig stuff

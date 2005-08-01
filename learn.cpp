@@ -29,12 +29,17 @@
 #include <kpushbutton.h>
 #include <kstatusbar.h>
 #include <kstringhandler.h>
-#include <qbuttongroup.h>
-#include <qheader.h>
+#include <q3buttongroup.h>
+#include <q3header.h>
 #include <qlayout.h>
 #include <qtabwidget.h>
 #include <qtimer.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <Q3PtrList>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <stdlib.h> // RAND_MAX
 #include <cassert>
@@ -46,12 +51,12 @@
 #include "ksaver.h"
 #include "learn.h"
 
-LearnItem::LearnItem(QListView *parent, QString label1, QString label2, QString label3, QString label4, QString label5, QString label6, QString label7, QString label8)
-	: QListViewItem(parent, label1, label2, label3, label4, label5, label6, label7, label8)
+LearnItem::LearnItem(Q3ListView *parent, QString label1, QString label2, QString label3, QString label4, QString label5, QString label6, QString label7, QString label8)
+	: Q3ListViewItem(parent, label1, label2, label3, label4, label5, label6, label7, label8)
 {
 }
 
-int LearnItem::compare(QListViewItem *item, int col, bool ascending) const
+int LearnItem::compare(Q3ListViewItem *item, int col, bool ascending) const
 {
 	// "Returns < 0 if this item is less than i [item] , 0 if they
 	// are equal and > 0 if this item is greater than i [item]."
@@ -92,16 +97,16 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	List->addColumn(i18n("Your Score"));
 
 	List->setAllColumnsShowFocus(true);
-	List->setColumnWidthMode(0, QListView::Maximum);
-	List->setColumnWidthMode(1, QListView::Maximum);
-	List->setColumnWidthMode(2, QListView::Maximum);
-	List->setColumnWidthMode(3, QListView::Maximum);
+	List->setColumnWidthMode(0, Q3ListView::Maximum);
+	List->setColumnWidthMode(1, Q3ListView::Maximum);
+	List->setColumnWidthMode(2, Q3ListView::Maximum);
+	List->setColumnWidthMode(3, Q3ListView::Maximum);
 	List->setMultiSelection(true);
 	List->setDragEnabled(true);
 	List->setSorting(4);
 	List->setSelectionModeExt(KListView::Extended);
 
-	connect(List, SIGNAL(executed(QListViewItem *)), SLOT(showKanji(QListViewItem *)));
+	connect(List, SIGNAL(executed(Q3ListViewItem *)), SLOT(showKanji(Q3ListViewItem *)));
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));
 
 	QStringList grades(i18n("Grade 1"));
@@ -119,13 +124,13 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	forwardAct->plug(toolBar());
 	backAct = KStdAction::back(this, SLOT(prev()), actionCollection());
 	backAct->plug(toolBar());
-	cheatAct = new KAction(i18n("&Cheat"), CTRL + Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
-	randomAct = new KAction(i18n("&Random"), "goto", CTRL + Key_R, this, SLOT(random()), actionCollection(), "random");
+	cheatAct = new KAction(i18n("&Cheat"), Qt::CTRL + Qt::Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
+	randomAct = new KAction(i18n("&Random"), "goto", Qt::CTRL + Qt::Key_R, this, SLOT(random()), actionCollection(), "random");
 	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
 	gradeAct->setItems(grades);
 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
-	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
-	addAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, SLOT(add()), actionCollection(), "add");
+	removeAct = new KAction(i18n("&Delete"), "edit_remove", Qt::CTRL + Qt::Key_X, this, SLOT(del()), actionCollection(), "del");
+	addAct = new KAction(i18n("&Add"), "edit_add", Qt::CTRL + Qt::Key_A, this, SLOT(add()), actionCollection(), "add");
 	addAllAct = new KAction(i18n("Add A&ll"), 0, this, SLOT(addAll()), actionCollection(), "addall");
 	newAct = KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	openAct = KStdAction::open(this, SLOT(open()), actionCollection());
@@ -146,7 +151,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	hlayout->addStretch();
 	quizLayout->addStretch();
 
-	answers = new QButtonGroup(1, Horizontal, quizTop);
+	answers = new Q3ButtonGroup(1, Qt::Horizontal, quizTop);
 	for (int i = 0; i < numberOfAnswers; ++i)
 		answers->insert(new KPushButton(answers), i);
 	quizLayout->addWidget(answers);
@@ -301,7 +306,7 @@ void Learn::update()
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
 	View->addHeader(i18n("%1 in compounds").arg(kanji));
 	
-	for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+	for (Q3ValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{
 		kapp->processEvents();
 		View->addResult(*it, true);
@@ -443,7 +448,7 @@ void Learn::write(const KURL &url)
 	QTextStream &stream = saver.textStream();
 	stream.setCodec(&codec);
 
-	for (QListViewItemIterator it(List); it.current(); ++it)
+	for (Q3ListViewItemIterator it(List); it.current(); ++it)
 		stream << it.current()->text(0).at(0);
 
 	if (!saver.close())
@@ -463,7 +468,7 @@ void Learn::saveScores()
 {
 	KConfig &config = *Config::self()->config();
 	config.setGroup("Learn Scores");
-	for (QListViewItemIterator it(List); it.current(); ++it)
+	for (Q3ListViewItemIterator it(List); it.current(); ++it)
 		config.writeEntry(it.current()->text(0), it.current()->text(4).toInt());
 	config.sync();
 	Config::self()->writeConfig();
@@ -481,7 +486,7 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 	// noEmit always means it's not added by the user, so this check isn't needed
 	if (!noEmit)
 	{
-		for (QListViewItemIterator it(List); it.current(); ++it)
+		for (Q3ListViewItemIterator it(List); it.current(); ++it)
 		{
 			if (it.current()->text(0) == kanji)
 			{
@@ -518,7 +523,7 @@ void Learn::addAll()
 	regexp = regexp.arg(grade);
 
 	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
-	for (QValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
+	for (Q3ValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
 	{
 		// don't add headers
 		if ((*i).dictName() == "__NOTSET" && (*i).header() == "__NOTSET")
@@ -526,7 +531,7 @@ void Learn::addAll()
 	}
 }
 
-void Learn::addItem(QListViewItem *item, bool noEmit)
+void Learn::addItem(Q3ListViewItem *item, bool noEmit)
 {
 	// 2 is the magic jump
 		if (List->childCount() == 2)
@@ -545,7 +550,7 @@ void Learn::addItem(QListViewItem *item, bool noEmit)
 	}
 }
 
-void Learn::showKanji(QListViewItem *item)
+void Learn::showKanji(Q3ListViewItem *item)
 {
 	assert(item);
 
@@ -575,12 +580,12 @@ void Learn::del()
 	}
 	else // setup page
 	{
-		QPtrList<QListViewItem> selected = List->selectedItems();
+		Q3PtrList<Q3ListViewItem> selected = List->selectedItems();
 		assert(selected.count());
 
 		bool makenewq = false; // must make new quiz if we
 		                       // delete the current item
-		for (QPtrListIterator<QListViewItem> i(selected); *i; ++i)
+		for (Q3PtrListIterator<Q3ListViewItem> i(selected); *i; ++i)
 		{
 			if (curItem == i)
 				makenewq = true;
@@ -609,12 +614,12 @@ void Learn::print()
 	View->clear();
 	View->addHeader(QString("<h1>%1</h1>").arg(i18n("Learning List")), 1);
 
-	QListViewItemIterator it(List);
+	Q3ListViewItemIterator it(List);
 	for (; it.current(); ++it)
 	{
 		QString kanji = it.current()->text(0);
 		Dict::SearchResult result = index->searchKanji(QRegExp(kanji), kanji, false);
-		for (QValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
+		for (Q3ValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
 		{
 			if ((*i).dictName() == "__NOTSET" && (*i).header() == "__NOTSET")
 			{
@@ -665,7 +670,7 @@ void Learn::answerClicked(int i)
 
 	//config.writeEntry(curItem->text(0) + "_4", newscore);
 
-	QListViewItem *newItem = new LearnItem(List, curItem->text(0), curItem->text(1), curItem->text(2), curItem->text(3), QString::number(newscore));
+	Q3ListViewItem *newItem = new LearnItem(List, curItem->text(0), curItem->text(1), curItem->text(2), curItem->text(3), QString::number(newscore));
 
 	// readd, so it sorts
 	// 20 November 2004: why?? why not List->sort() ??
@@ -717,7 +722,7 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 
 			int max = (int) rand;
 		
-			QListViewItemIterator it(List);
+			Q3ListViewItemIterator it(List);
 			it += max;
 
 			meaning = it.current()->text(guessOn);
@@ -762,7 +767,7 @@ void Learn::qupdate()
 
 struct Learn::scoreCompare 
 {
-	bool operator()(const QListViewItem* v1, const QListViewItem* v2)
+	bool operator()(const Q3ListViewItem* v1, const Q3ListViewItem* v2)
 	{
 		return v1->text(4).toInt() < v2->text(4).toInt();
 	}
@@ -797,14 +802,14 @@ void Learn::qnew() // new quiz kanji
 	if (max > count)
 		max = count;
 
-	std::multiset<const QListViewItem*, scoreCompare> scores;
-	QListViewItemIterator sIt(List);
+	std::multiset<const Q3ListViewItem*, scoreCompare> scores;
+	Q3ListViewItemIterator sIt(List);
 
 	for (; sIt.current(); ++sIt)
 		scores.insert(sIt.current());
 
-	std::multiset<const QListViewItem*>::iterator it = scores.begin();
-	std::multiset<const QListViewItem*>::iterator tmp = scores.begin();
+	std::multiset<const Q3ListViewItem*>::iterator it = scores.begin();
+	std::multiset<const Q3ListViewItem*>::iterator tmp = scores.begin();
 
 	int i;
 	for (i = 2; i <= max; ++it)
@@ -826,7 +831,7 @@ void Learn::qnew() // new quiz kanji
 	}
 
 	prevItem = curItem;
-	curItem = const_cast<QListViewItem*>(*it);
+	curItem = const_cast<Q3ListViewItem*>(*it);
 
 	qKanji->setFocus();
 	qupdate();

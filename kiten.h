@@ -27,6 +27,9 @@
 #include "dict.h"
 #include "rad.h"
 #include "deinf.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 
 class Config;
 class ConfigureDialog;
@@ -121,7 +124,7 @@ private:
 	Config* config;
 	void setResults(unsigned int, unsigned int);
 
-	QPtrList<Learn> learnList;
+	Q3PtrList<Learn> learnList;
 
 	QRegExp searchItems();
 	QRegExp readingSearchItems(bool);
@@ -134,8 +137,8 @@ private:
 
 	Dict::Entry toAddKanji;
 
-	QValueList<Dict::SearchResult> resultHistory;
-	QValueListIterator<Dict::SearchResult> currentResult;
+	Q3ValueList<Dict::SearchResult> resultHistory;
+	Q3ValueListIterator<Dict::SearchResult> currentResult;
 	int currentResultIndex;
 	void addHistory(Dict::SearchResult);
 	void enableHistoryButtons();

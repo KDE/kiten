@@ -23,8 +23,11 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <qfile.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <QKeyEvent>
 
 #include "kromajiedit.h"
 
@@ -43,7 +46,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 
 	QFile f(romkana);
 	
-	if (!f.open(IO_ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Romaji information could not be loaded, so Romaji conversion cannot be used."));
 	}
@@ -253,9 +256,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	KLineEdit::keyPressEvent(e); // don't think we'll get here :)
 }
 
-QPopupMenu *KRomajiEdit::createPopupMenu()
+Q3PopupMenu *KRomajiEdit::createPopupMenu()
 {
-    QPopupMenu *popup = KLineEdit::createPopupMenu();
+    Q3PopupMenu *popup = KLineEdit::createPopupMenu();
     popup->insertSeparator();
     popup->insertItem(i18n("English"), 0);
     popup->insertItem(i18n("Kana"), 1);

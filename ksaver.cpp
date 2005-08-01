@@ -32,6 +32,8 @@
 #include <kio/netaccess.h>
 
 #include "ksaver.h"
+//Added by qt3to4:
+#include <QTextStream>
 
 class KSaver::KSaverPrivate
 {
@@ -79,7 +81,7 @@ bool KSaver::open(void)
 {
 	if(d->isLocal)
 	{
-		if(d->file->open(IO_WriteOnly))
+		if(d->file->open(QIODevice::WriteOnly))
 		{
 			return true;
 		}

@@ -25,6 +25,8 @@
 #define KLOADER_H
 
 #include <qfile.h>
+//Added by qt3to4:
+#include <QTextStream>
 
 /**
  * KLoader provides a way to load files in the most efficient way for

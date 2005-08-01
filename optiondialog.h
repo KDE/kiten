@@ -1,3 +1,5 @@
+//Added by qt3to4:
+#include <QLabel>
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>

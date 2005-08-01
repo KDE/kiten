@@ -25,6 +25,8 @@
 #define KSAVER_H
 
 #include <qfile.h>
+//Added by qt3to4:
+#include <QTextStream>
 
 /**
  * KSaver provides a way to save files in the most efficient way for

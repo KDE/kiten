@@ -31,6 +31,8 @@
 #include <kio/netaccess.h>
 
 #include "kloader.h"
+//Added by qt3to4:
+#include <QTextStream>
 
 class KLoader::KLoaderPrivate
 {
@@ -77,7 +79,7 @@ bool KLoader::open(void)
 {
 	if(d->isLocal)
 	{
-		if(!d->file->open(IO_ReadOnly))
+		if(!d->file->open(QIODevice::ReadOnly))
 		{
 			d->error = i18n("Could not read from %1.").arg(d->url.prettyURL());
 			return false;
@@ -92,7 +94,7 @@ bool KLoader::open(void)
 		}
 
 		d->file = new QFile(d->tempFile);
-		if(!d->file->open(IO_ReadOnly))
+		if(!d->file->open(QIODevice::ReadOnly))
 		{
 			d->error = i18n("Could not read from %1.").arg(d->tempFile);
 			return false;

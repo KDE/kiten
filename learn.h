@@ -22,7 +22,9 @@
 #ifndef LEARN_H
 #define LEARN_H
 
-#include <qlistview.h>
+#include <q3listview.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include <kurl.h>
 
@@ -30,17 +32,17 @@
 
 class KAction;
 class KPushButton;
-class QButtonGroup;
-class QListViewItem;
+class Q3ButtonGroup;
+class Q3ListViewItem;
 class QSplitter;
 class QTabWidget;
 
 // Item that sorts all columns numerically
-class LearnItem : public QListViewItem
+class LearnItem : public Q3ListViewItem
 {
 public:
-	LearnItem(QListView *parent, QString label1, QString label2 = QString::null, QString label3 = QString::null, QString label4 = QString::null, QString label5 = QString::null, QString label6 = QString::null, QString label7 = QString::null, QString label8 = QString::null);
-	int compare(QListViewItem *item, int col, bool ascending) const;
+	LearnItem(Q3ListView *parent, QString label1, QString label2 = QString::null, QString label3 = QString::null, QString label4 = QString::null, QString label5 = QString::null, QString label6 = QString::null, QString label7 = QString::null, QString label8 = QString::null);
+	int compare(Q3ListViewItem *item, int col, bool ascending) const;
 };
 
 class Learn : public KMainWindow
@@ -61,7 +63,7 @@ class Learn : public KMainWindow
 	void configureLearn();
 
 	public slots:
-	void showKanji(QListViewItem *);
+	void showKanji(Q3ListViewItem *);
 	void updateQuizConfiguration();
 
 	protected:
@@ -112,8 +114,8 @@ class Learn : public KMainWindow
 	QWidget *quizTop;
 
 	ResultView *View;
-	QValueList<Dict::Entry> list;
-	QValueListIterator<Dict::Entry> current;
+	Q3ValueList<Dict::Entry> list;
+	Q3ValueListIterator<Dict::Entry> current;
 
 	Dict::Index *index;
 
@@ -127,13 +129,13 @@ class Learn : public KMainWindow
 	// Quiz, an app to itself in a tabwidget :)
 
 	static const int numberOfAnswers;
-	QButtonGroup *answers;
+	Q3ButtonGroup *answers;
 	QPushButton *qKanji;
 
-	QListViewItem *prevItem;
-	QListViewItem *curItem;
+	Q3ListViewItem *prevItem;
+	Q3ListViewItem *curItem;
 	// if noEmit == true, don't emit dirty
-	void addItem(QListViewItem *, bool noEmit = false);
+	void addItem(Q3ListViewItem *, bool noEmit = false);
 
 	void qupdate();
 

@@ -26,7 +26,7 @@
 
 #include "configdictionaries.moc"
 
-ConfigDictionaries::ConfigDictionaries(QWidget *parent, const char* name, WFlags f) :
+ConfigDictionaries::ConfigDictionaries(QWidget *parent, const char* name, Qt::WFlags f) :
 	ConfigDictionariesBase(parent, name, f)
 {
 	changed = false;
@@ -99,7 +99,7 @@ void ConfigDictionaries::readDictionaryList(const QString& group)
 	config->readConfig();
 	list->clear();
 	for (it = names.begin(); it != names.end(); ++it)
-		(void) new QListViewItem(list, *it, config->findItem(group + "_" + *it)->property().asString());
+		(void) new Q3ListViewItem(list, *it, config->findItem(group + "_" + *it)->property().asString());
 }
 
 void ConfigDictionaries::writeDictionaryList(const QString& group)
@@ -112,7 +112,7 @@ void ConfigDictionaries::writeDictionaryList(const QString& group)
 	
 	QStringList names;
 
-	QListViewItemIterator it(list);
+	Q3ListViewItemIterator it(list);
 	for (; it.current(); ++it )
 	{
 		names.append(it.current()->text(0));
@@ -140,18 +140,18 @@ void ConfigDictionaries::slotDelSelKanjidic() { delSel(kanjidicList); }
 
 void ConfigDictionaries::add(KListView* list)
 {
-	QListViewItem *item = list->firstChild();
+	Q3ListViewItem *item = list->firstChild();
 	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString::null);
 	QString name = QFileInfo(filename).fileName();
 
-	(void) new QListViewItem(list, name, filename);
+	(void) new Q3ListViewItem(list, name, filename);
 	changed = true;
 	emit widgetChanged();
 }
 
 void ConfigDictionaries::delSel(KListView* list)
 {
-	QListViewItem *file = list->selectedItem();
+	Q3ListViewItem *file = list->selectedItem();
 	if (!file)
 		return;
 

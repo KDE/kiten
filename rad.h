@@ -23,15 +23,18 @@
 #define RAD_H
 
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <Q3ValueList>
 
 class Config;
 class QCheckBox;
 class QLabel;
-class QListBoxItem;
+class Q3ListBoxItem;
 class QSpinBox;
 class KPushButton;
 class KListBox;
-class QButtonGroup;
+class Q3ButtonGroup;
 
 class KDE_EXPORT Radical
 {
@@ -67,7 +70,7 @@ class KDE_EXPORT Rad : public QObject
 	private:
 	void load();
 
-	QValueList<Radical> list;
+	Q3ValueList<Radical> list;
 	bool loaded;
 };
 
@@ -93,7 +96,7 @@ class KDE_EXPORT RadWidget : public QWidget
 	void selectionChanged();
 	void hotlistClicked(int);
 	void addToSelected(const QString &);
-	void executed(QListBoxItem *);
+	void executed(Q3ListBoxItem *);
 	void removeSelected();
 	void clearSelected();
 	
@@ -106,7 +109,7 @@ class KDE_EXPORT RadWidget : public QWidget
 	KPushButton *cancel;
 	KPushButton *remove;
 	KPushButton *clear;
-	QButtonGroup *hotlistGroup;
+	Q3ButtonGroup *hotlistGroup;
 	QCheckBox *totalStrokes;
 	KListBox *List;
 	KListBox *selectedList;

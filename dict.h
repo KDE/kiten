@@ -23,10 +23,13 @@
 #define DICT_H
 
 #include <qfile.h>
-#include <qmemarray.h>
-#include <qptrlist.h>
+#include <q3memarray.h>
+#include <q3ptrlist.h>
 #include <qregexp.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
 
 #include <sys/types.h>
 #ifdef __osf__
@@ -49,7 +52,7 @@ KDE_EXPORT TextType textType(const QString &text);
 // resetRawData() after using them, since that's bound to fail sooner or later.
 //
 // This class handles it for us.
-template<class T> class Array : public QMemArray<T>
+template<class T> class Array : public Q3MemArray<T>
 {
 public:
 	Array(T *, int);
@@ -61,7 +64,7 @@ private:
 };
 
 template<class T> Array<T>::Array(T *d, int s)
-	: QMemArray<T>()
+	: Q3MemArray<T>()
 	, data(d)
 	, dataSize(s)
 {
@@ -93,7 +96,7 @@ public:
 	bool isValid(void);
 
 	unsigned char lookup(unsigned i, int offset);
-	QCString lookup(unsigned i);
+	Q3CString lookup(unsigned i);
 private:
 	QString myName;
 
@@ -151,7 +154,7 @@ protected:
 
 struct SearchResult
 {
-	QValueList<Entry> list;
+	Q3ValueList<Entry> list;
 	QStringList results;
 	int count, outOf;
 	bool common;
@@ -180,15 +183,15 @@ public:
 	static QRegExp createRegExp(SearchType type, const QString &text, DictionaryType dictionaryType, bool caseSensitive = false);
 
 private:
-	QPtrList<File> dictFiles;
-	QPtrList<File> kanjiDictFiles;
+	Q3PtrList<File> dictFiles;
+	Q3PtrList<File> kanjiDictFiles;
 
-	void loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList);
+	void loadDictList(Q3PtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList);
 
 	QStringList doSearch(File &, const QString &);
 	SearchResult scanResults(QRegExp regexp, QStringList results, bool common);
 	SearchResult scanKanjiResults(QRegExp regexp, QStringList results, bool common);
-	int stringCompare(File &, int index, QCString);
+	int stringCompare(File &, int index, Q3CString);
 };
 
 // lotsa helper functions

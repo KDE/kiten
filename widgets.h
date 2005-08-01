@@ -21,7 +21,7 @@
 #ifndef KITEN_WIDGETS_H
 #define KITEN_WIDGETS_H
 
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 #include <kaction.h>
 #include <klineedit.h>
@@ -102,7 +102,7 @@ class KDE_EXPORT EditAction : public KAction
 	QString text() { return m_combo->text(); }
 	void setText(const QString &text);
 
-	QGuardedPtr<KLineEdit> editor();
+	QPointer<KLineEdit> editor();
 
 	public slots:
 	void insert(const QString &);
@@ -114,7 +114,7 @@ class KDE_EXPORT EditAction : public KAction
 	void plugged();
 
 private:
-    QGuardedPtr<KLineEdit> m_combo;
+    QPointer<KLineEdit> m_combo;
     const QObject *m_receiver;
     const char *m_member;
 };

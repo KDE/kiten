@@ -55,8 +55,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	config = Config::self();
 	config->readConfig();
 	Accel = new KGlobalAccel(this);
-	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), CTRL + ALT + Key_K, CTRL + ALT + Key_K, this, SLOT(kanjiSearchAccel()));
-	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), CTRL + ALT + Key_S, CTRL + ALT + Key_S, this, SLOT(searchAccel()));
+	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), Qt::CTRL + Qt::ALT + Qt::Key_K, Qt::CTRL + Qt::ALT + Qt::Key_K, this, SLOT(kanjiSearchAccel()));
+	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), Qt::CTRL + Qt::ALT + Qt::Key_S, Qt::CTRL + Qt::ALT + Qt::Key_S, this, SLOT(searchAccel()));
 	Accel->readSettings(KGlobal::config());
 	Accel->updateConnections();
 
@@ -67,21 +67,21 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), actionCollection());
-	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+	(void) new KAction(i18n("&Learn"), "pencil", Qt::CTRL+Qt::Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
-	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
+	(void) new KAction(i18n("Ra&dical Search..."), "gear", Qt::CTRL+Qt::Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
-	(void) new KAction(i18n("&Clear Search Bar"), BarIcon("locationbar_erase", 16), CTRL+Key_N, Edit, SLOT(clear()), actionCollection(), "clear_search");
+	(void) new KAction(i18n("&Clear Search Bar"), BarIcon("locationbar_erase", 16), Qt::CTRL+Qt::Key_N, Edit, SLOT(clear()), actionCollection(), "clear_search");
 	(void) new KAction(i18n("S&earch"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
 	(void) new KAction(i18n("Search with &Beginning of Word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
 	(void) new KAction(i18n("Search &Anywhere"), 0, this, SLOT(searchAnywhere()), actionCollection(), "search_anywhere");
-	(void) new KAction(i18n("Stro&kes"), "paintbrush", CTRL+Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
-	(void) new KAction(i18n("&Grade"), "leftjust", CTRL+Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
-	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", CTRL+Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
+	(void) new KAction(i18n("Stro&kes"), "paintbrush", Qt::CTRL+Qt::Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
+	(void) new KAction(i18n("&Grade"), "leftjust", Qt::CTRL+Qt::Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
+	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", Qt::CTRL+Qt::Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
 	deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
-	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
+	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", Qt::CTRL+Qt::Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
-	irAction =  new KAction(i18n("Search &in Results"), "find", CTRL+Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
+	irAction =  new KAction(i18n("Search &in Results"), "find", Qt::CTRL+Qt::Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 	addAction = new KAction(i18n("Add &Kanji to Learning List"), 0, this, SLOT(addToList()), actionCollection(), "add");
 	addAction->setEnabled(false);
@@ -147,7 +147,7 @@ void TopLevel::finishInit()
 
 bool TopLevel::queryClose()
 {
-	for (QPtrListIterator<Learn> i(learnList); *i;)
+	for (Q3PtrListIterator<Learn> i(learnList); *i;)
 	{
 		(*i)->show();
 		if (!(*i)->closeWindow())
@@ -273,7 +273,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 				common = false;
 			}
 
-			for (QValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+			for (Q3ValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
 				//kdDebug() << "adding " << (*it).kanji() << endl;
 				_ResultView->addResult(*it, common);
@@ -282,7 +282,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		}
 		else
 		{
-			for (QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+			for (Q3ValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
 			{
 				kapp->processEvents();
 				_ResultView->addKanjiResult(*it, results.common);
@@ -291,7 +291,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 	}
 	else
 	{
-		for (QValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+		for (Q3ValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
 		{
 			kapp->processEvents();
 			_ResultView->addResult(*it, comCB->isChecked());

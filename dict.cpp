@@ -27,6 +27,9 @@
 #include <qfileinfo.h> 
 #include <qregexp.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 #include "dict.h"
 
@@ -110,7 +113,7 @@ File::File(QString path, QString n)
 		proc.start(KProcess::Block, KProcess::NoCommunication);
 	}
 
-	if (!dictFile.open(IO_ReadOnly))
+	if (!dictFile.open(QIODevice::ReadOnly))
 	{
 		msgerr(i18n("Could not open dictionary %1."), path);
 		return;
@@ -123,7 +126,7 @@ File::File(QString path, QString n)
 		return;
 	}
 
-	if (!indexFile.open(IO_ReadOnly))
+	if (!indexFile.open(QIODevice::ReadOnly))
 	{
 		msgerr(i18n("Could not open index for dictionary %1."), path);
 		return;
@@ -190,7 +193,7 @@ unsigned char File::lookup(unsigned i, int offset)
 	return dictPtr[pos];
 }
 
-QCString File::lookup(unsigned i)
+Q3CString File::lookup(unsigned i)
 {
 	uint32_t start = indexPtr[i] - 1;
 	uint32_t pos = start;
@@ -199,7 +202,7 @@ QCString File::lookup(unsigned i)
 	while(pos <= size && dictPtr[pos] != 0 && dictPtr[pos] != 0x0a)
 		++pos;
 	// put the word in the QCString
-	QCString retval((const char *)(dictPtr + start), pos - start);
+	Q3CString retval((const char *)(dictPtr + start), pos - start);
 	// tack on a null
 	char null = 0;
 	retval.append(&null);
@@ -229,7 +232,7 @@ void Index::setKanjiDictList(const QStringList &list, const QStringList &names)
 	loadDictList(kanjiDictFiles, list, names);
 }
 
-void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList)
+void Index::loadDictList(Q3PtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList)
 {
 	fileList.clear();
 
@@ -257,7 +260,7 @@ QStringList Index::doSearch(File &file, const QString &text)
 {
 	// Do a binary search to find an entry that matches text
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
-	QCString eucString = codec.fromUnicode(text);
+	Q3CString eucString = codec.fromUnicode(text);
 
 	QString prevResult;
 
@@ -363,7 +366,7 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 SearchResult Index::search(QRegExp regexp, const QString &text, bool common)
 {
 	QStringList results;
-	for (QPtrListIterator<File> file(dictFiles); *file; ++file)
+	for (Q3PtrListIterator<File> file(dictFiles); *file; ++file)
 	{
 		results.append(QString("DICT ") + (*file)->name());
 
@@ -415,7 +418,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 SearchResult Index::searchKanji(QRegExp regexp, const QString &text,  bool common)
 {
 	QStringList results;
-	for (QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
+	for (Q3PtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
 		results.append(QString("DICT ") + (*file)->name());
 
@@ -490,7 +493,7 @@ QRegExp Dict::Index::createRegExp(SearchType type, const QString &text, Dictiona
 	return QRegExp(regExp.arg(text), caseSensitive);
 }
 
-int Index::stringCompare(File &file, int index, QCString str)
+int Index::stringCompare(File &file, int index, Q3CString str)
 {
 	return eucStringCompare(file.lookup(index), str);
 }
@@ -543,7 +546,7 @@ Entry Dict::parse(const QString &raw)
 	QStringList meanings;
 	QString curmeaning;
 	bool firstmeaning = true;
-	QCString parsemode("kanji");
+	Q3CString parsemode("kanji");
 
 	unsigned int i;
 	for (i = 0; i < length; i++)
@@ -614,7 +617,7 @@ Entry Dict::kanjiParse(const QString &raw)
 
 	bool prevwasspace = true;
 	QChar detailname;
-	QCString parsemode("kanji");
+	Q3CString parsemode("kanji");
 
 	// if there are two S entries, second is common miscount
 	bool strokesset = false;
@@ -746,7 +749,7 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 
 Dict::Entry Dict::firstEntry(Dict::SearchResult result)
 {
-	for (QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
+	for (Q3ValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
 	{
 		if ((*it).dictName() == "__NOTSET" && (*it).header() == "__NOTSET")
 			return (*it);

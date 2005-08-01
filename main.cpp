@@ -23,7 +23,7 @@
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kmainwindow.h>
-#include <qsqlpropertymap.h>
+#include <q3sqlpropertymap.h>
 
 #include "kiten.h"
 

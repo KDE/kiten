@@ -25,6 +25,8 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QTextStream>
 #include "deinf.h"
 
 Deinf::Index::Index()
@@ -47,7 +49,7 @@ void Deinf::Index::load()
 
 	QFile f(vconj);
 
-	if (!f.open(IO_ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Verb deinflection information could not be loaded, so verb deinflection cannot be used."));
 		return;
@@ -102,7 +104,7 @@ QStringList Deinf::Index::deinflect(const QString &text, QStringList &name)
 	QStringList endings = possibleConjugations(text);
 	QStringList ret;
 
-	for (QValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
+	for (Q3ValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
 	{
 		QStringList matches(endings.grep(QRegExp(QString("^") + (*it).ending)));
 

@@ -29,7 +29,7 @@
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qfile.h>
 #include <qlabel.h>
@@ -37,6 +37,11 @@
 #include <qspinbox.h>
 #include <qtextcodec.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <QHBoxLayout>
+#include <Q3ValueList>
+#include <QVBoxLayout>
 
 #include "kitenconfig.h"
 #include "rad.h"
@@ -61,7 +66,7 @@ void Rad::load()
 
 	QFile f(radkfile);
 
-	if (!f.open(IO_ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Kanji radical information could not be loaded, so radical searching cannot be used."));
 	}
@@ -110,7 +115,7 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 
 	QStringList ret;
 	bool hadOne = false;
-	QValueListIterator<Radical> it = list.begin();
+	Q3ValueListIterator<Radical> it = list.begin();
 
 	do
 	{
@@ -135,7 +140,7 @@ QStringList Rad::kanjiByRad(const QString &text)
 	load();
 	QStringList ret;
 
-	QValueListIterator<Radical> it;
+	Q3ValueListIterator<Radical> it;
 	for (it = list.begin(); it != list.end() && (*it).radical() != text; ++it)
 	{
 		//kdDebug() << "kanjiByRad, looping, radical is " << (*it).radical() << endl;
@@ -156,7 +161,7 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	//kdDebug() << "kanjiByRad (list version)\n";
 
 	QStringList ret;
-	QValueList<QStringList> lists;
+	Q3ValueList<QStringList> lists;
 
 	for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
 	{
@@ -170,8 +175,8 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	for (QStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
 	{
 		//kdDebug() << "kit is " << *kit << endl;
-		QValueList<bool> outcomes;
-		for (QValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
+		Q3ValueList<bool> outcomes;
+		for (Q3ValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
 		{
 			//kdDebug() << "looping through lists\n";
 			outcomes.append((*it).contains(*kit) > 0);
@@ -197,7 +202,7 @@ Radical Rad::radByKanji(const QString &text)
 	load();
 	QString ret;
 
-	QValueListIterator<Radical> it;
+	Q3ValueListIterator<Radical> it;
 	for (it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
 
 	return (*it);
@@ -206,7 +211,7 @@ Radical Rad::radByKanji(const QString &text)
 unsigned int Rad::strokesByRad(const QString &text)
 {
 	load();
-	QValueListIterator<Radical> it;
+	Q3ValueListIterator<Radical> it;
 	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
 
 	return (*it).strokes();
@@ -226,7 +231,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	QHBoxLayout *hlayout = new QHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 	QVBoxLayout *vlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
 
-	hotlistGroup = new QButtonGroup(1, Horizontal, i18n("Hotlist"), this);
+	hotlistGroup = new Q3ButtonGroup(1, Qt::Horizontal, i18n("Hotlist"), this);
 	//hotlistGroup->setRadioButtonExclusive(true);
 	vlayout->addWidget(hotlistGroup);
 
@@ -278,7 +283,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 	List = new KListBox(this);
 	middlevLayout->addWidget(List);
-	connect(List, SIGNAL(executed(QListBoxItem *)), this, SLOT(executed(QListBoxItem *)));
+	connect(List, SIGNAL(executed(Q3ListBoxItem *)), this, SLOT(executed(Q3ListBoxItem *)));
 	connect(strokesSpin, SIGNAL(valueChanged(int)), this, SLOT(updateList(int)));
 
 	QVBoxLayout *rightvlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
@@ -322,7 +327,7 @@ void RadWidget::hotlistClicked(int num)
 	addToSelected(*hotlist.at(num));
 }
 
-void RadWidget::executed(QListBoxItem *item)
+void RadWidget::executed(Q3ListBoxItem *item)
 {
 	addToSelected(item->text());
 }
