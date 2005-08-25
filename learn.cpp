@@ -803,8 +803,8 @@ void Learn::qnew() // new quiz kanji
 	for (; sIt.current(); ++sIt)
 		scores.insert(sIt.current());
 
-	std::multiset<const QListViewItem*>::iterator it = scores.begin();
-	std::multiset<const QListViewItem*>::iterator tmp = scores.begin();
+	std::multiset<const QListViewItem*, scoreCompare>::iterator it = scores.begin();
+	std::multiset<const QListViewItem*, scoreCompare>::iterator tmp = scores.begin();
 
 	int i;
 	for (i = 2; i <= max; ++it)
