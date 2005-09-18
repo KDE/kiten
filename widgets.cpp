@@ -191,7 +191,7 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 	if (result.miscount() != 0)
 		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
 
-	if (!!rad.radical())
+	if (!rad.radical().isEmpty())
 		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(QString("<a href=\"__radical:%1\">%2</a>").arg(rad.radical()).arg(rad.radical())).arg(rad.strokes()));
 
 	html += "</p>";
@@ -353,7 +353,7 @@ void eEdit::openFile(const QString &file)
 	QTextStream t(&f);
 	QString s;
 
-	while (!t.eof())
+	while (!t.atEnd())
 	{ 
 		s = t.readLine();
 		if (s.left(1) == "#" || s.isEmpty())

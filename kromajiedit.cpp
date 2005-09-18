@@ -53,7 +53,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 
 	QTextStream t(&f);
 	t.setCodec(QTextCodec::codecForName("eucJP"));
-	while (!t.eof())
+	while (!t.atEnd())
 	{
 		QString s = t.readLine();
 
@@ -73,7 +73,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 		{
 			QStringList things(QStringList::split(QChar(' '), s));
 			QString thekana(things.first());
-			QString romaji(*things.at(1));
+			QString romaji(things.at(1));
 
 			if (kana == "hiragana")
 				hiragana[romaji] = thekana;
@@ -109,10 +109,10 @@ void KRomajiEdit::setKana(int _kana)
 // TODO allow editing not only at end
 void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 {
-	bool shift = e->state() & ShiftButton;
+	bool shift = e->state() & Qt::ShiftButton;
 	QString ji = e->text();
 
-	if (shift && e->key() == Key_Space) // switch hiragana/english
+	if (shift && e->key() == Qt::Key_Space) // switch hiragana/english
 	{
 		if (kana == "hiragana")
 			kana = "english";
@@ -176,7 +176,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 
 	//kdDebug() << "replace = " << replace << endl;
 
-	if (!!replace) // if (replace has something in it)
+	if (!replace.isEmpty()) // if (replace has something in it)
 	{
 		//kdDebug() << "replace isn't empty\n";
 
@@ -212,7 +212,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		{
 			newkana = hiragana[farRight];
 			//kdDebug() << "newkana = " << newkana << endl;
-			if (ji.at(0) == 'n' && !!newkana)
+			if (ji.at(0) == 'n' && !newkana.isEmpty())
 			{
 				//kdDebug() << "doing the n thing\n";
 				
@@ -226,7 +226,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		else
 		{
 			newkana = katakana[farRight];
-			if (ji.at(0) == 'n' && !!newkana)
+			if (ji.at(0) == 'n' && !newkana.isEmpty())
 			{
 				//kdDebug() << "doing the n thing - katakana\n";
 				
@@ -239,7 +239,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		}
 	}
 
-	if ( e->key() == Key_Return || e->key() == Key_Enter ) // take care of pending n
+	if ( e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter ) // take care of pending n
 	{
 		if (kana == "hiragana")
 		{
@@ -258,6 +258,8 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 
 Q3PopupMenu *KRomajiEdit::createPopupMenu()
 {
+#warning "kde4: port KLineEdit::createPopupMenu\n";
+#if 0		
     Q3PopupMenu *popup = KLineEdit::createPopupMenu();
     popup->insertSeparator();
     popup->insertItem(i18n("English"), 0);
@@ -271,6 +273,9 @@ Q3PopupMenu *KRomajiEdit::createPopupMenu()
     connect(popup, SIGNAL(activated(int)), SLOT(setKana(int)));
 
     emit aboutToShowContextMenu(popup);
+	return popup;
+#endif
+	Q3PopupMenu *popup = new Q3PopupMenu();
     return popup;
 }
 

@@ -529,9 +529,10 @@ void TopLevel::gradeSearch()
 
 QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 {
-	kapp->clipboard()->setSelectionMode(true);
+#warning "KDE4: port clipboard!!!!!!!!!!!!!!!\n";		
+	//kapp->clipboard()->setSelectionMode(true);
 	QString text = kapp->clipboard()->text().stripWhiteSpace();
-	kapp->clipboard()->setSelectionMode(false);
+	//kapp->clipboard()->setSelectionMode(false);
 
 	return text;
 }
@@ -711,7 +712,7 @@ QRegExp TopLevel::searchItems()
 	if (text.isEmpty())
 		return QRegExp(); //empty
 
-	unsigned int contains = text.contains(QRegExp("[A-Za-z0-9_:]"));
+	unsigned int contains = text.count(QRegExp("[A-Za-z0-9_:]"));
 	if (Config::wholeWord() && contains == text.length())
 		regexp = "\\W%1\\W";
 	else

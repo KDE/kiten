@@ -74,7 +74,7 @@ void Rad::load()
 	QTextStream t(&f);
 	t.setCodec(QTextCodec::codecForName("eucJP"));
 	Radical cur;
-	while (!t.eof())
+	while (!t.atEnd())
 	{
 		QString s = t.readLine();
 
@@ -147,7 +147,7 @@ QStringList Rad::kanjiByRad(const QString &text)
 	}
 
 	QString kanji = (*it).kanji();
-	for (unsigned i = 0; i < kanji.length(); ++i)
+	for (int i = 0; i < kanji.length(); ++i)
 	{
 		//kdDebug() << "kanjiByRad, i is " << i << endl;
 		ret.append(QString(kanji.at(i)));
@@ -247,7 +247,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 		if (i >= hotlistNum)
 			break;
 
-		hotlistGroup->insert(new KPushButton(*hotlist.at(i), hotlistGroup), i);
+		hotlistGroup->insert(new KPushButton(hotlist.at(i), hotlistGroup), i);
 	}
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
 
@@ -324,7 +324,7 @@ RadWidget::~RadWidget()
 
 void RadWidget::hotlistClicked(int num)
 {
-	addToSelected(*hotlist.at(num));
+	addToSelected(hotlist.at(num));
 }
 
 void RadWidget::executed(Q3ListBoxItem *item)

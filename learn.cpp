@@ -292,7 +292,7 @@ void Learn::update()
 	View->clear();
 	Dict::Entry curKanji = *current;
 
-	if (!curKanji.kanji())
+	if (curKanji.kanji().isEmpty())
 	{
 		statusBar()->message(i18n("Grade not loaded")); // oops
 		return;
@@ -357,7 +357,7 @@ void Learn::read(const KURL &url)
 		if (!kanji.isSpace())
 		{
 			QRegExp regexp ( QString("^%1\\W").arg(kanji) );
-			Dict::SearchResult res = index->searchKanji(regexp, kanji, false);
+			Dict::SearchResult res = index->searchKanji(regexp, QString(kanji), false);
 			Dict::Entry first = Dict::firstEntry(res);
 			if (first.extendedKanjiInfo())
 				add(first, true);

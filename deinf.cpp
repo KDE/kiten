@@ -58,7 +58,7 @@ void Deinf::Index::load()
 	QTextStream t(&f);
 	t.setCodec(QTextCodec::codecForName("eucJP"));
 
-	for(QString text = t.readLine(); !t.eof() && text.at(0) != '$'; text = t.readLine())
+	for(QString text = t.readLine(); !t.atEnd() && text.at(0) != '$'; text = t.readLine())
 	{
 		if(text.at(0) != '#')
 		{
@@ -76,7 +76,7 @@ void Deinf::Index::load()
 
 			Conjugation conj;
 			conj.ending = things.first();
-			conj.replace = (*things.at(1));
+			conj.replace = (things.at(1));
 			conj.num = things.last().toUInt();
 
 			list.append(conj);

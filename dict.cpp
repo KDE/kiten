@@ -843,7 +843,7 @@ QStringList Entry::readings()
 
 QString Entry::firstReading()
 {
-	return *Readings.at(0);
+	return Readings.at(0);
 }
 
 QStringList Entry::meanings()
