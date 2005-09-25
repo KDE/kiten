@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	  "1.2", I18N_NOOP("Japanese Reference Tool"), KAboutData::License_GPL,
 	  "(c) 2001-2004, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten");
 
-	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jason@katzbrown.com");
+	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jasonkb@mit.edu");
 	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
 	aboutData.addAuthor("Neil Stevens", I18N_NOOP("Code simplification, UI suggestions."), "neil@qualityassistant.com");
 	aboutData.addCredit("David Vignoni", I18N_NOOP("svg icon"), "david80v@tin.it");
