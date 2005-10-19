@@ -440,8 +440,9 @@ void eEdit::del()
 // sorta taken from konqy
 
 EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name)
-    : KAction(text, accel, parent, name)
+    : KAction(text, accel, parent)
 {
+	setObjectName(name);
 	m_receiver = receiver;
 	m_member = member;
 }
