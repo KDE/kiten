@@ -28,6 +28,6 @@
 </widget>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
-    <includehint>kfontdialog.h</includehint>
+    
 </includehints>
 </UI>
