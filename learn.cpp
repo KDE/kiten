@@ -44,6 +44,7 @@
 #include <stdlib.h> // RAND_MAX
 #include <cassert>
 #include <set>
+#include <krandom.h>
 
 #include "kitenconfig.h"
 #include "dict.h"
@@ -252,7 +253,7 @@ bool Learn::queryClose()
 
 void Learn::random()
 {
-	int rand = static_cast<int>(static_cast<float>(list.count()) / (static_cast<float>(RAND_MAX) / kapp->random()));
+	int rand = static_cast<int>(static_cast<float>(list.count()) / (static_cast<float>(RAND_MAX) / KRandom::random()));
 
 	current = list.at(rand - 1);
 	update();
@@ -688,12 +689,12 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 
 	do
 	{
-		float rand = kapp->random();
+		float rand = KRandom::random();
 		if ((rand > (RAND_MAX / 2)) || (List->childCount() < numberOfAnswers))
 		{
 			// get a meaning from dict
 			//kdDebug() << "from our dict\n";
-			rand = kapp->random();
+			rand = KRandom::random();
 			float rand2 = RAND_MAX / rand;
 			rand = ((float)list.count() - 1) / rand2;
 			//rand -= 1;
@@ -716,7 +717,7 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		{
 			// get a meaning from our list
 			//kdDebug() << "from our list\n";
-			rand = kapp->random();
+			rand = KRandom::random();
 			float rand2 = RAND_MAX / rand;
 			rand = List->childCount() / rand2;
 
@@ -754,7 +755,7 @@ void Learn::qupdate()
 		newFont.setPixelSize(24);
 	qKanji->setFont(newFont);
 
-	float rand = kapp->random();
+	float rand = KRandom::random();
 	float rand2 = RAND_MAX / rand;
 	seikai = static_cast<int>(numberOfAnswers / rand2);
 
@@ -792,10 +793,10 @@ void Learn::qnew() // new quiz kanji
 	// use f(2) every third time, f(1) otherwise
 	// where f(1) = numberOfItems * rand[0..1]
 	// and f(2) = numberOfItems * rand[0..1] * rand[0..1]
-	// rand[0..1] = kapp->random() / RAND_MAX
-	float max = static_cast<float>(count) / (static_cast<float>(RAND_MAX) / kapp->random());
-	if (kapp->random() < (static_cast<float>(RAND_MAX) / 3.25))
-		max /= (static_cast<float>(RAND_MAX) / (kapp->random() + 1));
+	// rand[0..1] = KRandom::random() / RAND_MAX
+	float max = static_cast<float>(count) / (static_cast<float>(RAND_MAX) / KRandom::random());
+	if (KRandom::random() < (static_cast<float>(RAND_MAX) / 3.25))
+		max /= (static_cast<float>(RAND_MAX) / (KRandom::random() + 1));
 
 	max = static_cast<int>(max);
 
