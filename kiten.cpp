@@ -45,6 +45,7 @@
 #include "optiondialog.h"
 
 #include <cassert>
+#include <kglobal.h>
 
 TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
@@ -130,7 +131,7 @@ void TopLevel::finishInit()
 {
 	// if it's the application's first time starting, 
 	// the app group won't exist and we show demo
-	if (!kapp->config()->hasGroup("app"))
+	if (!KGlobal::config()->hasGroup("app"))
 	{
 		if (kanjiCB->isChecked())
 		  	Edit->setText(QString::fromUtf8("辞"));
