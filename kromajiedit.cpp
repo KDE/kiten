@@ -109,7 +109,7 @@ void KRomajiEdit::setKana(int _kana)
 // TODO allow editing not only at end
 void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 {
-	bool shift = e->state() & Qt::ShiftButton;
+	bool shift = e->state() & Qt::ShiftModifier;
 	QString ji = e->text();
 
 	if (shift && e->key() == Qt::Key_Space) // switch hiragana/english

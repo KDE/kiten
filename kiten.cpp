@@ -437,7 +437,7 @@ void TopLevel::strokeSearch()
 	QString strokesString;
 
 	bool ok = false;
-	QString text = Edit->text().stripWhiteSpace();
+	QString text = Edit->text().trimmed();
 	unsigned int strokes = text.toUInt(&ok);
 
 	if (!ok)
@@ -504,7 +504,7 @@ void TopLevel::strokeSearch()
 
 void TopLevel::gradeSearch()
 {
-	QString editText = Edit->text().stripWhiteSpace();
+	QString editText = Edit->text().trimmed();
 	unsigned int grade;
 
 	if (editText.lower() == "jouyou")
@@ -532,7 +532,7 @@ QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 {
 #warning "KDE4: port clipboard!!!!!!!!!!!!!!!\n";		
 	//kapp->clipboard()->setSelectionMode(true);
-	QString text = kapp->clipboard()->text().stripWhiteSpace();
+	QString text = kapp->clipboard()->text().trimmed();
 	//kapp->clipboard()->setSelectionMode(false);
 
 	return text;

@@ -847,7 +847,7 @@ void Learn::cheat()
 
 QString Learn::shortenString(const QString &thestring)
 {
-	return KStringHandler::rsqueeze(thestring, 60).stripWhiteSpace();
+	return KStringHandler::rsqueeze(thestring, 60).trimmed();
 }
 
 void Learn::tabChanged(QWidget *widget)

@@ -62,8 +62,8 @@ void Deinf::Index::load()
 	{
 		if(text.at(0) != '#')
 		{
-			unsigned int number = text.left(2).stripWhiteSpace().toUInt();
-			QString name = text.right(text.length() - 2).stripWhiteSpace();
+			unsigned int number = text.left(2).trimmed().toUInt();
+			QString name = text.right(text.length() - 2).trimmed();
 
 			names[number] = name;
 		}
