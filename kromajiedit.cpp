@@ -32,8 +32,9 @@
 #include "kromajiedit.h"
 
 KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
-	: KLineEdit(parent, name)
+	: KLineEdit(parent)
 {
+	setObjectName(name);
 	kana = "unset";
 
 	KStandardDirs *dirs = KGlobal::dirs();
