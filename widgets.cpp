@@ -427,12 +427,12 @@ void eEdit::disable()
 
 void eEdit::del()
 {
-	Q3PtrList<Q3ListViewItem> selected = List->selectedItems();
+	QList<Q3ListViewItem*> selected = List->selectedItems();
 	assert(selected.count());
 
-	for(Q3PtrListIterator<Q3ListViewItem> i(selected); *i; ++i)
-		delete *i;
-
+	foreach ( Q3ListViewItem* listViewItem, selected ) {	
+		delete listViewItem;
+	}
 	isMod = true;
 }
 
