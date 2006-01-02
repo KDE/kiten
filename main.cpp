@@ -22,6 +22,7 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kapplication.h>
+#include <klocale.h>
 #include <kmainwindow.h>
 #include <q3sqlpropertymap.h>
 

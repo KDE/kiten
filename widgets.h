@@ -92,7 +92,7 @@ class KDE_EXPORT EditAction : public KAction
 {
 	Q_OBJECT
 	public:
-	EditAction( const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name );
+	EditAction( const QString& text, int accel, const QObject *receiver, const char *member, KActionCollection* parent, const char* name );
 	virtual ~EditAction();
 
 	virtual int plug( QWidget *w, int index = -1 );

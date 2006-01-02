@@ -32,6 +32,7 @@
 #include <q3buttongroup.h>
 #include <q3header.h>
 #include <qlayout.h>
+#include <qsplitter.h>
 #include <qtabwidget.h>
 #include <qtimer.h>
 #include <qtextcodec.h>

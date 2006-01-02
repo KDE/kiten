@@ -439,12 +439,9 @@ void eEdit::del()
 /////////////////////////////////////////////////////
 // sorta taken from konqy
 
-EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name)
-    : KAction(text, accel, parent)
+EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, KActionCollection* parent, const char* name)
+    : KAction(text, accel, receiver, member, parent, name)
 {
-	setObjectName(name);
-	m_receiver = receiver;
-	m_member = member;
 }
 
 EditAction::~EditAction()
