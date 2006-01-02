@@ -75,7 +75,7 @@ void Asyndeta::readKitenConfiguration()
 	QStringList::Iterator it;
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
-		DictList.append(config.readEntry(*it, QString::null));
+		DictList.append(config.readEntry(*it, QString()));
 
 	QString personalDict(personalDictionaryLocation());
 	if (QFile::exists(personalDict))
@@ -100,7 +100,7 @@ void Asyndeta::readKitenConfiguration()
 	DictNameList = config.readListEntry("__NAMES");
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
-		DictList.append(config.readEntry(*it, QString::null));
+		DictList.append(config.readEntry(*it, QString()));
 
 	if (!globalkanjidic.isNull() && kanjidicUseGlobal)
 	{
