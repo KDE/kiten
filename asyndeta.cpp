@@ -67,7 +67,7 @@ void Asyndeta::readKitenConfiguration()
 
 	config.setGroup("edict");
 
-	bool edictUseGlobal = config.readBoolEntry("__useGlobal", true);
+	bool edictUseGlobal = config.readEntry("__useGlobal", true).toBool();
 
 	QStringList DictNameList = config.readListEntry("__NAMES");
 	QStringList DictList;
@@ -75,7 +75,7 @@ void Asyndeta::readKitenConfiguration()
 	QStringList::Iterator it;
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
-		DictList.append(config.readEntry(*it));
+		DictList.append(config.readEntry(*it, QString::null));
 
 	QString personalDict(personalDictionaryLocation());
 	if (QFile::exists(personalDict))
@@ -94,13 +94,13 @@ void Asyndeta::readKitenConfiguration()
 
 	config.setGroup("kanjidic");
 
-	bool kanjidicUseGlobal = config.readBoolEntry("__useGlobal", true);
+	bool kanjidicUseGlobal = config.readEntry("__useGlobal", true).toBool();
 
 	DictList.clear();
 	DictNameList = config.readListEntry("__NAMES");
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
-		DictList.append(config.readEntry(*it));
+		DictList.append(config.readEntry(*it, QString::null));
 
 	if (!globalkanjidic.isNull() && kanjidicUseGlobal)
 	{
