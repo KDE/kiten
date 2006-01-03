@@ -144,7 +144,7 @@ void TopLevel::finishInit()
 
 	Edit->clear(); // make sure the edit is focused initially
 	StatusBar->message(i18n("Welcome to Kiten"));
-	setCaption(QString::null);
+	setCaption(QString());
 }
 
 bool TopLevel::queryClose()
@@ -546,7 +546,7 @@ QString TopLevel::filteredClipboardText()
 	if (newText.length() < 80 && newText.find(':') < 0 && newText.find('#') < 0 && newText.find("-") != 0 && newText.find("+") < 0 && currentText.find(newText) < 0)
 		return newText;
 	else
-		return QString::null;
+		return QString();
 }
 
 void TopLevel::autoSearch()

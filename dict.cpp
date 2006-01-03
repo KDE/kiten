@@ -40,7 +40,7 @@
 
 namespace
 {
-void msgerr(const QString &msg, const QString &dict = QString::null)
+void msgerr(const QString &msg, const QString &dict = QString())
 {
 	QString output = msg;
 	if (!dict.isNull())

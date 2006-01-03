@@ -39,7 +39,7 @@ class Q3ButtonGroup;
 class KDE_EXPORT Radical
 {
 	public:
-	Radical(QString = QString::null, unsigned int = 0);
+	Radical(QString = QString(), unsigned int = 0);
 
 	QString radical() { return _Radical; };
 	unsigned int strokes() { return Strokes; };

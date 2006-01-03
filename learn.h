@@ -41,7 +41,7 @@ class QTabWidget;
 class LearnItem : public Q3ListViewItem
 {
 public:
-	LearnItem(Q3ListView *parent, QString label1, QString label2 = QString::null, QString label3 = QString::null, QString label4 = QString::null, QString label5 = QString::null, QString label6 = QString::null, QString label7 = QString::null, QString label8 = QString::null);
+	LearnItem(Q3ListView *parent, QString label1, QString label2 = QString(), QString label3 = QString(), QString label4 = QString(), QString label5 = QString(), QString label6 = QString(), QString label7 = QString(), QString label8 = QString());
 	int compare(Q3ListViewItem *item, int col, bool ascending) const;
 };
 

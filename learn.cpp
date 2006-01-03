@@ -375,7 +375,7 @@ void Learn::open()
 		return;
 
 	KURL prevname = filename;
-	filename = KFileDialog::getOpenURL(QString::null, "*.kiten");
+	filename = KFileDialog::getOpenURL(QString(), "*.kiten");
 	if (filename.isEmpty())
 	{
 		filename = prevname;
@@ -414,7 +414,7 @@ void Learn::openNew()
 void Learn::saveAs()
 {
 	KURL prevname = filename;
-	filename = KFileDialog::getSaveURL(QString::null, "*.kiten");
+	filename = KFileDialog::getSaveURL(QString(), "*.kiten");
 	if (filename.isEmpty())
 	{
 		filename = prevname;

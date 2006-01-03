@@ -141,7 +141,7 @@ void ConfigDictionaries::slotDelSelKanjidic() { delSel(kanjidicList); }
 void ConfigDictionaries::add(KListView* list)
 {
 	Q3ListViewItem *item = list->firstChild();
-	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString::null);
+	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString());
 	QString name = QFileInfo(filename).fileName();
 
 	(void) new Q3ListViewItem(list, name, filename);

@@ -417,7 +417,7 @@ void eEdit::save()
 
 void eEdit::disable()
 {
-	int result = KMessageBox::warningYesNo(this, i18n("Disabling your personal dictionary will delete its contents.\n\n(You can however always create your dictionary again.)"), QString::null, i18n("Disable"), KStdGuiItem::cancel(), "DisableAsk", true);
+	int result = KMessageBox::warningYesNo(this, i18n("Disabling your personal dictionary will delete its contents.\n\n(You can however always create your dictionary again.)"), QString(), i18n("Disable"), KStdGuiItem::cancel(), "DisableAsk", true);
 	if (result == KMessageBox::No)
 		return;
 

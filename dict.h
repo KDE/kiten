@@ -117,7 +117,7 @@ public:
 	// Kanjidict ctor
 	Entry(const QString &, QStringList &, QStringList &, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount);
 	// default (for containers)
-	Entry(const QString & = QString::null);
+	Entry(const QString & = QString());
 	// for a heading
 	Entry(const QString &, bool header);
 

@@ -47,7 +47,7 @@ class KDE_EXPORT ResultView : public KTextBrowser
 	void addHeader(const QString &, unsigned int degree = 3);
 
 	public slots:
-	void print(QString = QString::null);
+	void print(QString = QString());
 	void append(const QString &);
 	void flush();
 	void clear();
