@@ -26,8 +26,11 @@
         </widget>
     </hbox>
 </widget>
+<customwidgets>
+	<customwidget>
+		<class>KFontChooser</class>
+		<header>kfontdialog.h</header>
+	</customwidget>
+</customwidgets>
 <layoutdefaults spacing="6" margin="11"/>
-<includehints>
-    <includehint>kfontdialog.h</includehint>
-</includehints>
 </UI>

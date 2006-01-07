@@ -582,16 +582,19 @@ void Learn::del()
 	}
 	else // setup page
 	{
-		Q3PtrList<Q3ListViewItem> selected = List->selectedItems();
+		QList<Q3ListViewItem*> selected = List->selectedItems();
 		assert(selected.count());
 
 		bool makenewq = false; // must make new quiz if we
 		                       // delete the current item
-		for (Q3PtrListIterator<Q3ListViewItem> i(selected); *i; ++i)
+		QList<Q3ListViewItem*>::const_iterator it, itEnd;
+		it = selected.begin();
+		itEnd = selected.end();
+		for (; it != itEnd; ++it)
 		{
-			if (curItem == i)
+			if (curItem == *it)
 				makenewq = true;
-			delete *i;
+			delete *it;
 		}
 
 		curItem = List->firstChild();

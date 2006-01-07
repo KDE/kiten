@@ -34,6 +34,7 @@
 #include "ksaver.h"
 //Added by qt3to4:
 #include <QTextStream>
+#include <QDataStream>
 
 class KSaver::KSaverPrivate
 {

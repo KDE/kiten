@@ -33,6 +33,7 @@
 #include "kloader.h"
 //Added by qt3to4:
 #include <QTextStream>
+#include <QDataStream>
 
 class KLoader::KLoaderPrivate
 {
@@ -87,7 +88,8 @@ bool KLoader::open(void)
 	}
 	else
 	{
-		if(!KIO::NetAccess::download(d->url, d->tempFile))
+#warning third parameter is a widget who to associate some data, might be worth modyfing the class so that it has a widget 
+		if(!KIO::NetAccess::download(d->url, d->tempFile, 0))
 		{
 			d->error = i18n("Could not read from %1.").arg(d->url.prettyURL());
 			return false;

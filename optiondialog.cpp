@@ -21,7 +21,6 @@
 
 #include <kdebug.h>
 #include <kapplication.h>
-#include <qvgroupbox.h>
 #include <kfontdialog.h>
 #include <qtextcodec.h>
 #include <klocale.h>
