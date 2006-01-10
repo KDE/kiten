@@ -67,7 +67,7 @@ void Asyndeta::readKitenConfiguration()
 
 	config.setGroup("edict");
 
-	bool edictUseGlobal = config.readEntry("__useGlobal", true).toBool();
+	bool edictUseGlobal = config.readEntry("__useGlobal", true);
 
 	QStringList DictNameList = config.readListEntry("__NAMES");
 	QStringList DictList;
@@ -94,7 +94,7 @@ void Asyndeta::readKitenConfiguration()
 
 	config.setGroup("kanjidic");
 
-	bool kanjidicUseGlobal = config.readEntry("__useGlobal", true).toBool();
+	bool kanjidicUseGlobal = config.readEntry("__useGlobal", true);
 
 	DictList.clear();
 	DictNameList = config.readListEntry("__NAMES");
