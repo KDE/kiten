@@ -503,7 +503,7 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 	KConfig &config = *Config::self()->config();
 	int score = 0;
 	config.setGroup("Learn Scores");
-	score = config.readNumEntry(kanji, score);
+	score = config.readEntry(kanji, score);
 
 	unsigned int grade = toAdd.grade();
 	addItem(new LearnItem(List, kanji, meanings, readings, QString::number(grade), QString::number(score)), noEmit);
