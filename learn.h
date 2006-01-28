@@ -70,8 +70,8 @@ class Learn : public KMainWindow
 	virtual bool queryClose();
 
 	private slots:
-	void read(const KURL &);
-	void write(const KURL &);
+	void read(const KUrl &);
+	void write(const KUrl &);
 	void saveScores();
 	void next();
 	void prev();
@@ -106,7 +106,7 @@ class Learn : public KMainWindow
 	private:
 	bool initialized;
 
-	KURL filename;
+	KUrl filename;
 	bool warnClose();
 
 	QTabWidget *Tabs;

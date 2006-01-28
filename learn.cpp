@@ -336,7 +336,7 @@ void Learn::updateGrade()
 	Config::self()->setGrade(grade);
 }
 
-void Learn::read(const KURL &url)
+void Learn::read(const KUrl &url)
 {
 	List->clear();
 
@@ -374,7 +374,7 @@ void Learn::open()
 	if (!warnClose())
 		return;
 
-	KURL prevname = filename;
+	KUrl prevname = filename;
 	filename = KFileDialog::getOpenURL(QString(), "*.kiten");
 	if (filename.isEmpty())
 	{
@@ -413,7 +413,7 @@ void Learn::openNew()
 
 void Learn::saveAs()
 {
-	KURL prevname = filename;
+	KUrl prevname = filename;
 	filename = KFileDialog::getSaveURL(QString(), "*.kiten");
 	if (filename.isEmpty())
 	{
@@ -436,7 +436,7 @@ void Learn::save()
 	config->setLastFile(filename.url());
 }
 
-void Learn::write(const KURL &url)
+void Learn::write(const KUrl &url)
 {
 	KSaver saver(url);
 

@@ -39,7 +39,7 @@ public:
 	 * The constructor takes the url and decides the best way to save,
 	 * which will mean using something like KIO::NetAccess or QFile.
 	 */
-	KSaver(const KURL &_target);
+	KSaver(const KUrl &_target);
 
 	/**
 	 * The destructor closes if necessary.

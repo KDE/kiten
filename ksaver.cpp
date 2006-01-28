@@ -50,13 +50,13 @@ public:
 	bool isLocal;
 	KTempFile *tempFile;
 	QFile *file;
-	KURL url;
+	KUrl url;
 	QString error;
 	QTextStream *textStream;
 	QDataStream *dataStream;
 };
 
-KSaver::KSaver(const KURL &_target)
+KSaver::KSaver(const KUrl &_target)
 {
 	d = new KSaverPrivate;
 	d->url = _target;

@@ -48,13 +48,13 @@ public:
 	bool isLocal;
 	QString tempFile;
 	QFile *file;
-	KURL url;
+	KUrl url;
 	QString error;
 	QTextStream *textStream;
 	QDataStream *dataStream;
 };
 
-KLoader::KLoader(const KURL &target)
+KLoader::KLoader(const KUrl &target)
 {
 	d = new KLoaderPrivate;
 	d->url = target;
