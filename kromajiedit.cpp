@@ -46,7 +46,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 	}
 
 	QFile f(romkana);
-	
+
 	if (!f.open(QIODevice::ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Romaji information could not be loaded, so Romaji conversion cannot be used."));
@@ -91,20 +91,12 @@ KRomajiEdit::~KRomajiEdit()
 {
 }
 
-void KRomajiEdit::setKana(int _kana)
+void KRomajiEdit::completionMenuActivated( QAction* act)
 {
-	switch (_kana)
-	{
-		case 0:
-		kana = "english";
-		break;
-		case 1:
-		kana = "hiragana";
-		break;
-		//case 2:
-		//kana = "katakana";
-		//break;
-	}
+    if ( act == englishAction )
+        kana = "english";
+    else if ( act == kanaAction )
+        kana = "hiragana";
 }
 
 // TODO allow editing not only at end
@@ -216,7 +208,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 			if (ji.at(0) == 'n' && !newkana.isEmpty())
 			{
 				//kdDebug() << "doing the n thing\n";
-				
+
 				setText(curKana + hiragana["n'"] + newkana);
 
 				if (kana == "katakana")
@@ -230,7 +222,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 			if (ji.at(0) == 'n' && !newkana.isEmpty())
 			{
 				//kdDebug() << "doing the n thing - katakana\n";
-				
+
 				setText(curKana + katakana["n'"] + newkana);
 
 				if (kana == "katakana")
@@ -257,27 +249,21 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	KLineEdit::keyPressEvent(e); // don't think we'll get here :)
 }
 
-Q3PopupMenu *KRomajiEdit::createPopupMenu()
+void KRomajiEdit::contextMenuEvent(QContextMenuEvent *e)
 {
-#warning "kde4: port KLineEdit::createPopupMenu\n";
-#if 0		
-    Q3PopupMenu *popup = KLineEdit::createPopupMenu();
+    QMenu *popup = KLineEdit::createStandardContextMenu();
     popup->insertSeparator();
-    popup->insertItem(i18n("English"), 0);
-    popup->insertItem(i18n("Kana"), 1);
-
+    englishAction = popup->addAction( i18n("English"));
+    kanaAction = popup->addAction(i18n("Kana"));
     if (kana == "english")
-		popup->setItemChecked(0, true);
+       englishAction->setChecked(true);
     else if (kana == "hiragana")
-		popup->setItemChecked(1, true);
-
-    connect(popup, SIGNAL(activated(int)), SLOT(setKana(int)));
-
-    emit aboutToShowContextMenu(popup);
-	return popup;
-#endif
-	Q3PopupMenu *popup = new Q3PopupMenu();
-    return popup;
+        kanaAction->setChecked(true);
+    connect( popup, SIGNAL( triggered ( QAction* ) ),
+             this, SLOT( completionMenuActivated( QAction* ) ) );
+    popup->exec(e->globalPos());
+    delete popup;
 }
+
 
 #include "kromajiedit.moc"
