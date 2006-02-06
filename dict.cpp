@@ -92,12 +92,12 @@ File::File(QString path, QString n)
 		QFile dictionary(path);
 		dictionaryLength = dictionary.size();
 		dictionaryLength++;
-		//kdDebug() << "dictionaryLength = " << dictionaryLength << endl;
+		//kDebug() << "dictionaryLength = " << dictionaryLength << endl;
 
 		int32_t testWord[1];
 		fread(&testWord[0], sizeof(int32_t), 1, fopen(indexFile.name().latin1(), "rb"));
 
-		//kdDebug() << "testWord[0] = " << testWord[0] << endl;
+		//kDebug() << "testWord[0] = " << testWord[0] << endl;
 
 		if (testWord[0] != (dictionaryLength + indexFileVersion))
 			forceUpdate = true;
@@ -105,7 +105,7 @@ File::File(QString path, QString n)
 
 	if (!indexFileExists || forceUpdate)
 	{
-		//kdDebug() << "creating " << indexFile.name() << endl;
+		//kDebug() << "creating " << indexFile.name() << endl;
 		// find the index generator executable
 		KProcess proc;
 		proc << KStandardDirs::findExe("kitengen") << path << indexFile.name();

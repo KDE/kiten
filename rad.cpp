@@ -136,20 +136,20 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 
 QStringList Rad::kanjiByRad(const QString &text)
 {
-	//kdDebug() << "kanjiByRad, text is " << text << endl;
+	//kDebug() << "kanjiByRad, text is " << text << endl;
 	load();
 	QStringList ret;
 
 	Q3ValueListIterator<Radical> it;
 	for (it = list.begin(); it != list.end() && (*it).radical() != text; ++it)
 	{
-		//kdDebug() << "kanjiByRad, looping, radical is " << (*it).radical() << endl;
+		//kDebug() << "kanjiByRad, looping, radical is " << (*it).radical() << endl;
 	}
 
 	QString kanji = (*it).kanji();
 	for (int i = 0; i < kanji.length(); ++i)
 	{
-		//kdDebug() << "kanjiByRad, i is " << i << endl;
+		//kDebug() << "kanjiByRad, i is " << i << endl;
 		ret.append(QString(kanji.at(i)));
 	}
 
@@ -158,14 +158,14 @@ QStringList Rad::kanjiByRad(const QString &text)
 
 QStringList Rad::kanjiByRad(const QStringList &list)
 {
-	//kdDebug() << "kanjiByRad (list version)\n";
+	//kDebug() << "kanjiByRad (list version)\n";
 
 	QStringList ret;
 	Q3ValueList<QStringList> lists;
 
 	for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
 	{
-		//kdDebug() << "loading radical " << *it << endl;
+		//kDebug() << "loading radical " << *it << endl;
 		lists.append(kanjiByRad(*it));
 	}
 
@@ -174,23 +174,23 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 
 	for (QStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
 	{
-		//kdDebug() << "kit is " << *kit << endl;
+		//kDebug() << "kit is " << *kit << endl;
 		Q3ValueList<bool> outcomes;
 		for (Q3ValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
 		{
-			//kdDebug() << "looping through lists\n";
+			//kDebug() << "looping through lists\n";
 			outcomes.append((*it).contains(*kit) > 0);
 		}
 
 		const bool containsBool = false;
 		if ((outcomes.contains(containsBool) < 1))
 		{
-			//kdDebug() << "appending " << *kit << endl;
+			//kDebug() << "appending " << *kit << endl;
 			ret.append(*kit);
 		}
 		else
 		{
-			//kdDebug() << "not appending " << *kit << endl;
+			//kDebug() << "not appending " << *kit << endl;
 		}
 	}
 
@@ -377,7 +377,7 @@ void RadWidget::addToSelected(const QString &text)
 
 void RadWidget::selectionChanged()
 {
-	//kdDebug() << "selectionChanged()" << endl;
+	//kDebug() << "selectionChanged()" << endl;
 	remove->setEnabled(selectedList->currentItem() != -1);
 }
 

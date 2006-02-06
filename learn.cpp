@@ -189,7 +189,7 @@ void Learn::finishCtor()
 	updateQuizConfiguration(); // first
 
 	QString entry = config->lastFile();
-	//kdDebug() << "lastFile: " << entry << endl;
+	//kDebug() << "lastFile: " << entry << endl;
 	if (!entry.isEmpty())
 	{
 		filename = entry;
@@ -384,7 +384,7 @@ void Learn::open()
 
 	read(filename);
 
-	//kdDebug() << "saving lastFile\n";
+	//kDebug() << "saving lastFile\n";
 	Config* config = Config::self();
 	config->setLastFile(filename.url());
 
@@ -541,7 +541,7 @@ void Learn::addItem(Q3ListViewItem *item, bool noEmit)
 			curItem = item;
 			prevItem = curItem;
 			qnew(); // init first quiz
-			//kdDebug() << "initting first quiz in addItem\n";
+			//kDebug() << "initting first quiz in addItem\n";
 		}
 
 	if (!noEmit)
@@ -697,13 +697,13 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		if ((rand > (RAND_MAX / 2)) || (List->childCount() < numberOfAnswers))
 		{
 			// get a meaning from dict
-			//kdDebug() << "from our dict\n";
+			//kDebug() << "from our dict\n";
 			rand = KRandom::random();
 			float rand2 = RAND_MAX / rand;
 			rand = ((float)list.count() - 1) / rand2;
 			//rand -= 1;
-			//kdDebug() << "rand: " << rand << endl;
-			//kdDebug() << "list.count(): " << list.count() << endl;
+			//kDebug() << "rand: " << rand << endl;
+			//kDebug() << "list.count(): " << list.count() << endl;
 
 			switch (guessOn)
 			{
@@ -720,7 +720,7 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 		else
 		{
 			// get a meaning from our list
-			//kdDebug() << "from our list\n";
+			//kDebug() << "from our list\n";
 			rand = KRandom::random();
 			float rand2 = RAND_MAX / rand;
 			rand = List->childCount() / rand2;
@@ -733,12 +733,12 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 			meaning = it.current()->text(guessOn);
 		}
 
-		//kdDebug() << "meaning: " << meaning << endl;
+		//kDebug() << "meaning: " << meaning << endl;
 		for (QStringList::Iterator it = oldMeanings.begin(); it != oldMeanings.end(); ++it)
 		{
-			//kdDebug() << "oldMeaning: " << *it << endl;
+			//kDebug() << "oldMeaning: " << *it << endl;
 		}
-		//kdDebug() << "curMeaning: " << curItem->text(guessOn) << endl;
+		//kDebug() << "curMeaning: " << curItem->text(guessOn) << endl;
 	}
 	while (oldMeanings.contains(meaning) || meaning == curItem->text(guessOn));
 
@@ -780,7 +780,7 @@ struct Learn::scoreCompare
 
 void Learn::qnew() // new quiz kanji
 {
-	//kdDebug() << "qnew\n";
+	//kDebug() << "qnew\n";
 	nogood = false;
 
 	statusBar()->clear();

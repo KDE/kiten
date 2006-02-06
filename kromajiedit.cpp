@@ -127,7 +127,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 			kana = "katakana";
 	}
 
-	//kdDebug() << "--------------------\n";
+	//kDebug() << "--------------------\n";
 
 	QString curEng;
 	QString curKana;
@@ -135,16 +135,16 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 
 	int i;
 	unsigned int len = _text.length();
-	//kdDebug() << "length = " << len << endl;
+	//kDebug() << "length = " << len << endl;
 	for (i = len - 1; i >= 0; i--)
 	{
 		QChar at = _text.at(i);
 
-		//kdDebug() << "at = " << QString(at) << endl;
+		//kDebug() << "at = " << QString(at) << endl;
 
 		if (at.row() == 0 && at != '.')
 		{
-			//kdDebug() << "prepending " << QString(at) << endl;
+			//kDebug() << "prepending " << QString(at) << endl;
 			curEng.prepend(at);
 		}
 		else
@@ -152,26 +152,26 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	}
 	i++;
 
-	//kdDebug() << "i is " << i << ", length is " << len << endl;
+	//kDebug() << "i is " << i << ", length is " << len << endl;
 	curKana = _text.left(i);
 
 	ji.prepend(curEng);
 	ji = ji.lower();
-	//kdDebug() << "ji = " << ji << endl;
+	//kDebug() << "ji = " << ji << endl;
 
 	QString replace;
 
-	//kdDebug () << "kana is " << kana << endl;
+	//kDebug () << "kana is " << kana << endl;
 	if (kana == "hiragana")
 		replace = hiragana[ji];
 	else if (kana == "katakana")
 		replace = katakana[ji];
 
-	//kdDebug() << "replace = " << replace << endl;
+	//kDebug() << "replace = " << replace << endl;
 
 	if (!replace.isEmpty()) // if (replace has something in it)
 	{
-		//kdDebug() << "replace isn't empty\n";
+		//kDebug() << "replace isn't empty\n";
 
 		setText(curKana + replace);
 
@@ -181,10 +181,10 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	}
 	else
 	{
-		//kdDebug() << "replace is empty\n";
+		//kDebug() << "replace is empty\n";
 		QString farRight(ji.right(ji.length() - 1));
-		//kdDebug() << "ji = " << ji << endl;
-		//kdDebug() << "farRight = " << farRight << endl;
+		//kDebug() << "ji = " << ji << endl;
+		//kDebug() << "farRight = " << farRight << endl;
 
 		// test if we need small tsu
 		if (ji.at(0) == farRight.at(0)) // if two letters are same, and we can add a twoletter length kana
@@ -204,10 +204,10 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		if (kana == "hiragana")
 		{
 			newkana = hiragana[farRight];
-			//kdDebug() << "newkana = " << newkana << endl;
+			//kDebug() << "newkana = " << newkana << endl;
 			if (ji.at(0) == 'n' && !newkana.isEmpty())
 			{
-				//kdDebug() << "doing the n thing\n";
+				//kDebug() << "doing the n thing\n";
 
 				setText(curKana + hiragana["n'"] + newkana);
 
@@ -221,7 +221,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 			newkana = katakana[farRight];
 			if (ji.at(0) == 'n' && !newkana.isEmpty())
 			{
-				//kdDebug() << "doing the n thing - katakana\n";
+				//kDebug() << "doing the n thing - katakana\n";
 
 				setText(curKana + katakana["n'"] + newkana);
 
