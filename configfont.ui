@@ -12,7 +12,7 @@
             <height>554</height>
         </rect>
     </property>
-    <property name="caption">
+    <property name="windowTitle">
         <string>Font</string>
     </property>
     <hbox>
