@@ -242,7 +242,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	while (hotlist.size() > hotlistNum)
 		hotlist.pop_front();
 
-	for (unsigned int i = 0; i < hotlistNum; ++i)
+	for ( int i = 0; i < hotlistNum; ++i)
 	{
 		if (i >= hotlistNum)
 			break;

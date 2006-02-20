@@ -117,7 +117,7 @@ class KDE_EXPORT RadWidget : public QWidget
 
 	Rad *rad;
 
-	unsigned int hotlistNum;
+        int hotlistNum;
 	QStringList hotlist;
 
 	void numChanged();

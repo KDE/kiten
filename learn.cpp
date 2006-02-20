@@ -123,9 +123,9 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	/*KAction *closeAction = */(void) KStdAction::close(this, SLOT(close()), actionCollection());
 	printAct = KStdAction::print(this, SLOT(print()), actionCollection());
 	forwardAct = KStdAction::forward(this, SLOT(next()), actionCollection());
-	forwardAct->plug(toolBar());
+	//forwardAct->plug(toolBar());
 	backAct = KStdAction::back(this, SLOT(prev()), actionCollection());
-	backAct->plug(toolBar());
+	//backAct->plug(toolBar());
 	cheatAct = new KAction(i18n("&Cheat"), Qt::CTRL + Qt::Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
 	randomAct = new KAction(i18n("&Random"), "goto", Qt::CTRL + Qt::Key_R, this, SLOT(random()), actionCollection(), "random");
 	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
