@@ -28,7 +28,7 @@
 #include <kmainwindow.h>
 #include <ktextbrowser.h>
 
-class KListView;
+class K3ListView;
 class KStatusBar;
 
 #include "dict.h"
@@ -79,7 +79,7 @@ class KDE_EXPORT eEdit : public KMainWindow
 	void openFile(const QString &);
 
 	private:
-	KListView *List;
+	K3ListView *List;
 	QString filename;
 	KStatusBar *StatusBar;
 	KAction *addAct;

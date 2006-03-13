@@ -24,7 +24,7 @@
 #ifndef OPTIONDIALOG_H
 #define OPTIONDIALOG_H
 
-class KListView;
+class K3ListView;
 class QString;
 class KFontChooser;
 class QLabel;

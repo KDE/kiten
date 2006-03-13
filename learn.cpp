@@ -23,7 +23,7 @@
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
@@ -90,7 +90,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	View->setBasicMode(true);
 	connect(View, SIGNAL(linkClicked(const QString &)), this, SIGNAL(linkClicked(const QString &)));
 
-	List = new KListView(listTop);
+	List = new K3ListView(listTop);
 
 	List->addColumn(i18n("Kanji"));
 	List->addColumn(i18n("Meanings"));
@@ -106,7 +106,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	List->setMultiSelection(true);
 	List->setDragEnabled(true);
 	List->setSorting(4);
-	List->setSelectionModeExt(KListView::Extended);
+	List->setSelectionModeExt(K3ListView::Extended);
 
 	connect(List, SIGNAL(executed(Q3ListViewItem *)), SLOT(showKanji(Q3ListViewItem *)));
 	connect(List, SIGNAL(selectionChanged()), this, SLOT(itemSelectionChanged()));

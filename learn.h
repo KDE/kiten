@@ -119,7 +119,7 @@ class Learn : public KMainWindow
 
 	Dict::Index *index;
 
-	KListView *List;
+	K3ListView *List;
 	KPushButton *Save;
 	KPushButton *Del;
 	KPushButton *qDel;

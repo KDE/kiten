@@ -19,7 +19,7 @@
 **/
 
 #include <kdebug.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kfiledialog.h>
 #include <qpushbutton.h>
 #include <qstringlist.h>
@@ -76,7 +76,7 @@ void ConfigDictionaries::writeDictionaries()
 
 void ConfigDictionaries::readDictionaryList(const QString& group)
 {
-	KListView* list;
+	K3ListView* list;
 	QStringList names;
 	if (group == "edict")
 	{
@@ -104,7 +104,7 @@ void ConfigDictionaries::readDictionaryList(const QString& group)
 
 void ConfigDictionaries::writeDictionaryList(const QString& group)
 {
-	KListView* list;
+	K3ListView* list;
 	if (group == "edict")
 		list = edictList;
 	else //if (group == "kanjidic")
@@ -138,7 +138,7 @@ void ConfigDictionaries::slotDelSelEdict() { delSel(edictList); }
 void ConfigDictionaries::slotAddKanjidic() { add(kanjidicList); }
 void ConfigDictionaries::slotDelSelKanjidic() { delSel(kanjidicList); }
 
-void ConfigDictionaries::add(KListView* list)
+void ConfigDictionaries::add(K3ListView* list)
 {
 	Q3ListViewItem *item = list->firstChild();
 	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString());
@@ -149,7 +149,7 @@ void ConfigDictionaries::add(KListView* list)
 	emit widgetChanged();
 }
 
-void ConfigDictionaries::delSel(KListView* list)
+void ConfigDictionaries::delSel(K3ListView* list)
 {
 	Q3ListViewItem *file = list->selectedItem();
 	if (!file)

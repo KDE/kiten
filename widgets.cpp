@@ -22,7 +22,7 @@
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprinter.h>
@@ -304,7 +304,7 @@ eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
 	: KMainWindow(parent, name)
 	, filename(_filename)
 {
-	List = new KListView(this);
+	List = new K3ListView(this);
 	setCentralWidget(List);
 
 	List->addColumn(i18n("Kanji"));
@@ -346,7 +346,7 @@ eEdit::~eEdit()
 void eEdit::add()
 {
 	if (List)
-		new KListViewItem(List);
+		new K3ListViewItem(List);
 }
 
 void eEdit::openFile(const QString &file)

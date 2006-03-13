@@ -53,8 +53,8 @@ private:
 	Config* config;
 	void readDictionaryList(const QString& group);
 	void writeDictionaryList(const QString& group);
-	void add(KListView* list);
-	void delSel(KListView* list);
+	void add(K3ListView* list);
+	void delSel(K3ListView* list);
 };
 
 #endif
