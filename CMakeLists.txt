@@ -7,7 +7,7 @@ include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_D
 
 ########### next target ###############
 
-set(kiten_SRCS ${kiten_LIB_SRCS} 
+set(kiten_bin_SRCS ${kiten_LIB_SRCS} 
 	main.cpp
 	kiten.cpp 
 	learn.cpp 
@@ -17,18 +17,19 @@ set(kiten_SRCS ${kiten_LIB_SRCS}
 	optiondialog.cpp
 	)
 	
-kde4_add_ui3_files(kiten_SRCS configsearching.ui configlearn.ui configfont.ui configdictionariesbase.ui )
+kde4_add_ui3_files(kiten_bin_SRCS configsearching.ui configlearn.ui configfont.ui configdictionariesbase.ui )
 
-kde4_add_kcfg_files(kiten_SRCS kitenconfig.kcfgc)
+kde4_add_kcfg_files(kiten_bin_SRCS kitenconfig.kcfgc)
 
-kde4_automoc(${kiten_SRCS})
+kde4_automoc(${kiten_bin_SRCS})
 
 
-kde4_add_executable(kiten ${kiten_SRCS})
+kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
+set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
-target_link_libraries(kiten  ${QT_AND_KDECORE_LIBS} kdeui kdeprint )
+target_link_libraries(kiten_bin  ${LIB_KDEUI} kdeprint kiten)
 
-install_targets(/bin kiten )
+install_targets(/bin kiten_bin )
 
 
 ########### next target ###############
@@ -39,7 +40,7 @@ kde4_automoc(${kitengen_SRCS})
 
 kde4_add_executable(kitengen ${kitengen_SRCS})
 
-target_link_libraries(kitengen  ${QT_AND_KDECORE_LIBS} )
+target_link_libraries(kitengen  ${LIB_KDEUI} )
 
 install_targets(/bin kitengen )
 
@@ -54,7 +55,7 @@ kde4_automoc(${kiten_LIB_SRCS})
 
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 
-target_link_libraries(kiten  ${QT_AND_KDECORE_LIBS} )
+target_link_libraries(kiten  ${LIB_KDEUI} )
 
 set_target_properties(kiten PROPERTIES VERSION 1.0.0 SOVERSION 1 )
 install_targets(${LIB_INSTALL_DIR} kiten )
