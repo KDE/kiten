@@ -23,7 +23,6 @@ kde4_add_kcfg_files(kiten_SRCS kitenconfig.kcfgc)
 
 kde4_automoc(${kiten_SRCS})
 
-kde4_add_kcfg_files(kiten_SRCS kitenconfig.kcfgc )
 
 kde4_add_executable(kiten ${kiten_SRCS})
 
