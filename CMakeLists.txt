@@ -19,7 +19,6 @@ set(kiten_bin_SRCS ${kiten_LIB_SRCS}
 	
 kde4_add_ui3_files(kiten_bin_SRCS configsearching.ui configlearn.ui configfont.ui configdictionariesbase.ui )
 
-kde4_add_kcfg_files(kiten_bin_SRCS kitenconfig.kcfgc)
 
 kde4_automoc(${kiten_bin_SRCS})
 
@@ -50,6 +49,7 @@ install_targets(/bin kitengen )
 set(kiten_LIB_SRCS asyndeta.cpp dict.cpp widgets.cpp kromajiedit.cpp rad.cpp deinf.cpp )
 
 
+kde4_add_kcfg_files(kiten_LIB_SRCS kitenconfig.kcfgc)
 
 kde4_automoc(${kiten_LIB_SRCS})
 
