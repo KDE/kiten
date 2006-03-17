@@ -1,4 +1,5 @@
 kde4_header()
+project(kiten)
 
 add_subdirectory( pics ) 
 
