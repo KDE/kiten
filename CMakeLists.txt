@@ -27,7 +27,7 @@ kde4_automoc(${kiten_bin_SRCS})
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
 set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
-target_link_libraries(kiten_bin  ${LIB_KDEUI} kdeprint kiten)
+target_link_libraries(kiten_bin  ${KDE4_KDEUI_LIBS} kdeprint kiten)
 
 install_targets(/bin kiten_bin )
 
@@ -40,7 +40,7 @@ kde4_automoc(${kitengen_SRCS})
 
 kde4_add_executable(kitengen ${kitengen_SRCS})
 
-target_link_libraries(kitengen  ${LIB_KDEUI} )
+target_link_libraries(kitengen  ${KDE4_KDEUI_LIBS} )
 
 install_targets(/bin kitengen )
 
@@ -56,7 +56,7 @@ kde4_automoc(${kiten_LIB_SRCS})
 
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 
-target_link_libraries(kiten  ${LIB_KDEUI} )
+target_link_libraries(kiten  ${KDE4_KDEUI_LIBS} )
 
 set_target_properties(kiten PROPERTIES VERSION 1.0.0 SOVERSION 1 )
 install_targets(${LIB_INSTALL_DIR} kiten )
