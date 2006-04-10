@@ -63,7 +63,9 @@ void ResultView::addResult(Dict::Entry result, bool common)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		addHeader((common? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
+		addHeader((common ? i18n("Common results from %1", result.dictName())
+		                  : i18n("Results from %1", result.dictName())),
+		          5);
 		return;
 	}
 	if (result.header() != "__NOTSET")
@@ -107,7 +109,9 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 {
 	if (result.dictName() != "__NOTSET")
 	{
-		addHeader((common? i18n("Common results from %1") : i18n("Results from %1")).arg(result.dictName()), 5);
+		addHeader((common ? i18n("Common results from %1", result.dictName())
+		                  : i18n("Results from %1", result.dictName())),
+		          5);
 		return;
 	}
 	if (result.header() != "__NOTSET")
@@ -125,7 +129,7 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 	else
 		// this isn't a number of times, it's simply an index of
 		// probability
-		html = html.arg(i18n("Probability rank #%1").arg(freq));
+		html = html.arg(i18n("Probability rank #%1", freq));
 
 	html += "<br />";
 
@@ -170,30 +174,29 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 	}
 	html.truncate(html.length() - 2);
 	html += "<br />";
-	html += i18n("Grade Level: %1. Strokes: %2.");
-
+	
+	KLocalizedString tmp = ki18n("Grade Level: %1. Strokes: %2.");
 	switch (result.grade())
 	{
 		case 0:
-		html = html.arg(i18n("None"));
+		tmp = tmp.subs(i18n("None"));
 		break;
 		case 8:
-		html = html.arg(i18n("In Jouyou"));
+		tmp = tmp.subs(i18n("In Jouyou"));
 		break;
 		case 9:
-		html = html.arg(i18n("In Jinmeiyou"));
+		tmp = tmp.subs(i18n("In Jinmeiyou"));
 		break;
 		default:
-		html = html.arg(result.grade());
+		tmp = tmp.subs(result.grade());
 	}
-
-	html = html.arg(result.strokes());
+	html += tmp.subs(result.strokes()).toString();
 
 	if (result.miscount() != 0)
-		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
+		html.append(i18n(" Common Miscount: %1.", result.miscount()));
 
 	if (!rad.radical().isEmpty())
-		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(QString("<a href=\"__radical:%1\">%2</a>").arg(rad.radical()).arg(rad.radical())).arg(rad.strokes()));
+		html.append(i18n(" Largest radical: %1, with %2 strokes.", QString("<a href=\"__radical:%1\">%2</a>").arg(rad.radical()).arg(rad.radical()), rad.strokes()));
 
 	html += "</p>";
 
@@ -258,7 +261,7 @@ void ResultView::print(QString title)
 
 		QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2, metrics.height() - margin * dpiy / margin * 2);
 
-		Q3SimpleRichText richText(title.isNull()? printText : i18n("<h1>Search for \"%1\"</h1>").arg(title) + printText, font(), context(), styleSheet(), mimeSourceFactory(), body.height(), Qt::black, false);
+		Q3SimpleRichText richText(title.isNull()? printText : i18n("<h1>Search for \"%1\"</h1>", title) + printText, font(), context(), styleSheet(), mimeSourceFactory(), body.height(), Qt::black, false);
 		richText.setWidth(&p, body.width());
 		QRect view(body);
 		int page = 1;

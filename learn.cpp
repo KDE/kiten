@@ -306,7 +306,7 @@ void Learn::update()
 	QString kanji = curKanji.kanji();
 
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
-	View->addHeader(i18n("%1 in compounds").arg(kanji));
+	View->addHeader(i18n("%1 in compounds", kanji));
 	
 	for (Q3ValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{
@@ -327,7 +327,7 @@ void Learn::updateGrade()
 	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
 	list = result.list;
 
-	statusBar()->message(i18n("%1 entries in grade %2").arg(list.count()).arg(grade));
+	statusBar()->message(i18n("%1 entries in grade %2", list.count(), grade));
 
 	list.remove(list.begin());
 	current = list.begin();
@@ -463,7 +463,7 @@ void Learn::write(const KUrl &url)
 
 	setClean();
 
-	statusBar()->message(i18n("%1 written").arg(url.prettyURL()));
+	statusBar()->message(i18n("%1 written", url.prettyURL()));
 }
 
 void Learn::saveScores()
@@ -492,13 +492,13 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 		{
 			if (it.current()->text(0) == kanji)
 			{
-				statusBar()->message(i18n("%1 already on your list").arg(kanji));
+				statusBar()->message(i18n("%1 already on your list", kanji));
 				return;
 			}
 		}
 	}
 
-	statusBar()->message(i18n("%1 added to your list").arg(kanji));
+	statusBar()->message(i18n("%1 added to your list", kanji));
 
 	KConfig &config = *Config::self()->config();
 	int score = 0;

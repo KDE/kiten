@@ -88,7 +88,7 @@ bool KSaver::open(void)
 		}
 		else
 		{
-			d->error = i18n("Could not write to %1.").arg(d->url.prettyURL());
+			d->error = i18n("Could not write to %1.", d->url.prettyURL());
 			return false;
 		}
 	}

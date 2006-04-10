@@ -40,11 +40,11 @@
 
 namespace
 {
-void msgerr(const QString &msg, const QString &dict = QString())
+void msgerr(const KLocalizedString &msg, const QString &dict = QString())
 {
 	QString output = msg;
 	if (!dict.isNull())
-		output = msg.arg(dict);
+		output = msg.subs(dict).toString();
 	KMessageBox::error(0, output);
 }
 }
@@ -115,27 +115,27 @@ File::File(QString path, QString n)
 
 	if (!dictFile.open(QIODevice::ReadOnly))
 	{
-		msgerr(i18n("Could not open dictionary %1."), path);
+		msgerr(ki18n("Could not open dictionary %1."), path);
 		return;
 	}
 
 	dictPtr = (const unsigned char *)mmap(0, dictFile.size(), PROT_READ, MAP_SHARED, dictFile.handle(), 0);
 	if (dictPtr == (unsigned char*) MAP_FAILED)
 	{
-		msgerr(i18n("Memory error when loading dictionary %1."), path);
+		msgerr(ki18n("Memory error when loading dictionary %1."), path);
 		return;
 	}
 
 	if (!indexFile.open(QIODevice::ReadOnly))
 	{
-		msgerr(i18n("Could not open index for dictionary %1."), path);
+		msgerr(ki18n("Could not open index for dictionary %1."), path);
 		return;
 	}
 
 	indexPtr = (const uint32_t*)mmap(0, indexFile.size(), PROT_READ, MAP_SHARED, indexFile.handle(), 0);
 	if (indexPtr == (uint32_t*) MAP_FAILED)
 	{
-		msgerr(i18n("Memory error when loading dictionary %1's index file."), path);
+		msgerr(ki18n("Memory error when loading dictionary %1's index file."), path);
 		return;
 	}
 
@@ -239,7 +239,7 @@ void Index::loadDictList(Q3PtrList<File> &fileList, const QStringList &dictList,
 	// check if we have a dict
 	if (dictList.size() < 1)
 	{
-		msgerr(i18n("No dictionaries in list!"));
+		msgerr(ki18n("No dictionaries in list!"));
 		return;
 	}
 

@@ -174,7 +174,7 @@ void TopLevel::addToList()
 	if (learnList.isEmpty())
 		createLearn();
 	else
-		StatusBar->message(i18n("%1 added to learn list of all open learn windows").arg(toAddKanji.kanji()));
+		StatusBar->message(i18n("%1 added to learn list of all open learn windows", toAddKanji.kanji()));
 
 	emit add(toAddKanji);
 }
@@ -259,12 +259,12 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 
 			addAction->setEnabled(true);
 
-			_ResultView->append(QString("<p>%1</p>").arg(i18n("HTML Entity: %1").arg(QString("&amp;#x%1;").arg(QString::number(toAddKanji.kanji().at(0).unicode(), 16))))); // show html entity
+			_ResultView->append(QString("<p>%1</p>").arg(i18n("HTML Entity: %1", QString("&amp;#x%1;").arg(QString::number(toAddKanji.kanji().at(0).unicode(), 16))))); // show html entity
 
 			// now show some compounds in which this kanji appears
 			QString kanji = toAddKanji.kanji();
 
-			_ResultView->addHeader(i18n("%1 in compounds").arg(kanji));
+			_ResultView->addHeader(i18n("%1 in compounds", kanji));
 
 			Dict::SearchResult compounds = _Asyndeta.retrieveIndex()->search(QRegExp(kanji), kanji, true);
 			bool common = true;
@@ -585,10 +585,10 @@ void TopLevel::kanjiSearchAccel()
 
 void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 {
-	QString str = i18n("%n result","%n results",results);
+	QString str = i18np("%n result","%n results",results);
 
 	if (results < fullNum)
-		str += i18n(" out of %1").arg(fullNum);
+		str += i18n(" out of %1", fullNum);
 
 	StatusBar->message(str);
 	setCaption(str);
@@ -775,12 +775,12 @@ void TopLevel::radSearch(const QStringList &_list, unsigned int strokes, unsigne
 		already = true;
 	}
 
-	hist.text = i18n("Radical(s): %1").arg(prettyRadicalString);
+	hist.text = i18n("Radical(s): %1", prettyRadicalString);
 
 	if (strokes)
-		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1 and %2 strokes").arg(prettyRadicalString).arg(strokes), true));
+		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1 and %2 strokes", prettyRadicalString, strokes), true));
 	else
-		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1").arg(prettyRadicalString), true));
+		hist.list.append(Dict::Entry(i18n("Kanji with radical(s) %1", prettyRadicalString), true));
 
 	QString strokesString;
 	if (strokes)
