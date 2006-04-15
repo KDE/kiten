@@ -42,7 +42,7 @@ namespace
 {
 void msgerr(const KLocalizedString &msg, const QString &dict = QString())
 {
-	QString output = msg;
+	QString output = msg.toString();
 	if (!dict.isNull())
 		output = msg.subs(dict).toString();
 	KMessageBox::error(0, output);
