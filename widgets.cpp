@@ -267,7 +267,7 @@ void ResultView::print(QString title)
 		int page = 1;
 
 		QColorGroup goodColorGroup = QColorGroup(colorGroup());
-		goodColorGroup.setColor(QColorGroup::Link, Qt::black);
+		goodColorGroup.setColor(QPalette::Link, Qt::black);
 
 		do
 		{
