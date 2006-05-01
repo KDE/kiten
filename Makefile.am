@@ -37,8 +37,6 @@ kitendir = $(kde_datadir)/kiten
 
 kde_kcfg_DATA = kiten.kcfg
 
-messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/kiten.pot
 
 
 
