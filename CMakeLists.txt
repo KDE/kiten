@@ -70,8 +70,6 @@ install_files( ${DATA_INSTALL_DIR}/kiten FILES edict kanjidic radkfile vconj rom
 install_files( /include/libkiten FILES asyndeta.h dict.h widgets.h kromajiedit.h rad.h deinf.h )
 install_files( ${DATA_INSTALL_DIR}/kiten FILES kitenui.rc learnui.rc eeditui.rc )
 
-kde4_create_doxygen_docs(  )
-
 kde4_footer()
 
 
