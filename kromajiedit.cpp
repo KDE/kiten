@@ -167,7 +167,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	else if (kana == "katakana")
 		replace = katakana[ji];
 
-	//kDebug() << "replace = " << replace << endl;
+	//kDebug() << "replace = '" << replace << "'" << endl;
 
 	if (!replace.isEmpty()) // if (replace has something in it)
 	{
@@ -182,12 +182,12 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	else
 	{
 		//kDebug() << "replace is empty\n";
-		QString farRight(ji.right(ji.length() - 1));
+    QString farRight(ji.right(1));
 		//kDebug() << "ji = " << ji << endl;
 		//kDebug() << "farRight = " << farRight << endl;
 
 		// test if we need small tsu
-		if (ji.at(0) == farRight.at(0)) // if two letters are same, and we can add a twoletter length kana
+		if (ji.at(0) == farRight.at(0) && ji.length() > 1) // if two letters are same, and we can add a twoletter length kana
 		{
 			if (kana == "hiragana")
 				setText(curKana + hiragana[ji.at(0) == 'n'? "n'" : "t-"] + farRight.at(0));
