@@ -159,7 +159,7 @@ class Learn : public KMainWindow
 	KAction *addAllAct;
 	KAction *removeAct;
 	KAction *randomAct;
-	KListAction *gradeAct;
+// 	KListAction *gradeAct;
 
 	int getCurrentGrade(void);
 	void setCurrentGrade(int grade);

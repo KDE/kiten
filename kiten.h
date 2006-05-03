@@ -37,7 +37,7 @@ class EditAction;
 class KGlobalAccel;
 class KStatusBar;
 class KToggleAction;
-class KListAction;
+// class KListAction;
 class Learn;
 class ResultView;
 
@@ -105,7 +105,7 @@ private:
 	KToggleAction *kanjiCB;
 	KToggleAction *autoSearchToggle;
 	KToggleAction *deinfCB;
-	KListAction *historyAction;
+// 	KListAction *historyAction;
 	KAction *irAction;
 	KAction *addAction;
 	KToggleAction *comCB;

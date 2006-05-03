@@ -128,9 +128,9 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	//backAct->plug(toolBar());
 	cheatAct = new KAction(i18n("&Cheat"), Qt::CTRL + Qt::Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
 	randomAct = new KAction(i18n("&Random"), "goto", Qt::CTRL + Qt::Key_R, this, SLOT(random()), actionCollection(), "random");
-	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
-	gradeAct->setItems(grades);
-	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
+// 	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
+// 	gradeAct->setItems(grades);
+// 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
 	removeAct = new KAction(i18n("&Delete"), "edit_remove", Qt::CTRL + Qt::Key_X, this, SLOT(del()), actionCollection(), "del");
 	addAct = new KAction(i18n("&Add"), "edit_add", Qt::CTRL + Qt::Key_A, this, SLOT(add()), actionCollection(), "add");
 	addAllAct = new KAction(i18n("Add A&ll"), 0, this, SLOT(addAll()), actionCollection(), "addall");
@@ -216,7 +216,7 @@ bool Learn::warnClose()
 		switch (result)
 		{
 		case KMessageBox::Yes:
-			saveAct->activate();
+// 			saveAct->activate();
 			// fallthrough
 		case KMessageBox::No:
 			return true;
@@ -864,7 +864,7 @@ void Learn::tabChanged(QWidget *widget)
 		backAct->setEnabled(true);
 
 	forwardAct->setEnabled(!isQuiz);
-	gradeAct->setEnabled(!isQuiz);
+// 	gradeAct->setEnabled(!isQuiz);
 	saveAct->setEnabled(!isQuiz);
 	addAct->setEnabled(!isQuiz);
 	addAllAct->setEnabled(!isQuiz);
@@ -907,15 +907,16 @@ void Learn::itemSelectionChanged()
 
 int Learn::getCurrentGrade(void)
 {
-	int grade = gradeAct->currentItem() + 1;
-	if (grade > 6) ++grade;
-	return grade;
+// 	int grade = gradeAct->currentItem() + 1;
+// 	if (grade > 6) ++grade;
+// 	return grade;
+  return 0;
 }
 
 void Learn::setCurrentGrade(int grade)
 {
-	if (grade > 6) --grade;
-	gradeAct->setCurrentItem(grade - 1);
+// 	if (grade > 6) --grade;
+// 	gradeAct->setCurrentItem(grade - 1);
 }
 
 void Learn::updateQuizConfiguration()

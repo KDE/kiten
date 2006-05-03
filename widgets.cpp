@@ -448,7 +448,9 @@ void eEdit::del()
 // sorta taken from konqy
 
 EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, KActionCollection* parent, const char* name)
-    : KAction(text, accel, receiver, member, parent, name)
+    : KAction(text, accel, receiver, member, parent, name),
+      m_receiver(receiver),
+      m_member(member)
 {
 }
 
@@ -463,17 +465,19 @@ int EditAction::plug( QWidget *w, int index )
 
 	KToolBar *toolBar = (KToolBar *)w;
 
-	int id = KAction::getToolButtonID();
+// 	int id = KAction::getToolButtonID();
 
 	KRomajiEdit *comboBox = new KRomajiEdit(toolBar, "search edit");
-	toolBar->insertWidget( id, 70, comboBox, index );
-	connect( comboBox, SIGNAL( returnPressed()), m_receiver, m_member );
+// 	toolBar->insertWidget( id, 70, comboBox, index );
+  m_combo = comboBox;
+  toolBar->addWidget(m_combo);
+	connect( m_combo, SIGNAL( returnPressed()), m_receiver, m_member );
 
-	addContainer(toolBar, id);
+// 	addContainer(toolBar, id);
 
-	connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+// 	connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
 
-	toolBar->setItemAutoSized( id, true );
+// 	toolBar->setItemAutoSized( id, true );
 
 	m_combo = comboBox;
 
@@ -491,11 +495,11 @@ void EditAction::unplug( QWidget *w )
 
 	KToolBar *toolBar = (KToolBar *)w;
 
-	int idx = findContainer( w );
+// 	int idx = findContainer( w );
 
-	toolBar->removeItem( itemId( idx ) );
+// 	toolBar->removeItem( itemId( idx ) );
 
-	removeContainer( idx );
+// 	removeContainer( idx );
 	m_combo = 0L;
 }
 

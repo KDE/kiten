@@ -56,11 +56,11 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	config = Config::self();
 	config->readConfig();
-	Accel = new KGlobalAccel(this);
-	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), Qt::CTRL + Qt::ALT + Qt::Key_K, this, SLOT(kanjiSearchAccel()));
-	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), Qt::CTRL + Qt::ALT + Qt::Key_S, this, SLOT(searchAccel()));
-	Accel->readSettings(KGlobal::config());
-	Accel->updateConnections();
+// 	Accel = new KGlobalAccel();
+// 	(void) Accel->insert("Lookup Kanji (Kanjidic)", i18n("Lookup Kanji (Kanjidic)"), i18n("Gives detailed information about Kanji currently on clipboard."), Qt::CTRL + Qt::ALT + Qt::Key_K, this, SLOT(kanjiSearchAccel()));
+// 	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), Qt::CTRL + Qt::ALT + Qt::Key_S, this, SLOT(searchAccel()));
+// 	Accel->readSettings(KGlobal::config());
+// 	Accel->updateConnections();
 
 	_ResultView = new ResultView(true, this, "_ResultView");
 	setCentralWidget(_ResultView);
@@ -89,8 +89,8 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	addAction->setEnabled(false);
 	(void) new KAction(i18n("Configure &Global Shortcuts..."), "configure_shortcuts", 0, this, SLOT(configureGlobalKeys()), actionCollection(), "options_configure_keybinding");
 
-	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
-	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
+// 	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
+// 	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
 	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
@@ -134,6 +134,7 @@ void TopLevel::finishInit()
 	// the app group won't exist and we show demo
 	if (!KGlobal::config()->hasGroup("app"))
 	{
+    Edit->plug((QWidget *)toolBar(), 0);
 		if (kanjiCB->isChecked())
 		  	Edit->setText(QString::fromUtf8("辞"));
 		else
@@ -840,20 +841,25 @@ void TopLevel::forward(void)
 
 void TopLevel::goInHistory(int index)
 {
-	currentResult = resultHistory.at(resultHistory.count() - historyAction->items().count() + index);
+#if 0
+  currentResult = resultHistory.at(resultHistory.count() - historyAction->items().count() + index);
 	currentResultIndex = index;
 	enableHistoryButtons();
 	handleSearchResult(*currentResult);
 	historySpotChanged();
+#endif
 }
 
 void TopLevel::historySpotChanged()
 {
+#if 0
 	historyAction->setCurrentItem(currentResultIndex);
+#endif
 }
 
 void TopLevel::addHistory(Dict::SearchResult result)
 {
+#if 0
 	QStringList newHistoryList = historyAction->items();
 
 	// remove from back till we hit currentResult
@@ -882,13 +888,16 @@ void TopLevel::addHistory(Dict::SearchResult result)
 
 	if (resultHistory.size() > 50)
 		resultHistory.pop_front();
+#endif
 }
 
 void TopLevel::enableHistoryButtons()
 {
+#if 0
 	backAction->setEnabled(currentResult != resultHistory.begin());
 	forwardAction->setEnabled(++currentResult != resultHistory.end());
 	--currentResult;
+#endif
 }
 
 void TopLevel::print()
@@ -898,7 +907,7 @@ void TopLevel::print()
 
 void TopLevel::configureGlobalKeys()
 {
-	KKeyDialog::configure(Accel, this);
+// 	KKeyDialog::configure(Accel, this);
 }
 
 #include "kiten.moc"
