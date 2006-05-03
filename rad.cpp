@@ -228,8 +228,11 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	hotlistNum = 3;
 
 	rad = _rad;
-	QHBoxLayout *hlayout = new QHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
-	QVBoxLayout *vlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	QHBoxLayout *hlayout = new QHBoxLayout(this);
+	hlayout->setSpacing(KDialog::spacingHint());
+	hlayout->setMargin(KDialog::marginHint());
+	QVBoxLayout *vlayout = new QVBoxLayout(hlayout);
+	vlayout->setSpacing(KDialog::spacingHint());
 
 	hotlistGroup = new Q3ButtonGroup(1, Qt::Horizontal, i18n("Hotlist"), this);
 	//hotlistGroup->setRadioButtonExclusive(true);
@@ -251,13 +254,15 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	}
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
 
-	QVBoxLayout *layout = new QVBoxLayout(vlayout, KDialog::spacingHint());
+	QVBoxLayout *layout = new QVBoxLayout(vlayout);
+	layout->setSpacing(KDialog::spacingHint());
 
 	totalStrokes = new QCheckBox(i18n("Search by total strokes"), this);
 	connect(totalStrokes, SIGNAL(clicked()), this, SLOT(totalClicked()));
 	layout->addWidget(totalStrokes);
 
-	QHBoxLayout *strokesLayout = new QHBoxLayout(layout, KDialog::spacingHint());
+	QHBoxLayout *strokesLayout = new QHBoxLayout(layout);
+	strokesLayout->setSpacing(KDialog::spacingHint());
 	totalSpin = new QSpinBox(1, 30, 1, this);
 	strokesLayout->addWidget(totalSpin);
 	strokesLayout->addStretch();
@@ -275,7 +280,8 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(cancel, SIGNAL(clicked()), SLOT(close()));
 	layout->addWidget(cancel);
 
-	QVBoxLayout *middlevLayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	QVBoxLayout *middlevLayout = new QVBoxLayout(hlayout);
+	middlevLayout->setSpacing(KDialog::spacingHint());
 
 	strokesSpin = new QSpinBox(1, 17, 1, this);
 	QToolTip::add(strokesSpin, i18n("Show radicals having this number of strokes"));
@@ -286,7 +292,8 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(List, SIGNAL(executed(Q3ListBoxItem *)), this, SLOT(executed(Q3ListBoxItem *)));
 	connect(strokesSpin, SIGNAL(valueChanged(int)), this, SLOT(updateList(int)));
 
-	QVBoxLayout *rightvlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	QVBoxLayout *rightvlayout = new QVBoxLayout(hlayout);
+	rightvlayout->setSpacing(KDialog::spacingHint());
 	selectedList = new KListBox(this);
 	rightvlayout->addWidget(selectedList);
 	connect(selectedList, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
