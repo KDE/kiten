@@ -69,25 +69,65 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), actionCollection());
-	(void) new KAction(i18n("&Learn"), "pencil", Qt::CTRL+Qt::Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
-	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
-	(void) new KAction(i18n("Ra&dical Search..."), "gear", Qt::CTRL+Qt::Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
+	KAction * learnAction = new KAction(i18n("&Learn"), actionCollection(), "file_learn");
+	connect( learnAction, SIGNAL( triggered(bool) ), this, SLOT(createLearn()) ); 
+	learnAction->setShortcut(Qt::CTRL+Qt::Key_L);
+	learnAction->setIcon(KIcon("pencil"));
+
+	KAction * dictEditorAction = new KAction(i18n("&Dictionary Editor..."), actionCollection(), "dict_editor");
+	connect( dictEditorAction, SIGNAL( triggered(bool) ), this, SLOT(createEEdit()) ); 
+	dictEditorAction->setIcon(KIcon("edit"));
+
+	KAction * radicalSearchAction =  new KAction(i18n("Ra&dical Search..."), actionCollection(), "search_radical");
+	connect( radicalSearchAction, SIGNAL( triggered(bool) ), this, SLOT(radicalSearch()) ); 
+	radicalSearchAction->setShortcut(Qt::CTRL+Qt::Key_R);
+	radicalSearchAction->setIcon(KIcon("gear"));
+
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
-	(void) new KAction(i18n("&Clear Search Bar"), BarIcon("locationbar_erase", 16), Qt::CTRL+Qt::Key_N, Edit, SLOT(clear()), actionCollection(), "clear_search");
-	(void) new KAction(i18n("S&earch"), "key_enter", 0, this, SLOT(search()), actionCollection(), "search");
-	(void) new KAction(i18n("Search with &Beginning of Word"), 0, this, SLOT(searchBeginning()), actionCollection(), "search_beginning");
-	(void) new KAction(i18n("Search &Anywhere"), 0, this, SLOT(searchAnywhere()), actionCollection(), "search_anywhere");
-	(void) new KAction(i18n("Stro&kes"), "paintbrush", Qt::CTRL+Qt::Key_S, this, SLOT(strokeSearch()), actionCollection(), "search_stroke");
-	(void) new KAction(i18n("&Grade"), "leftjust", Qt::CTRL+Qt::Key_G, this, SLOT(gradeSearch()), actionCollection(), "search_grade");
+	KAction * clearAction = new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
+	connect( clearAction, SIGNAL( triggered(bool) ), this, SLOT(clear()) ); 
+	clearAction->setShortcut(Qt::CTRL+Qt::Key_N);
+	clearAction->setIcon(KIcon("locationbar_erase"));
+
+	KAction * searchAction = new KAction(i18n("S&earch"), actionCollection(), "search");
+	connect( searchAction, SIGNAL( triggered(bool) ), this, SLOT(search()) ); 
+	searchAction->setIcon(KIcon("key_enter"));
+
+	KAction * searchBeginningAction = new KAction(i18n("Search with &Beginning of Word"), actionCollection(), "search_beginning");
+	connect( searchBeginningAction, SIGNAL( triggered(bool) ), this, SLOT(searchBeginning()) ); 
+
+	KAction * searchAnywhereAction = new KAction(i18n("Search &Anywhere"), actionCollection(), "search_anywhere");
+	connect(searchAnywhereAction, SIGNAL( triggered(bool) ), this, SLOT(searchAnywhere()) ); 
+
+	KAction * strokeSearchAction = new KAction(i18n("Stro&kes"), actionCollection(), "search_stroke");
+	connect( strokeSearchAction, SIGNAL( triggered(bool) ), this, SLOT(strokeSearch()) ); 
+	strokeSearchAction->setShortcut(Qt::CTRL+Qt::Key_S);
+	strokeSearchAction->setIcon(KIcon("paintbrush"));
+
+	KAction * gradeSearchAction = new KAction(i18n("&Grade"), actionCollection(), "search_grade");
+	connect( gradeSearchAction, SIGNAL( triggered(bool) ), this, SLOT(gradeSearch()) ); 
+	gradeSearchAction->setShortcut(Qt::CTRL+Qt::Key_G);
+	gradeSearchAction->setIcon(KIcon("leftjust"));
+
 	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", Qt::CTRL+Qt::Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
 	deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
 	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", Qt::CTRL+Qt::Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
-	irAction =  new KAction(i18n("Search &in Results"), "find", Qt::CTRL+Qt::Key_I, this, SLOT(resultSearch()), actionCollection(), "search_in_results");
+
+	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
+	connect( irAction, SIGNAL( triggered(bool) ), this, SLOT(resultSearch()) ); 
+	irAction->setShortcut(Qt::CTRL+Qt::Key_I);
+	irAction->setIcon(KIcon("find"));
+
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
-	addAction = new KAction(i18n("Add &Kanji to Learning List"), 0, this, SLOT(addToList()), actionCollection(), "add");
+
+	addAction = new KAction(i18n("Add &Kanji to Learning List"), actionCollection(), "add");
 	addAction->setEnabled(false);
-	(void) new KAction(i18n("Configure &Global Shortcuts..."), "configure_shortcuts", 0, this, SLOT(configureGlobalKeys()), actionCollection(), "options_configure_keybinding");
+	connect( addAction, SIGNAL( triggered(bool) ), this, SLOT(addToList()) ); 
+	
+	KAction * configureGlobalKeysAction = new KAction(i18n("Configure &Global Shortcuts..."), actionCollection(), "options_configure_keybinding");
+	connect( configureGlobalKeysAction, SIGNAL( triggered(bool) ), this, SLOT(configureGlobalKeys()) ); 
+	configureGlobalKeysAction->setIcon(KIcon("configure_shortcuts"));
 
 // 	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
 // 	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
@@ -144,7 +184,7 @@ void TopLevel::finishInit()
 	}
 
 	Edit->clear(); // make sure the edit is focused initially
-	StatusBar->message(i18n("Welcome to Kiten"));
+	StatusBar->showMessage(i18n("Welcome to Kiten"));
 	setCaption(QString());
 }
 
@@ -175,7 +215,7 @@ void TopLevel::addToList()
 	if (learnList.isEmpty())
 		createLearn();
 	else
-		StatusBar->message(i18n("%1 added to learn list of all open learn windows", toAddKanji.kanji()));
+		StatusBar->showMessage(i18n("%1 added to learn list of all open learn windows", toAddKanji.kanji()));
 
 	emit add(toAddKanji);
 }
@@ -184,11 +224,11 @@ void TopLevel::doSearch(const QString &text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{
-		StatusBar->message(i18n("Empty search items"));
+		StatusBar->showMessage(i18n("Empty search items"));
 		return;
 	}
 
-	StatusBar->message(i18n("Searching..."));
+	StatusBar->showMessage(i18n("Searching..."));
 
 	Dict::SearchResult results;
 	if (kanjiCB->isChecked())
@@ -222,11 +262,11 @@ void TopLevel::doSearchInResults(const QString &text, QRegExp regexp)
 {
 	if (text.isEmpty())
 	{
-		StatusBar->message(i18n("Empty search items"));
+		StatusBar->showMessage(i18n("Empty search items"));
 		return;
 	}
 
-	StatusBar->message(i18n("Searching..."));
+	StatusBar->showMessage(i18n("Searching..."));
 	Dict::SearchResult results = _Asyndeta.retrieveIndex()->searchPrevious(regexp, text, *currentResult, comCB->isChecked());
 	addHistory(results);
 	handleSearchResult(results);
@@ -482,12 +522,12 @@ void TopLevel::strokeSearch()
 		//kDebug() << "strokesString is " << strokesString << endl;
 		*/
 
-		StatusBar->message(i18n("Unparseable number"));
+		StatusBar->showMessage(i18n("Unparseable number"));
 		return;
 	}
 	else if (strokes <= 0 || strokes > 60)
 	{
-		StatusBar->message(i18n("Invalid stroke count"));
+		StatusBar->showMessage(i18n("Invalid stroke count"));
 		return;
 	}
 	else
@@ -509,16 +549,16 @@ void TopLevel::gradeSearch()
 	QString editText = Edit->text().trimmed();
 	unsigned int grade;
 
-	if (editText.lower() == "jouyou")
+	if (editText.toLower() == "jouyou")
 		grade = 8;
-	else if (editText.lower() == "jinmeiyou")
+	else if (editText.toLower() == "jinmeiyou")
 		grade = 9;
 	else
 		grade = editText.toUInt();
 
 	if (grade <= 0 || grade > 9)
 	{
-		StatusBar->message(i18n("Invalid grade"));
+		StatusBar->showMessage(i18n("Invalid grade"));
 		return;
 	}
 
@@ -544,7 +584,7 @@ QString TopLevel::filteredClipboardText()
 {
 	QString newText = clipBoardText();
 	QString currentText = Edit->text();
-	if (newText.length() < 80 && newText.find(':') < 0 && newText.find('#') < 0 && newText.find("-") != 0 && newText.find("+") < 0 && currentText.find(newText) < 0)
+	if (newText.length() < 80 && !newText.contains(':') && !newText.contains('#') && !newText.startsWith("-") && !newText.contains("+") && !currentText.contains(newText) )
 		return newText;
 	else
 		return QString();
@@ -591,7 +631,7 @@ void TopLevel::setResults(unsigned int results, unsigned int fullNum)
 	if (results < fullNum)
 		str += i18n(" out of %1", fullNum);
 
-	StatusBar->message(str);
+	StatusBar->showMessage(str);
 	setCaption(str);
 }
 
@@ -687,7 +727,14 @@ QRegExp TopLevel::readingSearchItems(bool kanji)
 
 	regexp = regexp.arg(text);
 
-	return QRegExp(regexp, Config::caseSensitive());
+	if(Config::caseSensitive())
+	{
+		return QRegExp(regexp, Qt::CaseSensitive);
+	}
+	else
+	{
+		return QRegExp(regexp, Qt::CaseInsensitive);
+	}
 }
 
 QRegExp TopLevel::kanjiSearchItems(bool beginning)
@@ -705,7 +752,14 @@ QRegExp TopLevel::kanjiSearchItems(bool beginning)
 
 	regexp = regexp.arg(text);
 
-	return QRegExp(regexp, Config::caseSensitive());
+	if(Config::caseSensitive())
+	{
+		return QRegExp(regexp, Qt::CaseSensitive);
+	}
+	else
+	{
+		return QRegExp(regexp, Qt::CaseInsensitive);
+	}
 }
 
 QRegExp TopLevel::searchItems()
@@ -723,7 +777,14 @@ QRegExp TopLevel::searchItems()
 
 	regexp = regexp.arg(text);
 
-	return QRegExp(regexp, Config::caseSensitive());
+	if(Config::caseSensitive())
+	{
+		return QRegExp(regexp, Qt::CaseSensitive);
+	}
+	else
+	{
+		return QRegExp(regexp, Qt::CaseInsensitive);
+	}
 }
 
 void TopLevel::toggleCom()

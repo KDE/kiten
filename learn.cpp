@@ -128,14 +128,33 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	//forwardAct->plug(toolBar());
 	backAct = KStdAction::back(this, SLOT(prev()), actionCollection());
 	//backAct->plug(toolBar());
-	cheatAct = new KAction(i18n("&Cheat"), Qt::CTRL + Qt::Key_C, this, SLOT(cheat()), actionCollection(), "cheat");
-	randomAct = new KAction(i18n("&Random"), "goto", Qt::CTRL + Qt::Key_R, this, SLOT(random()), actionCollection(), "random");
+
+	cheatAct = new KAction(i18n("&Cheat"), actionCollection(), "cheat");
+	connect( cheatAct, SIGNAL( triggered(bool) ), this, SLOT(cheat()) ); 
+	cheatAct->setShortcut(Qt::CTRL + Qt::Key_C);
+
+	randomAct = new KAction(i18n("&Random"), actionCollection(), "random");
+	connect( randomAct, SIGNAL( triggered(bool) ), this, SLOT(random()) ); 
+	randomAct->setShortcut(Qt::CTRL + Qt::Key_R);
+	randomAct->setIcon(KIcon("goto"));
+
 // 	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
 // 	gradeAct->setItems(grades);
 // 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
-	removeAct = new KAction(i18n("&Delete"), "edit_remove", Qt::CTRL + Qt::Key_X, this, SLOT(del()), actionCollection(), "del");
-	addAct = new KAction(i18n("&Add"), "edit_add", Qt::CTRL + Qt::Key_A, this, SLOT(add()), actionCollection(), "add");
-	addAllAct = new KAction(i18n("Add A&ll"), 0, this, SLOT(addAll()), actionCollection(), "addall");
+
+	removeAct = new KAction(i18n("&Delete"), actionCollection(), "del");
+	connect( removeAct, SIGNAL( triggered(bool) ), this, SLOT(del()) ); 
+	removeAct->setShortcut(Qt::CTRL + Qt::Key_X);
+	removeAct->setIcon(KIcon("edit_remove"));
+
+	addAct = new KAction(i18n("&Add"), actionCollection(), "add");
+	connect( addAct, SIGNAL( triggered(bool) ), this, SLOT(add()) ); 
+	addAct->setShortcut(Qt::CTRL + Qt::Key_A);
+	addAct->setIcon(KIcon("edit_add"));
+
+	addAllAct = new KAction(i18n("Add A&ll"), actionCollection(), "addall");
+	connect( addAllAct, SIGNAL( triggered(bool) ), this, SLOT(addAll()) ); 
+
 	newAct = KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	openAct = KStdAction::open(this, SLOT(open()), actionCollection());
 	saveAct = KStdAction::save(this, SLOT(save()), actionCollection());
@@ -170,7 +189,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	resize(600, 400);
 	applyMainWindowSettings(Config::self()->config(), "LearnWindow");
 
-	statusBar()->message(i18n("Put on your thinking cap!"));
+	statusBar()->showMessage(i18n("Put on your thinking cap!"));
 
 	nogood = false;
 
@@ -274,13 +293,13 @@ void Learn::next()
 
 void Learn::prev()
 {
-	if (Tabs->currentPageIndex() == 1)
+	if (Tabs->currentIndex() == 1)
 	{
 		if (!prevItem)
 			return;
 		curItem = prevItem;
 	
-		statusBar()->clear();
+		statusBar()->clearMessage();
 		qupdate();
 		nogood = true;
 		backAct->setEnabled(false);
@@ -300,7 +319,7 @@ void Learn::update()
 
 	if (curKanji.kanji().isEmpty())
 	{
-		statusBar()->message(i18n("Grade not loaded")); // oops
+		statusBar()->showMessage(i18n("Grade not loaded")); // oops
 		return;
 	}
 	View->addKanjiResult(curKanji);
@@ -331,7 +350,7 @@ void Learn::updateGrade()
 	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
 	list = result.list;
 
-	statusBar()->message(i18n("%1 entries in grade %2", list.count(), grade));
+	statusBar()->showMessage(i18n("%1 entries in grade %2", list.count(), grade));
 
 	list.remove(list.begin());
 	current = list.begin();
@@ -467,7 +486,7 @@ void Learn::write(const KUrl &url)
 
 	setClean();
 
-	statusBar()->message(i18n("%1 written", url.prettyURL()));
+	statusBar()->showMessage(i18n("%1 written", url.prettyURL()));
 }
 
 void Learn::saveScores()
@@ -496,13 +515,13 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 		{
 			if (it.current()->text(0) == kanji)
 			{
-				statusBar()->message(i18n("%1 already on your list", kanji));
+				statusBar()->showMessage(i18n("%1 already on your list", kanji));
 				return;
 			}
 		}
 	}
 
-	statusBar()->message(i18n("%1 added to your list", kanji));
+	statusBar()->showMessage(i18n("%1 added to your list", kanji));
 
 	KConfig &config = *Config::self()->config();
 	int score = 0;
@@ -578,7 +597,7 @@ void Learn::showKanji(Q3ListViewItem *item)
 void Learn::del()
 {
 	// quiz page
-	if (Tabs->currentPageIndex() == 1)
+	if (Tabs->currentIndex() == 1)
 	{
 		delete curItem;
 		curItem = prevItem; // needs to be something
@@ -653,7 +672,7 @@ void Learn::answerClicked(int i)
 
 	if (seikai == i)
 	{
-		statusBar()->message(i18n("Good!"));
+		statusBar()->showMessage(i18n("Good!"));
 
 		if (!nogood) // add two to their score
 			newscore = curItem->text(4).toInt() + 2;
@@ -667,7 +686,7 @@ void Learn::answerClicked(int i)
 	}
 	else
 	{
-		statusBar()->message(i18n("Wrong"));
+		statusBar()->showMessage(i18n("Wrong"));
 		// take one off score
 		newscore = curItem->text(4).toInt() - 1;
 
@@ -787,8 +806,8 @@ void Learn::qnew() // new quiz kanji
 	//kDebug() << "qnew\n";
 	nogood = false;
 
-	statusBar()->clear();
-	statusBar()->message(QString("%1 %2 %3").arg(curItem->text(0)).arg(curItem->text(1)).arg(curItem->text(2)));
+	statusBar()->clearMessage();
+	statusBar()->showMessage(QString("%1 %2 %3").arg(curItem->text(0)).arg(curItem->text(1)).arg(curItem->text(2)));
 
 	backAct->setEnabled(true);
 
@@ -849,7 +868,7 @@ void Learn::qnew() // new quiz kanji
 void Learn::cheat()
 {
 	answers->find(seikai)->setFocus();
-	statusBar()->message(i18n("Better luck next time"));
+	statusBar()->showMessage(i18n("Better luck next time"));
 	nogood = true;
 }
 
@@ -893,15 +912,15 @@ void Learn::tabChanged(QWidget *widget)
 		itemSelectionChanged();
 	}
 
-	statusBar()->clear();
+	statusBar()->clearMessage();
 }
 
 void Learn::updateQuiz()
 {
 	if (List->childCount() < 3)
-		Tabs->setTabEnabled(quizTop, false);
+		Tabs->setTabEnabled(Tabs->indexOf(quizTop), false);
 	else
-		Tabs->setTabEnabled(quizTop, true);
+		Tabs->setTabEnabled(Tabs->indexOf(quizTop), true);
 }
 
 void Learn::itemSelectionChanged()
@@ -962,7 +981,7 @@ void Learn::qKanjiClicked()
 
 void Learn::numChanged()
 {
-	Tabs->setTabEnabled(quizTop, List->childCount() >= 2);
+	Tabs->setTabEnabled(Tabs->indexOf(quizTop), List->childCount() >= 2);
 	//quizTop->setEnabled(List->childCount() >= 2);
 }
 
