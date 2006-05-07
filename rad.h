@@ -25,7 +25,7 @@
 #include <qstringlist.h>
 //Added by qt3to4:
 #include <QLabel>
-#include <Q3ValueList>
+#include <QList>
 
 class Config;
 class QCheckBox;
@@ -70,7 +70,7 @@ class KDE_EXPORT Rad : public QObject
 	private:
 	void load();
 
-	Q3ValueList<Radical> list;
+	QList<Radical> list;
 	bool loaded;
 };
 

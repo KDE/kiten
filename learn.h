@@ -23,8 +23,7 @@
 #define LEARN_H
 
 #include <q3listview.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 #include <kurl.h>
 
@@ -114,8 +113,8 @@ class Learn : public KMainWindow
 	QWidget *quizTop;
 
 	ResultView *View;
-	Q3ValueList<Dict::Entry> list;
-	Q3ValueListIterator<Dict::Entry> current;
+	QList<Dict::Entry> list;
+	QList<Dict::Entry>::iterator current;
 
 	Dict::Index *index;
 

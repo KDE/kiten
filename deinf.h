@@ -23,8 +23,7 @@
 
 #include <qmap.h>
 #include <qstringlist.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 namespace Deinf
 {
@@ -46,7 +45,7 @@ class KDE_EXPORT Index
 	private:
 	void load();
 	QMap<unsigned int, QString> names;
-	Q3ValueList<Conjugation> list;
+	QList<Conjugation> list;
 	bool loaded;
 };
 

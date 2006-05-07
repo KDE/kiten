@@ -711,10 +711,10 @@ Entry Dict::kanjiParse(const QString &raw)
 	return (Entry(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
 }
 
-QString Dict::prettyMeaning(QStringList Meanings)
+QString Dict::prettyMeaning(const QStringList & Meanings)
 {
 	QString meanings;
-	QStringList::Iterator it;
+	QStringList::ConstIterator it;
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 		meanings.append((*it).trimmed()).append("; ");
 
@@ -722,9 +722,9 @@ QString Dict::prettyMeaning(QStringList Meanings)
 	return meanings;
 }
 
-QString Dict::prettyKanjiReading(QStringList Readings)
+QString Dict::prettyKanjiReading(const QStringList & Readings)
 {
-	QStringList::Iterator it;
+	QStringList::ConstIterator it;
 	QString html;
 
 	for (it = Readings.begin(); it != Readings.end(); ++it)
@@ -747,9 +747,9 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 	return html;
 }
 
-Dict::Entry Dict::firstEntry(Dict::SearchResult result)
+Dict::Entry Dict::firstEntry(const Dict::SearchResult & result)
 {
-	for (Q3ValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
+	for (QList<Dict::Entry>::const_iterator it = result.list.begin(); it != result.list.end(); ++it)
 	{
 		if ((*it).dictName() == "__NOTSET" && (*it).header() == "__NOTSET")
 			return (*it);
@@ -758,9 +758,9 @@ Dict::Entry Dict::firstEntry(Dict::SearchResult result)
 	return Dict::Entry("__NOTHING");
 }
 
-QString Dict::firstEntryText(Dict::SearchResult result)
+QString Dict::firstEntryText(const Dict::SearchResult & result)
 {
-	for (QStringList::Iterator it = result.results.begin(); it != result.results.end(); ++it)
+	for (QStringList::ConstIterator it = result.results.begin(); it != result.results.end(); ++it)
 	{
 		if ((*it).left(5) != "DICT " && (*it).left(7) != "HEADER ")
 			return (*it);
@@ -816,62 +816,62 @@ Entry::Entry(const QString &headername, bool)
 {
 }
 
-QString Entry::dictName()
+QString Entry::dictName() const
 {
 	return DictName;
 }
 
-QString Entry::header()
+QString Entry::header() const
 {
 	return Header;
 }
 
-bool Entry::kanaOnly()
+bool Entry::kanaOnly() const
 {
 	return KanaOnly;
 }
 
-QString Entry::kanji()
+QString Entry::kanji() const
 {
 	return Kanji;
 }
 
-QStringList Entry::readings()
+QStringList Entry::readings() const
 {
 	return Readings;
 }
 
-QString Entry::firstReading()
+QString Entry::firstReading() const
 {
 	return Readings.at(0);
 }
 
-QStringList Entry::meanings()
+QStringList Entry::meanings() const
 {
 	return Meanings;
 }
 
-unsigned int Entry::grade()
+unsigned int Entry::grade() const
 {
 	return Grade;
 }
 
-unsigned int Entry::freq()
+unsigned int Entry::freq() const
 {
 	return Freq;
 }
 
-unsigned int Entry::miscount()
+unsigned int Entry::miscount() const
 {
 	return Miscount;
 }
 
-unsigned int Entry::strokes()
+unsigned int Entry::strokes() const
 {
 	return Strokes;
 }
 
-bool Entry::extendedKanjiInfo()
+bool Entry::extendedKanjiInfo() const
 {
 	return ExtendedKanjiInfo;
 }

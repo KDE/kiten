@@ -316,7 +316,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 				common = false;
 			}
 
-			for (Q3ValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+			for (QList<Dict::Entry>::iterator it = compounds.list.begin(); it != compounds.list.end(); ++it)
 			{
 				//kDebug() << "adding " << (*it).kanji() << endl;
 				_ResultView->addResult(*it, common);
@@ -325,7 +325,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 		}
 		else
 		{
-			for (Q3ValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+			for (QList<Dict::Entry>::iterator it = results.list.begin(); it != results.list.end(); ++it)
 			{
 				kapp->processEvents();
 				_ResultView->addKanjiResult(*it, results.common);
@@ -334,7 +334,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 	}
 	else
 	{
-		for (Q3ValueListIterator<Dict::Entry> it = results.list.begin(); it != results.list.end(); ++it)
+		for (QList<Dict::Entry>::iterator it = results.list.begin(); it != results.list.end(); ++it)
 		{
 			kapp->processEvents();
 			_ResultView->addResult(*it, comCB->isChecked());

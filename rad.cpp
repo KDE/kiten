@@ -40,7 +40,6 @@
 //Added by qt3to4:
 #include <QTextStream>
 #include <QHBoxLayout>
-#include <Q3ValueList>
 #include <QVBoxLayout>
 
 #include "kitenconfig.h"
@@ -115,7 +114,7 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 
 	QStringList ret;
 	bool hadOne = false;
-	Q3ValueListIterator<Radical> it = list.begin();
+	QList<Radical>::iterator it = list.begin();
 
 	do
 	{
@@ -140,7 +139,7 @@ QStringList Rad::kanjiByRad(const QString &text)
 	load();
 	QStringList ret;
 
-	Q3ValueListIterator<Radical> it;
+	QList<Radical>::iterator it;
 	for (it = list.begin(); it != list.end() && (*it).radical() != text; ++it)
 	{
 		//kDebug() << "kanjiByRad, looping, radical is " << (*it).radical() << endl;
@@ -161,7 +160,7 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	//kDebug() << "kanjiByRad (list version)\n";
 
 	QStringList ret;
-	Q3ValueList<QStringList> lists;
+	QList<QStringList> lists;
 
 	for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
 	{
@@ -175,15 +174,15 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	for (QStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
 	{
 		//kDebug() << "kit is " << *kit << endl;
-		Q3ValueList<bool> outcomes;
-		for (Q3ValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
+		QList<bool> outcomes;
+		for (QList<QStringList>::iterator it = lists.begin(); it != lists.end(); ++it)
 		{
 			//kDebug() << "looping through lists\n";
 			outcomes.append((*it).contains(*kit) > 0);
 		}
 
 		const bool containsBool = false;
-		if ((outcomes.contains(containsBool) < 1))
+		if (! outcomes.contains(containsBool) )
 		{
 			//kDebug() << "appending " << *kit << endl;
 			ret.append(*kit);
@@ -202,7 +201,7 @@ Radical Rad::radByKanji(const QString &text)
 	load();
 	QString ret;
 
-	Q3ValueListIterator<Radical> it;
+	QList<Radical>::iterator it;
 	for (it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
 
 	return (*it);
@@ -211,7 +210,7 @@ Radical Rad::radByKanji(const QString &text)
 unsigned int Rad::strokesByRad(const QString &text)
 {
 	load();
-	Q3ValueListIterator<Radical> it;
+	QList<Radical>::iterator it;
 	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
 
 	return (*it).strokes();

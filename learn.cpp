@@ -277,9 +277,10 @@ bool Learn::queryClose()
 
 void Learn::random()
 {
-	int rand = static_cast<int>(static_cast<float>(list.count()) / (static_cast<float>(RAND_MAX) / KRandom::random()));
+	int rand = static_cast<int>(static_cast<float>(list.count()) * (static_cast<float>(KRandom::random())/RAND_MAX));
 
-	current = list.at(rand - 1);
+	current = list.begin() + rand;
+
 	update();
 }
 
@@ -314,6 +315,12 @@ void Learn::prev()
 
 void Learn::update()
 {
+	if(list.size() == 0)
+	{
+		//We don't want to use *current if the list is empty
+		return;
+	}
+
 	View->clear();
 	Dict::Entry curKanji = *current;
 
@@ -331,7 +338,7 @@ void Learn::update()
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
 	View->addHeader(i18n("%1 in compounds", kanji));
 	
-	for (Q3ValueListIterator<Dict::Entry> it = compounds.list.begin(); it != compounds.list.end(); ++it)
+	for (QList<Dict::Entry>::iterator it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{
 		kapp->processEvents();
 		View->addResult(*it, true);
@@ -354,6 +361,7 @@ void Learn::updateGrade()
 
 	list.remove(list.begin());
 	current = list.begin();
+
 	update();
 
 	Config::self()->setGrade(grade);
@@ -536,6 +544,10 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 
 void Learn::add()
 {
+	if(list.size() == 0)
+	{
+		return;
+	}
 	add(*current);
 	setDirty();
 }
@@ -548,7 +560,7 @@ void Learn::addAll()
 	regexp = regexp.arg(grade);
 
 	Dict::SearchResult result = index->searchKanji(QRegExp(regexp), regexp, false);
-	for (Q3ValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
+	for (QList<Dict::Entry>::iterator i = result.list.begin(); i != result.list.end(); ++i)
 	{
 		// don't add headers
 		if ((*i).dictName() == "__NOTSET" && (*i).header() == "__NOTSET")
@@ -647,7 +659,7 @@ void Learn::print()
 	{
 		QString kanji = it.current()->text(0);
 		Dict::SearchResult result = index->searchKanji(QRegExp(kanji), kanji, false);
-		for (Q3ValueListIterator<Dict::Entry> i = result.list.begin(); i != result.list.end(); ++i)
+		for (QList<Dict::Entry>::iterator i = result.list.begin(); i != result.list.end(); ++i)
 		{
 			if ((*i).dictName() == "__NOTSET" && (*i).header() == "__NOTSET")
 			{
@@ -731,13 +743,13 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 			switch (guessOn)
 			{
 				case 1:
-				meaning = shortenString(Dict::prettyMeaning((*list.at(static_cast<unsigned int>(rand))).meanings()));
+				meaning = shortenString(Dict::prettyMeaning((list.at(static_cast<unsigned int>(rand))).meanings()));
 				break;
 				case 2:
-				meaning = Dict::prettyKanjiReading((*list.at(static_cast<unsigned int>(rand))).readings());
+				meaning = Dict::prettyKanjiReading((list.at(static_cast<unsigned int>(rand))).readings());
 				break;
 				case 0:
-				meaning = (*list.at(static_cast<unsigned int>(rand))).kanji();
+				meaning = (list.at(static_cast<unsigned int>(rand))).kanji();
 			}
 		}
 		else

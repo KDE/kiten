@@ -28,7 +28,7 @@
 #include <qregexp.h>
 #include <qstringlist.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <Q3CString>
 
 #include <sys/types.h>
@@ -121,20 +121,20 @@ public:
 	// for a heading
 	Entry(const QString &, bool header);
 
-	QString dictName();
-	QString header();
-	QStringList meanings();
-	QStringList readings();
-	QString firstReading();
+	QString dictName() const;
+	QString header() const;
+	QStringList meanings() const;
+	QStringList readings() const;
+	QString firstReading() const;
 
-	bool kanaOnly();
-	QString kanji();
+	bool kanaOnly() const;
+	QString kanji() const;
 
-	bool extendedKanjiInfo();
-	unsigned int grade();
-	unsigned int strokes();
-	unsigned int miscount();
-	unsigned int freq();
+	bool extendedKanjiInfo() const;
+	unsigned int grade() const;
+	unsigned int strokes() const;
+	unsigned int miscount() const;
+	unsigned int freq() const;
 
 protected:
 	QString DictName;
@@ -154,7 +154,7 @@ protected:
 
 struct SearchResult
 {
-	Q3ValueList<Entry> list;
+	QList<Entry> list;
 	QStringList results;
 	int count, outOf;
 	bool common;
@@ -195,12 +195,12 @@ private:
 };
 
 // lotsa helper functions
-KDE_EXPORT QString prettyKanjiReading(QStringList);
-KDE_EXPORT QString prettyMeaning(QStringList);
+KDE_EXPORT QString prettyKanjiReading(const QStringList &);
+KDE_EXPORT QString prettyMeaning(const QStringList &);
 KDE_EXPORT Entry parse(const QString &);
 KDE_EXPORT Entry kanjiParse(const QString &);
-KDE_EXPORT Dict::Entry firstEntry(Dict::SearchResult);
-KDE_EXPORT QString firstEntryText(Dict::SearchResult);
+KDE_EXPORT Dict::Entry firstEntry(const Dict::SearchResult &);
+KDE_EXPORT QString firstEntryText(const Dict::SearchResult &);
 
 int eucStringCompare(const char *str1, const char *str2);
 bool isEUC(unsigned char c);

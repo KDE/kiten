@@ -104,7 +104,7 @@ QStringList Deinf::Index::deinflect(const QString &text, QStringList &name)
 	QStringList endings = possibleConjugations(text);
 	QStringList ret;
 
-	for (Q3ValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
+	for (QList<Conjugation>::iterator it = list.begin(); it != list.end(); ++it)
 	{
 		QStringList matches(endings.grep(QRegExp(QString("^") + (*it).ending)));
 
