@@ -27,6 +27,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
+#include <kstdaction.h>
 #include <kstatusbar.h>
 #include <kstringhandler.h>
 #include <q3buttongroup.h>

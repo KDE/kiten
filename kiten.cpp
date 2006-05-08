@@ -31,8 +31,10 @@
 #include <kkeydialog.h>
 #include <klocale.h>
 #include <kmainwindow.h>
+#include <kstdaction.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
+#include <ktoggleaction.h>
 #include <kxmlguifactory.h>
 
 #include <qclipboard.h>

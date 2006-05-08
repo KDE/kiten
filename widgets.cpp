@@ -29,6 +29,7 @@
 #include <kprocess.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
+#include <kstdaction.h>
 #include <ktoolbar.h>
 #include <qfileinfo.h>
 #include <q3paintdevicemetrics.h>
