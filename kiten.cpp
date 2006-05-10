@@ -111,10 +111,15 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	gradeSearchAction->setShortcut(Qt::CTRL+Qt::Key_G);
 	gradeSearchAction->setIcon(KIcon("leftjust"));
 
-	kanjiCB = new KToggleAction(i18n("&Kanjidic"), "kanjidic", Qt::CTRL+Qt::Key_K, this, SLOT(kanjiDictChange()), actionCollection(), "kanji_toggle");
+	kanjiCB = new KToggleAction(KIcon("kanjidic"), i18n("&Kanjidic"), actionCollection(), "kanji_toggle");
+	connect(kanjiCB, SIGNAL(triggered(bool) ), SLOT(kanjiDictChange()));
+	kanjiCB->setShortcut(Qt::CTRL+Qt::Key_K);
 	deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
-	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", Qt::CTRL+Qt::Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
-	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
+	comCB = new KToggleAction(KIcon("filter"), i18n("&Filter Rare"), actionCollection(), "common");
+	connect(comCB, SIGNAL(triggered(bool) ), SLOT(toggleCom()));
+	comCB->setShortcut(Qt::CTRL+Qt::Key_F);
+	autoSearchToggle = new KToggleAction(KIcon("find"), i18n("&Automatically Search Clipboard Selections"), actionCollection(), "autosearch_toggle");
+	connect(autoSearchToggle, SIGNAL(triggered(bool) ), SLOT(kanjiDictChange()));
 
 	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
 	connect( irAction, SIGNAL( triggered(bool) ), this, SLOT(resultSearch()) ); 
