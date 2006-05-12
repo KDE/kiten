@@ -49,7 +49,7 @@
 #include <set>
 #include <krandom.h>
 
-#include "config.h"
+#include "kitenconfig.h"
 #include "dict.h"
 #include "kloader.h"
 #include "ksaver.h"
