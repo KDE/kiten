@@ -92,14 +92,14 @@ void ConfigDictionaries::readDictionaryList(const QString& group)
 	QStringList::Iterator it;
 	for (it = names.begin(); it != names.end(); ++it)
 	{
-		QString name = group + "_" + *it;
+		QString name = group + '_' + *it;
 		if (!config->findItem(name))
 			config->addItem(new KConfigSkeleton::ItemString(group, *it, *new QString()), name);
 	}
 	config->readConfig();
 	list->clear();
 	for (it = names.begin(); it != names.end(); ++it)
-		(void) new Q3ListViewItem(list, *it, config->findItem(group + "_" + *it)->property().asString());
+		(void) new Q3ListViewItem(list, *it, config->findItem(group + '_' + *it)->property().asString());
 }
 
 void ConfigDictionaries::writeDictionaryList(const QString& group)
@@ -116,7 +116,7 @@ void ConfigDictionaries::writeDictionaryList(const QString& group)
 	for (; it.current(); ++it )
 	{
 		names.append(it.current()->text(0));
-		QString name = group + "_" + it.current()->text(0);
+		QString name = group + '_' + it.current()->text(0);
 		KConfigSkeletonItem* item = config->findItem(name);
 		if (!item)
 		{

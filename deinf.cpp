@@ -115,7 +115,7 @@ QStringList Deinf::Index::deinflect(const QString &text, QStringList &name)
 			//kDebug() << "match ending: " << (*it).ending << "; replace: " << (*it).replace << "; name: " << names[(*it).num] << endl;
 
 			QString tmp(text);
-			tmp.replace(QRegExp((*it).ending + "*", false, true), (*it).replace);
+			tmp.replace(QRegExp((*it).ending + '*', false, true), (*it).replace);
 			ret.append(tmp);
 		}
 	}
