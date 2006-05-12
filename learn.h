@@ -30,6 +30,7 @@
 #include "widgets.h"
 
 class KAction;
+class KSelectAction;
 class KPushButton;
 class Q3ButtonGroup;
 class Q3ListViewItem;
@@ -158,7 +159,7 @@ class Learn : public KMainWindow
 	KAction *addAllAct;
 	KAction *removeAct;
 	KAction *randomAct;
-// 	KListAction *gradeAct;
+ 	KSelectAction *gradeAct;
 
 	int getCurrentGrade(void);
 	void setCurrentGrade(int grade);

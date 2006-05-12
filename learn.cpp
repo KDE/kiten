@@ -20,6 +20,7 @@
 **/
 
 #include <kaction.h>
+#include <kactionclasses.h>
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
@@ -48,7 +49,7 @@
 #include <set>
 #include <krandom.h>
 
-#include "kitenconfig.h"
+#include "config.h"
 #include "dict.h"
 #include "kloader.h"
 #include "ksaver.h"
@@ -139,9 +140,9 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	randomAct->setShortcut(Qt::CTRL + Qt::Key_R);
 	randomAct->setIcon(KIcon("goto"));
 
-// 	gradeAct = new KListAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
-// 	gradeAct->setItems(grades);
-// 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
+ 	gradeAct = new KSelectAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
+ 	gradeAct->setItems(grades);
+ 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
 
 	removeAct = new KAction(i18n("&Delete"), actionCollection(), "del");
 	connect( removeAct, SIGNAL( triggered(bool) ), this, SLOT(del()) ); 
@@ -900,7 +901,7 @@ void Learn::tabChanged(QWidget *widget)
 		backAct->setEnabled(true);
 
 	forwardAct->setEnabled(!isQuiz);
-// 	gradeAct->setEnabled(!isQuiz);
+ 	gradeAct->setEnabled(!isQuiz);
 	saveAct->setEnabled(!isQuiz);
 	addAct->setEnabled(!isQuiz);
 	addAllAct->setEnabled(!isQuiz);
@@ -943,16 +944,15 @@ void Learn::itemSelectionChanged()
 
 int Learn::getCurrentGrade(void)
 {
-// 	int grade = gradeAct->currentItem() + 1;
-// 	if (grade > 6) ++grade;
-// 	return grade;
-  return 0;
+ 	int grade = gradeAct->currentItem() + 1;
+ 	if (grade > 6) ++grade;
+ 	return grade;
 }
 
 void Learn::setCurrentGrade(int grade)
 {
-// 	if (grade > 6) --grade;
-// 	gradeAct->setCurrentItem(grade - 1);
+ 	if (grade > 6) --grade;
+ 	gradeAct->setCurrentItem(grade - 1);
 }
 
 void Learn::updateQuizConfiguration()
