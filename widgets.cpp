@@ -85,7 +85,7 @@ void ResultView::addResult(Dict::Entry result, bool common)
 	QStringList Meanings = result.meanings();
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 	{
-		if ((*it).find("(P)") >= 0)
+		if ((*it).contains("(P)"))
 		{
 			if (common)
 				continue;
@@ -240,9 +240,9 @@ void ResultView::clear()
 
 void ResultView::flush()
 {
-	setText(printText);
-        QTextCursor cursor = textCursor ();
-        cursor.movePosition( QTextCursor::Start );
+	setHtml(printText);
+	QTextCursor cursor = textCursor ();
+	cursor.movePosition( QTextCursor::Start );
 	ensureCursorVisible();
 }
 
@@ -298,7 +298,7 @@ void ResultView::print(QString title)
 
 void ResultView::updateFont()
 {
-	setFont(Config::self()->font());
+	setFont(Config::font());
 }
 
 /////////////////////////////////////////////////////
@@ -330,9 +330,19 @@ eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
 	List->setDragEnabled(true);
 
 	saveAct = KStdAction::save(this, SLOT(save()), actionCollection());
-	removeAct = new KAction(i18n("&Delete"), "edit_remove", Qt::CTRL + Qt::Key_X, this, SLOT(del()), actionCollection(), "del");
-	(void) new KAction(i18n("&Disable Dictionary"), 0, this, SLOT(disable()), actionCollection(), "disable");
-	addAct = new KAction(i18n("&Add"), "edit_add", Qt::CTRL + Qt::Key_A, this, SLOT(add()), actionCollection(), "add");
+	removeAct = new KAction(i18n("&Delete"), actionCollection(), "del");
+	connect( removeAct, SIGNAL( triggered(bool) ), this, SLOT(del()) ); 
+	removeAct->setShortcut(Qt::CTRL + Qt::Key_X);
+	removeAct->setIcon(KIcon("edit_remove"));
+
+	KAction * disableAct = new KAction(i18n("&Disable Dictionary"), actionCollection(), "disable");
+	connect( disableAct, SIGNAL( triggered(bool) ), this, SLOT(disable()) ); 
+
+	addAct = new KAction(i18n("&Add"), actionCollection(), "add");
+	connect( addAct, SIGNAL( triggered(bool) ), this, SLOT(add()) ); 
+	addAct->setShortcut(Qt::CTRL + Qt::Key_A);
+	addAct->setIcon(KIcon("edit_add"));
+
 	(void) KStdAction::close(this, SLOT(close()), actionCollection());
 
 	createGUI("eeditui.rc");
@@ -369,7 +379,7 @@ void eEdit::openFile(const QString &file)
 			continue;
 		Dict::Entry entry = Dict::parse(s);
 		QString meanings = Dict::prettyMeaning(entry.meanings());
-		bool common = meanings.find(QString("(P)")) >= 0;
+		bool common = meanings.contains(QString("(P)"));
 		meanings.replace(QRegExp("; "), "/");
 		meanings.replace(QRegExp("/\\(P\\)"), "");
 		new Q3ListViewItem(List, entry.kanji(), Dict::prettyKanjiReading(entry.readings()), meanings, common? i18n("yes") : i18n("no"));
@@ -398,7 +408,7 @@ void eEdit::save()
 		if (meanings.left(1) != "/")
 			meanings.prepend("/");
 
-		QString commonString = it.current()->text(3).lower();
+		QString commonString = it.current()->text(3).toLower();
 		bool common = (commonString == "true" || commonString == "yes" || commonString == "1" || commonString == "common");
 
 		text.append(" ");
@@ -420,7 +430,7 @@ void eEdit::save()
 	// TODO: put up a status dialog and event loop instead of blocking
 	proc.start(KProcess::Block, KProcess::NoCommunication);
 
-	statusBar()->message(i18n("Saved"));
+	statusBar()->showMessage(i18n("Saved"));
 	isMod = false;
 }
 
@@ -449,10 +459,12 @@ void eEdit::del()
 // sorta taken from konqy
 
 EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, KActionCollection* parent, const char* name)
-    : KAction(text, accel, receiver, member, parent, name),
+    : KAction(text, parent, name),
       m_receiver(receiver),
       m_member(member)
 {
+	connect( this, SIGNAL( triggered(bool) ), receiver, SLOT(member()) ); 
+	this->setShortcut(accel);
 }
 
 EditAction::~EditAction()
