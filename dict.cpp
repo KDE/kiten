@@ -95,7 +95,7 @@ File::File(QString path, QString n)
 		//kDebug() << "dictionaryLength = " << dictionaryLength << endl;
 
 		int32_t testWord[1];
-		fread(&testWord[0], sizeof(int32_t), 1, fopen(indexFile.name().latin1(), "rb"));
+		fread(&testWord[0], sizeof(int32_t), 1, fopen(indexFile.fileName().toLatin1(), "rb"));
 
 		//kDebug() << "testWord[0] = " << testWord[0] << endl;
 
@@ -108,7 +108,7 @@ File::File(QString path, QString n)
 		//kDebug() << "creating " << indexFile.name() << endl;
 		// find the index generator executable
 		KProcess proc;
-		proc << KStandardDirs::findExe("kitengen") << path << indexFile.name();
+		proc << KStandardDirs::findExe("kitengen") << path << indexFile.fileName();
 		// TODO: put up a status dialog and event loop instead of blocking
 		proc.start(KProcess::Block, KProcess::NoCommunication);
 	}
@@ -299,12 +299,11 @@ QStringList Index::doSearch(File &file, const QString &text)
 			int i = 0;
 			while(file.lookup(cur, i - 1) != 0x0a) --i;
 
-			QByteArray bytes(0);
+			QByteArray bytes;
 			while(file.lookup(cur, i) != 0x0a) // get to end of our line
 			{
 				const char eucchar = file.lookup(cur, i);
-				bytes.resize(bytes.size() + 1);
-				bytes[bytes.size() - 1] = eucchar;
+				bytes += eucchar;
 				++i;
 			}
 
@@ -340,12 +339,12 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 			continue;
 		}
 
-		int found = regexp.search(*itr);
+		int found = regexp.indexIn(*itr);
 
 		if (found >= 0)
 		{
 			++fullNum;
-			if ((*itr).find(QString("(P)")) >= 0 || !common)
+			if ((*itr).contains(QString("(P)")) || !common)
 			{
 				// we append HERE, so we get the exact
 				// results we have in ret.list
@@ -394,14 +393,14 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 			continue;
 		}
 
-		int found = regexp.search(*itr);
+		int found = regexp.indexIn(*itr);
 
 		if (found >= 0)
 		{
 			++fullNum;
 			// common entries have G[1-8] (jouyou)
 			QRegExp comregexp(jmyCount ? "G[1-9]" : "G[1-8]");
-			if ((*itr).find(comregexp) >= 0 || !common)
+			if ((*itr).contains(comregexp) || !common)
 			{
 				ret.list.append(kanjiParse(*itr));
 				++num;
@@ -490,7 +489,14 @@ QRegExp Dict::Index::createRegExp(SearchType type, const QString &text, Dictiona
 		regExp = "%1";
 	}
 
-	return QRegExp(regExp.arg(text), caseSensitive);
+	if(caseSensitive)
+	{
+		return QRegExp(regExp.arg(text), Qt::CaseSensitive);
+	}
+	else
+	{
+		return QRegExp(regExp.arg(text), Qt::CaseInsensitive);
+	}
 }
 
 int Index::stringCompare(File &file, int index, Q3CString str)
@@ -694,7 +700,7 @@ Entry Dict::kanjiParse(const QString &raw)
 		}
 		else if (parsemode == "misc" && prevwasspace)
 		{
-			if (QRegExp("[A-Za-z0-9]").search(QString(ichar)) >= 0)
+			if (QRegExp("[A-Za-z0-9]").indexIn(QString(ichar)) >= 0)
 				   // is non-japanese?
 			{
 				detailname = ichar;
