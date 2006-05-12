@@ -2,3 +2,5 @@ File=kiten.kcfg
 ClassName=Config
 Singleton=true
 Mutators=true
+Visibility=KDE_EXPORT
+IncludeFiles=kdemacros.h
