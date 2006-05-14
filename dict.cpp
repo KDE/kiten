@@ -53,6 +53,11 @@ using namespace Dict;
 
 TextType Dict::textType(const QString &text)
 {
+	if(text.length() == 0)
+	{
+		return Text_Latin;
+	}
+
 	ushort first = text.at(0).unicode();
 	
 	if (first < 0x3000)
