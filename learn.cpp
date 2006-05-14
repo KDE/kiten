@@ -140,9 +140,9 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	randomAct->setShortcut(Qt::CTRL + Qt::Key_R);
 	randomAct->setIcon(KIcon("goto"));
 
- 	gradeAct = new KSelectAction(i18n("Grade"), 0, 0, 0, actionCollection(), "grade");
+ 	gradeAct = new KSelectAction(i18n("Grade"), actionCollection(), "grade");
  	gradeAct->setItems(grades);
- 	connect(gradeAct, SIGNAL(activated(const QString&)), SLOT(updateGrade()));
+ 	connect(gradeAct, SIGNAL(triggered(const QString&)), SLOT(updateGrade()));
 
 	removeAct = new KAction(i18n("&Delete"), actionCollection(), "del");
 	connect( removeAct, SIGNAL( triggered(bool) ), this, SLOT(del()) ); 
@@ -361,7 +361,7 @@ void Learn::updateGrade()
 
 	statusBar()->showMessage(i18n("%1 entries in grade %2", list.count(), grade));
 
-	list.remove(list.begin());
+	list.erase(list.begin());
 	current = list.begin();
 
 	update();
