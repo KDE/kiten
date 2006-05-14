@@ -20,6 +20,7 @@
 **/
 
 #include <kaction.h>
+#include <kactionclasses.h>
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kconfigdialog.h>
@@ -87,7 +88,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	KAction * clearAction = new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
-	connect( clearAction, SIGNAL( triggered(bool) ), this, SLOT(clear()) ); 
+	connect( clearAction, SIGNAL( triggered(bool) ), Edit, SLOT(clear()) ); 
 	clearAction->setShortcut(Qt::CTRL+Qt::Key_N);
 	clearAction->setIcon(KIcon("locationbar_erase"));
 
@@ -136,8 +137,9 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	connect( configureGlobalKeysAction, SIGNAL( triggered(bool) ), this, SLOT(configureGlobalKeys()) ); 
 	configureGlobalKeysAction->setIcon(KIcon("configure_shortcuts"));
 
-// 	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
-// 	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
+ 	historyAction = new KSelectAction(i18n("&History"), actionCollection(), "history");
+ 	connect(historyAction, SIGNAL(triggered(int)), this, SLOT(goInHistory(int)));
+
 	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
@@ -177,11 +179,11 @@ TopLevel::~TopLevel()
 
 void TopLevel::finishInit()
 {
+	Edit->plug((QWidget *)toolBar(), 0);
 	// if it's the application's first time starting, 
 	// the app group won't exist and we show demo
 	if (!KGlobal::config()->hasGroup("app"))
 	{
-    Edit->plug((QWidget *)toolBar(), 0);
 		if (kanjiCB->isChecked())
 		  	Edit->setText(QString::fromUtf8("辞"));
 		else
@@ -491,24 +493,23 @@ void TopLevel::strokeSearch()
 
 	if (!ok)
 	{
-		/*
 		if (text.find("-") < 0)
 		{
-			StatusBar->message(i18n("For a range between 4 and 8 strokes, use '4-8'"));
+			StatusBar->showMessage(i18n("For a range between 4 and 8 strokes, use '4-8'"));
 			return;
 		}
 
 		unsigned int first = text.section('-', 0, 0).toUInt(&ok);
 		if (!ok)
 		{
-			StatusBar->message(i18n("First number not parseable\n"));
+			StatusBar->showMessage(i18n("First number not parseable\n"));
 			return;
 		}
 
 		unsigned int second = text.section('-', 1, 1).toUInt(&ok);
 		if (!ok)
 		{
-			StatusBar->message(i18n("Second number not parseable\n"));
+			StatusBar->showMessage(i18n("Second number not parseable\n"));
 			return;
 		}
 
@@ -527,7 +528,6 @@ void TopLevel::strokeSearch()
 		strokesString.prepend("(?:");
 
 		//kDebug() << "strokesString is " << strokesString << endl;
-		*/
 
 		StatusBar->showMessage(i18n("Unparseable number"));
 		return;
@@ -909,25 +909,20 @@ void TopLevel::forward(void)
 
 void TopLevel::goInHistory(int index)
 {
-#if 0
   currentResult = resultHistory.at(resultHistory.count() - historyAction->items().count() + index);
 	currentResultIndex = index;
 	enableHistoryButtons();
 	handleSearchResult(*currentResult);
 	historySpotChanged();
-#endif
 }
 
 void TopLevel::historySpotChanged()
 {
-#if 0
 	historyAction->setCurrentItem(currentResultIndex);
-#endif
 }
 
 void TopLevel::addHistory(Dict::SearchResult result)
 {
-#if 0
 	QStringList newHistoryList = historyAction->items();
 
 	// remove from back till we hit currentResult
@@ -956,16 +951,13 @@ void TopLevel::addHistory(Dict::SearchResult result)
 
 	if (resultHistory.size() > 50)
 		resultHistory.pop_front();
-#endif
 }
 
 void TopLevel::enableHistoryButtons()
 {
-#if 0
 	backAction->setEnabled(currentResult != resultHistory.begin());
 	forwardAction->setEnabled(++currentResult != resultHistory.end());
 	--currentResult;
-#endif
 }
 
 void TopLevel::print()
