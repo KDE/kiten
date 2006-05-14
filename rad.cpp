@@ -202,7 +202,7 @@ Radical Rad::radByKanji(const QString &text)
 	QString ret;
 
 	QList<Radical>::iterator it;
-	for (it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
+	for(it = list.begin(); it != list.end() && (*it).kanji().indexOf(text) == -1; ++it);
 
 	return (*it);
 }
@@ -244,11 +244,8 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	while (hotlist.size() > hotlistNum)
 		hotlist.pop_front();
 
-	for ( int i = 0; i < hotlistNum; ++i)
+	for ( int i = 0; i < hotlistNum && i < hotlist.size(); ++i)
 	{
-		if (i >= hotlistNum)
-			break;
-
 		hotlistGroup->insert(new KPushButton(hotlist.at(i), hotlistGroup), i);
 	}
 	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
@@ -262,12 +259,18 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 	QHBoxLayout *strokesLayout = new QHBoxLayout(layout);
 	strokesLayout->setSpacing(KDialog::spacingHint());
-	totalSpin = new QSpinBox(1, 30, 1, this);
+	totalSpin = new QSpinBox(this);
+	totalSpin->setMinimum(1);
+	totalSpin->setMaximum(30);
+	totalSpin->setSingleStep(1);
 	strokesLayout->addWidget(totalSpin);
 	strokesLayout->addStretch();
 	totalErrLabel = new QLabel(i18n("+/-"), this);
 	strokesLayout->addWidget(totalErrLabel);
-	totalErrSpin = new QSpinBox(0, 15, 1, this);
+	totalErrSpin = new QSpinBox(this);
+	totalErrSpin->setMinimum(0);
+	totalErrSpin->setMaximum(15);
+	totalErrSpin->setSingleStep(1);
 	strokesLayout->addWidget(totalErrSpin);
 
 	ok = new KPushButton(i18n("&Look Up"), this);
@@ -282,8 +285,11 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	QVBoxLayout *middlevLayout = new QVBoxLayout(hlayout);
 	middlevLayout->setSpacing(KDialog::spacingHint());
 
-	strokesSpin = new QSpinBox(1, 17, 1, this);
-	QToolTip::add(strokesSpin, i18n("Show radicals having this number of strokes"));
+	strokesSpin = new QSpinBox(this);
+	strokesSpin->setMinimum(1);
+	strokesSpin->setMaximum(17);
+	strokesSpin->setSingleStep(1);
+	strokesSpin->setToolTip(i18n("Show radicals having this number of strokes"));
 	middlevLayout->addWidget(strokesSpin);
 
 	List = new KListBox(this);
@@ -307,7 +313,7 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 	connect(clear, SIGNAL(clicked()), this, SLOT(clearSelected()));
 	clear->setEnabled(false);
 
-	setCaption(kapp->makeStdCaption(i18n("Radical Selector")));
+	setWindowTitle(kapp->makeStdCaption(i18n("Radical Selector")));
 
 	strokesSpin->setValue(config->strokes());
 	strokesSpin->setFocus();
@@ -351,7 +357,7 @@ void RadWidget::removeSelected()
 	if (currentItem != -1)
 	{
 		selectedList->removeItem(currentItem);
-		selected.remove(selected.at(currentItem));
+		selected.removeAll(selected.at(currentItem));
 
 		numChanged();
 		selectionChanged();
@@ -409,7 +415,7 @@ void RadWidget::apply()
 
 	for (QStringList::Iterator it = selected.begin(); it != selected.end(); ++it)
 	{
-		if (hotlist.find(*it) == hotlist.end())
+		if (hotlist.indexOf(*it) == -1)
 		{
 			if (hotlist.size() >= hotlistNum)
 				hotlist.pop_front(); // stupid stl functions in Qt .. ;)
