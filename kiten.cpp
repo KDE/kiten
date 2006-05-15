@@ -661,7 +661,7 @@ void TopLevel::slotConfigure()
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
 	optionDialog = new ConfigureDialog(this, "settings");
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
-	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(slotConfigurationChanged()));
+	connect(optionDialog, SIGNAL(settingsChanged(const QString &)), this, SLOT(slotConfigurationChanged()));
 	connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
 	optionDialog->show();
 
