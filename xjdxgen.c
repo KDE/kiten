@@ -148,7 +148,6 @@ unsigned char **argv;
   if(jindex == NULL)
   {
 	  fprintf(stderr,"malloc() for index table failed.\n");
-	  fclose(fp);
 	  exit(1);
   }
   printf("Parsing.... \n");
