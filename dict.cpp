@@ -244,7 +244,7 @@ void Index::loadDictList(Q3PtrList<File> &fileList, const QStringList &dictList,
 	// check if we have a dict
 	if (dictList.size() < 1)
 	{
-		msgerr(ki18n("No dictionaries in list!"));
+		msgerr(ki18n("No dictionaries in list."));
 		return;
 	}
 
