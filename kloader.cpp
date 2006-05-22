@@ -82,7 +82,7 @@ bool KLoader::open(void)
 	{
 		if(!d->file->open(QIODevice::ReadOnly))
 		{
-			d->error = i18n("Could not read from %1.", d->url.prettyURL());
+			d->error = i18n("Could not read from %1.", d->url.prettyUrl());
 			return false;
 		}
 	}
@@ -91,7 +91,7 @@ bool KLoader::open(void)
 #warning third parameter is a widget who to associate some data, might be worth modyfing the class so that it has a widget 
 		if(!KIO::NetAccess::download(d->url, d->tempFile, 0))
 		{
-			d->error = i18n("Could not read from %1.", d->url.prettyURL());
+			d->error = i18n("Could not read from %1.", d->url.prettyUrl());
 			return false;
 		}
 

@@ -496,7 +496,7 @@ void Learn::write(const KUrl &url)
 
 	setClean();
 
-	statusBar()->showMessage(i18n("%1 written", url.prettyURL()));
+	statusBar()->showMessage(i18n("%1 written", url.prettyUrl()));
 }
 
 void Learn::saveScores()
@@ -973,14 +973,14 @@ void Learn::updateQuizConfiguration()
 void Learn::setDirty()
 {
 	isMod = true;
-	setCaption(filename.prettyURL(), true);
+	setCaption(filename.prettyUrl(), true);
 }
 
 void Learn::setClean()
 {
 	isMod = false;
-	if (!filename.prettyURL().isEmpty())
-		setCaption(filename.prettyURL(), false);
+	if (!filename.prettyUrl().isEmpty())
+		setCaption(filename.prettyUrl(), false);
 }
 
 void Learn::qKanjiClicked()
