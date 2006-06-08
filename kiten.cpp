@@ -579,7 +579,9 @@ void TopLevel::gradeSearch()
 
 QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 {
+#ifdef __GNUC__
 #warning "KDE4: port clipboard!!!!!!!!!!!!!!!\n";		
+#endif		
 	//kapp->clipboard()->setSelectionMode(true);
 	QString text = kapp->clipboard()->text().trimmed();
 	//kapp->clipboard()->setSelectionMode(false);

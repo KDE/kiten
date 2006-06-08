@@ -88,7 +88,9 @@ bool KLoader::open(void)
 	}
 	else
 	{
+#ifdef __GNUC__
 #warning third parameter is a widget who to associate some data, might be worth modyfing the class so that it has a widget 
+#endif			
 		if(!KIO::NetAccess::download(d->url, d->tempFile, 0))
 		{
 			d->error = i18n("Could not read from %1.", d->url.prettyUrl());

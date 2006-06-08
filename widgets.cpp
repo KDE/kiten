@@ -248,7 +248,9 @@ void ResultView::flush()
 
 void ResultView::print(QString title)
 {
+#ifdef __GNUC__
 #warning "kde4: porting";
+#endif		
 #if 0
 	KPrinter printer;
 	printer.setFullPage(true);
