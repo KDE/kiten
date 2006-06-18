@@ -38,6 +38,8 @@
 #include "configfont.h"
 #include "configlearn.h"
 #include "configsearching.h"
+#include <kicon.h>
+#include <kpagewidgetmodel.h>
 
 ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDialog(parent, name, Config::self())
 {
@@ -45,7 +47,8 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDia
 	connect(configDic, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 	addPage(configDic, i18n("Dictionaries"), "contents");
 	addPage(new ConfigSearching(0, "searching_page"), i18n("Searching"), "find");
-	addPage(new ConfigLearn(0, "learn_page"), i18n("Learn"), "pencil");
+	pageConfigLearn = new KPageWidgetItem( new ConfigLearn(0, "learn_page"), i18n("Learn") );
+	addPage((QWidget*)pageConfigLearn, i18n("Learn"),"pencil");
 	ConfigFont* configFont = new ConfigFont(0, "font_page");
 	configFont->kcfg_font->setSampleText(i18n("Result View Font")+QString::fromUtf8(" - いろはにほへと 漢字"));
 	addPage(configFont, i18n("Font"), "fonts");
@@ -55,6 +58,10 @@ ConfigureDialog::~ConfigureDialog()
 {
 }
 
+void ConfigureDialog::showConfigurePage()
+{
+	setCurrentPage(pageConfigLearn);
+}
 
 void ConfigureDialog::updateWidgets()
 {

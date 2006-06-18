@@ -673,7 +673,7 @@ void TopLevel::slotConfigure()
 void TopLevel::slotLearnConfigure()
 {
 	slotConfigure();
-	optionDialog->showPage(2);
+	optionDialog->showConfigurePage();
 }
 
 void TopLevel::slotConfigureHide()

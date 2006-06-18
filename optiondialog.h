@@ -32,6 +32,7 @@ class QPushButton;
 class QComboBox;
 class QCheckBox;
 class DictList;
+class KPageWidgetItem;
 
 #include <kconfigdialog.h>
 #include <kglobalaccel.h>
@@ -46,6 +47,7 @@ class ConfigureDialog : public KConfigDialog
 public:
 	ConfigureDialog(QWidget *parent=0, const char *name=0);
 	~ConfigureDialog();
+	void showConfigurePage();
 signals:
 	void settingsUpdated();
 
@@ -58,6 +60,7 @@ private:
 	bool hasChanged();
 	bool isDefault();
 	ConfigDictionaries* configDic;
+	KPageWidgetItem *pageConfigLearn;
 };
 
 #endif
