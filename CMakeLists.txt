@@ -58,16 +58,16 @@ kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 target_link_libraries(kiten  ${KDE4_KDEUI_LIBS} )
 
 set_target_properties(kiten PROPERTIES VERSION 1.0.0 SOVERSION 1 )
-install_targets(${LIB_INSTALL_DIR} kiten )
+install(TARGETS kiten  DESTINATION ${LIB_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${XDG_APPS_DIR} FILES kiten.desktop )
-install_files( ${KCFG_INSTALL_DIR} FILES kiten.kcfg )
-install_files( ${DATA_INSTALL_DIR}/kiten FILES edict kanjidic radkfile vconj romkana.cnv )
+install( FILES kiten.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES kiten.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
+install( FILES edict kanjidic radkfile vconj romkana.cnv  DESTINATION  ${DATA_INSTALL_DIR}/kiten )
 install_files( /include/libkiten FILES asyndeta.h dict.h widgets.h kromajiedit.h rad.h deinf.h )
-install_files( ${DATA_INSTALL_DIR}/kiten FILES kitenui.rc learnui.rc eeditui.rc )
+install( FILES kitenui.rc learnui.rc eeditui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kiten )
 
 
 
