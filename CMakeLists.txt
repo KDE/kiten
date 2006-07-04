@@ -66,7 +66,7 @@ install(TARGETS kiten  DESTINATION ${LIB_INSTALL_DIR} )
 install( FILES kiten.desktop  DESTINATION  ${XDG_APPS_DIR} )
 install( FILES kiten.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES edict kanjidic radkfile vconj romkana.cnv  DESTINATION  ${DATA_INSTALL_DIR}/kiten )
-install_files( /include/libkiten FILES asyndeta.h dict.h widgets.h kromajiedit.h rad.h deinf.h )
+install( FILES asyndeta.h dict.h widgets.h kromajiedit.h rad.h deinf.h  DESTINATION  ${INCLUDE_INSTALL_DIR}/libkiten )
 install( FILES kitenui.rc learnui.rc eeditui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kiten )
 
 
