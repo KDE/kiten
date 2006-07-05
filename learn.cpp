@@ -408,7 +408,7 @@ void Learn::open()
 		return;
 
 	KUrl prevname = filename;
-	filename = KFileDialog::getOpenURL(QString(), "*.kiten");
+	filename = KFileDialog::getOpenUrl(QString(), "*.kiten");
 	if (filename.isEmpty())
 	{
 		filename = prevname;
