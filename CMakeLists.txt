@@ -28,7 +28,7 @@ set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
 target_link_libraries(kiten_bin  ${KDE4_KDEUI_LIBS} kdeprint kiten)
 
-install_targets(/bin kiten_bin )
+install(TARGETS kiten_bin  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### next target ###############
@@ -41,7 +41,7 @@ kde4_add_executable(kitengen ${kitengen_SRCS})
 
 target_link_libraries(kitengen  ${KDE4_KDEUI_LIBS} )
 
-install_targets(/bin kitengen )
+install(TARGETS kitengen  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### next target ###############
