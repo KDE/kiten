@@ -20,7 +20,6 @@
 **/
 
 #include <kaction.h>
-#include <kactionclasses.h>
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kconfigdialog.h>
@@ -37,6 +36,7 @@
 #include <kstatusbar.h>
 #include <ktoggleaction.h>
 #include <kxmlguifactory.h>
+#include <kselectaction.h>
 
 #include <qclipboard.h>
 #include <qregexp.h>
@@ -73,42 +73,42 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	KStdAction::keyBindings(guiFactory(), SLOT(configureShortcuts()), actionCollection());
 	KAction * learnAction = new KAction(i18n("&Learn"), actionCollection(), "file_learn");
-	connect( learnAction, SIGNAL( triggered(bool) ), this, SLOT(createLearn()) ); 
+	connect( learnAction, SIGNAL( triggered(bool) ), this, SLOT(createLearn()) );
 	learnAction->setShortcut(Qt::CTRL+Qt::Key_L);
 	learnAction->setIcon(KIcon("pencil"));
 
 	KAction * dictEditorAction = new KAction(i18n("&Dictionary Editor..."), actionCollection(), "dict_editor");
-	connect( dictEditorAction, SIGNAL( triggered(bool) ), this, SLOT(createEEdit()) ); 
+	connect( dictEditorAction, SIGNAL( triggered(bool) ), this, SLOT(createEEdit()) );
 	dictEditorAction->setIcon(KIcon("edit"));
 
 	KAction * radicalSearchAction =  new KAction(i18n("Ra&dical Search..."), actionCollection(), "search_radical");
-	connect( radicalSearchAction, SIGNAL( triggered(bool) ), this, SLOT(radicalSearch()) ); 
+	connect( radicalSearchAction, SIGNAL( triggered(bool) ), this, SLOT(radicalSearch()) );
 	radicalSearchAction->setShortcut(Qt::CTRL+Qt::Key_R);
 	radicalSearchAction->setIcon(KIcon("gear"));
 
 	Edit = new EditAction(i18n("Search Edit"), 0, this, SLOT(search()), actionCollection(), "search_edit");
 	KAction * clearAction = new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
-	connect( clearAction, SIGNAL( triggered(bool) ), Edit, SLOT(clear()) ); 
+	connect( clearAction, SIGNAL( triggered(bool) ), Edit, SLOT(clear()) );
 	clearAction->setShortcut(Qt::CTRL+Qt::Key_N);
 	clearAction->setIcon(KIcon("locationbar_erase"));
 
 	KAction * searchAction = new KAction(i18n("S&earch"), actionCollection(), "search");
-	connect( searchAction, SIGNAL( triggered(bool) ), this, SLOT(search()) ); 
+	connect( searchAction, SIGNAL( triggered(bool) ), this, SLOT(search()) );
 	searchAction->setIcon(KIcon("key_enter"));
 
 	KAction * searchBeginningAction = new KAction(i18n("Search with &Beginning of Word"), actionCollection(), "search_beginning");
-	connect( searchBeginningAction, SIGNAL( triggered(bool) ), this, SLOT(searchBeginning()) ); 
+	connect( searchBeginningAction, SIGNAL( triggered(bool) ), this, SLOT(searchBeginning()) );
 
 	KAction * searchAnywhereAction = new KAction(i18n("Search &Anywhere"), actionCollection(), "search_anywhere");
-	connect(searchAnywhereAction, SIGNAL( triggered(bool) ), this, SLOT(searchAnywhere()) ); 
+	connect(searchAnywhereAction, SIGNAL( triggered(bool) ), this, SLOT(searchAnywhere()) );
 
 	KAction * strokeSearchAction = new KAction(i18n("Stro&kes"), actionCollection(), "search_stroke");
-	connect( strokeSearchAction, SIGNAL( triggered(bool) ), this, SLOT(strokeSearch()) ); 
+	connect( strokeSearchAction, SIGNAL( triggered(bool) ), this, SLOT(strokeSearch()) );
 	strokeSearchAction->setShortcut(Qt::CTRL+Qt::Key_S);
 	strokeSearchAction->setIcon(KIcon("paintbrush"));
 
 	KAction * gradeSearchAction = new KAction(i18n("&Grade"), actionCollection(), "search_grade");
-	connect( gradeSearchAction, SIGNAL( triggered(bool) ), this, SLOT(gradeSearch()) ); 
+	connect( gradeSearchAction, SIGNAL( triggered(bool) ), this, SLOT(gradeSearch()) );
 	gradeSearchAction->setShortcut(Qt::CTRL+Qt::Key_G);
 	gradeSearchAction->setIcon(KIcon("leftjust"));
 
@@ -123,7 +123,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 	connect(autoSearchToggle, SIGNAL(triggered(bool) ), SLOT(kanjiDictChange()));
 
 	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
-	connect( irAction, SIGNAL( triggered(bool) ), this, SLOT(resultSearch()) ); 
+	connect( irAction, SIGNAL( triggered(bool) ), this, SLOT(resultSearch()) );
 	irAction->setShortcut(Qt::CTRL+Qt::Key_I);
 	irAction->setIcon(KIcon("find"));
 
@@ -131,10 +131,10 @@ TopLevel::TopLevel(QWidget *parent, const char *name) : KMainWindow(parent, name
 
 	addAction = new KAction(i18n("Add &Kanji to Learning List"), actionCollection(), "add");
 	addAction->setEnabled(false);
-	connect( addAction, SIGNAL( triggered(bool) ), this, SLOT(addToList()) ); 
-	
+	connect( addAction, SIGNAL( triggered(bool) ), this, SLOT(addToList()) );
+
 	KAction * configureGlobalKeysAction = new KAction(i18n("Configure &Global Shortcuts..."), actionCollection(), "options_configure_keybinding");
-	connect( configureGlobalKeysAction, SIGNAL( triggered(bool) ), this, SLOT(configureGlobalKeys()) ); 
+	connect( configureGlobalKeysAction, SIGNAL( triggered(bool) ), this, SLOT(configureGlobalKeys()) );
 	configureGlobalKeysAction->setIcon(KIcon("configure_shortcuts"));
 
  	historyAction = new KSelectAction(i18n("&History"), actionCollection(), "history");
@@ -180,7 +180,7 @@ TopLevel::~TopLevel()
 void TopLevel::finishInit()
 {
 	Edit->plug((QWidget *)toolBar(), 0);
-	// if it's the application's first time starting, 
+	// if it's the application's first time starting,
 	// the app group won't exist and we show demo
 	if (!KGlobal::config()->hasGroup("app"))
 	{
@@ -580,8 +580,8 @@ void TopLevel::gradeSearch()
 QString TopLevel::clipBoardText() // gets text from clipboard for globalaccels
 {
 #ifdef __GNUC__
-#warning "KDE4: port clipboard!!!!!!!!!!!!!!!\n";		
-#endif		
+#warning "KDE4: port clipboard!!!!!!!!!!!!!!!\n";
+#endif
 	//kapp->clipboard()->setSelectionMode(true);
 	QString text = kapp->clipboard()->text().trimmed();
 	//kapp->clipboard()->setSelectionMode(false);
@@ -659,7 +659,7 @@ void TopLevel::slotConfigure()
 {
 	if (ConfigureDialog::showDialog("settings"))
 		return;
-	
+
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
 	optionDialog = new ConfigureDialog(this, "settings");
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));

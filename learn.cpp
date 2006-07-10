@@ -20,7 +20,6 @@
 **/
 
 #include <kaction.h>
-#include <kactionclasses.h>
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
@@ -43,6 +42,7 @@
 #include <Q3PtrList>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <kselectaction.h>
 
 #include <stdlib.h> // RAND_MAX
 #include <cassert>
@@ -132,11 +132,11 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 	//backAct->plug(toolBar());
 
 	cheatAct = new KAction(i18n("&Cheat"), actionCollection(), "cheat");
-	connect( cheatAct, SIGNAL( triggered(bool) ), this, SLOT(cheat()) ); 
+	connect( cheatAct, SIGNAL( triggered(bool) ), this, SLOT(cheat()) );
 	cheatAct->setShortcut(Qt::CTRL + Qt::Key_C);
 
 	randomAct = new KAction(i18n("&Random"), actionCollection(), "random");
-	connect( randomAct, SIGNAL( triggered(bool) ), this, SLOT(random()) ); 
+	connect( randomAct, SIGNAL( triggered(bool) ), this, SLOT(random()) );
 	randomAct->setShortcut(Qt::CTRL + Qt::Key_R);
 	randomAct->setIcon(KIcon("goto"));
 
@@ -145,17 +145,17 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
  	connect(gradeAct, SIGNAL(triggered(const QString&)), SLOT(updateGrade()));
 
 	removeAct = new KAction(i18n("&Delete"), actionCollection(), "del");
-	connect( removeAct, SIGNAL( triggered(bool) ), this, SLOT(del()) ); 
+	connect( removeAct, SIGNAL( triggered(bool) ), this, SLOT(del()) );
 	removeAct->setShortcut(Qt::CTRL + Qt::Key_X);
 	removeAct->setIcon(KIcon("edit_remove"));
 
 	addAct = new KAction(i18n("&Add"), actionCollection(), "add");
-	connect( addAct, SIGNAL( triggered(bool) ), this, SLOT(add()) ); 
+	connect( addAct, SIGNAL( triggered(bool) ), this, SLOT(add()) );
 	addAct->setShortcut(Qt::CTRL + Qt::Key_A);
 	addAct->setIcon(KIcon("edit_add"));
 
 	addAllAct = new KAction(i18n("Add A&ll"), actionCollection(), "addall");
-	connect( addAllAct, SIGNAL( triggered(bool) ), this, SLOT(addAll()) ); 
+	connect( addAllAct, SIGNAL( triggered(bool) ), this, SLOT(addAll()) );
 
 	newAct = KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	openAct = KStdAction::open(this, SLOT(open()), actionCollection());
@@ -202,7 +202,7 @@ Learn::Learn(Dict::Index *parentDict, QWidget *parent, const char *name)
 void Learn::finishCtor()
 {
 	Config* config = Config::self();
-	
+
 	setCurrentGrade(config->grade());
 
 	/*
@@ -301,7 +301,7 @@ void Learn::prev()
 		if (!prevItem)
 			return;
 		curItem = prevItem;
-	
+
 		statusBar()->clearMessage();
 		qupdate();
 		nogood = true;
@@ -334,12 +334,12 @@ void Learn::update()
 	View->addKanjiResult(curKanji);
 
 	// now show some compounds in which this kanji appears
-	
+
 	QString kanji = curKanji.kanji();
 
 	Dict::SearchResult compounds = index->search(QRegExp(kanji), kanji, true);
 	View->addHeader(i18n("%1 in compounds", kanji));
-	
+
 	for (QList<Dict::Entry>::iterator it = compounds.list.begin(); it != compounds.list.end(); ++it)
 	{
 		kapp->processEvents();
@@ -678,7 +678,7 @@ void Learn::answerClicked(int i)
 {
 	if (!curItem)
 		return;
-		
+
 	int newscore = 0;
 //	KConfig &config = *Config::self()->config();
 //	config.setGroup("Learn");
@@ -763,7 +763,7 @@ QString Learn::randomMeaning(QStringList &oldMeanings)
 			rand = List->childCount() / rand2;
 
 			int max = (int) rand;
-		
+
 			Q3ListViewItemIterator it(List);
 			it += max;
 
@@ -807,7 +807,7 @@ void Learn::qupdate()
 	answers->find(seikai)->setText(curItem->text(guessOn));
 }
 
-struct Learn::scoreCompare 
+struct Learn::scoreCompare
 {
 	bool operator()(const Q3ListViewItem* v1, const Q3ListViewItem* v2)
 	{
