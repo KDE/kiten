@@ -1,0 +1,179 @@
+/***************************************************************************
+ *   Copyright (C) 2006 by Joseph Kerian  <jkerian@gmail.com>              *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+//More license crap... written by Joseph Kerian
+
+#include <kdebug.h>
+#include <kglobal.h>
+#include <qstring.h>
+
+#include "dictionary.h"
+#include "dictquery.h"
+#include "entry.h"
+/* Includes to handle various types of dictionaries 
+IMPORTANT: To add a dictionary type, add the header file here and add it to the
+ if statement under addDictionary() */
+#include "dictFileEDICT.h"
+#include "dictFileKanjidic.h"
+
+/** IMPORTANT: To add a dictionary type, you have to manually add the creation
+	step here, the next method, and #include your header file above. If you have
+	fully implemented the interface in dictionary.h, It should simply work.*/
+dictFile *dictionary::makeDictFile(const QString type) {
+	if(type == "edict")
+		return new dictFileEdict();
+	if(type == "kanjidic")
+		return new dictFileKanjidic();
+	//Add new dictionary types here!!!
+	
+	return NULL;
+}
+/** IMPORTANT: To add a dictionary type, you have to manually add the creation
+	step here, the prev method, and #include your header file above. If you have
+	fully implemented the interface in dictionary.h, It should simply work.*/
+QStringList dictionary::listDictFileTypes() {
+	QStringList list;
+	list.append("edict");
+	list.append("kanjidic");
+	//Add your dictionary type here!
+	return list;
+}
+
+/** Given a named Dict file/name/type... create and add the object if it
+  seems to work properly on creation.
+  */
+bool dictionary::addDictionary(const QString file, const QString name, 
+		const QString type) {
+	
+	if(dictManagers.find(name) != 0) //This name already exists in the list!
+		return false;
+	
+	dictFile *newDict = makeDictFile(type);
+	if(newDict == NULL)
+		return false;
+
+	if(!newDict->loadDictionary(file,name)) {
+		kDebug() << "Dictionary load FAILED: " << newDict->getName() << endl;
+		delete newDict;
+		return false;
+	}
+	
+	kDebug() << "Dictionary Loaded : " << newDict->getName() << endl;
+	dictManagers.insert(name,newDict);
+	return true;
+}
+
+/** The constructor. Set autodelete on our dictionary list */
+dictionary::dictionary() {
+	dictManagers.setAutoDelete(true);
+		
+}
+
+/** due to auto-delete, nothing much to do here */
+dictionary::~dictionary() {
+}
+
+/** Remove a dictionary from the list, and delete the dictionary object 
+  (it should close files, deallocate memory, etc). */
+bool dictionary::removeDictionary(const QString name) {
+	return dictManagers.remove(name);
+}
+
+/** Return a list of the dictionaries by their name (our key)
+  Note that this dictionary name does not necessarily have to have anything
+  to do with the actual dictionary name... */
+QStringList dictionary::listDictionaries() const {
+	QStringList ret;
+	Q3DictIterator<dictFile> it( dictManagers );
+	for( ; it.current(); ++it )
+		ret.append(it.currentKey());
+	return ret;
+}
+
+/** Return the dictionary type and file used by a named dictionary.
+  returns a pair of empty QStrings if you specify an invalid name */
+QPair<QString, QString> dictionary::listDictionaryInfo(const QString name) const {
+	if(dictManagers.find(name) == 0) //This name not in list!
+		return qMakePair(QString(),QString()); //KDE4 CHANGE
+	return qMakePair(dictManagers[name]->getName(),dictManagers[name]->getFile());
+}
+
+/** Return a list of the names of each dictionary of a given type. */
+QStringList dictionary::listDictionariesOfType(const QString type) const {
+	QStringList ret;
+	Q3DictIterator<dictFile> it( dictManagers );
+	for( ; it.current(); ++it )
+		if(it.current()->getType() == type)
+			ret.append(it.currentKey());
+	return ret;
+}
+
+/** Examine the dictQuery and farm out the search to the specialized dict 
+  managers. Note that a global search limit will probably be implemented 
+  either here or in the dictFile implementations... probably both */
+EntryList *dictionary::doSearch(const dictQuery &query) const {
+	EntryList *ret=new EntryList();
+	
+	//There are two basic modes.... one in which the query
+	//Specifies the dictionary list, one in which it does not
+	QStringList dictsFromQuery = query.getDictionaries();
+	if(dictsFromQuery.isEmpty()) { //None specified, search all
+		Q3DictIterator<dictFile> it( dictManagers );
+		for( ; it.current(); ++it ) {
+			EntryList *temp=it.current()->doSearch(query);
+			ret->appendList(temp);
+			temp->setAutoDelete(false);
+			delete temp;
+		}
+	} else {
+		for(QStringList::Iterator targetDicts = dictsFromQuery.begin();
+			targetDicts != dictsFromQuery.end(); ++targetDicts) {
+			dictFile *newestFound = dictManagers.find(*targetDicts);
+			if(newestFound != 0) {
+				EntryList *temp = newestFound->doSearch(query);
+				ret->appendList(temp);
+				temp->setAutoDelete(false);
+				delete temp;
+			}
+		}
+	}
+
+	ret->setQuery(query); //Store the query for later use.
+	kDebug() << "From query: '" << query.toString() << "'"<< endl;
+	kDebug() << "Found " << ret->count() << " results"<<endl;
+	return ret;
+}
+
+/** For this case, we let polymorphism do most of the work. We assume that the user wants
+  to pare down the results, so we let the individual entry metching methods run over the 
+  new query and accept (and copy) any of those that pass */
+EntryList *dictionary::doSearchInList(const dictQuery &query, const EntryList *list) const {
+	EntryList *ret = new EntryList();
+
+	EntryList::EntryIterator it(*list);
+
+	for( ; it.current() != 0; ++it ) {
+		if(it.current()->matchesQuery(query)) {
+			Entry *x = it.current()->clone();
+			ret->append(x);
+		}
+	}
+	ret->setQuery(query + list->getQuery());
+	return ret;
+}
+

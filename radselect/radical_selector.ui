@@ -1,0 +1,233 @@
+<ui version="4.0" >
+ <author>Joe Kerian (jkerian@gmail.com)</author>
+ <comment>Used for the main window for kiten's radselect program.</comment>
+ <exportmacro></exportmacro>
+ <class>radical_selector</class>
+ <widget class="QWidget" name="radical_selector" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>519</width>
+    <height>346</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy>
+    <hsizetype>7</hsizetype>
+    <vsizetype>7</vsizetype>
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>RadicalSelector</string>
+  </property>
+  <layout class="QHBoxLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QScrollArea" name="radical_box" >
+     <property name="sizePolicy" >
+      <sizepolicy>
+       <hsizetype>13</hsizetype>
+       <vsizetype>13</vsizetype>
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="strokes_group" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>0</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title" >
+        <string>Strokes</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
+       </property>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>11</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QSpinBox" name="strokes_low" />
+        </item>
+        <item>
+         <widget class="QLabel" name="strokes_label" >
+          <property name="text" >
+           <string>to</string>
+          </property>
+          <property name="alignment" >
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="strokes_high" />
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="grade_group" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>5</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title" >
+        <string>Grade</string>
+       </property>
+       <property name="alignment" >
+        <set>Qt::AlignLeading</set>
+       </property>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>11</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QComboBox" name="grade_selector" >
+          <item>
+           <property name="text" >
+            <string>Any</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Grade 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Grade 2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Grade 3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Grade 4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Grade 5</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Grade 6</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Jouyou</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Jinmeiyou</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="selected_radicals" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>5</hsizetype>
+         <vsizetype>7</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="horizontalScrollBarPolicy" >
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="search_button" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>5</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>Se&amp;arch</string>
+       </property>
+       <property name="shortcut" >
+        <string>Alt+S</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>QScrollArea</class>
+   <extends>QFrame</extends>
+   <header>qscrollarea.h</header>
+   <container>0</container>
+   <pixmap></pixmap>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>search_button</tabstop>
+  <tabstop>grade_selector</tabstop>
+  <tabstop>strokes_low</tabstop>
+  <tabstop>strokes_high</tabstop>
+  <tabstop>selected_radicals</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

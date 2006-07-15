@@ -1,0 +1,4 @@
+File=kiten.kcfg
+ClassName=KitenConfigSkeleton
+Singleton=true
+Mutators=true

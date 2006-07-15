@@ -1,0 +1,491 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ConfigFont</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>ConfigFont</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>560</width>
+            <height>466</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Fonts</string>
+    </property>
+    <hbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>Main_Fonts_Layout</cstring>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QGroupBox">
+                    <property name="name">
+                        <cstring>List_Fonts_Group</cstring>
+                    </property>
+                    <property name="frameShape">
+                        <enum>GroupBoxPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="title">
+                        <string>List Views</string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignLeft</set>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Listview_mainentry_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Listview_mainentry_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Main Entry:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for the main kanji/kana entry in list view</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In a list, the main entry should be easily distinguishable from the pronounciation. A few sizes larger should suffice.</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_listview_mainentry_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>漢字 かな</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>Listview_spacer_1</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Listview_readings_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Listview_readings_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Readings:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for the pronounciation kana in list view</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In a list, the readings (pronounciation) will generally be limited to one word for non-kanji entries, but they may have many kanji entries (if displayed at all for kanji).</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_listview_readings_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>かな カナ</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>Listview_spacer_2</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Listview_meanings_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Listview_meanings_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Meanings:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for the explanation in the translated language</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In a list, the meanings may be too long to fit comfortably on the line. A smaller font is often good here.</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_listview_meanings_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>romaji</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>Listview_spacer_3</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Listview_extended_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Listview_extended_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Other Info:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for any extended information from the dictionary in list view (rare)</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In a list, you hardly ever display extended info at all. If you do, it will generally be for a single piece of important information.</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_listview_extended_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>漢字 かな romaji</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                    </vbox>
+                </widget>
+                <widget class="QGroupBox">
+                    <property name="name">
+                        <cstring>Fullview_Fonts_Group</cstring>
+                    </property>
+                    <property name="title">
+                        <string>Full Views</string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignLeft</set>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Fullview_mainentry_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Fullview_mainentry_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Main Entry:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for the main kanji/kana entry in full view</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In full view mode, the main entry is usually very prominantly displayed. Large fonts are good here.
+</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_fullview_mainentry_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>漢字 かな</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>Fullview_spacer_1</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Fullview_readings_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Fullview_readings_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Readings:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for the pronounciation kana in full view</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In full view mode, the readings (pronounciation) will generally be limited to one word for non-kanji entries, but they may have many kanji entries. In either case, giving them a large font is not too out order here.</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_fullview_readings_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>かな カナ</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>Fullview_spacer_2</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Fullview_meanings_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Fullview_meanings_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Meanings:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for the explanation in the translated language
+</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In full view mode, the meanings can easily get their own line if needed often. This font can be much larger than the corresponding list view font.</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_fullview_meanings_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>romaji</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>Fullview_spacer_3</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>Fullview_extended_layout</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>Fullview_extended_label</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>Other Info:</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>The font for any extended information from the dictionary in full view</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>In full view mode, many people prefer to display all of the extended info that they have access to. If you do so, you may want to choose a font of similer size to your meanings font, possibly in italics or smaller and bolded, to make distinguishing the fonts easier.</string>
+                                    </property>
+                                </widget>
+                                <widget class="KFontRequester">
+                                    <property name="name">
+                                        <cstring>kcfg_fullview_extended_font</cstring>
+                                    </property>
+                                    <property name="sampleText">
+                                        <string>漢字 かな romaji</string>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string></string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string></string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                    </vbox>
+                </widget>
+            </vbox>
+        </widget>
+    </hbox>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+    <includehint>kfontrequester.h</includehint>
+</includehints>
+</UI>

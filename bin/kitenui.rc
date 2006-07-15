@@ -1,0 +1,56 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="Kiten" version="11">
+
+<MenuBar>
+
+<Menu name="file">
+  <Action name="file_learn" append="new_merge" />
+  <Action name="add" />
+</Menu>
+
+<Menu name="go_web">
+  <Action name="history" />
+  <Separator/>
+  <Action name="clear_search" />
+</Menu>
+
+<Menu name="search"><text>S&amp;earch</text>
+  <Action name="search" />
+  <Action name="search_in_results" />
+  <Action name="search_beginning" />
+  <Action name="search_anywhere" />
+  <Action name="search_end" />
+  <Action name="search_grade" />
+  <Action name="search_stroke" />
+  <Action name="search_radical" />
+</Menu>
+
+<Menu name="settings">
+  <Action name="kanji_toggle" append="save_merge"/>
+  <Action name="deinf_toggle" append="save_merge" />
+  <Action name="autosearch_toggle" append="save_merge" />
+  <Action name="common" append="save_merge"/>
+  <Action name="options_configure_global_keybinding" append="configure_merge"/>
+</Menu>
+
+</MenuBar>
+
+<ToolBar name="locationToolBar" fullWidth="true" newline="true"><text>&amp;Search Toolbar</text>
+  <Action name="clear_search" />
+  <Action name="search_edit" />
+  <Action name="search" />
+  <Action name="search_in_results" />
+  <Action name="search_radical" />
+</ToolBar>
+
+<ToolBar name="mainToolBar" fullWidth="true">
+  <Action name="go_back" />
+  <Action name="go_forward" />
+  <Separator/>
+  <Action name="kanji_toggle" />
+  <Action name="common" />
+  <Separator/>
+  <Action name="file_learn" />
+</ToolBar>
+
+</kpartgui>
