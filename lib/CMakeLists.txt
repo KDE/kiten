@@ -22,7 +22,7 @@ set_target_properties(kiten PROPERTIES VERSION 1.0.1 SOVERSION 1 )
 install( TARGETS kiten DESTINATION ${LIB_INSTALL_DIR} )
 
 ############ install files #############
-install_files( FILES 
+install( FILES 
 		dictquery.h 
 		entry.h				dictionary.h
 		entryEDICT.h 		dictFileEDICT.h 
