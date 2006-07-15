@@ -146,9 +146,9 @@ public:
 			Entry::printType=Entry::printAuto) const;
 	
 	/** An enum to specify the type of sorting to do between two Entry types */
-	enum sortType{sortSimpleAlphabetical=0x01,sortCommon=0x02};
+	typedef enum {sortSimpleAlphabetical=1,sortCommon=2,sortDefault=3}sortType;
 	
-	void sort(sortType=sortSimpleAlphabetical & sortCommon);
+	void sort(sortType tmp=sortDefault);
 	void sort(QStringList dictionaryOrder, sortType=sortSimpleAlphabetical);
 
 	const EntryList& operator+=(const EntryList &other);

@@ -36,7 +36,6 @@
 #include <klineedit.h>
 
 #include "radselectview.h"
-#include "radselectiface.h"
 #include "dictquery.h"
 
 class KitenEdit;
