@@ -64,7 +64,8 @@ ConfigureDialog::~ConfigureDialog()
 
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, const char *name) {
 	
-	QTabWidget *tabWidget = new QTabWidget(parent, name);
+	QTabWidget *tabWidget = new QTabWidget(parent);
+	tabWidget->setObjectName(QLatin1String(name));
 
 	QStringList dictTypes = KitenConfigSkeleton::self()->dictionary_list();
 	QStringList::Iterator dict, dictEnd = dictTypes.end();

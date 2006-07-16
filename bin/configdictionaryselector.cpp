@@ -42,11 +42,11 @@ ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName
 	config = KitenConfigSkeleton::self();
 	
 	if(!name)
-		setName("ConfigDictionarySelector");
+		setObjectName(QLatin1String("ConfigDictionarySelector"));
 
 	connect(addButton,SIGNAL(clicked()), this, SLOT(addDictSLOT()));
 	connect(delButton,SIGNAL(clicked()), this, SLOT(deleteDictSLOT()));
-	__useGlobal->setName(QString("kcfg_"+dictName+"__useGlobal").ascii());
+	__useGlobal->setObjectName(QString("kcfg_"+dictName+"__useGlobal"));
 }
 
 
@@ -70,7 +70,7 @@ void ConfigDictionarySelector::updateWidgets()
 	config->readConfig();
 	fileList->clear();
 	for (QStringList::Iterator it = names.begin(); it != names.end(); ++it)
-		(void) new Q3ListViewItem(fileList, *it, config->findItem(dictName + "_" + *it)->property().asString());
+		(void) new Q3ListViewItem(fileList, *it, config->findItem(dictName + "_" + *it)->property().toString());
 }
 
 void ConfigDictionarySelector::updateSettings()
@@ -118,7 +118,7 @@ bool ConfigDictionarySelector::hasChanged()
 
 void ConfigDictionarySelector::addDictSLOT() { 
 	Q3ListViewItem *item = fileList->firstChild();
-	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString::null);
+	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).absolutePath().append("/") : QString::null);
 	QString name = QFileInfo(filename).fileName();
 
 	(void) new Q3ListViewItem(fileList, name, filename);

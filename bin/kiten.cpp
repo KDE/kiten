@@ -52,12 +52,13 @@
 #include "historyPtrList.h"
 
 TopLevel::TopLevel(QWidget *parent, const char *name) 
-	: KMainWindow(parent, name) /* KDE4 FIXME, 
+	: KMainWindow(parent) /* KDE4 FIXME, 
 	DCOPObject("kiten") */
 {
 #if KDE_VERSION > 305
 	    setStandardToolBarMenuEnabled(true);
 #endif
+    setObjectName(QLatin1String(name));
 	/* Set up the config */
 	config = KitenConfigSkeleton::self();
 	config->readConfig();

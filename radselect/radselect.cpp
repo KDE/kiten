@@ -48,12 +48,13 @@
 #include <kedittoolbar.h>
 
 radselect::radselect() :
-	KMainWindow( 0, "radselect" ),
+	KMainWindow(),
 	m_view(new radselectView(this))
 {
     // accept dnd
     setAcceptDrops(true);
     setCentralWidget(m_view);  //This is the main widget
+    setObjectName(QLatin1String("radselect"));
 
     setupActions();
 
