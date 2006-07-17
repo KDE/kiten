@@ -8,7 +8,7 @@ set(kiten_bin_SRCS
 	optiondialog.cpp
 	widgets.cpp
 	)
-kde4_add_ui3_files(kiten_bin_SRCS 
+kde4_add_ui_files(kiten_bin_SRCS 
 	configsearching.ui
 	configlearn.ui
 	configfont.ui

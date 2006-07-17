@@ -32,9 +32,9 @@
 #include "optiondialog.h"
 
 //Generated from UI files
-#include "configfont.h"
-#include "configlearn.h"
-#include "configsearching.h"
+#include "ui_configfont.h"
+#include "ui_configlearn.h"
+#include "ui_configsearching.h"
 
 //Our template for managing individual dict type's settings
 #include "dictFilePreferenceDialog.h"
@@ -50,9 +50,21 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDia
 	//TODO: Figure out why these pages are unmanaged... is this needed?
 	addPage(makeDictionaryFileSelectionPage(0,"dictionaries_page"),i18n("Dictionaries"),"contents");
 
-	addPage(new ConfigSearching(0, "searching_page"), i18n("Searching"), "find");
-	addPage(new ConfigLearn(0, "learn_page"), i18n("Learn"), "pencil");
-	addPage(new ConfigFont(0,"font_page"), i18n("Font"), "fonts");
+	QWidget *widget;
+	widget = new QWidget();
+	Ui::ConfigSearching cs;
+	cs.setupUi(widget);
+	addPage(widget, i18n("Searching"), "find");
+
+	widget = new QWidget();
+	Ui::ConfigLearn cl;
+	cl.setupUi(widget);
+	addPage(widget, i18n("Learn"), "pencil");
+	
+	widget = new QWidget();
+	Ui::ConfigFont cf;
+	cf.setupUi(widget);
+	addPage(widget, i18n("Font"), "fonts");
 	
 	addPage(makeDictionaryPreferencesPage(0,"display_page"),i18n("Display"),"indent");
 	hasChangedMarker = false;
@@ -83,13 +95,13 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, const
 QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, const char *name) {
 	QStringList dictTypes = dictionary::listDictFileTypes();
 	
-	QTabWidget *tabWidget = new QTabWidget(parent, name);
+	QTabWidget *tabWidget = new QTabWidget(parent);
 
 	QStringList::Iterator dict, dictEnd = dictTypes.end();
 	for(dict = dictTypes.begin(); dict != dictEnd; ++dict) {
 		dictFile *tempDict = dictionary::makeDictFile(*dict);
 		
-		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(KitenConfigSkeleton::self(),parent, (*dict).ascii());
+		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(KitenConfigSkeleton::self(),parent, (*dict).toAscii());
 		if(newTab == NULL) continue;
 
 		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
@@ -98,7 +110,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, const c
 		connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
 		
 		delete tempDict;
-		tabWidget->insertTab(newTab,*dict);
+		tabWidget->addTab(newTab,*dict);
 	}
 	return tabWidget;
 }

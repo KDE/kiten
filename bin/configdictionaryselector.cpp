@@ -29,15 +29,13 @@
 #include <qtabwidget.h>
 #include <qcheckbox.h>
 
-//Superclass from UI file
-#include "configdictselect.h"
-
 #include "configdictionaryselector.h"
 
 
 ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName, 
-	QWidget *parent,const char* name,Qt::WFlags f):configDictSelect(parent,name,f)
+	QWidget *parent,const char* name,Qt::WFlags f)
 {
+	setupUi(this);
 	dictName = dictionaryName;
 	config = KitenConfigSkeleton::self();
 	

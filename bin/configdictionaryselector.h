@@ -27,14 +27,14 @@
 
 #include "kitenconfig.h"
 
-#include "configdictselect.h" //From the UI file
+#include "ui_configdictselect.h" //From the UI file
 
 class QTabWidget;
 class KListView;
 class QString;
 class QWidget;
 
-class ConfigDictionarySelector : public configDictSelect
+class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 {
 	Q_OBJECT
 public:

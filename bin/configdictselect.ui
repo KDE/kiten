@@ -1,150 +1,129 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>configDictSelect</class>
-<author>Joseph Kerian</author>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>DictTab</cstring>
+<ui version="4.0" stdsetdef="1" >
+  <author>Joseph Kerian</author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>configDictSelect</class>
+  <widget class="QWidget" name="configDictSelect" >
+    <property name="geometry" >
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>458</width>
+        <height>337</height>
+      </rect>
     </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>458</width>
-            <height>337</height>
-        </rect>
+    <property name="windowTitle" >
+      <string>Dictionary Selector</string>
     </property>
-    <property name="caption">
-        <string>Dictionary Selector</string>
-    </property>
-    <vbox>
-        <property name="name">
-            <cstring>unnamed</cstring>
-        </property>
-        <widget class="QLayoutWidget">
-            <property name="name">
-                <cstring>selectBoxLayout</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
+    <layout class="QVBoxLayout" >
+      <item>
+        <layout class="QHBoxLayout" >
+          <property name="margin" >
+            <number>0</number>
+          </property>
+          <item>
+            <widget class="QCheckBox" name="__useGlobal" >
+              <property name="text" >
+                <string>Use prei&amp;nstalled dict</string>
+              </property>
+              <property name="shortcut" >
+                <string>Alt+N</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer3_2" >
+              <property name="sizeHint" >
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType" >
+                <enum>Expanding</enum>
+              </property>
+              <property name="orientation" >
+                <enum>Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <layout class="QHBoxLayout" >
+          <property name="margin" >
+            <number>0</number>
+          </property>
+          <item>
+            <widget class="Q3ListView" name="fileList" >
+              <column>
+                <property name="text" >
+                  <string>Name</string>
                 </property>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>__useGlobal</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Use prei&amp;nstalled dict</string>
-                    </property>
-                    <property name="accel">
-                        <string>Alt+N</string>
-                    </property>
+                <property name="clickable" >
+                  <bool>true</bool>
+                </property>
+                <property name="resizable" >
+                  <bool>true</bool>
+                </property>
+              </column>
+              <column>
+                <property name="text" >
+                  <string>File</string>
+                </property>
+                <property name="clickable" >
+                  <bool>true</bool>
+                </property>
+                <property name="resizable" >
+                  <bool>true</bool>
+                </property>
+              </column>
+            </widget>
+          </item>
+          <item>
+            <layout class="QVBoxLayout" >
+              <property name="margin" >
+                <number>0</number>
+              </property>
+              <item>
+                <widget class="QPushButton" name="addButton" >
+                  <property name="text" >
+                    <string>&amp;Add...</string>
+                  </property>
+                  <property name="shortcut" >
+                    <string>Alt+A</string>
+                  </property>
                 </widget>
-                <spacer>
-                    <property name="name">
-                        <cstring>spacer3_2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
+              </item>
+              <item>
+                <widget class="QPushButton" name="delButton" >
+                  <property name="text" >
+                    <string>Delete</string>
+                  </property>
+                </widget>
+              </item>
+              <item>
+                <spacer name="spacer4_2" >
+                  <property name="sizeHint" >
+                    <size>
+                      <width>20</width>
+                      <height>120</height>
+                    </size>
+                  </property>
+                  <property name="sizeType" >
+                    <enum>Expanding</enum>
+                  </property>
+                  <property name="orientation" >
+                    <enum>Vertical</enum>
+                  </property>
                 </spacer>
-            </hbox>
-        </widget>
-        <widget class="QLayoutWidget">
-            <property name="name">
-                <cstring>fileSelectorLayout</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QListView">
-                    <column>
-                        <property name="text">
-                            <string>Name</string>
-                        </property>
-                        <property name="clickable">
-                            <bool>true</bool>
-                        </property>
-                        <property name="resizable">
-                            <bool>true</bool>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>File</string>
-                        </property>
-                        <property name="clickable">
-                            <bool>true</bool>
-                        </property>
-                        <property name="resizable">
-                            <bool>true</bool>
-                        </property>
-                    </column>
-                    <property name="name">
-                        <cstring>fileList</cstring>
-                    </property>
-                </widget>
-                <widget class="QLayoutWidget">
-                    <property name="name">
-                        <cstring>buttonLayout</cstring>
-                    </property>
-                    <vbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QPushButton">
-                            <property name="name">
-                                <cstring>addButton</cstring>
-                            </property>
-                            <property name="text">
-                                <string>&amp;Add...</string>
-                            </property>
-                            <property name="accel">
-                                <string>Alt+A</string>
-                            </property>
-                        </widget>
-                        <widget class="QPushButton">
-                            <property name="name">
-                                <cstring>delButton</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Delete</string>
-                            </property>
-                        </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer4_2</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Vertical</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>20</width>
-                                    <height>120</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </vbox>
-                </widget>
-            </hbox>
-        </widget>
-    </vbox>
-</widget>
-<slots>
-    <slot>newSlot()</slot>
-</slots>
-<layoutdefaults spacing="6" margin="11"/>
-</UI>
+              </item>
+            </layout>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11" />
+  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+</ui>
