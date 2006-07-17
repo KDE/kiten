@@ -1,5 +1,3 @@
-#include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
-
 ############# kitenlib #################
 set(kiten_LIB_SRCS
 		kitenEdit.cpp
@@ -34,5 +32,3 @@ install( FILES
 		dictFilePreferenceDialog.h
 	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten	
 		)
-
-#kde4_create_doxygen_docs(  )

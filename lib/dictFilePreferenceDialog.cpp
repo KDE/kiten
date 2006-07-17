@@ -18,17 +18,13 @@
 */
 
 #include <qwidget.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-//KDE4 CHANGE
+#include <QVBoxLayout>
 #include <qlistwidget.h>
-
 #include <kactionselector.h>
 #include <qlayout.h>
 #include <qstringlist.h>
 #include <qstring.h>
-#include <q3listbox.h>
-#include <q3frame.h>
+#include <qframe.h>
 #include <kconfigskeleton.h>
 #include <klocale.h>
 
@@ -40,21 +36,28 @@ dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig,
 
 	dictName = dictionaryTypeName;
 
-	Q3VBoxLayout *newTabLayout = new Q3VBoxLayout(this);
-	
-	ListView = new KActionSelector(this);
+	QVBoxLayout *newTabLayout = new QVBoxLayout();
+
+	//Make top selection box	
+	ListView = new KActionSelector();
 	ListView->setAvailableLabel(i18n("&Available List Fields:"));
 	newTabLayout->addWidget(ListView);
 
-	Q3Frame *seperatorLine = new Q3Frame(this);
-	seperatorLine->setFrameShape(Q3Frame::HLine);
-	seperatorLine->setFrameShadow(Q3Frame::Sunken);
+	//Make Seperator Line
+	QFrame *seperatorLine = new QFrame(this);
+	seperatorLine->setFrameShape(QFrame::HLine);
+	seperatorLine->setFrameShadow(QFrame::Sunken);
 	newTabLayout->addWidget(seperatorLine);
 
-	FullView = new KActionSelector(this);
+	//Make Bottom Selection Box
+	FullView = new KActionSelector();
 	FullView->setAvailableLabel(i18n("&Available Full View Fields:"));
 	newTabLayout->addWidget(FullView);
 
+	//Add layout to our widget
+	this->setLayout(newTabLayout);
+
+	//Create Default List
 	completeList.append("--NewLine--");
 	completeList.append("--NewLine--");
 	completeList.append("--NewLine--");
@@ -62,14 +65,15 @@ dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig,
 	completeList.append("Reading");
 	completeList.append("Meaning");
 
-	connect(ListView, SIGNAL(added(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(ListView, SIGNAL(removed(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(ListView, SIGNAL(movedUp(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(ListView, SIGNAL(movedDown(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(added(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(removed(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(movedUp(Q3ListBoxItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(movedDown(Q3ListBoxItem*)), this, SLOT(settingChanged()));
+	//Make connections
+	connect(ListView, SIGNAL(added(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(ListView, SIGNAL(removed(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(ListView, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(ListView, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(FullView, SIGNAL(added(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(FullView, SIGNAL(removed(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(FullView, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(settingChanged()));
+	connect(FullView, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(settingChanged()));
 	
 	config = iconfig;
 	updateWidgets();
@@ -120,8 +124,6 @@ void dictFileFieldSelector::readFromPrefs() {
 	for(QStringList::Iterator it = selectedList.begin(); it != selectedList.end(); ++it)
 		actionList.removeAt(actionList.indexOf(*it)); //don't just use remove()... will remove all
 
-	//KDE4 CHANGE ListBox's -> ListWidget's
-	//KDE4 CHANGE insertStringList -> addItems
 	ListView->availableListWidget()->clear();
 	ListView->selectedListWidget()->clear();
 	ListView->availableListWidget()->addItems(actionList);
@@ -167,7 +169,6 @@ void dictFileFieldSelector::writeToPrefs() {
 
 QStringList dictFileFieldSelector::extractList(KActionSelector *box) {
 	QStringList result;
-	//KDE4 CHANGE... much wierdness
 	for(int i=0; i < box->selectedListWidget()->count(); i++)
 		result.append(box->selectedListWidget()->item(i)->text());
 	return result;

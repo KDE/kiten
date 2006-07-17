@@ -41,9 +41,6 @@ ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName
 	dictName = dictionaryName;
 	config = KitenConfigSkeleton::self();
 	
-	if(!name)
-		setObjectName(QLatin1String("ConfigDictionarySelector"));
-
 	connect(addButton,SIGNAL(clicked()), this, SLOT(addDictSLOT()));
 	connect(delButton,SIGNAL(clicked()), this, SLOT(deleteDictSLOT()));
 	__useGlobal->setObjectName(QString("kcfg_"+dictName+"__useGlobal"));

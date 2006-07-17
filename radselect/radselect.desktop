@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=radselect
-Exec=radselect %i %m -caption "%c"
+Exec=kitenradselect %i %m -caption "%c"
 Icon=radselect
 Type=Application
 DocPath=radselect/radselect.html
-Comment=A KDE KPart Application
+Comment=A helper program for kiten
 Terminal=false

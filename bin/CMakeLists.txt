@@ -1,5 +1,4 @@
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
-#include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
 
 ############## kiten binary #############
 set(kiten_bin_SRCS 

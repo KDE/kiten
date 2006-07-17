@@ -52,8 +52,7 @@
 #include "historyPtrList.h"
 
 TopLevel::TopLevel(QWidget *parent, const char *name) 
-	: KMainWindow(parent) /* KDE4 FIXME, 
-	DCOPObject("kiten") */
+	: KMainWindow(parent)  
 {
 #if KDE_VERSION > 305
 	    setStandardToolBarMenuEnabled(true);
@@ -179,7 +178,6 @@ void TopLevel::finishInit()
 
 /** This function is run on program window close.
     It saves the settings in the config. */
-/* TODO: see about closing radselect and learnmode maybe DCOP */
 bool TopLevel::queryClose()
 {
 	config->setCom(comCB->isChecked());
