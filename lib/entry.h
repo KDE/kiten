@@ -22,16 +22,13 @@
 #ifndef ENTRY_H
 #define ENTRY_H
 
-#include <kdebug.h>
-#include <kglobal.h>
-/* needed for KDE_EXPORT to work */
-#include <kdemacros.h>
 #include <q3dict.h>
 #include <q3valuelist.h>
 #include <qstringlist.h>
 //Added by qt3to4:
 #include <Q3PtrList>
 
+#include "libkitenexport.h"
 #include "dictquery.h"
 
 class Entry;
@@ -41,7 +38,7 @@ class dictFile;
 
 
 
-class KDE_EXPORT Entry {
+class LIBKITEN_EXPORT Entry {
 public:
 	/** Default constructor, should not be used */
 	Entry();

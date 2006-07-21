@@ -1,6 +1,7 @@
 /* This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
            (C) 2006  Joseph Kerian <jkerian@gmail.com>
+			  (C) 2006  Eric Kjeldergaard <kjelderg@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,12 +22,13 @@
 #ifndef KITENEDIT_H
 #define KITENEDIT_H
 
+#include "libkitenexport.h"
 #include <kaction.h>
-#include <kcombobox.h>
-#include <kcompletion.h>
-#include <kdemacros.h>
 
-class KDE_EXPORT KitenEdit : public KAction 
+class KComboBox;
+class KCompletion;
+
+class LIBKITEN_EXPORT KitenEdit : public KAction 
 {
 	Q_OBJECT
 	public:

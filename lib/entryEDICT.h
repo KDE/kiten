@@ -26,7 +26,7 @@
 class QString;
 class dictQuery;
 
-class KDE_EXPORT EntryEDICT : public Entry {
+class /* NO_EXPORT */ EntryEDICT : public Entry {
 	public:
 		EntryEDICT() : Entry() {}
 		EntryEDICT(const EntryEDICT &x) : Entry(x) {} //No special members to copy in this one

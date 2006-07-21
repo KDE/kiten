@@ -26,7 +26,7 @@
 #include "entry.h"
 
 
-class historyPtrList : protected Q3PtrList<EntryList> {
+class LIBKITEN_EXPORT historyPtrList : protected Q3PtrList<EntryList> {
 	public:
 		/** Construct a historyPtrList, this should be done early on */
 		historyPtrList();

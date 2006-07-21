@@ -35,7 +35,7 @@ class Entry;
 class EntryList;
 class DictionaryPreferenceDialog;
 
-class /* KDE_EXPORT */ dictFileKanjidic : public dictFileEdict {
+class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 	public:
 	dictFileKanjidic();
 	virtual ~dictFileKanjidic() {}

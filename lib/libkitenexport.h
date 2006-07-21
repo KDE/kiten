@@ -1,8 +1,6 @@
 /* This file is part of Kiten, a KDE Japanese Reference Tool...
 
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-           (C) 2006  Joseph Kerian <jkerian@gmail.com>
-			  (C) 2006  Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2006  Joseph Kerian <jkerian@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -20,26 +18,11 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DEFINF_H
-#define DEFINF_H
+#ifndef LIBKITENEXPORTS_H
+#define LIBKITENEXPORTS_H
 
-#include <qstring.h>
+#include <kdemacros.h>
 
-class /* NO_EXPORT */ deinf
-{
-	public:
-		deinf(); 
-		
-		//Actually attempt a deinflection on target. name is an empty list
-		//that will contain a list of explanations for the changes given in
-		//the return value... note that the first returned value SHOULD be 
-		//the best option in most cases.
-		QStringList deinflect(const QString &target, QStringList &name);
-
-	private:
-		bool load();
-
-};
-
+#define LIBKITEN_EXPORT KDE_EXPORT
 
 #endif

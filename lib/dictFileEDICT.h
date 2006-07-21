@@ -43,7 +43,7 @@ class KConfigSkeleton;
 
 #include "entryEDICT.h"
 
-class /* KDE_EXPORT */ dictFileEdict : public dictFile {
+class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	public:
 	dictFileEdict();
 	virtual ~dictFileEdict();

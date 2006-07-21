@@ -26,7 +26,7 @@
 
 class QString;
 
-class KDE_EXPORT EntryKanjidic : public Entry {
+class /* NO_EXPORT */ EntryKanjidic : public Entry {
 	public:
 		EntryKanjidic(): Entry() {}
 		EntryKanjidic(const EntryKanjidic &x) : Entry(x) {}

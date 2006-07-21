@@ -24,6 +24,7 @@
 #include <qstring.h>
 #include <q3deepcopy.h>
 #include <qregexp.h>
+#include "libkitenexport.h"
 
 /**
 @author Joseph Kerian
@@ -42,7 +43,7 @@
 
 typedef Q3Dict<QString> __stupid_stub_dictQuery_type;
 
-class /* Q_EXPORT */ dictQuery : public __stupid_stub_dictQuery_type
+class LIBKITEN_EXPORT dictQuery : public __stupid_stub_dictQuery_type
 {
 public:
 	typedef Q3DictIterator<QString> Iterator;  //Can be used to iterate over properties

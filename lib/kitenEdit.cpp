@@ -18,6 +18,8 @@
 */
 
 #include "kitenEdit.h"
+#include <kcombobox.h>
+#include <kcompletion.h>
 
 #include <kdebug.h>
 KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) : 

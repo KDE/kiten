@@ -19,8 +19,7 @@
 #ifndef __DICTIONARY_H_
 #define __DICTIONARY_H_
 
-/* needed for KDE_EXPORT to work */
-#include <kdemacros.h>
+#include "libkitenexport.h"
 #include <qpair.h>
 #include <qmap.h>
 #include <qstringlist.h>
@@ -52,7 +51,7 @@ class dictFile;
  * things, but generally speaking this is the way this should work.
  */
 
-class KDE_EXPORT dictionary {
+class LIBKITEN_EXPORT dictionary {
 	public:
 	dictionary();
 	virtual ~dictionary();
@@ -86,7 +85,7 @@ class DictionaryPreferenceDialog;
  *  class and the dictionary handler files. IMPLEMENT in combination with an
  *   Entry subclass to add a new dictionary format. Also see the addDictionary
  *   method in the dictionary class. */
-class KDE_EXPORT dictFile {
+class LIBKITEN_EXPORT dictFile {
 public:
 	/** Please see the comment at the dictionaryType protected variable*/
 	dictFile() {}

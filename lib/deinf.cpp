@@ -19,6 +19,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <QtCore/QHash>
+#include <QtCore/QList>
+
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
@@ -26,8 +29,6 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 #include <QTextStream>
 #include "deinf.h"
 
@@ -38,12 +39,12 @@ typedef struct Conjugation
 {
 	QString ending; //The ending we are replacing
 	QString replace; //The replacement (dictionary form) ending
-	QString *label; //What this type of replacement is called
+	QString label; //What this type of replacement is called
 }Conjugation;
 
 //Declare our constants
-Q3IntDict<QString> names;
-Q3ValueList<Conjugation> list;
+QHash<long,QString> names;
+QList<Conjugation> list;
 
 deinf::deinf()
 {
@@ -86,8 +87,8 @@ bool deinf::load()
 		if(text.at(0) != '#')
 		{
 			long number = text.left(2).trimmed().toULong();
-			QString *name = new QString(text.right(text.length() - 2).trimmed());
-			names.insert(number, name);
+			QString name = text.right(text.length() - 2).trimmed();
+			names[number] = name;
 		}
 	}
 
@@ -102,14 +103,13 @@ bool deinf::load()
 			Conjugation conj;
 			conj.ending = things.first();
 			conj.replace = (things.at(1)); //KDE4 CHANGE
-			conj.label = names.find(things.last().toULong());
+			conj.label = names.find(things.last().toULong()).value();
 
 			list.append(conj);
 		}
 	}
 
 	f.close();
-	names.setAutoDelete(true);
 
 	return true;
 }
@@ -122,17 +122,16 @@ QStringList deinf::deinflect(const QString &text, QStringList &name)
 		
 	QStringList ret;
 
-	Q3ValueListIterator<Conjugation> it = list.begin();
-	for ( ; it != list.end(); ++it)
+	foreach(Conjugation it, list)
 	{
-		if(text.endsWith((*it).ending)) {
-			name.append((*(*it).label)); // Add to our list of explanations
+		if(text.endsWith(it.ending)) {
+			name.append((it.label)); // Add to our list of explanations
 
 			//kdDebug() << "match ending: " << (*it).ending << "; replace: " << (*it).replace << "; name: " << names[(*it).num] << endl;
 
 			QString tmp(text);
-			tmp.truncate(text.length() - (*it).ending.length());
-			tmp = tmp + (*it).replace;
+			tmp.truncate(text.length() - (it).ending.length());
+			tmp = tmp + (it).replace;
 			ret.append(tmp);
 		}
 	}
