@@ -127,6 +127,8 @@ void TopLevel::setupActions() {
 
 	/* Setup the Search Actions and our custom Edit Box */
 	Edit = new KitenEdit(actionCollection(), this);
+	KAction *EditToolbarWidget = new KAction(actionCollection(), "EditToolbarWidget");
+	EditToolbarWidget->setDefaultWidget(Edit);
 //	toolBar()->addWidget(Edit->ComboBox());
 	
 	(void) new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");

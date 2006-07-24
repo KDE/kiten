@@ -24,11 +24,12 @@
 
 #include "libkitenexport.h"
 #include <kaction.h>
+#include <kcombobox.h>
 
 class KComboBox;
 class KCompletion;
 
-class LIBKITEN_EXPORT KitenEdit : public KAction 
+class LIBKITEN_EXPORT KitenEdit : public KHistoryCombo
 {
 	Q_OBJECT
 	public:

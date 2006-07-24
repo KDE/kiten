@@ -23,7 +23,7 @@
 
 #include <kdebug.h>
 KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) : 
-	KAction(parent, "search_edit")
+	KHistoryCombo(parent)
 {
 	comboBox = new KComboBox(true, bar);
 	completion = comboBox->completionObject();

@@ -37,7 +37,7 @@
 
 <ToolBar name="locationToolBar" fullWidth="true" newline="true"><text>&amp;Search Toolbar</text>
   <Action name="clear_search" />
-  <Action name="search_edit" />
+  <Action name="EditToolbarWidget" />
   <Action name="search" />
   <Action name="search_in_results" />
   <Action name="search_radical" />
