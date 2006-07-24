@@ -470,7 +470,7 @@ void TopLevel::forward(void)
 /** This method just sets the current element in the list and triggers the display. */
 void TopLevel::goInHistory(int index)
 {
-	historyList.at(index);
+	historyList.setCurrent(index);
 	displayHistoryItem();
 }
 
@@ -491,8 +491,8 @@ void TopLevel::displayHistoryItem() {
 	occurred. */
 void TopLevel::enableHistoryButtons()
 {
-	backAction->setEnabled(historyList.at() > 0);
-	forwardAction->setEnabled(historyList.at()+1 < historyList.count());
+	backAction->setEnabled(historyList.index() > 0);
+	forwardAction->setEnabled(historyList.index()+1 < historyList.count());
 }
 
 #include "kiten.moc"

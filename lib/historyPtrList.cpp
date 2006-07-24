@@ -17,56 +17,60 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <kdebug.h>
-#include <q3ptrlist.h>
+#include <QtCore/QList>
+#include <QtCore/QMutableListIterator>
 
 #include "dictquery.h"
 #include "entry.h"
 #include "historyPtrList.h"
 
 
-historyPtrList::historyPtrList() {
-	setAutoDelete(true);
+historyPtrList::historyPtrList():m_index(-1) {
 }
 
 void
 historyPtrList::addItem(EntryList *newItem) {
 	//If we're currently looking at something prior to the end of the list
 	//Remove everything in the list up to this point.
-	int currentPosition = at()+1;
-	while(currentPosition < count())
-		removeLast();
+	int currentPosition = m_index+1;
+	EntryList *temp;
+	while(currentPosition < count()) {
+		temp = this->takeLast();
+		temp->deleteAll();
+		delete temp;
+	}
 	
 
 	//Now... check to make sure our history isn't 'fat'
-	while(count() >= 20) //TODO: Make this grab the max size from KConfig
-		removeFirst();
+	while(count() >= 20) {//TODO: Make this grab the max size from KConfig
+		 temp = this->takeFirst();
+		 temp->deleteAll();
+		 delete temp;
+	}
 
 	//Now add the item
 	append(newItem);
+	m_index = count()-1;
 }
 
 //Get a StringList of the History Items
 QStringList
 historyPtrList::toStringList() {	
-	Q3PtrListIterator<EntryList> it(*this);
 	QStringList result;
-	EntryList *curr;
 	
-	for(it.toFirst(); (curr=it.current()) != 0; ++it)
-		result.append(curr->getQuery().toString());
-
+	foreach(EntryList *p, (QList<EntryList*>)(*this)) {
+		result.append(p->getQuery().toString());
+	}
+	
 	return result;
 }
 
 QStringList
 historyPtrList::toStringListPrev() {
-	Q3PtrListIterator<EntryList> it(*this);
 	QStringList result;
-	EntryList *curr;
-	
-	for(it.toFirst(); (curr=it.current()) != 0 && it.current() != this->current(); ++it)
-		result.append(curr->getQuery().toString());
+
+	for(int i=0; i<m_index; i++)
+		result.append(this->at(i)->getQuery().toString());
 
 	return result;
 }
@@ -74,9 +78,8 @@ historyPtrList::toStringListPrev() {
 QStringList
 historyPtrList::toStringListNext() {
 	historyPtrList localCopy(*this);
-	localCopy.setAutoDelete(false);
 	
-	int currentPosition = at() + 1;
+	int currentPosition = m_index + 1;
 	while(currentPosition--)
 		localCopy.removeFirst();
 	
@@ -85,24 +88,16 @@ historyPtrList::toStringListNext() {
 
 void
 historyPtrList::next(int distance) {
-	for(int i=0; i< distance; i++)
-		if(Q3PtrList<EntryList>::next() == 0)
-			last();
+	if(distance + m_index > count() - 1)
+		m_index = count() - 1;
+	else
+		m_index += distance;
 }
 
 void
 historyPtrList::prev(int distance) {
-	for(int i=0; i< distance; i++)
-		if(Q3PtrList<EntryList>::prev() == 0)
-			first();
+	if(m_index - distance < 0)
+		m_index = 0;
+	else
+		m_index -= distance;
 }
-
-EntryList*
-historyPtrList::at(uint index) {
-	EntryList *ret = Q3PtrList<EntryList>::at(index);
-	if(ret == 0)
-		ret = last();
-	return ret;
-}
-
-

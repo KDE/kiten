@@ -18,11 +18,13 @@
 */
 #include <kdebug.h>
 #include <kglobal.h>
-#include <qstring.h>
+#include <QtCore/QString>
+#include <QtCore/QFile>
 
 #include "dictionary.h"
 #include "dictquery.h"
 #include "entry.h"
+
 /* Includes to handle various types of dictionaries 
 IMPORTANT: To add a dictionary type, add the header file here and add it to the
  if statement under addDictionary() */
@@ -58,7 +60,7 @@ QStringList dictionary::listDictFileTypes() {
 bool dictionary::addDictionary(const QString file, const QString name, 
 		const QString type) {
 	
-	if(dictManagers.find(name) != 0) //This name already exists in the list!
+	if(dictManagers.contains(name)) //This name already exists in the list!
 		return false;
 	
 	dictFile *newDict = makeDictFile(type);
@@ -78,18 +80,23 @@ bool dictionary::addDictionary(const QString file, const QString name,
 
 /** The constructor. Set autodelete on our dictionary list */
 dictionary::dictionary() {
-	dictManagers.setAutoDelete(true);
-		
 }
 
-/** due to auto-delete, nothing much to do here */
+/** Delete everything in our hash */
 dictionary::~dictionary() {
+	QMutableHashIterator<QString, dictFile*> it(dictManagers);
+	while(it.hasNext()) {
+		it.next();
+		delete it.value();
+		it.remove();
+	}
 }
 
 /** Remove a dictionary from the list, and delete the dictionary object 
   (it should close files, deallocate memory, etc). */
 bool dictionary::removeDictionary(const QString name) {
-	return dictManagers.remove(name);
+	dictFile *file = dictManagers.take(name);
+	delete file;
 }
 
 /** Return a list of the dictionaries by their name (our key)
@@ -97,9 +104,8 @@ bool dictionary::removeDictionary(const QString name) {
   to do with the actual dictionary name... */
 QStringList dictionary::listDictionaries() const {
 	QStringList ret;
-	Q3DictIterator<dictFile> it( dictManagers );
-	for( ; it.current(); ++it )
-		ret.append(it.currentKey());
+	foreach(dictFile *it, dictManagers)
+		ret.append(it->getName());
 	return ret;
 }
 
@@ -114,10 +120,12 @@ QPair<QString, QString> dictionary::listDictionaryInfo(const QString name) const
 /** Return a list of the names of each dictionary of a given type. */
 QStringList dictionary::listDictionariesOfType(const QString type) const {
 	QStringList ret;
-	Q3DictIterator<dictFile> it( dictManagers );
-	for( ; it.current(); ++it )
-		if(it.current()->getType() == type)
-			ret.append(it.currentKey());
+	QHash<QString, dictFile*>::const_iterator it = dictManagers.begin();
+	while(it != dictManagers.end()) {
+		if(it.value()->getType() == type)
+			ret.append(it.key());
+		++it;
+	}
 	return ret;
 }
 
@@ -131,21 +139,17 @@ EntryList *dictionary::doSearch(const dictQuery &query) const {
 	//Specifies the dictionary list, one in which it does not
 	QStringList dictsFromQuery = query.getDictionaries();
 	if(dictsFromQuery.isEmpty()) { //None specified, search all
-		Q3DictIterator<dictFile> it( dictManagers );
-		for( ; it.current(); ++it ) {
-			EntryList *temp=it.current()->doSearch(query);
+		foreach( dictFile *it, dictManagers) {
+			EntryList *temp=it->doSearch(query);
 			ret->appendList(temp);
-			temp->setAutoDelete(false);
 			delete temp;
 		}
 	} else {
-		for(QStringList::Iterator targetDicts = dictsFromQuery.begin();
-			targetDicts != dictsFromQuery.end(); ++targetDicts) {
-			dictFile *newestFound = dictManagers.find(*targetDicts);
+		foreach( QString target, dictsFromQuery) {
+			dictFile *newestFound = dictManagers.find(target).value();
 			if(newestFound != 0) {
 				EntryList *temp = newestFound->doSearch(query);
 				ret->appendList(temp);
-				temp->setAutoDelete(false);
 				delete temp;
 			}
 		}
@@ -163,11 +167,9 @@ EntryList *dictionary::doSearch(const dictQuery &query) const {
 EntryList *dictionary::doSearchInList(const dictQuery &query, const EntryList *list) const {
 	EntryList *ret = new EntryList();
 
-	EntryList::EntryIterator it(*list);
-
-	for( ; it.current() != 0; ++it ) {
-		if(it.current()->matchesQuery(query)) {
-			Entry *x = it.current()->clone();
+	foreach( Entry* it, *list) {
+		if(it->matchesQuery(query)) {
+			Entry *x = it->clone();
 			ret->append(x);
 		}
 	}

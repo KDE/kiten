@@ -21,12 +21,14 @@
 #ifndef __HISTORY_PTR_LIST_H__
 #define __HISTORY_PTR_LIST_H__
 
-#include <q3ptrlist.h>
-#include <qstringlist.h>
-#include "entry.h"
+#include <QtCore/QList>
 
+class QStringList;
+class EntryList;
 
-class LIBKITEN_EXPORT historyPtrList : protected Q3PtrList<EntryList> {
+class LIBKITEN_EXPORT historyPtrList : protected QList<EntryList*> {
+	private:
+		int m_index;
 	public:
 		/** Construct a historyPtrList, this should be done early on */
 		historyPtrList();
@@ -46,15 +48,16 @@ class LIBKITEN_EXPORT historyPtrList : protected Q3PtrList<EntryList> {
 		void next(int distance = 1);
 		/** Sub one from the current location, the counterpart to next() */
 		void prev(int distance = 1);
-		/** Return the current location, using a 0 based index */
-		int at() {return Q3PtrList<EntryList>::at();}
+		/** Return the current numerican 0-based location */
+		int index() {return m_index;}
 		/** Return the item at the location given by the param, and set it
 		  to be the current history list item */
-		EntryList *at(uint);
 		/** Return the current item */
-		EntryList *current() {return Q3PtrList<EntryList>::current();}
+		EntryList *current() {return at(m_index);}
+		/** Set the current item */
+		void setCurrent(int i) { if(i<count() && i >=0) m_index = i; }
 		/** Return the total number of items in the list */
-		int count() {return Q3PtrList<EntryList>::count();}
+		int count() {return QList<EntryList*>::count();}
 };
 
 #endif

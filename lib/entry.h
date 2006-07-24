@@ -22,12 +22,10 @@
 #ifndef ENTRY_H
 #define ENTRY_H
 
-#include <q3dict.h>
-#include <q3valuelist.h>
-#include <qstringlist.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 
+#include <QtCore/QStringList>
+#include <QtCore/QList>
+#include <QtCore/QHash>
 #include "libkitenexport.h"
 #include "dictquery.h"
 
@@ -54,7 +52,7 @@ public:
 			const QStringList &readings, const QStringList &meanings);
 	/** A constructor pattern that includes support for the extended info QDict (copied) */
 	Entry(const QString &sourceDictionary, const QString &word, const QStringList 
-			&readings, const QStringList &meanings, const Q3Dict<QString> &extendedInfo);
+			&readings, const QStringList &meanings, const QHash<QString,QString> &extendedInfo);
 	/** Generic Destructor, note that any strings in the QDict will be destroyed here */	
 	virtual ~Entry();
 	/** A clone method, this should just implement "return new EntrySubClass(*this)" */
@@ -73,8 +71,8 @@ public:
 	QStringList getMeaningsList() const { return Meanings; }
 	QString getReadings() const {return Readings.join(outputListDelimiter);}
 	QStringList getReadingsList() const { return Readings; }
-	Q3Dict<QString> getExtendedInfo() const { return ExtendedInfo; }
-	QString getExtendedInfoItem(const QString x) const { return *ExtendedInfo[x]; }
+	QHash<QString,QString> getExtendedInfo() const { return ExtendedInfo; }
+	QString getExtendedInfoItem(const QString x) const { return ExtendedInfo[x]; }
 
 	/* An entry should be able to generate a representation of itself in (valid)
 		HTML */
@@ -98,7 +96,7 @@ protected:
 	QStringList Meanings;
 	QStringList Readings;
 
-	Q3Dict<QString> ExtendedInfo;
+	QHash<QString,QString> ExtendedInfo;
 
 	printType favoredPrintType;
 	QString outputListDelimiter;
@@ -126,13 +124,14 @@ protected:
 };
 
 
-class KDE_EXPORT EntryList : public Q3PtrList<Entry> {
+class LIBKITEN_EXPORT EntryList : public QList<Entry*> {
 public:
-	typedef Q3PtrListIterator<Entry> EntryIterator;
+	typedef QListIterator<Entry*> EntryIterator;
 	
-	EntryList() {setAutoDelete(true);}
-	EntryList(const EntryList &old) : Q3PtrList<Entry>(old) {setAutoDelete(true);}
+	EntryList() {}
+	EntryList(const EntryList &old) : QList<Entry*>(old) {}
 	virtual ~EntryList();
+	void deleteAll();
 
 	QString toString(Entry::printType=Entry::printAuto) const;
 	QString toHTML(Entry::printType=Entry::printAuto) const;
@@ -154,7 +153,7 @@ public:
 	void setQuery(const dictQuery&);
 
 protected:
-	int compareItems(Q3PtrCollection::Item, Q3PtrCollection::Item) { return 0;}
+//	int compareItems(Q3PtrCollection::Item, Q3PtrCollection::Item) { return 0;}
 
 	dictQuery query;
 private: //Utility Methods

@@ -43,6 +43,12 @@ EntryList::~EntryList() {
 //	kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
 }
 
+void
+EntryList::deleteAll() {
+	while(!this->isEmpty())
+		delete this->takeFirst();
+}
+
 /** Returns the EntryList as HTML */
 //TODO: Some intelligent decision making regarding when to print what when AutoPrinting is on
 QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printType type) const {
@@ -51,8 +57,12 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	if(start+length > max) length = max-start;
 
 	QString result;
-	for(Q3PtrListIterator<Entry> it(*this); it.current() != 0 && length>0; ++it,--length)
-			result = result + it.current()->toHTML(type);
+	foreach(Entry *it, *this) {
+		if(length-- > 0)
+			result = result + it->toHTML(type);
+		else
+			break;
+	}
 	return result;
 }
 	
@@ -69,8 +79,12 @@ QString EntryList::toString(unsigned int start, unsigned int length, Entry::prin
 	if(start+length > max) length = max-start;
 
 	QString result;
-	for(Q3PtrListIterator<Entry> it(*this); it.current() != 0 && length>0; ++it,--length)
-			result = result + it.current()->toString(type);
+	foreach(Entry *it, *this) {
+		if(length-- > 0)
+			result = result + it->toString(type);
+		else
+			break;
+	}
 	return result;
 }
 	
@@ -93,14 +107,14 @@ inline QString EntryList::noResultsHTML()
 }
 
 const EntryList& EntryList::operator+=(const EntryList &other) {
-	for(Q3PtrListIterator<Entry> it(other);it;++it)
-			this->append(it.current());
+	foreach(Entry *it, other)
+			this->append(it);
 	return *this;
 }
 
 void EntryList::appendList(const EntryList *other) {
-	for(Q3PtrListIterator<Entry> it(*other); it.current(); ++it)
-		append(it.current());
+	foreach(Entry *it, *other)
+		append(it);
 }
 
 /**This method retrieves an earlier saved query in the EntryList,
@@ -151,7 +165,7 @@ Entry::Entry(const QString &sourceDictionary, const QString &word,
 
 Entry::Entry(const QString &sourceDictionary, const QString &word, 
 		const QStringList &readings, const QStringList &meanings, 
-		const Q3Dict<QString> &extendedInfo)
+		const QHash<QString,QString> &extendedInfo)
 	: sourceDict(sourceDictionary)
 	, Word(word)
 	, Meanings(meanings)
@@ -172,13 +186,13 @@ Entry::Entry(const Entry &src)
 }
 
 void Entry::init() {
-	ExtendedInfo.setAutoDelete(true);
 	outputListDelimiter=i18n("; ");
 	favoredPrintType = printBrief;
 }
 
 Entry::~Entry() {
 //	kdDebug() << "nuking : " << Word << endl;
+
 }
 
 /** Main switching function for displaying to the user */

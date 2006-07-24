@@ -214,7 +214,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				i++;
 				curString = "";
 				LOADSTRING(curString);
-				ExtendedInfo.insert(QString(ichar), new QString(curString));
+				ExtendedInfo.insert(QString(ichar), curString);
 				
 				break;
 			case 'I':
@@ -232,7 +232,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					/* The Kanji Dictionary number, we need the current ichar. */
 					LOADSTRING(curString)
 				}
-				ExtendedInfo.insert("I" + QString(ichar), new QString(curString));
+				ExtendedInfo.insert("I" + QString(ichar), curString);
 				break;
 			case 'M':
 				/* index and page numbers for Morohashi's Daikanwajiten 2 fields possible */
@@ -248,7 +248,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					LOADSTRING(curString)
 					/* page number in volume.page format */
 				}
-				ExtendedInfo.insert("M" + QString(ichar), new QString(curString));
+				ExtendedInfo.insert("M" + QString(ichar), curString);
 				break;
 			case 'S':
 				/* stroke count: may be multiple.  In that case, first is actual, others common
@@ -258,12 +258,12 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				if(ExtendedInfo.find("S") == 0)
 				{
 					LOADSTRING(curString)
-					ExtendedInfo.insert(QString(ichar), new QString(curString));
+					ExtendedInfo.insert(QString(ichar), curString);
 				}
 				else
 				{
 					LOADSTRING(curString)
-					ExtendedInfo.insert("_" + QString(ichar), new QString(curString));
+					ExtendedInfo.insert("_" + QString(ichar), curString);
 				}
 				break;
 			case 'D':
@@ -271,7 +271,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				curString = "";
 				INCI
 				LOADSTRING(curString)
-				ExtendedInfo.insert("D" + QString(ichar), new QString(curString));
+				ExtendedInfo.insert("D" + QString(ichar), curString);
 				break;
 			case '{':
 				/* This should be starting with the first '{' character of a meaning section.
@@ -325,7 +325,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				i++;
 				curString = "";
 				LOADSTRING(curString);
-				ExtendedInfo.insert(QString(ichar), new QString(curString));
+				ExtendedInfo.insert(QString(ichar), curString);
 				
 				break;
 		}
@@ -340,14 +340,11 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
   above parser to see how the format works */
 QString EntryKanjidic::dumpEntry() const
 {
-	QString dumpExtendedInfo;
-	Q3DictIterator<QString> it(ExtendedInfo);
-
 	/* Loop over the ExtendedInfo to add it to the line we produce */
-	for( ; it.current(); ++it)
-	{
-		dumpExtendedInfo += " " + it.currentKey() + *it.current();
-	}
+	QString dumpExtendedInfo;
+	QHash<QString,QString>::const_iterator it;
+	for(it=ExtendedInfo.constBegin() ; it != ExtendedInfo.constEnd(); ++it)
+		dumpExtendedInfo += " " + it.key() + it.value();
 	
 	return Word + " " + Readings.join(" ") + dumpExtendedInfo;
 }

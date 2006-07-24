@@ -20,22 +20,21 @@
 #define __DICTIONARY_H_
 
 #include "libkitenexport.h"
-#include <qpair.h>
-#include <qmap.h>
-#include <qstringlist.h>
-#include <qstring.h>
-#include <q3ptrlist.h>
-#include <qfile.h>
-#include <q3dict.h>
+#include <QtCore/QHash>
+#include <QtCore/QMap>
+#include <QtCore/QPair>
 
 class QWidget;
+class QString;
+class QStringList;
 
-class dictQuery;
 class Entry;
 class EntryList;
 class KConfigSkeleton;
 
 class dictFile;
+class dictQuery;
+
 /** The dictionary class is the fundamental dictionary management class. All 
  * interfaces with the rest of the programs using the various dictionaries will
  * work through this "interface class" to keep the formatting and other such 
@@ -76,7 +75,7 @@ class LIBKITEN_EXPORT dictionary {
 	void loadDisplaySettings() {}
 
 	private:
-	Q3Dict<dictFile> dictManagers;	//List is indexed by dictionary names.
+	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
 };
 
 
