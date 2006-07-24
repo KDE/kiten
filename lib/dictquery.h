@@ -19,10 +19,11 @@
 #ifndef DICTQUERY_H
 #define DICTQUERY_H
 
-#include <q3dict.h>
-#include <qstringlist.h>
-#include <qstring.h>
-#include <q3deepcopy.h>
+#include <QtCore/QHash>
+#include <QtCore/QHashIterator>
+#include <QtCore/QStringList>
+#include <QtCore/QString>
+
 #include <qregexp.h>
 #include "libkitenexport.h"
 
@@ -41,12 +42,12 @@
 	<D>  ::= character<D>|character
 */
 
-typedef Q3Dict<QString> __stupid_stub_dictQuery_type;
+typedef QHash<QString,QString> __stupid_stub_dictQuery_type;
 
 class LIBKITEN_EXPORT dictQuery : public __stupid_stub_dictQuery_type
 {
 public:
-	typedef Q3DictIterator<QString> Iterator;  //Can be used to iterate over properties
+	typedef QHashIterator<QString,QString> Iterator;  //Can be used to iterate over properties
 	static const QString mainDelimiter;	   //Seperates main entries (usually space)
 	static const QString propertySeperator;//Seperates keys from property values(":")
 
@@ -60,8 +61,8 @@ public:
 	virtual void clear ();
 
 //Overloaded from QDict... for the love of god don't use these
-	bool insert(const QString& key, const QString *item);
-	bool replace(const QString& key, const QString *item);
+	bool insert(const QString& key, const QString& item);
+	bool replace(const QString& key, const QString& item);
 	bool remove(const QString& key);
 	QString* take ( const QString & key );
 /* The following QDict methods DO NOT INCLUDE pronounciations/meanings!!!! 
@@ -146,7 +147,7 @@ protected:	//The QDict itself tracks properties as key->value pairs
 
 	enum stringTypeEnum {strTypeKanji, strTypeKana, strTypeLatin, mixed, stringParseError};
 	stringTypeEnum stringTypeCheck(QString); //returns a string's consistant class.
-	 stringTypeEnum charTypeCheck(QString);   //Same for the first char of a string
+	stringTypeEnum charTypeCheck(QString);   //Same for the first char of a string
 };
 
 //Currently... KDE doesn't seem to want to use exceptions

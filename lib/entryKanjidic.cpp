@@ -72,9 +72,9 @@ bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
 			return false;
 	
 	dictQuery::Iterator it(query);
-	for(; it.current(); ++it) {
-		QString extendedItem = getExtendedInfoItem(it.currentKey());
-		if( extendedItem != *it.current() )
+	while(it.hasNext()) {
+		it.next();
+		if( getExtendedInfoItem(it.key()) != it.value() )
 			return false;
 	}
 	return true;	

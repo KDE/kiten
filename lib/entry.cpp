@@ -339,9 +339,10 @@ bool Entry::matchesQuery(const dictQuery &query) const {
 			return false;
 	
 	dictQuery::Iterator it(query);
-	for(; it.current(); ++it) {
-		QString extendedItem = getExtendedInfoItem(it.currentKey());
-		if( extendedItem != *it.current() )
+	while(it.hasNext()) {
+		it.next();
+		QString extendedItem = getExtendedInfoItem(it.key());
+		if( extendedItem != it.value() )
 			return false;
 	}
 	return true;	

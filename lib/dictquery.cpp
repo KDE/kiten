@@ -26,9 +26,9 @@ TODO: Add features to limit the number of hits on a per-search basis.
 
 #include "dictquery.h"
 
-#include <q3dict.h>
-#include <qstringlist.h>
-#include <qstring.h>
+#include <QtCore/QStringList>
+#include <QtCore/QString>
+
 #include <kdebug.h>
 
 
@@ -37,23 +37,22 @@ TODO: Add features to limit the number of hits on a per-search basis.
 *	Constructors, Destructors, Initilizers, and 
 *	Global Status Indicators.
 *****************************************************************************/
-dictQuery::dictQuery() : Q3Dict<QString>()
+dictQuery::dictQuery() : QHash<QString,QString>()
 {
 	init();
 }
 
-dictQuery::dictQuery(const QString& str) : Q3Dict<QString>() {
+dictQuery::dictQuery(const QString& str) : QHash<QString,QString>() {
 	init();
 	this->operator=((QString)str);
 }
 
-dictQuery::dictQuery(const dictQuery& orig):Q3Dict<QString>(orig) {
+dictQuery::dictQuery(const dictQuery& orig):QHash<QString,QString>(orig) {
 	init();
 	this->operator=((dictQuery&)orig);
 }
 
 void dictQuery::init() {
-	setAutoDelete(TRUE);
 	matchType=matchExact;
 }
 
@@ -63,11 +62,11 @@ dictQuery::~dictQuery()
 
 bool dictQuery::isEmpty() const {
 //We're only empty if the two strings are empty too
-	return Q3Dict<QString>::isEmpty() && meaning.isEmpty()
+	return QHash<QString,QString>::isEmpty() && meaning.isEmpty()
 		&& pronounciation.isEmpty() && word.isEmpty();
 }
 void dictQuery::clear() {
-	Q3Dict<QString>::clear();
+	QHash<QString,QString>::clear();
 	meaning="";
 	pronounciation="";
 	word="";
@@ -83,9 +82,10 @@ dictQuery &dictQuery::operator=(const dictQuery &d) {
 	clear();
  	//Copy the dictionary first
 	dictQuery::Iterator it(d);
-	for(; it.current(); ++it)
-		Q3Dict<QString>::insert( it.currentKey(),
-				new QString(*(it.current())) );
+	while(it.hasNext()) {
+		it.next();
+		QHash<QString,QString>::insert( it.key(),it.value() );
+	}
 	meaning=d.meaning;
 	pronounciation=d.pronounciation;
 	word = d.word;
@@ -106,44 +106,42 @@ bool operator==( dictQuery other, dictQuery query ) {
 		return false;
 
 	dictQuery::Iterator it( other );
-	for( ; it.current(); ++it )
-		if( it.current() != query[it.currentKey()])
+	while(it.hasNext()) {
+		it.next();
+		if( it.value() != query[it.key()])
 			return false;
+	}
 	return true;
 }
 
 bool operator<( dictQuery A, dictQuery B) {
 	dictQuery::Iterator it( A );
-	for( ; it.current(); ++it ) {
+	while(it.hasNext()) {
 		//The default case is for properties to need
 		//to match exactly in B, if present in A
 		//There are plenty of exceptions here though
-		if(it.currentKey() == "R") {
-			QStringList aList = it.current()->split("");
-			
-			for ( QStringList::Iterator rad = aList.begin();
-						rad != aList.end(); ++rad )
-				if(B.getProperty("R").contains(*rad)==0)
+		it.next();
+		if(it.key() == "R") {
+			foreach( QString str, it.value().split("") )
+				if(B.getProperty("R").contains(str)==0)
 					return false;
-		} else if( it.current() != B[it.currentKey()])
+		} else if( it.value() != B[it.key()])
 			return false;
 	}
 
 	if(!A.pronounciation.isEmpty()) {
 		QStringList aList = A.pronounciation.split(dictQuery::mainDelimiter);
 		QStringList bList = B.pronounciation.split(dictQuery::mainDelimiter);
-		for ( QStringList::Iterator it = aList.begin();
-				it != aList.end(); ++it )
-			if(bList.contains(*it)==0)
+		foreach( QString str, aList )
+			if(bList.contains(str)==0)
 				return false;
 	}
 		
 	if(!A.meaning.isEmpty()) {
 		QStringList aList = A.meaning.split(dictQuery::mainDelimiter);
 		QStringList bList = B.meaning.split(dictQuery::mainDelimiter);
-		for ( QStringList::Iterator it = aList.begin();
-				it != aList.end(); ++it )
-			if(bList.contains(*it)==0)
+		foreach( QString str, aList )
+			if(bList.contains(str)==0)
 				return false;
 	}
 	
@@ -165,18 +163,16 @@ const QString dictQuery::toString() const {
 		return QString::null;
 
 	QString reply;
-	QStringList entryCopy = entryOrder; //const keyword be damned
-	for (QStringList::Iterator it=entryCopy.begin();
-					it!=entryCopy.end(); ++it) {
-		if(*it == pronounciationMarker)
+	foreach( QString it, entryOrder ) {
+		if(it == pronounciationMarker)
 			reply += pronounciation+mainDelimiter;
-		else if(*it == meaningMarker)
+		else if(it == meaningMarker)
 			reply += meaning+mainDelimiter;
-		else if(*it == wordMarker)
+		else if(it == wordMarker)
 			reply += word+mainDelimiter;
 		else
-			reply += *it + propertySeperator
-				+ *this->find(*it) + mainDelimiter;
+			reply += it + propertySeperator
+				+ *this->find(it) + mainDelimiter;
 	}
 	reply.truncate(reply.length()-mainDelimiter.length());
 
@@ -303,9 +299,9 @@ QStringList dictQuery::getPropertyKeysList() const {
 }
 
 QString dictQuery::getProperty(const QString &key) const {
-	QString *result = this->find(key);
-	if(result == 0) return QString(QString::null);
-	return QString(*result);
+	if(!this->contains(key))
+		return QString(QString::null);
+	return this->find(key).value();
 }
 
 bool dictQuery::hasProperty(const QString &key) const {
@@ -317,43 +313,43 @@ bool dictQuery::hasProperty(const QString &key) const {
 **************************************************************/
 //TODO: Add i18n handling and alternate versions of property names
 bool dictQuery::setProperty(const QString& key,const QString& value) {
-	return replace(key,&value);
+	return replace(key,value);
 }
 
 bool dictQuery::removeProperty(const QString &key){
 	return remove(key);
 }
 
-bool dictQuery::insert(const QString& key, const QString *item){
-	if(key==pronounciationMarker || key==meaningMarker ||
-		key.isEmpty() || item->isEmpty())
+bool dictQuery::insert(const QString& key, const QString& item){
+	if(key==pronounciationMarker || key==meaningMarker |
+		key.isEmpty() || item.isEmpty())
 #ifdef USING_QUERY_EXCEPTIONS
-		throw invalidQueryException(key+propertySeperator+*item);
+		throw invalidQueryException(key+propertySeperator+item);
 #else
 		return false;
 #endif
-	if ( ! Q3Dict<QString>::find( key ) )
+	if ( ! QHash<QString,QString>::contains( key ) )
 		entryOrder.append(QString(key));
-	Q3Dict<QString>::insert( key, new QString(*item) );
+	QHash<QString,QString>::insert( key, item );
 	return true;
 }
 
-bool dictQuery::replace(const QString& key, const QString *item){
+bool dictQuery::replace(const QString& key, const QString& item){
 	if(key==pronounciationMarker || key==meaningMarker ||
-		key.isEmpty() || item->isEmpty())
+		key.isEmpty() || item.isEmpty())
 #ifdef USING_QUERY_EXCEPTIONS
-		throw invalidQueryException(key+propertySeperator+*item);
+		throw invalidQueryException(key+propertySeperator+item);
 #else
 		return false;
 #endif
-	if ( ! Q3Dict<QString>::find( key ) )
-		entryOrder.append(QString(key));
-	Q3Dict<QString>::replace( key, new QString(*item) );
+	if ( ! QHash<QString,QString>::contains( key ) )
+		entryOrder.append(key);
+	QHash<QString,QString>::insert(key,item);
 	return true;
 }
 
 bool dictQuery::remove(const QString& key) {
-	if(Q3Dict<QString>::remove(key))
+	if(QHash<QString,QString>::contains(key))
 		return entryOrder.removeAll(key);
 	return false;
 }

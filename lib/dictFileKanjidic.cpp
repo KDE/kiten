@@ -21,9 +21,6 @@
 
 #include <kglobal.h>
 #include <qfile.h>
-#include <q3dict.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 
 #include "dictquery.h"  //dictQuery classs
 #include "dictFileKanjidic.h" //dictFile (superclass) class
