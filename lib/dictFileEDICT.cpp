@@ -23,12 +23,14 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kprocess.h>
+
+#include <QtCore/QByteArray>
+#include <QtCore/QVector>
+
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <qstring.h>
 #include <qtextcodec.h>
-#include <q3cstring.h>
-#include <q3valuevector.h>
 //Added by qt3to4:
 #include <QTextStream>
 #include <Q3MemArray>
@@ -285,7 +287,7 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 	//TODO:If searching for entry... we need to modify the search mechanism
 	//TODO:Right now it fails if we search for more than one Kanji in a row
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
-	Q3CString searchString = codec.fromUnicode
+	QByteArray searchString = codec.fromUnicode
 		(query.toString().split(dictQuery::mainDelimiter).first());
 
 	//Map the memory maps to more convenient data types.
@@ -297,7 +299,7 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 																//(that would be bytes)
 	unsigned cur;
 	int comp = 0;
-	Q3CString currentWord;
+	QByteArray currentWord;
 
 	//Conduct a binary search of the memory maps to find our word
 	do {
@@ -322,7 +324,7 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 
 
 	//Enumerate each matching entry
-	Q3ValueVector<uint32_t> possibleHits;
+	QVector<uint32_t> possibleHits;
 
 	//This is a bit tricky... we do the search over the index, and keep going
 	//Over all combinations of currentWord and searchString (either can be properly
@@ -359,15 +361,14 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 	if(possibleHits.size() <= 0) return results;
 	
 	qSort(possibleHits); //KDE4 CHANGE (was qHeapSort)
-	Q3ValueVector<uint32_t>::Iterator it;
 	unsigned last = dict.size() + 2;
 	Entry *result;
-	for(it = possibleHits.begin(); it != possibleHits.end(); ++it) {
+	foreach(uint32_t it, possibleHits) {
 		//Don't print the same line	
-		if(last != *it) {
-			last = *it;
+		if(last != it) {
+			last = it;
 			//Grab a Line, translate it from euc, make an entry
-			result = makeEntry(codec.toUnicode(lookupFullLine(*it)));
+			result = makeEntry(codec.toUnicode(lookupFullLine(it)));
 			//Evaluate more carefully
 			if(result->matchesQuery(query))
 			//Add to list if acceptable
@@ -388,14 +389,15 @@ inline unsigned char dictFileEdict::lookupDictChar(unsigned i) {
 }
 
 /** This is just like lookupDictChar, but grabs till EOL */
-Q3CString dictFileEdict::lookupFullLine(unsigned i) {
-	if(i > dictFile.size()) return 0x0A;	//If out of bounds, return endl
+QByteArray dictFileEdict::lookupFullLine(unsigned i) {
+	if(i > dictFile.size())
+		return QByteArray(0x0A,1);	//If out of bounds, return endl
 	uint32_t start = i;
 	uint32_t pos = start;
 	const unsigned max = dictFile.size();
 	while(pos <= max && dictPtr[pos] != 0 && dictPtr[pos] != 0x0A)
 		++pos;
-	Q3CString retval((const char*)(dictPtr+start),1+pos-start);
+	QByteArray retval((const char*)(dictPtr+start),1+pos-start);
 	//and away we go
 	return retval;
 }
@@ -403,8 +405,8 @@ Q3CString dictFileEdict::lookupFullLine(unsigned i) {
 /** This quick utility method looks in index at location i and pulls,
   the corresponding line from the dictionary  returning it as an euc
   formatted QCString. i=1 is the first entry that the index points to. */
-Q3CString dictFileEdict::lookupDictLine(unsigned i) {
-	if(i > dictFile.size()) return Q3CString("");
+QByteArray dictFileEdict::lookupDictLine(unsigned i) {
+	if(i > dictFile.size()) return QByteArray("");
 	
 	uint32_t start = indexPtr[i] - 1;
 	uint32_t pos = start;
@@ -415,7 +417,7 @@ Q3CString dictFileEdict::lookupDictLine(unsigned i) {
 		++pos;
 	}
 	//Copy the word to a QCString
-	Q3CString retval((const char*)(dictPtr+start),1+pos-start);
+	QByteArray retval((const char*)(dictPtr+start),1+pos-start);
 	//and away we go
 	return retval;
 }

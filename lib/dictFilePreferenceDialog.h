@@ -43,7 +43,6 @@ class DictionaryPreferenceDialog : public QWidget {
 
 class KConfigSkeleton;
 class KActionSelector;
-class Q3ListBox;
 //This is the default one used by edict and kanjidic
 class dictFileFieldSelector : public DictionaryPreferenceDialog {
 	Q_OBJECT

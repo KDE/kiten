@@ -112,7 +112,7 @@ public:
 	/** If you want your own dialog to pick preferences for your dict...
 	  override this */
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL, const char *name=0) 
-				{if(parent==parent && name==name) return NULL;}
+				{if(parent==parent && name==name && config==config) return NULL;}
 	
 	/** Inline functions to return quick info */
 	virtual inline const QString &getName() const {return dictionaryName;}

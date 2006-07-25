@@ -22,14 +22,16 @@
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <qfile.h>
-#include <q3popupmenu.h>
-#include <qtextcodec.h>
-//Added by qt3to4:
-#include <QTextStream>
-#include <QKeyEvent>
-//KDE4 CHANGE
-#include <qapplication.h>
+
+#include <QtCore/QMap>
+#include <QtCore/QByteArray>
+#include <QtCore/QTextCodec>
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
+#include <QtGui/QApplication>
+#include <QtGui/QAction>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QMenu>
 
 #include "kromajiedit.h"
 
@@ -92,20 +94,12 @@ KRomajiEdit::~KRomajiEdit()
 {
 }
 
-void KRomajiEdit::setKana(int _kana)
-{
-	switch (_kana)
-	{
-		case 0:
-		kana = "english";
-		break;
-		case 1:
+// This is the slot for the menu
+void KRomajiEdit::setKana(QAction *action) {
+	if(action->text() == "Kana")
 		kana = "hiragana";
-		break;
-		//case 2:
-		//kana = "katakana";
-		//break;
-	}
+	if(action->text() == "English")
+		kana = "english";
 }
 
 // TODO allow editing not only at end
@@ -258,24 +252,37 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	KLineEdit::keyPressEvent(e); // don't think we'll get here :)
 }
 
-Q3PopupMenu *KRomajiEdit::createPopupMenu()
+QMenu *KRomajiEdit::createPopupMenu()
 {
-	/* KDE4 CHANGE
-    Q3PopupMenu *popup = KLineEdit::createPopupMenu();
-    popup->insertSeparator();
-    popup->insertItem(i18n("English"), 0);
-    popup->insertItem(i18n("Kana"), 1);
+	QMenu *menu;
+	menu = new QMenu();
+	//TODO: Get the basic editing options in here from a KLineEdit popup menu (or elsewhere?)
+	menu->addSeparator();
 
-    if (kana == "english")
-		popup->setItemChecked(0, true);
-    else if (kana == "hiragana")
-		popup->setItemChecked(1, true);
+	//Put our action group together
+	QActionGroup *group = new QActionGroup(menu);
+	
+	QAction *temp;
+	temp = new QAction(i18n("English"),group);
+	temp->setCheckable(true);
+	menu->addAction(temp);
+	if(kana == "english")
+		temp->setChecked(true);
+	else
+		temp->setChecked(false);
 
-    connect(popup, SIGNAL(activated(int)), SLOT(setKana(int)));
+	temp = new QAction(i18n("Kana"),group);
+	temp->setCheckable(true);
+	menu->addAction(temp);
+	if(kana == "kana")
+		temp->setChecked(true);
+	else
+		temp->setChecked(false);
 
-    emit aboutToShowContextMenu(popup);
-    return popup;
-	 */ return NULL;
+	connect(group, SIGNAL(triggered(QAction*)), SLOT(setKana(QAction*)));
+	
+   emit aboutToShowContextMenu(menu);
+   return menu;
 }
 
 #include "kromajiedit.moc"

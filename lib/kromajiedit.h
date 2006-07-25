@@ -21,17 +21,14 @@
 #ifndef KROMAJIEDIT_H
 #define KROMAJIEDIT_H
 
-#include <qmap.h>
-#include <q3cstring.h>
-//Added by qt3to4:
-#include <QKeyEvent>
-#include <Q3PopupMenu>
+#include <QtCore/QMap>
 
 #include <klineedit.h>
 
 class QKeyEvent;
 class QWidget;
-class Q3PopupMenu;
+class QMenu;
+class QByteArray;
 
 class KRomajiEdit : public KLineEdit
 {
@@ -42,17 +39,17 @@ class KRomajiEdit : public KLineEdit
 	~KRomajiEdit();
 
 	public slots:
-	void setKana(int);
+	void setKana(QAction*);
 
 	protected:
 	void keyPressEvent(QKeyEvent *e);
-	Q3PopupMenu *createPopupMenu();
+	QMenu *createPopupMenu();
 	
 	private:
 	QMap<QString, QString> hiragana;
 	QMap<QString, QString> katakana;
 
-	Q3CString kana;
+	QByteArray kana;
 };
 
 #endif

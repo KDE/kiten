@@ -25,8 +25,6 @@
 #include "dictionary.h" //dictFile definition
 
 #include <sys/types.h>
-//Added by qt3to4:
-#include <Q3CString>
 #ifdef __osf__
 typedef unsigned int uint32_t;
 typedef int int32_t;
@@ -36,6 +34,7 @@ typedef int int32_t;
 
 class QFile;
 class QString;
+class QByteArray;
 
 class dictQuery;
 class DictionaryPreferenceDialog;
@@ -67,8 +66,8 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 
 	//Utility methods for handling the index files
 	unsigned char lookupDictChar(unsigned);
-	Q3CString lookupDictLine(unsigned);
-	Q3CString lookupFullLine(unsigned);
+	QByteArray lookupDictLine(unsigned);
+	QByteArray lookupFullLine(unsigned);
 	int equalOrSubstring(const char*, const char *);
 	int findMatches(const char*, const char *);
 	
