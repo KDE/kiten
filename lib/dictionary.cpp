@@ -113,7 +113,7 @@ QStringList dictionary::listDictionaries() const {
 /** Return the dictionary type and file used by a named dictionary.
   returns a pair of empty QStrings if you specify an invalid name */
 QPair<QString, QString> dictionary::listDictionaryInfo(const QString name) const {
-	if(dictManagers.contains(name)) //This name not in list!
+	if(!dictManagers.contains(name)) //This name not in list!
 		return qMakePair(QString(),QString()); //KDE4 CHANGE
 	return qMakePair(dictManagers[name]->getName(),dictManagers[name]->getFile());
 }

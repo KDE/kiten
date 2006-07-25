@@ -255,7 +255,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					miscounts */
 				curString = "";
 				i++;
-				if(ExtendedInfo.find("S") == 0)
+				if(!ExtendedInfo.contains("S"))
 				{
 					LOADSTRING(curString)
 					ExtendedInfo.insert(QString(ichar), curString);
