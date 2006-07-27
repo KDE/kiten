@@ -43,6 +43,7 @@ dictQuery::dictQuery() : QHash<QString,QString>()
 }
 
 dictQuery::dictQuery(const QString& str) : QHash<QString,QString>() {
+	kDebug() << "dictQuery Constructor: " << str << endl;
 	init();
 	this->operator=((QString)str);
 }

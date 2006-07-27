@@ -25,9 +25,10 @@
 KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) : 
 	KHistoryCombo(parent)
 {
-	comboBox = new KComboBox(true, bar);
-	completion = comboBox->completionObject();
-	kDebug() << comboBox << endl;
+//	comboBox = new KComboBox(true, bar);
+//	completion = comboBox->completionObject();
+	
+//	kDebug() << comboBox << endl;
 }
 
 KitenEdit::~KitenEdit()
@@ -36,12 +37,16 @@ KitenEdit::~KitenEdit()
 
 QString KitenEdit::text()
 {
-	return comboBox->currentText();
+//	kDebug() << comboBox->currentText() << endl;
+//	return comboBox->currentText();
+	kDebug() << currentText() << endl;
+	return currentText();
 }
 
 void KitenEdit::setText(const QString &text)
 {
 	//comboBox->setEditText(text);
+	addItem(text);
 }
 
 KComboBox *KitenEdit::ComboBox()

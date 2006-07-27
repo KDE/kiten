@@ -54,9 +54,7 @@
 TopLevel::TopLevel(QWidget *parent, const char *name) 
 	: KMainWindow(parent)  
 {
-#if KDE_VERSION > 305
 	    setStandardToolBarMenuEnabled(true);
-#endif
     setObjectName(QLatin1String(name));
 	/* Set up the config */
 	config = KitenConfigSkeleton::self();
@@ -132,11 +130,13 @@ void TopLevel::setupActions() {
 //	toolBar()->addWidget(Edit->ComboBox());
 	
 	(void) new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
-	(void) new KAction(i18n("S&earch"), actionCollection(), "search");
+	KAction *searchButton = new KAction(i18n("S&earch"), actionCollection(), "search");
 	(void) new KAction(i18n("Search with &Beginning of Word"), actionCollection(), "search_beginning");
 	(void) new KAction(i18n("Search &Anywhere"), actionCollection(), "search_anywhere");
 	(void) new KAction(i18n("Stro&kes"), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), actionCollection(), "search_grade");
+
+	connect(searchButton, SIGNAL(triggered()), this, SLOT(localSearch()));
 
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
@@ -207,7 +207,10 @@ void TopLevel::linkClicked(const QString &text)
 /** This function searches for the contents of the Edit field in the mainwindow */
 void TopLevel::localSearch()
 {
+	StatusBar->showMessage(i18n("Searching..."));
+	kDebug() << "Initialising query: " << Edit->text() << endl;
 	dictQuery query(Edit->text());
+	kDebug() << "Initialised query: " << query.toString() << endl;
 	searchAndDisplay(query);
 }
 
@@ -245,7 +248,10 @@ void TopLevel::kitenDCOPsearch(const QString query)
 	raise();
 
 	/* now search */
-	dictQuery theQuery(query);
+//	dictQuery theQuery(query);
+	kDebug() << "kitenDCOPsearch initialising query: " << Edit->text() << endl;
+	dictQuery theQuery(Edit->text());
+	kDebug() << "kitenDCOPsearch initialised query: " << theQuery.toString() << endl;
 	searchAndDisplay(theQuery);
 }
 
