@@ -183,35 +183,35 @@ const QString dictQuery::toString() const {
 dictQuery &dictQuery::operator=(const QString &str) {
 	QStringList parts = str.split(mainDelimiter);
 	dictQuery result;
-	for ( QStringList::Iterator it = parts.begin(); it != parts.end(); ++it ) {
-		if((*it).contains(propertySeperator)) {
-			QStringList prop = it->split(propertySeperator);
+	foreach( QString it, parts) {
+		if(it.contains(propertySeperator)) {
+			QStringList prop = it.split(propertySeperator);
 			if(prop.count() != 2)
 #ifdef USING_QUERY_EXCEPTIONS
-				throw invalidQueryException(*it);
+				throw invalidQueryException(it);
 #else
 				break;
 #endif
 			result.setProperty(prop[0],prop[1]);
 			//replace or throw an error with duplicates?
-		} else switch(stringTypeCheck(*it)) {
+		} else switch(stringTypeCheck(it)) {
 			case dictQuery::strTypeLatin :
 				if(result.entryOrder.removeAll(meaningMarker) > 0 )
-					result.setMeaning(result.getMeaning() + mainDelimiter + *it);
+					result.setMeaning(result.getMeaning() + mainDelimiter + it);
 				else
-					result.setMeaning(*it);
+					result.setMeaning(it);
 				break;
 			case dictQuery::strTypeKana :
 				if(result.entryOrder.removeAll(pronounciationMarker)>0)
 					result.setPronounciation(result.getPronounciation() 
-					                                     + mainDelimiter + *it );
+					                                     + mainDelimiter + it );
 				else
-					result.setPronounciation(*it);
+					result.setPronounciation(it);
 				break;
 
 			case dictQuery::strTypeKanji :
 				result.entryOrder.removeAll(wordMarker);
-				result.setWord( *it ); //Only one of these allowed
+				result.setWord( it ); //Only one of these allowed
 				break;
 
 			case dictQuery::mixed :
@@ -219,13 +219,13 @@ dictQuery &dictQuery::operator=(const QString &str) {
 			case dictQuery::stringParseError :
 				qWarning("wtf?");
 #ifdef USING_QUERY_EXCEPTIONS
-				throw invalidQueryException(*it);
+				throw invalidQueryException(it);
 #endif
 				break;
 		}
 	}
-//	kdDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronounciation()<<"] :"<<
-//		result.getMeaning()<<endl;
+	kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronounciation()<<"] :"<<
+		result.getMeaning()<<endl;
 	this->operator=(result);
 	return *this;
 }
@@ -234,20 +234,22 @@ dictQuery &dictQuery::operator=(const QString &str) {
 dictQuery::stringTypeEnum dictQuery::stringTypeCheck(QString in) {
 	stringTypeEnum firstType;
 	//Split into individual characters
-	QStringList charList = in.split(QString(""));
-	if(charList.count() <= 0)
+	if(in.size() <= 0)
 		return dictQuery::stringParseError;
 	
-	QStringList::Iterator c = charList.begin();
-	for(firstType = charTypeCheck((*c)); c!=charList.end(); ++c ){
-		stringTypeEnum newType = charTypeCheck(*c);
+	firstType = charTypeCheck(in.at(0));
+	for(int i=1; i<in.size(); i++ ){
+		stringTypeEnum newType = charTypeCheck(in.at(i));
 		if(newType != firstType) {
-			if(firstType == strTypeKana && newType == strTypeKanji)
+			if(firstType == strTypeKana && newType == strTypeKanji) {
 				firstType = strTypeKanji;
+			}
 			else if(firstType == strTypeKanji && newType == strTypeKana)
 				; //That's okay
 			else
+			{
 				return dictQuery::mixed;
+			}
 		}
 	}
 	return firstType;
@@ -255,17 +257,16 @@ dictQuery::stringTypeEnum dictQuery::stringTypeCheck(QString in) {
 //Private utility method for the stringTypeCheck
 //Just checks and returns the type of the first character in the string
 //that is passed to it.
-dictQuery::stringTypeEnum dictQuery::charTypeCheck(QString ichar) {
-	QChar ch = ichar[0];
-	if(ch.toLatin1()) 
+dictQuery::stringTypeEnum dictQuery::charTypeCheck(QChar ch) {
+	if(ch.toLatin1()) {
 		return strTypeLatin;
+	}
 	//The unicode character boundaries are:
 	// 3040 - 309F Hiragana
 	// 30A0 - 30FF Katakana
 	// 31F0 - 31FF Katakana phonetic expressions (wtf?)
 	if((ch.unicode() >= 0x3040 && ch.unicode() <= 0x30FF) /*|| ch.unicode() & 0x31F0*/)
 		return strTypeKana;
-	
 	return strTypeKanji;
 }
 

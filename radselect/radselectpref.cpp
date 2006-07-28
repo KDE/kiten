@@ -24,7 +24,6 @@
 
 #include <qlayout.h>
 #include <qlabel.h>
-//Added by qt3to4:
 
 radselectPreferences::radselectPreferences()
 	: KPageDialog()
@@ -36,31 +35,24 @@ radselectPreferences::radselectPreferences()
     // this is the base class for your preferences dialog.  it is now
     // a Treelist dialog.. but there are a number of other
     // possibilities (including Tab, Swallow, and just Plain)
-/*    QFrame *frame;
-    frame = addPage(i18n("First Page"), i18n("Page One Options"));
-    m_pageOne = new radselectPrefPageOne(frame);
+    m_pageOne = new radselectPrefPageOne(this);
+	 addPage(m_pageOne, i18n("First Page"));
 
-    frame = addPage(i18n("Second Page"), i18n("Page Two Options"));
-    m_pageTwo = new radselectPrefPageTwo(frame);
-	 */
+    m_pageTwo = new radselectPrefPageTwo(this);
+	 addPage(m_pageTwo, i18n("Second Page"));
+	 
 }
-/*
-radselectPrefPageOne::radselectPrefPageOne(QWidget *parent)
-    : Q3Frame(parent)
-{
-    Q3HBoxLayout *layout = new Q3HBoxLayout(this);
-    layout->setAutoAdd(true);
 
+radselectPrefPageOne::radselectPrefPageOne(QWidget *parent)
+    : QFrame(parent)
+{
     new QLabel(i18n("Add something here"), this);
 }
 
 radselectPrefPageTwo::radselectPrefPageTwo(QWidget *parent)
-    : Q3Frame(parent)
+    : QFrame(parent)
 {
-    Q3HBoxLayout *layout = new Q3HBoxLayout(this);
-    layout->setAutoAdd(true);
-
     new QLabel(i18n("Add something here"), this);
 }
-*/
+
 #include "radselectpref.moc"

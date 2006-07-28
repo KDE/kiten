@@ -23,6 +23,7 @@
 #include <QtCore/QHashIterator>
 #include <QtCore/QStringList>
 #include <QtCore/QString>
+#include <QtCore/QChar>
 
 #include <qregexp.h>
 #include "libkitenexport.h"
@@ -74,7 +75,7 @@ public:
 	void statistics () const */
 
 //QString based accessors/mutators	//Example setting "<kanji> me S:4 H:123 L:14"
-dictQuery &operator=(const dictQuery&);
+	dictQuery &operator=(const dictQuery&);
 	const QString toString() const;	//Returns "<kanji> me S:4 H:123 L:14"
 	inline operator QString() const { return toString(); }
 
@@ -147,7 +148,7 @@ protected:	//The QDict itself tracks properties as key->value pairs
 
 	enum stringTypeEnum {strTypeKanji, strTypeKana, strTypeLatin, mixed, stringParseError};
 	stringTypeEnum stringTypeCheck(QString); //returns a string's consistant class.
-	stringTypeEnum charTypeCheck(QString);   //Same for the first char of a string
+	stringTypeEnum charTypeCheck(QChar);   //Same for the first char of a string
 };
 
 //Currently... KDE doesn't seem to want to use exceptions

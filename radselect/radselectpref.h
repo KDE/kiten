@@ -22,9 +22,10 @@
 #define _RADSELECTPREF_H_
 
 #include <kpagedialog.h>
+#include <QtGui/QFrame>
 
-//class radselectPrefPageOne;
-//class radselectPrefPageTwo;
+class radselectPrefPageOne;
+class radselectPrefPageTwo;
 
 class radselectPreferences : public KPageDialog
 {
@@ -33,23 +34,21 @@ public:
     radselectPreferences();
 
 private:
-//    radselectPrefPageOne *m_pageOne
-//	 radselectPrefPageTwo *m_pageTwo;
+    radselectPrefPageOne *m_pageOne;
+	 radselectPrefPageTwo *m_pageTwo;
 };
 
-/*
-class radselectPrefPageOne : public Q3Frame
+class radselectPrefPageOne : public QFrame
 {
     Q_OBJECT
 public:
     radselectPrefPageOne(QWidget *parent = 0);
 };
 
-class radselectPrefPageTwo : public Q3Frame
+class radselectPrefPageTwo : public QFrame
 {
     Q_OBJECT
 public:
     radselectPrefPageTwo(QWidget *parent = 0);
 };
-*/
 #endif // _RADSELECTPREF_H_

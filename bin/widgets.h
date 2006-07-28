@@ -29,14 +29,13 @@
 #include <klineedit.h>
 #include <kmainwindow.h>
 #include <ktextbrowser.h>
-#include <kdemacros.h>
 
 class KListView;
 class KStatusBar;
 
 #include "entry.h"
 
-class KDE_EXPORT ResultView : public KTextBrowser
+class ResultView : public KTextBrowser
 {
 	Q_OBJECT
 	

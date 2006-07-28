@@ -41,7 +41,7 @@ class KToggleAction;
 class KListAction;
 class ResultView;
 
-class KDE_EXPORT TopLevel : public KMainWindow /*KDE4 FIXME , virtual public kitenDCOPInterface*/
+class TopLevel : public KMainWindow /*KDE4 FIXME , virtual public kitenDCOPInterface*/
 {
 	Q_OBJECT
 

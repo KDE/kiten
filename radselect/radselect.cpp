@@ -23,10 +23,7 @@
 #include "kromajiedit.h"
 #include "kitenEdit.h"
 
-#include <q3dragobject.h>
 #include <qpainter.h>
-#include <q3paintdevicemetrics.h>
-//Added by qt3to4:
 #include <QDragEnterEvent>
 #include <QDropEvent>
 
@@ -35,7 +32,6 @@
 #include <kiconloader.h>
 #include <kdeversion.h>
 #include <kstatusbar.h>
-//#include <kaccel.h>
 #include <kio/netaccess.h>
 #include <kfiledialog.h>
 #include <kconfig.h>
@@ -59,8 +55,8 @@ radselect::radselect() :
     setupActions();
 
     // allow the view to change the statusbar
-//    connect(m_view, SIGNAL(signalChangeStatusbar(const QString&)),
-//            this,   SLOT(changeStatusbar(const QString&)));
+    connect(m_view, SIGNAL(signalChangeStatusbar(const QString&)),
+            this,   SLOT(changeStatusbar(const QString&)));
 
     // connect the search signal from the m_view with our dcop routines
 //    connect(m_view, SIGNAL(searchTrigger(const QStringList&, const QString&, const QString&)),
@@ -80,7 +76,7 @@ void radselect::loadSearchString(QString searchString) {
 
 void radselect::setupActions()
 {
-	/*
+	
     KStdAction::quit(kapp, SLOT(quit()), actionCollection());
     KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 
@@ -111,18 +107,13 @@ void radselect::setupActions()
     // position, icon size, etc.  Also to add actions for the statusbar
     // toolbar, and keybindings if necessary.
     setupGUI();
-	 */
+	 
 }
 
 void radselect::saveProperties(KConfig *config) { //For suspend
 
-    if (!currentQuery.isEmpty()) {
-#if KDE_IS_VERSION(3,1,3)
+    if (!currentQuery.isEmpty())
         config->writePathEntry("searchString", currentQuery);
-#else
-        config->writeEntry("searchString", currentQuery);
-#endif
-    }
 }
 
 void radselect::readProperties(KConfig *config) { //For resume
