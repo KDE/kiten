@@ -25,9 +25,7 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kprinter.h>
-#include <q3paintdevicemetrics.h>
 #include <qpainter.h>
-#include <q3simplerichtext.h>
 #include "kitenconfig.h"
 #include <klocale.h>
 #include "widgets.h"
@@ -83,7 +81,7 @@ void ResultView::print(QString title)
 	if (printer.setup(this, i18n("Print Japanese Reference")))
 	{
 		QPainter p(&printer);
-		Q3PaintDeviceMetrics metrics(p.device());
+		//Q3PaintDeviceMetrics metrics(p.device());
 		int dpix = metrics.logicalDpiX();
 		int dpiy = metrics.logicalDpiY();
 		const int margin = 72; // pt
@@ -91,7 +89,7 @@ void ResultView::print(QString title)
 		QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2, 
 				metrics.height() - margin * dpiy / margin * 2);
 	
-		Q3SimpleRichText richText(title.isNull()? 
+		//Q3SimpleRichText richText(title.isNull()? 
 				printText : 
 				i18n("<h1>Search for \"%1\"</h1>").arg(title) + printText, 
 				font(), context(), styleSheet(), mimeSourceFactory(),

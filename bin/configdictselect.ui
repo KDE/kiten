@@ -55,7 +55,7 @@
             <number>0</number>
           </property>
           <item>
-            <widget class="Q3ListView" name="fileList" >
+            <widget class="QTreeWidget" name="fileList" >
               <column>
                 <property name="text" >
                   <string>Name</string>

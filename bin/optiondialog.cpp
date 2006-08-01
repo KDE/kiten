@@ -82,7 +82,7 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, const
 	QStringList dictTypes = KitenConfigSkeleton::self()->dictionary_list();
 	QStringList::Iterator dict, dictEnd = dictTypes.end();
 	for(dict = dictTypes.begin(); dict != dictEnd; ++dict) {
-		QWidget *newTab = new ConfigDictionarySelector(*dict,tabWidget,(*dict).toAscii());
+		QWidget *newTab = new ConfigDictionarySelector(*dict,tabWidget,KitenConfigSkeleton::self());
 		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 		connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
 		connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));

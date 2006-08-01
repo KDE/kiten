@@ -20,24 +20,23 @@
  USA
 **/
 
+#include <QtCore/QStringList>
+
+#include <QtGui/QTableWidget>
+
 #include <kdebug.h>
-#include <q3listview.h>
 #include <kfiledialog.h>
-#include <qpushbutton.h>
-#include <qstringlist.h>
-#include <qlayout.h>
-#include <qtabwidget.h>
-#include <qcheckbox.h>
+#include <kconfigskeleton.h>
 
 #include "configdictionaryselector.h"
 
 
 ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName, 
-	QWidget *parent,const char* name,Qt::WFlags f)
+	QWidget *parent,KConfigSkeleton *iconfig,Qt::WFlags f)
 {
 	setupUi(this);
 	dictName = dictionaryName;
-	config = KitenConfigSkeleton::self();
+	config = iconfig;
 	
 	connect(addButton,SIGNAL(clicked()), this, SLOT(addDictSLOT()));
 	connect(delButton,SIGNAL(clicked()), this, SLOT(deleteDictSLOT()));
@@ -55,17 +54,19 @@ void ConfigDictionarySelector::updateWidgets()
 	if(item != NULL)
 		names = item->property().toStringList();
 
-	for (QStringList::Iterator it = names.begin(); it != names.end(); ++it)
-	{
-		QString name = dictName + "_" + *it;
+	foreach(QString it, names) {
+		QString name = dictName + "_" + it;
 		if (!config->findItem(name))
-			config->addItem(new KConfigSkeleton::ItemString(dictName, *it, *new QString()), name);
+			config->addItem(new KConfigSkeleton::ItemString(dictName, it, *new QString()), name);
 			//Don't touch the *new QString()... that's a reference for a reason... stupid KDE
 	}
 	config->readConfig();
 	fileList->clear();
-	for (QStringList::Iterator it = names.begin(); it != names.end(); ++it)
-		(void) new Q3ListViewItem(fileList, *it, config->findItem(dictName + "_" + *it)->property().toString());
+	foreach(QString it, names) {
+		QStringList newRow = QStringList(it);
+		newRow << config->findItem(dictName+"_"+it)->property().toString();
+		(void) new QTreeWidgetItem(fileList, newRow);
+	}
 }
 
 void ConfigDictionarySelector::updateSettings()
@@ -74,18 +75,18 @@ void ConfigDictionarySelector::updateSettings()
 
 	config->setCurrentGroup("dicts_"+dictName);
 
-	for (Q3ListViewItemIterator it(fileList); it.current(); ++it )
-	{
-		names.append(it.current()->text(0));
+	for(int i=0; i<fileList->topLevelItemCount(); i++) {
+		QTreeWidgetItem *it = fileList->topLevelItem(i);
+		names.append(it->text(0));
 
-		QString name = dictName + "_" + it.current()->text(0);
+		QString name = dictName + "_" + it->text(0);
 		KConfigSkeletonItem* item = config->findItem(name);
 		if (!item)
 		{
-			item = new KConfigSkeleton::ItemString(dictName, it.current()->text(0),*new QString());
+			item = new KConfigSkeleton::ItemString(dictName, it->text(0),*new QString());
 			config->addItem(item, name);
 		}
-		item->setProperty(it.current()->text(1));
+		item->setProperty(it->text(1));
 	}
 
 	//This feels distinctly hackish to me... :(
@@ -111,21 +112,29 @@ bool ConfigDictionarySelector::hasChanged()
 	return false;
 }
 
-void ConfigDictionarySelector::addDictSLOT() { 
-	Q3ListViewItem *item = fileList->firstChild();
-	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).absolutePath().append("/") : QString::null);
+void ConfigDictionarySelector::addDictSLOT() {
+   QTreeWidgetItem *item = fileList->topLevelItem(0);
+	
+	QString filename = KFileDialog::getOpenFileName(
+			item? QFileInfo(item->text(1)).absolutePath().append("/") 
+			: QString::null );
 	QString name = QFileInfo(filename).fileName();
+	if(filename == QString::null)
+		return;
 
-	(void) new Q3ListViewItem(fileList, name, filename);
+	QStringList newRow(name);
+	newRow << filename;
+	(void) new QTreeWidgetItem(fileList, newRow);
 	emit widgetChanged();
 }
 
 void ConfigDictionarySelector::deleteDictSLOT() {
-	Q3ListViewItem *file = fileList->selectedItem();
-	if (!file)
-		return;
-	delete file;
-	emit widgetChanged();
+	foreach(QTreeWidgetItem *file, fileList->selectedItems()) {
+		if (!file)
+			return;
+		delete file;
+		emit widgetChanged();
+	}
 }
 
 #include "configdictionaryselector.moc"

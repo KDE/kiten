@@ -26,14 +26,13 @@
 
 #include <QtCore/QByteArray>
 #include <QtCore/QVector>
+#include <QtCore/QString>
 
 #include <qfileinfo.h>
 #include <qfile.h>
-#include <qstring.h>
 #include <qtextcodec.h>
 //Added by qt3to4:
 #include <QTextStream>
-#include <Q3MemArray>
 
 #include <sys/mman.h>
 
@@ -256,20 +255,28 @@ bool dictFileEdict::loadNewDictionary(const QString fileName, const QString dict
 	It essentially allows us to typecast and access the entirety of the mmap as
 	an array. It provides some safety over QMemArray directly because it ensures
  	that it will call the resetRawData method. */
-template <class T> class memMapArray : public Q3MemArray<T> {
+template <class T> class memMapArray {
 	public:
 		memMapArray(T*,int);
 		virtual ~memMapArray();
+		int size();
 	private:
 		T *data;
 		int dataSize;
+		int sizeOf;
 };
-template<class T> memMapArray<T>::memMapArray(T *d, int s) : Q3MemArray<T>(),
+template<class T> memMapArray<T>::memMapArray(T *d, int s) :
 													 data(d),dataSize(s) {
-	setRawData(data,dataSize/sizeof(T));
+	sizeOf = sizeof(T);
+//	setRawData(data,dataSize/sizeof(T));
 }
+
+template<class T> int memMapArray<T>::size() {
+	return dataSize/sizeOf;
+}
+
 template<class T> memMapArray<T>::~memMapArray() {
-	resetRawData(data,dataSize/sizeof(T));
+//	resetRawData(data,dataSize/sizeof(T));
 }
 
 /** Do a search, respond with a list of entries.
@@ -360,7 +367,7 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 
 	if(possibleHits.size() <= 0) return results;
 	
-	qSort(possibleHits); //KDE4 CHANGE (was qHeapSort)
+	qSort(possibleHits);
 	unsigned last = dict.size() + 2;
 	Entry *result;
 	foreach(uint32_t it, possibleHits) {

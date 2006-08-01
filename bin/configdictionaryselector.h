@@ -25,11 +25,10 @@
 
 #include <qwidget.h> //For the WFlags on the constructor
 
-#include "kitenconfig.h"
-
 #include "ui_configdictselect.h" //From the UI file
 
 class QTabWidget;
+class KConfigSkeleton;
 class KListView;
 class QString;
 class QWidget;
@@ -38,7 +37,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 {
 	Q_OBJECT
 public:
-	ConfigDictionarySelector(const QString &dictionaryName, QWidget *parent = 0, const char* name = 0, Qt::WFlags f = 0);
+	ConfigDictionarySelector(const QString &dictionaryName, QWidget *parent = 0, KConfigSkeleton *iconfig=NULL, Qt::WFlags f = 0);
 
 public slots:	
 	void updateWidgets();
