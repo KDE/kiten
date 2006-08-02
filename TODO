@@ -1,3 +1,4 @@
+Old TODO (KDE3):
 - move all QRegExp generation into namespace Dict, so Kiten et. al. just tell
 Dict what kind of search they want, and Dict tells them the regexp they need
 to pass Dict::Index.
@@ -30,3 +31,217 @@ learn a separate app.
 
 - move all dialogs to KDialogBase, and have them used by exec()ing them
   jasonkb says: sure
+ 
+New TODO:
+Main Sections:
+	Learn Mode Rewrite, IPC Interfaces, Preferences System
+
+	Preference System:
+	Dictionaries: Centrally controlled... generate a tab for each 
+		dictionary type that we understand... verify the dict when selected
+		(percentage match perhaps)
+	Fonts: Split <Main Item> <Readings> <Meanings> <Extra Info>
+	Display: Split into a panel for each dictionary type, call a 
+		dictConfig<dictName> class for each one. Class should store whatever
+		it needs in static members, and then return a QString for saving things.
+	Search: More or less the same as now (possibly add 'hide data' options)
+	Learn: Will be redone when Learn is reconfigured.
+
+	dictConfig Plan... make it a subclass of a view so that it can just drop
+		in and display in a given size. Investigate if these are needed:
+		QString toString()
+		bool loadFromString(QString)
+
+Split off things into seperate directories when features harden:
+	libkiten:
+		Break into libkitenui and libkiten?
+			Pro: Some users may only want ui/dict features
+			Con: There are only two ui classes, in the future we may
+				do kitend and libkiten. That would reduce libkiten to just
+				kitend - dcop communication and the ui calls... at which point
+				it seems silly to have two tiny libs
+		Code Files: When all are near stable, seperate directories
+			dictquery.cpp		stable	(may get one more change)
+			dictionary.cpp		stable	(for current needs, minor feature updates in future)
+			historyPtrList.cpp stable	(Should work fine at this point, two methods untested)
+			deinf.cpp:			stable	(Redone as a simple object... need to make into a dictFile)
+	
+			entry.cpp			moderate (needs a bit of fleshing out in entry still)
+			widgets.cpp :		volotile
+			kromajiedit.cpp:	volotile (should mix with widget's EditAction?)
+			dictFileXXXX.cpp	volotile (search needs revisiting, 3-4 methods need writing)
+			entryXXXXXX.cpp   volotile (still some bugs)
+	
+Main Interface:
+	Infrastructure for input filters(replace deinflection)
+	Selector for displayed fields, possibly organized like a toolbar configuration
+	Fix "Filter Rare" in results printing.
+	Add pop-ups to the forward/back buttons
+	Highlight search target feature
+	
+	Integration with Learn Mode/Targeting vocabulary lists (Add/Add Common/Add All)
+	Eric: Definitely need to add a way to add compounds to learn list when the
+		compound-handling learn list is implemented.
+	Eric: Alright, the Add will be attached to each definition (somehow) and an
+		Add All feature will have to be tossed into the menu somewhere if we want
+		such a thing.
+
+	Add button to Browse kanji lists (same as in Learn mode currently)
+	Eric: Move this to something kanji-specific (i.e. radical search interface)
+	Eric: Being nullified by the newfound desire to browse wonderful personal
+		dictionaries.
+	Joe: I guess I wasnt too clear... this just means add the same drop down
+		to browse Grade level kanji to the main app that currently exists in
+		Learn (or did, anyways)
+
+	Move (X)HTML generation to the EntryList and it further to the Entry
+		
+	Add some complex search capabilities (space seperated or symbol seperated)
+		Search Modes: (order doesn't matter)
+			Kanji Mode: <S>? <R>? <G>? <meaning>? <KanaReading>*
+				<SingleKanjiReading>?
+			Compound Mode: <meaning>? <KanaReading>* <MultiKanjiReading>*
+		There is an overlap between these two modes if only a single kanji
+			reading is specified. In this case, print Kanji results followed
+			by Compounds
+		Eric: Not an issue if we continue as modal.  Should it be switched to 
+			non-modal search?
+		Eric: Guess so :p  A search handled completely by the Dictionary object
+			on its way now.
+		
+		Search Options: (spaces after the S/R/G: are allowed)
+			S: X,Y,Z (S can be replaced with "Stroke[s]") searches only those kanji
+				that have strokes within one of the STROKE RANGES X,Y or Z
+				(specified as #-# or as #)
+			R: X,Y,Z (R can be "Radical[s]") Searches only those kanji that contain
+				all of the comma seperated radicals. Support radical numbers,
+				japanese radical names (in romaji or kana/kanji) and radicals.
+			G: X,Y,Z (G can be "Grade[s]") Searches only those kanji that are
+				contained within the Jouyou grade levels listed. "Jouyou" will search
+				the remaining non-grade-level kanji, and Jinmeiyou will search that
+				name set. (Jouyou and Jinmeiyou may be written in kana/kanji)
+			All others are either:
+				english: interpreted as a meaning search, multiple entries are OR'd
+				kana/kanji: Interpreted according to Search Mode, shown above
+				Multiple pronounciations are considered "AND"d together
+				Eric: So, how about extending this logic to the following:  All
+					non-meaning, non-reading, non-radical fields are extendedKanjiInfo 
+					fields and are thus prefaced by their key: and are then ANDed
+					together.  (Intersection).  A comma-seperated list would be possible
+					afterwords for OR. (Union).  This leaves a convenience issue for
+					ranges.  How about the traditional '-' except in the case of SKIP?
+					For Radicals, a slightly varied system should be used where there 
+					is no OR, and commas mean AND.  A preface should be chosen.  @R, 
+					seems like a safe choice, though R isn't yet taken.  Using that 
+					method, all non-extendedInfo items could have an @<char> for 
+					making their use explicit.
+				Eric: somewhat nullified now by Dicts doing this in themselves,
+					though the general principles of the user entering fields is of
+					course still valid.
+			
+		Search Result Sorting:
+			Sort Grade Lists by Grade, then by number within Grade
+			Sort Radical Lists by: Total Radical, Primary Radical, Non-Primary, 
+				Unusual Kanji
+			Eric: Sorting should be done by whatever displays the results.  Where 
+				should that be now?  Perhaps EntryList
+			
+			Search Begining/End/Anywhere: Whole results first, followed by partials, Unusual Kanji
+			Eric: a '*' syntax...maybe for next revision?
+			
+For Radical Lookup:
+	Completely reconstruct
+	Allow lookup on individual radicals without closing (ctrl-click menu?)
+	Display all radicals on one screen
+	Allow radical decomposition (right click to decompose)
+	Eric: and I liked your drop-on decompose kanji to radicals feature :)
+
+	This will probably require a small decomposition db/hash.
+	Include Stroke Variance, stroke count lookup (or just do this as search/within?)
+	Hilight (red?/blue?) common companion radicals (perhaps mod hotlist for this?)
+	Erin's request: click on the number to show only radicals with the
+		corresponding stroke count.
+
+	Radical by reading?
+			
+Learn Mode:
+	Change interface to add kanji/compounds to list from main search interface.
+	Eric: That is to say modify the current Kanji "Add to list" to make it
+		more usable and add _something_ for the compounds.
+	
+	Add capability to have multiple learning lists.
+	This includes the capability to shuffle "selected" kanji between lists
+	Eric: Learn mode is almost ready for a complete rework.
+	
+	Be able to generate sequential learning lists, given a list of known kanji
+	The Layered method is either very time intensive, or very memory intensive
+		pick one and try implementing. Provided we limit the lists to containing
+		only the resultant kanji, even the memory intensive version will only be a
+		few (~20) megs for fairly large lists.
+
+	Remove the silly browser in learn mode.  Use the DBUS searches if display
+		of an entry is necessary.
+
+	Learn needs to handle the new dictionary system.
+	
+	Split into a separate app.  This is the optimal time for a complete rewrite
+		"inspired by learn mode".
+
+	Handle custom dictionaries instead of just learn lists.  So much TODO...
+	
+Input/Dictionary Engine:
+	Handle more file formats (fpwing, etc)
+		User Dictionary handling:
+			Just toss edict or kanjidic formatted lines into the dict
+	Rewrite the Indexer in QT/C++.	
+
+	In kiten.cpp, add a menu or similar for choosing which dictionaries will be
+		searched more convenient then adding/removing dicts
+	Add facilities for adding to and removing from custom dicts
+	Eric: Regarding that, for removing, how is one to know whether or not an
+		entry is from a custom dict?  if one was from a custom dict, it could
+		have a "remove from <custom dict> link".  We could do the add to as a
+		dialogue that displays whet "add to custom dict" link is clicked ...
+		and that interface could also be used for creating new custom dicts, etc.
+	Joe: I propose handling that internally to the Entry<dictType> class. Since it will
+		know that any Entry that it is working with is of it's own type.
+	DictConfig proposal:
+		Make a class per dictionary type that will handle configuration options.
+		Store the information in static variables, implicitly accessable to the
+		DictFile<type> and Entry<type> classes. Possibly implement a custom config
+		dialog in this class (subclass it from a pane/view for display in a tab).
+
+Dictionaries:
+	(Potential) other formats to look into:
+		(fre)epwing: http://www.sra.co.jp/people/m-kasahr/freepwing/
+			using libeb?  Using it would allow "accessing EB, EBG, EBXA and EPWING CD-ROM dictionaries"
+		jdictionary: http://jdictionary.info/
+		stardict: http://stardict.sourceforge.net
+		DICT: http://www.dict.org/
+			English -> English mainly, but networked ... would be cool to see.  
+			Check out kdict for a client in action.
+		JMDict: http://www.csse.monash.edu.au/~jwb/j_jmdict.html
+
+Housekeeping:
+	Update documentation for whatever gets overhauled
+	Eric: update code documentation as we go, try and talk Erin or someone
+		else into User Docs.
+	Update these: README AUTHORS Authors in main.cpp the Copyrights at the top
+		of every source file
+
+On the horizon:
+	A "get new dictionary" feature like in khangman
+
+Code Audit:
+	Static Variables (avoid them)... use KStaticDeleter with pointers if needed
+	Static Methods (use them if possible)
+	Forward Declarations (eliminate header includes from header files)
+	Iterators (Cache an Iterator.end() object instead of using end() in the loop)
+	Iterators (Use const interators whenever possible)
+	Review the Initialization chain for using Delayed Init
+	Eliminate copying of QPtrList's, use QValueList<object*>
+	Double check the QCString usage for termination (in the indexer code)
+	Use QString.isNull() and isEmpty()... not comparison to QString(""), "" or QString::null
+	Use deleteLater() as a shortcut instead of manually implementing QTimer::oneShot() code
+	Check ALL files for i18n strings that are not inside of i18n() or tr() methods
+	Look through and get rid of redundant heades (particularly in the lib files)

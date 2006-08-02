@@ -9,12 +9,14 @@
     <entry key="dictionary_list" name="dictionary_list" type="StringList">
 	 	<label>List of dictionary Types, used internally, do not touch</label>
 		<?If you are adding a dictionary type, add it to the list and add your 
-		Section below... at the moment you are required to have <dictname>__useGlobal and
-		<dictname>__NAMES list if you list it in this set... the program will crash otherwise.
-		You must also provide the __displayFields information, although you can provide this
-		even if you dont allow the user to enter other dictionaries. If you use a custom kcfg
-		dialog instead of the standard one, be sure to provide the variables that you need?>
-	
+		Section below... at the moment you are required to have
+		<dictname>__useGlobal and <dictname>__NAMES list if you list it in this
+		set... the program will crash otherwise.
+		  You must also provide the __displayFields information, although you
+		can provide this even if you dont allow the user to enter other
+		dictionaries. If you use a custom kcfg dialog instead of the standard
+		one, be sure to provide the variables that you need.
+		?>
 		<default>edict,kanjidic</default>
 
 	 </entry>

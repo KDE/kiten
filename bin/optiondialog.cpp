@@ -79,15 +79,15 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, const
 	QTabWidget *tabWidget = new QTabWidget(parent);
 	tabWidget->setObjectName(QLatin1String(name));
 
-	QStringList dictTypes = KitenConfigSkeleton::self()->dictionary_list();
-	QStringList::Iterator dict, dictEnd = dictTypes.end();
-	for(dict = dictTypes.begin(); dict != dictEnd; ++dict) {
-		QWidget *newTab = new ConfigDictionarySelector(*dict,tabWidget,KitenConfigSkeleton::self());
+	KitenConfigSkeleton *config = KitenConfigSkeleton::self();
+
+	foreach( QString dict, config->dictionary_list() ) {
+		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
 		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 		connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
 		connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));
 		connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
-		tabWidget->addTab(newTab, "&"+*dict);
+		tabWidget->addTab(newTab, "&"+dict);
 	}
 	return tabWidget;
 }
@@ -98,11 +98,12 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, const c
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
 	QStringList::Iterator dict, dictEnd = dictTypes.end();
-	for(dict = dictTypes.begin(); dict != dictEnd; ++dict) {
-		dictFile *tempDict = dictionary::makeDictFile(*dict);
+	foreach( QString dict, dictTypes ) {
+		dictFile *tempDict = dictionary::makeDictFile(dict);
 		
-		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(KitenConfigSkeleton::self(),parent, (*dict).toAscii());
-		if(newTab == NULL) continue;
+		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(KitenConfigSkeleton::self(),parent, dict.toAscii());
+		if(newTab == NULL)
+			continue;
 
 		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 		connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
@@ -110,7 +111,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, const c
 		connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
 		
 		delete tempDict;
-		tabWidget->addTab(newTab,*dict);
+		tabWidget->addTab(newTab,dict);
 	}
 	return tabWidget;
 }

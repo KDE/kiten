@@ -1,5 +1,7 @@
 project(kiten)
 
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+
 add_subdirectory( radselect )
 add_subdirectory( bin )
 add_subdirectory( lib )

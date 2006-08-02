@@ -1,5 +1,3 @@
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
-
 ############## kiten binary #############
 set(kiten_bin_SRCS 
 	main.cpp

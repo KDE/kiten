@@ -1,5 +1,3 @@
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
-
 ############### radselect target ###############
 
 set(radselect_bin_SRCS 
