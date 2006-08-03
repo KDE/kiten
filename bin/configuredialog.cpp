@@ -29,7 +29,9 @@
 #include <qstringlist.h>
 #include <qstring.h>
 
-#include "optiondialog.h"
+#include "configuredialog.h"
+
+#include "kitenconfig.h"
 
 //Generated from UI files
 #include "ui_configfont.h"
@@ -45,10 +47,11 @@
 #include "dictionary.h"
 
 
-ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDialog(parent, name, KitenConfigSkeleton::self())
+ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
+	: KConfigDialog(parent, "Settings", config)
 {
 	//TODO: Figure out why these pages are unmanaged... is this needed?
-	addPage(makeDictionaryFileSelectionPage(0,"dictionaries_page"),i18n("Dictionaries"),"contents");
+	addPage(makeDictionaryFileSelectionPage(0,config),i18n("Dictionaries"),"contents");
 
 	QWidget *widget;
 	widget = new QWidget();
@@ -57,8 +60,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDia
 	addPage(widget, i18n("Searching"), "find");
 
 	widget = new QWidget();
-	Ui::ConfigLearn cl;
-	cl.setupUi(widget);
+	Ui::ConfigLearn cl; cl.setupUi(widget);
 	addPage(widget, i18n("Learn"), "pencil");
 	
 	widget = new QWidget();
@@ -66,7 +68,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDia
 	cf.setupUi(widget);
 	addPage(widget, i18n("Font"), "fonts");
 	
-	addPage(makeDictionaryPreferencesPage(0,"display_page"),i18n("Display"),"indent");
+	addPage(makeDictionaryPreferencesPage(0,config),i18n("Display"),"indent");
 	hasChangedMarker = false;
 }
 
@@ -74,12 +76,10 @@ ConfigureDialog::~ConfigureDialog()
 {
 }
 
-QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, const char *name) {
+QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
+		KitenConfigSkeleton *config) {
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
-	tabWidget->setObjectName(QLatin1String(name));
-
-	KitenConfigSkeleton *config = KitenConfigSkeleton::self();
 
 	foreach( QString dict, config->dictionary_list() ) {
 		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
@@ -92,7 +92,9 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, const
 	return tabWidget;
 }
 
-QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, const char *name) {
+QWidget *ConfigureDialog::makeDictionaryPreferencesPage
+	(QWidget *parent, KitenConfigSkeleton *config) {
+
 	QStringList dictTypes = dictionary::listDictFileTypes();
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
@@ -101,7 +103,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, const c
 	foreach( QString dict, dictTypes ) {
 		dictFile *tempDict = dictionary::makeDictFile(dict);
 		
-		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(KitenConfigSkeleton::self(),parent, dict.toAscii());
+		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(config,parent, dict.toAscii());
 		if(newTab == NULL)
 			continue;
 
@@ -153,4 +155,4 @@ bool ConfigureDialog::isDefault()
 	 //Always show the defaults button.... perhaps make a workaround later
 }
 
-#include "optiondialog.moc"
+#include "configuredialog.moc"

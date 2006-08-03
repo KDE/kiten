@@ -24,15 +24,15 @@
 #define OPTIONDIALOG_H
 
 #include <kconfigdialog.h>
-#include "kitenconfig.h"
 
 class QWidget;
+class KitenConfigSkeleton;
 
 class ConfigureDialog : public KConfigDialog
 {
 	Q_OBJECT
 public:
-	ConfigureDialog(QWidget *parent=0, const char *name=0);
+	ConfigureDialog(QWidget *parent=0, KitenConfigSkeleton *config=NULL);
 	virtual ~ConfigureDialog();
 signals:
 	void SIG_updateWidgets();
@@ -46,8 +46,8 @@ private slots:
 	void updateButtons();
 
 private:
-	QWidget *makeDictionaryPreferencesPage(QWidget *, const char*);
-	QWidget *makeDictionaryFileSelectionPage(QWidget *, const char*);
+	QWidget *makeDictionaryPreferencesPage(QWidget *, KitenConfigSkeleton*);
+	QWidget *makeDictionaryFileSelectionPage(QWidget *, KitenConfigSkeleton*);
 	bool hasChangedMarker;
 	bool hasChanged();
 	bool isDefault();

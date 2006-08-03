@@ -71,8 +71,10 @@ class LIBKITEN_EXPORT dictionary {
 	static dictFile *makeDictFile(const QString);
 	//Mostly required for the Preferences system
 	static QStringList listDictFileTypes();
-	//Used to trigger relaoding the display settings..//TODO.
-	void loadDisplaySettings() {}
+	//Used to trigger relaoding the display settings for a particular dictionary
+	void loadDictSettings(QString dict, const KConfigSkeleton *);
+	//Used to load general settings related to output
+	void loadSettings(const KConfigSkeleton *);
 
 	private:
 	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
@@ -113,6 +115,9 @@ public:
 	  override this */
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL, const char *name=0) 
 				{if(parent==parent && name==name && config==config) return NULL;}
+	/** Load information from the KConfigSkeleton that you've setup in
+	  the above preferences widget. */
+	virtual void loadSettings(const KConfigSkeleton &config) {}
 	
 	/** Inline functions to return quick info */
 	virtual inline const QString &getName() const {return dictionaryName;}

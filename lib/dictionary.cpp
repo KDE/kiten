@@ -178,3 +178,10 @@ EntryList *dictionary::doSearchInList(const dictQuery &query, const EntryList *l
 	return ret;
 }
 
+void dictionary::loadDictSettings(const QString dict, const KConfigSkeleton *config) {
+	if(dictManagers.contains(dict))
+		dictManagers[dict]->loadSettings(*config);
+}
+
+void dictionary::loadSettings(const KConfigSkeleton *config) { //TODO
+}

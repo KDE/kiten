@@ -24,7 +24,6 @@
 #define KITEN_H
 
 #include "deinf.h"
-//#include "kitenDCOPInterface.h" KDE4 FIXME
 #include "dictquery.h"
 #include "entry.h"
 #include "dictionary.h"
@@ -41,8 +40,7 @@ class KToggleAction;
 class KListAction;
 class ResultView;
 
-class TopLevel : public KMainWindow /*KDE4 FIXME , virtual public kitenDCOPInterface*/
-{
+class TopLevel : public KMainWindow {
 	Q_OBJECT
 
 		//Constructors and other setup/takedown related methods
@@ -72,7 +70,7 @@ private slots:
 	void configureToolBars();
 	void configureGlobalKeys();
 	void newToolBarConfig();
-	/*KDE4 FIXME ASYNC*/void kitenDCOPupdateConfiguration();
+	void updateConfiguration();
 	void loadDictConfig(const QString); 
 
 		//Other

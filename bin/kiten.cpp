@@ -48,15 +48,13 @@
 /* Separting Learn */
 //#include "learn.h"
 #include "kitenconfig.h"
-#include "optiondialog.h"
+#include "configuredialog.h"
 #include "historyPtrList.h"
 
 TopLevel::TopLevel(QWidget *parent, const char *name) 
 	: KMainWindow(parent)  
 {
-	    setStandardToolBarMenuEnabled(true);
-    setObjectName(QLatin1String(name));
-	/* Set up the config */
+	    setStandardToolBarMenuEnabled(true); setObjectName(QLatin1String(name)); /* Set up the config */
 	config = KitenConfigSkeleton::self();
 	config->readConfig();
 	
@@ -82,7 +80,7 @@ TopLevel::TopLevel(QWidget *parent, const char *name)
 	comCB->setChecked(config->com());
 	autoSearchToggle->setChecked(config->autosearch());
 //	deinfCB->setChecked(config->deinf());
-	kitenDCOPupdateConfiguration();
+	updateConfiguration();
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
 /* Separating Learn
@@ -268,7 +266,7 @@ void TopLevel::searchAndDisplay(dictQuery &query)
 	EntryList *results = dictionaryManager.doSearch(query);
 	
 	/* synchronise the history (and store this pointer there) */
-	if(results->count() > 0)
+//	if(results->count() > 0)
 		addHistory(results);
 	
 	/* suppose it's about time to show the users the results. */
@@ -287,7 +285,7 @@ void TopLevel::resultSearch()
 
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
-	if(results->count() > 0)
+//	if(results->count() > 0)
 		addHistory(results);
 
 	displayResults(results);
@@ -326,10 +324,9 @@ void TopLevel::slotConfigure()
 		return;
 	
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
-	optionDialog = new ConfigureDialog(this, "settings");
+	optionDialog = new ConfigureDialog(this, config);
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
-	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(kitenDCOPupdateConfiguration()));
-//	connect(optionDialog, SIGNAL(valueChanged()), this, SIGNAL(quizConfChanged()));
+	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(updateConfiguration()));
 	optionDialog->show();
 
 	return;
@@ -383,14 +380,23 @@ void TopLevel::configureGlobalKeys()
 
 /** This function, as the name says, updates the configuration file.  It should
     be called in EVERY case where the configuration files change. */
-void TopLevel::kitenDCOPupdateConfiguration()
+void TopLevel::updateConfiguration()
 {
-	QStringList dictList = config->dictionary_list();
-	for(QStringList::Iterator it=dictList.begin(); it != dictList.end(); ++it)
-		loadDictConfig(*it);
+	//Load the dictionaries of each type that we can adjust in prefs
+	foreach(QString it, config->dictionary_list())
+		loadDictConfig(it);
 
+	//Load settings for each individual dictionary type
+	foreach(QString it, dictionaryManager.listDictionaries()) {
+		config->setCurrentGroup(it);
+		dictionaryManager.loadDictSettings(it,config);
+	}
+
+	//Update the HTML/CSS for our fonts
 	mainView->updateFont();
-//	dictionaryManager.loadDisplaySettings();
+
+	//Update general options for the display manager (sorting by dict, etc)
+	dictionaryManager.loadSettings(config);
 }
 
 /** This function loads the dictionaries from the config file for the program
@@ -451,12 +457,10 @@ void TopLevel::print()
    history and display it seperately. */
 void TopLevel::addHistory(EntryList *result)
 {
-	/* KDE4 FIXME
 	historyList.addItem(result);
-	historyAction->setItems(historyList.toStringList());
-	historyAction->setCurrentItem(historyList.count()-1);
+//	historyAction->setItems(historyList.toStringList());
+//	historyAction->setCurrentItem(historyList.count()-1);
 	enableHistoryButtons();
-	*/
 }
 
 /** This goes back one item in the history and displays */
@@ -481,10 +485,6 @@ void TopLevel::goInHistory(int index)
 }
 
 void TopLevel::displayHistoryItem() {
-	//Do not display history items that gave no results
-	if(historyList.current()->count() < 1)
-		; //Set the statusbar to an appropriate message
-	else
 		displayResults( historyList.current() );
 	
 //KDE4 FIXME	historyAction->setCurrentItem(historyList.at());

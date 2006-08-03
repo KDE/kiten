@@ -24,7 +24,6 @@
 #include "entry.h"
 #include "historyPtrList.h"
 
-
 historyPtrList::historyPtrList():m_index(-1) {
 }
 
@@ -40,9 +39,8 @@ historyPtrList::addItem(EntryList *newItem) {
 		delete temp;
 	}
 	
-
 	//Now... check to make sure our history isn't 'fat'
-	while(count() >= 20) {//TODO: Make this grab the max size from KConfig
+	while(count() >= 20) {
 		 temp = this->takeFirst();
 		 temp->deleteAll();
 		 delete temp;
@@ -58,9 +56,8 @@ QStringList
 historyPtrList::toStringList() {	
 	QStringList result;
 	
-	foreach(EntryList *p, (QList<EntryList*>)(*this)) {
+	foreach(EntryList *p, (QList<EntryList*>)(*this))
 		result.append(p->getQuery().toString());
-	}
 	
 	return result;
 }
