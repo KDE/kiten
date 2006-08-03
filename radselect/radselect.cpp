@@ -152,7 +152,7 @@ void radselect::changeStatusbar(const QString& text)
 //This one is triggered if the search button is used (or the widget interface
 //is in some other way given priority.
 void radselect::sendSearch(const QStringList& radicals, const QString& strokes, const QString& grade){
-	dictQuery editBox (Edit->text());
+	dictQuery editBox (Edit->currentText());
 
 	dictQuery dialogParts;
 	if(radicals.count() > 0)

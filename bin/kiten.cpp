@@ -83,12 +83,6 @@ TopLevel::TopLevel(QWidget *parent, const char *name)
 	updateConfiguration();
 	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 
-/* Separating Learn
-	// Starts learnmode on start
-	if (config->startLearn())
-		createLearn();
-*/
-
 	/* What happens when links are clicked or things are selected in the clipboard */
 	connect(mainView, SIGNAL(linkClicked(const QString &)), SLOT(linkClicked(const QString &)));
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(autoSearch()));
@@ -134,7 +128,16 @@ void TopLevel::setupActions() {
 	(void) new KAction(i18n("Stro&kes"), actionCollection(), "search_stroke");
 	(void) new KAction(i18n("&Grade"), actionCollection(), "search_grade");
 
+	// Set the search button to search
 	connect(searchButton, SIGNAL(triggered()), this, SLOT(localSearch()));
+	// and the enter key from Edit
+	connect(Edit, SIGNAL(returnPressed()), this, SLOT(localSearch()));
+	// and the selection of an item from history
+	connect(Edit, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(localSearch()));
+
+
+	// That's not it, that's "find as you type"...
+	//connect(Edit, SIGNAL(completion(const QString &)), this, SLOT(localSearch()));
 
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
@@ -198,7 +201,8 @@ bool TopLevel::queryClose()
 void TopLevel::linkClicked(const QString &text)
 {
 	dictQuery query(text); //Pull the link into a query
-	Edit->setText(text);   //Set it as our linked text
+	Edit->addItem(text);
+//	Edit->setText(text);   //Set it as our linked text
 	searchAndDisplay(query);
 }
 
@@ -206,8 +210,8 @@ void TopLevel::linkClicked(const QString &text)
 void TopLevel::localSearch()
 {
 	StatusBar->showMessage(i18n("Searching..."));
-	kDebug() << "Initialising query: " << Edit->text() << endl;
-	dictQuery query(Edit->text());
+	kDebug() << "Initialising query: " << Edit->currentText() << endl;
+	dictQuery query(Edit->currentText());
 	kDebug() << "Initialised query: " << query.toString() << endl;
 	searchAndDisplay(query);
 }
@@ -220,7 +224,7 @@ void TopLevel::searchClipboardContents()
 {
 	QString text = kapp->clipboard()->text(QClipboard::Selection).simplified();
 	
-	if (text.length() < 80 && Edit->text().contains(text))
+	if (text.length() < 80 && Edit->currentText().contains(text))
 		kitenDCOPsearch(text);
 }
 
@@ -240,17 +244,13 @@ void TopLevel::autoSearch()
 void TopLevel::kitenDCOPsearch(const QString query)
 {
 	/* first, sync the search bar */
-	Edit->setText(query);
+//	Edit->setText(query);
 	
 	/* get the window as we'd like it */
 	raise();
 
 	/* now search */
-//	dictQuery theQuery(query);
-	kDebug() << "kitenDCOPsearch initialising query: " << Edit->text() << endl;
-	dictQuery theQuery(Edit->text());
-	kDebug() << "kitenDCOPsearch initialised query: " << theQuery.toString() << endl;
-	searchAndDisplay(theQuery);
+	localSearch();
 }
 
 /** This method performs the search and displays
@@ -267,7 +267,10 @@ void TopLevel::searchAndDisplay(dictQuery &query)
 	
 	/* synchronise the history (and store this pointer there) */
 //	if(results->count() > 0)
+	{
 		addHistory(results);
+	}
+	Edit->addItem(query.toString());
 	
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
@@ -281,7 +284,7 @@ void TopLevel::resultSearch()
 {
 	StatusBar->showMessage(i18n("Searching..."));
 	
-	dictQuery searchQuery(Edit->text());
+	dictQuery searchQuery(Edit->currentText());
 
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
@@ -488,7 +491,7 @@ void TopLevel::displayHistoryItem() {
 		displayResults( historyList.current() );
 	
 //KDE4 FIXME	historyAction->setCurrentItem(historyList.at());
-	Edit->setText(historyList.current()->getQuery().toString());
+	Edit->addItem(historyList.current()->getQuery().toString());
 	enableHistoryButtons();
 }
 
