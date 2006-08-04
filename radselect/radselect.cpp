@@ -40,6 +40,7 @@
 #include <kaction.h>
 #include <kstdaction.h>
 #include <ktoggleaction.h>
+#include <kicon.h>
 
 #include <kedittoolbar.h>
 
