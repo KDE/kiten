@@ -25,6 +25,7 @@
 KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) : 
 	KHistoryCombo(parent)
 {
+	setDuplicatesEnabled(false);
 }
 
 KitenEdit::~KitenEdit()
