@@ -43,7 +43,7 @@
 #include <qtimer.h>
 
 #include "kiten.h"
-#include "widgets.h"
+#include "resultsView.h"
 #include "kitenEdit.h"
 /* Separting Learn */
 //#include "learn.h"
@@ -86,7 +86,7 @@ kiten::kiten(QWidget *parent, const char *name)
 	applyMainWindowSettings(KGlobal::config(), "kitenWindow");
 
 	/* What happens when links are clicked or things are selected in the clipboard */
-	connect(mainView, SIGNAL(linkClicked(const QString &)), SLOT(searchText(const QString &)));
+	connect(mainView, SIGNAL(urlClick(const QString &)), SLOT(searchText(const QString &)));
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 
 	/* See below for what else needs to be done */
@@ -259,8 +259,7 @@ void kiten::searchAndDisplay(const dictQuery &query)
 	addHistory(results);
 	
 	/* Add the current search to our drop down list */
-	Edit->addItem(query.toString());
-	Edit->setCurrentItem(query.toString());
+	Edit->setCurrentItem(query.toString(), true);
 	
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
@@ -275,8 +274,7 @@ void kiten::searchInResults()
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
 	addHistory(results);
-	Edit->addItem(searchQuery.toString());
-	Edit->setCurrentItem(searchQuery.toString());
+	Edit->setCurrentItem(searchQuery.toString(), true);
 	displayResults(results);
 }
 
@@ -475,8 +473,7 @@ void kiten::goInHistory(int index)
 }
 
 void kiten::displayHistoryItem() {
-	Edit->addItem(historyList.current()->getQuery().toString());
-	Edit->setCurrentItem(historyList.current()->getQuery().toString());
+	Edit->setCurrentItem(historyList.current()->getQuery().toString(), true);
 	enableHistoryButtons();
 
 	displayResults( historyList.current() );

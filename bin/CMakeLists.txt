@@ -4,7 +4,7 @@ set(kiten_bin_SRCS
 	kiten.cpp
 	configdictionaryselector.cpp
 	configuredialog.cpp
-	widgets.cpp
+	resultsView.cpp
 	)
 kde4_add_ui_files(kiten_bin_SRCS 
 	configsearching.ui

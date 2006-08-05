@@ -28,7 +28,7 @@
 #include <qpainter.h>
 #include "kitenconfig.h"
 #include <klocale.h>
-#include "widgets.h"
+#include "resultsView.h"
 
 /* TODO: make this a KHTML thing instead of a KTextBrowser? */
 ResultView::ResultView(QWidget *parent, const char *name)
@@ -133,4 +133,4 @@ void ResultView::updateFont()
 	setFont(KitenConfigSkeleton::self()->font());
 }
 
-#include "widgets.moc"
+#include "resultsView.moc"
