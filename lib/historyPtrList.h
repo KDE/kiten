@@ -32,6 +32,8 @@ class LIBKITEN_EXPORT historyPtrList : protected QList<EntryList*> {
 	public:
 		/** Construct a historyPtrList, this should be done early on */
 		historyPtrList();
+		/** Destructor... kill all lists before going */
+		virtual ~historyPtrList();
 		/** Add an item to the end of the history list and set it as
 		  the current displayed item */
 		void addItem(EntryList*);
@@ -49,15 +51,15 @@ class LIBKITEN_EXPORT historyPtrList : protected QList<EntryList*> {
 		/** Sub one from the current location, the counterpart to next() */
 		void prev(int distance = 1);
 		/** Return the current numerican 0-based location */
-		int index() {return m_index;}
+		int index();
 		/** Return the item at the location given by the param, and set it
 		  to be the current history list item */
 		/** Return the current item */
-		EntryList *current() {return at(m_index);}
+		EntryList *current();
 		/** Set the current item */
-		void setCurrent(int i) { if(i<count() && i >=0) m_index = i; }
+		void setCurrent(int i);
 		/** Return the total number of items in the list */
-		int count() {return QList<EntryList*>::count();}
+		int count();
 };
 
 #endif

@@ -51,20 +51,22 @@
 #include "configuredialog.h"
 #include "historyPtrList.h"
 
-	TopLevel::TopLevel(QWidget *parent, const char *name) 
-: KMainWindow(parent)  
+kiten::kiten(QWidget *parent, const char *name) 
+	: KMainWindow(parent)  
 {
-	setStandardToolBarMenuEnabled(true); setObjectName(QLatin1String(name)); /* Set up the config */
+	setStandardToolBarMenuEnabled(true);
+	setObjectName(QLatin1String(name)); /* Set up the config */
+
 	config = KitenConfigSkeleton::self();
 	config->readConfig();
-
+	
 	/* Set up hot keys */
 	//KDE4 TODO
-	/*	Accel = new KGlobalAccel(this);
-		(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), Qt::CTRL + Qt::ALT + Qt::Key_S, Qt::CTRL + Qt::ALT + Qt::Key_S, this, SLOT(searchClipboardContents()));
-		Accel->readSettings(KGlobal::config());
-		Accel->updateConnections();
-	 */
+/*	Accel = new KGlobalAccel(this);
+	(void) Accel->insert("Lookup English/Japanese word", i18n("Lookup English/Japanese Word"), i18n("Looks up current text on clipboard in the same way as if you used Kiten's regular search."), Qt::CTRL + Qt::ALT + Qt::Key_S, Qt::CTRL + Qt::ALT + Qt::Key_S, this, SLOT(searchClipboardContents()));
+	Accel->readSettings(KGlobal::config());
+	Accel->updateConnections();
+*/
 	/* Make the ResultView object */
 	mainView = new ResultView(this, "mainView");
 	setCentralWidget(mainView);
@@ -79,26 +81,26 @@
 	/* Set things as they were (as told in the config) */
 	comCB->setChecked(config->com());
 	autoSearchToggle->setChecked(config->autosearch());
-	//	deinfCB->setChecked(config->deinf());
+//	deinfCB->setChecked(config->deinf());
 	updateConfiguration();
-	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+	applyMainWindowSettings(KGlobal::config(), "kitenWindow");
 
 	/* What happens when links are clicked or things are selected in the clipboard */
-	connect(mainView, SIGNAL(linkClicked(const QString &)), SLOT(linkClicked(const QString &)));
-	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(autoSearch()));
+	connect(mainView, SIGNAL(linkClicked(const QString &)), SLOT(searchText(const QString &)));
+	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 
 	/* See below for what else needs to be done */
 	QTimer::singleShot(10, this, SLOT(finishInit()));
 }
 
 /** destructor to clean up the little bits */
-TopLevel::~TopLevel()
+kiten::~kiten()
 {
-	delete optionDialog;
-	optionDialog = 0;
+    delete optionDialog;
+    optionDialog = 0;
 }
 
-void TopLevel::setupActions() {
+void kiten::setupActions() {
 
 	/* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
@@ -106,21 +108,21 @@ void TopLevel::setupActions() {
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	//KDE4 FIXME (const QObject*) cast
 	KStdAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
-
+	
 	/* Setup the Go-to-learn-mode actions */
-	//	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+//	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	/* TODO: put back when Dictionary Editor is reorganised */
-	//	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
+//	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	/* TODO: Replace with the new radical search launching system */
-	//	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
+//	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	//Create the edit box, linking to our searchMethod in the constructor.
 
 	/* Setup the Search Actions and our custom Edit Box */
 	Edit = new KitenEdit(actionCollection(), this);
 	KAction *EditToolbarWidget = new KAction(actionCollection(), "EditToolbarWidget");
 	EditToolbarWidget->setDefaultWidget(Edit);
-	//	toolBar()->addWidget(Edit->ComboBox());
-
+//	toolBar()->addWidget(Edit->ComboBox());
+	
 	(void) new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
 	KAction *searchButton = new KAction(i18n("S&earch"), actionCollection(), "search");
 	(void) new KAction(i18n("Search with &Beginning of Word"), actionCollection(), "search_beginning");
@@ -129,21 +131,21 @@ void TopLevel::setupActions() {
 	(void) new KAction(i18n("&Grade"), actionCollection(), "search_grade");
 
 	// Set the search button to search
-	connect(searchButton, SIGNAL(triggered()), this, SLOT(localSearch()));
+	connect(searchButton, SIGNAL(triggered()), this, SLOT(searchFromEdit()));
 	// and the enter key from Edit
-	connect(Edit, SIGNAL(returnPressed()), this, SLOT(localSearch()));
+	connect(Edit, SIGNAL(returnPressed()), this, SLOT(searchFromEdit()));
 	// and the selection of an item from history
-	connect(Edit, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(localSearch()));
+	connect(Edit, SIGNAL(activated(const QString &)), this, SLOT(searchFromEdit()));
 
 
 	// That's not it, that's "find as you type"...
-	//connect(Edit, SIGNAL(completion(const QString &)), this, SLOT(localSearch()));
+	//connect(Edit, SIGNAL(completion(const QString &)), this, SLOT(searchFromEdit()));
 
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
-	//	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
+//	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	comCB = new KToggleAction(i18n("&Filter Rare"), actionCollection(), "common");
-	//autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
+//autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), actionCollection(), "autosearch_toggle");
 	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
@@ -151,9 +153,9 @@ void TopLevel::setupActions() {
 
 	/* Set up history interface management */
 	//KDE4 TODO
-	/*	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
-		connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
-	 */
+/*	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
+	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
+	*/
 	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
@@ -161,34 +163,34 @@ void TopLevel::setupActions() {
 }
 
 /** This is the latter part of the initialisation. */
-void TopLevel::finishInit()
+void kiten::finishInit()
 {
 	StatusBar->showMessage(i18n("Initialising Dictionaries"));
-
+	
 	// if it's the application's first time starting, 
 	// the app group won't exist and we show demo
 	//KDE4 CHANGE config ->sessionConfig
 	if (!kapp->sessionConfig()->hasGroup("app"))
 	{
-		kitenDCOPsearch(QString::fromUtf8("辞書"));
+		searchTextAndRaise(QString::fromUtf8("辞書"));
 	}
 
-	//	Edit->Completion()->clear(); // make sure the edit is focused initially
+//	Edit->Completion()->clear(); // make sure the edit is focused initially
 	StatusBar->showMessage(i18n("Welcome to Kiten"));
 	setCaption(QString::null);	
 }
 
 
 /** This function is run on program window close.
-  It saves the settings in the config. */
-bool TopLevel::queryClose()
+    It saves the settings in the config. */
+bool kiten::queryClose()
 {
 	config->setCom(comCB->isChecked());
 	config->setAutosearch(autoSearchToggle->isChecked());
-	//	config->setDeinf(deinfCB->isChecked());
+//	config->setDeinf(deinfCB->isChecked());
 	config->writeConfig();
 
-	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+	saveMainWindowSettings(KGlobal::config(), "kitenWindow");
 	return true;
 }
 
@@ -196,122 +198,108 @@ bool TopLevel::queryClose()
 // SEARCHING METHODS
 //////////////////////////////////////////////////////////////////////////////
 
+/** This function searches for the contents of the Edit field in the mainwindow */
+void kiten::searchFromEdit()
+{
+	dictQuery query(Edit->currentText());
+	searchAndDisplay(query);
+}
 
-/** This function is called when a kanji is clicked in the result view */
-void TopLevel::linkClicked(const QString &text)
+/** This function is called when a kanji is clicked in the result view 
+	or any other time in which we want to search for something that didn't
+	come from the input box  */
+void kiten::searchText(const QString text)
 {
 	dictQuery query(text); //Pull the link into a query
-	Edit->setCurrentItem(text);
-	//	Edit->setText(text);   //Set it as our linked text
 	searchAndDisplay(query);
 }
 
-/** This function searches for the contents of the Edit field in the mainwindow */
-void TopLevel::localSearch()
-{
-	StatusBar->showMessage(i18n("Searching..."));
-	kDebug() << "Initialising query: " << Edit->currentText() << endl;
-	dictQuery query(Edit->currentText());
-	kDebug() << "Initialised query: " << query.toString() << endl;
-	searchAndDisplay(query);
-}
-
-/** This function searches for the contents of the clipboard */
-/** filter out long selections and selections that are contained in our
-  current search (alleviates problem where research occurs because of
-  X's auto-add-to-clipboard-on-select feature */
-void TopLevel::searchClipboardContents()
-{
-	QString text = kapp->clipboard()->text(QClipboard::Selection).simplified();
-
-	if (text.length() < 80 && Edit->currentText().contains(text))
-		kitenDCOPsearch(text);
-}
-
-
-/** This function will search things as they are put in the clipxoard.
-  It checks each time to see if the autoSearchToggle is set.  */
-void TopLevel::autoSearch()
-{
-	if (autoSearchToggle->isChecked())
-		searchClipboardContents();
-}
-
-
-/* DCOP Interface here currently */
 /** This should change the Edit text to be appropriate and then begin a search
-  of the dictionaries' entries. */
-void TopLevel::kitenDCOPsearch(const QString query)
+	of the dictionaries' entries. */
+void kiten::searchTextAndRaise(const QString str)
 {
-	/* first, sync the search bar */
-	Edit->setCurrentText(query);
-
+	/* Do the search */
+	searchText(str);
+	
 	/* get the window as we'd like it */
 	raise();
+}
 
-	/* now search */
-	localSearch();
+/** This function will search things as they are put in the clipboard.
+	It checks each time to see if the autoSearchToggle is set.
+		This function searches for the contents of the clipboard
+	filter out long selections and selections that are contained in our
+	current search (alleviates problem where research occurs because of
+	X's auto-add-to-clipboard-on-select feature */
+void kiten::searchClipboard()
+{
+	if (autoSearchToggle->isChecked()) {
+		QString clipboard = kapp->clipboard()->text(QClipboard::Selection).simplified();
+		
+		if (clipboard.length() < 40 && Edit->currentText() != clipboard)
+			if(!(Edit->currentText().contains(clipboard) 
+					&& historyList.current()->count() > 0))
+				searchTextAndRaise(clipboard);
+	}
 }
 
 /** This method performs the search and displays
   the result to the screen.. */
-void TopLevel::searchAndDisplay(dictQuery &query)
+void kiten::searchAndDisplay(const dictQuery &query)
 {
 	/* keep the user informed of what we are doing */
 	StatusBar->showMessage(i18n("Searching..."));
-
+	
 	/* This gorgeous incantation is all that's necessary to fill a dictQuery
 		with a query and an Entrylist with all of the results form all of the
 		requested dictionaries */
 	EntryList *results = dictionaryManager.doSearch(query);
-
+	
 	/* synchronise the history (and store this pointer there) */
-	//	if(results->count() > 0)
-	{
-		addHistory(results);
-	}
-	Edit->setCurrentItem(query.toString(), true);
-
+	addHistory(results);
+	
+	/* Add the current search to our drop down list */
+	Edit->addItem(query.toString());
+	Edit->setCurrentItem(query.toString());
+	
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
-
-	//the history manager will take care of deleting this object
-	//(it is a setAutoDelete(true) object)
 }
 
 /** Search in the previous results, identical to searchAndDisplay except for the one call */
-void TopLevel::resultSearch()
+void kiten::searchInResults()
 {
 	StatusBar->showMessage(i18n("Searching..."));
-
+	
 	dictQuery searchQuery(Edit->currentText());
-
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
-	//	if(results->count() > 0)
 	addHistory(results);
-
+	Edit->addItem(searchQuery.toString());
+	Edit->setCurrentItem(searchQuery.toString());
 	displayResults(results);
 }
 
 /** given a set of Search Results items, this function does all that's needed
-  to put the interface into an appropriate state for those searchResults */
-void TopLevel::displayResults(EntryList *results)
+    to put the interface into an appropriate state for those searchResults */
+void kiten::displayResults(EntryList *results)
 {
 	/* synchronise the statusbar */
 	if(results->count() > 0)
 	{
 		QString str;
 		str = i18n("Found ") + QString::number(results->count()) + i18n(" results");
-
+		
 		StatusBar->showMessage(str);
 		setCaption(str);
 	}
 	else
 	{
-		StatusBar->showMessage((i18n("No results found")));
+		QString noneFound = i18n("No results found");
+		StatusBar->showMessage(noneFound);
+		setCaption(noneFound);
 	}
-
+	
 	/* synchronise the results window */
 	mainView->setContents(results->toHTML());
 }
@@ -321,11 +309,11 @@ void TopLevel::displayResults(EntryList *results)
 // PREFERENCES RELATED METHODS
 //////////////////////////////////////////////////////////////////////////////
 
-void TopLevel::slotConfigure()
+void kiten::slotConfigure()
 {
 	if (ConfigureDialog::showDialog("settings"))
 		return;
-
+	
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
 	optionDialog = new ConfigureDialog(this, config);
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
@@ -336,14 +324,14 @@ void TopLevel::slotConfigure()
 }
 
 /** This function just queues up slotConfigureDestroy() to get around the 
-  SIGSEGV if you try to delete yourself if you are in the stack */
-void TopLevel::slotConfigureHide()
+    SIGSEGV if you try to delete yourself if you are in the stack */
+void kiten::slotConfigureHide()
 {
 	QTimer::singleShot(0, this, SLOT(slotConfigureDestroy()));
 }
 
 /** This function actually tears down the optionDialog */
-void TopLevel::slotConfigureDestroy()
+void kiten::slotConfigureDestroy()
 {
 	if (optionDialog != 0 && optionDialog->isVisible() == 0)
 	{
@@ -353,37 +341,37 @@ void TopLevel::slotConfigureDestroy()
 }
 
 /* TODO: reimplement something very much like this 
-	void TopLevel::createEEdit()
-	{
+void kiten::createEEdit()
+{
 	eEdit *_eEdit = new eEdit(PERSONALDictionaryLocation("data"), this);
 	_eEdit->show();
-	}
- */
+}
+*/
 
-void TopLevel::configureToolBars()
+void kiten::configureToolBars()
 {
-	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+	saveMainWindowSettings(KGlobal::config(), "kitenWindow");
 	KEditToolbar dlg(actionCollection());
 	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
 	dlg.exec();
 }
 
-void TopLevel::newToolBarConfig()
+void kiten::newToolBarConfig()
 {
 	createGUI("kitenui.rc");
-	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
+	applyMainWindowSettings(KGlobal::config(), "kitenWindow");
 }
 
 /** Opens the dialogue for configuring the global accelerator keys. */
-void TopLevel::configureGlobalKeys()
+void kiten::configureGlobalKeys()
 {
 	//KDE4 TODO
-	//	KKeyDialog::configure(Accel, this);
+//	KKeyDialog::configure(Accel, this);
 }
 
 /** This function, as the name says, updates the configuration file.  It should
-  be called in EVERY case where the configuration files change. */
-void TopLevel::updateConfiguration()
+    be called in EVERY case where the configuration files change. */
+void kiten::updateConfiguration()
 {
 	//Load the dictionaries of each type that we can adjust in prefs
 	foreach(QString it, config->dictionary_list())
@@ -404,14 +392,15 @@ void TopLevel::updateConfiguration()
 
 /** This function loads the dictionaries from the config file for the program
   to use via the dictionaryManager object */
-void TopLevel::loadDictConfig(const QString dictType) 
+void kiten::loadDictConfig(const QString dictType) 
 {
 	KStandardDirs *dirs = KGlobal::dirs();
 	KConfig localConfig(dirs->findResource("config","kitenrc"));
+	
+	QString globalDictName = KGlobal::dirs()->findResource("data",
+										QString("kiten/")+dictType.toLower());
 
-	QString globalDictName = KGlobal::dirs()->findResource("data",QString("kiten/")+dictType.toLower());
-
-	localConfig.setGroup("dicts_"+dictType.toLower());								//Set the preference group
+	localConfig.setGroup("dicts_"+dictType.toLower());	//Set the preference group
 
 	bool useGlobal = localConfig.readEntry("__useGlobal", true); //Do we use the built in dict?
 
@@ -422,87 +411,82 @@ void TopLevel::loadDictConfig(const QString dictType)
 			!loadedDicts.contains(globalDictName))
 		dictionaryManager.addDictionary(globalDictName,dictType,dictType.toLower());
 
-	/*	
+/*	
 #define PERSONALDictionaryLocation( __X ) KGlobal::dirs()->saveLocation(__X, \
-"kiten/dictionaries/",true).append("personal")
-if(!isKanji) { //Don't load personal dicts as kanji dicts
-QString personalDict(PERSONALDictionaryLocation("data"));
-if (QFile::exists(personalDict) && 
-loadedDicts.find(personalDict) == loadedDicts.end())
-{
-dictionaryManager.addDictionary(personalDict,"Personal",dictType.lower());
-}
-}
-	 */	
-		for(QStringList::const_iterator it = dictNames.constBegin(); it != dictNames.constEnd(); ++it) {
-			if(!loadedDicts.contains(*it)) { //If it's already in the list, don't load
-				QString dictPath = localConfig.readEntry(*it,QString());
-				dictionaryManager.addDictionary(dictPath,*it,dictType.toLower());
-			}
+		"kiten/dictionaries/",true).append("personal")
+	if(!isKanji) { //Don't load personal dicts as kanji dicts
+		QString personalDict(PERSONALDictionaryLocation("data"));
+		if (QFile::exists(personalDict) && 
+					loadedDicts.find(personalDict) == loadedDicts.end())
+		{
+			dictionaryManager.addDictionary(personalDict,"Personal",dictType.lower());
 		}
+	}
+*/	
+	for(QStringList::const_iterator it = dictNames.constBegin(); it != dictNames.constEnd(); ++it) {
+		if(!loadedDicts.contains(*it)) { //If it's already in the list, don't load
+			QString dictPath = localConfig.readEntry(*it,QString());
+			dictionaryManager.addDictionary(dictPath,*it,dictType.toLower());
+		}
+	}
 }
 
 
 
 /** This function allows one to print out the currently displayed result. */
-void TopLevel::print()
+void kiten::print()
 {
-	//	_ResultView->toHTML();
+//	_ResultView->toHTML();
 }
 
 /******************************************************************************
   HISTORY HANDLING FUNCTIONS
- ******************************************************************************/
+******************************************************************************/
 
 /** given one Search Result, it addes it to the history list the logic in it
-  exists to maintain the history list of a certain size.  Note that this method
-  does not display the EntryList it is given... so you can add something to the
-  history and display it seperately. */
-void TopLevel::addHistory(EntryList *result)
+   exists to maintain the history list of a certain size.  Note that this method
+   does not display the EntryList it is given... so you can add something to the
+   history and display it seperately. */
+void kiten::addHistory(EntryList *result)
 {
 	historyList.addItem(result);
-	//	historyAction->setItems(historyList.toStringList());
-	//	historyAction->setCurrentItem(historyList.count()-1);
 	enableHistoryButtons();
 }
 
 /** This goes back one item in the history and displays */
-void TopLevel::back(void)
+void kiten::back(void)
 {
 	historyList.prev();
 	displayHistoryItem();
 }
 
 /** This goes forward one item in the history and displays */
-void TopLevel::forward(void)
+void kiten::forward(void)
 {
 	historyList.next();
 	displayHistoryItem();
 }
 
 /** This method just sets the current element in the list and triggers the display. */
-void TopLevel::goInHistory(int index)
+void kiten::goInHistory(int index)
 {
 	historyList.setCurrent(index);
 	displayHistoryItem();
 }
 
-void TopLevel::displayHistoryItem() 
-{
-	displayResults(historyList.current());
-
-	//KDE4 FIXME	historyAction->setCurrentItem(historyList.at());
+void kiten::displayHistoryItem() {
+	Edit->addItem(historyList.current()->getQuery().toString());
 	Edit->setCurrentItem(historyList.current()->getQuery().toString());
 	enableHistoryButtons();
+
+	displayResults( historyList.current() );
 }
 
 /** This function determines whether the forward and back buttons should be
-  enabled.  It is currently done independently of what action has just 
-  occurred. */
-void TopLevel::enableHistoryButtons()
+	enabled.  It is currently done independently of what action has just 
+	occurred. */
+void kiten::enableHistoryButtons()
 {
-	kDebug() << "enableHistoryButtons: " << historyList.index() <<
-		" vs. " << historyList.count() << endl;
 	backAction->setEnabled(historyList.index() > 0);
 	forwardAction->setEnabled(historyList.index()+1 < historyList.count());
 }

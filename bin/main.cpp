@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 //	QSqlPropertyMap *map = QSqlPropertyMap::defaultMap();
 //	map->insert("MyStringList", "value");
 
-	TopLevel *t = new TopLevel();
+	kiten *t = new kiten();
 	t->show();
 	return a.exec();
 }

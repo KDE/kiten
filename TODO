@@ -43,17 +43,14 @@ Main Sections:
 	Fonts: Split <Main Item> <Readings> <Meanings> <Extra Info>
 	Display: Split into a panel for each dictionary type, call a 
 		dictConfig<dictName> class for each one. Class should store whatever
-		it needs in static members, and then return a QString for saving things.
+		it needs in the KConfigXT system and it can be pulled up when done.
 	Search: More or less the same as now (possibly add 'hide data' options)
 	Learn: Will be redone when Learn is reconfigured.
 
 	dictConfig Plan... make it a subclass of a view so that it can just drop
-		in and display in a given size. Investigate if these are needed:
-		QString toString()
-		bool loadFromString(QString)
+		in and display in a given size.
 
-Split off things into seperate directories when features harden:
-	libkiten:
+	libkiten questions:
 		Break into libkitenui and libkiten?
 			Pro: Some users may only want ui/dict features
 			Con: There are only two ui classes, in the future we may
@@ -61,16 +58,16 @@ Split off things into seperate directories when features harden:
 				kitend - dcop communication and the ui calls... at which point
 				it seems silly to have two tiny libs
 		Code Files: When all are near stable, seperate directories
-			dictquery.cpp		stable	(may get one more change)
+			dictquery.cpp		stable	(could use some cleaning/optimizing, but it works)
 			dictionary.cpp		stable	(for current needs, minor feature updates in future)
 			historyPtrList.cpp stable	(Should work fine at this point, two methods untested)
 			deinf.cpp:			stable	(Redone as a simple object... need to make into a dictFile)
 	
 			entry.cpp			moderate (needs a bit of fleshing out in entry still)
-			widgets.cpp :		volotile
+			widgets.cpp :		volotile (should this still be divided up)
 			kromajiedit.cpp:	volotile (should mix with widget's EditAction?)
 			dictFileXXXX.cpp	volotile (search needs revisiting, 3-4 methods need writing)
-			entryXXXXXX.cpp   volotile (still some bugs)
+			entryXXXXXX.cpp   volotile (still some bugs missing features)
 	
 Main Interface:
 	Infrastructure for input filters(replace deinflection)

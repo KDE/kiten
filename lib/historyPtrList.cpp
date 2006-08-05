@@ -27,6 +27,11 @@
 historyPtrList::historyPtrList():m_index(-1) {
 }
 
+historyPtrList::~historyPtrList() {
+	for(int i=size()-1; i>=0; i--)
+		delete this->at(i);
+}
+
 void
 historyPtrList::addItem(EntryList *newItem) {
 	//If we're currently looking at something prior to the end of the list
@@ -44,6 +49,16 @@ historyPtrList::addItem(EntryList *newItem) {
 		 temp = this->takeFirst();
 		 temp->deleteAll();
 		 delete temp;
+	}
+	
+	//One other odd case... if this query is a repeat of the last query
+	//replace the current one with the new one
+	if(size() > 0) {
+		if(current()->getQuery() == newItem->getQuery()) {
+			temp = this->takeLast();
+			temp->deleteAll();
+			delete temp;
+		}
 	}
 
 	//Now add the item
@@ -97,4 +112,25 @@ historyPtrList::prev(int distance) {
 		m_index = 0;
 	else
 		m_index -= distance;
+}
+
+EntryList*
+historyPtrList::current() {
+	return at(m_index);
+}
+
+void
+historyPtrList::setCurrent(int i) {
+	if(i<count() && i>=0)
+		m_index=i;
+}
+
+int
+historyPtrList::index() {
+	return m_index;
+}
+
+int
+historyPtrList::count() {
+	return QList<EntryList*>::size();
 }
