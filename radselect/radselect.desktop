@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=radselect
+Name[x-test]=xxradselectxx
 Exec=kitenradselect %i %m -caption "%c"
 Icon=radselect
 Type=Application
 DocPath=radselect/radselect.html
 Comment=A helper program for kiten
+Comment[x-test]=xxA helper program for kitenxx
 Terminal=false
