@@ -38,6 +38,7 @@ signals:
 	void SIG_updateWidgets();
 	void SIG_updateWidgetsDefault();
 	void SIG_updateSettings();
+	void settingsChanged();
 
 private slots:
 	void updateWidgets();

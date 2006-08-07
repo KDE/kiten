@@ -19,6 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <kconfig.h>
+#include <kconfigskeleton.h>
 #include <kglobal.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -50,6 +52,9 @@ dictFileEdict::dictFileEdict()
 {
 	dictionaryType = "edict";
 }
+
+QStringList *dictFileEdict::displayFieldsList = NULL;
+QStringList *dictFileEdict::displayFieldsFull = NULL;
 
 /** The destructor... ditch our memory maps and close our files here 
   (if they were open) */
@@ -326,9 +331,6 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 	while(cur - 1 && 0 == equalOrSubstring(searchString,lookupDictLine(cur-1)))
 		--cur;
 	
-//	kDebug() << "After rewind: " << lookupDictLine(cur-1) << endl;
-
-
 	//Enumerate each matching entry
 	QVector<uint32_t> possibleHits;
 
@@ -357,14 +359,10 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 			--i;
 		possibleHits.push_back(indexPtr[cur-1]+i-1);
 	
-//		kDebug() << cur << " " << currentWord<< " ("<< indexPtr[cur-1]+i-1<<")"<< endl;
-		
 	}while(cur < index.size() && 0 == equalOrSubstring(searchString,currentWord));
-//		kDebug() << "Quit on #" << cur << " " << currentWord<< endl;
 		
-	kDebug() << "Found " << possibleHits.size() << " potential hits" <<endl;
-
-	if(possibleHits.size() <= 0) return results;
+	if(possibleHits.size() <= 0)
+		return results;
 	
 	qSort(possibleHits);
 	unsigned last = dict.size() + 2;
@@ -509,3 +507,41 @@ DictionaryPreferenceDialog *dictFileEdict::preferencesWidget(KConfigSkeleton *co
 	//TODO: Add a few fields
 	return dialog;
 }
+
+void
+dictFileEdict::loadSettings(KConfigSkeleton *config) {
+	//We assume that our preference dialog got the chance to make it's own settings...
+	QStringList defaultList("Word/Kanji"),fullOrder,listOrder;
+	defaultList << "Reading" << "Meaning";
+
+	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFieldsFullView");
+	if(item != NULL)
+		fullOrder = item->property().toStringList();
+	if(!fullOrder.isEmpty()) {
+		if(displayFieldsFull != NULL)
+			delete displayFieldsFull;
+		dictFileEdict::displayFieldsFull = new QStringList(fullOrder);
+		kDebug() << "Setup List: "<< dictFileEdict::displayFieldsFull->join(",")<<endl;
+	}
+	
+	item = config->findItem(getType()+"__displayFieldsListView");
+	if(item != NULL)
+		listOrder = item->property().toStringList();
+	if(!listOrder.isEmpty()) {
+		if(displayFieldsList != NULL)
+			delete displayFieldsList;
+		dictFileEdict::displayFieldsList = new QStringList(listOrder);
+		kDebug() << "Setup List: "<< dictFileEdict::displayFieldsList->join(",")<<endl;
+	}
+}
+
+QStringList
+dictFileEdict::getDisplayList(QString type) {
+	QStringList *list = type=="Full"?dictFileEdict::displayFieldsFull:
+								dictFileEdict::displayFieldsList;
+	if(list == NULL) 
+		return QStringList();
+	else
+		return *list;
+}
+

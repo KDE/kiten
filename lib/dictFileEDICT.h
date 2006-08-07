@@ -25,6 +25,7 @@
 #include "dictionary.h" //dictFile definition
 
 #include <sys/types.h>
+#include <QtCore/QFile>
 #ifdef __osf__
 typedef unsigned int uint32_t;
 typedef int int32_t;
@@ -32,9 +33,9 @@ typedef int int32_t;
 #include <inttypes.h>
 #endif
 
-class QFile;
 class QString;
 class QByteArray;
+class QStringList;
 
 class dictQuery;
 class DictionaryPreferenceDialog;
@@ -60,6 +61,10 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *parent=NULL, const char *name=0);
 
+	virtual void loadSettings(KConfigSkeleton*);
+
+	static QStringList getDisplayList(QString type);
+
 	protected:
 	//This is a blatant abuse of protected methods to make the kanji subclass easy
 	virtual inline Entry *makeEntry(QString x) { return new EntryEDICT(getName(),x); }
@@ -80,6 +85,7 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	const uint32_t *indexPtr;
 
 	bool valid;
+	static QStringList *displayFieldsList,*displayFieldsFull;
 };
 
 #endif

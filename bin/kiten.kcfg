@@ -31,11 +31,11 @@
     </entry>
     <entry key="__displayFieldsList" name="edict__displayFieldsListView" type="StringList">
 	 	<label>Set of fields to display for this dictionary type</label>
-		<default>Reading</default>
+		<default>Word/Kanji,Reading,Meaning</default>
     </entry>
     <entry key="__displayFieldsFull" name="edict__displayFieldsFullView" type="StringList">
 	 	<label>Set of fields to display for this dictionary type</label>
-		<default></default>
+		<default>Word/Kanji,Reading,Meaning</default>
     </entry>
   </group>
 
@@ -49,11 +49,11 @@
     </entry>
     <entry key="__displayFieldsList" name="kanjidic__displayFieldsListView" type="StringList">
 	 	<label>Set of fields to display for this dictionary type</label>
-		<default></default>
+		<default>Word/Kanji,Reading,Meaning</default>
     </entry>
     <entry key="__displayFieldsFull" name="kanjidic__displayFieldsFullView" type="StringList">
 	 	<label>Set of fields to display for this dictionary type</label>
-		<default></default>
+		<default>Word/Kanji,Reading,Meaning</default>
     </entry>
   </group>
 

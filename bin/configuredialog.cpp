@@ -70,6 +70,8 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	
 	addPage(makeDictionaryPreferencesPage(0,config),i18n("Display"),"indent");
 	hasChangedMarker = false;
+
+	connect(this,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(settingsChanged()));
 }
 
 ConfigureDialog::~ConfigureDialog()
@@ -99,7 +101,6 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
-	QStringList::Iterator dict, dictEnd = dictTypes.end();
 	foreach( QString dict, dictTypes ) {
 		dictFile *tempDict = dictionary::makeDictFile(dict);
 		

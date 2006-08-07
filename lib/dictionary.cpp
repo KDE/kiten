@@ -18,6 +18,8 @@
 */
 #include <kdebug.h>
 #include <kglobal.h>
+#include <kconfig.h>
+#include <kconfigskeleton.h>
 #include <QtCore/QString>
 #include <QtCore/QFile>
 
@@ -72,7 +74,7 @@ bool dictionary::addDictionary(const QString file, const QString name,
 		delete newDict;
 		return false;
 	}
-	
+
 	kDebug() << "Dictionary Loaded : " << newDict->getName() << endl;
 	dictManagers.insert(name,newDict);
 	return true;
@@ -178,10 +180,13 @@ EntryList *dictionary::doSearchInList(const dictQuery &query, const EntryList *l
 	return ret;
 }
 
-void dictionary::loadDictSettings(const QString dict, const KConfigSkeleton *config) {
-	if(dictManagers.contains(dict))
-		dictManagers[dict]->loadSettings(*config);
+void dictionary::loadDictSettings(const QString dictName, KConfigSkeleton *config) {
+	dictFile *dict = this->makeDictFile(dictName);
+	if(dict != NULL) {
+		config->setCurrentGroup("dicts_"+dictName.toLower());
+		dict->loadSettings(config);
+	}
 }
 
-void dictionary::loadSettings(const KConfigSkeleton *config) { //TODO
+void dictionary::loadSettings(const KConfig &config) { //TODO
 }

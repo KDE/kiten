@@ -47,9 +47,15 @@ class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 
 	DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *, const char *);
 
+	virtual void loadSettings(KConfigSkeleton *);
+
+	static QStringList getDisplayList(QString type);
+
 	protected:
 	virtual inline Entry *makeEntry(QString x) {return new EntryKanjidic(getName(),x);}
 	const QMap<QString,QString> displayOptions() const;
+
+	static QStringList *displayFieldsList,*displayFieldsFull;
 };
 
 #endif

@@ -45,6 +45,7 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 	protected:
 		virtual inline QString HTMLReadings() const;
 		virtual inline QString HTMLWord() const;
+		virtual inline QString HTMLExtendedInfo(QString field) const;
 		virtual QString makeReadingLink(const QString&) const;
 };
 

@@ -20,6 +20,7 @@
 */
 
 #include <kglobal.h>
+#include <kconfigskeleton.h>
 #include <qfile.h>
 
 #include "dictquery.h"  //dictQuery classs
@@ -28,6 +29,8 @@
 #include "entry.h"      //Entry and EntryList classes
 #include "entryKanjidic.h"
 
+QStringList *dictFileKanjidic::displayFieldsList = NULL;
+QStringList *dictFileKanjidic::displayFieldsFull = NULL;
 
 dictFileKanjidic::dictFileKanjidic() : dictFileEdict(){
 	dictionaryType = "kanjidic";
@@ -137,4 +140,39 @@ DictionaryPreferenceDialog *dictFileKanjidic::preferencesWidget(KConfigSkeleton 
 	dialog->addAvailable(listDictDisplayOptions(nullList));
 	return dialog;
 }
+
+void
+dictFileKanjidic::loadSettings(KConfigSkeleton *config) {
+	//We assume that our preference dialog got the chance to make it's own settings...
+	QStringList defaultList("Word/Kanji"),fullOrder,listOrder;
+	defaultList << "Reading" << "Meaning";
+
+	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFieldsFullView");
+	if(item != NULL)
+		fullOrder = item->property().toStringList();
+	if(!fullOrder.isEmpty()) {
+		if(displayFieldsFull != NULL)
+			delete displayFieldsFull;
+		dictFileKanjidic::displayFieldsFull = new QStringList(fullOrder);
+	}
 	
+	item = config->findItem(getType()+"__displayFieldsListView");
+	if(item != NULL)
+		listOrder = item->property().toStringList();
+	if(!listOrder.isEmpty()) {
+		if(displayFieldsList != NULL)
+			delete displayFieldsList;
+		dictFileKanjidic::displayFieldsList = new QStringList(listOrder);
+	}
+}
+
+	
+QStringList dictFileKanjidic::getDisplayList(QString type) {
+	QStringList *list = type=="Full"?displayFieldsFull:
+								(type=="List"?displayFieldsList:NULL);
+	if(list == NULL)
+		return QStringList();
+	else
+		return *list;
+}
+

@@ -19,21 +19,29 @@
 */
 
 #include "entryEDICT.h"
+#include "dictFileEDICT.h"
 
 /* DISPLAY FUNCTIONS */
 
 /** returns a brief HTML version of an Entry */
 QString EntryEDICT::toBriefHTML() const
 {
-	return "<div class=\"EDICTBrief\">" +HTMLWord() + " " + HTMLReadings() +
-	  " "+ HTMLMeanings() + "</div>"; 
+	QString result="<div class=\"EDICTBrief\">";
+	
+	foreach(QString field, dictFileEdict::getDisplayList("List")) {
+		if(field == "--NewLine--")			result += "<br>";
+		else if(field == "Word/Kanji")	result += HTMLWord()+" ";
+		else if(field == "Meaning")		result += HTMLMeanings()+" ";
+		else if(field == "Reading")		result += HTMLReadings()+" ";
+	}
+	result += "</div>";
+	return result;
 }
 
 /** returns an HTML version of an Entry that is rather complete.*/
 QString EntryEDICT::toVerboseHTML() const
 {
-	return "<div class=\"EDICTVerbose\">" + HTMLWord() + " " + HTMLReadings() +
-	  " " + HTMLMeanings() + "</div>"; 
+	return toBriefHTML();
 }
 
 /** Makes a link out of each kanji in @p inString */

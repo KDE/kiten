@@ -20,6 +20,10 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
  USA
 **/
+
+#include <QtCore/QList>
+#include <QtCore/QPair>
+
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
@@ -169,7 +173,6 @@ void kiten::finishInit()
 	
 	// if it's the application's first time starting, 
 	// the app group won't exist and we show demo
-	//KDE4 CHANGE config ->sessionConfig
 	if (!kapp->sessionConfig()->hasGroup("app"))
 	{
 		searchTextAndRaise(QString::fromUtf8("辞書"));
@@ -201,8 +204,7 @@ bool kiten::queryClose()
 /** This function searches for the contents of the Edit field in the mainwindow */
 void kiten::searchFromEdit()
 {
-	dictQuery query(Edit->currentText());
-	searchAndDisplay(query);
+	searchAndDisplay(dictQuery(Edit->currentText()));
 }
 
 /** This function is called when a kanji is clicked in the result view 
@@ -210,8 +212,7 @@ void kiten::searchFromEdit()
 	come from the input box  */
 void kiten::searchText(const QString text)
 {
-	dictQuery query(text); //Pull the link into a query
-	searchAndDisplay(query);
+	searchAndDisplay(dictQuery(text));
 }
 
 /** This should change the Edit text to be appropriate and then begin a search
@@ -306,7 +307,6 @@ void kiten::displayResults(EntryList *results)
 //////////////////////////////////////////////////////////////////////////////
 // PREFERENCES RELATED METHODS
 //////////////////////////////////////////////////////////////////////////////
-
 void kiten::slotConfigure()
 {
 	if (ConfigureDialog::showDialog("settings"))
@@ -316,9 +316,8 @@ void kiten::slotConfigure()
 	optionDialog = new ConfigureDialog(this, config);
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
 	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(updateConfiguration()));
+	
 	optionDialog->show();
-
-	return;
 }
 
 /** This function just queues up slotConfigureDestroy() to get around the 
@@ -375,17 +374,15 @@ void kiten::updateConfiguration()
 	foreach(QString it, config->dictionary_list())
 		loadDictConfig(it);
 
-	//Load settings for each individual dictionary type
-	foreach(QString it, dictionaryManager.listDictionaries()) {
-		config->setCurrentGroup(it);
+	//Load settings for each dictionary type
+	foreach(QString it, dictionaryManager.listDictFileTypes())
 		dictionaryManager.loadDictSettings(it,config);
-	}
 
 	//Update the HTML/CSS for our fonts
 	mainView->updateFont();
 
 	//Update general options for the display manager (sorting by dict, etc)
-	dictionaryManager.loadSettings(config);
+	dictionaryManager.loadSettings(*config->config());
 }
 
 /** This function loads the dictionaries from the config file for the program
@@ -393,22 +390,36 @@ void kiten::updateConfiguration()
 void kiten::loadDictConfig(const QString dictType) 
 {
 	KStandardDirs *dirs = KGlobal::dirs();
-	KConfig localConfig(dirs->findResource("config","kitenrc"));
+	KConfig *localConfig = config->config();
+	localConfig->setGroup("dicts_"+dictType.toLower());	//Set the preference group
+
+	QList< QPair<QString,QString> > dictionariesToLoad;
+
+	if(localConfig->readEntry("__useGlobal", true)) //If we need to load the global
+		dictionariesToLoad.append( qMakePair(dictType,
+				dirs->findResource("data", QString("kiten/")+dictType.toLower())));
 	
-	QString globalDictName = KGlobal::dirs()->findResource("data",
-										QString("kiten/")+dictType.toLower());
+	QStringList dictNames = localConfig->readEntry<QStringList>("__NAMES", QStringList());
+	foreach( QString name, dictNames ) {
+			QString dictPath = localConfig->readEntry(name,QString());
+			if(!dictPath.isEmpty() && !name.isEmpty())
+				dictionariesToLoad.append( qMakePair(name,dictPath) );
+	}
+		
+	QStringList loadedDictionaries =
+		dictionaryManager.listDictionariesOfType(dictType.toLower());
 
-	localConfig.setGroup("dicts_"+dictType.toLower());	//Set the preference group
+	typedef QPair<QString,QString> __dictName_t; //Can't have commas in a foreach
+	foreach( __dictName_t it, dictionariesToLoad) {
+		//Remove from the loadedDictionaries list all the dicts that we are supposed to load
+		//This will leave only those that need to be unloaded at the end
+		if(loadedDictionaries.removeAll(it.first) == 0 )
+			dictionaryManager.addDictionary(it.second,it.first,dictType.toLower());
+	}
 
-	bool useGlobal = localConfig.readEntry("__useGlobal", true); //Do we use the built in dict?
-
-	QStringList dictNames = localConfig.readEntry("__NAMES", (QStringList)"");
-	QStringList loadedDicts = dictionaryManager.listDictionaries();
-
-	if (!globalDictName.isNull() && useGlobal && 
-			!loadedDicts.contains(globalDictName))
-		dictionaryManager.addDictionary(globalDictName,dictType,dictType.toLower());
-
+	foreach(QString it, loadedDictionaries)
+		dictionaryManager.removeDictionary(it);
+	
 /*	
 #define PERSONALDictionaryLocation( __X ) KGlobal::dirs()->saveLocation(__X, \
 		"kiten/dictionaries/",true).append("personal")
@@ -421,12 +432,6 @@ void kiten::loadDictConfig(const QString dictType)
 		}
 	}
 */	
-	for(QStringList::const_iterator it = dictNames.constBegin(); it != dictNames.constEnd(); ++it) {
-		if(!loadedDicts.contains(*it)) { //If it's already in the list, don't load
-			QString dictPath = localConfig.readEntry(*it,QString());
-			dictionaryManager.addDictionary(dictPath,*it,dictType.toLower());
-		}
-	}
 }
 
 

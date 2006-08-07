@@ -19,6 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "entryKanjidic.h"
+#include "dictFileKanjidic.h"
+
 #include <klocale.h>
 #include <kdebug.h>
 
@@ -27,17 +29,23 @@
 /** returns a brief HTML version of an Entry */
 QString EntryKanjidic::toBriefHTML() const
 {
-	return "<div class=\"KanjidicBrief\">" + HTMLWord()+"  " + 
-		HTMLReadings() + "   " + HTMLMeanings() + "</div>";
+	QString result="<div class=\"KanjidicBrief\">";
+	
+	foreach(QString field, dictFileKanjidic::getDisplayList("List")) {
+		if(field == "--NewLine--")			result += "<br>";
+		else if(field == "Word/Kanji")	result += HTMLWord()+" ";
+		else if(field == "Meaning")		result += HTMLMeanings()+" ";
+		else if(field == "Reading")		result += HTMLReadings()+" ";
+		else if(ExtendedInfo.contains(field))	result+=HTMLExtendedInfo(field) + " ";
+	}
+	result += "</div>";
+	return result;
 }
 
 /** returns an HTML version of an Entry that is rather complete.*/
-//TODO :MISSING METHOD!!! HTMLExtendedInfo()
 QString EntryKanjidic::toVerboseHTML() const
 {
-	return "<div class=\"KanjidicVerbose\">" + HTMLWord() +"  "+
-	  	HTMLReadings() +"   "+ HTMLMeanings() + 
-		/*HTMLExtendedInfo() + */ "</div>";
+	return toBriefHTML();
 }
 
 bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
@@ -107,6 +115,10 @@ inline QString EntryKanjidic::HTMLReadings() const
 
 inline QString EntryKanjidic::HTMLWord() const {
 	return "<span class=\"Word\">" + makeLink(Word) + "</span>";
+}
+
+inline QString EntryKanjidic::HTMLExtendedInfo(QString field) const {
+	return "<span class=\"ExtendedInfo\">" + field + ":"+ExtendedInfo[field]+"</span>";
 }
 
 QString EntryKanjidic::makeReadingLink(const QString &inReading) const {

@@ -20,6 +20,7 @@
 #define __DICTIONARY_H_
 
 #include "libkitenexport.h"
+
 #include <QtCore/QHash>
 #include <QtCore/QMap>
 #include <QtCore/QPair>
@@ -31,6 +32,7 @@ class QStringList;
 class Entry;
 class EntryList;
 class KConfigSkeleton;
+class KConfig;
 
 class dictFile;
 class dictQuery;
@@ -72,9 +74,9 @@ class LIBKITEN_EXPORT dictionary {
 	//Mostly required for the Preferences system
 	static QStringList listDictFileTypes();
 	//Used to trigger relaoding the display settings for a particular dictionary
-	void loadDictSettings(QString dict, const KConfigSkeleton *);
+	void loadDictSettings(QString dict, KConfigSkeleton*);
 	//Used to load general settings related to output
-	void loadSettings(const KConfigSkeleton *);
+	void loadSettings(const KConfig&);
 
 	private:
 	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
@@ -117,7 +119,7 @@ public:
 				{if(parent==parent && name==name && config==config) return NULL;}
 	/** Load information from the KConfigSkeleton that you've setup in
 	  the above preferences widget. */
-	virtual void loadSettings(const KConfigSkeleton &config) {}
+	virtual void loadSettings(KConfigSkeleton*) {}
 	
 	/** Inline functions to return quick info */
 	virtual inline const QString &getName() const {return dictionaryName;}
