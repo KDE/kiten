@@ -20,7 +20,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 
-#include "dictquery.h"
+#include "dictQuery.h"
 #include "entry.h"
 #include "historyPtrList.h"
 

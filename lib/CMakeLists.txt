@@ -4,12 +4,12 @@ set(kiten_LIB_SRCS
 		kromajiedit.cpp
 		historyPtrList.cpp
 		deinf.cpp
-		dictquery.cpp
+		dictQuery.cpp
 		entry.cpp
 		dictionary.cpp
-		dictFileEDICT.cpp
+		dictFileEdict.cpp
 		dictFileKanjidic.cpp
-		entryEDICT.cpp
+		entryEdict.cpp
 		entryKanjidic.cpp
 		dictFilePreferenceDialog.cpp
 		)
@@ -21,9 +21,9 @@ install( TARGETS kiten DESTINATION ${LIB_INSTALL_DIR} )
 
 ############ install files #############
 install( FILES 
-		dictquery.h 
+		dictQuery.h 
 		entry.h				dictionary.h
-		entryEDICT.h 		dictFileEDICT.h 
+		entryEdict.h 		dictFileEdict.h 
 		entryKanjidic.h 	dictFileKanjidic.h 
 		historyPtrList.h 
 		kromajiedit.h

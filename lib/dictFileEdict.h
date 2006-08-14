@@ -26,6 +26,7 @@
 
 #include <sys/types.h>
 #include <QtCore/QFile>
+#include <QtCore/QMap>
 #ifdef __osf__
 typedef unsigned int uint32_t;
 typedef int int32_t;
@@ -40,8 +41,9 @@ class QStringList;
 class dictQuery;
 class DictionaryPreferenceDialog;
 class KConfigSkeleton;
+class KConfigSkeletonItem;
 
-#include "entryEDICT.h"
+#include "entryEdict.h"
 
 class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	public:
@@ -63,9 +65,10 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 
 	virtual void loadSettings(KConfigSkeleton*);
 
-	static QStringList getDisplayList(QString type);
-
 	protected:
+	virtual QMap<QString,QString> displayOptions() const;
+	QStringList *loadListType(KConfigSkeletonItem *, QStringList *,
+			const QMap<QString,QString> &);
 	//This is a blatant abuse of protected methods to make the kanji subclass easy
 	virtual inline Entry *makeEntry(QString x) { return new EntryEDICT(getName(),x); }
 
@@ -86,6 +89,8 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 
 	bool valid;
 	static QStringList *displayFieldsList,*displayFieldsFull;
+
+	friend class EntryEDICT;
 };
 
 #endif

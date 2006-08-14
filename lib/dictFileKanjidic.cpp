@@ -23,7 +23,7 @@
 #include <kconfigskeleton.h>
 #include <qfile.h>
 
-#include "dictquery.h"  //dictQuery classs
+#include "dictQuery.h"  //dictQuery classs
 #include "dictFileKanjidic.h" //dictFile (superclass) class
 #include "dictFilePreferenceDialog.h"
 #include "entry.h"      //Entry and EntryList classes
@@ -92,18 +92,7 @@ bool dictFileKanjidic::validQuery(const dictQuery &query) {
 }
 	
 
-/** Make a list of all the extra fields in our db.. Entry uses this to decide
-  what goes in the interpretations it gives. */
-QStringList dictFileKanjidic::listDictDisplayOptions(QStringList list) const {
-	QMap<QString,QString> fullList = dictFileKanjidic::displayOptions();
-	QMap<QString,QString>::Iterator it;
-	for ( it = fullList.begin(); it != fullList.end(); ++it ) {
-		list.append(it.key());
-	}
-	return list;
-}
-
-const QMap<QString,QString> dictFileKanjidic::displayOptions() const {
+QMap<QString,QString> dictFileKanjidic::displayOptions() const {
 	//Enumerate the fields in our dict.... there are a rather lot of them here
 	//It will be useful for a few things to have the full list generated on it's own
 	QMap<QString,QString> list;
@@ -133,46 +122,18 @@ const QMap<QString,QString> dictFileKanjidic::displayOptions() const {
 	return list;
 }
 
-DictionaryPreferenceDialog *dictFileKanjidic::preferencesWidget(KConfigSkeleton *config,QWidget *parent, const char *name) {
-	dictFileFieldSelector *dialog = new dictFileFieldSelector(config, getType(), parent, name);
-
-	QStringList nullList;
-	dialog->addAvailable(listDictDisplayOptions(nullList));
-	return dialog;
-}
-
 void
 dictFileKanjidic::loadSettings(KConfigSkeleton *config) {
-	//We assume that our preference dialog got the chance to make it's own settings...
-	QStringList defaultList("Word/Kanji"),fullOrder,listOrder;
-	defaultList << "Reading" << "Meaning";
+	QMap<QString,QString> list = displayOptions();
+	list["Word/Kanji"]="Word/Kanji";
+	list["Reading"]="Reading";
+	list["Meaning"]="Meaning";
+	list["--Newline--"]="--Newline--";
 
 	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFieldsFullView");
-	if(item != NULL)
-		fullOrder = item->property().toStringList();
-	if(!fullOrder.isEmpty()) {
-		if(displayFieldsFull != NULL)
-			delete displayFieldsFull;
-		dictFileKanjidic::displayFieldsFull = new QStringList(fullOrder);
-	}
+	this->displayFieldsFull = loadListType(item,this->displayFieldsFull,list);
 	
 	item = config->findItem(getType()+"__displayFieldsListView");
-	if(item != NULL)
-		listOrder = item->property().toStringList();
-	if(!listOrder.isEmpty()) {
-		if(displayFieldsList != NULL)
-			delete displayFieldsList;
-		dictFileKanjidic::displayFieldsList = new QStringList(listOrder);
-	}
-}
+	this->displayFieldsList = loadListType(item,this->displayFieldsList,list);
 
-	
-QStringList dictFileKanjidic::getDisplayList(QString type) {
-	QStringList *list = type=="Full"?displayFieldsFull:
-								(type=="List"?displayFieldsList:NULL);
-	if(list == NULL)
-		return QStringList();
-	else
-		return *list;
 }
-

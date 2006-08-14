@@ -29,7 +29,7 @@
 #include <qregexp.h>
 #include <qtextcodec.h>
 
-#include "dictquery.h"
+#include "dictQuery.h"
 #include "entry.h"
 
 #include <iostream>

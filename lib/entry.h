@@ -27,12 +27,14 @@
 #include <QtCore/QList>
 #include <QtCore/QHash>
 #include "libkitenexport.h"
-#include "dictquery.h"
+
+#include "dictQuery.h"
 
 class Entry;
 class EntryList;
 class QString;
 class dictFile;
+class dictQuery;
 
 
 

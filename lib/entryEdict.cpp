@@ -18,17 +18,19 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "entryEDICT.h"
-#include "dictFileEDICT.h"
+#include "entryEdict.h"
+#include "dictFileEdict.h"
 
 /* DISPLAY FUNCTIONS */
+
+#define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
 /** returns a brief HTML version of an Entry */
 QString EntryEDICT::toBriefHTML() const
 {
 	QString result="<div class=\"EDICTBrief\">";
 	
-	foreach(QString field, dictFileEdict::getDisplayList("List")) {
+	foreach(QString field, QSTRINGLISTCHECK(dictFileEdict::displayFieldsList)) {
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+" ";
 		else if(field == "Meaning")		result += HTMLMeanings()+" ";

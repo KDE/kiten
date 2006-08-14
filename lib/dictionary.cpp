@@ -24,13 +24,13 @@
 #include <QtCore/QFile>
 
 #include "dictionary.h"
-#include "dictquery.h"
+#include "dictQuery.h"
 #include "entry.h"
 
 /* Includes to handle various types of dictionaries 
 IMPORTANT: To add a dictionary type, add the header file here and add it to the
  if statement under addDictionary() */
-#include "dictFileEDICT.h"
+#include "dictFileEdict.h"
 #include "dictFileKanjidic.h"
 
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation

@@ -22,10 +22,8 @@
 #ifndef __DICTFILEKANJIDIC_H_
 #define __DICTFILEKANJIDIC_H_
 
-#include "dictFileEDICT.h" //dictFileEdict definition
+#include "dictFileEdict.h" //dictFileEdict definition
 #include "entryKanjidic.h"
-
-#include <qmap.h>
 
 class dictQuery;
 class QString;
@@ -43,19 +41,14 @@ class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 	bool validDictionaryFile(const QString filename);
 	bool validQuery(const dictQuery &query);
 
-	QStringList listDictDisplayOptions(QStringList) const;
-
-	DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *, const char *);
-
 	virtual void loadSettings(KConfigSkeleton *);
-
-	static QStringList getDisplayList(QString type);
+	QMap<QString,QString> displayOptions() const;
 
 	protected:
 	virtual inline Entry *makeEntry(QString x) {return new EntryKanjidic(getName(),x);}
-	const QMap<QString,QString> displayOptions() const;
 
 	static QStringList *displayFieldsList,*displayFieldsFull;
+	friend class EntryKanjidic;
 };
 
 #endif

@@ -38,8 +38,8 @@
 #include <sys/mman.h>
 
 #include "dictFilePreferenceDialog.h"
-#include "dictquery.h"  //dictQuery classs
-#include "dictFileEDICT.h" //dictFile (superclass) class
+#include "dictQuery.h"  //dictQuery classs
+#include "dictFileEdict.h" //dictFile (superclass) class
 #include "entry.h"      //Entry and EntryList classes
 
 /** Per instructions in the super-class, this constructor basically sets the 
@@ -495,53 +495,56 @@ int dictFileEdict::findMatches(const char *str1, const char *str2) {
 }
 
 
-
-
+/** Make a list of all the extra fields in our db.. Entry uses this to decide
+  what goes in the interpretations it gives. */
 QStringList dictFileEdict::listDictDisplayOptions(QStringList x) const {
-	return x; //Only the basic ones
+	x += displayOptions().keys();
+	return x;
 }
 
+QMap<QString,QString> dictFileEdict::displayOptions() const {
+	QMap<QString,QString> list;
+	list["Common(C)"]="C";
+	return list;
+}
+	
 DictionaryPreferenceDialog *dictFileEdict::preferencesWidget(KConfigSkeleton *config, QWidget *parent, const char *name) {
-	DictionaryPreferenceDialog *dialog = new dictFileFieldSelector(config, getType(),parent,name);
-	//For EDICT, don't change the default display options
-	//TODO: Add a few fields
+	dictFileFieldSelector *dialog = new dictFileFieldSelector(config, getType(),parent,name);
+	dialog->addAvailable(listDictDisplayOptions(QStringList()));
 	return dialog;
 }
 
 void
 dictFileEdict::loadSettings(KConfigSkeleton *config) {
-	//We assume that our preference dialog got the chance to make it's own settings...
-	QStringList defaultList("Word/Kanji"),fullOrder,listOrder;
-	defaultList << "Reading" << "Meaning";
+	QMap<QString,QString> long2short = displayOptions();
+	long2short["Word/Kanji"]="Word/Kanji";
+	long2short["Reading"]="Reading";
+	long2short["Meaning"]="Meaning";
+	long2short["--Newline--"]="--Newline--";
+	
 
 	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFieldsFullView");
-	if(item != NULL)
-		fullOrder = item->property().toStringList();
-	if(!fullOrder.isEmpty()) {
-		if(displayFieldsFull != NULL)
-			delete displayFieldsFull;
-		dictFileEdict::displayFieldsFull = new QStringList(fullOrder);
-		kDebug() << "Setup List: "<< dictFileEdict::displayFieldsFull->join(",")<<endl;
-	}
+	this->displayFieldsFull = loadListType(item,this->displayFieldsFull,long2short);
 	
 	item = config->findItem(getType()+"__displayFieldsListView");
+	this->displayFieldsList = loadListType(item,this->displayFieldsList,long2short);
+
+}
+
+QStringList *
+dictFileEdict::loadListType(KConfigSkeletonItem *item, QStringList *list,
+		const QMap<QString,QString> &long2short) {
+	QStringList listFromItem;
+
 	if(item != NULL)
-		listOrder = item->property().toStringList();
-	if(!listOrder.isEmpty()) {
-		if(displayFieldsList != NULL)
-			delete displayFieldsList;
-		dictFileEdict::displayFieldsList = new QStringList(listOrder);
-		kDebug() << "Setup List: "<< dictFileEdict::displayFieldsList->join(",")<<endl;
+		listFromItem = item->property().toStringList();
+	if(!listFromItem.isEmpty()) {
+		if(list != NULL)
+			delete list;
+		list = new QStringList();
+		foreach(QString it, listFromItem)
+			if(long2short.contains(it))
+				list->append(long2short[it]);
 	}
+	return list;
 }
-
-QStringList
-dictFileEdict::getDisplayList(QString type) {
-	QStringList *list = type=="Full"?dictFileEdict::displayFieldsFull:
-								dictFileEdict::displayFieldsList;
-	if(list == NULL) 
-		return QStringList();
-	else
-		return *list;
-}
-

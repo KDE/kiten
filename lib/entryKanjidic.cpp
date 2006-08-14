@@ -25,13 +25,15 @@
 #include <kdebug.h>
 
 /* DISPLAY FUNCTIONS */
+#define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
 /** returns a brief HTML version of an Entry */
 QString EntryKanjidic::toBriefHTML() const
 {
 	QString result="<div class=\"KanjidicBrief\">";
 	
-	foreach(QString field, dictFileKanjidic::getDisplayList("List")) {
+	foreach(QString field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
+		kDebug() << "Display: "<<field <<endl;
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+" ";
 		else if(field == "Meaning")		result += HTMLMeanings()+" ";
@@ -118,7 +120,8 @@ inline QString EntryKanjidic::HTMLWord() const {
 }
 
 inline QString EntryKanjidic::HTMLExtendedInfo(QString field) const {
-	return "<span class=\"ExtendedInfo\">" + field + ":"+ExtendedInfo[field]+"</span>";
+	kDebug() << field <<endl;
+	return "<span class=\"ExtendedInfo\">" + field + ": "+ExtendedInfo[field]+"</span>";
 }
 
 QString EntryKanjidic::makeReadingLink(const QString &inReading) const {
@@ -177,6 +180,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 	{
 		ichar = entryLine.at(i);
 
+		curString = "";
 		switch(ichar.toAscii()) //KDE4 CHANGE
 		{
 			case ' ':
@@ -224,7 +228,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				/* All of the above are of the format <Char><Data> where <Char> is
 					exactly 1 character. */
 				i++;
-				curString = "";
 				LOADSTRING(curString);
 				ExtendedInfo.insert(QString(ichar), curString);
 				
@@ -232,7 +235,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 			case 'I':
 				/* index codes for Spahn & Hadamitzky reference books we need the next
 				 	char to know what to do with it. */
-				curString = "";
 				INCI
 				if(ichar == 'N')
 				{
@@ -248,7 +250,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				break;
 			case 'M':
 				/* index and page numbers for Morohashi's Daikanwajiten 2 fields possible */
-				curString = "";
 				INCI
 				if(ichar == 'N')
 				{
@@ -265,7 +266,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 			case 'S':
 				/* stroke count: may be multiple.  In that case, first is actual, others common
 					miscounts */
-				curString = "";
 				i++;
 				if(!ExtendedInfo.contains("S"))
 				{
@@ -280,7 +280,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				break;
 			case 'D':
 				/* dictionary codes */
-				curString = "";
 				INCI
 				LOADSTRING(curString)
 				ExtendedInfo.insert("D" + QString(ichar), curString);
@@ -288,7 +287,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 			case '{':
 				/* This should be starting with the first '{' character of a meaning section.
 				 	Let us get take it to the last. */
-				curString = "";
 				INCI
 				while(ichar != '}')
 				{
@@ -313,7 +311,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 			case '-':
 				/* a reading that is only in postposition */
 				/* any of those 2 signals a reading is to ensue. */
-				curString = "";
 				LOADSTRING(curString)
 				Readings.append(curString);
 				break;
@@ -324,18 +321,15 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				/* This should detect unicode kana */
 				if(0x3040 <= ichar.unicode() <= 0x309F)
 				{
-					curString = "";
 					LOADSTRING(curString)
 					Readings.append(curString);
 					break;
 				}
-
 				/* if it's not a kana reading ... it is something unhandled ... 
 					possibly a new field in kanjidic.  Let's treat it as the 
 					oh-so-common <char><data> type of entry.  It could be hotly 
 					debated what we should actually do about these. */
 				i++;
-				curString = "";
 				LOADSTRING(curString);
 				ExtendedInfo.insert(QString(ichar), curString);
 				
@@ -343,7 +337,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 		}
 	}
 //	kDebug() << "Parsed: '"<<Word<<"' ("<<Readings.join("^")<<") \""<<
-//		Meanings.join("|")<<"\" from :"<<entryLine<<endl;
+//		Meanings.join("|")<<"\ and " <<ExtendedInfo.keys() << " from :"<<entryLine<<endl;
 	
 	return true;
 }

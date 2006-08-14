@@ -24,7 +24,7 @@ TODO: Add features to limit the number of hits on a per-search basis.
 		for marking "requested" fields for the dcop system.
 */
 
-#include "dictquery.h"
+#include "dictQuery.h"
 
 #include <QtCore/QStringList>
 #include <QtCore/QString>

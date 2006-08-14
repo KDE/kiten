@@ -35,7 +35,7 @@
 #include <klineedit.h>
 
 #include "radselectview.h"
-#include "dictquery.h"
+#include "dictQuery.h"
 
 class KitenEdit;
 class KToggleAction;
