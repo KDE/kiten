@@ -59,7 +59,7 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	virtual EntryList *doSearch(const dictQuery &query);
 	virtual QStringList listDictDisplayOptions(QStringList) const;
 
-	virtual inline QString getFile() { return dictFile.fileName(); }
+	virtual QString getFile() const { return dictFile.fileName(); }
 
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *parent=NULL, const char *name=0);
 
