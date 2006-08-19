@@ -14,10 +14,9 @@
 <authorgroup>
 <author>
 <firstname>Jason</firstname>
-<othername></othername>
 <surname>Katz-Brown</surname>
 <affiliation>
-<address><email>jason@katzbrown.com</email></address>
+<address><email>&Jason.Katz-Brown.mail;</email></address>
 </affiliation>
 </author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
@@ -127,8 +126,8 @@ disabled by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
 Kiten...</guimenuitem></menuchoice>, and then choosing the
 <guilabel>Searching</guilabel> item on the list on the left. The
-options can be enabled by checking the checkboxes and disabled by
-unchecking the checkboxes on this page. These options are global and
+options can be enabled by checking the check boxes and disabled by
+unchecking the check boxes on this page. These options are global and
 affect all searches.</para>
 
 </sect2>
@@ -352,7 +351,7 @@ your Learning List.</para>
 
 <tip><para>If you want the Learn window to open every time you start
 up &kiten;, check the <guilabel>Start Learn on Kiten
-startup</guilabel> checkbox in the <guilabel>Learn</guilabel> section
+startup</guilabel> check box in the <guilabel>Learn</guilabel> section
 of the configuration dialog, which can be opened by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
 Kiten...</guimenuitem></menuchoice>.</para></tip>
@@ -483,25 +482,25 @@ given for you to guess on.</para>
 <chapter id="credits-and-license">
 <title>Credits and Licenses</title>
 
-<para>&kiten; copyright 2001, 2002 Jason Katz-Brown</para>
+<para>&kiten; copyright 2001, 2002 &Jason.Katz-Brown;</para>
 
 <itemizedlist>
 <title>Developers</title>
 <listitem>
-<para>Jason Katz-Brown <email>jason@katzbrown.com</email></para>
+<para>&Jason.Katz-Brown; <email>&Jason.Katz-Brown.mail;</email></para>
 </listitem>
 <listitem>
-<para>Neil Stevens <email>neil@qualityassistant.com</email></para>
+<para>&Neil.Stevens; <email>&Neil.Stevens.mail;</email></para>
 </listitem>
 <listitem>
-<para>Jim Breen <email>jwb@csse.monash.edu.au</email> - Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator. Also is main author of edict and kanjidic, which Kiten essentially require.</para>
+<para>Jim Breen <email>jwb@csse.monash.edu.au</email> - Wrote xjdic, of which &kiten; borrows code, and the xjdic index file generator. Also is main author of edict and kanjidic, which &kiten; essentially require.</para>
 </listitem>
 <listitem>
   <para>Paul Temple <email>paul.temple@gmx.net</email> - Port to KConfig XT and bug fixing.</para>
 </listitem>
 </itemizedlist>
 
-<para>Documentation copyright 2002, Jason Katz-Brown</para>
+<para>Documentation copyright 2002, &Jason.Katz-Brown;</para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
