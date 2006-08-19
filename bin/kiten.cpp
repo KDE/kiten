@@ -298,7 +298,9 @@ void kiten::displayResults(EntryList *results)
 		StatusBar->showMessage(noneFound);
 		setCaption(noneFound);
 	}
-	
+	/* sort the results */
+	QStringList fred;
+	results->sort(fred);
 	/* synchronise the results window */
 	mainView->setContents(results->toHTML());
 }

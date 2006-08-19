@@ -121,14 +121,12 @@ public:
 	  the above preferences widget. */
 	virtual void loadSettings(KConfigSkeleton*) {}
 	
-	/** Inline functions to return quick info */
-	virtual inline const QString &getName() const {return dictionaryName;}
-	/** Inline functions to return quick info */
-	virtual inline const QString &getType() const {return dictionaryType;}
-	/** Inline functions to return quick info */
-	virtual inline const QString &getFile() const {return dictionaryFile;}
+	/** Basic functions to return quick info */
+	virtual QString getName() const {return dictionaryName;}
+	virtual QString getType() const {return dictionaryType;}
+	virtual QString getFile() const {return dictionaryFile;}
 	/** Fetch a list of searchable attributes and their codes */
-	virtual inline const QMap<QString,QString> &getSearchableAttributes() const 
+	virtual QMap<QString,QString> getSearchableAttributes() const 
 													{return searchableAttributes;}
 protected:
 	/** Name is the 'primary key' of the list of dictionaries. You will want to 

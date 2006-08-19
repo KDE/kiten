@@ -94,10 +94,24 @@ QString EntryList::toString(Entry::printType type) const {
 
 /* TODO: sorting of Entry objects within the EntryList */
 /** sorts the EntryList.  Should be called after the EntryList is filled. */
-void EntryList::sort(sortType type) {
+void EntryList::sort(QStringList &sortOrder) {
+	QStringList dictionaryOrder;
+	dictionaryOrder<<"kanjidic"<<"edict";
+	sort(sortOrder, dictionaryOrder);
 }
 
-void EntryList::sort(QStringList dictionaryOrder, sortType type) {
+static QStringList *s_temp_dictionary_order;
+static QStringList *s_temp_sort_order;
+
+bool sort_callback(const Entry *n1, const Entry *n2) {
+	return n1->sort(*n2,*s_temp_dictionary_order,*s_temp_sort_order);
+}
+
+void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder) {
+	s_temp_dictionary_order = &dictionaryOrder;
+	s_temp_sort_order = &sortOrder;
+
+	qSort(this->begin(),this->end(),sort_callback);
 }
 
 /** displays an HTML version of the "no results" message */
@@ -355,4 +369,30 @@ bool Entry::listMatch(const QString &list, const QStringList &test) const {
 		if(!list.contains(*it))
 			return false;
 	return true;
+}
+
+/* This version of sort only sorts dictionaries...
+	This is a replacement for a operator< function... so we return true if
+	"this" should show up first on the list. */
+bool Entry::sort(const Entry &that, const QStringList &dictOrder, 
+		const QStringList &fields) const {
+	if(this->sourceDict != that.sourceDict) {
+		foreach(QString dict, dictOrder) {
+			if(dict == that.sourceDict)
+				return false;
+			if(dict == this->sourceDict)
+				return true;
+		}
+	} else {
+		foreach(QString field, fields) {
+			if(this->getExtendedInfoItem(field) != 
+					that.getExtendedInfoItem(field))
+				return this->sortByField(that,field);
+		}
+	}
+	return false; //If we reach here, they match as much as possible
+}
+
+bool Entry::sortByField(const Entry &that, const QString field) const {
+	return this->getExtendedInfoItem(field) < that.getExtendedInfoItem(field);
 }

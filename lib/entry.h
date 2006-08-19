@@ -36,8 +36,6 @@ class QString;
 class dictFile;
 class dictQuery;
 
-
-
 class LIBKITEN_EXPORT Entry {
 public:
 	/** Default constructor, should not be used */
@@ -89,6 +87,11 @@ public:
 		to dictionaries on disk at some point. */
 	virtual bool loadEntry(const QString &entryLine) = 0;
 	virtual QString dumpEntry() const = 0;
+
+	/* This is needed for sorting */
+	virtual bool sort(const Entry &, const QStringList &dictionaryList,
+			const QStringList &fieldList) const;
+	virtual bool sortByField(const Entry &that, const QString field) const;
 
 protected:
 	QString sourceDict;
@@ -143,11 +146,8 @@ public:
 	QString toHTML(unsigned int start, unsigned int length,
 			Entry::printType=Entry::printAuto) const;
 	
-	/** An enum to specify the type of sorting to do between two Entry types */
-	typedef enum {sortSimpleAlphabetical=1,sortCommon=2,sortDefault=3}sortType;
-	
-	void sort(sortType tmp=sortDefault);
-	void sort(QStringList dictionaryOrder, sortType=sortSimpleAlphabetical);
+	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
+	void sort(QStringList &sortOrder);
 
 	const EntryList& operator+=(const EntryList &other);
 	void appendList(const EntryList *);
@@ -155,9 +155,8 @@ public:
 	void setQuery(const dictQuery&);
 
 protected:
-//	int compareItems(Q3PtrCollection::Item, Q3PtrCollection::Item) { return 0;}
-
 	dictQuery query;
+
 private: //Utility Methods
 	inline QString noResultsHTML();
 };

@@ -23,8 +23,6 @@ install( TARGETS kiten DESTINATION ${LIB_INSTALL_DIR} )
 install( FILES 
 		dictQuery.h 
 		entry.h				dictionary.h
-		entryEdict.h 		dictFileEdict.h 
-		entryKanjidic.h 	dictFileKanjidic.h 
 		historyPtrList.h 
 		kromajiedit.h
 		kitenEdit.h
