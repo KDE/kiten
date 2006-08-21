@@ -43,6 +43,8 @@
 
 //The dictionary file selector widget
 #include "configdictionaryselector.h"
+//The sorting selection widget
+#include "configsortingpage.h"
 //To get the list of dictionary Types and to interface with dictType objects
 #include "dictionary.h"
 
@@ -69,6 +71,9 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	addPage(widget, i18n("Font"), "fonts");
 	
 	addPage(makeDictionaryPreferencesPage(0,config),i18n("Display"),"indent");
+
+	addPage(makeSortingPage(0,config),i18n("Results Sorting"), "indent");
+
 	hasChangedMarker = false;
 
 	connect(this,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(settingsChanged()));
@@ -117,6 +122,18 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 		tabWidget->addTab(newTab,dict);
 	}
 	return tabWidget;
+}
+
+QWidget *ConfigureDialog::makeSortingPage
+	(QWidget *parent, KitenConfigSkeleton *config) {
+	ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
+	
+	connect(newPage, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
+	connect(this, SIGNAL(SIG_updateWidgets()), newPage, SLOT(updateWidgets()));
+	connect(this, SIGNAL(SIG_updateWidgetsDefault()), newPage, SLOT(updateWidgetsDefault()));
+	connect(this, SIGNAL(SIG_updateSettings()), newPage, SLOT(updateSettings()));
+	
+	return newPage;	
 }
 
 void ConfigureDialog::updateButtons() {

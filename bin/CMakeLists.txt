@@ -2,15 +2,17 @@
 set(kiten_bin_SRCS 
 	main.cpp
 	kiten.cpp
-	configdictionaryselector.cpp
-	configuredialog.cpp
 	resultsView.cpp
+	configuredialog.cpp
+	configdictionaryselector.cpp
+	configsortingpage.cpp
 	)
 kde4_add_ui_files(kiten_bin_SRCS 
 	configsearching.ui
 	configlearn.ui
 	configfont.ui
 	configdictselect.ui
+	configsorting.ui
 	)
 kde4_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
 kde4_automoc(${kiten_bin_SRCS})

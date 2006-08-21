@@ -92,14 +92,7 @@ QString EntryList::toString(Entry::printType type) const {
 	return toString(0,count(),type);
 }
 
-/* TODO: sorting of Entry objects within the EntryList */
 /** sorts the EntryList.  Should be called after the EntryList is filled. */
-void EntryList::sort(QStringList &sortOrder) {
-	QStringList dictionaryOrder;
-	dictionaryOrder<<"kanjidic"<<"edict";
-	sort(sortOrder, dictionaryOrder);
-}
-
 static QStringList *s_temp_dictionary_order;
 static QStringList *s_temp_sort_order;
 

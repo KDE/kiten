@@ -67,43 +67,21 @@
       <default>false</default>
     </entry>
   </group>
-  <group name="Radical Searching">
-    <entry key="Hotlist" type="StringList">
-      <label>Recent used radicals</label>
-    </entry>
-    <entry key="Search By Total" type="Bool">
-      <label>Search by total strokes</label>
-      <default>false</default>
-    </entry>
-    <entry key="Strokes" type="Int">
-      <default>1</default>
-    </entry>
-    <entry key="Total Strokes" type="Int">
-      <default>1</default>
-    </entry>
-    <entry key="Total Strokes Error Margin" type="Int">
-      <default>0</default>
-    </entry>
+  <group name="Sorting">
+    <entry key="dictionary_enable" type="String"></entry>
+	 <entry key="dictionary_sortlist" type="StringList"></entry>
+	 <entry key="field_sortlist" type="StringList"></entry>
   </group>
   <group name="Font">
-    <entry key="font" type="Font">
-    </entry>
-    <entry key="listview_mainentry_font" type="Font">
-    </entry>
-    <entry key="listview_readings_font" type="Font">
-    </entry>
-    <entry key="listview_meanings_font" type="Font">
-    </entry>
-    <entry key="listview_extended_font" type="Font">
-    </entry>
-    <entry key="fullview_mainentry_font" type="Font">
-    </entry>
-    <entry key="fullview_readings_font" type="Font">
-    </entry>
-    <entry key="fullview_meanings_font" type="Font">
-    </entry>
-    <entry key="fullview_extended_font" type="Font">
-	 </entry>
+    <entry key="font" type="Font"></entry>
+    <entry key="listview_mainentry_font" type="Font"></entry>
+    <entry key="listview_readings_font" type="Font"></entry>
+    <entry key="listview_meanings_font" type="Font"></entry>
+    <entry key="listview_extended_font" type="Font"></entry>
+    <entry key="fullview_mainentry_font" type="Font"></entry>
+    <entry key="fullview_readings_font" type="Font"></entry>
+    <entry key="fullview_meanings_font" type="Font"></entry>
+    <entry key="fullview_extended_font" type="Font"></entry>
   </group>
   <group name="Learn">
     <entry key="Guess On" type="Int">

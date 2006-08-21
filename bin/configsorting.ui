@@ -1,0 +1,64 @@
+<ui version="4.0" stdsetdef="1" >
+  <author>Joseph Kerian (C) 2006</author>
+  <comment>License is GPL</comment>
+  <exportmacro></exportmacro>
+  <class>configSorting</class>
+  <widget class="QWidget" name="configSorting" >
+    <property name="geometry" >
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>497</width>
+        <height>381</height>
+      </rect>
+    </property>
+    <property name="windowTitle" >
+      <string>sorting</string>
+    </property>
+    <layout class="QVBoxLayout" >
+      <item>
+        <widget class="QCheckBox" name="kcfg_dictionary_enable" >
+          <property name="text" >
+            <string>Sort Se&amp;arch Results By Dictionary</string>
+          </property>
+          <property name="shortcut" >
+            <string>Alt+A</string>
+          </property>
+        </widget>
+      </item>
+      <item>
+        <widget class="KActionSelector" name="dictionary_order" >
+          <property name="availableLabel" >
+            <string>Dicti&amp;onaries Available:</string>
+          </property>
+          <property name="selectedLabel" >
+            <string>Displa&amp;y First:</string>
+          </property>
+        </widget>
+      </item>
+      <item>
+        <widget class="Line" name="seperator" >
+          <property name="frameShape" >
+            <enum>QFrame::HLine</enum>
+          </property>
+          <property name="frameShadow" >
+            <enum>QFrame::Sunken</enum>
+          </property>
+        </widget>
+      </item>
+      <item>
+        <widget class="KActionSelector" name="field_order" >
+          <property name="availableLabel" >
+            <string>Fields to Sort &amp;By:</string>
+          </property>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11" />
+  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+  <includes>
+    <include location="local" >kactionselector.h</include>
+    <include location="local" >kactionselector.h</include>
+  </includes>
+</ui>

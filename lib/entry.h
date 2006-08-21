@@ -147,7 +147,6 @@ public:
 			Entry::printType=Entry::printAuto) const;
 	
 	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
-	void sort(QStringList &sortOrder);
 
 	const EntryList& operator+=(const EntryList &other);
 	void appendList(const EntryList *);

@@ -299,8 +299,11 @@ void kiten::displayResults(EntryList *results)
 		setCaption(noneFound);
 	}
 	/* sort the results */
-	QStringList fred;
-	results->sort(fred);
+	QStringList dictSort;
+	QStringList fieldSort = config->field_sortlist();
+	if(config->dictionary_enable()=="true")
+		dictSort = config->dictionary_sortlist();
+	results->sort(fieldSort,dictSort);
 	/* synchronise the results window */
 	mainView->setContents(results->toHTML());
 }
