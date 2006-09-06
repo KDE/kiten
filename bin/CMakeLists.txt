@@ -19,7 +19,7 @@ kde4_automoc(${kiten_bin_SRCS})
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
 set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
-target_link_libraries(kiten_bin ${KDE4_KDEUI_LIBS} ${KDE4_KDEPRINT_LIBS} kiten)
+target_link_libraries(kiten_bin ${KDE4_KDEPRINT_LIBS} kiten)
 
 install( TARGETS kiten_bin DESTINATION ${BIN_INSTALL_DIR} )
 
