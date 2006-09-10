@@ -41,6 +41,10 @@ ConfigSortingPage::ConfigSortingPage
 
 	dictNames = dictionary::listDictFileTypes();
 
+	fields.append("Word/Kanji");
+	fields.append("Meaning");
+	fields.append("Reading");
+
 	foreach(QString dict, dictNames) {
 		dictFile *tempDict = dictionary::makeDictFile(dict);
 		QStringList newestFields = tempDict->getSearchableAttributes().keys();

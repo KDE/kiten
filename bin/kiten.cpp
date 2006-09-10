@@ -173,10 +173,9 @@ void kiten::finishInit()
 	
 	// if it's the application's first time starting, 
 	// the app group won't exist and we show demo
-	if (!kapp->sessionConfig()->hasGroup("app"))
-	{
-		searchTextAndRaise(QString::fromUtf8("辞書"));
-	}
+	if (config->initialSearch())
+		if (!kapp->sessionConfig()->hasGroup("app"))
+			searchTextAndRaise(QString::fromUtf8("辞書"));
 
 //	Edit->Completion()->clear(); // make sure the edit is focused initially
 	StatusBar->showMessage(i18n("Welcome to Kiten"));

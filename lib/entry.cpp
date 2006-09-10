@@ -92,19 +92,22 @@ QString EntryList::toString(Entry::printType type) const {
 	return toString(0,count(),type);
 }
 
-/** sorts the EntryList.  Should be called after the EntryList is filled. */
-static QStringList *s_temp_dictionary_order;
-static QStringList *s_temp_sort_order;
-
-bool sort_callback(const Entry *n1, const Entry *n2) {
-	return n1->sort(*n2,*s_temp_dictionary_order,*s_temp_sort_order);
-}
+/** sorts the EntryList in a C++ish, thread-safe manner. */
+class sortFunctor {
+	public:
+		QStringList *dictionary_order;
+		QStringList *sort_order;
+		bool operator() (const Entry *n1, const Entry *n2) const {
+			return n1->sort(*n2,*dictionary_order,*sort_order);
+		}
+};
 
 void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder) {
-	s_temp_dictionary_order = &dictionaryOrder;
-	s_temp_sort_order = &sortOrder;
+	sortFunctor sorter;
+	sorter.dictionary_order = &dictionaryOrder;
+	sorter.sort_order = &sortOrder;
 
-	qSort(this->begin(),this->end(),sort_callback);
+	qSort(this->begin(),this->end(),sorter);
 }
 
 /** displays an HTML version of the "no results" message */

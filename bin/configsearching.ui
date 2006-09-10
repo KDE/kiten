@@ -1,60 +1,75 @@
-<ui version="4.0" stdsetdef="1" >
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>ConfigSearching</class>
-  <widget class="QWidget" name="ConfigSearching" >
-    <property name="geometry" >
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>401</width>
-        <height>348</height>
-      </rect>
-    </property>
-    <property name="windowTitle" >
-      <string>Searching</string>
-    </property>
-    <layout class="QHBoxLayout" >
-      <item>
-        <layout class="QVBoxLayout" >
-          <property name="margin" >
-            <number>0</number>
-          </property>
-          <item>
-            <widget class="QCheckBox" name="kcfg_caseSensitive" >
-              <property name="text" >
-                <string>Case sensitive searches</string>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <widget class="QCheckBox" name="kcfg_wholeWord" >
-              <property name="text" >
-                <string>Match only whole english word</string>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <spacer name="spacer5" >
-              <property name="sizeHint" >
-                <size>
-                  <width>20</width>
-                  <height>40</height>
-                </size>
-              </property>
-              <property name="sizeType" >
-                <enum>Expanding</enum>
-              </property>
-              <property name="orientation" >
-                <enum>Vertical</enum>
-              </property>
-            </spacer>
-          </item>
-        </layout>
-      </item>
+<ui version="4.0" >
+ <class>ConfigSearching</class>
+ <widget class="QWidget" name="ConfigSearching" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>401</width>
+    <height>348</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Searching</string>
+  </property>
+  <layout class="QHBoxLayout" >
+   <property name="margin" >
+    <number>11</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="kcfg_caseSensitive" >
+       <property name="text" >
+        <string>Case sensitive searches</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="kcfg_wholeWord" >
+       <property name="text" >
+        <string>Match only whole english word</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="kcfg_initialSearch" >
+       <property name="text" >
+        <string>Search for "jiten" on startup</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11" />
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <resources/>
+ <connections/>
 </ui>

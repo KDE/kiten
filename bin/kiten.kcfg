@@ -58,7 +58,11 @@
   </group>
 
   <group name="Searching Options">
-    <entry key="wholeWord" type="Bool">
+    <entry key="initialSearch" type="Bool">
+      <label>Do we search for "jiten" on startup</label>
+      <default>true</default>
+    </entry>
+     <entry key="wholeWord" type="Bool">
       <label>Match only whole English word</label>
       <default>true</default>
     </entry>
