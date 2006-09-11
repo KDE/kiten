@@ -19,9 +19,10 @@
 
 
 #include "radselect.h"
-#include "radselectpref.h"
 #include "kromajiedit.h"
 #include "kitenEdit.h"
+#include "radselectconfig.h"
+#include "ui_radselectprefdialog.h"
 
 #include <qpainter.h>
 #include <QDragEnterEvent>
@@ -35,6 +36,7 @@
 #include <kio/netaccess.h>
 #include <kfiledialog.h>
 #include <kconfig.h>
+#include <kconfigdialog.h>
 
 #include <kstdaccel.h>
 #include <kaction.h>
@@ -136,12 +138,15 @@ void radselect::dropEvent(QDropEvent *event)
 
 void radselect::optionsPreferences()
 {
-    // popup some sort of preference dialog, here
-    radselectPreferences dlg;
-    if (dlg.exec())
-    {
-        // redo your settings
-    }
+	if(KConfigDialog::showDialog("settings"))
+		return;
+	KConfigDialog *dialog = new KConfigDialog(this,"settings", radselectConfigSkeleton::self());
+	QWidget *preferences = new QWidget();
+	Ui::radselectprefdialog layout;
+	layout.setupUi(preferences);
+	dialog->addPage(preferences, i18n("Settings"),"contents");
+	connect(dialog,SIGNAL(settingsChanged(const QString&)), m_view, SLOT(loadSettings()));
+	dialog->show();
 }
 
 void radselect::changeStatusbar(const QString& text)

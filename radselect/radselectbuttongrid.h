@@ -68,6 +68,7 @@ signals:
 public slots:
 	/** Reset all buttons to the up and uncolored state */
 	void clearSelections();
+	void setFont(const QFont&);
 
 private: //private functions we need
 	bool loadRadicalFile();  		// Reads the data from the radkfile
@@ -78,6 +79,7 @@ private: //Private variables
 	static const unsigned int number_of_radical_columns = 11;
 				//Higher stroke counts are bunched together
 	QHash<QString,Radical*> radicals; 
+	QHash<QString,radicalButton*> buttons;
 
 };
 

@@ -421,12 +421,5 @@
   <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
   <includes>
     <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
-    <include location="local" >kfontrequester.h</include>
   </includes>
 </ui>

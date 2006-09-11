@@ -1,0 +1,85 @@
+<ui version="4.0" stdsetdef="1" >
+  <author>Joseph Kerian (jkerian@gmail.com), Copyright 2006</author>
+  <comment>License: GPLv2</comment>
+  <exportmacro></exportmacro>
+  <class>radselectprefdialog</class>
+  <widget class="QWidget" name="radselectprefdialog" >
+    <property name="geometry" >
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>560</width>
+        <height>466</height>
+      </rect>
+    </property>
+    <property name="windowTitle" >
+      <string>Preferences</string>
+    </property>
+    <layout class="QVBoxLayout" >
+      <property name="margin" >
+        <number>0</number>
+      </property>
+      <item>
+        <widget class="QCheckBox" name="kcfg_closeOnSearch" >
+          <property name="text">
+            <string>Close radselect when you press search</string>
+          </property>
+        </widget>
+      </item>
+      <item>
+        <layout class="QHBoxLayout" >
+          <property name="margin" >
+             <number>0</number>
+          </property>
+          <item>
+             <widget class="QLabel" name="fontSize_label" >
+                <property name="text" >
+                  <string>Button Font:</string>
+                </property>
+                <property name="toolTip" stdset="0" >
+                  <string>The font for the main kanji/kana entry in list view</string>
+                </property>
+                <property name="whatsThis" stdset="0" >
+                  <string>Use this to adjust the button font</string>
+                </property>
+             </widget>
+          </item>
+          <item>
+             <widget class="KFontRequester" name="kcfg_font" >
+                <property name="sampleText" >
+                  <string>漢字 かな</string>
+                </property>
+                <property name="toolTip" stdset="0" >
+                  <string>The font for the main kanji/kana entry in list view</string>
+                </property>
+                <property name="whatsThis" stdset="0" >
+                  <string>Use this to adjust the button font</string>
+                </property>
+             </widget>
+          </item>
+        </layout>
+      </item>
+		<item>
+		  <spacer name="spacer" >
+		    <property name="sizeHint" >
+			   <size>
+				  <width>20</width>
+				  <height>20</height>
+				</size>
+          </property>
+		    <property name="sizeType" >
+			   <enum>Expanding</enum>
+		    </property>
+			 <property name="orientation" >
+			   <enum>Vertical</enum>
+			 </property>
+		  </spacer>
+		</item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11" />
+  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+  <includes>
+    <include location="local" >kfontrequester.h</include>
+  </includes>
+</ui>

@@ -18,25 +18,11 @@
 */
 
 
-/*  TODO:
-*	Double check that I need to subclass the QPushButton
-*	Ditch some of this massive pile of includes, investigate KDE classes
-*	Add an alternate stroke setup (setable in preferences)
-*	Add preferences hooks
-		radical files
-		FONTS!!!
-*	Clean up alot of the layout code (both: radical list & main)
-
+/* 
     Future Plans:
 *	Design a custom QGridLayout to rearrange buttons dynamically to resize
 *	Make radical search list a two/three column field with delete button
 *	Design multiple radical file handling
-*	Build a proper exception handling framework
-*	Icon set for properly displayed radicals
-*	Radical Decomposition, and associated interface
-*	Rebuild most of this file as a ui file, handle any special code in
-		radselect.cpp, and move the smaller classes to their own file.
-
 */
 
 #include "radselectbuttongrid.h"
@@ -55,6 +41,8 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
+
+#include <kdebug.h>
 
 radselectButtonGrid::radselectButtonGrid(QWidget *parent)
     : QWidget(parent)
@@ -134,12 +122,30 @@ void radselectButtonGrid::buildRadicalList(QWidget* box)
 				continue; //Skip if this is the wrong column
 
 			radicalButton *button = new radicalButton(*it,box);
+			//Note that this is slightly naughty... since this does not consult
+			//QStyle before setting this. (see QPushButton's sizeHint() for what
+			//one should do, but that looks fugly in this case)
+			QFontMetrics fm = button->fontMetrics();
+			QSize sz = fm.size(Qt::TextShowMnemonic, *it);
+			button->setMinimumSize(sz);
+
 			grid->addWidget(button, row_index++, column_index);
 		
 			//Bind slots/signals for this button
     		connect( button, SIGNAL( leftReleased(const QString&) ), 
 					this, SIGNAL( addRadicalToList(const QString&) ) );
+			//Add this button to our list
+			buttons.insert(*it,button);
 		}
+	}
+}
+
+void radselectButtonGrid::setFont(const QFont &font) {
+	foreach(QPushButton *button, buttons.values()) {
+		button->setFont(font);
+		QFontMetrics fm = button->fontMetrics();
+		QSize sz = fm.size(Qt::TextShowMnemonic, button->text());
+		button->setMinimumSize(sz);
 	}
 }
 

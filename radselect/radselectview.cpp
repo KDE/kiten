@@ -17,13 +17,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-/*  TODO:
-*	Double check that I need to subclass the QPushButton
-*	Add an alternate stroke setup (setable in preferences)
-*	Add preferences hooks
-		radical files
-		FONTS!!!
-
+/* 
     Future Plans:
 *	Design a custom QGridLayout to rearrange buttons dynamically to resize
 *	Make radical search list a two/three column field with delete button
@@ -31,13 +25,11 @@
 *	Build a proper exception handling framework
 *	Icon set for properly displayed radicals
 *	Radical Decomposition, and associated interface
-*	Rebuild most of this file as a ui file, handle any special code in
-		radselect.cpp, and move the smaller classes to their own file.
-
 */
 
 #include "radselectview.h"
 #include "radselectbuttongrid.h"
+#include "radselectconfig.h"
 
 #include <QtCore/QString>
 #include <QtCore/QList>
@@ -54,10 +46,8 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 {
 	setupUi(this);
 	//Configure the scrolling area
-	
-	radselectButtonGrid *buttons = new radselectButtonGrid(this);
-	radical_box->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//	buttons->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+	buttons = new radselectButtonGrid(this);
 	radical_box->setWidget(buttons);
 	radical_box->setWidgetResizable(true);
 
@@ -74,10 +64,16 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	//Connect our search button
    connect( search_button, SIGNAL( clicked() ), this, SLOT(startSearch()));
 
+	loadSettings();
 }
 
 radselectView::~radselectView()
 {
+}
+
+void
+radselectView::loadSettings() {
+	buttons->setFont(radselectConfigSkeleton::self()->font());
 }
 
 

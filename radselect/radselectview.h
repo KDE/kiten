@@ -28,6 +28,7 @@
 class QString;
 class QStringList;
 class QListWidgetItem;
+class radselectButtonGrid;
 
 class radselectView : public QWidget, public Ui::radical_selector
 {
@@ -46,6 +47,7 @@ signals:
 			//this will be emitted when the user pushes "Search"
 
 private slots:
+	void loadSettings();
 	void startSearch();		//Someone has clicked the search button! (uses getSearchInfo)
 	QString getSearchInfo(QString& radicals_result,QString& grade_result,QString& stroke_result);
 			// Grab all the info this widget provides (returns a formatted search string)
@@ -56,6 +58,7 @@ private slots:
 
 private: //Private variables
 	QListWidgetItem *victim; //List item to be deleted from the radical search list
+	radselectButtonGrid *buttons;
 
 };
 
