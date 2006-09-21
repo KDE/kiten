@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=radselect
 Name[x-test]=xxradselectxx
-Exec=kitenradselect %i %m -caption "%c"
+Exec=kitenradselect %i -caption "%c"
 Icon=radselect
 Type=Application
 DocPath=radselect/radselect.html
