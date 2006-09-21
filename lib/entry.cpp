@@ -53,7 +53,7 @@ EntryList::deleteAll() {
 //TODO: Some intelligent decision making regarding when to print what when AutoPrinting is on
 QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printType type) const {
 	unsigned int max = count();
-	if(start > max) return QString::null;
+	if(start > max) return QString();
 	if(start+length > max) length = max-start;
 
 	QString result;
@@ -75,7 +75,7 @@ QString EntryList::toHTML(Entry::printType type) const {
 //different types of searches? 
 QString EntryList::toString(unsigned int start, unsigned int length, Entry::printType type) const {
 	unsigned int max = count();
-	if(start > max) return QString::null;
+	if(start > max) return QString();
 	if(start+length > max) length = max-start;
 
 	QString result;

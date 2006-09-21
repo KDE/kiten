@@ -161,7 +161,7 @@ bool operator<( dictQuery A, dictQuery B) {
 *****************************************************************************/
 const QString dictQuery::toString() const {
 	if(isEmpty())
-		return QString::null;
+		return QString();
 
 	QString reply;
 	foreach( QString it, entryOrder ) {
