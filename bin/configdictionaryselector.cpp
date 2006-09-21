@@ -119,7 +119,7 @@ void ConfigDictionarySelector::addDictSLOT() {
 			item? QFileInfo(item->text(1)).absolutePath().append("/") 
 			: QString::null );
 	QString name = QFileInfo(filename).fileName();
-	if(filename == QString::null)
+	if(filename.isNull())
 		return;
 
 	QStringList newRow(name);
