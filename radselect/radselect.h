@@ -20,9 +20,7 @@
 #ifndef _RADSELECT_H_
 #define _RADSELECT_H_
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <qpointer.h>
 #include <QDragEnterEvent>
