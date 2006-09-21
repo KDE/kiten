@@ -55,7 +55,7 @@ void ConfigDictionarySelector::updateWidgets()
 		names = item->property().toStringList();
 
 	foreach(QString it, names) {
-		QString name = dictName + "_" + it;
+		QString name = dictName + '_' + it;
 		if (!config->findItem(name))
 			config->addItem(new KConfigSkeleton::ItemString(dictName, it, *new QString()), name);
 			//Don't touch the *new QString()... that's a reference for a reason... stupid KDE
@@ -64,7 +64,7 @@ void ConfigDictionarySelector::updateWidgets()
 	fileList->clear();
 	foreach(QString it, names) {
 		QStringList newRow = QStringList(it);
-		newRow << config->findItem(dictName+"_"+it)->property().toString();
+		newRow << config->findItem(dictName+'_'+it)->property().toString();
 		(void) new QTreeWidgetItem(fileList, newRow);
 	}
 }
@@ -79,7 +79,7 @@ void ConfigDictionarySelector::updateSettings()
 		QTreeWidgetItem *it = fileList->topLevelItem(i);
 		names.append(it->text(0));
 
-		QString name = dictName + "_" + it->text(0);
+		QString name = dictName + '_' + it->text(0);
 		KConfigSkeletonItem* item = config->findItem(name);
 		if (!item)
 		{

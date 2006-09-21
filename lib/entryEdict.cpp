@@ -32,9 +32,9 @@ QString EntryEDICT::toBriefHTML() const
 	
 	foreach(QString field, QSTRINGLISTCHECK(dictFileEdict::displayFieldsList)) {
 		if(field == "--NewLine--")			result += "<br>";
-		else if(field == "Word/Kanji")	result += HTMLWord()+" ";
-		else if(field == "Meaning")		result += HTMLMeanings()+" ";
-		else if(field == "Reading")		result += HTMLReadings()+" ";
+		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
+		else if(field == "Meaning")		result += HTMLMeanings()+' ';
+		else if(field == "Reading")		result += HTMLReadings()+' ';
 	}
 	result += "</div>";
 	return result;
@@ -113,7 +113,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 inline QString EntryEDICT::dumpEntry() const
 {
 	return Word + 
-		((Readings.count() == 0) ? " " : " [" + Readings.first() + "] ") 
-		+ "/" + Meanings.join("/") + "/";
+		((Readings.count() == 0) ? ' ' : " [" + Readings.first() + "] ")
+		+ '/' + Meanings.join('/') + '/';
 }
 

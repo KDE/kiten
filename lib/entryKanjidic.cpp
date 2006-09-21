@@ -35,10 +35,10 @@ QString EntryKanjidic::toBriefHTML() const
 	foreach(QString field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
 		kDebug() << "Display: "<<field <<endl;
 		if(field == "--NewLine--")			result += "<br>";
-		else if(field == "Word/Kanji")	result += HTMLWord()+" ";
-		else if(field == "Meaning")		result += HTMLMeanings()+" ";
-		else if(field == "Reading")		result += HTMLReadings()+" ";
-		else if(ExtendedInfo.contains(field))	result+=HTMLExtendedInfo(field) + " ";
+		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
+		else if(field == "Meaning")		result += HTMLMeanings()+' ';
+		else if(field == "Reading")		result += HTMLReadings()+' ';
+		else if(ExtendedInfo.contains(field))	result+=HTMLExtendedInfo(field) + ' ';
 	}
 	result += "</div>";
 	return result;
@@ -246,7 +246,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					/* The Kanji Dictionary number, we need the current ichar. */
 					LOADSTRING(curString)
 				}
-				ExtendedInfo.insert("I" + QString(ichar), curString);
+				ExtendedInfo.insert('I' + QString(ichar), curString);
 				break;
 			case 'M':
 				/* index and page numbers for Morohashi's Daikanwajiten 2 fields possible */
@@ -261,13 +261,13 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					LOADSTRING(curString)
 					/* page number in volume.page format */
 				}
-				ExtendedInfo.insert("M" + QString(ichar), curString);
+				ExtendedInfo.insert('M' + QString(ichar), curString);
 				break;
 			case 'S':
 				/* stroke count: may be multiple.  In that case, first is actual, others common
 					miscounts */
 				i++;
-				if(!ExtendedInfo.contains("S"))
+				if(!ExtendedInfo.contains('S'))
 				{
 					LOADSTRING(curString)
 					ExtendedInfo.insert(QString(ichar), curString);
@@ -275,14 +275,14 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				else
 				{
 					LOADSTRING(curString)
-					ExtendedInfo.insert("_" + QString(ichar), curString);
+					ExtendedInfo.insert('_' + QString(ichar), curString);
 				}
 				break;
 			case 'D':
 				/* dictionary codes */
 				INCI
 				LOADSTRING(curString)
-				ExtendedInfo.insert("D" + QString(ichar), curString);
+				ExtendedInfo.insert('D' + QString(ichar), curString);
 				break;
 			case '{':
 				/* This should be starting with the first '{' character of a meaning section.
@@ -350,7 +350,7 @@ QString EntryKanjidic::dumpEntry() const
 	QString dumpExtendedInfo;
 	QHash<QString,QString>::const_iterator it;
 	for(it=ExtendedInfo.constBegin() ; it != ExtendedInfo.constEnd(); ++it)
-		dumpExtendedInfo += " " + it.key() + it.value();
+		dumpExtendedInfo += ' ' + it.key() + it.value();
 	
-	return Word + " " + Readings.join(" ") + dumpExtendedInfo;
+	return Word + ' ' + Readings.join(' ') + dumpExtendedInfo;
 }
