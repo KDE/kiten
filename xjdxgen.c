@@ -27,7 +27,7 @@
 	Preparing for integration to the rest of the program
 
 	Note that this indexer has been hacked off of Jim Breen's xjdic program, and alot of the
-	things which have been removed were relevent to that program, but not to this one.
+	things which have been removed were relevant to that program, but not to this one.
 	--Joe
 	*/
 
@@ -197,7 +197,7 @@ uint32_t buildIndex(unsigned char *dict, uint32_t dictLength) {
 					/* If this is non-Japanese, and has a 'SPTAGn' tag, generate two indices */
 					if ( currstr[0] == SPTAG)
 					{
-						jindex[indptr] = jindex[indptr-1]+1; /*make a seperate entry pointing to
+						jindex[indptr] = jindex[indptr-1]+1; /*make a separate entry pointing to
 																			the non-SPTAG'd entry (the next byte)*/
 						strcpy(currstr,currstr+1); 			 /*overwrites the SPTAG marker*/
 						indptr++;

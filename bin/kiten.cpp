@@ -255,7 +255,7 @@ void kiten::searchAndDisplay(const dictQuery &query)
 		requested dictionaries */
 	EntryList *results = dictionaryManager.doSearch(query);
 	
-	/* synchronise the history (and store this pointer there) */
+	/* synchronize the history (and store this pointer there) */
 	addHistory(results);
 	
 	/* Add the current search to our drop down list */
@@ -282,7 +282,7 @@ void kiten::searchInResults()
     to put the interface into an appropriate state for those searchResults */
 void kiten::displayResults(EntryList *results)
 {
-	/* synchronise the statusbar */
+	/* synchronize the statusbar */
 	if(results->count() > 0)
 	{
 		QString str;
@@ -303,7 +303,7 @@ void kiten::displayResults(EntryList *results)
 	if(config->dictionary_enable()=="true")
 		dictSort = config->dictionary_sortlist();
 	results->sort(fieldSort,dictSort);
-	/* synchronise the results window */
+	/* synchronize the results window */
 	mainView->setContents(results->toHTML());
 }
 
@@ -453,7 +453,7 @@ void kiten::print()
 /** given one Search Result, it addes it to the history list the logic in it
    exists to maintain the history list of a certain size.  Note that this method
    does not display the EntryList it is given... so you can add something to the
-   history and display it seperately. */
+   history and display it separately. */
 void kiten::addHistory(EntryList *result)
 {
 	historyList.addItem(result);

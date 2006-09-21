@@ -64,12 +64,12 @@ dictQuery::~dictQuery()
 bool dictQuery::isEmpty() const {
 //We're only empty if the two strings are empty too
 	return QHash<QString,QString>::isEmpty() && meaning.isEmpty()
-		&& pronounciation.isEmpty() && word.isEmpty();
+		&& pronunciation.isEmpty() && word.isEmpty();
 }
 void dictQuery::clear() {
 	QHash<QString,QString>::clear();
 	meaning="";
-	pronounciation="";
+	pronunciation="";
 	word="";
 	entryOrder.clear();
 }
@@ -88,7 +88,7 @@ dictQuery &dictQuery::operator=(const dictQuery &d) {
 		QHash<QString,QString>::insert( it.key(),it.value() );
 	}
 	meaning=d.meaning;
-	pronounciation=d.pronounciation;
+	pronunciation=d.pronunciation;
 	word = d.word;
 	entryOrder = d.entryOrder;
 	return *this;
@@ -99,7 +99,7 @@ dictQuery &dictQuery::operator+=(const dictQuery &d) {
 }
 
 bool operator==( dictQuery other, dictQuery query ) {
-	if( (other.pronounciation != query.pronounciation)
+	if( (other.pronunciation != query.pronunciation)
 		|| (other.meaning != query.meaning) 
 		|| (other.word != query.word)
 		|| (other.entryOrder != query.entryOrder)
@@ -130,9 +130,9 @@ bool operator<( dictQuery A, dictQuery B) {
 			return false;
 	}
 
-	if(!A.pronounciation.isEmpty()) {
-		QStringList aList = A.pronounciation.split(dictQuery::mainDelimiter);
-		QStringList bList = B.pronounciation.split(dictQuery::mainDelimiter);
+	if(!A.pronunciation.isEmpty()) {
+		QStringList aList = A.pronunciation.split(dictQuery::mainDelimiter);
+		QStringList bList = B.pronunciation.split(dictQuery::mainDelimiter);
 		foreach( QString str, aList )
 			if(bList.contains(str)==0)
 				return false;
@@ -165,8 +165,8 @@ const QString dictQuery::toString() const {
 
 	QString reply;
 	foreach( QString it, entryOrder ) {
-		if(it == pronounciationMarker)
-			reply += pronounciation+mainDelimiter;
+		if(it == pronunciationMarker)
+			reply += pronunciation+mainDelimiter;
 		else if(it == meaningMarker)
 			reply += meaning+mainDelimiter;
 		else if(it == wordMarker)
@@ -202,7 +202,7 @@ dictQuery &dictQuery::operator=(const QString &str) {
 					result.setMeaning(it);
 				break;
 			case dictQuery::strTypeKana :
-				if(result.entryOrder.removeAll(pronounciationMarker)>0)
+				if(result.entryOrder.removeAll(pronunciationMarker)>0)
 					result.setPronounciation(result.getPronounciation() 
 					                                     + mainDelimiter + it );
 				else
@@ -295,7 +295,7 @@ QString dictQuery::getPropertyKeys() const {
 }
 QStringList dictQuery::getPropertyKeysList() const {
 	QStringList copy = entryOrder;
-	copy.removeAll(pronounciationMarker);
+	copy.removeAll(pronunciationMarker);
 	copy.removeAll(meaningMarker);
 	return copy;
 }
@@ -323,7 +323,7 @@ bool dictQuery::removeProperty(const QString &key){
 }
 
 bool dictQuery::insert(const QString& key, const QString& item){
-	if(key==pronounciationMarker || key==meaningMarker |
+	if(key==pronunciationMarker || key==meaningMarker |
 		key.isEmpty() || item.isEmpty())
 #ifdef USING_QUERY_EXCEPTIONS
 		throw invalidQueryException(key+propertySeperator+item);
@@ -337,7 +337,7 @@ bool dictQuery::insert(const QString& key, const QString& item){
 }
 
 bool dictQuery::replace(const QString& key, const QString& item){
-	if(key==pronounciationMarker || key==meaningMarker ||
+	if(key==pronunciationMarker || key==meaningMarker ||
 		key.isEmpty() || item.isEmpty())
 #ifdef USING_QUERY_EXCEPTIONS
 		throw invalidQueryException(key+propertySeperator+item);
@@ -382,7 +382,7 @@ bool dictQuery::setMeaning(const QString &newMeaning) {
 }
 
 QString dictQuery::getPronounciation() const {
-	return pronounciation;
+	return pronunciation;
 }
 
 bool dictQuery::setPronounciation(const QString &newPro) {
@@ -392,9 +392,9 @@ bool dictQuery::setPronounciation(const QString &newPro) {
 #else
 		return false;
 #endif
-	pronounciation=newPro;
-	if(!entryOrder.contains(pronounciationMarker))
-		entryOrder.append(pronounciationMarker);
+	pronunciation=newPro;
+	if(!entryOrder.contains(pronunciationMarker))
+		entryOrder.append(pronunciationMarker);
 	return true;
 }
 
@@ -490,7 +490,7 @@ dictQuery    &dictQuery::operator+=(const char *str) {
 /**************************************************************
 *	Set our constants declared in the class
 **************************************************************/
-const QString dictQuery::pronounciationMarker("__@\\p");
+const QString dictQuery::pronunciationMarker("__@\\p");
 const QString dictQuery::meaningMarker("__@\\m"); 
 const QString dictQuery::wordMarker("_@\\w");
 const QString dictQuery::mainDelimiter(" ");

@@ -84,7 +84,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 	/* EDICT requires at least two '/' marks and a ' ' */
 	if(entryLine.count("/") < 2 || entryLine.at(0)==' ') //KDE4 CHANGE
 	{
-//		kDebug() << "EDICT Parser recieved bad data! : "<<entryLine<<endl;
+//		kDebug() << "EDICT Parser received bad data! : "<<entryLine<<endl;
 		return false;
 	}
 	

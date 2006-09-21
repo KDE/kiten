@@ -95,7 +95,7 @@ public:
 	virtual ~dictFile() {}
 	/** Test to see if a dictionary file is of the proper type */
 	virtual bool validDictionaryFile(const QString filename) = 0; 
-	/** Is this query relevent to this dictionary type? */
+	/** Is this query relevant to this dictionary type? */
 	virtual bool validQuery(const dictQuery &query) = 0;		
 	/** This actually conducts the search. This is usually most of the work */
 	virtual EntryList *doSearch(const dictQuery &query) = 0;	
@@ -143,7 +143,7 @@ protected:
 	/** This MUST BE SET IN THE CONSTRUCTOR. The dictionary class occasionally 
 	 * uses this value and it's important for it to be set at anytime after the
 	 * constructor is called. It also must be unique to the dictionary type. If
-	 * relevent, specify dictionary versions here. */
+	 * relevant, specify dictionary versions here. */
 	QString dictionaryType; 
 	/** This is not currently used, but it will be used to allow the users a list
 	 * of possible search types (probably through a drop down menu) at some point

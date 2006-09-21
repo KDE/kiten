@@ -71,7 +71,7 @@ dictFileEdict::~dictFileEdict() {
   characters. This is not a foolproof scan, but it should be checked before adding
   a new dictionary. 
   Valid EDICT format is considered:
-  <kanji or kana>+ [<kana>] /latin characters & symbols/seperated with slashes/
+  <kanji or kana>+ [<kana>] /latin characters & symbols/separated with slashes/
   Comment lines start with... something... not remembering now.
  */
 bool dictFileEdict::validDictionaryFile(const QString filename) {
@@ -294,7 +294,7 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 		return new EntryList();
 	
 	//Convert the first word of the query to euc for the binary search
-	//TODO: Fix this to search for meaning, pronounciation, then entry
+	//TODO: Fix this to search for meaning, pronunciation, then entry
 	//TODO:If searching for entry... we need to modify the search mechanism
 	//TODO:Right now it fails if we search for more than one Kanji in a row
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");

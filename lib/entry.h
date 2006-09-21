@@ -47,7 +47,7 @@ public:
 	/** A constructor that takes a dictionary and a string to parse. THIS MUST
 	  BE OVERRIDDEN IN EVERY SUBCLASS */
 	Entry(const QString &sourceDictionary, const QString &parse);
-	/** A constructor that includes the basic information, nicely seperated */
+	/** A constructor that includes the basic information, nicely separated */
 	Entry(const QString &sourceDictionary, const QString &word, 
 			const QStringList &readings, const QStringList &meanings);
 	/** A constructor pattern that includes support for the extended info QDict (copied) */

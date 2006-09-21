@@ -107,7 +107,7 @@ void radselectButtonGrid::buildRadicalList(QWidget* box)
 		grid->addWidget(header,0,i);
 	}
 
-	//Sort through and do each column seperately to naturally setup tab order
+	//Sort through and do each column separately to naturally setup tab order
 	//It's inefficient, but the number of radicals should only be a few hundred
 	for(i=0;i<number_of_radical_columns;i++) {
 		int row_index = 1; //Reset where we insert the buttons

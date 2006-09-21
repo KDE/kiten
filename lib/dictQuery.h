@@ -66,7 +66,7 @@ public:
 	bool replace(const QString& key, const QString& item);
 	bool remove(const QString& key);
 	QString* take ( const QString & key );
-/* The following QDict methods DO NOT INCLUDE pronounciations/meanings!!!! 
+/* The following QDict methods DO NOT INCLUDE pronunciations/meanings!!!!
 	virtual uint count() const;
 	uint size () const
 	type * find ( const QString & key ) const
@@ -101,7 +101,7 @@ public:
 
 	//Overridden operators evaluate according to a 'set' mentality
 	//dictQueries are equal if they contain the same elements
-	//order is not relevent to these comparisons
+	//order is not relevant to these comparisons
 	friend bool operator==( dictQuery, dictQuery);
 	friend inline bool operator==( QString, dictQuery);
 	friend inline bool operator==( dictQuery, QString);
@@ -134,14 +134,14 @@ public:
 
 protected:	//The QDict itself tracks properties as key->value pairs
 	QString meaning;		//Stores the (presumably english) meaning
-	QString pronounciation;	//Stores the (presumed non-english) prounounciation
+	QString pronunciation;	//Stores the (presumed non-english) pronunciation
 	 QString word;             //The 'key' word (this can potentially contain kanji)
 	QStringList entryOrder;	//Keeps track of the order that things were entered
 	 QStringList targetDictionaries; //Tracks what dictionaries this entry will go into
 	 matchTypeSettings matchType;
 
-	static const QString pronounciationMarker; //Internal markers in entryOrder
-	static const QString meaningMarker;        //For where pronounciation and Meaningfound
+	static const QString pronunciationMarker; //Internal markers in entryOrder
+	static const QString meaningMarker;        //For where pronunciation and Meaningfound
 	 static const QString wordMarker;           // and word
 
 	void init();
