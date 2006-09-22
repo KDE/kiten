@@ -8,11 +8,19 @@ to pass Dict::Index.
   searchKanji and didn't know how to formulate the regexp.  No user of the API
   will.  Dict needs a wrapper that will handle that for the user.
 
+  Joe comments: This need has been fully replaced with the dictionary class to
+  manage interaction between user programs and the dictionary backends. Queries
+  are sent via dictQuery objects to the dictionary manager, and EntryList's are
+  returned.
+
 - get all SearchResults and Entries into one hierarchy.
   jasonkb says: I don't understand ;)
 
   Neil replies: You know how Headers are a hack right now?  I want them not
   to be a hack in Kiten 2.
+
+  Joe comments: I'm with jasonkb on this one... but I suspect that we've
+  already handled this item, via the necessary abstraction of Entries.
 
 - split the two tabs of the learn mode into separate dialogs, or even make
 learn a separate app.
@@ -22,6 +30,12 @@ learn a separate app.
   dictionary, the quizzer, and the XIM server.  (note that the kana lineedit
   will be in the lib)
 
+  Joe comments: The XIM server need is very much handled by other apps at
+  this point, and I consider no longer in the future of kiten. Current focus
+  is on useability as both a simple word-word dictionary and as a kanji
+  dictionary (ala Nelsons).  I would like the quizzer to be offloaded to
+  another app, and a fairly full featured dbus interface made available.
+
 - rewrite the index generator
   jasonkb says: not me :P
 
@@ -29,9 +43,14 @@ learn a separate app.
   to repeated effort, and so shall the generator.  Hey, maybe it won't even
   have to be a separate executible, but just a function under namespace Dict.
 
+  Joe comments: I've reformated and commented the index generator code...
+  it's significantly less scary now. Time will tell whether the index
+  generator will get qt'd first, or the indexes will be replaced by a db.
+
 - move all dialogs to KDialogBase, and have them used by exec()ing them
   jasonkb says: sure
- 
+  Joe responds: wtf? exec? for a dialog?
+
 New TODO:
 Main Sections:
 	Learn Mode Rewrite, IPC Interfaces, Preferences System
@@ -57,25 +76,24 @@ Main Sections:
 				do kitend and libkiten. That would reduce libkiten to just
 				kitend - dcop communication and the ui calls... at which point
 				it seems silly to have two tiny libs
-		Code Files: When all are near stable, seperate directories
+		Code Files: When all are near stable, seperate directories (DONE!)
 			dictquery.cpp		stable	(could use some cleaning/optimizing, but it works)
 			dictionary.cpp		stable	(for current needs, minor feature updates in future)
 			historyPtrList.cpp stable	(Should work fine at this point, two methods untested)
 			deinf.cpp:			stable	(Redone as a simple object... need to make into a dictFile)
-	
+
 			entry.cpp			moderate (needs a bit of fleshing out in entry still)
-			widgets.cpp :		volotile (should this still be divided up)
 			kromajiedit.cpp:	volotile (should mix with widget's EditAction?)
 			dictFileXXXX.cpp	volotile (search needs revisiting, 3-4 methods need writing)
 			entryXXXXXX.cpp   volotile (still some bugs missing features)
-	
+
 Main Interface:
 	Infrastructure for input filters(replace deinflection)
 	Selector for displayed fields, possibly organized like a toolbar configuration
 	Fix "Filter Rare" in results printing.
 	Add pop-ups to the forward/back buttons
 	Highlight search target feature
-	
+
 	Integration with Learn Mode/Targeting vocabulary lists (Add/Add Common/Add All)
 	Eric: Definitely need to add a way to add compounds to learn list when the
 		compound-handling learn list is implemented.
@@ -92,7 +110,7 @@ Main Interface:
 		Learn (or did, anyways)
 
 	Move (X)HTML generation to the EntryList and it further to the Entry
-		
+
 	Add some complex search capabilities (space seperated or symbol seperated)
 		Search Modes: (order doesn't matter)
 			Kanji Mode: <S>? <R>? <G>? <meaning>? <KanaReading>*
@@ -105,7 +123,7 @@ Main Interface:
 			non-modal search?
 		Eric: Guess so :p  A search handled completely by the Dictionary object
 			on its way now.
-		
+
 		Search Options: (spaces after the S/R/G: are allowed)
 			S: X,Y,Z (S can be replaced with "Stroke[s]") searches only those kanji
 				that have strokes within one of the STROKE RANGES X,Y or Z
@@ -122,7 +140,7 @@ Main Interface:
 				kana/kanji: Interpreted according to Search Mode, shown above
 				Multiple pronounciations are considered "AND"d together
 				Eric: So, how about extending this logic to the following:  All
-					non-meaning, non-reading, non-radical fields are extendedKanjiInfo 
+					non-meaning, non-reading, non-radical fields are extendedKanjiInfo
 					fields and are thus prefaced by their key: and are then ANDed
 					together.  (Intersection).  A comma-seperated list would be possible
 					afterwords for OR. (Union).  This leaves a convenience issue for
@@ -135,17 +153,17 @@ Main Interface:
 				Eric: somewhat nullified now by Dicts doing this in themselves,
 					though the general principles of the user entering fields is of
 					course still valid.
-			
+
 		Search Result Sorting:
 			Sort Grade Lists by Grade, then by number within Grade
 			Sort Radical Lists by: Total Radical, Primary Radical, Non-Primary, 
 				Unusual Kanji
 			Eric: Sorting should be done by whatever displays the results.  Where 
 				should that be now?  Perhaps EntryList
-			
+
 			Search Begining/End/Anywhere: Whole results first, followed by partials, Unusual Kanji
 			Eric: a '*' syntax...maybe for next revision?
-			
+
 For Radical Lookup:
 	Completely reconstruct
 	Allow lookup on individual radicals without closing (ctrl-click menu?)
@@ -160,16 +178,16 @@ For Radical Lookup:
 		corresponding stroke count.
 
 	Radical by reading?
-			
+
 Learn Mode:
 	Change interface to add kanji/compounds to list from main search interface.
 	Eric: That is to say modify the current Kanji "Add to list" to make it
 		more usable and add _something_ for the compounds.
-	
+
 	Add capability to have multiple learning lists.
 	This includes the capability to shuffle "selected" kanji between lists
 	Eric: Learn mode is almost ready for a complete rework.
-	
+
 	Be able to generate sequential learning lists, given a list of known kanji
 	The Layered method is either very time intensive, or very memory intensive
 		pick one and try implementing. Provided we limit the lists to containing
@@ -180,17 +198,17 @@ Learn Mode:
 		of an entry is necessary.
 
 	Learn needs to handle the new dictionary system.
-	
+
 	Split into a separate app.  This is the optimal time for a complete rewrite
 		"inspired by learn mode".
 
 	Handle custom dictionaries instead of just learn lists.  So much TODO...
-	
+
 Input/Dictionary Engine:
 	Handle more file formats (fpwing, etc)
 		User Dictionary handling:
 			Just toss edict or kanjidic formatted lines into the dict
-	Rewrite the Indexer in QT/C++.	
+	Rewrite the Indexer in QT/C++.
 
 	In kiten.cpp, add a menu or similar for choosing which dictionaries will be
 		searched more convenient then adding/removing dicts
@@ -228,6 +246,7 @@ Housekeeping:
 
 On the horizon:
 	A "get new dictionary" feature like in khangman
+	Would it be possible to integrate an "update dictionary" feature via anonsvn?
 
 Code Audit:
 	Static Variables (avoid them)... use KStaticDeleter with pointers if needed

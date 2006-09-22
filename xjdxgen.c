@@ -1,7 +1,7 @@
 /**************************************************************************
 *                     X J D X G E N
 *                                                   Author: Jim Breen
-*           Index (.xjdx) generator program fron XJDIC            
+*           Index (.xjdx) generator program fron XJDIC
 *
 *		V2.3 - indexes JIS X 0212 (3-byte EUC) kanji
 ***************************************************************************/
