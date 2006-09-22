@@ -86,6 +86,8 @@ void radselect::setupActions()
     KStdAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
     Edit = new KitenEdit(actionCollection(), this);
+	 KAction *KitenEditAction = new KAction(actionCollection(), "KitenEditWidget");
+	 KitenEditAction->setDefaultWidget(Edit);
 	 
 	 KAction *kac =  new KAction(KIcon(BarIcon("locationbar_erase",16)), 
 			 i18n("&Clear Search Bar"), actionCollection(),"clear_search");
@@ -109,7 +111,7 @@ void radselect::setupActions()
     // automatically save settings if changed: window size, toolbar
     // position, icon size, etc.  Also to add actions for the statusbar
     // toolbar, and keybindings if necessary.
-    setupGUI();
+    setupGUI(Default,"radselectui.rc");
 	 
 }
 

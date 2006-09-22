@@ -33,7 +33,7 @@
 #include <klineedit.h>
 
 #include "radselectview.h"
-#include "dictQuery.h"
+#include "dictQuery.h" //From libkiten
 
 class KitenEdit;
 class KToggleAction;
@@ -54,9 +54,8 @@ public:
     virtual ~radselect();
 
     /**
-     * Use this method to load whatever file/URL you have
+     * This loads a string for a given query into the UI
      */
-//    void load(const char *searchString);
     void loadSearchString(QString searchString);
 
 protected:

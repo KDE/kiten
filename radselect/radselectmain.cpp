@@ -26,50 +26,40 @@
 
 #include <kmessagebox.h>
 
-static const char description[] =
-    I18N_NOOP("A KDE Application");
-
+static const char description[] = I18N_NOOP("A KDE Application");
 static const char version[] = "0.1";
 
 static KCmdLineOptions options[] =
 {
-    { "+[Search_String]", I18N_NOOP( "Initial Search String from Kiten" ), 0 },
-    KCmdLineLastOption
+	{ "+[Search_String]", I18N_NOOP( "Initial Search String from Kiten" ), 0 },
+	KCmdLineLastOption
 };
 
 int main(int argc, char **argv)
 {
-	KAboutData about("radselect", I18N_NOOP("radselect"), version, description,
-    	KAboutData::License_GPL, "(C) 2005 Joseph Kerian", 0, 0, "jkerian@gmail.com");
+	KAboutData about("kitenradselect", I18N_NOOP("kitenradselect"), version,
+			description, KAboutData::License_GPL,
+			"(C) 2005 Joseph Kerian", 0, 0, "jkerian@gmail.com");
 	about.addAuthor( "Joseph Kerian", 0, "jkerian@gmail.com" );
+
 	KCmdLineArgs::init(argc, argv, &about);
 	KCmdLineArgs::addCmdLineOptions(options);
-
 	KApplication app;
 
    // see if we are starting with session management
-   if (app.isSessionRestored())
-   {
-       RESTORE(radselect);
-   }
-   else
-   {
-       // no session.. just start up normally
-       KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+	if (app.isSessionRestored()) {
+		RESTORE(radselect);
+	} else {
+		// no session.. just start up normally
+		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-       radselect *widget = new radselect;
-       widget->show();
+		radselect *widget = new radselect;
+		widget->show();
 
-       if (args->count() != 0)
-       { //We're being passed a search string on the command line
-           int i = 0;
-           for (; i < args->count(); i++)
-           { //Really... there should be only one argument here...
-               widget->loadSearchString(args->arg(i));
-           }
-       }
-       args->clear();
-   }
+		if (args->count() >= 1)
+			widget->loadSearchString(args->arg(0));
+		args->clear();
+	}
 
-   return app.exec();
+	return app.exec();
 }
