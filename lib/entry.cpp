@@ -65,14 +65,14 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	}
 	return result;
 }
-	
+
 QString EntryList::toHTML(Entry::printType type) const {
 	return toHTML(0,count(),type);
 }
 
 /** Returns the EntryList as HTML */
 //TODO: Some intelligent decision making... regarding the output format (differ for
-//different types of searches? 
+//different types of searches?
 QString EntryList::toString(unsigned int start, unsigned int length, Entry::printType type) const {
 	unsigned int max = count();
 	if(start > max) return QString();
@@ -87,7 +87,7 @@ QString EntryList::toString(unsigned int start, unsigned int length, Entry::prin
 	}
 	return result;
 }
-	
+
 QString EntryList::toString(Entry::printType type) const {
 	return toString(0,count(),type);
 }
@@ -342,21 +342,21 @@ bool Entry::matchesQuery(const dictQuery &query) const {
 		if(!listMatch(Meanings.join(" "),
 						query.getMeaning().split(dictQuery::mainDelimiter) ) )
 			return false;
-		
+
 	if(!query.getPronounciation().isEmpty())
 		if(!listMatch(Readings.join(" "),
 					query.getPronounciation().split(dictQuery::mainDelimiter) ) )
 			return false;
-	
-	dictQuery::Iterator it(query);
+
+	dictQuery::Iterator it = query.getPropertyIterator();
 	while(it.hasNext()) {
 		it.next();
 		QString extendedItem = getExtendedInfoItem(it.key());
 		if( extendedItem != it.value() )
 			return false;
 	}
-	return true;	
-	
+	return true;
+
 }
 
 //Returns true if all members of test are in list

@@ -31,7 +31,7 @@
 QString EntryKanjidic::toBriefHTML() const
 {
 	QString result="<div class=\"KanjidicBrief\">";
-	
+
 	foreach(QString field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
 		kDebug() << "Display: "<<field <<endl;
 		if(field == "--NewLine--")			result += "<br>";
@@ -71,24 +71,24 @@ bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
 		if(!listMatch(Meanings.join(" "),
 					query.getMeaning().split(dictQuery::mainDelimiter) ) )
 			return false;
-	
+
 	QString readingsCopy = Readings.join(" ");
-	readingsCopy = readingsCopy.remove(".").remove("-");	
+	readingsCopy = readingsCopy.remove(".").remove("-");
 	kDebug() << readingsCopy << endl;
 	kDebug() << query.getPronounciation() << endl;
 	if(!query.getPronounciation().isEmpty())
 		if(!listMatch(readingsCopy,
 					query.getPronounciation().split(dictQuery::mainDelimiter) ) )
 			return false;
-	
-	dictQuery::Iterator it(query);
+
+	dictQuery::Iterator it = query.getPropertyIterator();
 	while(it.hasNext()) {
 		it.next();
 		if( getExtendedInfoItem(it.key()) != it.value() )
 			return false;
 	}
-	return true;	
-	
+	return true;
+
 }
 
 /** Prepares Readings for output as HTML */
@@ -108,7 +108,7 @@ inline QString EntryKanjidic::HTMLReadings() const
 				htmlReadings += makeReadingLink(it) + outputListDelimiter;
 		}
 	}
-	htmlReadings.truncate(htmlReadings.length() - outputListDelimiter.length()); 
+	htmlReadings.truncate(htmlReadings.length() - outputListDelimiter.length());
 													// get rid of last ,
 
 	return "<span class=\"Readings\">" + htmlReadings
@@ -137,10 +137,10 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 {
 	unsigned int length = entryLine.length();
 
-	/* The loop would be a bit faster if we first grabbed the kanji (2 bytes) and then the 
-		space that follows, etc. for the fixed-space portion of the entries let's try that.  
+	/* The loop would be a bit faster if we first grabbed the kanji (2 bytes) and then the
+		space that follows, etc. for the fixed-space portion of the entries let's try that.
 		First the first 2 bytes are guaranteed to be our kanji.  The 3rd byte is a space.
-	  	The 4th through 7th are an ascii representation of the JIS code.  One more space 
+		The 4th through 7th are an ascii representation of the JIS code.  One more space
 		Currently, kana are not detected so readings are anything that is not otherwise
 		in the 8th position */
 	Word = entryLine.left(1);
@@ -185,8 +185,8 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 		{
 			case ' ':
 				/* as far as I can tell, there is no real rule forcing only 1 space so
-				 	there's not really any significance to them.  This block is not 
-				 	reached in kanjidic itself. */
+					there's not really any significance to them.  This block is not
+					reached in kanjidic itself. */
 				break;
 			case 'B':
 				/* the radical, or busyu, number */
@@ -230,11 +230,11 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				i++;
 				LOADSTRING(curString);
 				ExtendedInfo.insert(QString(ichar), curString);
-				
+
 				break;
 			case 'I':
 				/* index codes for Spahn & Hadamitzky reference books we need the next
-				 	char to know what to do with it. */
+					char to know what to do with it. */
 				INCI
 				if(ichar == 'N')
 				{
@@ -267,7 +267,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				/* stroke count: may be multiple.  In that case, first is actual, others common
 					miscounts */
 				i++;
-				if(!ExtendedInfo.contains('S'))
+				if(!ExtendedInfo.contains("S"))
 				{
 					LOADSTRING(curString)
 					ExtendedInfo.insert(QString(ichar), curString);
@@ -286,7 +286,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				break;
 			case '{':
 				/* This should be starting with the first '{' character of a meaning section.
-				 	Let us get take it to the last. */
+					Let us get take it to the last. */
 				INCI
 				while(ichar != '}')
 				{
@@ -325,20 +325,20 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					Readings.append(curString);
 					break;
 				}
-				/* if it's not a kana reading ... it is something unhandled ... 
-					possibly a new field in kanjidic.  Let's treat it as the 
-					oh-so-common <char><data> type of entry.  It could be hotly 
+				/* if it's not a kana reading ... it is something unhandled ...
+					possibly a new field in kanjidic.  Let's treat it as the
+					oh-so-common <char><data> type of entry.  It could be hotly
 					debated what we should actually do about these. */
 				i++;
 				LOADSTRING(curString);
 				ExtendedInfo.insert(QString(ichar), curString);
-				
+
 				break;
 		}
 	}
 //	kDebug() << "Parsed: '"<<Word<<"' ("<<Readings.join("^")<<") \""<<
 //		Meanings.join("|")<<"\ and " <<ExtendedInfo.keys() << " from :"<<entryLine<<endl;
-	
+
 	return true;
 }
 
@@ -351,6 +351,6 @@ QString EntryKanjidic::dumpEntry() const
 	QHash<QString,QString>::const_iterator it;
 	for(it=ExtendedInfo.constBegin() ; it != ExtendedInfo.constEnd(); ++it)
 		dumpExtendedInfo += ' ' + it.key() + it.value();
-	
-	return Word + ' ' + Readings.join(' ') + dumpExtendedInfo;
+
+	return Word + ' ' + Readings.join(" ") + dumpExtendedInfo;
 }

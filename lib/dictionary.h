@@ -37,7 +37,7 @@ class KConfig;
 class dictFile;
 class dictQuery;
 
-/** The dictionary class is the fundamental dictionary management class. All 
+/** @short The dictionary class is the fundamental dictionary management class. All 
  * interfaces with the rest of the programs using the various dictionaries will
  * work through this "interface class" to keep the formatting and other such 
  * nasty details away from programs and sections which just want to use the 

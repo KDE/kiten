@@ -17,7 +17,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-/* 
+/*
 TODO: Add features to limit the number of hits on a per-search basis.
 
 	Add a mechanism (either through subclassing, or directly) for use
@@ -34,7 +34,7 @@ TODO: Add features to limit the number of hits on a per-search basis.
 
 
 /*****************************************************************************
-*	Constructors, Destructors, Initilizers, and 
+*	Constructors, Destructors, Initilizers, and
 *	Global Status Indicators.
 *****************************************************************************/
 dictQuery::dictQuery() : QHash<QString,QString>()
@@ -75,13 +75,13 @@ void dictQuery::clear() {
 }
 
 /*****************************************************************************
-*	Methods that involve multiple instances of the class 
+*	Methods that involve multiple instances of the class
 *	(comparison, copy etc)
 *****************************************************************************/
 dictQuery &dictQuery::operator=(const dictQuery &d) {
 	if ( &d == this ) return *this;
 	clear();
- 	//Copy the dictionary first
+	//Copy the dictionary first
 	dictQuery::Iterator it(d);
 	while(it.hasNext()) {
 		it.next();
@@ -100,10 +100,10 @@ dictQuery &dictQuery::operator+=(const dictQuery &d) {
 
 bool operator==( dictQuery other, dictQuery query ) {
 	if( (other.pronunciation != query.pronunciation)
-		|| (other.meaning != query.meaning) 
+		|| (other.meaning != query.meaning)
 		|| (other.word != query.word)
 		|| (other.entryOrder != query.entryOrder)
-		|| (other.count() != query.count()) ) 
+		|| (other.count() != query.count()) )
 		return false;
 
 	dictQuery::Iterator it( other );
@@ -137,7 +137,7 @@ bool operator<( dictQuery A, dictQuery B) {
 			if(bList.contains(str)==0)
 				return false;
 	}
-		
+
 	if(!A.meaning.isEmpty()) {
 		QStringList aList = A.meaning.split(dictQuery::mainDelimiter);
 		QStringList bList = B.meaning.split(dictQuery::mainDelimiter);
@@ -145,7 +145,7 @@ bool operator<( dictQuery A, dictQuery B) {
 			if(bList.contains(str)==0)
 				return false;
 	}
-	
+
 	//Assume only one entry for word
 	if(!A.word.isEmpty())
 		if(A.word != B.word)
@@ -157,7 +157,7 @@ bool operator<( dictQuery A, dictQuery B) {
 
 /*****************************************************************************
 *	Methods to extract from QStrings and recreate QStrings
-*	
+*
 *****************************************************************************/
 const QString dictQuery::toString() const {
 	if(isEmpty())
@@ -203,7 +203,7 @@ dictQuery &dictQuery::operator=(const QString &str) {
 				break;
 			case dictQuery::strTypeKana :
 				if(result.entryOrder.removeAll(pronunciationMarker)>0)
-					result.setPronounciation(result.getPronounciation() 
+					result.setPronounciation(result.getPronounciation()
 					                                     + mainDelimiter + it );
 				else
 					result.setPronounciation(it);
@@ -231,12 +231,12 @@ dictQuery &dictQuery::operator=(const QString &str) {
 }
 //Private utility method for the above... confirms that an entire string
 //is either completely japanese or completely english
-dictQuery::stringTypeEnum dictQuery::stringTypeCheck(QString in) {
+dictQuery::stringTypeEnum dictQuery::stringTypeCheck(const QString &in) {
 	stringTypeEnum firstType;
 	//Split into individual characters
 	if(in.size() <= 0)
 		return dictQuery::stringParseError;
-	
+
 	firstType = charTypeCheck(in.at(0));
 	for(int i=1; i<in.size(); i++ ){
 		stringTypeEnum newType = charTypeCheck(in.at(i));
@@ -257,7 +257,7 @@ dictQuery::stringTypeEnum dictQuery::stringTypeCheck(QString in) {
 //Private utility method for the stringTypeCheck
 //Just checks and returns the type of the first character in the string
 //that is passed to it.
-dictQuery::stringTypeEnum dictQuery::charTypeCheck(QChar ch) {
+dictQuery::stringTypeEnum dictQuery::charTypeCheck(const QChar &ch) {
 	if(ch.toLatin1()) {
 		return strTypeLatin;
 	}
@@ -270,18 +270,15 @@ dictQuery::stringTypeEnum dictQuery::charTypeCheck(QChar ch) {
 	return strTypeKanji;
 }
 
-	
-
 /*****************************************************************************
-*	An array of Property List accessors
-*	
+*	An array of Property List accessors and mutators
+*
 *****************************************************************************/
-QString dictQuery::getProperties() const {
-	QStringList copy = getPropertiesList();
-	return copy.join(mainDelimiter);
+QHashIterator<QString,QString> dictQuery::getPropertyIterator() const {
+		QHashIterator<QString,QString> it(*this);
+		return it;
 }
-
-QStringList dictQuery::getPropertiesList() const {
+QStringList dictQuery::getPropertyList() const {
 	QStringList copy = getPropertyKeysList();
 	QStringList result;
 	for ( QStringList::Iterator it = copy.begin(); it != copy.end(); ++it )
@@ -289,10 +286,6 @@ QStringList dictQuery::getPropertiesList() const {
 	return result;
 }
 
-QString dictQuery::getPropertyKeys() const {
-	QStringList copy = getPropertyKeysList();
-	return copy.join(mainDelimiter);
-}
 QStringList dictQuery::getPropertyKeysList() const {
 	QStringList copy = entryOrder;
 	copy.removeAll(pronunciationMarker);
@@ -301,62 +294,36 @@ QStringList dictQuery::getPropertyKeysList() const {
 }
 
 QString dictQuery::getProperty(const QString &key) const {
-	if(!this->contains(key))
-		return QString(QString::null);
-	return this->find(key).value();
+	return (*this)[key];
 }
 
 bool dictQuery::hasProperty(const QString &key) const {
 	return entryOrder.contains(key)>0;
 }
 
-/**************************************************************
-*	Mutators for the Properties (including QDict overrides)
-**************************************************************/
 //TODO: Add i18n handling and alternate versions of property names
+//TODO: further break down the barrier between different types
 bool dictQuery::setProperty(const QString& key,const QString& value) {
-	return replace(key,value);
-}
-
-bool dictQuery::removeProperty(const QString &key){
-	return remove(key);
-}
-
-bool dictQuery::insert(const QString& key, const QString& item){
-	if(key==pronunciationMarker || key==meaningMarker |
-		key.isEmpty() || item.isEmpty())
-#ifdef USING_QUERY_EXCEPTIONS
-		throw invalidQueryException(key+propertySeperator+item);
-#else
-		return false;
-#endif
-	if ( ! QHash<QString,QString>::contains( key ) )
-		entryOrder.append(QString(key));
-	QHash<QString,QString>::insert( key, item );
-	return true;
-}
-
-bool dictQuery::replace(const QString& key, const QString& item){
 	if(key==pronunciationMarker || key==meaningMarker ||
-		key.isEmpty() || item.isEmpty())
+		key.isEmpty() || value.isEmpty())
 #ifdef USING_QUERY_EXCEPTIONS
-		throw invalidQueryException(key+propertySeperator+item);
+		throw invalidQueryException(key+propertySeperator+value);
 #else
 		return false;
 #endif
 	if ( ! QHash<QString,QString>::contains( key ) )
 		entryOrder.append(key);
-	QHash<QString,QString>::insert(key,item);
+	QHash<QString,QString>::insert(key,value);
 	return true;
 }
 
-bool dictQuery::remove(const QString& key) {
+bool dictQuery::removeProperty(const QString &key) {
 	if(QHash<QString,QString>::contains(key))
 		return entryOrder.removeAll(key);
 	return false;
 }
 
-QString* dictQuery::take ( const QString & key ) {
+QString dictQuery::takeProperty ( const QString & key ) {
 	entryOrder.removeAll(key);
 	return take(key);
 }
@@ -461,7 +428,7 @@ inline bool operator>=( dictQuery a, dictQuery b) {
 	return (a>b || a==b);
 }
 inline bool operator>( dictQuery a, dictQuery b) {
-	return b < a; 
+	return b < a;
 }
 dictQuery &operator+( const dictQuery &a, const dictQuery &b) {
 	return (*(new dictQuery(a))) += b;
@@ -491,7 +458,7 @@ dictQuery    &dictQuery::operator+=(const char *str) {
 *	Set our constants declared in the class
 **************************************************************/
 const QString dictQuery::pronunciationMarker("__@\\p");
-const QString dictQuery::meaningMarker("__@\\m"); 
+const QString dictQuery::meaningMarker("__@\\m");
 const QString dictQuery::wordMarker("_@\\w");
 const QString dictQuery::mainDelimiter(" ");
 const QString dictQuery::propertySeperator(":");

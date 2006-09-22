@@ -29,7 +29,7 @@
 QString EntryEDICT::toBriefHTML() const
 {
 	QString result="<div class=\"EDICTBrief\">";
-	
+
 	foreach(QString field, QSTRINGLISTCHECK(dictFileEdict::displayFieldsList)) {
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
@@ -63,7 +63,7 @@ inline QString EntryEDICT::kanjiLinkify(const QString &inString) const
 			outString += inString.at(i);
 		}
 	}
-	
+
 	return outString;
 }
 
@@ -87,7 +87,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 //		kDebug() << "EDICT Parser received bad data! : "<<entryLine<<endl;
 		return false;
 	}
-	
+
 
 	/* Set tempQString to be the reading and word portion of the entryLine */
 	QString tempQString = entryLine.left(entryLine.indexOf('/'));
@@ -112,8 +112,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 /** Regenerate a QString like the one we got in loadEntry() */
 inline QString EntryEDICT::dumpEntry() const
 {
-	return Word + 
-		((Readings.count() == 0) ? ' ' : " [" + Readings.first() + "] ")
-		+ '/' + Meanings.join('/') + '/';
+	return Word +
+		((Readings.count() == 0) ? " " : " [" + Readings.first() + "] ")
+		+ '/' + Meanings.join("/") + '/';
 }
-
