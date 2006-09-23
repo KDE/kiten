@@ -343,9 +343,9 @@ bool Entry::matchesQuery(const dictQuery &query) const {
 						query.getMeaning().split(dictQuery::mainDelimiter) ) )
 			return false;
 
-	if(!query.getPronounciation().isEmpty())
+	if(!query.getPronunciation().isEmpty())
 		if(!listMatch(Readings.join(" "),
-					query.getPronounciation().split(dictQuery::mainDelimiter) ) )
+					query.getPronunciation().split(dictQuery::mainDelimiter) ) )
 			return false;
 
 	dictQuery::Iterator it = query.getPropertyIterator();

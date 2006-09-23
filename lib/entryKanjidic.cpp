@@ -75,10 +75,10 @@ bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
 	QString readingsCopy = Readings.join(" ");
 	readingsCopy = readingsCopy.remove(".").remove("-");
 	kDebug() << readingsCopy << endl;
-	kDebug() << query.getPronounciation() << endl;
-	if(!query.getPronounciation().isEmpty())
+	kDebug() << query.getPronunciation() << endl;
+	if(!query.getPronunciation().isEmpty())
 		if(!listMatch(readingsCopy,
-					query.getPronounciation().split(dictQuery::mainDelimiter) ) )
+					query.getPronunciation().split(dictQuery::mainDelimiter) ) )
 			return false;
 
 	dictQuery::Iterator it = query.getPropertyIterator();

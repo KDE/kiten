@@ -363,7 +363,7 @@ void kiten::newToolBarConfig()
 	applyMainWindowSettings(KGlobal::config(), "kitenWindow");
 }
 
-/** Opens the dialogue for configuring the global accelerator keys. */
+/** Opens the dialog for configuring the global accelerator keys. */
 void kiten::configureGlobalKeys()
 {
 	//KDE4 TODO

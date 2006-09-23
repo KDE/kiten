@@ -26,7 +26,7 @@
 	function, removed unused functions and variables... cleaned up the code in general.
 	Preparing for integration to the rest of the program
 
-	Note that this indexer has been hacked off of Jim Breen's xjdic program, and alot of the
+	Note that this indexer has been hacked off of Jim Breen's xjdic program, and a lot of the
 	things which have been removed were relevant to that program, but not to this one.
 	--Joe
 	*/

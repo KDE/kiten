@@ -203,10 +203,10 @@ dictQuery &dictQuery::operator=(const QString &str) {
 				break;
 			case dictQuery::strTypeKana :
 				if(result.entryOrder.removeAll(pronunciationMarker)>0)
-					result.setPronounciation(result.getPronounciation()
+					result.setPronunciation(result.getPronunciation()
 					                                     + mainDelimiter + it );
 				else
-					result.setPronounciation(it);
+					result.setPronunciation(it);
 				break;
 
 			case dictQuery::strTypeKanji :
@@ -224,7 +224,7 @@ dictQuery &dictQuery::operator=(const QString &str) {
 				break;
 		}
 	}
-	kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronounciation()<<"] :"<<
+	kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronunciation()<<"] :"<<
 		result.getMeaning()<<endl;
 	this->operator=(result);
 	return *this;
@@ -329,7 +329,7 @@ QString dictQuery::takeProperty ( const QString & key ) {
 }
 
 /*****************************************************************************
-*	Meaning and Pronounciation Accessors and Mutators
+*	Meaning and Pronunciation Accessors and Mutators
 ****************************************************************************/
 QString dictQuery::getMeaning() const {
 	return meaning;
@@ -348,11 +348,11 @@ bool dictQuery::setMeaning(const QString &newMeaning) {
 	return true;
 }
 
-QString dictQuery::getPronounciation() const {
+QString dictQuery::getPronunciation() const {
 	return pronunciation;
 }
 
-bool dictQuery::setPronounciation(const QString &newPro) {
+bool dictQuery::setPronunciation(const QString &newPro) {
 	if(newPro.isEmpty())
 #ifdef USING_QUERY_EXCEPTIONS
 		throw invalidQueryException(newPro);

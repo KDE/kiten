@@ -159,7 +159,7 @@ public:
 	virtual dictQuery *clone() const { return new dictQuery(*this); }
 	/**
 	  * This returns a QString that represents the query. This may be the same
-	  * as the original string, but some slight changes may have occured if you
+	  * as the original string, but some slight changes may have occurred if you
 	  * have done any manipulations on the dictQuery.
 	  */
 	const QString toString() const;
@@ -224,13 +224,13 @@ public:
 	  */
 	bool setMeaning(const QString &);
 	/**
-	  * Accessor for the Pronounciation field (generally kana)
+	  * Accessor for the Pronunciation field (generally kana)
 	  */
-	QString getPronounciation() const;
+	QString getPronunciation() const;
 	/**
-	  * Mutator for the Pronounciation field
+	  * Mutator for the Pronunciation field
 	  */
-	bool setPronounciation(const QString&);
+	bool setPronunciation(const QString&);
 	/**
 	  * Accessor for the Word/Kanji field (this is usually used for anything
 	  * containing kanji).
@@ -238,7 +238,7 @@ public:
 	QString getWord() const;
 	/**
 	  * Mutator for the Word/Kanji field. If what you are setting contains
-	  * only kana, consider using the setPronounciation instead.
+	  * only kana, consider using the setPronunciation instead.
 	  */
 	bool setWord(const QString&);
 
