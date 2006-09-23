@@ -47,7 +47,7 @@
                           <string>The font for the main kanji/kana entry in list view</string>
                         </property>
                         <property name="whatsThis" stdset="0" >
-                          <string>In a list, the main entry should be easily distinguishable from the pronounciation. A few sizes larger should suffice.</string>
+                          <string>In a list, the main entry should be easily distinguishable from the pronunciation. A few sizes larger should suffice.</string>
                         </property>
                       </widget>
                     </item>
@@ -93,10 +93,10 @@
                           <string>Readings:</string>
                         </property>
                         <property name="toolTip" stdset="0" >
-                          <string>The font for the pronounciation kana in list view</string>
+                          <string>The font for the pronunciation kana in list view</string>
                         </property>
                         <property name="whatsThis" stdset="0" >
-                          <string>In a list, the readings (pronounciation) will generally be limited to one word for non-kanji entries, but they may have many kanji entries (if displayed at all for kanji).</string>
+                          <string>In a list, the readings (pronunciation) will generally be limited to one word for non-kanji entries, but they may have many kanji entries (if displayed at all for kanji).</string>
                         </property>
                       </widget>
                     </item>
@@ -289,10 +289,10 @@
                           <string>Readings:</string>
                         </property>
                         <property name="toolTip" stdset="0" >
-                          <string>The font for the pronounciation kana in full view</string>
+                          <string>The font for the pronunciation kana in full view</string>
                         </property>
                         <property name="whatsThis" stdset="0" >
-                          <string>In full view mode, the readings (pronounciation) will generally be limited to one word for non-kanji entries, but they may have many kanji entries. In either case, giving them a large font is not too out order here.</string>
+                          <string>In full view mode, the readings (pronunciation) will generally be limited to one word for non-kanji entries, but they may have many kanji entries. In either case, giving them a large font is not too out order here.</string>
                         </property>
                       </widget>
                     </item>
