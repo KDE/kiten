@@ -36,20 +36,20 @@ class radselectView : public QWidget, public Ui::radical_selector
 public:
 	radselectView(QWidget *parent);
 	virtual ~radselectView();
-	void load(QString iRadicals, QString iGrade, QString iStrokes);
+	void load(QString iRadicals, QString iStrokes);
 						//Load pre-determined search parameters
 
 signals:
 	void signalChangeStatusbar(const QString& text);
 	void searchModified(); //listen for this if you want to detect each minor change
 	void searchTrigger(const QStringList& radicals_result, 
-			const QString& stroke_result, const QString& grade_result);
+			const QString& stroke_result);
 			//this will be emitted when the user pushes "Search"
 
 private slots:
 	void loadSettings();
 	void startSearch();		//Someone has clicked the search button! (uses getSearchInfo)
-	QString getSearchInfo(QString& radicals_result,QString& grade_result,QString& stroke_result);
+	QString getSearchInfo(QString& radicals_result,QString& stroke_result);
 			// Grab all the info this widget provides (returns a formatted search string)
 	void addRadicalToList(const QString&); //Adds the named radical to the search list
 	void queueDeleteRadical(QListWidgetItem*); //Prepare to remove an item from search list

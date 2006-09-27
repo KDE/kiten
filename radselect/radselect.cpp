@@ -73,13 +73,11 @@ radselect::~radselect()
 void radselect::loadSearchString(QString searchString) {
 	currentQuery = searchString;
 	changeStatusbar(searchString);
-	m_view->load(currentQuery.getProperty("R"),
-		currentQuery.getProperty("G"), currentQuery.getProperty("S"));
+	m_view->load(currentQuery.getProperty("R"), currentQuery.getProperty("S"));
 }
 
 void radselect::setupActions()
 {
-	
     KStdAction::quit(kapp, SLOT(quit()), actionCollection());
     KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 
@@ -88,8 +86,8 @@ void radselect::setupActions()
     Edit = new KitenEdit(actionCollection(), this);
 	 KAction *KitenEditAction = new KAction(actionCollection(), "KitenEditWidget");
 	 KitenEditAction->setDefaultWidget(Edit);
-	 
-	 KAction *kac =  new KAction(KIcon(BarIcon("locationbar_erase",16)), 
+
+	 KAction *kac =  new KAction(KIcon(BarIcon("locationbar_erase",16)),
 			 i18n("&Clear Search Bar"), actionCollection(),"clear_search");
 	 connect( kac, SIGNAL(triggered()), Edit, SLOT(clear()) );
 	 kac->setShortcut(QString("Qt::CTRL;Qt::Key_N"));
@@ -112,7 +110,6 @@ void radselect::setupActions()
     // position, icon size, etc.  Also to add actions for the statusbar
     // toolbar, and keybindings if necessary.
     setupGUI(Default,"radselectui.rc");
-	 
 }
 
 void radselect::saveProperties(KConfig *config) { //For suspend
@@ -167,7 +164,7 @@ void radselect::sendSearch(const QStringList& radicals, const QString& strokes, 
 		dialogParts.setProperty("R",radicals.join(""));
 	else
 		editBox.removeProperty("R");
-	if(strokes.length() > 0) 
+	if(strokes.length() > 0)
 		dialogParts.setProperty("S",strokes);
 	else
 		editBox.removeProperty("S");

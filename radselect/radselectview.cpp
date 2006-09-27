@@ -52,9 +52,6 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	radical_box->setWidgetResizable(true);
 
    //== Now we connect all our signals ==
-	//First a generic "if this changes, emit noise"
-   connect( grade_selector, SIGNAL( textChanged(const QString&)), this,
-		SLOT(changedSearch()));
 	//Connect our radical grid to our adding method
 	connect( buttons, SIGNAL( addRadicalToList(const QString&) ), this,
 		SLOT(	addRadicalToList(const QString&) ) );
@@ -80,33 +77,23 @@ radselectView::loadSettings() {
 void radselectView::startSearch()
 {	//Something has triggered a search... usually a button-press
 	QString radicals_result,grade_result,stroke_result,result;
-	result = getSearchInfo(radicals_result,grade_result,stroke_result);
+	result = getSearchInfo(radicals_result,stroke_result);
 
-	emit searchTrigger(radicals_result.split(""),stroke_result,grade_result);
+	emit searchTrigger(radicals_result.split(""),stroke_result);
 }
 
 QString radselectView::getSearchInfo
-	(QString& radicals_result,QString& grade_result, QString& stroke_result) {
+	(QString& radicals_result, QString& stroke_result) {
 	//This is where we assemble the search string
 	QString result;
-	
+
 	for(int i=0; i < selected_radicals->count(); i++)
 		radicals_result.append(selected_radicals->item(i)->text());
 
 	if(!radicals_result.isEmpty())
 		result = result.append(QString("_R:%1 ")).arg(radicals_result);
 
-    	if(grade_selector->currentText()!="Any") {
-    		QString grade = grade_selector->currentText();
-		if(grade==tr("Jouyou") || grade==tr("Jinmeiyou"))
-			grade_result = grade;
-		else
-			grade_result = grade.right(1);
-
-		result = result.append(QString("G:%1 ").arg(grade_result));
-	}
-
-/*    	QString strokes = strokes_counter->text();
+/*		QString strokes = strokes_counter->text();
 	if(!strokes.isEmpty()) {
 		stroke_result = simplifyStrokeString(strokes);
 		if(stroke_result.length() > 0) {
@@ -121,10 +108,10 @@ QString radselectView::getSearchInfo
 void radselectView::addRadicalToList(const QString& button)
 {
 	QString msg = QString("Radical: %1").arg(button);
-	
-	QList<QListWidgetItem *> isItAlreadyThere = 
+
+	QList<QListWidgetItem *> isItAlreadyThere =
 		selected_radicals->findItems(button, Qt::MatchExactly);
-	
+
 	if(isItAlreadyThere.count() == 0){
 		new QListWidgetItem(button,selected_radicals);
 		emit signalChangeStatusbar(msg.append(" added to the radical list"));
@@ -136,7 +123,7 @@ void radselectView::addRadicalToList(const QString& button)
 
 
 void radselectView::queueDeleteRadical(QListWidgetItem *iVictim)
-{	
+{
 	if(iVictim == 0) return;
 
 	victim=iVictim;
@@ -149,26 +136,14 @@ void radselectView::deleteRadical() {
 	emit searchModified();
 }
 
-void radselectView::load(QString iRadicals, QString iGrade,QString iStrokes)
+void radselectView::load(QString iRadicals, QString iStrokes)
 {
 	//Handle radicals first
 	QStringList sep_radical = iRadicals.split(QString(""));
 	selected_radicals->clear();
-	for ( QStringList::Iterator it = sep_radical.begin(); 
-				it != sep_radical.end(); ++it ) 
+	for ( QStringList::Iterator it = sep_radical.begin();
+				it != sep_radical.end(); ++it )
 			addRadicalToList(*it);
-
-	//Grade is relatively easy
-	QString grade = grade_selector->currentText();
-	if(iGrade==tr("Jouyou"))
-		iGrade = "7";
-	else if (iGrade==tr("Jinmeiyou"))
-		iGrade = "8";
-	
-	if(iGrade.toInt() >= 1 && iGrade.toInt() <= 8)
-		grade_selector->setCurrentIndex(iGrade.toInt());
-	else
-		grade_selector->setCurrentIndex(0);
 
 	//Strokes needs redoing (due to new widget)
 /*	if(!iStrokes.isEmpty()) {

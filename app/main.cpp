@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
 	KAboutData aboutData( "kiten", "Kiten",
 	  "1.2", "Japanese Reference Tool", KAboutData::License_GPL,
 	  "(c) 2001-2004, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten");
+	aboutData.setOrganizationDomain("org.kde"); //Stupid defaults (this is for the DBuS ID)
 /* KDE4 CHANGE
 	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jason@katzbrown.com");
 	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
