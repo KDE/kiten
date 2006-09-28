@@ -55,6 +55,7 @@ GenericName[xh]=Ubekiso Lwesijapani/Isixhobo Sokufunda
 GenericName[zh_CN]=日语参考/学习工具
 GenericName[zh_TW]=日語參考/學習工具
 GenericName[zu]=Ithuluzi Yethephu Yokugcina umsebenzi uphephile
+Comment=Japanese Reference and Study Tool
 DocPath=kiten/index.html
 Exec=kiten -caption "%c" %i %m
 Name=Kiten
