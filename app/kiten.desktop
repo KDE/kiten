@@ -3,6 +3,7 @@ Encoding=UTF-8
 GenericName=Japanese Reference/Study Tool
 GenericName[fr]=Un outil d'étude et de référence japonais
 GenericName[x-test]=xxJapanese Reference/Study Toolxx
+Comment=Japanese Reference and Study Tool
 DocPath=kiten/index.html
 Exec=kiten -caption "%c" %i
 Name=Kiten
