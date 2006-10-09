@@ -14,7 +14,6 @@
 <authorgroup>
 <author>
 <firstname>Jason</firstname>
-<othername></othername>
 <surname>Katz-Brown</surname>
 <affiliation>
 <address>&Jason.Katz-Brown.mail;</address>
@@ -127,8 +126,8 @@ disabled by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
 Kiten...</guimenuitem></menuchoice>, and then choosing the
 <guilabel>Searching</guilabel> item on the list on the left. The
-options can be enabled by checking the checkboxes and disabled by
-unchecking the checkboxes on this page. These options are global and
+options can be enabled by checking the check boxes and disabled by
+unchecking the check boxes on this page. These options are global and
 affect all searches.</para>
 
 </sect2>
@@ -221,10 +220,10 @@ strokes from the spinbox just above the listbox. The radicals you
 choose will appear in the listbox to the right.</para>
 
 <para>To choose how many strokes your Kanji should have, first check
-the <guilabel>Search by total strokes</guilabel> checkbox. (If you do
-not want to search by total strokes, uncheck this checkbox.) Then
+the <guilabel>Search by total strokes</guilabel> check box. (If you do
+not want to search by total strokes, uncheck this check box.) Then
 select the number of strokes from the spinbox on the left, under the
-checkbox. If you want the stroke count to be fuzzy by a certain number
+check box. If you want the stroke count to be fuzzy by a certain number
 of strokes, select the margin of error from the spinbox to the right
 of the <guilabel>+/-</guilabel> label.</para>
 
@@ -352,7 +351,7 @@ your Learning List.</para>
 
 <tip><para>If you want the Learn window to open every time you start
 up &kiten;, check the <guilabel>Start Learn on Kiten
-startup</guilabel> checkbox in the <guilabel>Learn</guilabel> section
+startup</guilabel> check box in the <guilabel>Learn</guilabel> section
 of the configuration dialog, which can be opened by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
 Kiten...</guimenuitem></menuchoice>.</para></tip>
