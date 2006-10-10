@@ -43,6 +43,10 @@ class ResultView;
 class kiten : public KMainWindow {
 	Q_OBJECT
 
+	// The following will be available via dbus.
+public slots:
+	void searchTextAndRaise(const QString);
+
 		//Constructors and other setup/takedown related methods
 public:
 	kiten(QWidget *parent = 0, const char *name = 0);
@@ -56,7 +60,6 @@ private slots:
 		//Searching related methods
 	void searchFromEdit();
 	void searchText(const QString);
-	void searchTextAndRaise(const QString);
 	void searchClipboard();
 	void searchAndDisplay(const dictQuery&);
 	void searchInResults();

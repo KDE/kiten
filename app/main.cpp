@@ -25,7 +25,8 @@
 #include <kapplication.h>
 #include <kmainwindow.h>
 //#include <qsqlpropertymap.h>
-//#include <dcopclient.h>
+
+#include <QtDBus/QtDBus>
 
 #include "kiten.h"
 
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
 	KAboutData aboutData( "kiten", "Kiten",
 	  "1.2", "Japanese Reference Tool", KAboutData::License_GPL,
 	  "(c) 2001-2004, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten");
-	aboutData.setOrganizationDomain("org.kde"); //Stupid defaults (this is for the DBuS ID)
+	aboutData.setOrganizationDomain("kde.org"); //Stupid defaults (this is for the DBuS ID)
 /* KDE4 CHANGE
 	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jason@katzbrown.com");
 	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
@@ -56,12 +57,17 @@ int main(int argc, char *argv[])
 	KCmdLineArgs::addCmdLineOptions(options); // Add our own options.
 
 	KApplication a;
-//	a.dcopClient()->registerAs(a.name(), false);
-//	a.installKDEPropertyMap();
-//	QSqlPropertyMap *map = QSqlPropertyMap::defaultMap();
-//	map->insert("MyStringList", "value");
 
 	kiten *t = new kiten();
+
+	/* This is one way of getting the service name right.  There really MUST be
+		some way of doing this with the kde functions.  something like the 
+		aboutData.setOrganizationDomain() above. */
+	if (!QDBusConnection::sessionBus().registerService("org.kde.kiten")) {
+	exit(1);
+	}
+
 	t->show();
+	QDBusConnection::sessionBus().registerObject("/", t, QDBusConnection::ExportAllSlots);
 	return a.exec();
 }
