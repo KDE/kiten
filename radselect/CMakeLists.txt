@@ -7,7 +7,7 @@ set(radselect_bin_SRCS
 	radselectbuttongrid.cpp
 	)
 kde4_add_ui_files(radselect_bin_SRCS radical_selector.ui radselectprefdialog.ui)
-kde4_add_kcfg_files(radselect_bin_SRCS radselectconfig.kcfgc)
+kde4_add_kcfg_files(radselect_bin radselect_bin_SRCS radselectconfig.kcfgc)
 kde4_automoc(radselect_bin ${radselect_bin_SRCS})
 
 kde4_add_executable(radselect_bin ${radselect_bin_SRCS})
