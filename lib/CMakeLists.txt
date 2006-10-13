@@ -13,7 +13,7 @@ set(kiten_LIB_SRCS
 		entryKanjidic.cpp
 		dictFilePreferenceDialog.cpp
 		)
-kde4_automoc(${kiten_LIB_SRCS})
+kde4_automoc(kiten ${kiten_LIB_SRCS})
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 target_link_libraries(kiten ${KDE4_KDEUI_LIBS} )
 set_target_properties(kiten PROPERTIES VERSION 1.0.1 SOVERSION 1 )
