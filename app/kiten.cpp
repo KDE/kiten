@@ -55,15 +55,15 @@
 #include "configuredialog.h"
 #include "historyPtrList.h"
 
-kiten::kiten(QWidget *parent, const char *name) 
-	: KMainWindow(parent)  
+kiten::kiten(QWidget *parent, const char *name)
+	: KMainWindow(parent)
 {
 	setStandardToolBarMenuEnabled(true);
 	setObjectName(QLatin1String(name)); /* Set up the config */
 
 	config = KitenConfigSkeleton::self();
 	config->readConfig();
-	
+
 	/* Set up hot keys */
 	//KDE4 TODO
 /*	Accel = new KGlobalAccel(this);
@@ -112,7 +112,7 @@ void kiten::setupActions() {
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	//KDE4 FIXME (const QObject*) cast
 	KStdAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
-	
+
 	/* Setup the Go-to-learn-mode actions */
 //	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	/* TODO: put back when Dictionary Editor is reorganised */
@@ -126,7 +126,7 @@ void kiten::setupActions() {
 	KAction *EditToolbarWidget = new KAction(actionCollection(), "EditToolbarWidget");
 	EditToolbarWidget->setDefaultWidget(Edit);
 //	toolBar()->addWidget(Edit->ComboBox());
-	
+
 	(void) new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
 	KAction *searchButton = new KAction(i18n("S&earch"), actionCollection(), "search");
 	(void) new KAction(i18n("Search with &Beginning of Word"), actionCollection(), "search_beginning");
@@ -170,8 +170,8 @@ void kiten::setupActions() {
 void kiten::finishInit()
 {
 	StatusBar->showMessage(i18n("Initialising Dictionaries"));
-	
-	// if it's the application's first time starting, 
+
+	// if it's the application's first time starting,
 	// the app group won't exist and we show demo
 	if (config->initialSearch())
 		if (!kapp->sessionConfig()->hasGroup("app"))
@@ -179,7 +179,7 @@ void kiten::finishInit()
 
 //	Edit->Completion()->clear(); // make sure the edit is focused initially
 	StatusBar->showMessage(i18n("Welcome to Kiten"));
-	setCaption(QString::null);	
+	setCaption(QString::null);
 }
 
 
@@ -206,7 +206,7 @@ void kiten::searchFromEdit()
 	searchAndDisplay(dictQuery(Edit->currentText()));
 }
 
-/** This function is called when a kanji is clicked in the result view 
+/** This function is called when a kanji is clicked in the result view
 	or any other time in which we want to search for something that didn't
 	come from the input box  */
 void kiten::searchText(const QString text)
@@ -220,7 +220,7 @@ void kiten::searchTextAndRaise(const QString str)
 {
 	/* Do the search */
 	searchText(str);
-	
+
 	/* get the window as we'd like it */
 	raise();
 }
@@ -235,9 +235,9 @@ void kiten::searchClipboard()
 {
 	if (autoSearchToggle->isChecked()) {
 		QString clipboard = kapp->clipboard()->text(QClipboard::Selection).simplified();
-		
+
 		if (clipboard.length() < 40 && Edit->currentText() != clipboard)
-			if(!(Edit->currentText().contains(clipboard) 
+			if(!(Edit->currentText().contains(clipboard)
 					&& historyList.current()->count() > 0))
 				searchTextAndRaise(clipboard);
 	}
@@ -249,18 +249,18 @@ void kiten::searchAndDisplay(const dictQuery &query)
 {
 	/* keep the user informed of what we are doing */
 	StatusBar->showMessage(i18n("Searching..."));
-	
+
 	/* This gorgeous incantation is all that's necessary to fill a dictQuery
 		with a query and an Entrylist with all of the results form all of the
 		requested dictionaries */
 	EntryList *results = dictionaryManager.doSearch(query);
-	
+
 	/* synchronize the history (and store this pointer there) */
 	addHistory(results);
-	
+
 	/* Add the current search to our drop down list */
 	Edit->setCurrentItem(query.toString(), true);
-	
+
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
 }
@@ -269,7 +269,7 @@ void kiten::searchAndDisplay(const dictQuery &query)
 void kiten::searchInResults()
 {
 	StatusBar->showMessage(i18n("Searching..."));
-	
+
 	dictQuery searchQuery(Edit->currentText());
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
@@ -287,7 +287,7 @@ void kiten::displayResults(EntryList *results)
 	{
 		QString str;
 		str = i18n("Found ") + QString::number(results->count()) + i18n(" results");
-		
+
 		StatusBar->showMessage(str);
 		setCaption(str);
 	}
@@ -315,16 +315,16 @@ void kiten::slotConfigure()
 {
 	if (ConfigureDialog::showDialog("settings"))
 		return;
-	
+
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
 	optionDialog = new ConfigureDialog(this, config);
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
 	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(updateConfiguration()));
-	
+
 	optionDialog->show();
 }
 
-/** This function just queues up slotConfigureDestroy() to get around the 
+/** This function just queues up slotConfigureDestroy() to get around the
     SIGSEGV if you try to delete yourself if you are in the stack */
 void kiten::slotConfigureHide()
 {
@@ -341,7 +341,7 @@ void kiten::slotConfigureDestroy()
 	}
 }
 
-/* TODO: reimplement something very much like this 
+/* TODO: reimplement something very much like this
 void kiten::createEEdit()
 {
 	eEdit *_eEdit = new eEdit(PERSONALDictionaryLocation("data"), this);
@@ -391,7 +391,7 @@ void kiten::updateConfiguration()
 
 /** This function loads the dictionaries from the config file for the program
   to use via the dictionaryManager object */
-void kiten::loadDictConfig(const QString dictType) 
+void kiten::loadDictConfig(const QString dictType)
 {
 	KStandardDirs *dirs = KGlobal::dirs();
 	KConfig *localConfig = config->config();
@@ -402,14 +402,14 @@ void kiten::loadDictConfig(const QString dictType)
 	if(localConfig->readEntry("__useGlobal", true)) //If we need to load the global
 		dictionariesToLoad.append( qMakePair(dictType,
 				dirs->findResource("data", QString("kiten/")+dictType.toLower())));
-	
+
 	QStringList dictNames = localConfig->readEntry<QStringList>("__NAMES", QStringList());
 	foreach( QString name, dictNames ) {
 			QString dictPath = localConfig->readEntry(name,QString());
 			if(!dictPath.isEmpty() && !name.isEmpty())
 				dictionariesToLoad.append( qMakePair(name,dictPath) );
 	}
-		
+
 	QStringList loadedDictionaries =
 		dictionaryManager.listDictionariesOfType(dictType.toLower());
 
@@ -423,19 +423,19 @@ void kiten::loadDictConfig(const QString dictType)
 
 	foreach(QString it, loadedDictionaries)
 		dictionaryManager.removeDictionary(it);
-	
-/*	
+
+/*
 #define PERSONALDictionaryLocation( __X ) KGlobal::dirs()->saveLocation(__X, \
 		"kiten/dictionaries/",true).append("personal")
 	if(!isKanji) { //Don't load personal dicts as kanji dicts
 		QString personalDict(PERSONALDictionaryLocation("data"));
-		if (QFile::exists(personalDict) && 
+		if (QFile::exists(personalDict) &&
 					loadedDicts.find(personalDict) == loadedDicts.end())
 		{
 			dictionaryManager.addDictionary(personalDict,"Personal",dictType.lower());
 		}
 	}
-*/	
+*/
 }
 
 
@@ -489,7 +489,7 @@ void kiten::displayHistoryItem() {
 }
 
 /** This function determines whether the forward and back buttons should be
-	enabled.  It is currently done independently of what action has just 
+	enabled.  It is currently done independently of what action has just
 	occurred. */
 void kiten::enableHistoryButtons()
 {

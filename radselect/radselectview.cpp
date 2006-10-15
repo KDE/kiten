@@ -17,7 +17,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-/* 
+/*
     Future Plans:
 *	Design a custom QGridLayout to rearrange buttons dynamically to resize
 *	Make radical search list a two/three column field with delete button
@@ -56,7 +56,7 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	connect( buttons, SIGNAL( addRadicalToList(const QString&) ), this,
 		SLOT(	addRadicalToList(const QString&) ) );
 	//Connect removing the radicals from the list
-   connect( selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ), 
+   connect( selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ),
 		this, SLOT( queueDeleteRadical(QListWidgetItem*) ) );
 	//Connect our search button
    connect( search_button, SIGNAL( clicked() ), this, SLOT(startSearch()));
@@ -92,8 +92,8 @@ QString radselectView::getSearchInfo
 
 	if(!radicals_result.isEmpty())
 		result = result.append(QString("_R:%1 ")).arg(radicals_result);
-
-/*		QString strokes = strokes_counter->text();
+/*
+	QString strokes = strokes_counter->text();
 	if(!strokes.isEmpty()) {
 		stroke_result = simplifyStrokeString(strokes);
 		if(stroke_result.length() > 0) {
@@ -107,11 +107,10 @@ QString radselectView::getSearchInfo
 
 void radselectView::addRadicalToList(const QString& button)
 {
-	QString msg = QString("Radical: %1").arg(button);
-
 	QList<QListWidgetItem *> isItAlreadyThere =
 		selected_radicals->findItems(button, Qt::MatchExactly);
 
+	QString msg = QString("Radical: %1").arg(button);
 	if(isItAlreadyThere.count() == 0){
 		new QListWidgetItem(button,selected_radicals);
 		emit signalChangeStatusbar(msg.append(" added to the radical list"));

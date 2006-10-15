@@ -41,6 +41,7 @@ int main(int argc, char **argv)
 			description, KAboutData::License_GPL,
 			"(C) 2005 Joseph Kerian", 0, 0, "jkerian@gmail.com");
 	about.addAuthor( "Joseph Kerian", 0, "jkerian@gmail.com" );
+	about.setOrganizationDomain("kde.org"); //For DBus domain
 
 	KCmdLineArgs::init(argc, argv, &about);
 	KCmdLineArgs::addCmdLineOptions(options);

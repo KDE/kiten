@@ -183,47 +183,48 @@ const QString dictQuery::toString() const {
 dictQuery &dictQuery::operator=(const QString &str) {
 	QStringList parts = str.split(mainDelimiter);
 	dictQuery result;
-	foreach( QString it, parts) {
-		if(it.contains(propertySeperator)) {
-			QStringList prop = it.split(propertySeperator);
-			if(prop.count() != 2)
+	if(str.length() > 0)
+		foreach( QString it, parts) {
+			if(it.contains(propertySeperator)) {
+				QStringList prop = it.split(propertySeperator);
+				if(prop.count() != 2)
 #ifdef USING_QUERY_EXCEPTIONS
-				throw invalidQueryException(it);
+					throw invalidQueryException(it);
 #else
-				break;
+					break;
 #endif
-			result.setProperty(prop[0],prop[1]);
-			//replace or throw an error with duplicates?
-		} else switch(stringTypeCheck(it)) {
-			case dictQuery::strTypeLatin :
-				if(result.entryOrder.removeAll(meaningMarker) > 0 )
-					result.setMeaning(result.getMeaning() + mainDelimiter + it);
-				else
-					result.setMeaning(it);
-				break;
-			case dictQuery::strTypeKana :
-				if(result.entryOrder.removeAll(pronunciationMarker)>0)
-					result.setPronunciation(result.getPronunciation()
-					                                     + mainDelimiter + it );
-				else
-					result.setPronunciation(it);
-				break;
+				result.setProperty(prop[0],prop[1]);
+				//replace or throw an error with duplicates?
+			} else switch(stringTypeCheck(it)) {
+				case dictQuery::strTypeLatin :
+					if(result.entryOrder.removeAll(meaningMarker) > 0 )
+						result.setMeaning(result.getMeaning() + mainDelimiter + it);
+					else
+						result.setMeaning(it);
+					break;
+				case dictQuery::strTypeKana :
+					if(result.entryOrder.removeAll(pronunciationMarker)>0)
+						result.setPronunciation(result.getPronunciation()
+																		 + mainDelimiter + it );
+					else
+						result.setPronunciation(it);
+					break;
 
-			case dictQuery::strTypeKanji :
-				result.entryOrder.removeAll(wordMarker);
-				result.setWord( it ); //Only one of these allowed
-				break;
+				case dictQuery::strTypeKanji :
+					result.entryOrder.removeAll(wordMarker);
+					result.setWord( it ); //Only one of these allowed
+					break;
 
-			case dictQuery::mixed :
-				qWarning("mixed wtf?");
-			case dictQuery::stringParseError :
-				qWarning("wtf?");
+				case dictQuery::mixed :
+					qWarning("dictQuery: String parsing error - mixed type");
+				case dictQuery::stringParseError :
+					qWarning("dictQuery: String parsing error");
 #ifdef USING_QUERY_EXCEPTIONS
-				throw invalidQueryException(it);
+					throw invalidQueryException(it);
 #endif
-				break;
+					break;
+			}
 		}
-	}
 	kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronunciation()<<"] :"<<
 		result.getMeaning()<<endl;
 	this->operator=(result);

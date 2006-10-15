@@ -6,8 +6,7 @@
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
 
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
 
@@ -19,15 +18,19 @@
 
 
 #include "radselect.h"
+#include "radselectview.h"
 #include "kromajiedit.h"
 #include "kitenEdit.h"
 #include "radselectconfig.h"
 #include "ui_radselectprefdialog.h"
 
+#include <QtDBus/QtDBus>
+
 #include <qpainter.h>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 
+#include <kapplication.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kiconloader.h>
@@ -61,9 +64,15 @@ radselect::radselect() :
     connect(m_view, SIGNAL(signalChangeStatusbar(const QString&)),
             this,   SLOT(changeStatusbar(const QString&)));
 
+	 if(!QDBusConnection::sessionBus().isConnected())
+		 kDebug() << "Session Bus not fount!!" <<endl;
+	 else
+		dbusInterface = new QDBusInterface("org.kde.kiten", "/", "",
+				QDBusConnection::sessionBus());
+
     // connect the search signal from the m_view with our dcop routines
-//    connect(m_view, SIGNAL(searchTrigger(const QStringList&, const QString&, const QString&)),
-//            this,   SLOT(sendSearch(const QStringList&, const QString&, const QString&)));
+    connect(m_view, SIGNAL(searchTrigger(const QStringList&, const QString&)),
+            this,   SLOT(sendSearch(const QStringList&, const QString&)));
 
 }
 
@@ -156,8 +165,9 @@ void radselect::changeStatusbar(const QString& text)
 
 //This one is triggered if the search button is used (or the widget interface
 //is in some other way given priority.
-void radselect::sendSearch(const QStringList& radicals, const QString& strokes, const QString& grade){
+void radselect::sendSearch(const QStringList& radicals, const QString& strokes){
 	dictQuery editBox (Edit->currentText());
+kDebug()<<	radicals.count()<<radicals.join("")<<endl;
 
 	dictQuery dialogParts;
 	if(radicals.count() > 0)
@@ -168,15 +178,19 @@ void radselect::sendSearch(const QStringList& radicals, const QString& strokes, 
 		dialogParts.setProperty("S",strokes);
 	else
 		editBox.removeProperty("S");
-	if(grade.length() > 0)
-		dialogParts.setProperty("G",grade);
-	else
-		editBox.removeProperty("G");
 
 	currentQuery = (dialogParts + editBox) + dialogParts;
 		//A bit odd... but this is for proper ordering
 
 	changeStatusbar(currentQuery);
+
+	if(dbusInterface->isValid()) {
+		QDBusMessage reply = dbusInterface->call(
+				QLatin1String("searchTextAndRaise"),
+				currentQuery.toString());
+		if(reply.type() == QDBusMessage::ErrorMessage)
+			kDebug() << "QDBus Error: " << reply.signature() <<"<eoe>"<<endl;
+	}
 }
 
 
@@ -194,7 +208,7 @@ void radselect::configureToolBars()
 	KEditToolbar dlg(actionCollection());
 	if (dlg.exec())
 		createGUI();
- 	
+
 //	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 //	KEditToolbar dlg(actionCollection(), "kitenui.rc");
 //	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));

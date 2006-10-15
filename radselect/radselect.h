@@ -20,23 +20,16 @@
 #ifndef _RADSELECT_H_
 #define _RADSELECT_H_
 
-#include <config.h>
-
-#include <qpointer.h>
-#include <QDragEnterEvent>
-#include <QDropEvent>
-
-#include <kapplication.h>
 #include <kmainwindow.h>
+class radselectView;
 
-#include <kaction.h>
-#include <klineedit.h>
-
-#include "radselectview.h"
-#include "dictQuery.h" //From libkiten
-
+//From libkiten
+#include <dictQuery.h>
 class KitenEdit;
+
+//QT and kdelibs
 class KToggleAction;
+class QDBusInterface;
 
 /**
  * This class serves as the main window for radselect.  It handles the
@@ -48,58 +41,59 @@ class KToggleAction;
  */
 class radselect : public KMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    radselect();
-    virtual ~radselect();
+	radselect();
+	virtual ~radselect();
 
-    /**
-     * This loads a string for a given query into the UI
-     */
-    void loadSearchString(QString searchString);
-
-protected:
-    // Overridden virtuals for Qt drag 'n drop (XDND)
-    virtual void dragEnterEvent(QDragEnterEvent *event);
-    virtual void dropEvent(QDropEvent *event);
+	/**
+	 * This loads a string for a given query into the UI
+	 */
+	void loadSearchString(QString searchString);
 
 protected:
-    /**
-     * This function is called when it is time for the app to save its
-     * properties for session management purposes.
-     */
-    void saveProperties(KConfig *);
+	// Overridden virtuals for Qt drag 'n drop (XDND)
+	virtual void dragEnterEvent(QDragEnterEvent *event);
+	virtual void dropEvent(QDropEvent *event);
 
-    /**
-     * This function is called when this app is restored.  The KConfig
-     * object points to the session management config file that was saved
-     * with @ref saveProperties
-     */
-    void readProperties(KConfig *);
+protected:
+	/**
+	 * This function is called when it is time for the app to save its
+	 * properties for session management purposes.
+	 */
+	void saveProperties(KConfig *);
+
+	/**
+	 * This function is called when this app is restored.  The KConfig
+	 * object points to the session management config file that was saved
+	 * with @ref saveProperties
+	 */
+	void readProperties(KConfig *);
 
 
 private slots:
-    void optionsPreferences();
-    void configureToolBars();
+	void optionsPreferences();
+	void configureToolBars();
 
-    void changeStatusbar(const QString& text);
+	void changeStatusbar(const QString& text);
 
-    void showFullSearchString();
-    void search();
-    void clear();
+	void showFullSearchString();
+	void search();
+	void clear();
 
-    void sendSearch(const QStringList& radicals, const QString& strokes, const QString& grade);
-
-private:
-    void setupAccel();
-    void setupActions();
+	void sendSearch(const QStringList& radicals, const QString& strokes);
 
 private:
-    radselectView *m_view;
-    dictQuery currentQuery;
+	void setupAccel();
+	void setupActions();
 
-    KitenEdit *Edit;
-    KToggleAction *showAll;
+private:
+	QDBusInterface *dbusInterface;
+	radselectView *m_view;
+	dictQuery currentQuery;
+
+	KitenEdit *Edit;
+	KToggleAction *showAll;
 
 };
 
