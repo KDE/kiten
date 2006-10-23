@@ -14,8 +14,8 @@ kde4_add_ui_files(kiten_bin_SRCS
 	configdictselect.ui
 	configsorting.ui
 	)
-kde4_add_kcfg_files(kiten_bin  kiten_bin_SRCS kitenconfig.kcfgc)
-kde4_automoc(kiten_bin ${kiten_bin_SRCS})
+kde4_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
+kde4_automoc(${kiten_bin_SRCS})
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
 set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
