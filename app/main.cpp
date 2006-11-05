@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		some way of doing this with the kde functions.  something like the 
 		aboutData.setOrganizationDomain() above. */
 	if (!QDBusConnection::sessionBus().registerService("org.kde.kiten")) {
-	exit(1);
+		exit(1);
 	}
 
 	t->show();
