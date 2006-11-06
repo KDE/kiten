@@ -36,6 +36,7 @@ class KitenEdit;
 class KConfig;
 class KGlobalAccel;
 class KStatusBar;
+class KSystemTrayIcon;
 class KToggleAction;
 class KListAction;
 class ResultView;
@@ -64,6 +65,7 @@ private slots:
 	void searchAndDisplay(const dictQuery&);
 	void searchInResults();
 	void displayResults(EntryList *);
+	//void searchOnTheSpot();
 		
 		//Configuration related slots
 	void slotConfigure();
@@ -109,6 +111,14 @@ private:
 	KToggleAction *comCB;
 	KAction *backAction;
 	KAction *forwardAction;
+
+	//TODO: this should probably be a standardaction
+	KAction *globalShortcutsAction; 
+
+	//ResultView *detachedView;
+	KAction *globalSearchAction;
+
+	KSystemTrayIcon *sysTrayIcon;
 
 	KGlobalAccel *Accel;
 	ConfigureDialog *optionDialog;

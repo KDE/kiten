@@ -40,6 +40,7 @@
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
 #include <kstdaction.h>
+#include <ksystemtrayicon.h>
 #include <ktoggleaction.h>
 
 #include <qclipboard.h>
@@ -73,6 +74,11 @@ kiten::kiten(QWidget *parent, const char *name)
 */
 	/* Make the ResultView object */
 	mainView = new ResultView(this, "mainView");
+
+	/* TODO: have a look at this idea
+	detachedView = new ResultView(NULL, "detachedView");
+	*/
+
 	setCentralWidget(mainView);
 
 	setupActions();
@@ -81,6 +87,10 @@ kiten::kiten(QWidget *parent, const char *name)
 
 	StatusBar = statusBar();
 	optionDialog = 0;
+
+	/* Start the system tray icon. */
+	sysTrayIcon = new KSystemTrayIcon(windowIcon(), this);
+	sysTrayIcon->show();
 
 	/* Set things as they were (as told in the config) */
 	comCB->setChecked(config->com());
@@ -153,7 +163,14 @@ void kiten::setupActions() {
 	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), actionCollection(), "autosearch_toggle");
 	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
 	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
-	(void) new KAction(i18n("Configure &Global Shortcuts..."), actionCollection(), "options_configure_keybinding");
+
+	//TODO: this should probably be a standardaction
+	globalShortcutsAction = new KAction(i18n("Configure &Global Shortcuts..."), actionCollection(), "options_configure_global_keybinding");
+	connect(globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()));
+
+	globalSearchAction = new KAction(i18n("On The Spo&t Search"), actionCollection(), "search_on_the_spot");
+	globalSearchAction->setGlobalShortcut(QString("Ctrl+Alt+S"));
+	connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
 	/* Set up history interface management */
 	//KDE4 TODO
@@ -164,6 +181,8 @@ void kiten::setupActions() {
 	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
 	forwardAction->setEnabled(false);
+
+
 }
 
 /** This is the latter part of the initialisation. */
@@ -307,6 +326,13 @@ void kiten::displayResults(EntryList *results)
 	mainView->setContents(results->toHTML());
 }
 
+/*
+void kiten::searchOnTheSpot()
+{
+	kDebug() << "On the spot search!\n";
+}
+
+*/
 
 //////////////////////////////////////////////////////////////////////////////
 // PREFERENCES RELATED METHODS
@@ -366,8 +392,8 @@ void kiten::newToolBarConfig()
 /** Opens the dialog for configuring the global accelerator keys. */
 void kiten::configureGlobalKeys()
 {
-	//KDE4 TODO
-//	KKeyDialog::configure(Accel, this);
+	//KDE4 TODO: done?
+	KKeyDialog::configure(actionCollection(), KKeyChooser::LetterShortcutsAllowed, this);
 }
 
 /** This function, as the name says, updates the configuration file.  It should
@@ -384,6 +410,11 @@ void kiten::updateConfiguration()
 
 	//Update the HTML/CSS for our fonts
 	mainView->updateFont();
+
+	/*: TODO: have a look at this as well
+	detachedView->updateFont();
+
+	*/
 
 	//Update general options for the display manager (sorting by dict, etc)
 	dictionaryManager.loadSettings(*config->config());
