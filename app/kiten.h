@@ -40,6 +40,8 @@ class KSystemTrayIcon;
 class KToggleAction;
 class KListAction;
 class ResultView;
+class QDockWidget;
+class QTableWidget;
 
 class kiten : public KMainWindow {
 	Q_OBJECT
@@ -54,6 +56,7 @@ public:
     ~kiten();
 protected:
 	void setupActions();
+	void setupExportListDock();
 	virtual bool queryClose(); //overridden from KMainWindow (called@shutdown)
 private slots:
 	void finishInit();
@@ -119,6 +122,11 @@ private:
 	KAction *globalSearchAction;
 
 	KSystemTrayIcon *sysTrayIcon;
+
+	//Export list related:
+	QDockWidget *exportListDock;
+	QWidget *exportListDockContents;
+	QTableWidget *exportList;
 
 	KGlobalAccel *Accel;
 	ConfigureDialog *optionDialog;

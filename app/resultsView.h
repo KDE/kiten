@@ -29,13 +29,15 @@
 #include <klineedit.h>
 #include <kmainwindow.h>
 #include <ktextbrowser.h>
+#include <khtml_part.h>
+#include <khtmlview.h>
 
 class KListView;
 class KStatusBar;
 
 #include "entry.h"
 
-class ResultView : public KTextBrowser
+class ResultView : public KHTMLPart
 {
 	Q_OBJECT
 	
@@ -54,6 +56,12 @@ class ResultView : public KTextBrowser
 		void setBasicMode(bool yes) { basicMode = yes; }
 
 		void updateFont();
+
+	signals:
+		void urlClicked( const QString& );
+
+	protected:
+		virtual void urlSelected (const QString &url, int button, int state, const QString &	_target, KParts::URLArgs args = KParts::URLArgs());
 
 	private:
 		QString printText;

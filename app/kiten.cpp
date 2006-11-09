@@ -46,6 +46,13 @@
 #include <qclipboard.h>
 #include <qtextcodec.h>
 #include <qtimer.h>
+#include <qdockwidget.h>
+#include <qtablewidget.h>
+#include <qboxlayout.h>
+
+#include <khtml_part.h>
+#include <khtmlview.h>
+#include <kurl.h>
 
 #include "kiten.h"
 #include "resultsView.h"
@@ -75,11 +82,14 @@ kiten::kiten(QWidget *parent, const char *name)
 	/* Make the ResultView object */
 	mainView = new ResultView(this, "mainView");
 
+	/* Create the export list */
+	setupExportListDock();
+
 	/* TODO: have a look at this idea
 	detachedView = new ResultView(NULL, "detachedView");
 	*/
 
-	setCentralWidget(mainView);
+	setCentralWidget(mainView->widget());
 
 	setupActions();
 
@@ -100,7 +110,8 @@ kiten::kiten(QWidget *parent, const char *name)
 	applyMainWindowSettings(KGlobal::config(), "kitenWindow");
 
 	/* What happens when links are clicked or things are selected in the clipboard */
-	connect(mainView, SIGNAL(urlClick(const QString &)), SLOT(searchText(const QString &)));
+	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
+
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 
 	/* See below for what else needs to be done */
@@ -185,6 +196,23 @@ void kiten::setupActions() {
 
 }
 
+void kiten::setupExportListDock()
+{
+	exportListDock = new QDockWidget(i18n("Export List"), this);
+	exportListDockContents = new QWidget(exportListDock);
+	exportListDock->setWidget(exportListDockContents);
+	addDockWidget(Qt::RightDockWidgetArea, exportListDock);
+
+
+	QVBoxLayout *layout = new QVBoxLayout(exportListDockContents);
+	exportListDockContents->setLayout(layout);
+
+	exportList = new QTableWidget(0, 3);
+	layout->addWidget(exportList);
+	exportList->setHorizontalHeaderLabels(QStringList() << i18n("Kanji") << i18n("Kana") << i18n("English"));
+
+}
+
 /** This is the latter part of the initialisation. */
 void kiten::finishInit()
 {
@@ -231,6 +259,9 @@ void kiten::searchFromEdit()
 void kiten::searchText(const QString text)
 {
 	searchAndDisplay(dictQuery(text));
+	int currentSize = exportList->rowCount();
+	exportList->setRowCount(currentSize + 1);
+	exportList->setItem(currentSize, 0, new QTableWidgetItem(text));
 }
 
 /** This should change the Edit text to be appropriate and then begin a search

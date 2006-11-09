@@ -32,15 +32,15 @@
 
 /* TODO: make this a KHTML thing instead of a KTextBrowser? */
 ResultView::ResultView(QWidget *parent, const char *name)
-	: KTextBrowser(parent, name)
+	: KHTMLPart(parent, parent)
 {
-	setReadOnly(true);
+	////////setReadOnly(true);
 	/* TODO: configurably underlined links */
 //	setLinkUnderline(false); //KDE4 CHANGE
-	basicMode = false;
+	////////basicMode = false;
 
 	// don't let ktextbrowser internally handle link clicks
-	setNotifyClick(true);
+	////////setNotifyClick(true);
 }
 
 /** As the name implies, it appends @p text to the printText */
@@ -58,17 +58,21 @@ void ResultView::clear()
 /** Flushes the printText to screen */
 void ResultView::flush()
 {
-	setHtml(printText);
+	begin();
+	write(printText);
+	end();
 //KDE4 CHANGE	setCursorPosition(0, 0);
-	ensureCursorVisible();
+	////////ensureCursorVisible();
 }
 
 /** Non-buffered write of contents to screen */
 void ResultView::setContents(const QString &text)
 {
-	setHtml(text);
+	begin();
+	write(text);
+	end();
 //KDE4 CHANGE	setCursorPosition(0,0);
-	ensureCursorVisible();
+	////////ensureCursorVisible();
 }
 
 /** Prints the contents of the resultview to a printer with @p title as the 
@@ -130,7 +134,17 @@ void ResultView::print(QString title)
 /** updates the font.  Used on font change */
 void ResultView::updateFont()
 {
-	setFont(KitenConfigSkeleton::self()->font());
+	////////setFont(KitenConfigSkeleton::self()->font());
+}
+
+void ResultView::urlSelected(const QString & 	url, 
+		int 	button, 
+		int 	state, 
+		const QString & 	_target, 
+		KParts::URLArgs 	args )
+{
+	kDebug() << url << endl;
+	emit urlClicked(url);
 }
 
 #include "resultsView.moc"
