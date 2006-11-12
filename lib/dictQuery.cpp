@@ -31,8 +31,6 @@ TODO: Add features to limit the number of hits on a per-search basis.
 
 #include <kdebug.h>
 
-
-
 /*****************************************************************************
 *	Constructors, Destructors, Initilizers, and
 *	Global Status Indicators.

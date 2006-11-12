@@ -24,17 +24,17 @@
 #include <QtCore/QHash>
 #include <QtGui/QWidget>
 #include <QtGui/QPushButton>
+#include <QtCore/QSet>
 
 class QMouseEvent;
 
-class Radical : public QString {  //I'd use QChar... but it's basically unusable
+class Radical : public QString {
 private:
 	unsigned int stroke_count;
-public: Radical(QString irad,unsigned int istrokes):QString(irad.at(0))
-		{stroke_count=istrokes;} //Only record first character
-	virtual ~Radical() {}
+public:
+	Radical(QString irad, unsigned int istrokes=0)
+		: QString(irad.at(0)), stroke_count(istrokes) { }
 	unsigned int strokes() {return stroke_count;}
-	void addComponant(const Radical&) {} //Not implemented yet :(
 };
 
 class radicalButton : public QPushButton {
@@ -50,8 +50,7 @@ public slots:
 	void mouseReleaseEvent(QMouseEvent*);
 };
 
-class radselectButtonGrid : public QWidget
-{
+class radselectButtonGrid : public QWidget {
 	Q_OBJECT
 public:
 	radselectButtonGrid(QWidget *parent);
@@ -70,17 +69,16 @@ public slots:
 	void clearSelections();
 	void setFont(const QFont&);
 
-private: //private functions we need
-	bool loadRadicalFile();  		// Reads the data from the radkfile
-	void buildRadicalList(QWidget*);
+private:
+	bool loadRadicalFile();		// Reads the data from the radkfile
+	void buildRadicalButtons(QWidget*);
 
-private: //Private variables
-	bool loaded;
 	static const unsigned int number_of_radical_columns = 11;
-				//Higher stroke counts are bunched together
-	QHash<QString,Radical*> radicals; 
-	QHash<QString,radicalButton*> buttons;
 
+	QSet<Radical> radicals;						//Radical list
+	QHash<QString, radicalButton*> buttons; //Radical -> Button Mapping
+	QHash<QString, QSet<QString> > krad;  //Kanji -> [Radical]* Mapping
+	QHash<QString, QSet<QString> > radk;	//Radical -> Kanji Mapping
 };
 
 #endif
