@@ -112,6 +112,8 @@ kiten::kiten(QWidget *parent, const char *name)
 	/* What happens when links are clicked or things are selected in the clipboard */
 	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
 
+	connect(mainView, SIGNAL(entrySpecifiedForExport(const  QString&, const QString&, const QStringList&, const QStringList&)), this, SLOT(addExportListEntry(const  QString&, const QString&, const QStringList&, const QStringList&)));
+
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 
 	/* See below for what else needs to be done */
@@ -213,6 +215,15 @@ void kiten::setupExportListDock()
 
 }
 
+void kiten::addExportListEntry(const  QString& /* dict */, const QString& word, const QStringList& readings, const QStringList& meanings)
+{
+	int currentSize = exportList->rowCount();
+	exportList->setRowCount(currentSize + 1);
+	exportList->setItem(currentSize, 0, new QTableWidgetItem(word));
+	exportList->setItem(currentSize, 1, new QTableWidgetItem(readings.join(", ")));
+	exportList->setItem(currentSize, 2, new QTableWidgetItem(meanings.join(", ")));
+}
+
 /** This is the latter part of the initialisation. */
 void kiten::finishInit()
 {
@@ -259,9 +270,6 @@ void kiten::searchFromEdit()
 void kiten::searchText(const QString text)
 {
 	searchAndDisplay(dictQuery(text));
-	int currentSize = exportList->rowCount();
-	exportList->setRowCount(currentSize + 1);
-	exportList->setItem(currentSize, 0, new QTableWidgetItem(text));
 }
 
 /** This should change the Edit text to be appropriate and then begin a search

@@ -34,6 +34,8 @@
 
 class KListView;
 class KStatusBar;
+class KActionMenu;
+class KActionCollection;
 
 #include "entry.h"
 
@@ -54,18 +56,26 @@ class ResultView : public KHTMLPart
 		void clear();
 		void setContents(const QString &);
 		void setBasicMode(bool yes) { basicMode = yes; }
+		void openPopupMenu( const QString&, const QPoint&);
 
 		void updateFont();
 
 	signals:
 		void urlClicked( const QString& );
+		void entrySpecifiedForExport(const  QString&, const QString&, const QStringList&, const QStringList&);
 
 	protected:
 		virtual void urlSelected (const QString &url, int button, int state, const QString &	_target, KParts::URLArgs args = KParts::URLArgs());
+		DOM::Node findEntryNode(DOM::Node node);
+		DOM::Node findChildWithClassValue(DOM::Node node, const QString& classValue);
+		QString deLinkify(DOM::Node);
 
 	private:
 		QString printText;
 		bool basicMode;
+		KAction *addToExportListAction;
+		KActionCollection *popupActions;
+		KActionMenu *popupMenu;
 };
 
 #endif

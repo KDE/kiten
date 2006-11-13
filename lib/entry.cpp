@@ -59,7 +59,8 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	QString result;
 	foreach(Entry *it, *this) {
 		if(length-- > 0)
-			result = result + it->toHTML(type);
+			result = result + "<div class=\"Entry\" dict=\"" + it->getDictName()
+				+ "\">" + it->toHTML(type) + "</div>\n";
 		else
 			break;
 	}
@@ -301,7 +302,7 @@ inline QString Entry::HTMLReadings() const
 	QStringList copy = Readings;
 	for(QStringList::iterator it = copy.begin(); it != copy.end();++it) //KDE4 CHANGE
 		*it = makeLink(*it);
-	return "<span class=\"Meanings\">"+copy.join(outputListDelimiter)+"</span>";
+	return "<span class=\"Readings\">"+copy.join(outputListDelimiter)+"</span>";
 }
 
 /** Prepares Meanings for output as HTML */

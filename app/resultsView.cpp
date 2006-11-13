@@ -24,16 +24,26 @@
 /* Needed by ResultView only */
 #include <kapplication.h>
 #include <kconfig.h>
+#include <kmenu.h>
+#include <kactionmenu.h>
 #include <kprinter.h>
 #include <qpainter.h>
 #include "kitenconfig.h"
 #include <klocale.h>
 #include "resultsView.h"
+#include <kactioncollection.h>
 
 /* TODO: make this a KHTML thing instead of a KTextBrowser? */
 ResultView::ResultView(QWidget *parent, const char *name)
 	: KHTMLPart(parent, parent)
 {
+	//Set right-click functionality
+	connect(this, SIGNAL(popupMenu( const QString& , const QPoint& )), this, SLOT(openPopupMenu( const QString& , const QPoint& )));
+	popupActions = new KActionCollection(widget());
+	addToExportListAction = new KAction(i18n("&Add to export list"), popupActions, "add_to_export_list_popup");
+	popupMenu = new KActionMenu(popupActions, "popup");
+	popupMenu->addAction(addToExportListAction);
+
 	////////setReadOnly(true);
 	/* TODO: configurably underlined links */
 //	setLinkUnderline(false); //KDE4 CHANGE
@@ -68,6 +78,7 @@ void ResultView::flush()
 /** Non-buffered write of contents to screen */
 void ResultView::setContents(const QString &text)
 {
+
 	begin();
 	write(text);
 	end();
@@ -143,8 +154,94 @@ void ResultView::urlSelected(const QString & 	url,
 		const QString & 	_target, 
 		KParts::URLArgs 	args )
 {
-	kDebug() << url << endl;
+	kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML() << endl;
 	emit urlClicked(url);
+}
+
+DOM::Node ResultView::findEntryNode(DOM::Node node)
+{
+	while (!node.isNull() && node.attributes().getNamedItem("class").nodeValue() != "Entry")
+	{
+		node = node.parentNode();
+	}
+	return node;
+}
+
+DOM::Node ResultView::findChildWithClassValue(DOM::Node node, const QString& classValue)
+{
+	/* Do a Breadth first search looking for a node with the attribute
+	 * class="classValue" */
+	QList<DOM::Node> traverse;
+	for (int i = 0; i < node.childNodes().length(); ++i)
+	{
+		traverse.push_back(node.childNodes().item(i));
+	}
+	DOM::Node returnNode;
+	while (traverse.size() > 0)
+	{
+		returnNode = traverse.takeFirst();
+		if (returnNode.attributes().getNamedItem("class").nodeValue().string() == classValue)
+		{
+			return returnNode;
+		}
+
+		for (int i = 0; i < returnNode.childNodes().length(); ++i)
+		{
+			traverse.push_back(returnNode.childNodes().item(i));
+		}
+	}
+	return DOM::Node();
+}
+
+QString ResultView::deLinkify(DOM::Node node)
+{
+	//TODO: make this function more flexible (ie, accept non-link-content as
+	//well.)
+	QString word;
+	for (int i = 0; i < node.childNodes().length(); ++i)
+	{
+		if (node.childNodes().item(i).nodeName() != "a") return QString();
+		if (!node.childNodes().item(i).hasChildNodes()) return QString();
+		word += node.childNodes().item(i).childNodes().item(0).nodeValue().string();
+	}
+	return word;
+}
+
+void ResultView::openPopupMenu( const QString& url, const QPoint& point )
+{
+	QAction *clickedAction = popupMenu->menu()->exec(point);
+	if (clickedAction == addToExportListAction)
+	{
+		DOM::Node entryNode = findEntryNode(nodeUnderMouse());
+		const QString& dict = entryNode.attributes().getNamedItem("dict").nodeValue().string();
+
+		DOM::Node wordNode = findChildWithClassValue(entryNode, "Word");
+		QString word = deLinkify(wordNode);
+		
+
+		QStringList readings;
+		DOM::Node readingsNode = findChildWithClassValue(entryNode, "Readings");
+		for (int i = 0; i < readingsNode.childNodes().length(); ++i)
+		{
+			readings << readingsNode.childNodes().item(i).childNodes().item(0).nodeValue().string();
+		}
+
+		QStringList meanings;
+		DOM::Node meaningsNode = findChildWithClassValue(entryNode, "Meanings");
+		for (int i = 0; i < meaningsNode.childNodes().length(); ++i)
+		{
+			meanings << meaningsNode.childNodes().item(i).toHTML();
+		}
+
+		kDebug() << dict << word << readings << meanings << endl;
+
+
+		emit entrySpecifiedForExport(dict, word, readings, meanings);
+	} else 
+	{
+		kDebug() << "No menu action clicked." << endl;
+	}
+
 }
 
 #include "resultsView.moc"
