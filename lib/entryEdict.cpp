@@ -20,6 +20,7 @@
 
 #include "entryEdict.h"
 #include "dictFileEdict.h"
+#include <kdebug.h>
 
 /* DISPLAY FUNCTIONS */
 
@@ -102,7 +103,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 				tempQString.left(tempQString.lastIndexOf(']')).mid(startOfReading+1));
 
 	/* set Meanings to be all of the meanings in the definition */
-	Meanings = entryLine.mid(tempQString.length()).split('/');
+	Meanings = entryLine.left(entryLine.lastIndexOf('/')).mid(tempQString.length()).split('/', QString::SkipEmptyParts);
 
 //	kdDebug()<< "Parsed: '"<<Word<<"' ("<<Readings.front()<<") \""<<
 //		Meanings.join("|")<<"\" from :"<<entryLine<<endl;

@@ -363,6 +363,14 @@ void kiten::displayResults(EntryList *results)
 	results->sort(fieldSort,dictSort);
 	/* synchronize the results window */
 	mainView->setContents(results->toHTML());
+
+	/* to print the html results to file:
+	QFile file("/tmp/lala");
+	file.open(QIODevice::WriteOnly);
+	file.write(results->toHTML().toUtf8());
+	file.close();
+	*/
+
 }
 
 /*

@@ -60,7 +60,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	foreach(Entry *it, *this) {
 		if(length-- > 0)
 			result = result + "<div class=\"Entry\" dict=\"" + it->getDictName()
-				+ "\">" + it->toHTML(type) + "</div>\n";
+				+ "\">" + it->toHTML(type) + "</div>";
 		else
 			break;
 	}
