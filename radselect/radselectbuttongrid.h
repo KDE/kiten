@@ -42,12 +42,21 @@ class radicalButton : public QPushButton {
 public:
 	radicalButton(const QString& a, QWidget* b);
 	virtual ~radicalButton() {}
+	typedef enum {kNormal,  // Normal button
+		kSelected,				// This button has been selected: bold + underline
+		kNotAppropriate,		// Due to other selected buttons: disabled
+		kRelated,				// Display only this radical and related ones: italics?
+		kHidden}					// Not related (to above), so hide()
+	ButtonStatus;
 signals:
-	void rightClicked(const QString&);
-	void leftReleased(const QString&);
+	void userClicked(const QString&, radicalButton::ButtonStatus);
 public slots:
 	void mousePressEvent(QMouseEvent*);
 	void mouseReleaseEvent(QMouseEvent*);
+	void resetButton();
+	void setStatus(radicalButton::ButtonStatus);
+private:
+	ButtonStatus status;
 };
 
 class radselectButtonGrid : public QWidget {
@@ -59,12 +68,17 @@ public:
 signals:
 	/** Our generic message alert signal */
 	void signalChangeStatusbar(const QString& text);
-	/** We emit this when the user has selected a radical for the search bar */
-	void addRadicalToList(const QString&);
-	/** We want a radical removed from the selection list */
-	void removeRadicalFromList(const QString&);
+	/** We emit this whenever something changed. This gives our list of
+	  suggested kanji */
+	void possibleKanji(const QSet<QString>&);
+	void clearButtonSelections();
 
 public slots:
+	/** Setup stroke range and base limiters */
+	void changeStrokeBase(int);
+	void changeStrokeRange(int);
+	/** Triggered by a button press */
+	void radicalClicked(const QString&, radicalButton::ButtonStatus);
 	/** Reset all buttons to the up and uncolored state */
 	void clearSelections();
 	void setFont(const QFont&);
@@ -74,6 +88,10 @@ private:
 	void buildRadicalButtons(QWidget*);
 
 	static const unsigned int number_of_radical_columns = 11;
+	enum {kSelection, kRelational} currentMode;
+
+	QString relationalRadical;
+	QSet<QString> selectedRadicals;
 
 	QSet<Radical> radicals;						//Radical list
 	QHash<QString, radicalButton*> buttons; //Radical -> Button Mapping

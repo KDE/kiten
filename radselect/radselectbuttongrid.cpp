@@ -44,7 +44,7 @@
 #include <kdebug.h>
 
 radselectButtonGrid::radselectButtonGrid(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent), currentMode(kSelection)
 {
     loadRadicalFile();
 
@@ -138,8 +138,12 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 			grid->addWidget(button, row_index++, column_index);
 
 			//Bind slots/signals for this button
-			connect( button, SIGNAL( leftReleased(const QString&) ),
-					this, SIGNAL( addRadicalToList(const QString&) ) );
+			connect(
+				button, SIGNAL(userClicked(const QString&,radicalButton::ButtonStatus)),
+				this, SLOT(radicalClicked(const QString&,radicalButton::ButtonStatus))
+			);
+			connect( this, SIGNAL( clearButtonSelections() ),
+					button, SLOT( resetButton () ) );
 			//Add this button to our list
 			buttons.insert(it,button);
 		}
@@ -155,8 +159,57 @@ void radselectButtonGrid::setFont(const QFont &font) {
 	}
 }
 
+void radselectButtonGrid::radicalClicked(const QString &newrad,
+		radicalButton::ButtonStatus newStatus) {
+	if(newStatus == radicalButton::kRelated)
+		; //Do something fancy
+	else if(newStatus == radicalButton::kNormal ||
+			newStatus == radicalButton::kSelected) {
+		currentMode = kSelection;
+		if(newStatus == radicalButton::kNormal)
+			selectedRadicals.remove(newrad);
+		else
+			selectedRadicals.insert(newrad);
+
+		//Figure out what our kanji possibilites are
+		QSet<QString> kanjiList;
+		if(kanjiList.count() > 0)
+			kanjiList = radk.begin().value();
+		foreach(QString radical, selectedRadicals) {
+			kanjiList &= radk.value(radical); //Make a set intersection of these kanji
+		}
+		emit possibleKanji(kanjiList); //And tell the world!
+
+		//Now figure out what our remaining radical possibilities are
+		QSet<QString> remainingRadicals;
+		foreach(QString kanji, kanjiList)
+			remainingRadicals |= krad.value(kanji);
+		//Remove the already selected ones
+		remainingRadicals -= selectedRadicals;
+
+		//Now go through and set status appropriately
+		QHash<QString, radicalButton*>::iterator i = buttons.begin();
+		while(i != buttons.end()) {
+			if(selectedRadicals.contains(i.key()))
+				i.value()->setStatus(radicalButton::kSelected);
+			else if(remainingRadicals.contains(i.key()))
+				i.value()->setStatus(radicalButton::kNormal);
+			else
+				i.value()->setStatus(radicalButton::kNotAppropriate);
+			++i;
+		}
+	}
+
+}
+
+void radselectButtonGrid::changeStrokeBase(int newBase) {
+}
+
+void radselectButtonGrid::changeStrokeRange(int newRange) {
+}
+
 void radselectButtonGrid::clearSelections() {
-	//In the future, this will do something
+	emit clearButtonSelections();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -167,16 +220,50 @@ radicalButton::radicalButton(const QString &text, QWidget *parent)
 	: QPushButton(text,parent) {
 }
 
+void radicalButton::setStatus(radicalButton::ButtonStatus newStatus) {
+	if(status == newStatus) return;
+	//Because it's more work to check everything rather than just set it,
+	//we'll just set everything every time
+	bool underline=false, italic=false, hidden=false, disabled=false;
+	switch(newStatus) {
+		case kNormal:
+			break;
+		case kSelected:
+			underline=true; italic=true; break;
+		case kNotAppropriate:
+			disabled=true;	break;
+		case kRelated:
+			italic=true; break;
+		case kHidden:
+			hidden=true;
+	}
+	QFont theFont = font();
+	theFont.setUnderline(underline);
+	theFont.setItalic(italic);
+	setFont(theFont);
+	setVisible(!hidden);
+	setEnabled(!disabled);
+}
+
+
+void radicalButton::resetButton() {
+	setStatus(kNormal);
+}
+
 void radicalButton::mousePressEvent(QMouseEvent *e)
 {
 	QPushButton::mousePressEvent(e);
-	if(e->button() == Qt::RightButton)
-		emit rightClicked(text());
+	if(e->button() == Qt::RightButton) {
+		setStatus(kRelated);
+		emit userClicked(text(), kRelated);
+	}
 }
 void radicalButton::mouseReleaseEvent(QMouseEvent *e){
 	QPushButton::mouseReleaseEvent(e);
-	if(e->button() == Qt::LeftButton)
-		emit leftReleased(text());
+	if(e->button() == Qt::LeftButton) {
+		setStatus(kSelected);
+		emit userClicked(text(), kSelected);
+	}
 }
 
 #include "radselectbuttongrid.moc"

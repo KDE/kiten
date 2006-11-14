@@ -85,7 +85,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="search_button" >
+      <widget class="QPushButton" name="clear_button" >
        <property name="sizePolicy" >
         <sizepolicy>
          <hsizetype>5</hsizetype>
@@ -95,7 +95,7 @@
         </sizepolicy>
        </property>
        <property name="text" >
-        <string>&amp;Search</string>
+        <string>Clear</string>
        </property>
        <property name="shortcut" >
         <string>Alt+S</string>
@@ -134,7 +134,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>search_button</tabstop>
+  <tabstop>clear_button</tabstop>
   <tabstop>selected_radicals</tabstop>
  </tabstops>
  <resources/>

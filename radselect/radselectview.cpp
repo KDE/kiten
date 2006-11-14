@@ -59,7 +59,7 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
    connect( selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ),
 		this, SLOT( queueDeleteRadical(QListWidgetItem*) ) );
 	//Connect our search button
-   connect( search_button, SIGNAL( clicked() ), this, SLOT(startSearch()));
+   connect( clear_button, SIGNAL( clicked() ), this, SLOT(clearSearch()));
 
 	loadSettings();
 }
@@ -152,6 +152,10 @@ void radselectView::load(QString iRadicals, QString iStrokes)
 		strokes_counter->setText("");
 */
 	emit searchModified();
+}
+
+void radselectView::clearSearch() {
+	buttons->clearSelections();
 }
 
 void radselectView::changedSearch() {

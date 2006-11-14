@@ -54,6 +54,7 @@ private slots:
 	void addRadicalToList(const QString&); //Adds the named radical to the search list
 	void queueDeleteRadical(QListWidgetItem*); //Prepare to remove an item from search list
 	void deleteRadical();	//Called via QTimer by the previous, uses private 'victim'
+	void clearSearch();		//Clear everything
 	void changedSearch();		//connected to any changes in searches, emits searchModified
 
 private: //Private variables
