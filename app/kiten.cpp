@@ -128,12 +128,24 @@ kiten::~kiten()
     optionDialog = 0;
 }
 
+#include <QFile>
+
+void kiten::saveAs() 
+{
+	QFile file("/tmp/kvtml");
+	file.open(QIODevice::WriteOnly);
+	EntryList *list = exportList->entryList();
+	file.write(list->toKVTML(0, list->size()).toUtf8());
+	file.close();
+}
+
 void kiten::setupActions() {
 
 	/* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
 	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
 	(void) KStdAction::print(this, SLOT(print()), actionCollection());
 	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
 	//KDE4 FIXME (const QObject*) cast
 	KStdAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 

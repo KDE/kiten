@@ -62,6 +62,9 @@ protected:
 private slots:
 	void finishInit();
 
+	//Export list related
+	void saveAs();
+
 		//Searching related methods
 	void searchFromEdit();
 	void searchText(const QString);

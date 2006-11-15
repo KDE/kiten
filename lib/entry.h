@@ -80,6 +80,9 @@ public:
 	/* An entry should be able to generate a representation of itself in (valid)
 		HTML */
 	virtual QString toHTML(printType=printAuto) const;
+	/* KVTML format for exporting */
+	virtual QString toKVTML() const;
+
 	/** This will return a pure text interpretation of the Entry */
 	virtual QString toString(printType=printAuto) const;
 	virtual void setFavoredPrintType(const printType);
@@ -150,6 +153,7 @@ public:
 			Entry::printType=Entry::printAuto) const;
 	QString toHTML(unsigned int start, unsigned int length,
 			Entry::printType=Entry::printAuto) const;
+	QString toKVTML(unsigned int start, unsigned int length) const;
 	
 	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
 

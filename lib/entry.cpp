@@ -67,6 +67,24 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	return result;
 }
 
+QString EntryList::toKVTML(unsigned int start, unsigned int length) const {
+	unsigned int max = count();
+	if(start > max) return QString();
+	if(start+length > max) length = max-start;
+
+	QString result = "<?xml version=\"1.0\"?>\n<!DOCTYPE kvtml SYSTEM \"kvoctrain.dtd\">\n"
+		"<kvtml encoding=\"UTF-8\" "
+		" generator=\"kiten v42.0\""
+		" title=\"To be determined\">\n";
+	foreach(Entry *it, *this) {
+		if(length-- > 0)
+			result = result + it->toKVTML() + "\n";
+		else
+			break;
+	}
+	return result +"</kvtml>\n";
+}
+
 QString EntryList::toHTML(Entry::printType type) const {
 	return toHTML(0,count(),type);
 }
@@ -281,6 +299,20 @@ inline QString Entry::toBriefHTML() const
 {
 	return "<div class=\"EntryBrief\">" + HTMLWord() + HTMLReadings() + 
 		HTMLMeanings() + "</div>"; 
+}
+
+inline QString Entry::toKVTML() const
+{
+	/*
+   <e m="1" s="1">
+	   <o width="414" l="en" q="t">(eh,) excuse me</o>
+	   <t width="417" l="jp" q="o">(あのう、) すみません </t>
+   </e>
+   */
+	//TODO: en should not necessarily be the language here.
+	return "<e>\n<o l=\"en\">" + getMeanings() + "</o>\n"
+		"<t l=\"jp-kanji\">" + getWord() + "</t>\n" +
+		"<t l=\"jp-kana\">" + getReadings() + "</t></e>\n\n";
 }
 
 /** returns an HTML version of an Entry that is rather complete.*/
