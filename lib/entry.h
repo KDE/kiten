@@ -37,6 +37,9 @@ class dictFile;
 class dictQuery;
 
 class LIBKITEN_EXPORT Entry {
+
+	friend class EntryListModel;
+
 public:
 	/** Default constructor, should not be used */
 	Entry();
@@ -130,6 +133,8 @@ protected:
 
 
 class LIBKITEN_EXPORT EntryList : public QList<Entry*> {
+
+
 public:
 	typedef QListIterator<Entry*> EntryIterator;
 	

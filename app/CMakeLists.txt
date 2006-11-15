@@ -6,6 +6,7 @@ set(kiten_bin_SRCS
 	configuredialog.cpp
 	configdictionaryselector.cpp
 	configsortingpage.cpp
+	entryListView.cpp
 	)
 kde4_add_ui_files(kiten_bin_SRCS 
 	configsearching.ui

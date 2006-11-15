@@ -62,6 +62,7 @@
 #include "kitenconfig.h"
 #include "configuredialog.h"
 #include "historyPtrList.h"
+#include "entryListView.h"
 
 kiten::kiten(QWidget *parent, const char *name)
 	: KMainWindow(parent)
@@ -209,19 +210,22 @@ void kiten::setupExportListDock()
 	QVBoxLayout *layout = new QVBoxLayout(exportListDockContents);
 	exportListDockContents->setLayout(layout);
 
-	exportList = new QTableWidget(0, 3);
+	exportList = new EntryListView(exportListDockContents);
+
 	layout->addWidget(exportList);
-	exportList->setHorizontalHeaderLabels(QStringList() << i18n("Kanji") << i18n("Kana") << i18n("English"));
 
 }
 
 void kiten::addExportListEntry(const  QString& /* dict */, const QString& word, const QStringList& readings, const QStringList& meanings)
 {
+	/*
+	 * REFACTORING THIS NOW
 	int currentSize = exportList->rowCount();
 	exportList->setRowCount(currentSize + 1);
 	exportList->setItem(currentSize, 0, new QTableWidgetItem(word));
 	exportList->setItem(currentSize, 1, new QTableWidgetItem(readings.join(", ")));
 	exportList->setItem(currentSize, 2, new QTableWidgetItem(meanings.join(", ")));
+	*/
 }
 
 /** This is the latter part of the initialisation. */
@@ -321,6 +325,7 @@ void kiten::searchAndDisplay(const dictQuery &query)
 
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
+	exportList->setEntryList(results);
 }
 
 /** Search in the previous results, identical to searchAndDisplay except for the one call */

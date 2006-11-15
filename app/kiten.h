@@ -41,7 +41,7 @@ class KToggleAction;
 class KListAction;
 class ResultView;
 class QDockWidget;
-class QTableWidget;
+class EntryListView;
 
 class kiten : public KMainWindow {
 	Q_OBJECT
@@ -127,7 +127,7 @@ private:
 	//Export list related:
 	QDockWidget *exportListDock;
 	QWidget *exportListDockContents;
-	QTableWidget *exportList;
+	EntryListView *exportList;
 
 	KGlobalAccel *Accel;
 	ConfigureDialog *optionDialog;
