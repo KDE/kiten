@@ -29,7 +29,7 @@
 class KComboBox;
 class KCompletion;
 
-class LIBKITEN_EXPORT KitenEdit : public KHistoryCombo
+class KITEN_EXPORT KitenEdit : public KHistoryCombo
 {
 	Q_OBJECT
 	public:

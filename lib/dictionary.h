@@ -52,7 +52,7 @@ class dictQuery;
  * things, but generally speaking this is the way this should work.
  */
 
-class LIBKITEN_EXPORT dictionary {
+class KITEN_EXPORT dictionary {
 	public:
 	dictionary();
 	virtual ~dictionary();
@@ -88,7 +88,7 @@ class DictionaryPreferenceDialog;
  *  class and the dictionary handler files. IMPLEMENT in combination with an
  *   Entry subclass to add a new dictionary format. Also see the addDictionary
  *   method in the dictionary class. */
-class LIBKITEN_EXPORT dictFile {
+class KITEN_EXPORT dictFile {
 public:
 	/** Please see the comment at the dictionaryType protected variable*/
 	dictFile() {}

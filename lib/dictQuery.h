@@ -85,7 +85,7 @@ class QChar;
 
 typedef QHash<QString,QString> __stupid_stub_dictQuery_type;
 
-class LIBKITEN_EXPORT dictQuery : protected __stupid_stub_dictQuery_type
+class KITEN_EXPORT dictQuery : protected __stupid_stub_dictQuery_type
 {
 public:
    /**

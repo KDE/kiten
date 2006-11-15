@@ -26,7 +26,7 @@
 class QStringList;
 class EntryList;
 
-class LIBKITEN_EXPORT historyPtrList : protected QList<EntryList*> {
+class KITEN_EXPORT historyPtrList : protected QList<EntryList*> {
 	private:
 		int m_index;
 	public:

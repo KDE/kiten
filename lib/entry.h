@@ -36,7 +36,7 @@ class QString;
 class dictFile;
 class dictQuery;
 
-class LIBKITEN_EXPORT Entry {
+class KITEN_EXPORT Entry {
 
 	friend class EntryListModel;
 
@@ -135,7 +135,7 @@ protected:
 };
 
 
-class LIBKITEN_EXPORT EntryList : public QList<Entry*> {
+class KITEN_EXPORT EntryList : public QList<Entry*> {
 
 
 public:
