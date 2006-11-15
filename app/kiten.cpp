@@ -53,6 +53,7 @@
 #include <khtml_part.h>
 #include <khtmlview.h>
 #include <kurl.h>
+#include <kfiledialog.h>
 
 #include "kiten.h"
 #include "resultsView.h"
@@ -132,8 +133,15 @@ kiten::~kiten()
 
 void kiten::saveAs() 
 {
-	QFile file("/tmp/kvtml");
+	//TODO: remember last path used
+	QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("Kvtml files (*.kvtml)"), this, i18n("Choose file to export to"));
+	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
+	if (!file.isOpen())
+	{
+		kDebug() << "ERROR: File not opened properly" << endl;
+		return;
+	}
 	EntryList *list = exportList->entryList();
 	file.write(list->toKVTML(0, list->size()).toUtf8());
 	file.close();
