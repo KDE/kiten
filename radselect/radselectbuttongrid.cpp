@@ -1,5 +1,5 @@
 /* This file is part of kiten, a KDE Japanese Reference Tool
-   opyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+   Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -18,7 +18,7 @@
 */
 
 
-/* 
+/*
     Future Plans:
 *	Design a custom QGridLayout to rearrange buttons dynamically to resize
 *	Design multiple radical file handling
@@ -79,14 +79,15 @@ bool radselectButtonGrid::loadRadicalFile()
 	while (!t.atEnd())
 	{
 		QString line = t.readLine();
-		if(line.at(0) == '#')	//Skip comment characters
+		if(line.at(0) == '#' || line.length() == 0)	//Skip comment characters
 			continue;
 		else if(line.at(0) == '$') {	//Start of a new radical
 			unsigned int strokes = line.right(2).toUInt();
 			radical = QString(line.at(2));
 			radicals.insert(Radical(radical,strokes));
 		} else if(!radical.isEmpty()) {	// List of kanji, potentially
-			QList<QString> kanjiList = line.split("");
+			QList<QString> kanjiList =
+				line.trimmed().split("",QString::SkipEmptyParts);
 			radk[radical] += kanjiList.toSet();
 			foreach( QString kanji, kanjiList )
 				krad[kanji] += radical;
@@ -171,14 +172,29 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 		else
 			selectedRadicals.insert(newrad);
 
+		//Special Case/Early exit: no radicals selected
+		if(selectedRadicals.isEmpty()) {
+			QSet<QString> blankSet;
+			foreach(radicalButton *button, buttons)
+				button->setStatus(radicalButton::kNormal);
+			emit possibleKanji(blankSet);
+			emit signalChangeStatusbar ("No Radicals Selected");
+			return;
+		}
+
 		//Figure out what our kanji possibilites are
 		QSet<QString> kanjiList;
-		if(kanjiList.count() > 0)
-			kanjiList = radk.begin().value();
-		foreach(QString radical, selectedRadicals) {
-			kanjiList &= radk.value(radical); //Make a set intersection of these kanji
-		}
+		if(selectedRadicals.count() > 0)
+			kanjiList = radk.value(*selectedRadicals.begin());
+		//Make a set intersection of these kanji
+		foreach(QString radical, selectedRadicals)
+			kanjiList &= radk.value(radical);
 		emit possibleKanji(kanjiList); //And tell the world!
+
+		//Do the announcement of the selected radical list
+		QStringList radicalList(selectedRadicals.toList());
+		emit signalChangeStatusbar ("Selected Radicals: "+
+				radicalList.join(", "));
 
 		//Now figure out what our remaining radical possibilities are
 		QSet<QString> remainingRadicals;
@@ -243,6 +259,7 @@ void radicalButton::setStatus(radicalButton::ButtonStatus newStatus) {
 	setFont(theFont);
 	setVisible(!hidden);
 	setEnabled(!disabled);
+	status = newStatus;
 }
 
 
@@ -261,8 +278,15 @@ void radicalButton::mousePressEvent(QMouseEvent *e)
 void radicalButton::mouseReleaseEvent(QMouseEvent *e){
 	QPushButton::mouseReleaseEvent(e);
 	if(e->button() == Qt::LeftButton) {
-		setStatus(kSelected);
-		emit userClicked(text(), kSelected);
+		switch(status) {
+			case kSelected:
+				setStatus(kNormal);
+				emit userClicked(text(), kNormal);
+				break;
+			default:
+				setStatus(kSelected);
+				emit userClicked(text(), kSelected);
+		}
 	}
 }
 

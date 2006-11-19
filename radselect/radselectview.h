@@ -23,7 +23,8 @@
 //generated from the uic from radical_selector.ui (defines Ui::radical_selector)
 #include "ui_radical_selector.h" 
 
-#include <qwidget.h>
+#include <QtGui/QWidget>
+#include <QtCore/QSet>
 
 class QString;
 class QStringList;
@@ -51,7 +52,7 @@ private slots:
 	void startSearch();		//Someone has clicked the search button! (uses getSearchInfo)
 	QString getSearchInfo(QString& radicals_result,QString& stroke_result);
 			// Grab all the info this widget provides (returns a formatted search string)
-	void addRadicalToList(const QString&); //Adds the named radical to the search list
+	void listPossibleKanji(const QSet<QString>&); //Resets the list
 	void queueDeleteRadical(QListWidgetItem*); //Prepare to remove an item from search list
 	void deleteRadical();	//Called via QTimer by the previous, uses private 'victim'
 	void clearSearch();		//Clear everything

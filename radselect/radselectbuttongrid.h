@@ -34,7 +34,7 @@ private:
 public:
 	Radical(QString irad, unsigned int istrokes=0)
 		: QString(irad.at(0)), stroke_count(istrokes) { }
-	unsigned int strokes() {return stroke_count;}
+	unsigned int strokes() const {return stroke_count;}
 };
 
 class radicalButton : public QPushButton {
@@ -67,7 +67,7 @@ public:
 
 signals:
 	/** Our generic message alert signal */
-	void signalChangeStatusbar(const QString& text);
+	void signalChangeStatusbar(const QString&);
 	/** We emit this whenever something changed. This gives our list of
 	  suggested kanji */
 	void possibleKanji(const QSet<QString>&);

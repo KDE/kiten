@@ -53,11 +53,14 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 
    //== Now we connect all our signals ==
 	//Connect our radical grid to our adding method
-	connect( buttons, SIGNAL( addRadicalToList(const QString&) ), this,
-		SLOT(	addRadicalToList(const QString&) ) );
+	connect( buttons, SIGNAL( possibleKanji(const QSet<QString>&) ),
+			this, SLOT( listPossibleKanji(const QSet<QString>&) ) );
 	//Connect removing the radicals from the list
-   connect( selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ),
-		this, SLOT( queueDeleteRadical(QListWidgetItem*) ) );
+ //  connect( selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ),
+//		this, SLOT( queueDeleteRadical(QListWidgetItem*) ) );
+	//Connect statusbar updates
+	connect( buttons, SIGNAL( signalChangeStatusbar(const QString&) ),
+			this, SIGNAL( signalChangeStatusbar(const QString&)));
 	//Connect our search button
    connect( clear_button, SIGNAL( clicked() ), this, SLOT(clearSearch()));
 
@@ -105,45 +108,42 @@ QString radselectView::getSearchInfo
 	return result;
 }
 
-void radselectView::addRadicalToList(const QString& button)
+void radselectView::listPossibleKanji(const QSet<QString>& list)
 {
-	QList<QListWidgetItem *> isItAlreadyThere =
-		selected_radicals->findItems(button, Qt::MatchExactly);
+	selected_radicals->clear();
+	foreach(QString item, list)
+		new QListWidgetItem(item,selected_radicals);
 
-	QString msg = QString("Radical: %1").arg(button);
-	if(isItAlreadyThere.count() == 0){
-		new QListWidgetItem(button,selected_radicals);
-		emit signalChangeStatusbar(msg.append(" added to the radical list"));
-		emit searchModified();
-	} else {
-		emit signalChangeStatusbar(msg.append(" already on the radical list"));
-	}
+	emit searchModified();
 }
-
 
 void radselectView::queueDeleteRadical(QListWidgetItem *iVictim)
 {
+/*
 	if(iVictim == 0) return;
 
 	victim=iVictim;
 	QTimer::singleShot(0, this, SLOT(deleteRadical()) );
 	emit signalChangeStatusbar
 		(QString("Deleting Radical %1 from the list").arg(iVictim->text()));
+*/
 }
 void radselectView::deleteRadical() {
+/*
 	delete victim;
 	emit searchModified();
+*/
 }
 
 void radselectView::load(QString iRadicals, QString iStrokes)
 {
 	//Handle radicals first
-	QStringList sep_radical = iRadicals.split(QString(""));
+/*	QStringList sep_radical = iRadicals.split(QString(""));
 	selected_radicals->clear();
 	for ( QStringList::Iterator it = sep_radical.begin();
 				it != sep_radical.end(); ++it )
 			addRadicalToList(*it);
-
+*/
 	//Strokes needs redoing (due to new widget)
 /*	if(!iStrokes.isEmpty()) {
 		QString strokes = simplifyStrokeString(iStrokes);
