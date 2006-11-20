@@ -61,6 +61,7 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	//Connect statusbar updates
 	connect( buttons, SIGNAL( signalChangeStatusbar(const QString&) ),
 			this, SIGNAL( signalChangeStatusbar(const QString&)));
+
 	//Connect our search button
    connect( clear_button, SIGNAL( clicked() ), this, SLOT(clearSearch()));
 
@@ -156,6 +157,7 @@ void radselectView::load(QString iRadicals, QString iStrokes)
 
 void radselectView::clearSearch() {
 	buttons->clearSelections();
+	selected_radicals->clear();
 }
 
 void radselectView::changedSearch() {

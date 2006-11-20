@@ -225,6 +225,7 @@ void radselectButtonGrid::changeStrokeRange(int newRange) {
 }
 
 void radselectButtonGrid::clearSelections() {
+	selectedRadicals.clear();
 	emit clearButtonSelections();
 }
 
@@ -234,18 +235,19 @@ void radselectButtonGrid::clearSelections() {
 
 radicalButton::radicalButton(const QString &text, QWidget *parent)
 	: QPushButton(text,parent) {
+		setCheckable(true);
 }
 
 void radicalButton::setStatus(radicalButton::ButtonStatus newStatus) {
 	if(status == newStatus) return;
 	//Because it's more work to check everything rather than just set it,
 	//we'll just set everything every time
-	bool underline=false, italic=false, hidden=false, disabled=false;
+	bool checked=false, underline=false, italic=false, hidden=false, disabled=false;
 	switch(newStatus) {
 		case kNormal:
 			break;
 		case kSelected:
-			underline=true; italic=true; break;
+			checked=true; break;
 		case kNotAppropriate:
 			disabled=true;	break;
 		case kRelated:
@@ -259,6 +261,7 @@ void radicalButton::setStatus(radicalButton::ButtonStatus newStatus) {
 	setFont(theFont);
 	setVisible(!hidden);
 	setEnabled(!disabled);
+	setChecked(checked);
 	status = newStatus;
 }
 
