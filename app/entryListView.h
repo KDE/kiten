@@ -24,6 +24,9 @@ class EntryListView : public QTableView
 	public slots:
 		void setEmptyModel( void );
 
+	protected:
+		virtual void resizeEvent(QResizeEvent *event);
+
 	private:
 
 };
