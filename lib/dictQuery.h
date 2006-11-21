@@ -305,7 +305,7 @@ public:
 	/**
 	  * Simple addition... similer to operator+=
 	  */
-	friend dictQuery &operator+( const dictQuery&, const dictQuery&);
+	KITEN_EXPORT friend dictQuery &operator+( const dictQuery&, const dictQuery&);
 	/**
 	  * Addition involving a QString parse
 	  */
