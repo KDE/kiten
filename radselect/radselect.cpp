@@ -99,14 +99,14 @@ void radselect::setupActions()
 	 KAction *kac =  new KAction(KIcon(BarIcon("locationbar_erase",16)),
 			 i18n("&Clear Search Bar"), actionCollection(),"clear_search");
 	 connect( kac, SIGNAL(triggered()), Edit, SLOT(clear()) );
-	 kac->setShortcut(QString("Qt::CTRL;Qt::Key_N"));
+	 kac->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_N));
 
 	 kac=new KAction(KIcon("key_enter"),i18n("S&earch"),actionCollection(),"search");
 	 connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
 
     showAll = new KToggleAction(KIcon("full_string"),
 			 i18n("&Show Full Search String"),actionCollection(), "show_full_search");
-	 showAll->setShortcut(QString("Qt::CTRL;Qt::Key_S"));
+	 showAll->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_S));
 	 connect( showAll, SIGNAL(triggered()), this, SLOT(showFullSearchString()) );
 
     (void) KStdAction::configureToolbars(this, SLOT(configureToolBars()),
