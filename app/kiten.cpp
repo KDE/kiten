@@ -203,7 +203,7 @@ void kiten::setupActions() {
 	connect(globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()));
 
 	globalSearchAction = new KAction(i18n("On The Spo&t Search"), actionCollection(), "search_on_the_spot");
-	globalSearchAction->setGlobalShortcut(QString("Ctrl+Alt+S"));
+	globalSearchAction->setGlobalShortcut(KShortcut("Ctrl+Alt+S"));
 	connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
 	/* Set up history interface management */

@@ -106,7 +106,7 @@ void ResultView::print(QString title)
 	
 		//Q3SimpleRichText richText(title.isNull()? 
 				printText : 
-				i18n("<h1>Search for \"%1\"</h1>").arg(title) + printText, 
+				i18n("<h1>Search for \"%1\"</h1>",title) + printText, 
 				font(), context(), styleSheet(), mimeSourceFactory(),
 				body.height(), Qt::black, false);
 		richText.setWidth(&p, body.width());
