@@ -29,7 +29,7 @@
 #include "dictionary.h"
 #include "historyPtrList.h"
 
-
+class KAction;
 class KitenConfigSkeleton;
 class ConfigureDialog;
 class KitenEdit;
