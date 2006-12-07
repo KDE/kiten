@@ -114,7 +114,7 @@ kiten::kiten(QWidget *parent, const char *name)
 	/* What happens when links are clicked or things are selected in the clipboard */
 	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
 
-	connect(mainView, SIGNAL(entrySpecifiedForExport(const  QString&, const QString&, const QStringList&, const QStringList&)), this, SLOT(addExportListEntry(const  QString&, const QString&, const QStringList&, const QStringList&)));
+	connect(mainView, SIGNAL(entrySpecifiedForExport(int)), this, SLOT(addExportListEntry(int)));
 
 	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 
@@ -142,9 +142,9 @@ void kiten::saveAs()
 		kDebug() << "ERROR: File not opened properly" << endl;
 		return;
 	}
-	EntryList *list = exportList->entryList();
-	file.write(list->toKVTML(0, list->size()).toUtf8());
-	file.close();
+	//const EntryList &list = exportList->entryList();
+	//file.write(list->toKVTML(0, list->size()).toUtf8());
+	//file.close();
 }
 
 void kiten::setupActions() {
@@ -234,18 +234,19 @@ void kiten::setupExportListDock()
 
 	layout->addWidget(exportList);
 
+	exportList->setModel(new EntryListModel(EntryList()));
+
 }
 
-void kiten::addExportListEntry(const  QString& /* dict */, const QString& word, const QStringList& readings, const QStringList& meanings)
+void kiten::addExportListEntry(int index)
 {
-	/*
-	 * REFACTORING THIS NOW
-	int currentSize = exportList->rowCount();
-	exportList->setRowCount(currentSize + 1);
-	exportList->setItem(currentSize, 0, new QTableWidgetItem(word));
-	exportList->setItem(currentSize, 1, new QTableWidgetItem(readings.join(", ")));
-	exportList->setItem(currentSize, 2, new QTableWidgetItem(meanings.join(", ")));
-	*/
+	EntryListModel *model = qobject_cast<EntryListModel*>(exportList->model());
+	if (!model) return;
+
+	EntryList list = model->entryList();
+
+	list << historyList.current()->at(index)->clone();
+	model->setEntryList(list);
 }
 
 /** This is the latter part of the initialisation. */
@@ -345,7 +346,6 @@ void kiten::searchAndDisplay(const dictQuery &query)
 
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
-	exportList->setEntryList(results);
 }
 
 /** Search in the previous results, identical to searchAndDisplay except for the one call */

@@ -212,31 +212,12 @@ void ResultView::openPopupMenu( const QString& url, const QPoint& point )
 	QAction *clickedAction = popupMenu->menu()->exec(point);
 	if (clickedAction == addToExportListAction)
 	{
+		//find the entry node that contains the node under the mouse
 		DOM::Node entryNode = findEntryNode(nodeUnderMouse());
-		const QString& dict = entryNode.attributes().getNamedItem("dict").nodeValue().string();
+		int index = entryNode.attributes().getNamedItem("index").nodeValue().toInt();
 
-		DOM::Node wordNode = findChildWithClassValue(entryNode, "Word");
-		QString word = deLinkify(wordNode);
-		
+		emit entrySpecifiedForExport(index);
 
-		QStringList readings;
-		DOM::Node readingsNode = findChildWithClassValue(entryNode, "Readings");
-		for (int i = 0; i < readingsNode.childNodes().length(); ++i)
-		{
-			readings << readingsNode.childNodes().item(i).childNodes().item(0).nodeValue().string();
-		}
-
-		QStringList meanings;
-		DOM::Node meaningsNode = findChildWithClassValue(entryNode, "Meanings");
-		for (int i = 0; i < meaningsNode.childNodes().length(); ++i)
-		{
-			meanings << meaningsNode.childNodes().item(i).toHTML();
-		}
-
-		kDebug() << dict << word << readings << meanings << endl;
-
-
-		emit entrySpecifiedForExport(dict, word, readings, meanings);
 	} else 
 	{
 		kDebug() << "No menu action clicked." << endl;

@@ -57,12 +57,16 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	if(start+length > max) length = max-start;
 
 	QString result;
-	foreach(Entry *it, *this) {
+	for (unsigned int i = 0; i < max; ++i)
+	{
+		Entry *it = at(i);
 		if(length-- > 0)
-			result = result + "<div class=\"Entry\" dict=\"" + it->getDictName()
+			result = result + "<div class=\"Entry\" index=\"" +
+				QString::number(i) + "\" dict=\"" + it->getDictName()
 				+ "\">" + it->toHTML(type) + "</div>";
 		else
 			break;
+
 	}
 	return result;
 }

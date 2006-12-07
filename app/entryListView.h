@@ -15,11 +15,6 @@ class EntryListView : public QTableView
 	public:
 
 		EntryListView(QWidget *parent = NULL);
-		/**
-		 * Sets an entrylist by creating a EntryListModel
-		 */
-		void setEntryList( EntryList *list );
-		EntryList* entryList();
 
 	public slots:
 		void setEmptyModel( void );
@@ -37,17 +32,19 @@ class EntryListModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		EntryListModel(EntryList *list);
+		EntryListModel(const EntryList &list);
+
+		void setEntryList( const EntryList &list );
+		EntryList entryList() const { return list; }
+
 		int rowCount(const QModelIndex & parent = QModelIndex()) const;
 		int columnCount(const QModelIndex & parent = QModelIndex()) const;
 		QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 		Qt::ItemFlags flags ( const QModelIndex & index ) const;
 		bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
 
-		EntryList* entryList() { return list; }
-
 	private:
-		EntryList *list;
+		EntryList list;
 
 };
 
