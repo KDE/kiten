@@ -142,9 +142,10 @@ void kiten::saveAs()
 		kDebug() << "ERROR: File not opened properly" << endl;
 		return;
 	}
-	//const EntryList &list = exportList->entryList();
-	//file.write(list->toKVTML(0, list->size()).toUtf8());
-	//file.close();
+	EntryListModel *model = qobject_cast<EntryListModel*>(exportList->model());
+	EntryList list = model->entryList();
+	file.write(list.toKVTML(0, list.size()).toUtf8());
+	file.close();
 }
 
 void kiten::setupActions() {

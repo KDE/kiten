@@ -30,7 +30,7 @@ class /* NO_EXPORT */ EntryEDICT : public Entry {
 	public:
 		EntryEDICT() : Entry() {}
 		EntryEDICT(const EntryEDICT &x) : Entry(x) {} //No special members to copy in this one
-		EntryEDICT(const QString &dict) : Entry(dict) {}
+		EntryEDICT(const QString &dict) : Entry(dict), common(false){}
 		EntryEDICT(const QString &dict, const QString &entry) : Entry(dict) {loadEntry(entry);}
 		Entry *clone() const { return new EntryEDICT(*this); }
 		
@@ -42,8 +42,11 @@ class /* NO_EXPORT */ EntryEDICT : public Entry {
 		virtual QString dumpEntry() const;
 
 		virtual inline QString HTMLWord() const;
+		virtual inline QString Common() const;
 	protected:
 		virtual inline QString kanjiLinkify(const QString &) const;
+		/* Various forms of HTML Output */	
+		bool common;
 };
 
 #endif
