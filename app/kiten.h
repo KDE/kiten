@@ -49,7 +49,7 @@ class kiten : public KMainWindow {
 	// The following will be available via dbus.
 public slots:
 	void searchTextAndRaise(const QString);
-	void addExportListEntry(const  QString& dict, const QString& word, const QStringList& readings, const QStringList& meanings);
+	void addExportListEntry(int index);
 
 		//Constructors and other setup/takedown related methods
 public:

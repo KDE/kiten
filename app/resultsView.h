@@ -62,7 +62,7 @@ class ResultView : public KHTMLPart
 
 	signals:
 		void urlClicked( const QString& );
-		void entrySpecifiedForExport(const  QString&, const QString&, const QStringList&, const QStringList&);
+		void entrySpecifiedForExport(int index);
 
 	protected:
 		virtual void urlSelected (const QString &url, int button, int state, const QString &	_target, KParts::URLArgs args = KParts::URLArgs());

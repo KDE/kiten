@@ -36,6 +36,8 @@ QString EntryEDICT::toBriefHTML() const
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
 		else if(field == "Meaning")		result += HTMLMeanings()+' ';
 		else if(field == "Reading")		result += HTMLReadings()+' ';
+		else if(field == "C")			result += Common();
+		else kDebug() << "Unknown field: " << field << endl;
 	}
 	result += "</div>";
 	return result;
@@ -74,6 +76,14 @@ inline QString EntryEDICT::HTMLWord() const {
 		"</span>";
 }
 
+inline QString EntryEDICT::Common() const
+{
+	if (common)
+		return "<span>Common</span>";
+	else
+		return QString();
+}
+
 /* DATA LOADING FUNCTIONS */
 
 /* TODO: extendedInfo as described on Breen's site
@@ -104,6 +114,8 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 
 	/* set Meanings to be all of the meanings in the definition */
 	Meanings = entryLine.left(entryLine.lastIndexOf('/')).mid(tempQString.length()).split('/', QString::SkipEmptyParts);
+	common = (Meanings.last() == "(P)");
+	if (common) Meanings.removeLast();
 
 //	kdDebug()<< "Parsed: '"<<Word<<"' ("<<Readings.front()<<") \""<<
 //		Meanings.join("|")<<"\" from :"<<entryLine<<endl;
@@ -117,3 +129,5 @@ inline QString EntryEDICT::dumpEntry() const
 		((Readings.count() == 0) ? " " : " [" + Readings.first() + "] ")
 		+ '/' + Meanings.join("/") + '/';
 }
+
+

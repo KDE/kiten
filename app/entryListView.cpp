@@ -7,26 +7,26 @@
 #define WORDRATIO 0.2
 #define READINGRATIO 0.2
 
-EntryListView::EntryListView(QWidget *parent)
+EntryListView::EntryListView(QWidget *)
 {
 	horizontalHeader()->setStretchLastSection(true);
 }
 
-EntryList* EntryListView::entryList()
+
+void EntryListModel::setEntryList( const EntryList &list)
 {
-	EntryListModel *m = qobject_cast<EntryListModel*>(model());
-	if (m) return m->entryList();
-	return NULL;
+	this->list = list;
+	emit layoutChanged();
 }
 
-void EntryListView::setEntryList( EntryList *list)
+void EntryListView::resizeEvent(QResizeEvent *event)
 {
-	QAbstractItemModel *oldModel = model();
-	setModel(new EntryListModel(list));
-	if (oldModel) delete oldModel;
+	QHeaderView *header = horizontalHeader();
+	header->resizeSection(0, float(width()) * WORDRATIO);
+	header->resizeSection(1, float(width()) * READINGRATIO);
 }
 
-EntryListModel::EntryListModel(EntryList *list)
+EntryListModel::EntryListModel(const EntryList &list)
 	: list(list)
 {
 
@@ -41,17 +41,17 @@ bool EntryListModel::setData ( const QModelIndex & index, const QVariant & value
 {
 	if (role == Qt::EditRole)
 	{
-		const QString& separator = (*list)[index.row()]->outputListDelimiter;
+		const QString& separator = list[index.row()]->outputListDelimiter;
 		switch (index.column())
 		{
 			case 0:
-				(*list)[index.row()]->Word = value.toString();
+				list[index.row()]->Word = value.toString();
 				break;
 			case 1:
-				(*list)[index.row()]->Readings = value.toString().split(separator);
+				list[index.row()]->Readings = value.toString().split(separator);
 				break;
 			case 2:
-				(*list)[index.row()]->Meanings = value.toString().split(separator);
+				list[index.row()]->Meanings = value.toString().split(separator);
 				break;
 
 		}
@@ -61,14 +61,12 @@ bool EntryListModel::setData ( const QModelIndex & index, const QVariant & value
 
 void EntryListView::setEmptyModel( void )
 {
-	QAbstractItemModel *oldModel = model();
-	if (oldModel) delete oldModel;
-	setModel(NULL);
+	//TODO: implement me
 }
 
 int EntryListModel::rowCount( const QModelIndex & parent ) const
 {
-	return list->size();
+	return list.size();
 }
 
 int EntryListModel::columnCount( const QModelIndex & parent ) const
@@ -78,6 +76,7 @@ int EntryListModel::columnCount( const QModelIndex & parent ) const
 
 QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
 {
+	//kDebug() << "Retrieving data at line" << index.row() << endl;
 	switch (role)
 	{
 		/* DisplayRole and EditRole have the same output */
@@ -86,13 +85,13 @@ QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
 			switch (index.column())
 			{
 				case 0:
-					return list->at(index.row())->getWord();
+					return list.at(index.row())->getWord();
 					break;
 				case 1:
-					return list->at(index.row())->getReadings();
+					return list.at(index.row())->getReadings();
 					break;
 				case 2:
-					return list->at(index.row())->getMeanings();
+					return list.at(index.row())->getMeanings();
 					break;
 			}
 			break;
@@ -100,11 +99,5 @@ QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
 	return QVariant();
 }
 
-void EntryListView::resizeEvent(QResizeEvent *event)
-{
-	QHeaderView *header = horizontalHeader();
-	header->resizeSection(0, float(width()) * WORDRATIO);
-	header->resizeSection(1, float(width()) * READINGRATIO);
-}
 
 #include <entryListView.moc>
