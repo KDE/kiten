@@ -170,7 +170,7 @@ void kiten::setupActions() {
 	Edit = new KitenEdit(actionCollection(), this);
 	KAction *EditToolbarWidget = new KAction(actionCollection(), "EditToolbarWidget");
 	EditToolbarWidget->setDefaultWidget(Edit);
-//	toolBar()->addWidget(Edit->ComboBox());
+	Edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
 	(void) new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
 	KAction *searchButton = new KAction(i18n("S&earch"), actionCollection(), "search");
