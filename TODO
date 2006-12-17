@@ -1,57 +1,3 @@
-Old TODO (KDE3):
-- move all QRegExp generation into namespace Dict, so Kiten et. al. just tell
-Dict what kind of search they want, and Dict tells them the regexp they need
-to pass Dict::Index.
-  jasonkb says: err maybe, don't see the advantages of this.
-
-  Neil replies: You haven't used Dict.  While re-doing Learn, I went to use
-  searchKanji and didn't know how to formulate the regexp.  No user of the API
-  will.  Dict needs a wrapper that will handle that for the user.
-
-  Joe comments: This need has been fully replaced with the dictionary class to
-  manage interaction between user programs and the dictionary backends. Queries
-  are sent via dictQuery objects to the dictionary manager, and EntryList's are
-  returned.
-
-- get all SearchResults and Entries into one hierarchy.
-  jasonkb says: I don't understand ;)
-
-  Neil replies: You know how Headers are a hack right now?  I want them not
-  to be a hack in Kiten 2.
-
-  Joe comments: I'm with jasonkb on this one... but I suspect that we've
-  already handled this item, via the necessary abstraction of Entries.
-
-- split the two tabs of the learn mode into separate dialogs, or even make
-learn a separate app.
-  jasonkb says: hmm perhaps.
-
-  Neil replies: I see three users of libkiten in the Kiten 2 age: the
-  dictionary, the quizzer, and the XIM server.  (note that the kana lineedit
-  will be in the lib)
-
-  Joe comments: The XIM server need is very much handled by other apps at
-  this point, and I consider no longer in the future of kiten. Current focus
-  is on useability as both a simple word-word dictionary and as a kanji
-  dictionary (ala Nelsons).  I would like the quizzer to be offloaded to
-  another app, and a fairly full featured dbus interface made available.
-
-- rewrite the index generator
-  jasonkb says: not me :P
-
-  Neil replies: It's wicked, but it really does have to be done.  Dict fell
-  to repeated effort, and so shall the generator.  Hey, maybe it won't even
-  have to be a separate executible, but just a function under namespace Dict.
-
-  Joe comments: I've reformated and commented the index generator code...
-  it's significantly less scary now. Time will tell whether the index
-  generator will get qt'd first, or the indexes will be replaced by a db.
-
-- move all dialogs to KDialogBase, and have them used by exec()ing them
-  jasonkb says: sure
-  Joe responds: wtf? exec? for a dialog?
-
-New TODO:
 Main Sections:
 	Learn Mode Rewrite, IPC Interfaces, Preferences System
 
@@ -86,6 +32,11 @@ Main Sections:
 			kromajiedit.cpp:	volotile (should mix with widget's EditAction?)
 			dictFileXXXX.cpp	volotile (search needs revisiting, 3-4 methods need writing)
 			entryXXXXXX.cpp   volotile (still some bugs missing features)
+
+	rewrite the index generator
+		Joe comments: I've reformated and commented the index generator code...it's 
+		significantly less scary now. Time will tell whether the index generator 
+		will get qt'd first, or the indexes will be replaced by a db.
 
 Main Interface:
 	Infrastructure for input filters(replace deinflection)
@@ -255,9 +206,8 @@ Code Audit:
 	Iterators (Cache an Iterator.end() object instead of using end() in the loop)
 	Iterators (Use const interators whenever possible)
 	Review the Initialization chain for using Delayed Init
-	Eliminate copying of QPtrList's, use QValueList<object*>
 	Double check the QCString usage for termination (in the indexer code)
 	Use QString.isNull() and isEmpty()... not comparison to QString(""), "" or QString::null
 	Use deleteLater() as a shortcut instead of manually implementing QTimer::oneShot() code
 	Check ALL files for i18n strings that are not inside of i18n() or tr() methods
-	Look through and get rid of redundant heades (particularly in the lib files)
+	Look through and get rid of redundant headers (particularly in the lib files)
