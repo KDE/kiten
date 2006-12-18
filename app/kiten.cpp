@@ -39,7 +39,7 @@
 #include <kmainwindow.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <ksystemtrayicon.h>
 #include <ktoggleaction.h>
 
@@ -151,12 +151,12 @@ void kiten::saveAs()
 void kiten::setupActions() {
 
 	/* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
-	(void) KStdAction::quit(this, SLOT(close()), actionCollection());
-	(void) KStdAction::print(this, SLOT(print()), actionCollection());
-	(void) KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
+	(void) KStandardAction::quit(this, SLOT(close()), actionCollection());
+	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
+	(void) KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
 	//KDE4 FIXME (const QObject*) cast
-	KStdAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
+	KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
 	/* Setup the Go-to-learn-mode actions */
 //	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
@@ -197,7 +197,7 @@ void kiten::setupActions() {
 //autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), actionCollection(), "autosearch_toggle");
 	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
-	(void) KStdAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
+	(void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
 	//TODO: this should probably be a standardaction
 	globalShortcutsAction = new KAction(i18n("Configure &Global Shortcuts..."), actionCollection(), "options_configure_global_keybinding");
@@ -212,8 +212,8 @@ void kiten::setupActions() {
 /*	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
 	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
 	*/
-	backAction = KStdAction::back(this, SLOT(back()), actionCollection());
-	forwardAction = KStdAction::forward(this, SLOT(forward()), actionCollection());
+	backAction = KStandardAction::back(this, SLOT(back()), actionCollection());
+	forwardAction = KStandardAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
 	forwardAction->setEnabled(false);
 

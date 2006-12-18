@@ -43,7 +43,7 @@
 
 #include <kstdaccel.h>
 #include <kaction.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <ktoggleaction.h>
 #include <kicon.h>
 
@@ -87,10 +87,10 @@ void radselect::loadSearchString(QString searchString) {
 
 void radselect::setupActions()
 {
-    KStdAction::quit(kapp, SLOT(quit()), actionCollection());
-    KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
+    KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
+    KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 
-    KStdAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
+    KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
     Edit = new KitenEdit(actionCollection(), this);
 	 KAction *KitenEditAction = new KAction(actionCollection(), "KitenEditWidget");
@@ -109,7 +109,7 @@ void radselect::setupActions()
 	 showAll->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_S));
 	 connect( showAll, SIGNAL(triggered()), this, SLOT(showFullSearchString()) );
 
-    (void) KStdAction::configureToolbars(this, SLOT(configureToolBars()),
+    (void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()),
 													  actionCollection());
 
     statusBar()->show();
