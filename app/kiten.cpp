@@ -58,6 +58,7 @@
 #include "kiten.h"
 #include "resultsView.h"
 #include "kitenEdit.h"
+#include "wordType.h"
 /* Separting Learn */
 //#include "learn.h"
 #include "kitenconfig.h"
@@ -168,7 +169,7 @@ void kiten::setupActions() {
 
 	/* Setup the Search Actions and our custom Edit Box */
 	Edit = new KitenEdit(actionCollection(), this);
-	KAction *EditToolbarWidget = new KAction(actionCollection(), "EditToolbarWidget");
+	KAction *EditToolbarWidget = new KAction(i18n("Search t&ext"), actionCollection(), "EditToolbarWidget");
 	EditToolbarWidget->setDefaultWidget(Edit);
 	Edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
@@ -185,6 +186,12 @@ void kiten::setupActions() {
 	connect(Edit, SIGNAL(returnPressed()), this, SLOT(searchFromEdit()));
 	// and the selection of an item from history
 	connect(Edit, SIGNAL(activated(const QString &)), this, SLOT(searchFromEdit()));
+
+
+	/* Extra search options */
+	wordType = new WordType(this);
+	KAction *WordTypeAction = new KAction(i18n("Word type"), actionCollection(), "WordType");
+	WordTypeAction->setDefaultWidget(wordType);
 
 
 	// That's not it, that's "find as you type"...
@@ -284,10 +291,27 @@ bool kiten::queryClose()
 // SEARCHING METHODS
 //////////////////////////////////////////////////////////////////////////////
 
-/** This function searches for the contents of the Edit field in the mainwindow */
+/**
+ * Extracts options from the gui and applies them to the query
+ */
+void kiten::getOptionsFromGui( dictQuery& query)
+{
+	if (wordType->currentIndex())
+	{
+		query.setProperty("type", wordType->currentText());
+	}
+}
+
+/** This function searches for the contents of the Edit field in the mainwindow.
+ * Any gui choices will also be included here. */
 void kiten::searchFromEdit()
 {
-	searchAndDisplay(dictQuery(Edit->currentText()));
+	dictQuery query;
+
+	query = Edit->currentText();
+	getOptionsFromGui(query);
+
+	searchAndDisplay(query);
 }
 
 /** This function is called when a kanji is clicked in the result view

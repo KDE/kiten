@@ -117,6 +117,26 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 	common = (Meanings.last() == "(P)");
 	if (common) Meanings.removeLast();
 
+	QString firstWord = Meanings.first();
+	QStringList stringTypes;
+
+	//TODO: optimize so later parentheses are ignored
+	for (int i = firstWord.indexOf("("); i != -1; i = firstWord.indexOf("(", i + 1))
+	{
+		QString parantheses = firstWord.mid(i + 1, firstWord.indexOf(")", i) - i - 1);
+		stringTypes += parantheses.split(",");
+	}
+
+	foreach( QString str, stringTypes)
+	{
+		
+		if (WordTypes()->contains(str))
+		{
+			types += WordTypes()->value(str);
+		}
+		
+	}
+
 //	kdDebug()<< "Parsed: '"<<Word<<"' ("<<Readings.front()<<") \""<<
 //		Meanings.join("|")<<"\" from :"<<entryLine<<endl;
 	return true;
@@ -129,5 +149,3 @@ inline QString EntryEDICT::dumpEntry() const
 		((Readings.count() == 0) ? " " : " [" + Readings.first() + "] ")
 		+ '/' + Meanings.join("/") + '/';
 }
-
-
