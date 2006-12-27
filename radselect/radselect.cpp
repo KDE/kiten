@@ -41,7 +41,7 @@
 #include <kconfig.h>
 #include <kconfigdialog.h>
 
-#include <kstdaccel.h>
+#include <KStandardShortcut>
 #include <kaction.h>
 #include <kstandardaction.h>
 #include <ktoggleaction.h>
