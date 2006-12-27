@@ -55,9 +55,11 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	//Connect our radical grid to our adding method
 	connect( buttons, SIGNAL( possibleKanji(const QSet<QString>&) ),
 			this, SLOT( listPossibleKanji(const QSet<QString>&) ) );
-	//Connect removing the radicals from the list
- //  connect( selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ),
-//		this, SLOT( queueDeleteRadical(QListWidgetItem*) ) );
+	//Connect our stroke limit actions
+	connect(strokes_low, SIGNAL( valueChanged(int) ),
+			buttons, SLOT( changeStrokeBase(int) ) );
+	connect(strokes_high, SIGNAL( valueChanged(int) ),
+			buttons, SLOT( changeStrokeRange(int) ) );
 	//Connect statusbar updates
 	connect( buttons, SIGNAL( signalChangeStatusbar(const QString&) ),
 			this, SIGNAL( signalChangeStatusbar(const QString&)));

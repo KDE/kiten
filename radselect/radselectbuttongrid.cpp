@@ -44,7 +44,8 @@
 #include <kdebug.h>
 
 radselectButtonGrid::radselectButtonGrid(QWidget *parent)
-    : QWidget(parent), currentMode(kSelection)
+    : QWidget(parent), currentMode(kSelection),
+	 strokeMin(0), strokeMax(maximumStrokeValue), strokeBase(0), strokeRange(0)
 {
     loadRadicalFile();
 
@@ -73,7 +74,7 @@ bool radselectButtonGrid::loadRadicalFile()
 	//Read our radical file through a eucJP codec (helpfully builtin to Qt)
 	QTextStream t(&f);
 	Radical *newestRadical = NULL;
-	QString radical="";
+	QHash< QString, QSet<QString> > krad;
 
 	t.setCodec(QTextCodec::codecForName("eucJP"));
 	while (!t.atEnd())
@@ -82,17 +83,26 @@ bool radselectButtonGrid::loadRadicalFile()
 		if(line.at(0) == '#' || line.length() == 0)	//Skip comment characters
 			continue;
 		else if(line.at(0) == '$') {	//Start of a new radical
-			unsigned int strokes = line.right(2).toUInt();
-			radical = QString(line.at(2));
-			radicals.insert(Radical(radical,strokes));
-		} else if(!radical.isEmpty()) {	// List of kanji, potentially
+			if(newestRadical != NULL)
+				radicals.insert(*newestRadical);
+			newestRadical = new Radical(QString(line.at(2)),
+					line.right(2).toUInt());
+		} else if(newestRadical != NULL) {	// List of kanji, potentially
 			QList<QString> kanjiList =
 				line.trimmed().split("",QString::SkipEmptyParts);
-			radk[radical] += kanjiList.toSet();
-			foreach( QString kanji, kanjiList )
-				krad[kanji] += radical;
+			newestRadical->addKanji(kanjiList.toSet());
+			foreach( QString akanji, kanjiList )
+				krad[akanji] += *newestRadical;
 		}
+	//	kDebug() << "radical loaded: "<< newestRadical->getKanji().count()<<endl;
 	}
+	if(newestRadical != NULL)
+		radicals.insert(*newestRadical);
+
+	//Move contents of our krad QHash into our hash of kanji
+	for(QHash<QString,QSet<QString> >::iterator it = krad.begin();
+			it != krad.end(); ++it)
+		kanji.insert(it.key(), Kanji(it.key(), it.value()))->calculateStrokes();
 
 	f.close();
 
@@ -167,61 +177,93 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 	else if(newStatus == radicalButton::kNormal ||
 			newStatus == radicalButton::kSelected) {
 		currentMode = kSelection;
-		if(newStatus == radicalButton::kNormal)
+		if(newStatus == radicalButton::kNormal) {
 			selectedRadicals.remove(newrad);
-		else
+			if(selectedRadicals.isEmpty())
+				emit signalChangeStatusbar ("No Radicals Selected");
+		} else
 			selectedRadicals.insert(newrad);
 
-		//Special Case/Early exit: no radicals selected
-		if(selectedRadicals.isEmpty()) {
-			QSet<QString> blankSet;
-			foreach(radicalButton *button, buttons)
-				button->setStatus(radicalButton::kNormal);
-			emit possibleKanji(blankSet);
-			emit signalChangeStatusbar ("No Radicals Selected");
-			return;
-		}
+		updateButtons();
+	}
+}
 
-		//Figure out what our kanji possibilites are
-		QSet<QString> kanjiList;
-		if(selectedRadicals.count() > 0)
-			kanjiList = radk.value(*selectedRadicals.begin());
-		//Make a set intersection of these kanji
-		foreach(QString radical, selectedRadicals)
-			kanjiList &= radk.value(radical);
-		emit possibleKanji(kanjiList); //And tell the world!
-
-		//Do the announcement of the selected radical list
-		QStringList radicalList(selectedRadicals.toList());
-		emit signalChangeStatusbar ("Selected Radicals: "+
-				radicalList.join(", "));
-
-		//Now figure out what our remaining radical possibilities are
-		QSet<QString> remainingRadicals;
-		foreach(QString kanji, kanjiList)
-			remainingRadicals |= krad.value(kanji);
-		//Remove the already selected ones
-		remainingRadicals -= selectedRadicals;
-
-		//Now go through and set status appropriately
-		QHash<QString, radicalButton*>::iterator i = buttons.begin();
-		while(i != buttons.end()) {
-			if(selectedRadicals.contains(i.key()))
-				i.value()->setStatus(radicalButton::kSelected);
-			else if(remainingRadicals.contains(i.key()))
-				i.value()->setStatus(radicalButton::kNormal);
-			else
-				i.value()->setStatus(radicalButton::kNotAppropriate);
-			++i;
-		}
+void radselectButtonGrid::updateButtons() {
+	//Special Case/Early exit: no radicals selected
+	if(selectedRadicals.isEmpty()) {
+		QSet<QString> blankSet;
+		foreach(radicalButton *button, buttons)
+			button->setStatus(radicalButton::kNormal);
+		emit possibleKanji(blankSet);
+		return;
 	}
 
+	//Figure out what our kanji possibilites are
+	QSet<QString> kanjiList;
+	if(selectedRadicals.count() > 0)
+		kanjiList = radicals.find(*selectedRadicals.begin())->getKanji();
+	//Make a set intersection of these kanji
+	foreach(QString radical, selectedRadicals)
+		kanjiList &= radicals.find(radical)->getKanji();
+	//Check that our kanji are all within the allowed stroke limits
+	QSet<QString>::iterator it=kanjiList.begin();
+	while(it != kanjiList.end()) {
+		if(kanji.find(*it)->strokes() < strokeMin ||
+			kanji.find(*it)->strokes() > strokeMax )
+			it = kanjiList.erase(it);
+		else
+			++it;
+	}
+	//And tell the world!
+	emit possibleKanji(kanjiList);
+
+
+	//Do the announcement of the selected radical list
+	QStringList radicalList(selectedRadicals.toList());
+	emit signalChangeStatusbar ("Selected Radicals: "+
+			radicalList.join(", "));
+
+	//Now figure out what our remaining radical possibilities are
+	QSet<QString> remainingRadicals;
+	foreach(QString akanji, kanjiList)
+		remainingRadicals |= kanji.find(akanji)->getRadicals();
+	//Remove the already selected ones
+	remainingRadicals -= selectedRadicals;
+
+	//Now go through and set status appropriately
+	QHash<QString, radicalButton*>::iterator i = buttons.begin();
+	while(i != buttons.end()) {
+		if(selectedRadicals.contains(i.key()))
+			i.value()->setStatus(radicalButton::kSelected);
+		else if(remainingRadicals.contains(i.key()))
+			i.value()->setStatus(radicalButton::kNormal);
+		else
+			i.value()->setStatus(radicalButton::kNotAppropriate);
+		++i;
+	}
 }
 
 void radselectButtonGrid::changeStrokeBase(int newBase) {
+	if(strokeBase == newBase) return;
+	strokeBase = newBase;
+	calculateStrokeRange();
+	updateButtons();
 }
 
 void radselectButtonGrid::changeStrokeRange(int newRange) {
+	if(strokeRange == newRange) return;
+	strokeRange = newRange;
+	calculateStrokeRange();
+	updateButtons();
+}
+
+void radselectButtonGrid::calculateStrokeRange() {
+	int newMin =  strokeBase - strokeRange;
+	strokeMin = newMin < 0? 0 : newMin;
+	strokeMax = strokeBase + strokeRange;
+	if(strokeMax == 0)
+		strokeMax = maximumStrokeValue;
+	kDebug() << "Results are now: " << strokeMin << " - " << strokeMax<<endl;
 }
 
 void radselectButtonGrid::clearSelections() {

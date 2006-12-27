@@ -29,12 +29,30 @@
 class QMouseEvent;
 
 class Radical : public QString {
-private:
+protected:
 	unsigned int stroke_count;
+	QSet<QString> kanji;
 public:
 	Radical(QString irad, unsigned int istrokes=0)
 		: QString(irad.at(0)), stroke_count(istrokes) { }
 	unsigned int strokes() const {return stroke_count;}
+	const QSet<QString>	&getKanji() const {return kanji;}
+	void addKanji(const QSet<QString> newKanji) {kanji += newKanji;}
+};
+
+class Kanji : public Radical {
+private: void addKanji(const QSet<QString> newKanji) {}
+		const QSet<QString>	&getKanji() const {}
+public:
+	Kanji(const QString &ikanji, const QSet<QString> &radicals) :
+		Radical(ikanji.at(0))  {kanji = radicals;}
+	void calculateStrokes() {
+		stroke_count = 0;
+		foreach( Radical it, kanji )
+			stroke_count += it.strokes();
+	}
+	const QSet<QString> &getRadicals() const {return kanji;}
+	void addRadical(const QString &it) {kanji +=it;}
 };
 
 class radicalButton : public QPushButton {
@@ -86,17 +104,20 @@ public slots:
 private:
 	bool loadRadicalFile();		// Reads the data from the radkfile
 	void buildRadicalButtons(QWidget*);
+	void calculateStrokeRange();
+	void updateButtons();
 
 	static const unsigned int number_of_radical_columns = 11;
+	static const unsigned int maximumStrokeValue = 50;
 	enum {kSelection, kRelational} currentMode;
 
 	QString relationalRadical;
 	QSet<QString> selectedRadicals;
+	unsigned int strokeBase, strokeRange, strokeMin, strokeMax;
 
 	QSet<Radical> radicals;						//Radical list
+	QHash<QString, Kanji > kanji;				//Kanji List
 	QHash<QString, radicalButton*> buttons; //Radical -> Button Mapping
-	QHash<QString, QSet<QString> > krad;  //Kanji -> [Radical]* Mapping
-	QHash<QString, QSet<QString> > radk;	//Radical -> Kanji Mapping
 };
 
 #endif

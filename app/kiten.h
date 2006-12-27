@@ -33,6 +33,7 @@ class KAction;
 class KitenConfigSkeleton;
 class ConfigureDialog;
 class KitenEdit;
+class WordType;
 class KConfig;
 class KGlobalAccel;
 class KStatusBar;
@@ -69,6 +70,7 @@ private slots:
 	void searchFromEdit();
 	void searchText(const QString);
 	void searchClipboard();
+	void getOptionsFromGui(dictQuery&);
 	void searchAndDisplay(const dictQuery&);
 	void searchInResults();
 	void displayResults(EntryList *);
@@ -137,6 +139,7 @@ private:
 	KitenConfigSkeleton* config;
 
 	KitenEdit *Edit;
+	WordType *wordType;
 
 	historyPtrList historyList;
 	QString personalDict;

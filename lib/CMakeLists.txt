@@ -12,6 +12,7 @@ set(kiten_LIB_SRCS
 		entryEdict.cpp
 		entryKanjidic.cpp
 		dictFilePreferenceDialog.cpp
+		wordType.cpp
 		)
 kde4_automoc(${kiten_LIB_SRCS})
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
@@ -26,6 +27,7 @@ install( FILES
 		historyPtrList.h 
 		kromajiedit.h
 		kitenEdit.h
+		wordType.h
 		deinf.h 
 		dictFilePreferenceDialog.h
 	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten	

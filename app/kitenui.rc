@@ -43,6 +43,10 @@
   <Action name="search_radical" />
 </ToolBar>
 
+<ToolBar name="extraToolBar" fullWidth="true" newline="true"><text>&amp;Extra search options</text>
+	<Action name="WordType" />
+</ToolBar>
+
 <ToolBar name="mainToolBar" fullWidth="true">
   <Action name="go_back" />
   <Action name="go_forward" />

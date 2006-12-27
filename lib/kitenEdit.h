@@ -23,8 +23,11 @@
 #define KITENEDIT_H
 
 #include "libkitenexport.h"
+#include <QSize>
 #include <kaction.h>
 #include <kcombobox.h>
+
+#define MINIMUMWIDTH 150
 
 class KComboBox;
 class KCompletion;
@@ -41,10 +44,13 @@ class KITEN_EXPORT KitenEdit : public KHistoryCombo
 		KCompletion *Completion();
 		QString text();
 		void setText(const QString &text);
+		virtual QSize minimumSizeHint() const { return QSize(MINIMUMWIDTH, 0); }
 	
 	private:
 		KComboBox *comboBox;
 		KCompletion *completion;
 };
+
+#undef MINIMUMWIDTH
 
 #endif
