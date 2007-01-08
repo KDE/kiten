@@ -71,18 +71,23 @@ radselect::radselect() :
 				QDBusConnection::sessionBus());
 
     // connect the search signal from the m_view with our dcop routines
-    connect(m_view, SIGNAL(searchTrigger(const QStringList&, const QString&)),
-            this,   SLOT(sendSearch(const QStringList&, const QString&)));
+    connect(m_view, SIGNAL(kanjiSelected(const QStringList&)),
+            this,   SLOT(sendSearch(const QStringList&)));
 
 }
 
 radselect::~radselect()
 {
 }
+
 void radselect::loadSearchString(QString searchString) {
-	currentQuery = searchString;
+	m_currentQuery = searchString;
 	changeStatusbar(searchString);
-	m_view->load(currentQuery.getProperty("R"), currentQuery.getProperty("S"));
+	//TODO: Parse the strokes
+	QString strokeStr = m_currentQuery.getProperty("S");
+	int min = 0;
+	int max = 0;
+	m_view->loadRadicals(m_currentQuery.getProperty("R"), min, max);
 }
 
 void radselect::setupActions()
@@ -123,8 +128,8 @@ void radselect::setupActions()
 
 void radselect::saveProperties(KConfig *config) { //For suspend
 
-    if (!currentQuery.isEmpty())
-        config->writePathEntry("searchString", currentQuery);
+    if (!m_currentQuery.isEmpty())
+        config->writePathEntry("searchString", m_currentQuery);
 }
 
 void radselect::readProperties(KConfig *config) { //For resume
@@ -165,29 +170,16 @@ void radselect::changeStatusbar(const QString& text)
 
 //This one is triggered if the search button is used (or the widget interface
 //is in some other way given priority.
-void radselect::sendSearch(const QStringList& radicals, const QString& strokes){
-	dictQuery editBox (Edit->currentText());
-kDebug()<<	radicals.count()<<radicals.join("")<<endl;
+void radselect::sendSearch(const QStringList& kanji) {
+	//This may need to be done differently for handling collisions
+	m_currentQuery = Edit->currentText() + kanji.join("");
 
-	dictQuery dialogParts;
-	if(radicals.count() > 0)
-		dialogParts.setProperty("R",radicals.join(""));
-	else
-		editBox.removeProperty("R");
-	if(strokes.length() > 0)
-		dialogParts.setProperty("S",strokes);
-	else
-		editBox.removeProperty("S");
-
-	currentQuery = (dialogParts + editBox) + dialogParts;
-		//A bit odd... but this is for proper ordering
-
-	changeStatusbar(currentQuery);
+	changeStatusbar(m_currentQuery);
 
 	if(dbusInterface->isValid()) {
 		QDBusMessage reply = dbusInterface->call(
 				QLatin1String("searchTextAndRaise"),
-				currentQuery.toString());
+				m_currentQuery.toString());
 		if(reply.type() == QDBusMessage::ErrorMessage)
 			kDebug() << "QDBus Error: " << reply.signature() <<"<eoe>"<<endl;
 	}

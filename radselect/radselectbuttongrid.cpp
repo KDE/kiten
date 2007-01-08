@@ -42,7 +42,7 @@
 #include <kdebug.h>
 
 radselectButtonGrid::radselectButtonGrid(QWidget *parent, radicalFile *iradicalInfo)
-    : QWidget(parent), currentMode(kSelection), radicalInfo(iradicalInfo)
+    : QWidget(parent), m_currentMode(kSelection), m_radicalInfo(iradicalInfo)
 {
     buildRadicalButtons(this);
 }
@@ -60,13 +60,14 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 	}
 
 	//Now create all the buttons
-	QMultiMap<int, Radical> *radicalMap = radicalInfo->mapRadicalsByStrokes();
+	QMultiMap<int, Radical> *radicalMap = m_radicalInfo->mapRadicalsByStrokes();
 	QMultiMap<int, Radical>::const_iterator it = radicalMap->constBegin();
 	int last_column = 0;
 	int row_index = 1;
 	while( it != radicalMap->constEnd()) {
-		//For each radical, figure out which slot it goes in
-		unsigned int column_index = it.key();
+		//For each radical, figure out which slot it goes in (0-based column index)
+		unsigned int column_index = it.key() - 1;
+		kDebug() << column_index <<endl;
 		if(column_index >= number_of_radical_columns)
 			column_index = number_of_radical_columns-1;
 		//If we're starting a new column, reset the row
@@ -91,7 +92,7 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 		connect( this, SIGNAL(clearButtonSelections()),
 				button, SLOT(resetButton()) );
 		//Add this button to our list
-		buttons.insert(*it,button);
+		m_buttons.insert(*it,button);
 
 		last_column = column_index;
 		++it;
@@ -99,7 +100,7 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 }
 
 void radselectButtonGrid::setFont(const QFont &font) {
-	foreach(QPushButton *button, buttons.values()) {
+	foreach(QPushButton *button, m_buttons.values()) {
 		button->setFont(font);
 		QFontMetrics fm = button->fontMetrics();
 		QSize sz = fm.size(Qt::TextShowMnemonic, button->text());
@@ -113,13 +114,13 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 		; //Do something fancy
 	else if(newStatus == radicalButton::kNormal ||
 			newStatus == radicalButton::kSelected) {
-		currentMode = kSelection;
+		m_currentMode = kSelection;
 		if(newStatus == radicalButton::kNormal) {
-			selectedRadicals.remove(newrad);
-			if(selectedRadicals.isEmpty())
+			m_selectedRadicals.remove(newrad);
+			if(m_selectedRadicals.isEmpty())
 				emit signalChangeStatusbar (i18n("No Radicals Selected"));
 		} else
-			selectedRadicals.insert(newrad);
+			m_selectedRadicals.insert(newrad);
 
 		updateButtons();
 	}
@@ -127,16 +128,16 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 
 void radselectButtonGrid::updateButtons() {
 	//Special Case/Early exit: no radicals selected
-	if(selectedRadicals.isEmpty()) {
+	if(m_selectedRadicals.isEmpty()) {
 		QList<Kanji> blankList;
-		foreach(radicalButton *button, buttons)
+		foreach(radicalButton *button, m_buttons)
 			button->setStatus(radicalButton::kNormal);
 		emit possibleKanji(blankList);
 		return;
 	}
 
 	//Figure out what our kanji possibilites are
-	QSet<Kanji> kanjiSet = radicalInfo->kanjiContainingRadicals(selectedRadicals);
+	QSet<Kanji> kanjiSet = m_radicalInfo->kanjiContainingRadicals(m_selectedRadicals);
 
 	//Convert to a list, sort, and tell the world!
 	QList<Kanji> kanjiList = kanjiSet.toList();
@@ -144,18 +145,18 @@ void radselectButtonGrid::updateButtons() {
 	emit possibleKanji(kanjiList);
 
 	//Do the announcement of the selected radical list
-	QStringList radicalList(selectedRadicals.toList());
+	QStringList radicalList(m_selectedRadicals.toList());
 	emit signalChangeStatusbar(i18n("Selected Radicals: ")+ radicalList.join(", "));
 
 	//Now figure out what our remaining radical possibilities are
-	QSet<QString> remainingRadicals = radicalInfo->radicalsInKanji(kanjiSet);
+	QSet<QString> remainingRadicals = m_radicalInfo->radicalsInKanji(kanjiSet);
 	//Remove the already selected ones
-	remainingRadicals -= selectedRadicals;
+	remainingRadicals -= m_selectedRadicals;
 
 	//Now go through and set status appropriately
-	QHash<QString, radicalButton*>::iterator i = buttons.begin();
-	while(i != buttons.end()) {
-		if(selectedRadicals.contains(i.key()))
+	QHash<QString, radicalButton*>::iterator i = m_buttons.begin();
+	while(i != m_buttons.end()) {
+		if(m_selectedRadicals.contains(i.key()))
 			i.value()->setStatus(radicalButton::kSelected);
 		else if(remainingRadicals.contains(i.key()))
 			i.value()->setStatus(radicalButton::kNormal);
@@ -166,7 +167,7 @@ void radselectButtonGrid::updateButtons() {
 }
 
 void radselectButtonGrid::clearSelections() {
-	selectedRadicals.clear();
+	m_selectedRadicals.clear();
 	emit clearButtonSelections();
 }
 

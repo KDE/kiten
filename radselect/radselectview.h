@@ -25,6 +25,7 @@
 
 #include <QtGui/QWidget>
 #include <QtCore/QList>
+#include <QtCore/QSet>
 
 class QString;
 class QStringList;
@@ -39,28 +40,27 @@ class radselectView : public QWidget, public Ui::radical_selector
 public:
 	radselectView(QWidget *parent);
 	virtual ~radselectView();
-	void load(QString iRadicals, QString iStrokes);
-						//Load pre-determined search parameters
+
+	//Load pre-determined search parameters
+	void loadRadicals(const QString &iRadicals, int strokeMin, int strokeMax);
+	void loadKanji(QString &kanji);
 
 signals:
 	void signalChangeStatusbar(const QString& text);
 	void searchModified(); //listen for this if you want to detect each minor change
-	void searchTrigger(const QStringList& radicals_result, 
-			const QString& stroke_result);
-			//this will be emitted when the user pushes "Search"
+	void kanjiSelected(const QStringList&); //This is when they've actually pressed a kanji
 
 private slots:
 	void loadSettings();
-	void startSearch();		//Someone has clicked the search button! (uses getSearchInfo)
-	QString getSearchInfo(QString& radicals_result,QString& stroke_result);
-			// Grab all the info this widget provides (returns a formatted search string)
-	void listPossibleKanji(const QList<Kanji>&); //Sets the list of visible Kanji
-	void clearSearch();		//Clear everything
+	void strokeLimitChanged(int);	//Handles either of the stroke limiters moving
 	void changedSearch();		//connected to any changes in searches, emits searchModified
+	void clearSearch();		//Clear everything
+	void listPossibleKanji(const QList<Kanji>&); //Sets the list of visible Kanji
 
 private:
-	radselectButtonGrid *buttons;
 	radicalFile	*radicalInfo;
+	radselectButtonGrid *m_buttongrid;
+	QList<Kanji> m_possibleKanji;
 };
 
 

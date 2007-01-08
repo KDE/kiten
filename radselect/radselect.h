@@ -81,7 +81,7 @@ private slots:
 	void search();
 	void clear();
 
-	void sendSearch(const QStringList& radicals, const QString& strokes);
+	void sendSearch(const QStringList&);
 
 private:
 	void setupAccel();
@@ -90,7 +90,7 @@ private:
 private:
 	QDBusInterface *dbusInterface;
 	radselectView *m_view;
-	dictQuery currentQuery;
+	dictQuery m_currentQuery;
 
 	KitenEdit *Edit;
 	KToggleAction *showAll;

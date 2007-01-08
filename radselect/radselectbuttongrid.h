@@ -56,13 +56,14 @@ private:
 
 	static const unsigned int number_of_radical_columns = 11;
 	static const unsigned int maximumStrokeValue = 50;
-	enum {kSelection, kRelational} currentMode;
 
-	QString relationalRadical;
-	QSet<QString> selectedRadicals;
-	radicalFile *radicalInfo;
+	enum {kSelection, kRelational} m_currentMode;
 
-	QHash<QString, radicalButton*> buttons; //Radical -> Button Mapping
+	QString m_relationalRadical;
+	QSet<QString> m_selectedRadicals;
+	radicalFile *m_radicalInfo;
+
+	QHash<QString, radicalButton*> m_buttons; //Radical -> Button Mapping
 };
 
 #endif
