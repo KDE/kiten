@@ -19,8 +19,8 @@
 
 //This is currently the only file in libkiten dict handlers to have moc code included...
 
-#ifndef DICTFILEDISPLAYPREFERENCES__H_
-#define DICTFILEDISPLAYPREFERENCES__H_
+#ifndef DICTIONARYPREFERENCEDIALOG__H_
+#define DICTIONARYPREFERENCEDIALOG__H_
 
 
 class QStringList;
@@ -46,10 +46,10 @@ class KActionSelector;
 //This is the default one used by edict and kanjidic
 class dictFileFieldSelector : public DictionaryPreferenceDialog {
 	Q_OBJECT
-	public:	
+	public:
 		dictFileFieldSelector(KConfigSkeleton*,const QString &dictionaryTypeName, QWidget *parent, const char *name);
 		virtual ~dictFileFieldSelector();
-	
+
 	public slots:
 		void setAvailable(const QStringList &list);
 		void addAvailable(const QStringList &list);
@@ -57,7 +57,7 @@ class dictFileFieldSelector : public DictionaryPreferenceDialog {
 		void setDefaultFull(const QStringList &list);
 		void readFromPrefs();
 		void writeToPrefs();
-		
+
 		void updateWidgets();
 		void updateWidgetsDefault();
 		void updateSettings();

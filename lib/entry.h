@@ -22,7 +22,6 @@
 #ifndef ENTRY_H
 #define ENTRY_H
 
-
 #include <QtCore/QStringList>
 #include <QtCore/QList>
 #include <QtCore/QHash>
@@ -34,29 +33,33 @@ class Entry;
 class EntryList;
 class QString;
 class dictFile;
-class dictQuery;
 
 class KITEN_EXPORT Entry {
 
 	friend class EntryListModel;
 
-public:
-	/** Default constructor, should not be used */
+private:
+	/** Default constructor, should not be used. Made private to serve as a warning
+	 that you're doing something wrong if you try to call this */
 	Entry();
-	/** Copy constructor */
-	Entry(const Entry&);
-	/** Constructor that includes the dictionary source */
-	Entry(const QString &sourceDictionary);
+protected:
 	/** A constructor that takes a dictionary and a string to parse. THIS MUST
 	  BE OVERRIDDEN IN EVERY SUBCLASS */
 	Entry(const QString &sourceDictionary, const QString &parse);
+
+	/** Copy constructor. */
+	Entry(const Entry&);
+	/** Constructor that includes the dictionary source */
+	Entry(const QString &sourceDictionary);
 	/** A constructor that includes the basic information, nicely separated */
-	Entry(const QString &sourceDictionary, const QString &word, 
+	Entry(const QString &sourceDictionary, const QString &word,
 			const QStringList &readings, const QStringList &meanings);
-	/** A constructor pattern that includes support for the extended info QDict (copied) */
-	Entry(const QString &sourceDictionary, const QString &word, const QStringList 
+	/** A constructor pattern that includes support for the extended info (copied) */
+	Entry(const QString &sourceDictionary, const QString &word, const QStringList
 			&readings, const QStringList &meanings, const QHash<QString,QString> &extendedInfo);
-	/** Generic Destructor, note that any strings in the QDict will be destroyed here */	
+
+public:
+	/** Generic Destructor */
 	virtual ~Entry();
 	/** A clone method, this should just implement "return new EntrySubClass(*this)" */
 	virtual Entry *clone() const = 0;
@@ -82,9 +85,11 @@ public:
 	virtual QString toHTML(printType=printAuto) const;
 	/* KVTML format for exporting */
 	virtual QString toKVTML() const;
-
 	/** This will return a pure text interpretation of the Entry */
 	virtual QString toString(printType=printAuto) const;
+
+	/** the favoredPrintType parameter may be used by the HTML and toString
+	  printing methods */
 	virtual void setFavoredPrintType(const printType);
 	virtual printType getFavoredPrintType() const;
 
@@ -101,57 +106,57 @@ public:
 
 	enum WordType
 	{
-		adj = 0 , /* 	adjective (keiyoushi) */
-		adj_na, /* 	adjectival nouns or quasi-adjectives (keiyodoshi) */
-		adj_no, /* 	nouns which may take the genitive case particle `no' */
-		adj_pn, /* 	pre-noun adjectival (rentaishi) */
-		adj_t, /* 	`taru' adjective */
-		adv, /* 	adverb (fukushi) */
-		adv_n, /* 	adverbial noun */
-		adv_to, /* 	adverb taking the `to' particle */
-		aux, /* 	auxiliary */
-		aux_v, /* 	auxiliary verb */
-		aux_adj, /* 	auxiliary adjective */
-		conj, /* 	conjunction */
-		exp, /* 	Expressions (phrases, clauses, etc.) */
-		id, /* 	idiomatic expression */
-		inte, /* 	interjection (kandoushi)
+		adj = 0 , /*	adjective (keiyoushi) */
+		adj_na, /*	adjectival nouns or quasi-adjectives (keiyodoshi) */
+		adj_no, /*	nouns which may take the genitive case particle `no' */
+		adj_pn, /*	pre-noun adjectival (rentaishi) */
+		adj_t, /*	`taru' adjective */
+		adv, /*	adverb (fukushi) */
+		adv_n, /*	adverbial noun */
+		adv_to, /*	adverb taking the `to' particle */
+		aux, /*	auxiliary */
+		aux_v, /*	auxiliary verb */
+		aux_adj, /*	auxiliary adjective */
+		conj, /*	conjunction */
+		exp, /*	Expressions (phrases, clauses, etc.) */
+		id, /*	idiomatic expression */
+		inte, /*	interjection (kandoushi)
 					int is a keyword, thus 'inte' instead */
-		iv, /* 	irregular verb */
-		n, /* 	noun (common) (futsuumeishi) */
-		n_adv, /* 	adverbial noun (fukushitekimeishi) */
-		n_pref, /* 	noun, used as a prefix */
-		n_suf, /* 	noun, used as a suffix */
-		n_t, /* 	noun (temporal) (jisoumeishi) */
-		neg, /* 	negative (in a negative sentence, or with negative verb) */
-		neg_v, /* 	negative verb (when used with) */
-		num, /* 	numeric */
-		pref, /* 	prefix */
-		prt, /* 	particle */
-		suf, /* 	suffix */
-		v1, /* 	Ichidan verb */
-		v5, /* 	Godan verb (not completely classified) */
-		v5aru, /* 	Godan verb _ -aru special class */
-		v5b, /* 	Godan verb with `bu' ending */
-		v5g, /* 	Godan verb with `gu' ending */
-		v5k, /* 	Godan verb with `ku' ending */
-		v5k_s, /* 	Godan verb - iku/yuku special class */
-		v5m, /* 	Godan verb with `mu' ending */
-		v5n, /* 	Godan verb with `nu' ending */
-		v5r, /* 	Godan verb with `ru' ending */
-		v5r_i, /* 	Godan verb with `ru' ending (irregular verb) */
-		v5s, /* 	Godan verb with `su' ending */
-		v5t, /* 	Godan verb with `tsu' ending */
-		v5u, /* 	Godan verb with `u' ending */
-		v5u_s, /* 	Godan verb with `u' ending (special class) */
-		v5uru, /* 	Godan verb _ uru old class verb (old form of Eru) */
-		vi, /* 	intransitive verb */
-		vk, /* 	kuru verb _ special class */
-		vs, /* 	noun or participle which takes the aux. verb suru */
-		vs_i, /* 	suru verb - irregular */
-		vs_s, /* 	suru verb - special class */
-		vt, /* 	transitive verb */
-		vz, /* 	zuru verb _ (alternative form of -jiru verbs) */
+		iv, /*	irregular verb */
+		n, /*	noun (common) (futsuumeishi) */
+		n_adv, /*	adverbial noun (fukushitekimeishi) */
+		n_pref, /*	noun, used as a prefix */
+		n_suf, /*	noun, used as a suffix */
+		n_t, /*	noun (temporal) (jisoumeishi) */
+		neg, /*	negative (in a negative sentence, or with negative verb) */
+		neg_v, /*	negative verb (when used with) */
+		num, /*	numeric */
+		pref, /*	prefix */
+		prt, /*	particle */
+		suf, /*	suffix */
+		v1, /*	Ichidan verb */
+		v5, /*	Godan verb (not completely classified) */
+		v5aru, /*	Godan verb _ -aru special class */
+		v5b, /*	Godan verb with `bu' ending */
+		v5g, /*	Godan verb with `gu' ending */
+		v5k, /*	Godan verb with `ku' ending */
+		v5k_s, /*	Godan verb - iku/yuku special class */
+		v5m, /*	Godan verb with `mu' ending */
+		v5n, /*	Godan verb with `nu' ending */
+		v5r, /*	Godan verb with `ru' ending */
+		v5r_i, /*	Godan verb with `ru' ending (irregular verb) */
+		v5s, /*	Godan verb with `su' ending */
+		v5t, /*	Godan verb with `tsu' ending */
+		v5u, /*	Godan verb with `u' ending */
+		v5u_s, /*	Godan verb with `u' ending (special class) */
+		v5uru, /*	Godan verb _ uru old class verb (old form of Eru) */
+		vi, /*	intransitive verb */
+		vk, /*	kuru verb _ special class */
+		vs, /*	noun or participle which takes the aux. verb suru */
+		vs_i, /*	suru verb - irregular */
+		vs_s, /*	suru verb - special class */
+		vt, /*	transitive verb */
+		vz, /*	zuru verb _ (alternative form of -jiru verbs) */
 
 		NUMTYPES /* works because the first element is defined as 0 */
 	};
@@ -169,31 +174,22 @@ public:
 
 
 protected:
-	QString sourceDict;
-	QString Header;
+	// The actual data of this entry
 	QString Word;
-
 	QStringList Meanings;
 	QStringList Readings;
-
 	QHash<QString,QString> ExtendedInfo;
 
+	//A bit of metadata
+	QString sourceDict;
 	printType favoredPrintType;
 	QString outputListDelimiter;
 
 	static QMultiHash<QString, WordType> *wordTypesPretty;
 	static QHash<QString, WordType> *wordTypes;
-	
+
 	void init();
 
-	/* An entry should be able to generate a representation of itself in 
-		plain ol' text (for buttons and such) */
-	virtual QString toBriefText() const;
-	virtual QString toVerboseText() const;
-	/* Various forms of HTML Output */	
-	virtual QString toBriefHTML() const;
-	virtual QString toVerboseHTML() const;
-	
 	/* New functions for Entry doing direct display */
 	virtual QString makeLink(const QChar) const;
 	virtual QString makeLink(const QString) const;
@@ -209,24 +205,23 @@ protected:
 
 class KITEN_EXPORT EntryList : public QList<Entry*> {
 
-
 public:
 	typedef QListIterator<Entry*> EntryIterator;
-	
-	EntryList() {}
+
+	EntryList() : QList<Entry*>() {}
 	EntryList(const EntryList &old) : QList<Entry*>(old) {}
 	virtual ~EntryList();
 	void deleteAll();
 
 	QString toString(Entry::printType=Entry::printAuto) const;
 	QString toHTML(Entry::printType=Entry::printAuto) const;
-	
+
 	QString toString(unsigned int start, unsigned int length,
 			Entry::printType=Entry::printAuto) const;
 	QString toHTML(unsigned int start, unsigned int length,
 			Entry::printType=Entry::printAuto) const;
 	QString toKVTML(unsigned int start, unsigned int length) const;
-	
+
 	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
 
 	const EntryList& operator+=(const EntryList &other);

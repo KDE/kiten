@@ -37,8 +37,8 @@ class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 	public:
 	dictFileKanjidic();
 	virtual ~dictFileKanjidic() {}
-	
-	bool validDictionaryFile(const QString filename);
+
+	bool validDictionaryFile(const QString &filename);
 	bool validQuery(const dictQuery &query);
 
 	virtual void loadSettings(KConfigSkeleton *);

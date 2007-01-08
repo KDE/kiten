@@ -27,8 +27,8 @@
 /* DISPLAY FUNCTIONS */
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
-/** returns a brief HTML version of an Entry */
-QString EntryKanjidic::toBriefHTML() const
+/** returns a HTML version of an Entry */
+QString EntryKanjidic::toHTML(printType printDirective) const
 {
 	QString result="<div class=\"KanjidicBrief\">";
 
@@ -42,12 +42,6 @@ QString EntryKanjidic::toBriefHTML() const
 	}
 	result += "</div>";
 	return result;
-}
-
-/** returns an HTML version of an Entry that is rather complete.*/
-QString EntryKanjidic::toVerboseHTML() const
-{
-	return toBriefHTML();
 }
 
 bool EntryKanjidic::matchesQuery(const dictQuery &query) const {

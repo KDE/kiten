@@ -62,14 +62,14 @@ dictFileKanjidic::dictFileKanjidic() : dictFileEdict(){
   characters. This is not a foolproof scan, but it should be checked before adding
   a new dictionary. 
  */
-bool dictFileKanjidic::validDictionaryFile(const QString filename) {
+bool dictFileKanjidic::validDictionaryFile(const QString &filename) {
 	QFile file(filename);
 	if(!file.exists())
 		return false;
 	if(!file.open(QIODevice::ReadOnly))
 		return false;
 	//TODO: Some actual format checking of the kanjidic file
-	
+
 	file.close();
 	return true;
 }
@@ -87,10 +87,10 @@ bool dictFileKanjidic::validQuery(const dictQuery &query) {
 	for(QStringList::Iterator it=properties.begin(); it != properties.end(); ++it)
 		if(!propertiesWeHandle.contains(*it))
 			return false;
-	
+
 	return true;
 }
-	
+
 
 QMap<QString,QString> dictFileKanjidic::displayOptions() const {
 	//Enumerate the fields in our dict.... there are a rather lot of them here

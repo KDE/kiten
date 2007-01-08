@@ -34,8 +34,8 @@ class KITEN_EXPORT WordType : public KComboBox
 
 	public:
 		WordType(QWidget *parent);
-		
-	
+
+
 	private:
 };
 

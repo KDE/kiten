@@ -26,8 +26,9 @@
 
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
-/** returns a brief HTML version of an Entry */
-QString EntryEDICT::toBriefHTML() const
+/** returns a HTML version of an Entry */
+/* TODO: Currently ingnoring printType */
+QString EntryEDICT::toHTML(printType printDirective) const
 {
 	QString result="<div class=\"EDICTBrief\">";
 
@@ -43,11 +44,6 @@ QString EntryEDICT::toBriefHTML() const
 	return result;
 }
 
-/** returns an HTML version of an Entry that is rather complete.*/
-QString EntryEDICT::toVerboseHTML() const
-{
-	return toBriefHTML();
-}
 
 /** Makes a link out of each kanji in @p inString */
 inline QString EntryEDICT::kanjiLinkify(const QString &inString) const

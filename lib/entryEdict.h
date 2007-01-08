@@ -29,32 +29,27 @@ class dictQuery;
 
 class /* NO_EXPORT */ EntryEDICT : public Entry {
 	public:
-		EntryEDICT() : Entry() {}
-		EntryEDICT(const EntryEDICT &x) : Entry(x) {} //No special members to copy in this one
+//		EntryEDICT(const EntryEDICT &x) : Entry(x) {} //No special members to copy in this one
 		EntryEDICT(const QString &dict) : Entry(dict), common(false){}
 		EntryEDICT(const QString &dict, const QString &entry) : Entry(dict) {loadEntry(entry);}
 		Entry *clone() const { return new EntryEDICT(*this); }
 
-		virtual QString toBriefHTML() const;
-		virtual QString toVerboseHTML() const;
-		
+		virtual QString toHTML(printType=printAuto) const;
+
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;
 
 		virtual inline QString HTMLWord() const;
 		virtual inline QString Common() const;
 
-
-
 	protected:
 		virtual inline QString kanjiLinkify(const QString &) const;
-
 		bool common;
-		
+
 		/* A list of the wordtypes the word belongs to */
 		QList<WordType> types;
 
-		
+
 };
 
 #endif

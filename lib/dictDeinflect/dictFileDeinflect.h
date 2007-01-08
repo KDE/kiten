@@ -1,4 +1,5 @@
 /* This file is part of Kiten, a KDE Japanese Reference Tool...
+
  Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
            (C) 2006  Joseph Kerian <jkerian@gmail.com>
 			  (C) 2006  Eric Kjeldergaard <kjelderg@gmail.com>
@@ -19,32 +20,35 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ENTRYKANJIDIC__
-#define ENTRYKANJIDIC__
+#ifndef DICTFILEDEINFLECT_H
+#define DICTFILEDEINFLECT_H
 
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+
+#include "dictFile.h"
 #include "entry.h"
+#include "dictQuery.h"
 
-class QString;
-
-class /* NO_EXPORT */ EntryKanjidic : public Entry {
+class /* NO_EXPORT */ dictFileDeinflect: public dictFile
+{
 	public:
-		EntryKanjidic(const EntryKanjidic &x) : Entry(x) {}
-		EntryKanjidic(const QString &x) : Entry(x) {}
-		EntryKanjidic(const QString &dict, const QString &entry) : Entry(dict) {loadEntry(entry);}
-		Entry *clone() const {return new EntryKanjidic(*this); }
+		dictFileDeinflect() : dictFile() {dictionaryType = "Deinflect";}
+		virtual ~dictFileDeinflect() {}
 
-		virtual QString toHTML(printType=printAuto) const;
+		bool loadDictionary(const QString &file, const QString &name);
+		bool loadNewDictionary(const QString &file, const QString &name)
+				{ return loadDictionary(file,name); }
+		QStringList listDictDisplayOptions(QStringList orig) const
+				{ return QStringList("Word/Kanji") << QString("Deinflected Word"); }
 
-		virtual bool matchesQuery(const dictQuery&) const;
+		EntryList *doSearch (const dictQuery &query);
 
-		virtual bool loadEntry(const QString &);
-		virtual QString dumpEntry() const;
+		//TODO: The following methods (validDictionaryFile & validQuery)
+		bool validDictionaryFile(const QString &filename) { return true; }
+		bool validQuery(const dictQuery &query) { return true; }
 
-	protected:
-		virtual inline QString HTMLReadings() const;
-		virtual inline QString HTMLWord() const;
-		virtual inline QString HTMLExtendedInfo(QString field) const;
-		virtual QString makeReadingLink(const QString&) const;
 };
+
 
 #endif

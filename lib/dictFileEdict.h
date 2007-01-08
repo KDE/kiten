@@ -13,7 +13,7 @@
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
 
-   You should have received a copy of the GNU Library General Public License
+	 You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
@@ -49,13 +49,13 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	public:
 	dictFileEdict();
 	virtual ~dictFileEdict();
-	
-	virtual bool validDictionaryFile(const QString filename);
+
+	virtual bool validDictionaryFile(const QString &filename);
 	bool validQuery(const dictQuery &query);
-	
-	bool loadDictionary(const QString file, const QString name);
-	bool loadNewDictionary(const QString file, const QString name);
-	
+
+	bool loadDictionary(const QString &file, const QString &name);
+	bool loadNewDictionary(const QString &file, const QString &name);
+
 	virtual EntryList *doSearch(const dictQuery &query);
 	virtual QStringList listDictDisplayOptions(QStringList) const;
 
@@ -78,9 +78,9 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	QByteArray lookupFullLine(unsigned);
 	int equalOrSubstring(const char*, const char *);
 	int findMatches(const char*, const char *);
-	
+
 	static const int indexFileVersion = 14;	//This code understands version 14 index (.xjdx) files
-	
+
 	QFile dictFile;
 	const unsigned char *dictPtr;
 

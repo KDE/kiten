@@ -1,6 +1,5 @@
 /* This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-           (C) 2006  Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006  Joseph Kerian <jkerian@gmail.com>
 			  (C) 2006  Eric Kjeldergaard <kjelderg@gmail.com>
 
    This library is free software; you can redistribute it and/or
@@ -19,32 +18,31 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ENTRYKANJIDIC__
-#define ENTRYKANJIDIC__
+#ifndef ENTRYDEINFLECT_H_
+#define ENTRYDEINFLECT_H_
 
 #include "entry.h"
 
 class QString;
+class dictQuery;
 
-class /* NO_EXPORT */ EntryKanjidic : public Entry {
+class /* NO_EXPORT */ entryDeinflect : public Entry {
+
 	public:
-		EntryKanjidic(const EntryKanjidic &x) : Entry(x) {}
-		EntryKanjidic(const QString &x) : Entry(x) {}
-		EntryKanjidic(const QString &dict, const QString &entry) : Entry(dict) {loadEntry(entry);}
-		Entry *clone() const {return new EntryKanjidic(*this); }
+		entryDeinflect(const QString &original, const QString &correction);
+		entryDeinflect *clone() const { return new entryDeinflect(*this); }
 
 		virtual QString toHTML(printType=printAuto) const;
-
-		virtual bool matchesQuery(const dictQuery&) const;
 
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;
 
-	protected:
-		virtual inline QString HTMLReadings() const;
 		virtual inline QString HTMLWord() const;
-		virtual inline QString HTMLExtendedInfo(QString field) const;
-		virtual QString makeReadingLink(const QString&) const;
+		virtual inline QString Common() const;
+	protected:
+		virtual inline QString kanjiLinkify(const QString &) const;
+
+		bool common;
 };
 
 #endif

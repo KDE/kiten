@@ -25,7 +25,7 @@
 #include <kprocess.h>
 #include <kstandarddirs.h>
 
-#include <qfileinfo.h> 
+#include <qfileinfo.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
 
@@ -34,7 +34,7 @@
 
 #include <iostream>
 #include <cassert>
-#include <sys/mman.h> 
+#include <sys/mman.h>
 #include <stdio.h>
 
 
@@ -187,7 +187,7 @@ Entry::Entry(const QString &sourceDictionary,const QString &parseMe)
 }
 
 Entry::Entry(const QString &sourceDictionary, const QString &word,
-	  			const QStringList &reading, const QStringList &meanings)
+				const QStringList &reading, const QStringList &meanings)
 	: sourceDict(sourceDictionary)
 	, Word(word)
 	, Meanings(meanings)
@@ -196,8 +196,8 @@ Entry::Entry(const QString &sourceDictionary, const QString &word,
 	init();
 }
 
-Entry::Entry(const QString &sourceDictionary, const QString &word, 
-		const QStringList &readings, const QStringList &meanings, 
+Entry::Entry(const QString &sourceDictionary, const QString &word,
+		const QStringList &readings, const QStringList &meanings,
 		const QHash<QString,QString> &extendedInfo)
 	: sourceDict(sourceDictionary)
 	, Word(word)
@@ -215,7 +215,8 @@ Entry::Entry(const Entry &src)
 	, Readings(src.Readings)
 	, ExtendedInfo(src.ExtendedInfo)
 {
-	init();
+	outputListDelimiter=src.outputListDelimiter;
+	favoredPrintType = src.favoredPrintType;
 }
 
 void Entry::init() {
@@ -231,14 +232,17 @@ Entry::~Entry() {
 /** Main switching function for displaying to the user */
 QString Entry::toHTML(printType type) const {
 	switch(type) {
-		case printBrief: return toBriefHTML();
-	 	case printVerbose: return toVerboseHTML();
-		case printAuto:
+		case printBrief:
+			return "<div class=\"EntryBrief\">" + HTMLWord() +
+				HTMLReadings() + HTMLMeanings() + "</div>";
+		case printVerbose:
+			return "<div class=\"EntryVerbose\">" + HTMLWord() +
+				HTMLReadings() + HTMLMeanings() + "</div>";
 		default:
 			if(favoredPrintType != printAuto)
 				return toHTML(favoredPrintType);
 			else
-				return toBriefHTML();
+				return toHTML(printBrief);
 	}
 }
 
@@ -248,19 +252,21 @@ QString Entry::toHTML(printType type) const {
   for example */
 QString Entry::toString(printType type) const {
 	switch(type) {
-		case printBrief: return toBriefText();
-	 	case printVerbose: return toVerboseText();
+		case printBrief:
+			return Word;
+		case printVerbose:
+			return Word + " (" + getReadings() + ") " + getMeanings();
 		default:
 			if(favoredPrintType != printAuto)
 				return toString(favoredPrintType);
 			else
-				return toBriefText();
+				return toString(printBrief);
 	}
 }
 
-/**This method allows the creator of the object to 
+/**This method allows the creator of the object to
   "register their vote" on how the object should eventually
-  be displayed. It may be ignored later on though 
+  be displayed. It may be ignored later on though
  If the print methods are called using printAuto, this
  value will be respected. If this value is not set, the
  object defaults to printBrief */
@@ -297,14 +303,6 @@ bool Entry::isKanji(const QChar character) const
 	return true; //Note our folly here... we assuming any non-ascii/kana is kanji
 }
 
-/* New functions for direct display from Entry */
-/** returns a brief HTML version of an Entry */
-inline QString Entry::toBriefHTML() const
-{
-	return "<div class=\"EntryBrief\">" + HTMLWord() + HTMLReadings() + 
-		HTMLMeanings() + "</div>"; 
-}
-
 inline QString Entry::toKVTML() const
 {
 	/*
@@ -317,13 +315,6 @@ inline QString Entry::toKVTML() const
 	return "<e>\n<o l=\"en\">" + getMeanings() + "</o>\n"
 		"<t l=\"jp-kanji\">" + getWord() + "</t>\n" +
 		"<t l=\"jp-kana\">" + getReadings() + "</t></e>\n\n";
-}
-
-/** returns an HTML version of an Entry that is rather complete.*/
-inline QString Entry::toVerboseHTML() const
-{
-	return "<div class=\"EntryVerbose\">" + HTMLWord() + HTMLReadings() + 
-		HTMLMeanings() + "</div>";
 }
 
 /** Prepares Word for output as HTML */
@@ -346,17 +337,6 @@ inline QString Entry::HTMLMeanings() const
 {
 	return "<span class=\"Meanings\">" + Meanings.join(outputListDelimiter)
 		+ "</span>";
-}
-
-/** Creates a brief textual description of an Entry */
-inline QString Entry::toBriefText() const
-{
-	return Word;
-}
-
-inline QString Entry::toVerboseText() const
-{
-	return Word + " (" + getReadings() + ") " + getMeanings();
 }
 
 bool Entry::matchesQuery(const dictQuery &query) const {
@@ -407,8 +387,8 @@ bool Entry::extendedItemCheck(const dictQuery& query)
 
 //Returns true if all members of test are in list
 bool Entry::listMatch(const QString &list, const QStringList &test) const {
-	for(QStringList::const_iterator it = test.constBegin(); it != test.constEnd();++it) //KDE4 CHANGE
-		if(!list.contains(*it))
+	foreach(QString it, test)
+		if(!list.contains(it))
 			return false;
 	return true;
 }
@@ -416,7 +396,7 @@ bool Entry::listMatch(const QString &list, const QStringList &test) const {
 /* This version of sort only sorts dictionaries...
 	This is a replacement for a operator< function... so we return true if
 	"this" should show up first on the list. */
-bool Entry::sort(const Entry &that, const QStringList &dictOrder, 
+bool Entry::sort(const Entry &that, const QStringList &dictOrder,
 		const QStringList &fields) const {
 	if(this->sourceDict != that.sourceDict) {
 		foreach(QString dict, dictOrder) {
@@ -427,7 +407,7 @@ bool Entry::sort(const Entry &that, const QStringList &dictOrder,
 		}
 	} else {
 		foreach(QString field, fields) {
-			if(this->getExtendedInfoItem(field) != 
+			if(this->getExtendedInfoItem(field) !=
 					that.getExtendedInfoItem(field))
 				return this->sortByField(that,field);
 		}
