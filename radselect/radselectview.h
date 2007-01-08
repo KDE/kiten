@@ -24,12 +24,14 @@
 #include "ui_radical_selector.h" 
 
 #include <QtGui/QWidget>
-#include <QtCore/QSet>
+#include <QtCore/QList>
 
 class QString;
 class QStringList;
 class QListWidgetItem;
 class radselectButtonGrid;
+
+#include "radicalfile.h"	//For Kanji/radicalFile definitions
 
 class radselectView : public QWidget, public Ui::radical_selector
 {
@@ -52,16 +54,13 @@ private slots:
 	void startSearch();		//Someone has clicked the search button! (uses getSearchInfo)
 	QString getSearchInfo(QString& radicals_result,QString& stroke_result);
 			// Grab all the info this widget provides (returns a formatted search string)
-	void listPossibleKanji(const QSet<QString>&); //Resets the list
-	void queueDeleteRadical(QListWidgetItem*); //Prepare to remove an item from search list
-	void deleteRadical();	//Called via QTimer by the previous, uses private 'victim'
+	void listPossibleKanji(const QList<Kanji>&); //Sets the list of visible Kanji
 	void clearSearch();		//Clear everything
 	void changedSearch();		//connected to any changes in searches, emits searchModified
 
-private: //Private variables
-	QListWidgetItem *victim; //List item to be deleted from the radical search list
+private:
 	radselectButtonGrid *buttons;
-
+	radicalFile	*radicalInfo;
 };
 
 

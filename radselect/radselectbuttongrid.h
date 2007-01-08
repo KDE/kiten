@@ -21,66 +21,18 @@
 #define _RADSELECTBUTTONGRID_H_
 
 #include <QtCore/QString>
-#include <QtCore/QHash>
-#include <QtGui/QWidget>
-#include <QtGui/QPushButton>
 #include <QtCore/QSet>
+#include <QtCore/QHash>
+#include <QtCore/QList>
+#include <QtGui/QWidget>
 
-class QMouseEvent;
-
-class Radical : public QString {
-protected:
-	unsigned int stroke_count;
-	QSet<QString> kanji;
-public:
-	Radical(QString irad, unsigned int istrokes=0)
-		: QString(irad.at(0)), stroke_count(istrokes) { }
-	unsigned int strokes() const {return stroke_count;}
-	const QSet<QString>	&getKanji() const {return kanji;}
-	void addKanji(const QSet<QString> newKanji) {kanji += newKanji;}
-};
-
-class Kanji : public Radical {
-private: void addKanji(const QSet<QString> newKanji) {}
-		const QSet<QString>	&getKanji() const {}
-public:
-	Kanji(const QString &ikanji, const QSet<QString> &radicals) :
-		Radical(ikanji.at(0))  {kanji = radicals;}
-	void calculateStrokes() {
-		stroke_count = 0;
-		foreach( Radical it, kanji )
-			stroke_count += it.strokes();
-	}
-	const QSet<QString> &getRadicals() const {return kanji;}
-	void addRadical(const QString &it) {kanji +=it;}
-};
-
-class radicalButton : public QPushButton {
-	Q_OBJECT
-public:
-	radicalButton(const QString& a, QWidget* b);
-	virtual ~radicalButton() {}
-	typedef enum {kNormal,  // Normal button
-		kSelected,				// This button has been selected: bold + underline
-		kNotAppropriate,		// Due to other selected buttons: disabled
-		kRelated,				// Display only this radical and related ones: italics?
-		kHidden}					// Not related (to above), so hide()
-	ButtonStatus;
-signals:
-	void userClicked(const QString&, radicalButton::ButtonStatus);
-public slots:
-	void mousePressEvent(QMouseEvent*);
-	void mouseReleaseEvent(QMouseEvent*);
-	void resetButton();
-	void setStatus(radicalButton::ButtonStatus);
-private:
-	ButtonStatus status;
-};
+#include "radicalbutton.h"
+#include "radicalfile.h"
 
 class radselectButtonGrid : public QWidget {
 	Q_OBJECT
 public:
-	radselectButtonGrid(QWidget *parent);
+	radselectButtonGrid(QWidget *parent, radicalFile *iradicalInfo);
 	virtual ~radselectButtonGrid() {}
 
 signals:
@@ -88,13 +40,10 @@ signals:
 	void signalChangeStatusbar(const QString&);
 	/** We emit this whenever something changed. This gives our list of
 	  suggested kanji */
-	void possibleKanji(const QSet<QString>&);
+	void possibleKanji(const QList<Kanji>&);
 	void clearButtonSelections();
 
 public slots:
-	/** Setup stroke range and base limiters */
-	void changeStrokeBase(int);
-	void changeStrokeRange(int);
 	/** Triggered by a button press */
 	void radicalClicked(const QString&, radicalButton::ButtonStatus);
 	/** Reset all buttons to the up and uncolored state */
@@ -102,9 +51,7 @@ public slots:
 	void setFont(const QFont&);
 
 private:
-	bool loadRadicalFile();		// Reads the data from the radkfile
 	void buildRadicalButtons(QWidget*);
-	void calculateStrokeRange();
 	void updateButtons();
 
 	static const unsigned int number_of_radical_columns = 11;
@@ -113,10 +60,8 @@ private:
 
 	QString relationalRadical;
 	QSet<QString> selectedRadicals;
-	unsigned int strokeBase, strokeRange, strokeMin, strokeMax;
+	radicalFile *radicalInfo;
 
-	QSet<Radical> radicals;						//Radical list
-	QHash<QString, Kanji > kanji;				//Kanji List
 	QHash<QString, radicalButton*> buttons; //Radical -> Button Mapping
 };
 

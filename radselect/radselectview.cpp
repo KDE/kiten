@@ -19,16 +19,12 @@
 
 /*
     Future Plans:
-*	Design a custom QGridLayout to rearrange buttons dynamically to resize
-*	Make radical search list a two/three column field with delete button
-*	Design multiple radical file handling
 *	Build a proper exception handling framework
-*	Icon set for properly displayed radicals
-*	Radical Decomposition, and associated interface
 */
 
 #include "radselectview.h"
 #include "radselectbuttongrid.h"
+#include "radicalfile.h"
 #include "radselectconfig.h"
 
 #include <QtCore/QString>
@@ -41,20 +37,31 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QPushButton>
 
+#include "kstandarddirs.h"
+#include "kmessagebox.h"
+
 
 radselectView::radselectView(QWidget *parent) : QWidget(parent)
 {
 	setupUi(this);
-	//Configure the scrolling area
 
-	buttons = new radselectButtonGrid(this);
+	//Load the radical information
+	KStandardDirs *dirs = KGlobal::dirs();
+	QString radkfilename = dirs->findResource("data", "kiten/radkfile");
+	if (radkfilename.isNull())
+		KMessageBox::error(0,i18n("Kanji radical information does not seem to be installed (file kiten/radkfile), this file is required for this app to function"));
+	else
+		radicalInfo = new radicalFile(radkfilename);
+
+	//Configure the scrolling area
+	buttons = new radselectButtonGrid(this, radicalInfo);
 	radical_box->setWidget(buttons);
 	radical_box->setWidgetResizable(true);
 
    //== Now we connect all our signals ==
 	//Connect our radical grid to our adding method
-	connect( buttons, SIGNAL( possibleKanji(const QSet<QString>&) ),
-			this, SLOT( listPossibleKanji(const QSet<QString>&) ) );
+	connect( buttons, SIGNAL( possibleKanji(const QList<Kanji>&) ),
+			this, SLOT( listPossibleKanji(const QList<Kanji>&) ) );
 	//Connect our stroke limit actions
 	connect(strokes_low, SIGNAL( valueChanged(int) ),
 			buttons, SLOT( changeStrokeBase(int) ) );
@@ -111,31 +118,13 @@ QString radselectView::getSearchInfo
 	return result;
 }
 
-void radselectView::listPossibleKanji(const QSet<QString>& list)
+void radselectView::listPossibleKanji(const QList<Kanji>& list)
 {
 	selected_radicals->clear();
 	foreach(QString item, list)
 		new QListWidgetItem(item,selected_radicals);
 
 	emit searchModified();
-}
-
-void radselectView::queueDeleteRadical(QListWidgetItem *iVictim)
-{
-/*
-	if(iVictim == 0) return;
-
-	victim=iVictim;
-	QTimer::singleShot(0, this, SLOT(deleteRadical()) );
-	emit signalChangeStatusbar
-		(QString("Deleting Radical %1 from the list").arg(iVictim->text()));
-*/
-}
-void radselectView::deleteRadical() {
-/*
-	delete victim;
-	emit searchModified();
-*/
 }
 
 void radselectView::load(QString iRadicals, QString iStrokes)
@@ -160,6 +149,8 @@ void radselectView::load(QString iRadicals, QString iStrokes)
 void radselectView::clearSearch() {
 	buttons->clearSelections();
 	selected_radicals->clear();
+	strokes_low->setValue(0);
+	strokes_high->setValue(0);
 }
 
 void radselectView::changedSearch() {

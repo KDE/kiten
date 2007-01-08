@@ -16,13 +16,7 @@ Main Sections:
 		in and display in a given size.
 
 	libkiten questions:
-		Break into libkitenui and libkiten?
-			Pro: Some users may only want ui/dict features
-			Con: There are only two ui classes, in the future we may
-				do kitend and libkiten. That would reduce libkiten to just
-				kitend - dcop communication and the ui calls... at which point
-				it seems silly to have two tiny libs
-		Code Files: When all are near stable, seperate directories (DONE!)
+	Code Files: When all are near stable, seperate directories (DONE!)
 			dictquery.cpp		stable	(could use some cleaning/optimizing, but it works)
 			dictionary.cpp		stable	(for current needs, minor feature updates in future)
 			historyPtrList.cpp stable	(Should work fine at this point, two methods untested)
@@ -70,7 +64,7 @@ Main Interface:
 		There is an overlap between these two modes if only a single kanji
 			reading is specified. In this case, print Kanji results followed
 			by Compounds
-		Eric: Not an issue if we continue as modal.  Should it be switched to 
+		Eric: Not an issue if we continue as modal.  Should it be switched to
 			non-modal search?
 		Eric: Guess so :p  A search handled completely by the Dictionary object
 			on its way now.
@@ -96,10 +90,10 @@ Main Interface:
 					together.  (Intersection).  A comma-seperated list would be possible
 					afterwords for OR. (Union).  This leaves a convenience issue for
 					ranges.  How about the traditional '-' except in the case of SKIP?
-					For Radicals, a slightly varied system should be used where there 
-					is no OR, and commas mean AND.  A preface should be chosen.  @R, 
-					seems like a safe choice, though R isn't yet taken.  Using that 
-					method, all non-extendedInfo items could have an @<char> for 
+					For Radicals, a slightly varied system should be used where there
+					is no OR, and commas mean AND.  A preface should be chosen.  @R,
+					seems like a safe choice, though R isn't yet taken.  Using that
+					method, all non-extendedInfo items could have an @<char> for
 					making their use explicit.
 				Eric: somewhat nullified now by Dicts doing this in themselves,
 					though the general principles of the user entering fields is of
@@ -107,18 +101,15 @@ Main Interface:
 
 		Search Result Sorting:
 			Sort Grade Lists by Grade, then by number within Grade
-			Sort Radical Lists by: Total Radical, Primary Radical, Non-Primary, 
+			Sort Radical Lists by: Total Radical, Primary Radical, Non-Primary,
 				Unusual Kanji
-			Eric: Sorting should be done by whatever displays the results.  Where 
+			Eric: Sorting should be done by whatever displays the results.  Where
 				should that be now?  Perhaps EntryList
 
 			Search Begining/End/Anywhere: Whole results first, followed by partials, Unusual Kanji
 			Eric: a '*' syntax...maybe for next revision?
 
 For Radical Lookup:
-	Completely reconstruct
-	Allow lookup on individual radicals without closing (ctrl-click menu?)
-	Display all radicals on one screen
 	Allow radical decomposition (right click to decompose)
 	Eric: and I liked your drop-on decompose kanji to radicals feature :)
 
@@ -129,6 +120,8 @@ For Radical Lookup:
 		corresponding stroke count.
 
 	Radical by reading?
+	Essentially for these features we need to greatly expand on the current radkfile
+	  I've come to believe that this will require an entirely new datafile. --Joe
 
 Learn Mode:
 	Change interface to add kanji/compounds to list from main search interface.
@@ -144,9 +137,6 @@ Learn Mode:
 		pick one and try implementing. Provided we limit the lists to containing
 		only the resultant kanji, even the memory intensive version will only be a
 		few (~20) megs for fairly large lists.
-
-	Remove the silly browser in learn mode.  Use the DBUS searches if display
-		of an entry is necessary.
 
 	Learn needs to handle the new dictionary system.
 
@@ -184,7 +174,7 @@ Dictionaries:
 		jdictionary: http://jdictionary.info/
 		stardict: http://stardict.sourceforge.net
 		DICT: http://www.dict.org/
-			English -> English mainly, but networked ... would be cool to see.  
+			English -> English mainly, but networked ... would be cool to see.
 			Check out kdict for a client in action.
 		JMDict: http://www.csse.monash.edu.au/~jwb/j_jmdict.html
 
@@ -205,9 +195,26 @@ Code Audit:
 	Forward Declarations (eliminate header includes from header files)
 	Iterators (Cache an Iterator.end() object instead of using end() in the loop)
 	Iterators (Use const interators whenever possible)
+	Iterators (foreach)
 	Review the Initialization chain for using Delayed Init
 	Double check the QCString usage for termination (in the indexer code)
 	Use QString.isNull() and isEmpty()... not comparison to QString(""), "" or QString::null
 	Use deleteLater() as a shortcut instead of manually implementing QTimer::oneShot() code
 	Check ALL files for i18n strings that are not inside of i18n() or tr() methods
 	Look through and get rid of redundant headers (particularly in the lib files)
+
+IDEA:
+For results display... use an expanding diamond?
+Example: (think of the |> and the downwards version instead of +/-)
++ Kanji       Readings                Meanings
++ Word        Readings                Meanings
+- Kanji       Readings                Meanings
+    Bushu      Strokes         Grade     Heisig
+	 SKIP Code  NelsonIndex     Etc       (add to list button)
+
+The entire area would be clickable for drag and drop to VTML lists (aside from the things that were clickable for searching). Double click on the background should have the same effect as clicking the expand/contract box.
+
+in our current codebase... the code is
++ printHTML(printBrief)
+- printHTML(printVerbose)
+For the normal case (printAuto)... this does give us a bit of trouble in getting that result up to the widget-controls out of the lib... should that information be buried in the returned HTML?

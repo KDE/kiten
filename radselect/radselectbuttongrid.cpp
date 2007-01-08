@@ -22,142 +22,79 @@
     Future Plans:
 *	Design a custom QGridLayout to rearrange buttons dynamically to resize
 *	Design multiple radical file handling
+*	Icon set for displaying radicals outside of this bizarre unicode section
+*	Radical decomposition implementation
 */
 
 #include "radselectbuttongrid.h"
+#include "radicalbutton.h"
 
 #include <QtCore/QString>
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtCore/QTextCodec>
-
 #include <QtGui/QWidget>
-#include <QtGui/QPushButton>
-#include <QtGui/QMouseEvent>
 #include <QtGui/QLabel>
 #include <QtGui/QGridLayout>
 
+#include <QtGui/QFontMetrics>
+#include <QtCore/QSize>
+
 #include <klocale.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
 
 #include <kdebug.h>
 
-radselectButtonGrid::radselectButtonGrid(QWidget *parent)
-    : QWidget(parent), currentMode(kSelection),
-	 strokeMin(0), strokeMax(maximumStrokeValue), strokeBase(0), strokeRange(0)
+radselectButtonGrid::radselectButtonGrid(QWidget *parent, radicalFile *iradicalInfo)
+    : QWidget(parent), currentMode(kSelection), radicalInfo(iradicalInfo)
 {
-    loadRadicalFile();
-
     buildRadicalButtons(this);
 }
 
-bool radselectButtonGrid::loadRadicalFile()
-{
-	//Find our radical file
-	KStandardDirs *dirs = KGlobal::dirs();
-	QString radkfile = dirs->findResource("data", "kiten/radkfile");
-	if (radkfile.isNull())
-	{
-		KMessageBox::error(0, i18n("Kanji radical information file not installed, so radical searching cannot be used."));
-		return false;
-	}
-
-	//Open our radical file
-	QFile f(radkfile);
-	if (!f.open(QIODevice::ReadOnly))
-	{
-		KMessageBox::error(0, i18n("Kanji radical information could not be loaded, so radical searching cannot be used."));
-		return false;
-	}
-
-	//Read our radical file through a eucJP codec (helpfully builtin to Qt)
-	QTextStream t(&f);
-	Radical *newestRadical = NULL;
-	QHash< QString, QSet<QString> > krad;
-
-	t.setCodec(QTextCodec::codecForName("eucJP"));
-	while (!t.atEnd())
-	{
-		QString line = t.readLine();
-		if(line.at(0) == '#' || line.length() == 0)	//Skip comment characters
-			continue;
-		else if(line.at(0) == '$') {	//Start of a new radical
-			if(newestRadical != NULL)
-				radicals.insert(*newestRadical);
-			newestRadical = new Radical(QString(line.at(2)),
-					line.right(2).toUInt());
-		} else if(newestRadical != NULL) {	// List of kanji, potentially
-			QList<QString> kanjiList =
-				line.trimmed().split("",QString::SkipEmptyParts);
-			newestRadical->addKanji(kanjiList.toSet());
-			foreach( QString akanji, kanjiList )
-				krad[akanji] += *newestRadical;
-		}
-	//	kDebug() << "radical loaded: "<< newestRadical->getKanji().count()<<endl;
-	}
-	if(newestRadical != NULL)
-		radicals.insert(*newestRadical);
-
-	//Move contents of our krad QHash into our hash of kanji
-	for(QHash<QString,QSet<QString> >::iterator it = krad.begin();
-			it != krad.end(); ++it)
-		kanji.insert(it.key(), Kanji(it.key(), it.value()))->calculateStrokes();
-
-	f.close();
-
-	return true;
-}
-
-
 void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 {
-	unsigned int i;
-
 	//Setup the grid
 	QGridLayout *grid = new QGridLayout(box);
 
 	//Now make labels
-	for(i=0;i<number_of_radical_columns;i++){
+	for(unsigned int i=0;i<number_of_radical_columns;i++){
 		QLabel *header = new QLabel(QString::number(i+1),box);
 		header->setAlignment(Qt::AlignHCenter);
 		grid->addWidget(header,0,i);
 	}
 
-	//Sort through and do each column separately to naturally setup tab order
-	//It's inefficient, but the number of radicals should only be a few hundred
-	for(i=0;i<number_of_radical_columns;i++) {
-		int row_index = 1; //Reset where we insert the buttons
+	//Now create all the buttons
+	QMultiMap<int, Radical> *radicalMap = radicalInfo->mapRadicalsByStrokes();
+	QMultiMap<int, Radical>::const_iterator it = radicalMap->constBegin();
+	int last_column = 0;
+	int row_index = 1;
+	while( it != radicalMap->constEnd()) {
+		//For each radical, figure out which slot it goes in
+		unsigned int column_index = it.key();
+		if(column_index >= number_of_radical_columns)
+			column_index = number_of_radical_columns-1;
+		//If we're starting a new column, reset the row
+		if(last_column != column_index)
+			row_index = 1;
 
-		foreach(Radical it, radicals) {
-			//For each radical, figure out which slot it goes in
-			unsigned int column_index = it.strokes()-1;
-			if(column_index >= number_of_radical_columns)
-				column_index = number_of_radical_columns-1;
+		//Make the button
+		radicalButton *button = new radicalButton(it.value(), box);
+		//Note that this is slightly naughty... since this does not consult
+		//QStyle before setting this. (see QPushButton's sizeHint() for what
+		//one should do, but that looks fugly in this case)
+		QFontMetrics fm = button->fontMetrics();
+		QSize sz = fm.size(Qt::TextShowMnemonic, *it);
+		button->setMinimumSize(sz);
 
-			if(column_index != i)
-				continue; //Skip if this is the wrong column
+		grid->addWidget(button, row_index++, column_index);
+		//Bind slots/signals for this button
+		connect(
+			button, SIGNAL(userClicked(const QString&,radicalButton::ButtonStatus)),
+			this, SLOT(radicalClicked(const QString&,radicalButton::ButtonStatus))
+		);
+		connect( this, SIGNAL(clearButtonSelections()),
+				button, SLOT(resetButton()) );
+		//Add this button to our list
+		buttons.insert(*it,button);
 
-			radicalButton *button = new radicalButton(it,box);
-			//Note that this is slightly naughty... since this does not consult
-			//QStyle before setting this. (see QPushButton's sizeHint() for what
-			//one should do, but that looks fugly in this case)
-			QFontMetrics fm = button->fontMetrics();
-			QSize sz = fm.size(Qt::TextShowMnemonic, it);
-			button->setMinimumSize(sz);
-
-			grid->addWidget(button, row_index++, column_index);
-
-			//Bind slots/signals for this button
-			connect(
-				button, SIGNAL(userClicked(const QString&,radicalButton::ButtonStatus)),
-				this, SLOT(radicalClicked(const QString&,radicalButton::ButtonStatus))
-			);
-			connect( this, SIGNAL( clearButtonSelections() ),
-					button, SLOT( resetButton () ) );
-			//Add this button to our list
-			buttons.insert(it,button);
-		}
+		last_column = column_index;
+		++it;
 	}
 }
 
@@ -180,7 +117,7 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 		if(newStatus == radicalButton::kNormal) {
 			selectedRadicals.remove(newrad);
 			if(selectedRadicals.isEmpty())
-				emit signalChangeStatusbar ("No Radicals Selected");
+				emit signalChangeStatusbar (i18n("No Radicals Selected"));
 		} else
 			selectedRadicals.insert(newrad);
 
@@ -191,42 +128,27 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 void radselectButtonGrid::updateButtons() {
 	//Special Case/Early exit: no radicals selected
 	if(selectedRadicals.isEmpty()) {
-		QSet<QString> blankSet;
+		QList<Kanji> blankList;
 		foreach(radicalButton *button, buttons)
 			button->setStatus(radicalButton::kNormal);
-		emit possibleKanji(blankSet);
+		emit possibleKanji(blankList);
 		return;
 	}
 
 	//Figure out what our kanji possibilites are
-	QSet<QString> kanjiList;
-	if(selectedRadicals.count() > 0)
-		kanjiList = radicals.find(*selectedRadicals.begin())->getKanji();
-	//Make a set intersection of these kanji
-	foreach(QString radical, selectedRadicals)
-		kanjiList &= radicals.find(radical)->getKanji();
-	//Check that our kanji are all within the allowed stroke limits
-	QSet<QString>::iterator it=kanjiList.begin();
-	while(it != kanjiList.end()) {
-		if(kanji.find(*it)->strokes() < strokeMin ||
-			kanji.find(*it)->strokes() > strokeMax )
-			it = kanjiList.erase(it);
-		else
-			++it;
-	}
-	//And tell the world!
-	emit possibleKanji(kanjiList);
+	QSet<Kanji> kanjiSet = radicalInfo->kanjiContainingRadicals(selectedRadicals);
 
+	//Convert to a list, sort, and tell the world!
+	QList<Kanji> kanjiList = kanjiSet.toList();
+	qSort(kanjiList);
+	emit possibleKanji(kanjiList);
 
 	//Do the announcement of the selected radical list
 	QStringList radicalList(selectedRadicals.toList());
-	emit signalChangeStatusbar ("Selected Radicals: "+
-			radicalList.join(", "));
+	emit signalChangeStatusbar(i18n("Selected Radicals: ")+ radicalList.join(", "));
 
 	//Now figure out what our remaining radical possibilities are
-	QSet<QString> remainingRadicals;
-	foreach(QString akanji, kanjiList)
-		remainingRadicals |= kanji.find(akanji)->getRadicals();
+	QSet<QString> remainingRadicals = radicalInfo->radicalsInKanji(kanjiSet);
 	//Remove the already selected ones
 	remainingRadicals -= selectedRadicals;
 
@@ -243,96 +165,9 @@ void radselectButtonGrid::updateButtons() {
 	}
 }
 
-void radselectButtonGrid::changeStrokeBase(int newBase) {
-	if(strokeBase == newBase) return;
-	strokeBase = newBase;
-	calculateStrokeRange();
-	updateButtons();
-}
-
-void radselectButtonGrid::changeStrokeRange(int newRange) {
-	if(strokeRange == newRange) return;
-	strokeRange = newRange;
-	calculateStrokeRange();
-	updateButtons();
-}
-
-void radselectButtonGrid::calculateStrokeRange() {
-	int newMin =  strokeBase - strokeRange;
-	strokeMin = newMin < 0? 0 : newMin;
-	strokeMax = strokeBase + strokeRange;
-	if(strokeMax == 0)
-		strokeMax = maximumStrokeValue;
-	kDebug() << "Results are now: " << strokeMin << " - " << strokeMax<<endl;
-}
-
 void radselectButtonGrid::clearSelections() {
 	selectedRadicals.clear();
 	emit clearButtonSelections();
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// radicalButton methods
-///////////////////////////////////////////////////////////////////////////////
-
-radicalButton::radicalButton(const QString &text, QWidget *parent)
-	: QPushButton(text,parent) {
-		setCheckable(true);
-}
-
-void radicalButton::setStatus(radicalButton::ButtonStatus newStatus) {
-	if(status == newStatus) return;
-	//Because it's more work to check everything rather than just set it,
-	//we'll just set everything every time
-	bool checked=false, underline=false, italic=false, hidden=false, disabled=false;
-	switch(newStatus) {
-		case kNormal:
-			break;
-		case kSelected:
-			checked=true; break;
-		case kNotAppropriate:
-			disabled=true;	break;
-		case kRelated:
-			italic=true; break;
-		case kHidden:
-			hidden=true;
-	}
-	QFont theFont = font();
-	theFont.setUnderline(underline);
-	theFont.setItalic(italic);
-	setFont(theFont);
-	setVisible(!hidden);
-	setEnabled(!disabled);
-	setChecked(checked);
-	status = newStatus;
-}
-
-
-void radicalButton::resetButton() {
-	setStatus(kNormal);
-}
-
-void radicalButton::mousePressEvent(QMouseEvent *e)
-{
-	QPushButton::mousePressEvent(e);
-	if(e->button() == Qt::RightButton) {
-		setStatus(kRelated);
-		emit userClicked(text(), kRelated);
-	}
-}
-void radicalButton::mouseReleaseEvent(QMouseEvent *e){
-	QPushButton::mouseReleaseEvent(e);
-	if(e->button() == Qt::LeftButton) {
-		switch(status) {
-			case kSelected:
-				setStatus(kNormal);
-				emit userClicked(text(), kNormal);
-				break;
-			default:
-				setStatus(kSelected);
-				emit userClicked(text(), kSelected);
-		}
-	}
 }
 
 #include "radselectbuttongrid.moc"

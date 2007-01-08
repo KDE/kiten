@@ -1,10 +1,12 @@
 ############### radselect target ###############
 
 set(radselect_bin_SRCS 
-	radselectmain.cpp
+	main.cpp
 	radselect.cpp
 	radselectview.cpp
 	radselectbuttongrid.cpp
+	radicalbutton.cpp
+	radicalfile.cpp
 	)
 kde4_add_ui_files(radselect_bin_SRCS radical_selector.ui radselectprefdialog.ui)
 kde4_add_kcfg_files(radselect_bin_SRCS radselectconfig.kcfgc)
