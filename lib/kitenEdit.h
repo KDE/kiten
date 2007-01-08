@@ -26,7 +26,7 @@
 #include <QSize>
 #include <kaction.h>
 #include <kcombobox.h>
-
+#include <kactioncollection.h>
 #define MINIMUMWIDTH 150
 
 class KComboBox;
