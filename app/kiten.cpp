@@ -42,7 +42,7 @@
 #include <kstandardaction.h>
 #include <ksystemtrayicon.h>
 #include <ktoggleaction.h>
-
+#include <kactioncollection.h>
 #include <qclipboard.h>
 #include <qtextcodec.h>
 #include <qtimer.h>
@@ -132,7 +132,7 @@ kiten::~kiten()
 
 #include <QFile>
 
-void kiten::saveAs() 
+void kiten::saveAs()
 {
 	//TODO: remember last path used
 	QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("Kvtml files (*.kvtml)"), this, i18n("Choose file to export to"));
@@ -169,16 +169,27 @@ void kiten::setupActions() {
 
 	/* Setup the Search Actions and our custom Edit Box */
 	Edit = new KitenEdit(actionCollection(), this);
-	KAction *EditToolbarWidget = new KAction(i18n("Search t&ext"), actionCollection(), "EditToolbarWidget");
+        QAction *EditToolbarWidget = actionCollection()->addAction( "EditToolbarWidget" );
+        EditToolbarWidget->setText( i18n("Search t&ext") );
 	EditToolbarWidget->setDefaultWidget(Edit);
 	Edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-	(void) new KAction(i18n("&Clear Search Bar"), actionCollection(), "clear_search");
-	KAction *searchButton = new KAction(i18n("S&earch"), actionCollection(), "search");
-	(void) new KAction(i18n("Search with &Beginning of Word"), actionCollection(), "search_beginning");
-	(void) new KAction(i18n("Search &Anywhere"), actionCollection(), "search_anywhere");
-	(void) new KAction(i18n("Stro&kes"), actionCollection(), "search_stroke");
-	(void) new KAction(i18n("&Grade"), actionCollection(), "search_grade");
+	QAction *a= actionCollection()->addAction( "clear_search");
+        a->setText( i18n("&Clear Search Bar") );
+        QAction *searchButton = actionCollection()->addAction( "search" );
+        searchButton->setText( i18n("S&earch") );
+
+        a= actionCollection()->addAction( "search_beginning");
+        a->setText( i18n("Search with &Beginning of Word") );
+
+        a= actionCollection()->addAction( "search_anywhere");
+        a->setText(i18n("Search &Anywhere") );
+
+        a=actionCollection()->addAction( "search_stroke");
+        a->setText( i18n("Stro&kes") );
+
+        a=actionCollection()->addAction( "search_grade");
+        a->setText( i18n("&Grade") );
 
 	// Set the search button to search
 	connect(searchButton, SIGNAL(triggered()), this, SLOT(searchFromEdit()));

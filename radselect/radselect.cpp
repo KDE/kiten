@@ -29,7 +29,7 @@
 #include <qpainter.h>
 #include <QDragEnterEvent>
 #include <QDropEvent>
-
+#include <kactioncollection.h>
 #include <kapplication.h>
 #include <kglobal.h>
 #include <klocale.h>
@@ -93,21 +93,25 @@ void radselect::setupActions()
     KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
     Edit = new KitenEdit(actionCollection(), this);
-	 KAction *KitenEditAction = new KAction(actionCollection(), "KitenEditWidget");
-	 KitenEditAction->setDefaultWidget(Edit);
+    QAction *KitenEditAction =actionCollection()->addAction( "KitenEditWidget" );
+    qobject_cast<KAction*>( KitenEditAction )->setDefaultWidget(Edit);
 
-	 KAction *kac =  new KAction(KIcon(BarIcon("locationbar_erase",16)),
-			 i18n("&Clear Search Bar"), actionCollection(),"clear_search");
-	 connect( kac, SIGNAL(triggered()), Edit, SLOT(clear()) );
-	 kac->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_N));
+    QAction *kac = actionCollection()->addAction( "clear_search" );
+    kac->setText(  i18n("&Clear Search Bar") );
+    kac->setIcon( KIcon(BarIcon("locationbar_erase",16)) );
+    connect( kac, SIGNAL(triggered()), Edit, SLOT(clear()) );
+    qobject_cast<KAction*>(kac )->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_N));
 
-	 kac=new KAction(KIcon("key_enter"),i18n("S&earch"),actionCollection(),"search");
-	 connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
+    kac =actionCollection()->addAction( "search" );
+    kac->setText( i18n("S&earch") );
+    kac->setIcon( KIcon("key_enter") );
+    connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
 
-    showAll = new KToggleAction(KIcon("full_string"),
-			 i18n("&Show Full Search String"),actionCollection(), "show_full_search");
-	 showAll->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_S));
-	 connect( showAll, SIGNAL(triggered()), this, SLOT(showFullSearchString()) );
+    showAll = actionCollection()->add<KToggleAction>( "show_full_search" );
+    showAll->setText( i18n("&Show Full Search String") );
+    showAll->setIcon( KIcon("full_string") );
+    showAll->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_S));
+    connect( showAll, SIGNAL(triggered()), this, SLOT(showFullSearchString()) );
 
     (void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()),
 													  actionCollection());
