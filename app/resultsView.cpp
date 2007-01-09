@@ -40,8 +40,9 @@ ResultView::ResultView(QWidget *parent, const char *name)
 	//Set right-click functionality
 	connect(this, SIGNAL(popupMenu( const QString& , const QPoint& )), this, SLOT(openPopupMenu( const QString& , const QPoint& )));
 	popupActions = new KActionCollection(widget());
-	addToExportListAction = new KAction(i18n("&Add to export list"), popupActions, "add_to_export_list_popup");
-	popupMenu = new KActionMenu(popupActions, "popup");
+	addToExportListAction = popupActions->addAction("add_to_export_list_popup");
+        addToExportListAction->setText(i18n("&Add to export list"));
+	popupMenu = popupActions->add<KActionMenu>("popup");
 	popupMenu->addAction(addToExportListAction);
 
 	////////setReadOnly(true);
@@ -86,7 +87,7 @@ void ResultView::setContents(const QString &text)
 	////////ensureCursorVisible();
 }
 
-/** Prints the contents of the resultview to a printer with @p title as the 
+/** Prints the contents of the resultview to a printer with @p title as the
   title. */
 void ResultView::print(QString title)
 {
@@ -100,13 +101,13 @@ void ResultView::print(QString title)
 		int dpix = metrics.logicalDpiX();
 		int dpiy = metrics.logicalDpiY();
 		const int margin = 72; // pt
-	
-		QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2, 
+
+		QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2,
 				metrics.height() - margin * dpiy / margin * 2);
-	
-		//Q3SimpleRichText richText(title.isNull()? 
-				printText : 
-				i18n("<h1>Search for \"%1\"</h1>",title) + printText, 
+
+		//Q3SimpleRichText richText(title.isNull()?
+				printText :
+				i18n("<h1>Search for \"%1\"</h1>",title) + printText,
 				font(), context(), styleSheet(), mimeSourceFactory(),
 				body.height(), Qt::black, false);
 		richText.setWidth(&p, body.width());
@@ -126,7 +127,7 @@ void ResultView::print(QString title)
 			myFont.setPointSize(9);
 			p.setFont(myFont);
 			QString footer(QString("%1 - Kiten").arg(QString::number(page)));
-			p.drawText(view.right() - p.fontMetrics().width(footer), 
+			p.drawText(view.right() - p.fontMetrics().width(footer),
 					view.bottom() + p.fontMetrics().ascent() + 5, footer);
 
 			if (view.top() >= richText.height())
@@ -148,10 +149,10 @@ void ResultView::updateFont()
 	////////setFont(KitenConfigSkeleton::self()->font());
 }
 
-void ResultView::urlSelected(const QString & 	url, 
-		int 	button, 
-		int 	state, 
-		const QString & 	_target, 
+void ResultView::urlSelected(const QString & 	url,
+		int 	button,
+		int 	state,
+		const QString & 	_target,
 		KParts::URLArgs 	args )
 {
 	kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML() << endl;
@@ -218,7 +219,7 @@ void ResultView::openPopupMenu( const QString& url, const QPoint& point )
 
 		emit entrySpecifiedForExport(index);
 
-	} else 
+	} else
 	{
 		kDebug() << "No menu action clicked." << endl;
 	}

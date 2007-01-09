@@ -171,7 +171,7 @@ void kiten::setupActions() {
 	Edit = new KitenEdit(actionCollection(), this);
         QAction *EditToolbarWidget = actionCollection()->addAction( "EditToolbarWidget" );
         EditToolbarWidget->setText( i18n("Search t&ext") );
-	EditToolbarWidget->setDefaultWidget(Edit);
+	qobject_cast<KAction*>( EditToolbarWidget )->setDefaultWidget(Edit);
 	Edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
 	QAction *a= actionCollection()->addAction( "clear_search");
@@ -201,8 +201,9 @@ void kiten::setupActions() {
 
 	/* Extra search options */
 	wordType = new WordType(this);
-	KAction *WordTypeAction = new KAction(i18n("Word type"), actionCollection(), "WordType");
-	WordTypeAction->setDefaultWidget(wordType);
+	QAction *WordTypeAction = actionCollection()->addAction("WordType");
+        WordTypeAction->setText(i18n("Word type"));
+	qobject_cast<KAction*>( WordTypeAction )->setDefaultWidget(wordType);
 
 
 	// That's not it, that's "find as you type"...
@@ -211,18 +212,23 @@ void kiten::setupActions() {
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
 //	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
-	comCB = new KToggleAction(i18n("&Filter Rare"), actionCollection(), "common");
+	comCB = actionCollection()->add<KToggleAction>("common");
+        comCB->setText(i18n("&Filter Rare"));
 //autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
-	autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), actionCollection(), "autosearch_toggle");
-	irAction =  new KAction(i18n("Search &in Results"), actionCollection(), "search_in_results");
+	autoSearchToggle = actionCollection()->add<KToggleAction>("autosearch_toggle");
+        autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
+	irAction = actionCollection()->add<KToggleAction>("search_in_results");
+        irAction->setText(i18n("Search &in Results"));
 	(void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
 	//TODO: this should probably be a standardaction
-	globalShortcutsAction = new KAction(i18n("Configure &Global Shortcuts..."), actionCollection(), "options_configure_global_keybinding");
+	globalShortcutsAction = actionCollection()->add<KToggleAction>("options_configure_global_keybinding");
+        globalShortcutsAction->setText(i18n("Configure &Global Shortcuts..."));
 	connect(globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()));
 
-	globalSearchAction = new KAction(i18n("On The Spo&t Search"), actionCollection(), "search_on_the_spot");
-	globalSearchAction->setGlobalShortcut(KShortcut("Ctrl+Alt+S"));
+	globalSearchAction = actionCollection()->add<KToggleAction>("search_on_the_spot");
+        globalSearchAction->setText(i18n("On The Spo&t Search"));
+	qobject_cast<KAction*>( globalSearchAction )->setGlobalShortcut(KShortcut("Ctrl+Alt+S"));
 	connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
 	/* Set up history interface management */

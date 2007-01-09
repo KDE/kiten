@@ -42,7 +42,7 @@ class KActionCollection;
 class ResultView : public KHTMLPart
 {
 	Q_OBJECT
-	
+
 	public:
 		ResultView(QWidget *parent = 0, const char *name = 0);
 
@@ -73,7 +73,7 @@ class ResultView : public KHTMLPart
 	private:
 		QString printText;
 		bool basicMode;
-		KAction *addToExportListAction;
+		QAction *addToExportListAction;
 		KActionCollection *popupActions;
 		KActionMenu *popupMenu;
 };
