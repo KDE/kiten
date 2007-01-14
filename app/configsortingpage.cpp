@@ -45,11 +45,11 @@ ConfigSortingPage::ConfigSortingPage
 	fields.append("Meaning");
 	fields.append("Reading");
 
-	foreach(QString dict, dictNames) {
+	foreach(const QString &dict, dictNames) {
 		dictFile *tempDict = dictionary::makeDictFile(dict);
 		QStringList newestFields = tempDict->getSearchableAttributes().keys();
 
-		foreach(QString field, newestFields)
+		foreach(const QString &field, newestFields)
 			if(!fields.contains(field)) //No duplicates
 				fields.append(field);
 
@@ -84,9 +84,9 @@ void ConfigSortingPage::updateWidgets()
 
 	QStringList availDicts = dictNames;
 	QStringList availFields = fields;
-	foreach(QString dict, selectedDicts)
+	foreach(const QString &dict, selectedDicts)
 		availDicts.removeAll(dict);
-	foreach(QString field, selectedFields)
+	foreach(const QString &field, selectedFields)
 		availDicts.removeAll(field);
 
 	dictionary_order->availableListWidget()->clear();

@@ -32,7 +32,7 @@ QString EntryEDICT::toHTML(printType printDirective) const
 {
 	QString result="<div class=\"EDICTBrief\">";
 
-	foreach(QString field, QSTRINGLISTCHECK(dictFileEdict::displayFieldsList)) {
+	foreach(const QString &field, QSTRINGLISTCHECK(dictFileEdict::displayFieldsList)) {
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
 		else if(field == "Meaning")		result += HTMLMeanings()+' ';
@@ -123,7 +123,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 		stringTypes += parantheses.split(",");
 	}
 
-	foreach( QString str, stringTypes)
+	foreach( const QString &str, stringTypes)
 	{
 		
 		if (WordTypes()->contains(str))

@@ -112,7 +112,7 @@ void radselectView::listPossibleKanji(const QList<Kanji>& list)
 		high = 99;
 
 	selected_radicals->clear();
-	foreach(Kanji it, list)
+	foreach(const Kanji &it, list)
 		if(low <= it.strokes() && it.strokes() <= high)
 			new QListWidgetItem((QString)it,selected_radicals);
 

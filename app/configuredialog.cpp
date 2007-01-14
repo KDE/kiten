@@ -88,7 +88,7 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
-	foreach( QString dict, config->dictionary_list() ) {
+	foreach( const QString &dict, config->dictionary_list() ) {
 		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
 		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 		connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
@@ -106,7 +106,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
-	foreach( QString dict, dictTypes ) {
+	foreach( const QString &dict, dictTypes ) {
 		dictFile *tempDict = dictionary::makeDictFile(dict);
 		
 		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(config,parent, dict.toAscii());

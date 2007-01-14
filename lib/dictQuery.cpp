@@ -121,7 +121,7 @@ bool operator<( dictQuery A, dictQuery B) {
 		//There are plenty of exceptions here though
 		it.next();
 		if(it.key() == "R") {
-			foreach( QString str, it.value().split("") )
+			foreach( const QString &str, it.value().split("") )
 				if(B.getProperty("R").contains(str)==0)
 					return false;
 		} else if( it.value() != B[it.key()])
@@ -131,7 +131,7 @@ bool operator<( dictQuery A, dictQuery B) {
 	if(!A.pronunciation.isEmpty()) {
 		QStringList aList = A.pronunciation.split(dictQuery::mainDelimiter);
 		QStringList bList = B.pronunciation.split(dictQuery::mainDelimiter);
-		foreach( QString str, aList )
+		foreach( const QString &str, aList )
 			if(bList.contains(str)==0)
 				return false;
 	}
@@ -139,7 +139,7 @@ bool operator<( dictQuery A, dictQuery B) {
 	if(!A.meaning.isEmpty()) {
 		QStringList aList = A.meaning.split(dictQuery::mainDelimiter);
 		QStringList bList = B.meaning.split(dictQuery::mainDelimiter);
-		foreach( QString str, aList )
+		foreach( const QString &str, aList )
 			if(bList.contains(str)==0)
 				return false;
 	}
@@ -162,7 +162,7 @@ const QString dictQuery::toString() const {
 		return QString();
 
 	QString reply;
-	foreach( QString it, entryOrder ) {
+	foreach( const QString &it, entryOrder ) {
 		if(it == pronunciationMarker)
 			reply += pronunciation+mainDelimiter;
 		else if(it == meaningMarker)
@@ -182,7 +182,7 @@ dictQuery &dictQuery::operator=(const QString &str) {
 	QStringList parts = str.split(mainDelimiter);
 	dictQuery result;
 	if(str.length() > 0)
-		foreach( QString it, parts) {
+		foreach( const QString &it, parts) {
 			if(it.contains(propertySeperator)) {
 				QStringList prop = it.split(propertySeperator);
 				if(prop.count() != 2)

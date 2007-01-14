@@ -515,11 +515,11 @@ void kiten::configureGlobalKeys()
 void kiten::updateConfiguration()
 {
 	//Load the dictionaries of each type that we can adjust in prefs
-	foreach(QString it, config->dictionary_list())
+	foreach(const QString &it, config->dictionary_list())
 		loadDictConfig(it);
 
 	//Load settings for each dictionary type
-	foreach(QString it, dictionaryManager.listDictFileTypes())
+	foreach(const QString &it, dictionaryManager.listDictFileTypes())
 		dictionaryManager.loadDictSettings(it,config);
 
 	//Update the HTML/CSS for our fonts
@@ -549,7 +549,7 @@ void kiten::loadDictConfig(const QString dictType)
 				dirs->findResource("data", QString("kiten/")+dictType.toLower())));
 
 	QStringList dictNames = localConfig->readEntry<QStringList>("__NAMES", QStringList());
-	foreach( QString name, dictNames ) {
+	foreach( const QString &name, dictNames ) {
 			QString dictPath = localConfig->readEntry(name,QString());
 			if(!dictPath.isEmpty() && !name.isEmpty())
 				dictionariesToLoad.append( qMakePair(name,dictPath) );
@@ -559,14 +559,14 @@ void kiten::loadDictConfig(const QString dictType)
 		dictionaryManager.listDictionariesOfType(dictType.toLower());
 
 	typedef QPair<QString,QString> __dictName_t; //Can't have commas in a foreach
-	foreach( __dictName_t it, dictionariesToLoad) {
+	foreach( const __dictName_t &it, dictionariesToLoad) {
 		//Remove from the loadedDictionaries list all the dicts that we are supposed to load
 		//This will leave only those that need to be unloaded at the end
 		if(loadedDictionaries.removeAll(it.first) == 0 )
 			dictionaryManager.addDictionary(it.second,it.first,dictType.toLower());
 	}
 
-	foreach(QString it, loadedDictionaries)
+	foreach(const QString &it, loadedDictionaries)
 		dictionaryManager.removeDictionary(it);
 
 /*

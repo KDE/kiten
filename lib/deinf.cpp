@@ -122,7 +122,7 @@ QStringList deinf::deinflect(const QString &text, QStringList &name)
 		
 	QStringList ret;
 
-	foreach(Conjugation it, list)
+	foreach(const Conjugation &it, list)
 	{
 		if(text.endsWith(it.ending)) {
 			name.append((it.label)); // Add to our list of explanations

@@ -54,7 +54,7 @@ void ConfigDictionarySelector::updateWidgets()
 	if(item != NULL)
 		names = item->property().toStringList();
 
-	foreach(QString it, names) {
+	foreach(const QString &it, names) {
 		QString name = dictName + '_' + it;
 		if (!config->findItem(name))
 			config->addItem(new KConfigSkeleton::ItemString(dictName, it, *new QString()), name);
@@ -62,7 +62,7 @@ void ConfigDictionarySelector::updateWidgets()
 	}
 	config->readConfig();
 	fileList->clear();
-	foreach(QString it, names) {
+	foreach(const QString &it, names) {
 		QStringList newRow = QStringList(it);
 		newRow << config->findItem(dictName+'_'+it)->property().toString();
 		(void) new QTreeWidgetItem(fileList, newRow);

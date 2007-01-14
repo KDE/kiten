@@ -387,7 +387,7 @@ bool Entry::extendedItemCheck(const dictQuery& query)
 
 //Returns true if all members of test are in list
 bool Entry::listMatch(const QString &list, const QStringList &test) const {
-	foreach(QString it, test)
+	foreach(const QString &it, test)
 		if(!list.contains(it))
 			return false;
 	return true;
@@ -399,14 +399,14 @@ bool Entry::listMatch(const QString &list, const QStringList &test) const {
 bool Entry::sort(const Entry &that, const QStringList &dictOrder,
 		const QStringList &fields) const {
 	if(this->sourceDict != that.sourceDict) {
-		foreach(QString dict, dictOrder) {
+		foreach(const QString &dict, dictOrder) {
 			if(dict == that.sourceDict)
 				return false;
 			if(dict == this->sourceDict)
 				return true;
 		}
 	} else {
-		foreach(QString field, fields) {
+		foreach(const QString &field, fields) {
 			if(this->getExtendedInfoItem(field) !=
 					that.getExtendedInfoItem(field))
 				return this->sortByField(that,field);

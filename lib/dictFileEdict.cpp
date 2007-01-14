@@ -516,7 +516,7 @@ dictFileEdict::loadListType(KConfigSkeletonItem *item, QStringList *list,
 		if(list != NULL)
 			delete list;
 		list = new QStringList();
-		foreach(QString it, listFromItem)
+		foreach(const QString &it, listFromItem)
 			if(long2short.contains(it))
 				list->append(long2short[it]);
 	}

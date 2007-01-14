@@ -32,7 +32,7 @@ QString EntryKanjidic::toHTML(printType printDirective) const
 {
 	QString result="<div class=\"KanjidicBrief\">";
 
-	foreach(QString field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
+	foreach(const QString &field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
 		kDebug() << "Display: "<<field <<endl;
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
@@ -89,8 +89,7 @@ bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
 inline QString EntryKanjidic::HTMLReadings() const
 {
 	QString htmlReadings;
-	QString it;
-	foreach(it,Readings) //KDE4 CHANGE
+	foreach(const QString &it,Readings) //KDE4 CHANGE
 	{
 		if (it == "T1")
 			htmlReadings += i18n("In names: ");

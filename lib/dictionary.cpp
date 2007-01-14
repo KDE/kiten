@@ -148,7 +148,7 @@ EntryList *dictionary::doSearch(const dictQuery &query) const {
 			delete temp;
 		}
 	} else {
-		foreach( QString target, dictsFromQuery) {
+		foreach( const QString &target, dictsFromQuery) {
 			dictFile *newestFound = dictManagers.find(target).value();
 			if(newestFound != 0) {
 				EntryList *temp = newestFound->doSearch(query);

@@ -121,7 +121,7 @@ void dictFileFieldSelector::readFromPrefs() {
 	
 	actionList = completeList;
 	selectedList = fetchItemFromPreferences(dictName, QString("List"));
-	foreach( QString it, selectedList)
+	foreach( const QString &it, selectedList)
 		actionList.removeAt(actionList.indexOf(it)); //don't just use remove()... will remove all
 
 	ListView->availableListWidget()->clear();

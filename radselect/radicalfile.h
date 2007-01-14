@@ -58,7 +58,7 @@ public:
 	void addRadical(const QString &it) {componants +=it;}
 	void calculateStrokes(const QList<Radical> &lookup) {
 		stroke_count = 0;
-		foreach( QString it, componants )
+		foreach( const QString &it, componants )
 			stroke_count += lookup.value(lookup.indexOf(it)).strokes();
 	}
 	unsigned int strokes() const
