@@ -55,6 +55,8 @@ private slots:
 	void strokeLimitChanged(int);	//Handles either of the stroke limiters moving
 	void changedSearch();		//connected to any changes in searches, emits searchModified
 	void clearSearch();		//Clear everything
+	void kanjiClicked(QListWidgetItem *);	//Result is clicked
+	void kanjiDoubleClicked(QListWidgetItem *); //Result is double-clicked
 	void listPossibleKanji(const QList<Kanji>&); //Sets the list of visible Kanji
 
 private:

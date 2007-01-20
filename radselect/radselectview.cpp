@@ -36,13 +36,15 @@
 #include <QtGui/QListWidget>
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QPushButton>
+#include <QtGui/QClipboard>
 
 #include "kstandarddirs.h"
 #include "kmessagebox.h"
+#include "kapplication.h"
 
 radselectView::radselectView(QWidget *parent) : QWidget(parent)
 {
-	setupUi(this);
+	setupUi(this);	//Setup the ui from the .ui file
 
 	//Load the radical information
 	KStandardDirs *dirs = KGlobal::dirs();
@@ -57,18 +59,24 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	radical_box->setWidget(m_buttongrid);
 	radical_box->setWidgetResizable(true);
 
+	//Configure the stroke selectors
+	strokes_low->setSpecialValueText(i18n("Min"));
+	strokes_high->setSpecialValueText(i18n("Max"));
+
    //== Now we connect all our signals ==
 	//Connect our radical grid to our adding method
 	connect( m_buttongrid, SIGNAL( possibleKanji(const QList<Kanji>&) ),
 			this, SLOT( listPossibleKanji(const QList<Kanji>&) ) );
+	//Connect the results selection to our logic
+	connect(selected_radicals, SIGNAL( itemClicked(QListWidgetItem*) ),
+			this, SLOT( kanjiClicked(QListWidgetItem*) ) );
+	connect(selected_radicals, SIGNAL( itemDoubleClicked(QListWidgetItem*) ),
+			this, SLOT( kanjiDoubleClicked(QListWidgetItem*) ) );
 	//Connect our stroke limit actions
 	connect(strokes_low, SIGNAL( valueChanged(int) ),
 			this, SLOT( strokeLimitChanged(int) ) );
 	connect(strokes_high, SIGNAL( valueChanged(int) ),
 			this, SLOT( strokeLimitChanged(int) ) );
-	//Set the special values
-	strokes_low->setSpecialValueText(i18n("Min"));
-	strokes_high->setSpecialValueText(i18n("Max"));
 	//Connect statusbar updates
 	connect( m_buttongrid, SIGNAL( signalChangeStatusbar(const QString&) ),
 			this, SIGNAL( signalChangeStatusbar(const QString&)));
@@ -85,10 +93,31 @@ radselectView::~radselectView()
 
 void
 radselectView::loadSettings() {
+//TODO: Add preferences for what to do on single/double click
+//Suggested options: Lookup in Kiten, Add to Search Bar, Copy to Clipboard
 	m_buttongrid->setFont(radselectConfigSkeleton::self()->font());
 }
 
-void radselectView::listPossibleKanji(const QList<Kanji>& list)
+void
+radselectView::kanjiClicked(QListWidgetItem *item) {
+	QString finalText;
+	if(item->text() == i18n("(All)")) {
+		foreach(QListWidgetItem *listItem,
+				selected_radicals->findItems("*",Qt::MatchWildcard))
+			if(listItem->text() != i18n("(All)"))
+				finalText += listItem->text();
+	} else
+		finalText = item->text();
+	KApplication::kApplication()->clipboard()->
+		setText(finalText, QClipboard::Selection);
+}
+
+void
+radselectView::kanjiDoubleClicked(QListWidgetItem *item) {
+}
+
+void
+radselectView::listPossibleKanji(const QList<Kanji>& list)
 {
 	int low = strokes_low->value();
 	int high = strokes_high->value();
@@ -115,34 +144,41 @@ void radselectView::listPossibleKanji(const QList<Kanji>& list)
 	foreach(const Kanji &it, list)
 		if(low <= it.strokes() && it.strokes() <= high)
 			new QListWidgetItem((QString)it,selected_radicals);
+	if(selected_radicals->count() > 1)
+		new QListWidgetItem(i18n("(All)"),selected_radicals);
 
 	m_possibleKanji = list;
 
 	emit searchModified();
 }
 
-void radselectView::loadRadicals(const QString &iRadicals, int strokeMin, int strokeMax)
+void
+radselectView::loadRadicals(const QString &iRadicals, int strokeMin, int strokeMax)
 {
 	//TODO: loadRadicals method
 	emit searchModified();
 }
 
-void radselectView::loadKanji(QString &iKanji) {
+void
+radselectView::loadKanji(QString &iKanji) {
 	//TODO: loadKanji method
 }
 
-void radselectView::clearSearch() {
+void
+radselectView::clearSearch() {
 	m_buttongrid->clearSelections();
 	selected_radicals->clear();
 	strokes_low->setValue(0);
 	strokes_high->setValue(0);
 }
 
-void radselectView::changedSearch() {
+void
+radselectView::changedSearch() {
 	emit searchModified();
 }
 
-void radselectView::strokeLimitChanged(int newvalue) {
+void
+radselectView::strokeLimitChanged(int newvalue) {
 	int low = strokes_low->value();
 	int high = strokes_high->value();
 	if(low > high)
