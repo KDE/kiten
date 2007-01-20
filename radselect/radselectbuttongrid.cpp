@@ -47,6 +47,9 @@ radselectButtonGrid::radselectButtonGrid(QWidget *parent, radicalFile *iradicalI
     buildRadicalButtons(this);
 }
 
+radselectButtonGrid::~radselectButtonGrid() {
+}
+
 void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 {
 	//Setup the grid
@@ -59,15 +62,15 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 		grid->addWidget(header,0,i);
 	}
 
-	//Now create all the buttons
+	//Get a list of radicals (organized by strokes)
 	QMultiMap<int, Radical> *radicalMap = m_radicalInfo->mapRadicalsByStrokes();
 	QMultiMap<int, Radical>::const_iterator it = radicalMap->constBegin();
+	//Now create all the buttons
 	int last_column = 0;
 	int row_index = 1;
 	while( it != radicalMap->constEnd()) {
 		//For each radical, figure out which slot it goes in (0-based column index)
 		unsigned int column_index = it.key() - 1;
-		kDebug() << column_index <<endl;
 		if(column_index >= number_of_radical_columns)
 			column_index = number_of_radical_columns-1;
 		//If we're starting a new column, reset the row
@@ -91,6 +94,7 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 		);
 		connect( this, SIGNAL(clearButtonSelections()),
 				button, SLOT(resetButton()) );
+
 		//Add this button to our list
 		m_buttons.insert(*it,button);
 

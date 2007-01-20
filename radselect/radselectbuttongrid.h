@@ -33,7 +33,7 @@ class radselectButtonGrid : public QWidget {
 	Q_OBJECT
 public:
 	radselectButtonGrid(QWidget *parent, radicalFile *iradicalInfo);
-	virtual ~radselectButtonGrid() {}
+	virtual ~radselectButtonGrid();
 
 signals:
 	/** Our generic message alert signal */

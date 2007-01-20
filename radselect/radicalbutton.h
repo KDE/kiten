@@ -30,6 +30,9 @@ class radicalButton : public QPushButton {
 public:
 	radicalButton(const QString& a, QWidget* b);
 	virtual ~radicalButton() {}
+	bool event(QEvent *);	//Overriding QPushButton's event for mousewheel
+									//events on a disabled button
+
 	typedef enum {kNormal,  // Normal button
 		kSelected,				// This button has been selected: bold + underline
 		kNotAppropriate,		// Due to other selected buttons: disabled

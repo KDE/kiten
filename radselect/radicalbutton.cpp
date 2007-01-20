@@ -31,11 +31,23 @@ radicalButton::radicalButton(const QString &text, QWidget *parent)
 		setCheckable(true);
 }
 
+bool radicalButton::event(QEvent *event) {
+	//This button does not handle wheel events, and unlike
+	//the superclass, we don't care if we're enabled or disabled
+	//(the superclass eats wheel events when disabled)
+	if(event->type() == QEvent::Wheel)
+		return false;
+	return QPushButton::event(event);
+}
+
+
 void radicalButton::setStatus(radicalButton::ButtonStatus newStatus) {
 	if(status == newStatus) return;
 	//Because it's more work to check everything rather than just set it,
 	//we'll just set everything every time
-	bool checked=false, underline=false, italic=false, hidden=false, disabled=false;
+	bool checked=false, underline=false,
+		  italic=false, hidden=false,
+		  disabled=false;
 	switch(newStatus) {
 		case kNormal:
 			break;

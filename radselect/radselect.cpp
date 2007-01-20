@@ -65,7 +65,7 @@ radselect::radselect() :
             this,   SLOT(changeStatusbar(const QString&)));
 
 	 if(!QDBusConnection::sessionBus().isConnected())
-		 kDebug() << "Session Bus not fount!!" <<endl;
+		 kDebug() << "Session Bus not found!!" <<endl;
 	 else
 		dbusInterface = new QDBusInterface("org.kde.kiten", "/", "",
 				QDBusConnection::sessionBus());
