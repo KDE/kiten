@@ -82,7 +82,7 @@ QString EntryList::toKVTML(unsigned int start, unsigned int length) const {
 		" title=\"To be determined\">\n";
 	foreach(Entry *it, *this) {
 		if(length-- > 0)
-			result = result + it->toKVTML() + "\n";
+			result = result + it->toKVTML() + '\n';
 		else
 			break;
 	}

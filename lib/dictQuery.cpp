@@ -96,7 +96,7 @@ dictQuery &dictQuery::operator+=(const dictQuery &d) {
 	return operator=(this->toString()+mainDelimiter+d.toString());
 }
 
-bool operator==( dictQuery other, dictQuery query ) {
+bool operator==(const dictQuery &other, const dictQuery &query ) {
 	if( (other.pronunciation != query.pronunciation)
 		|| (other.meaning != query.meaning)
 		|| (other.word != query.word)
@@ -113,7 +113,7 @@ bool operator==( dictQuery other, dictQuery query ) {
 	return true;
 }
 
-bool operator<( dictQuery A, dictQuery B) {
+bool operator<(const dictQuery &A, const dictQuery &B) {
 	dictQuery::Iterator it( A );
 	while(it.hasNext()) {
 		//The default case is for properties to need
@@ -405,28 +405,28 @@ void dictQuery::setMatchType(matchTypeSettings newType) {
 /**************************************************************
 *	Aliases to handle different forms of operator arguments
 **************************************************************/
-inline bool operator==( QString other, dictQuery query ) {
+inline bool operator==( const QString &other, const dictQuery &query ) {
 	dictQuery x(other); return x == query;
 }
-inline bool operator==( dictQuery query, QString other ) {
+inline bool operator==( const dictQuery &query, const QString &other ) {
 	return other==query;
 }
-inline bool operator!=( dictQuery q1, dictQuery q2 ) {
+inline bool operator!=( const dictQuery &q1, const dictQuery &q2 ) {
 	return !(q1==q2);
 }
-inline bool operator!=( QString other, dictQuery query ) {
+inline bool operator!=( const QString &other, const dictQuery &query ) {
 	return !(other==query);
 }
-inline bool operator!=( dictQuery query, QString other ) {
+inline bool operator!=( const dictQuery &query, const QString &other ) {
 	return !(query==other);
 }
-inline bool operator<=( dictQuery a, dictQuery b) {
+inline bool operator<=( const dictQuery &a, const dictQuery &b) {
 	return (a<b || a==b);
 }
-inline bool operator>=( dictQuery a, dictQuery b) {
+inline bool operator>=( const dictQuery &a, const dictQuery &b) {
 	return (a>b || a==b);
 }
-inline bool operator>( dictQuery a, dictQuery b) {
+inline bool operator>( const dictQuery &a, const dictQuery &b) {
 	return b < a;
 }
 dictQuery &operator+( const dictQuery &a, const dictQuery &b) {

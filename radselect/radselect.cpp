@@ -80,7 +80,7 @@ radselect::~radselect()
 {
 }
 
-void radselect::loadSearchString(QString searchString) {
+void radselect::loadSearchString(const QString &searchString) {
 	m_currentQuery = searchString;
 	changeStatusbar(searchString);
 	//TODO: Parse the strokes

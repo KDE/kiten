@@ -247,46 +247,46 @@ public:
 	  * Note that order is not important here... only each element
 	  * that is one of the dictQuery objects appears in the other
 	  */
-	friend bool operator==( dictQuery, dictQuery);
+	friend bool operator==(const dictQuery&, const dictQuery&);
 	/**
 	  * Convenient override of operator==(dictQuery,dictQuery)
 	  */
-	friend inline bool operator==( QString, dictQuery);
+	friend inline bool operator==(const QString&, const dictQuery&);
 	/**
 	  * Convenient override of operator==(dictQuery,dictQuery)
 	  */
-	friend inline bool operator==( dictQuery, QString);
+	friend inline bool operator==(const dictQuery&, const QString&);
 	/**
 	  * Convenient inverted override of operator==(dictQuery,dictQuery)
 	  */
-	friend inline bool operator!=( dictQuery, dictQuery);
+	friend inline bool operator!=(const dictQuery&, const dictQuery&);
 	/**
 	  * Convenient inverted override of operator==(dictQuery,dictQuery)
 	  */
-	friend inline bool operator!=( QString, dictQuery);
+	friend inline bool operator!=(const QString&, const dictQuery&);
 	/**
 	  * Convenient inverted override of operator==(dictQuery,dictQuery)
 	  */
-	friend inline bool operator!=( dictQuery, QString );
+	friend inline bool operator!=(const dictQuery&, const QString&);
 
 	/**
 	  * Set-wise strictly less than. A better way to think of this
 	  * might be the "subset" operator
 	  */
-	friend bool operator<( dictQuery, dictQuery );
+	friend bool operator<(const dictQuery&, const dictQuery&);
 	/**
 	  * Convenient inverted override of operator<(dictQuery,dictQuery)
 	  */
-	friend inline bool operator>( dictQuery, dictQuery );
+	friend inline bool operator>(const dictQuery&, const dictQuery&);
 	/**
 	  * Convenient override of operator<(dictQuery,dictQuery) and operator==
 	  */
-	friend inline bool operator<=( dictQuery, dictQuery );
+	friend inline bool operator<=(const dictQuery&, const dictQuery&);
 	/**
 	  * Convenient inverted override of operator<(dictQuery,dictQuery) and
 	  * operator==
 	  */
-	friend inline bool operator>=( dictQuery, dictQuery );
+	friend inline bool operator>=(const dictQuery&, const dictQuery&);
 
 	/**
 	  * This will append the properties and other elements of the added kanji
@@ -309,11 +309,11 @@ public:
 	/**
 	  * Addition involving a QString parse
 	  */
-	friend dictQuery &operator+( const dictQuery&, const QString&);
+	friend dictQuery &operator+(const dictQuery&, const QString&);
 	/**
 	  * Addition involving a QString parse
 	  */
-	friend dictQuery &operator+( const QString&,   const dictQuery&);
+	friend dictQuery &operator+(const QString&, const dictQuery&);
 #ifndef QT_NO_CAST_ASCII
 	/**
 	  * An ascii cast variant of the operator=

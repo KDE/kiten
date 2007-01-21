@@ -49,7 +49,7 @@ public:
 	/**
 	 * This loads a string for a given query into the UI
 	 */
-	void loadSearchString(QString searchString);
+	void loadSearchString(const QString &);
 
 protected:
 	// Overridden virtuals for Qt drag 'n drop (XDND)
