@@ -188,10 +188,10 @@ Entry::Entry(const QString &sourceDictionary,const QString &parseMe)
 
 Entry::Entry(const QString &sourceDictionary, const QString &word,
 				const QStringList &reading, const QStringList &meanings)
-	: sourceDict(sourceDictionary)
-	, Word(word)
+	: Word(word)
 	, Meanings(meanings)
 	, Readings(reading)
+	, sourceDict(sourceDictionary)
 {
 	init();
 }
@@ -199,21 +199,21 @@ Entry::Entry(const QString &sourceDictionary, const QString &word,
 Entry::Entry(const QString &sourceDictionary, const QString &word,
 		const QStringList &readings, const QStringList &meanings,
 		const QHash<QString,QString> &extendedInfo)
-	: sourceDict(sourceDictionary)
-	, Word(word)
+	: Word(word)
 	, Meanings(meanings)
 	, Readings(readings)
 	, ExtendedInfo(extendedInfo)
+	, sourceDict(sourceDictionary)
 {
 	init();
 }
 
 Entry::Entry(const Entry &src)
-	: sourceDict(src.sourceDict)
-	, Word(src.Word)
+	: Word(src.Word)
 	, Meanings(src.Meanings)
 	, Readings(src.Readings)
 	, ExtendedInfo(src.ExtendedInfo)
+	, sourceDict(src.sourceDict)
 {
 	outputListDelimiter=src.outputListDelimiter;
 	favoredPrintType = src.favoredPrintType;
