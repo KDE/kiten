@@ -312,7 +312,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 //				kDebug() << "hit default in kanji parser.  Unicode: '" << ichar.unicode() << "'" << endl;
 
 				/* This should detect unicode kana */
-				if(0x3040 <= ichar.unicode() <= 0x309F)
+				if(0x3040 <= ichar.unicode() && ichar.unicode() <= 0x309F)
 				{
 					LOADSTRING(curString)
 					Readings.append(curString);
