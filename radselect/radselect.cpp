@@ -130,14 +130,14 @@ void radselect::setupActions()
     setupGUI(Default,"radselectui.rc");
 }
 
-void radselect::saveProperties(KConfig *config) { //For suspend
+void radselect::saveProperties(KConfigGroup &config) { //For suspend
 
     if (!m_currentQuery.isEmpty())
-        config->writePathEntry("searchString", m_currentQuery);
+        config.writePathEntry("searchString", m_currentQuery);
 }
 
-void radselect::readProperties(KConfig *config) { //For resume
-	loadSearchString(config->readPathEntry("searchString"));
+void radselect::readProperties(const KConfigGroup &config) { //For resume
+	loadSearchString(config.readPathEntry("searchString"));
 }
 
 void radselect::dragEnterEvent(QDragEnterEvent *event)
