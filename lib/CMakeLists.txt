@@ -17,7 +17,7 @@ set(kiten_LIB_SRCS
 kde4_automoc(${kiten_LIB_SRCS})
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 target_link_libraries(kiten ${KDE4_KDEUI_LIBS} )
-set_target_properties(kiten PROPERTIES VERSION 1.0.1 SOVERSION 1 )
+set_target_properties(kiten PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install( TARGETS kiten DESTINATION ${LIB_INSTALL_DIR} )
 
 ############ install headers #############
