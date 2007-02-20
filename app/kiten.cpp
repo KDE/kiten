@@ -110,7 +110,7 @@ kiten::kiten(QWidget *parent, const char *name)
 	autoSearchToggle->setChecked(config->autosearch());
 //	deinfCB->setChecked(config->deinf());
 	updateConfiguration();
-	applyMainWindowSettings(KGlobal::config().data(), "kitenWindow");
+	applyMainWindowSettings( KGlobal::config()->group( "kitenWindow") );
 
 	/* What happens when links are clicked or things are selected in the clipboard */
 	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
@@ -300,7 +300,7 @@ bool kiten::queryClose()
 //	config->setDeinf(deinfCB->isChecked());
 	config->writeConfig();
 
-	saveMainWindowSettings(KGlobal::config().data(), "kitenWindow");
+	saveMainWindowSettings( KGlobal::config()->group( "kitenWindow") );
 	return true;
 }
 
@@ -491,7 +491,7 @@ void kiten::createEEdit()
 
 void kiten::configureToolBars()
 {
-	saveMainWindowSettings(KGlobal::config().data(), "kitenWindow");
+	saveMainWindowSettings(KGlobal::config()->group( "kitenWindow") );
 	KEditToolbar dlg(actionCollection());
 	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
 	dlg.exec();
@@ -500,7 +500,7 @@ void kiten::configureToolBars()
 void kiten::newToolBarConfig()
 {
 	createGUI("kitenui.rc");
-	applyMainWindowSettings(KGlobal::config().data(), "kitenWindow");
+	applyMainWindowSettings(KGlobal::config()->group( "kitenWindow") );
 }
 
 /** Opens the dialog for configuring the global accelerator keys. */
