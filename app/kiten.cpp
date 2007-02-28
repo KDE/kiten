@@ -539,18 +539,17 @@ void kiten::updateConfiguration()
 void kiten::loadDictConfig(const QString dictType)
 {
 	KStandardDirs *dirs = KGlobal::dirs();
-	KConfig *localConfig = config->config();
-	localConfig->setGroup("dicts_"+dictType.toLower());	//Set the preference group
+	KConfigGroup group = config->config()->group("dicts_"+dictType.toLower());
 
 	QList< QPair<QString,QString> > dictionariesToLoad;
 
-	if(localConfig->readEntry("__useGlobal", true)) //If we need to load the global
+	if(group.readEntry("__useGlobal", true)) //If we need to load the global
 		dictionariesToLoad.append( qMakePair(dictType,
 				dirs->findResource("data", QString("kiten/")+dictType.toLower())));
 
-	QStringList dictNames = localConfig->readEntry<QStringList>("__NAMES", QStringList());
+	QStringList dictNames = group.readEntry<QStringList>("__NAMES", QStringList());
 	foreach( const QString &name, dictNames ) {
-			QString dictPath = localConfig->readEntry(name,QString());
+			QString dictPath = group.readEntry(name,QString());
 			if(!dictPath.isEmpty() && !name.isEmpty())
 				dictionariesToLoad.append( qMakePair(name,dictPath) );
 	}
