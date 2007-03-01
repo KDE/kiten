@@ -22,7 +22,7 @@
 **/
 
 /* Needed by ResultView only */
-#include <kapplication.h>
+#include <qapplication.h>
 #include <kconfig.h>
 #include <kmenu.h>
 #include <kactionmenu.h>
@@ -136,7 +136,7 @@ void ResultView::print(QString title)
 			printer.newPage();
 			page++;
 
-			kapp->processEvents();
+			qApp->processEvents();
 		}
 		while (true);
     }

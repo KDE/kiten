@@ -117,7 +117,7 @@ kiten::kiten(QWidget *parent, const char *name)
 
 	connect(mainView, SIGNAL(entrySpecifiedForExport(int)), this, SLOT(addExportListEntry(int)));
 
-	connect(kapp->clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
+	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 
 	/* See below for what else needs to be done */
 	QTimer::singleShot(10, this, SLOT(finishInit()));
@@ -359,7 +359,7 @@ void kiten::searchTextAndRaise(const QString str)
 void kiten::searchClipboard()
 {
 	if (autoSearchToggle->isChecked()) {
-		QString clipboard = kapp->clipboard()->text(QClipboard::Selection).simplified();
+		QString clipboard = QApplication::clipboard()->text(QClipboard::Selection).simplified();
 
 		if (clipboard.length() < 40 && Edit->currentText() != clipboard)
 			if(!(Edit->currentText().contains(clipboard)

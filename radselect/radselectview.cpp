@@ -37,10 +37,10 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QPushButton>
 #include <QtGui/QClipboard>
+#include <QtGui/QApplication>
 
 #include "kstandarddirs.h"
 #include "kmessagebox.h"
-#include "kapplication.h"
 
 radselectView::radselectView(QWidget *parent) : QWidget(parent)
 {
@@ -108,8 +108,7 @@ radselectView::kanjiClicked(QListWidgetItem *item) {
 				finalText += listItem->text();
 	} else
 		finalText = item->text();
-	KApplication::kApplication()->clipboard()->
-		setText(finalText, QClipboard::Selection);
+	QApplication::clipboard()->setText(finalText, QClipboard::Selection);
 }
 
 void
