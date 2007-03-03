@@ -27,7 +27,7 @@
 #include <QtCore/QHash>
 #include "libkitenexport.h"
 
-#include "dictQuery.h"
+#include "DictQuery.h"
 
 class Entry;
 class EntryList;
@@ -65,7 +65,7 @@ public:
 	virtual Entry *clone() const = 0;
 
 	/** Fairly important method, this tests if this particular entry matches a query */
-	virtual bool matchesQuery(const dictQuery&) const;
+	virtual bool matchesQuery(const DictQuery&) const;
 
 	/** Any enum used by the print methods as an argument */
 	enum printType {printBrief, printVerbose, printAuto};
@@ -226,11 +226,11 @@ public:
 
 	const EntryList& operator+=(const EntryList &other);
 	void appendList(const EntryList *);
-	dictQuery getQuery() const;
-	void setQuery(const dictQuery&);
+	DictQuery getQuery() const;
+	void setQuery(const DictQuery&);
 
 protected:
-	dictQuery query;
+	DictQuery query;
 
 private: //Utility Methods
 	inline QString noResultsHTML();

@@ -22,7 +22,7 @@
 #ifndef ENTRYKANJIDIC__
 #define ENTRYKANJIDIC__
 
-#include "entry.h"
+#include "Entry.h"
 
 class QString;
 
@@ -35,7 +35,7 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 
 		virtual QString toHTML(printType=printAuto) const;
 
-		virtual bool matchesQuery(const dictQuery&) const;
+		virtual bool matchesQuery(const DictQuery&) const;
 
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;
@@ -43,7 +43,7 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 	protected:
 		virtual inline QString HTMLReadings() const;
 		virtual inline QString HTMLWord() const;
-		virtual inline QString HTMLExtendedInfo(QString field) const;
+		virtual inline QString HTMLExtendedInfo(const QString &field) const;
 		virtual QString makeReadingLink(const QString&) const;
 };
 

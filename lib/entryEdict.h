@@ -21,11 +21,11 @@
 #ifndef ENTRYEDICT_H_
 #define ENTRYEDICT_H_
 
-#include "entry.h"
+#include "Entry.h"
 #include <QStringList>
 
 class QString;
-class dictQuery;
+class DictQuery;
 
 class /* NO_EXPORT */ EntryEDICT : public Entry {
 	public:

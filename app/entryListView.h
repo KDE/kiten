@@ -26,7 +26,7 @@
 #include <QTableView>
 #include <QModelIndex>
 #include <QAbstractTableModel>
-#include "entry.h"
+#include "Entry.h"
 
 class EntryListModel;
 

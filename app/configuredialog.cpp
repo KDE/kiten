@@ -46,7 +46,7 @@
 //The sorting selection widget
 #include "configsortingpage.h"
 //To get the list of dictionary Types and to interface with dictType objects
-#include "dictionary.h"
+#include "DictionaryManager.h"
 
 
 ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
@@ -102,12 +102,12 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 	(QWidget *parent, KitenConfigSkeleton *config) {
 
-	QStringList dictTypes = dictionary::listDictFileTypes();
+	QStringList dictTypes = DictionaryManager::listDictFileTypes();
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
 	foreach( const QString &dict, dictTypes ) {
-		dictFile *tempDict = dictionary::makeDictFile(dict);
+		dictFile *tempDict = DictionaryManager::makeDictFile(dict);
 		
 		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(config,parent, dict.toAscii());
 		if(newTab == NULL)

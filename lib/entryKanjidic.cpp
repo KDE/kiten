@@ -44,26 +44,26 @@ QString EntryKanjidic::toHTML(printType printDirective) const
 	return result;
 }
 
-bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
+bool EntryKanjidic::matchesQuery(const DictQuery &query) const {
 	//TODO: Handle Radicals
 	if(!query.getWord().isEmpty()) {
-	/*	if(query.getMatchType() == dictQuery::matchExact &&
+	/*	if(query.getMatchType() == DictQuery::matchExact &&
 				this->getWord() != query.getWord())
 				return false;
-		if(query.getMatchType() == dictQuery::matchBeginning &&
+		if(query.getMatchType() == DictQuery::matchBeginning &&
 				!this->getWord().startsWith(query.getWord()))
 				return false;
-		if(query.getMatchType() == dictQuery::matchEnd &&
+		if(query.getMatchType() == DictQuery::matchEnd &&
 				!this->getWord().endsWith(query.getWord()))
 				return false;
-		if(query.getMatchType() == dictQuery::matchAnywhere &&
+		if(query.getMatchType() == DictQuery::matchAnywhere &&
 	*/ if(			!this->getWord().contains(query.getWord()))
 				return false;
 	}
 
 	if(!query.getMeaning().isEmpty())
 		if(!listMatch(Meanings.join(" "),
-					query.getMeaning().split(dictQuery::mainDelimiter) ) )
+					query.getMeaning().split(DictQuery::mainDelimiter) ) )
 			return false;
 
 	QString readingsCopy = Readings.join(" ");
@@ -72,10 +72,10 @@ bool EntryKanjidic::matchesQuery(const dictQuery &query) const {
 	kDebug() << query.getPronunciation() << endl;
 	if(!query.getPronunciation().isEmpty())
 		if(!listMatch(readingsCopy,
-					query.getPronunciation().split(dictQuery::mainDelimiter) ) )
+					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
 			return false;
 
-	dictQuery::Iterator it = query.getPropertyIterator();
+	DictQuery::Iterator it = query.getPropertyIterator();
 	while(it.hasNext()) {
 		it.next();
 		if( getExtendedInfoItem(it.key()) != it.value() )
@@ -112,7 +112,7 @@ inline QString EntryKanjidic::HTMLWord() const {
 	return "<span class=\"Word\">" + makeLink(Word) + "</span>";
 }
 
-inline QString EntryKanjidic::HTMLExtendedInfo(QString field) const {
+inline QString EntryKanjidic::HTMLExtendedInfo(const QString &field) const {
 	kDebug() << field <<endl;
 	return "<span class=\"ExtendedInfo\">" + field + ": "+ExtendedInfo[field]+"</span>";
 }

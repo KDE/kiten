@@ -22,7 +22,7 @@
 #ifndef __DICTFILEEDICT_H_
 #define __DICTFILEEDICT_H_
 
-#include "dictionary.h" //dictFile definition
+#include "DictionaryManager.h" //dictFile definition
 
 #include <sys/types.h>
 #include <QtCore/QFile>
@@ -38,7 +38,7 @@ class QString;
 class QByteArray;
 class QStringList;
 
-class dictQuery;
+class DictQuery;
 class DictionaryPreferenceDialog;
 class KConfigSkeleton;
 class KConfigSkeletonItem;
@@ -51,12 +51,12 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	virtual ~dictFileEdict();
 
 	virtual bool validDictionaryFile(const QString &filename);
-	bool validQuery(const dictQuery &query);
+	bool validQuery(const DictQuery &query);
 
 	bool loadDictionary(const QString &file, const QString &name);
 	bool loadNewDictionary(const QString &file, const QString &name);
 
-	virtual EntryList *doSearch(const dictQuery &query);
+	virtual EntryList *doSearch(const DictQuery &query);
 	virtual QStringList listDictDisplayOptions(QStringList) const;
 
 	virtual QString getFile() const { return dictFile.fileName(); }

@@ -36,14 +36,14 @@ class QChar;
 	*
 	* @long This class is one of the three critical classes (along with
 	* dictionary and EntryList) that are needed to use libkiten. Essentially...
-	* you feed the dictionary class a dictQuery, and dictionary will return an
+	* you feed the dictionary class a DictQuery, and dictionary will return an
 	* EntryList that matches the query.
 	*
 	* @code
 	* dictionary dictManager();
 	* //Load some dictionaries via dictionary class methods
 	* EntryList *results;
-	* dictQuery myQuery("kanji");
+	* DictQuery myQuery("kanji");
 	* results = dictManager.doSearch(myQuery);
 	* //Print results (if any)
 	* @endcode
@@ -59,7 +59,7 @@ class QChar;
 	* You can use the setDictionaries() method to narrow the range of the
 	* dictionaries that it will apply to.
 	*
-	* A dictQuery object can be considered an "unordered set" of values.
+	* A DictQuery object can be considered an "unordered set" of values.
 	* When testing for equality or comparison, each property or text entry above
 	* is seen as a unique item in a set. Order is not important for these
 	* operations. The object will attempt to preserve the order from parsed
@@ -72,24 +72,24 @@ class QChar;
 	* mutators for a limited set of properties. (in this case, radicals)
 	*
 	* The query string input is of the following format:
-	* <QS> ::= <M>dictQuery::mainDelimiter<QS>|<R>dictQuery::mainDelimiter<QS>|
-	*       <O>dictQuery::mainDelimiter<QS>|NULL
+	* <QS> ::= <M>DictQuery::mainDelimiter<QS>|<R>DictQuery::mainDelimiter<QS>|
+	*       <O>DictQuery::mainDelimiter<QS>|NULL
 	* <M>  ::= kana<M>|kana
 	* <R>  ::= character<R>|character
-	* <O>  ::= <C>dictQuery::propertySeperator<D>
+	* <O>  ::= <C>DictQuery::propertySeperator<D>
 	* <C>  ::= character<C>|character
 	* <D>  ::= character<D>|character
 	*
 	* @author Joseph Kerian \<jkerian@gmail.com>
 	*/
 
-typedef QHash<QString,QString> __stupid_stub_dictQuery_type;
+typedef QHash<QString,QString> __stupid_stub_DictQuery_type;
 
-class KITEN_EXPORT dictQuery : protected __stupid_stub_dictQuery_type
+class KITEN_EXPORT DictQuery : protected __stupid_stub_DictQuery_type
 {
 public:
    /**
-	 * This iterator is available to iterate over a dictQuery's properties
+	 * This iterator is available to iterate over a DictQuery's properties
 	 */
 	typedef QHashIterator<QString,QString> Iterator;
 	/**
@@ -98,12 +98,12 @@ public:
 	  */
 	QHashIterator<QString,QString> getPropertyIterator() const;
 	/**
-	  * This is the main delimiter that the dictQuery uses when parsing strings.
+	  * This is the main delimiter that the DictQuery uses when parsing strings.
 	  * It is set to "space" at the moment.
 	  */
 	static const QString mainDelimiter;
 	/**
-	  * This is the delimiter that dictQuery uses when parsing property strings
+	  * This is the delimiter that DictQuery uses when parsing property strings
 	  * of the form <i>strokes:4</i>. It is set to ":" at the moment.
 	  */
 	static const QString propertySeperator;
@@ -111,29 +111,29 @@ public:
 	  * Normal constructor.
 	  * This will create an empty query object.
 	  */
-	dictQuery();
+	DictQuery();
 	/**
 	  * Constructor with a given QString.
 	  * @param str This QString will be parsed as described below in
 	  * operator=(const QString&)
 	  */
-	dictQuery(const QString& str);
+	DictQuery(const QString& str);
 	/**
 	  * Copy constructor
 	  */
-	dictQuery(const dictQuery& orig);
+	DictQuery(const DictQuery& orig);
 	/**
 	  * Destructor
 	  */
-	virtual ~dictQuery();
+	virtual ~DictQuery();
 
 	/**
-	  * Returns true if the dictQuery is completely empty
-	  * @return true if the dictQuery is completely empty
+	  * Returns true if the DictQuery is completely empty
+	  * @return true if the DictQuery is completely empty
 	  */
 	bool isEmpty() const;
 	/**
-	  * Removes all text/entries from the dictQuery
+	  * Removes all text/entries from the DictQuery
 	  */
 	virtual void clear ();
 
@@ -152,15 +152,15 @@ public:
 	/**
 	  * The assignment copy operator
 	  */
-	dictQuery &operator=(const dictQuery&);
+	DictQuery &operator=(const DictQuery&);
 	/**
 	  * The clone method
 	  */
-	virtual dictQuery *clone() const { return new dictQuery(*this); }
+	virtual DictQuery *clone() const { return new DictQuery(*this); }
 	/**
 	  * This returns a QString that represents the query. This may be the same
 	  * as the original string, but some slight changes may have occurred if you
-	  * have done any manipulations on the dictQuery.
+	  * have done any manipulations on the DictQuery.
 	  */
 	const QString toString() const;
 	/**
@@ -182,7 +182,7 @@ public:
 	  */
 	QString getProperty(const QString&) const;
 	/**
-	  * Verify if a given dictQuery object has a search parameter of a
+	  * Verify if a given DictQuery object has a search parameter of a
 	  * particular property
 	  */
 	bool hasProperty(const QString& key) const;
@@ -195,7 +195,7 @@ public:
 	bool setProperty(const QString& key, const QString& value);
 	/**
 	  * Remove all instances of a property
-	  * @returns true if the dictQuery had properties of the given type
+	  * @returns true if the DictQuery had properties of the given type
 	  */
 	bool removeProperty(const QString& key);
 	/**
@@ -243,88 +243,88 @@ public:
 	bool setWord(const QString&);
 
 	/**
-	  * A simple setwise comparison of two dictQuery objects
+	  * A simple setwise comparison of two DictQuery objects
 	  * Note that order is not important here... only each element
-	  * that is one of the dictQuery objects appears in the other
+	  * that is one of the DictQuery objects appears in the other
 	  */
-	friend bool operator==(const dictQuery&, const dictQuery&);
+	friend bool operator==(const DictQuery&, const DictQuery&);
 	/**
-	  * Convenient override of operator==(dictQuery,dictQuery)
+	  * Convenient override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator==(const QString&, const dictQuery&);
+	friend inline bool operator==(const QString&, const DictQuery&);
 	/**
-	  * Convenient override of operator==(dictQuery,dictQuery)
+	  * Convenient override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator==(const dictQuery&, const QString&);
+	friend inline bool operator==(const DictQuery&, const QString&);
 	/**
-	  * Convenient inverted override of operator==(dictQuery,dictQuery)
+	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator!=(const dictQuery&, const dictQuery&);
+	friend inline bool operator!=(const DictQuery&, const DictQuery&);
 	/**
-	  * Convenient inverted override of operator==(dictQuery,dictQuery)
+	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator!=(const QString&, const dictQuery&);
+	friend inline bool operator!=(const QString&, const DictQuery&);
 	/**
-	  * Convenient inverted override of operator==(dictQuery,dictQuery)
+	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator!=(const dictQuery&, const QString&);
+	friend inline bool operator!=(const DictQuery&, const QString&);
 
 	/**
 	  * Set-wise strictly less than. A better way to think of this
 	  * might be the "subset" operator
 	  */
-	friend bool operator<(const dictQuery&, const dictQuery&);
+	friend bool operator<(const DictQuery&, const DictQuery&);
 	/**
-	  * Convenient inverted override of operator<(dictQuery,dictQuery)
+	  * Convenient inverted override of operator<(DictQuery,DictQuery)
 	  */
-	friend inline bool operator>(const dictQuery&, const dictQuery&);
+	friend inline bool operator>(const DictQuery&, const DictQuery&);
 	/**
-	  * Convenient override of operator<(dictQuery,dictQuery) and operator==
+	  * Convenient override of operator<(DictQuery,DictQuery) and operator==
 	  */
-	friend inline bool operator<=(const dictQuery&, const dictQuery&);
+	friend inline bool operator<=(const DictQuery&, const DictQuery&);
 	/**
-	  * Convenient inverted override of operator<(dictQuery,dictQuery) and
+	  * Convenient inverted override of operator<(DictQuery,DictQuery) and
 	  * operator==
 	  */
-	friend inline bool operator>=(const dictQuery&, const dictQuery&);
+	friend inline bool operator>=(const DictQuery&, const DictQuery&);
 
 	/**
 	  * This will append the properties and other elements of the added kanji
 	  * onto the elements of the current element. If regenerated as a string,
 	  * it should look something like concatenation
 	  */
-	dictQuery &operator+=(const dictQuery&);
+	DictQuery &operator+=(const DictQuery&);
 	/**
 	  * A simple string parser, look above for examples and explanations
 	  */
-	dictQuery &operator=(const QString&);
+	DictQuery &operator=(const QString&);
 	/**
-	  * A simple override of operator+=(const dictQuery&)
+	  * A simple override of operator+=(const DictQuery&)
 	  */
-	dictQuery    &operator+=(const QString&);
+	DictQuery    &operator+=(const QString&);
 	/**
 	  * Simple addition... similer to operator+=
 	  */
-	KITEN_EXPORT friend dictQuery &operator+( const dictQuery&, const dictQuery&);
+	KITEN_EXPORT friend DictQuery &operator+( const DictQuery&, const DictQuery&);
 	/**
 	  * Addition involving a QString parse
 	  */
-	friend dictQuery &operator+(const dictQuery&, const QString&);
+	friend DictQuery &operator+(const DictQuery&, const QString&);
 	/**
 	  * Addition involving a QString parse
 	  */
-	friend dictQuery &operator+(const QString&, const dictQuery&);
+	friend DictQuery &operator+(const QString&, const DictQuery&);
 #ifndef QT_NO_CAST_ASCII
 	/**
 	  * An ascii cast variant of the operator=
 	  * Only available if QT_NO_CAST_ASCII is not defined on lib compilation
 	  */
-	dictQuery    &operator=(const char *);
+	DictQuery    &operator=(const char *);
 	/**
 	  * An ascii cast variant of the operator+=
 	  * Only available if QT_NO_CAST_ASCII is not defined on lib compilation
 	  */
-	dictQuery    &operator+=(const char *);
+	DictQuery    &operator+=(const char *);
 #endif
 
 	 //Specify the type of matching
@@ -334,7 +334,7 @@ public:
 	  */
 	enum matchTypeSettings {matchExact, matchBeginning, matchEnd, matchAnywhere};
 	/**
-	  * Get which match type is currently set on the dictQuery
+	  * Get which match type is currently set on the DictQuery
 	  */
 	matchTypeSettings getMatchType() const;
 	/**

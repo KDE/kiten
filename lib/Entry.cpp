@@ -29,8 +29,8 @@
 #include <qregexp.h>
 #include <qtextcodec.h>
 
-#include "dictQuery.h"
-#include "entry.h"
+#include "DictQuery.h"
+#include "Entry.h"
 
 #include <iostream>
 #include <cassert>
@@ -152,13 +152,13 @@ void EntryList::appendList(const EntryList *other) {
 
 /**This method retrieves an earlier saved query in the EntryList,
   this should be the query that generated the list. */
-dictQuery EntryList::getQuery() const {
+DictQuery EntryList::getQuery() const {
 	return query;
 }
 
 /**This allows us to save a query in the EntryList for later
   retrieval */
-void EntryList::setQuery(const dictQuery &newQuery) {
+void EntryList::setQuery(const DictQuery &newQuery) {
 	query = newQuery;
 }
 
@@ -339,33 +339,33 @@ inline QString Entry::HTMLMeanings() const
 		+ "</span>";
 }
 
-bool Entry::matchesQuery(const dictQuery &query) const {
+bool Entry::matchesQuery(const DictQuery &query) const {
 	if(!query.getWord().isEmpty()) {
-	/*	if(query.getMatchType() == dictQuery::matchExact &&
+	/*	if(query.getMatchType() == DictQuery::matchExact &&
 				this->getWord() != query.getWord())
 				return false;
-		if(query.getMatchType() == dictQuery::matchBeginning &&
+		if(query.getMatchType() == DictQuery::matchBeginning &&
 				!this->getWord().startsWith(query.getWord()))
 				return false;
-		if(query.getMatchType() == dictQuery::matchEnd &&
+		if(query.getMatchType() == DictQuery::matchEnd &&
 				!this->getWord().endsWith(query.getWord()))
 				return false;
-		if(query.getMatchType() == dictQuery::matchAnywhere &&
+		if(query.getMatchType() == DictQuery::matchAnywhere &&
 	*/ if(!this->getWord().contains(query.getWord()))
 				return false;
 	}
 
 	if(!query.getMeaning().isEmpty())
 		if(!listMatch(Meanings.join(" "),
-						query.getMeaning().split(dictQuery::mainDelimiter) ) )
+						query.getMeaning().split(DictQuery::mainDelimiter) ) )
 			return false;
 
 	if(!query.getPronunciation().isEmpty())
 		if(!listMatch(Readings.join(" "),
-					query.getPronunciation().split(dictQuery::mainDelimiter) ) )
+					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
 			return false;
 
-	dictQuery::Iterator it = query.getPropertyIterator();
+	DictQuery::Iterator it = query.getPropertyIterator();
 	while(it.hasNext()) {
 		it.next();
 		QString extendedItem = getExtendedInfoItem(it.key());
@@ -379,7 +379,7 @@ bool Entry::matchesQuery(const dictQuery &query) const {
 }
 
 /*
-bool Entry::extendedItemCheck(const dictQuery& query)
+bool Entry::extendedItemCheck(const DictQuery& query)
 {
 
 }

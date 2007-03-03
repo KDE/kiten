@@ -38,7 +38,7 @@ class KITEN_EXPORT historyPtrList : protected QList<EntryList*> {
 		  the current displayed item */
 		void addItem(EntryList*);
 		/** Return a list of the entries. Note that this is usually
-		  just a QStringList of all of the EntryList's dictQuery->toString() 
+		  just a QStringList of all of the EntryList's DictQuery->toString() 
 		  calls. */
 		QStringList toStringList();
 		/** Return a list of the entries prior to the current one (not including

@@ -89,7 +89,7 @@ void ResultView::setContents(const QString &text)
 
 /** Prints the contents of the resultview to a printer with @p title as the
   title. */
-void ResultView::print(QString title)
+void ResultView::print(const QString &title)
 {
 	/* KDE4 CHANGE
 	KPrinter printer;

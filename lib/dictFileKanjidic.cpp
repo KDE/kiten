@@ -23,10 +23,10 @@
 #include <kconfigskeleton.h>
 #include <qfile.h>
 
-#include "dictQuery.h"  //dictQuery classs
+#include "DictQuery.h"  //DictQuery classs
 #include "dictFileKanjidic.h" //dictFile (superclass) class
 #include "dictFilePreferenceDialog.h"
-#include "entry.h"      //Entry and EntryList classes
+#include "Entry.h"      //Entry and EntryList classes
 #include "entryKanjidic.h"
 
 QStringList *dictFileKanjidic::displayFieldsList = NULL;
@@ -75,7 +75,7 @@ bool dictFileKanjidic::validDictionaryFile(const QString &filename) {
 }
 
 /** Reject queries that specify anything we don't understand */
-bool dictFileKanjidic::validQuery(const dictQuery &query) {
+bool dictFileKanjidic::validQuery(const DictQuery &query) {
 	//Multi kanji searches don't apply to this file
 	if(query.getWord().length() > 1)
 		return false;

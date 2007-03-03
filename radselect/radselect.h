@@ -24,7 +24,7 @@
 class radselectView;
 
 //From libkiten
-#include <dictQuery.h>
+#include <DictQuery.h>
 class KitenEdit;
 
 //QT and kdelibs
@@ -90,7 +90,7 @@ private:
 private:
 	QDBusInterface *dbusInterface;
 	radselectView *m_view;
-	dictQuery m_currentQuery;
+	DictQuery m_currentQuery;
 
 	KitenEdit *Edit;
 	KToggleAction *showAll;

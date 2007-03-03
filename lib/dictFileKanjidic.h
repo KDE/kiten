@@ -25,7 +25,7 @@
 #include "dictFileEdict.h" //dictFileEdict definition
 #include "entryKanjidic.h"
 
-class dictQuery;
+class DictQuery;
 class QString;
 class KConfigSkeleton;
 
@@ -39,7 +39,7 @@ class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 	virtual ~dictFileKanjidic() {}
 
 	bool validDictionaryFile(const QString &filename);
-	bool validQuery(const dictQuery &query);
+	bool validQuery(const DictQuery &query);
 
 	virtual void loadSettings(KConfigSkeleton *);
 	QMap<QString,QString> displayOptions() const;

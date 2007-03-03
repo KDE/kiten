@@ -37,7 +37,7 @@ class KStatusBar;
 class KActionMenu;
 class KActionCollection;
 
-#include "entry.h"
+#include "Entry.h"
 
 class ResultView : public KHTMLPart
 {
@@ -50,7 +50,7 @@ class ResultView : public KHTMLPart
 		void addKanjiResult(Entry*, bool common = false);
 
 	public slots:
-		void print(QString = QString::null);
+		void print(const QString&);
 		void append(const QString &);
 		void flush();
 		void clear();

@@ -23,10 +23,9 @@
 #ifndef KITEN_H
 #define KITEN_H
 
-#include "deinf.h"
-#include "dictQuery.h"
-#include "entry.h"
-#include "dictionary.h"
+#include "DictQuery.h"
+#include "Entry.h"
+#include "DictionaryManager.h"
 #include "historyPtrList.h"
 
 class KAction;
@@ -70,8 +69,8 @@ private slots:
 	void searchFromEdit();
 	void searchText(const QString);
 	void searchClipboard();
-	void getOptionsFromGui(dictQuery&);
-	void searchAndDisplay(const dictQuery&);
+	void getOptionsFromGui(DictQuery&);
+	void searchAndDisplay(const DictQuery&);
 	void searchInResults();
 	void displayResults(EntryList *);
 	//void searchOnTheSpot();
@@ -109,7 +108,7 @@ private slots:
 
 private:
 	KStatusBar *StatusBar;
-	dictionary dictionaryManager;
+	DictionaryManager dictionaryManager;
 	
 	ResultView *mainView;
 	

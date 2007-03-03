@@ -20,8 +20,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 
-#include "dictQuery.h"
-#include "entry.h"
+#include "Entry.h"
 #include "historyPtrList.h"
 
 historyPtrList::historyPtrList():m_index(-1) {

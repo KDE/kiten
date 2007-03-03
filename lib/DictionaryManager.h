@@ -16,8 +16,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef __DICTIONARY_H_
-#define __DICTIONARY_H_
+#ifndef __DICTIONARYMANAGER_H_
+#define __DICTIONARYMANAGER_H_
 
 #include "libkitenexport.h"
 
@@ -35,27 +35,27 @@ class KConfigSkeleton;
 class KConfig;
 
 class dictFile;
-class dictQuery;
+class DictQuery;
 
-/** @short The dictionary class is the fundamental dictionary management class. All 
+/** @short The DictionaryManager class is the fundamental dictionary management class. All 
  * interfaces with the rest of the programs using the various dictionaries will
  * work through this "interface class" to keep the formatting and other such 
  * nasty details away from programs and sections which just want to use the 
  * dictionary without bothering with the internal formatting details. As a 
- * general rule, call the dictionary class with a dictQuery to get a list of 
+ * general rule, call this class with a DictQuery to get a list of 
  * entries as the result. 
  *
  * The idea is that the interfaces need to know how to load a query, pass the 
- * query to dictionary.	Dictionary will return to them an EntryList object, 
+ * query to dictionary.	DictionaryManager will return to them an EntryList object, 
  * each Entry knows how to display itself (via the magic of C++ polymorphism). 
  * There are some setup and preference handling methods which complicate 
  * things, but generally speaking this is the way this should work.
  */
 
-class KITEN_EXPORT dictionary {
+class KITEN_EXPORT DictionaryManager {
 	public:
-	dictionary();
-	virtual ~dictionary();
+	DictionaryManager();
+	virtual ~DictionaryManager();
 
 	bool addDictionary(const QString file,const QString name,const QString type);
 	bool removeDictionary(const QString name);
@@ -66,9 +66,9 @@ class KITEN_EXPORT dictionary {
 	//Convenience function for prefs
 	QStringList listDictionariesOfType(const QString type) const;
 	//This is the main search routine that most of kiten should use
-	EntryList *doSearch(const dictQuery &query) const;
+	EntryList *doSearch(const DictQuery &query) const;
 	//This is used to search in results
-	EntryList *doSearchInList(const dictQuery &query, const EntryList *list) const;
+	EntryList *doSearchInList(const DictQuery &query, const EntryList *list) const;
 	//Static methods to handle adding modules to the system in an easier way
 	static dictFile *makeDictFile(const QString);
 	//Mostly required for the Preferences system
@@ -84,8 +84,8 @@ class KITEN_EXPORT dictionary {
 
 
 class DictionaryPreferenceDialog;
-/** This is a virtual class that enforces the interface between the dictionary
- *  class and the dictionary handler files. IMPLEMENT in combination with an
+/** This is a virtual class that enforces the interface between the DictionaryManager
+ *  class and the DictionaryManager.handler files. IMPLEMENT in combination with an
  *   Entry subclass to add a new dictionary format. Also see the addDictionary
  *   method in the dictionary class. */
 class KITEN_EXPORT dictFile {
@@ -96,9 +96,9 @@ public:
 	/** Test to see if a dictionary file is of the proper type */
 	virtual bool validDictionaryFile(const QString &filename) = 0;
 	/** Is this query relevant to this dictionary type? */
-	virtual bool validQuery(const dictQuery &query) = 0;
+	virtual bool validQuery(const DictQuery &query) = 0;
 	/** This actually conducts the search. This is usually most of the work */
-	virtual EntryList *doSearch(const dictQuery &query) = 0;
+	virtual EntryList *doSearch(const DictQuery &query) = 0;
 	/** Load a dictionary (as in system startup) */
 	virtual bool loadDictionary(const QString &file, const QString &name)=0;
 	/** Load a new dictionary (as from add dictionary dialog */

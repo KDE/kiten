@@ -19,7 +19,7 @@
 
 #include "wordType.h"
 #include <kcombobox.h>
-#include "entry.h"
+#include "Entry.h"
 
 #include <kdebug.h>
 WordType::WordType(QWidget *parent)

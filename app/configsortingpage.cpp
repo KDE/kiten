@@ -23,7 +23,7 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QListWidget>
 
-#include "dictionary.h"
+#include "DictionaryManager.h"
 
 #include "kitenconfig.h"
 #include "configsortingpage.h"
@@ -39,14 +39,14 @@ ConfigSortingPage::ConfigSortingPage
 			dictionary_order,SLOT(setEnabled(bool)));
 	dictionary_order->setEnabled(iconfig->dictionary_enable()=="true");
 
-	dictNames = dictionary::listDictFileTypes();
+	dictNames = DictionaryManager::listDictFileTypes();
 
 	fields.append("Word/Kanji");
 	fields.append("Meaning");
 	fields.append("Reading");
 
 	foreach(const QString &dict, dictNames) {
-		dictFile *tempDict = dictionary::makeDictFile(dict);
+		dictFile *tempDict = DictionaryManager::makeDictFile(dict);
 		QStringList newestFields = tempDict->getSearchableAttributes().keys();
 
 		foreach(const QString &field, newestFields)

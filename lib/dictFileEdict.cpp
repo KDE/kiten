@@ -39,9 +39,9 @@
 #include <sys/mman.h>
 
 #include "dictFilePreferenceDialog.h"
-#include "dictQuery.h"  //dictQuery classs
+#include "DictQuery.h"  //DictQuery classs
 #include "dictFileEdict.h" //dictFile (superclass) class
-#include "entry.h"      //Entry and EntryList classes
+#include "Entry.h"      //Entry and EntryList classes
 
 /** Per instructions in the super-class, this constructor basically sets the
   dictionaryType member variable to identify this as an edict-type database handler */
@@ -110,7 +110,7 @@ bool dictFileEdict::validDictionaryFile(const QString &filename) {
 
 /** Reject queries that specify anything we don't understand */
 //TODO: Actually write this method (validQuery)
-bool dictFileEdict::validQuery(const dictQuery &query) {
+bool dictFileEdict::validQuery(const DictQuery &query) {
 	return true;
 }
 
@@ -260,7 +260,7 @@ bool dictFileEdict::loadNewDictionary(const QString &fileName, const QString &di
  binary search on the dictionary for that item. Take all results and filter
  them using the rest of the query with the validate method.
  */
-EntryList *dictFileEdict::doSearch(const dictQuery &query) {
+EntryList *dictFileEdict::doSearch(const DictQuery &query) {
 	kDebug()<< "Search from : " << getName() << endl;
 	if(query.isEmpty() || !valid)	//No query or dict, no results.
 		return new EntryList();
@@ -271,7 +271,7 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 	//TODO:Right now it fails if we search for more than one Kanji in a row
 	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
 	QByteArray searchString = codec.fromUnicode
-		(query.toString().split(dictQuery::mainDelimiter).first());
+		(query.toString().split(DictQuery::mainDelimiter).first());
 
 	//Calculate the sizes of our two files, measured in their internal
 	//data type sizes
@@ -319,10 +319,10 @@ EntryList *dictFileEdict::doSearch(const dictQuery &query) {
 
 		currentWord = lookupDictLine(++cur);
 
-		if(query.getMatchType() == dictQuery::matchExact && 0 != comparison)
+		if(query.getMatchType() == DictQuery::matchExact && 0 != comparison)
 				continue;
-		if( (query.getMatchType() == dictQuery::matchBeginning
-				|| query.getMatchType() == dictQuery::matchAnywhere) && comparison < 0)
+		if( (query.getMatchType() == DictQuery::matchBeginning
+				|| query.getMatchType() == DictQuery::matchAnywhere) && comparison < 0)
 				continue;
 		//We can't really implement the others with this index format
 		//At least not in a reasonable time

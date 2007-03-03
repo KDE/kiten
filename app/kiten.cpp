@@ -311,7 +311,7 @@ bool kiten::queryClose()
 /**
  * Extracts options from the gui and applies them to the query
  */
-void kiten::getOptionsFromGui( dictQuery& query)
+void kiten::getOptionsFromGui( DictQuery& query)
 {
 	if (wordType->currentIndex())
 	{
@@ -323,7 +323,7 @@ void kiten::getOptionsFromGui( dictQuery& query)
  * Any gui choices will also be included here. */
 void kiten::searchFromEdit()
 {
-	dictQuery query;
+	DictQuery query;
 
 	query = Edit->currentText();
 	getOptionsFromGui(query);
@@ -336,7 +336,7 @@ void kiten::searchFromEdit()
 	come from the input box  */
 void kiten::searchText(const QString text)
 {
-	searchAndDisplay(dictQuery(text));
+	searchAndDisplay(DictQuery(text));
 }
 
 /** This should change the Edit text to be appropriate and then begin a search
@@ -370,12 +370,12 @@ void kiten::searchClipboard()
 
 /** This method performs the search and displays
   the result to the screen.. */
-void kiten::searchAndDisplay(const dictQuery &query)
+void kiten::searchAndDisplay(const DictQuery &query)
 {
 	/* keep the user informed of what we are doing */
 	StatusBar->showMessage(i18n("Searching..."));
 
-	/* This gorgeous incantation is all that's necessary to fill a dictQuery
+	/* This gorgeous incantation is all that's necessary to fill a DictQuery
 		with a query and an Entrylist with all of the results form all of the
 		requested dictionaries */
 	EntryList *results = dictionaryManager.doSearch(query);
@@ -395,7 +395,7 @@ void kiten::searchInResults()
 {
 	StatusBar->showMessage(i18n("Searching..."));
 
-	dictQuery searchQuery(Edit->currentText());
+	DictQuery searchQuery(Edit->currentText());
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
 	addHistory(results);

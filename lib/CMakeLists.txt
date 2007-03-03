@@ -7,9 +7,9 @@ set(kiten_LIB_SRCS
 		kitenEdit.cpp
 		kromajiedit.cpp
 		historyPtrList.cpp
-		dictQuery.cpp
-		entry.cpp
-		dictionary.cpp
+		DictQuery.cpp
+		DictionaryManager.cpp
+		Entry.cpp
 		dictFilePreferenceDialog.cpp
 		wordType.cpp
 		${dictionary_SRCS}
@@ -22,13 +22,14 @@ install( TARGETS kiten DESTINATION ${LIB_INSTALL_DIR} )
 
 ############ install headers #############
 install( FILES
-		dictQuery.h
-		entry.h
-		dictionary.h
+		DictQuery.h
+		Entry.h
+		DictionaryManager.h
 		historyPtrList.h
 		kromajiedit.h
 		kitenEdit.h
 		wordType.h
 		dictFilePreferenceDialog.h
+		libkitenexport.h
 	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten
 		)
