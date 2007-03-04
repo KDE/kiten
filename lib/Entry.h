@@ -68,7 +68,7 @@ public:
 	virtual bool matchesQuery(const DictQuery&) const;
 
 	/** Any enum used by the print methods as an argument */
-	enum printType {printBrief, printVerbose, printAuto};
+	typedef enum printType {printBrief, printVerbose, printAuto};
 
 	/* Some regular old accessors */
 	QString getDictName() const { return sourceDict; }
@@ -202,38 +202,5 @@ protected:
 	bool isKanji(const QChar) const;
 };
 
-
-class KITEN_EXPORT EntryList : public QList<Entry*> {
-
-public:
-	typedef QListIterator<Entry*> EntryIterator;
-
-	EntryList() : QList<Entry*>() {}
-	EntryList(const EntryList &old) : QList<Entry*>(old) {}
-	virtual ~EntryList();
-	void deleteAll();
-
-	QString toString(Entry::printType=Entry::printAuto) const;
-	QString toHTML(Entry::printType=Entry::printAuto) const;
-
-	QString toString(unsigned int start, unsigned int length,
-			Entry::printType=Entry::printAuto) const;
-	QString toHTML(unsigned int start, unsigned int length,
-			Entry::printType=Entry::printAuto) const;
-	QString toKVTML(unsigned int start, unsigned int length) const;
-
-	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
-
-	const EntryList& operator+=(const EntryList &other);
-	void appendList(const EntryList *);
-	DictQuery getQuery() const;
-	void setQuery(const DictQuery&);
-
-protected:
-	DictQuery query;
-
-private: //Utility Methods
-	inline QString noResultsHTML();
-};
 
 #endif

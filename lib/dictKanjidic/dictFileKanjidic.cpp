@@ -25,7 +25,6 @@
 
 #include "DictQuery.h"  //DictQuery classs
 #include "dictFileKanjidic.h" //dictFile (superclass) class
-#include "dictFilePreferenceDialog.h"
 #include "Entry.h"      //Entry and EntryList classes
 #include "entryKanjidic.h"
 

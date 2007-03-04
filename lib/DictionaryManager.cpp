@@ -24,14 +24,18 @@
 #include <QtCore/QFile>
 
 #include "DictionaryManager.h"
+#include "DictionaryPreferenceDialog.h"
 #include "DictQuery.h"
 #include "Entry.h"
+#include "EntryList.h"
+
+#include "dictFile.h"
 
 /* Includes to handle various types of dictionaries 
 IMPORTANT: To add a dictionary type, add the header file here and add it to the
  if statement under addDictionary() */
-#include "dictFileEdict.h"
-#include "dictFileKanjidic.h"
+#include "dictEdict/dictFileEdict.h"
+#include "dictKanjidic/dictFileKanjidic.h"
 
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation
 	step here, the next method, and #include your header file above. If you have
@@ -190,3 +194,12 @@ void DictionaryManager::loadDictSettings(const QString dictName, KConfigSkeleton
 
 void DictionaryManager::loadSettings(const KConfig &config) { //TODO
 }
+
+DictionaryPreferenceDialog::DictionaryPreferenceDialog(QWidget *parent, const char *name)
+	: QWidget (parent) {
+}
+DictionaryPreferenceDialog::~DictionaryPreferenceDialog() {
+
+}
+
+#include "DictionaryPreferenceDialog.moc"

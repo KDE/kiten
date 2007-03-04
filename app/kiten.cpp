@@ -63,7 +63,7 @@
 //#include "learn.h"
 #include "kitenconfig.h"
 #include "configuredialog.h"
-#include "historyPtrList.h"
+#include "HistoryPtrList.h"
 #include "entryListView.h"
 
 kiten::kiten(QWidget *parent, const char *name)

@@ -42,6 +42,7 @@
 #include "DictQuery.h"  //DictQuery classs
 #include "dictFileEdict.h" //dictFile (superclass) class
 #include "Entry.h"      //Entry and EntryList classes
+#include "EntryList.h"
 
 /** Per instructions in the super-class, this constructor basically sets the
   dictionaryType member variable to identify this as an edict-type database handler */

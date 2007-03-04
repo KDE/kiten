@@ -26,14 +26,14 @@
 class QStringList;
 class EntryList;
 
-class KITEN_EXPORT historyPtrList : protected QList<EntryList*> {
+class KITEN_EXPORT HistoryPtrList : protected QList<EntryList*> {
 	private:
 		int m_index;
 	public:
-		/** Construct a historyPtrList, this should be done early on */
-		historyPtrList();
+		/** Construct a HistoryPtrList, this should be done early on */
+		HistoryPtrList();
 		/** Destructor... kill all lists before going */
-		virtual ~historyPtrList();
+		virtual ~HistoryPtrList();
 		/** Add an item to the end of the history list and set it as
 		  the current displayed item */
 		void addItem(EntryList*);

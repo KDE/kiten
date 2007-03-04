@@ -24,6 +24,7 @@
 #include <QtGui/QListWidget>
 
 #include "DictionaryManager.h"
+#include "dictFile.h" //TODO: Remove this dependency
 
 #include "kitenconfig.h"
 #include "configsortingpage.h"

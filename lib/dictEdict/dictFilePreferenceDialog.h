@@ -19,27 +19,14 @@
 
 //This is currently the only file in libkiten dict handlers to have moc code included...
 
-#ifndef DICTIONARYPREFERENCEDIALOG__H_
-#define DICTIONARYPREFERENCEDIALOG__H_
+#ifndef DICTFILEFIELDSELECTOR_H_
+#define DICTFILEFIELDSELECTOR_H_
 
 
 class QStringList;
 class QString;
 #include <qwidget.h>
-
-class DictionaryPreferenceDialog : public QWidget {
-	Q_OBJECT
-	public:
-		DictionaryPreferenceDialog(QWidget *parent, const char *name) : QWidget(parent){}
-		virtual ~DictionaryPreferenceDialog() {}
-
-	public slots:
-		virtual void updateWidgets() = 0;
-		virtual void updateWidgetsDefault() = 0;
-		virtual void updateSettings() = 0;
-	signals:
-		void widgetChanged();
-};
+#include "DictionaryPreferenceDialog.h"
 
 class KConfigSkeleton;
 class KActionSelector;

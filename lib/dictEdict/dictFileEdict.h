@@ -22,7 +22,7 @@
 #ifndef __DICTFILEEDICT_H_
 #define __DICTFILEEDICT_H_
 
-#include "DictionaryManager.h" //dictFile definition
+#include "dictFile.h"
 
 #include <sys/types.h>
 #include <QtCore/QFile>

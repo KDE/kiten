@@ -20,19 +20,19 @@
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 
-#include "Entry.h"
-#include "historyPtrList.h"
+#include "EntryList.h"
+#include "HistoryPtrList.h"
 
-historyPtrList::historyPtrList():m_index(-1) {
+HistoryPtrList::HistoryPtrList():m_index(-1) {
 }
 
-historyPtrList::~historyPtrList() {
+HistoryPtrList::~HistoryPtrList() {
 	for(int i=size()-1; i>=0; i--)
 		delete this->at(i);
 }
 
 void
-historyPtrList::addItem(EntryList *newItem) {
+HistoryPtrList::addItem(EntryList *newItem) {
 	//If we're currently looking at something prior to the end of the list
 	//Remove everything in the list up to this point.
 	int currentPosition = m_index+1;
@@ -67,7 +67,7 @@ historyPtrList::addItem(EntryList *newItem) {
 
 //Get a StringList of the History Items
 QStringList
-historyPtrList::toStringList() {	
+HistoryPtrList::toStringList() {	
 	QStringList result;
 	
 	foreach(EntryList *p, (QList<EntryList*>)(*this))
@@ -77,7 +77,7 @@ historyPtrList::toStringList() {
 }
 
 QStringList
-historyPtrList::toStringListPrev() {
+HistoryPtrList::toStringListPrev() {
 	QStringList result;
 
 	for(int i=0; i<m_index; i++)
@@ -87,8 +87,8 @@ historyPtrList::toStringListPrev() {
 }
 
 QStringList
-historyPtrList::toStringListNext() {
-	historyPtrList localCopy(*this);
+HistoryPtrList::toStringListNext() {
+	HistoryPtrList localCopy(*this);
 	
 	int currentPosition = m_index + 1;
 	while(currentPosition--)
@@ -98,7 +98,7 @@ historyPtrList::toStringListNext() {
 }
 
 void
-historyPtrList::next(int distance) {
+HistoryPtrList::next(int distance) {
 	if(distance + m_index > count() - 1)
 		m_index = count() - 1;
 	else
@@ -106,7 +106,7 @@ historyPtrList::next(int distance) {
 }
 
 void
-historyPtrList::prev(int distance) {
+HistoryPtrList::prev(int distance) {
 	if(m_index - distance < 0)
 		m_index = 0;
 	else
@@ -114,22 +114,22 @@ historyPtrList::prev(int distance) {
 }
 
 EntryList*
-historyPtrList::current() {
+HistoryPtrList::current() {
 	return at(m_index);
 }
 
 void
-historyPtrList::setCurrent(int i) {
+HistoryPtrList::setCurrent(int i) {
 	if(i<count() && i>=0)
 		m_index=i;
 }
 
 int
-historyPtrList::index() {
+HistoryPtrList::index() {
 	return m_index;
 }
 
 int
-historyPtrList::count() {
+HistoryPtrList::count() {
 	return QList<EntryList*>::size();
 }

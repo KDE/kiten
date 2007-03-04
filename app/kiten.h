@@ -26,7 +26,7 @@
 #include "DictQuery.h"
 #include "Entry.h"
 #include "DictionaryManager.h"
-#include "historyPtrList.h"
+#include "HistoryPtrList.h"
 
 class KAction;
 class KitenConfigSkeleton;
@@ -140,7 +140,7 @@ private:
 	KitenEdit *Edit;
 	WordType *wordType;
 
-	historyPtrList historyList;
+	HistoryPtrList historyList;
 	QString personalDict;
 
 

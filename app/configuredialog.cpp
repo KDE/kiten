@@ -39,7 +39,8 @@
 #include "ui_configsearching.h"
 
 //Our template for managing individual dict type's settings
-#include "dictFilePreferenceDialog.h"
+#include "DictionaryPreferenceDialog.h"
+#include "dictFile.h"	//TODO: remove this stuff
 
 //The dictionary file selector widget
 #include "configdictionaryselector.h"

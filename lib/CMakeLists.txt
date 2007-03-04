@@ -1,16 +1,22 @@
 ############# kitenlib #################
-set(edict_SRCS dictFileEdict.cpp entryEdict.cpp)
-set(kanjidic_SRCS dictFileKanjidic.cpp entryKanjidic.cpp)
+set(edict_SRCS
+		dictEdict/dictFileEdict.cpp
+		dictEdict/entryEdict.cpp
+		dictEdict/dictFilePreferenceDialog.cpp)
+set(kanjidic_SRCS
+		dictKanjidic/dictFileKanjidic.cpp
+		dictKanjidic/entryKanjidic.cpp)
 set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS})
 
+
 set(kiten_LIB_SRCS
-		kitenEdit.cpp
-		kromajiedit.cpp
-		historyPtrList.cpp
 		DictQuery.cpp
 		DictionaryManager.cpp
 		Entry.cpp
-		dictFilePreferenceDialog.cpp
+		EntryList.cpp
+		HistoryPtrList.cpp
+		kitenEdit.cpp
+		kromajiedit.cpp
 		wordType.cpp
 		${dictionary_SRCS}
 		)
@@ -23,13 +29,14 @@ install( TARGETS kiten DESTINATION ${LIB_INSTALL_DIR} )
 ############ install headers #############
 install( FILES
 		DictQuery.h
-		Entry.h
 		DictionaryManager.h
-		historyPtrList.h
-		kromajiedit.h
+		DictionaryPreferenceDialog.h
+		Entry.h
+		EntryList.h
+		HistoryPtrList.h
 		kitenEdit.h
-		wordType.h
-		dictFilePreferenceDialog.h
+		kromajiedit.h
 		libkitenexport.h
+		wordType.h
 	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten
 		)

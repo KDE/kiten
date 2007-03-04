@@ -22,7 +22,7 @@
 #ifndef __DICTFILEKANJIDIC_H_
 #define __DICTFILEKANJIDIC_H_
 
-#include "dictFileEdict.h" //dictFileEdict definition
+#include "../dictEdict/dictFileEdict.h" //dictFileEdict definition
 #include "entryKanjidic.h"
 
 class DictQuery;
