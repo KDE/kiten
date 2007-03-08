@@ -54,13 +54,13 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	: KConfigDialog(parent, "Settings", config)
 {
 	//TODO: Figure out why these pages are unmanaged... is this needed?
-	addPage(makeDictionaryFileSelectionPage(0,config),i18n("Dictionaries"),"contents");
+	addPage(makeDictionaryFileSelectionPage(0,config),i18n("Dictionaries"),"help-contents");
 
 	QWidget *widget;
 	widget = new QWidget();
 	Ui::ConfigSearching cs;
 	cs.setupUi(widget);
-	addPage(widget, i18n("Searching"), "find");
+	addPage(widget, i18n("Searching"), "edit-find");
 
 	widget = new QWidget();
 	Ui::ConfigLearn cl; cl.setupUi(widget);
@@ -71,9 +71,9 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	cf.setupUi(widget);
 	addPage(widget, i18n("Font"), "fonts");
 	
-	addPage(makeDictionaryPreferencesPage(0,config),i18n("Display"),"indent");
+	addPage(makeDictionaryPreferencesPage(0,config),i18n("Display"),"format-indent-more");
 
-	addPage(makeSortingPage(0,config),i18n("Results Sorting"), "indent");
+	addPage(makeSortingPage(0,config),i18n("Results Sorting"), "format-indent-more");
 
 	hasChangedMarker = false;
 

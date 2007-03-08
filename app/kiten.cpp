@@ -211,10 +211,10 @@ void kiten::setupActions() {
 
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
-//	comCB = new KToggleAction(i18n("&Filter Rare"), "filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
+//	comCB = new KToggleAction(i18n("&Filter Rare"), "search-filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 	comCB = actionCollection()->add<KToggleAction>("common");
         comCB->setText(i18n("&Filter Rare"));
-//autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
+//autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "edit-find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	autoSearchToggle = actionCollection()->add<KToggleAction>("autosearch_toggle");
         autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
 	irAction = actionCollection()->add<KToggleAction>("search_in_results");

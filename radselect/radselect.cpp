@@ -109,7 +109,7 @@ void radselect::setupActions()
 
     kac =actionCollection()->addAction( "search" );
     kac->setText( i18n("S&earch") );
-    kac->setIcon( KIcon("key_enter") );
+    kac->setIcon( KIcon("browser-go") );
     connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
 
     showAll = actionCollection()->add<KToggleAction>( "show_full_search" );
@@ -161,7 +161,7 @@ void radselect::optionsPreferences()
 	QWidget *preferences = new QWidget();
 	Ui::radselectprefdialog layout;
 	layout.setupUi(preferences);
-	dialog->addPage(preferences, i18n("Settings"),"contents");
+	dialog->addPage(preferences, i18n("Settings"),"help-contents");
 	connect(dialog,SIGNAL(settingsChanged(const QString&)), m_view, SLOT(loadSettings()));
 	dialog->show();
 }
