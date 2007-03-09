@@ -493,7 +493,7 @@ void kiten::configureToolBars()
 {
 	saveMainWindowSettings(KGlobal::config()->group( "kitenWindow") );
 	KEditToolbar dlg(actionCollection());
-	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
+	connect(&dlg, SIGNAL(newToolBarConfig()), SLOT(newToolBarConfig()));
 	dlg.exec();
 }
 

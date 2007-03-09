@@ -207,7 +207,7 @@ void radselect::configureToolBars()
 
 //	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
 //	KEditToolbar dlg(actionCollection(), "kitenui.rc");
-//	connect(&dlg, SIGNAL(newToolbarConfig()), SLOT(newToolBarConfig()));
+//	connect(&dlg, SIGNAL(newToolBarConfig()), SLOT(newToolBarConfig()));
 //	dlg.exec();
 }
 
