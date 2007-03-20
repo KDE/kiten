@@ -61,7 +61,7 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 
 	virtual QString getFile() const { return dictFile.fileName(); }
 
-	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *parent=NULL, const char *name=0);
+	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *parent=NULL);
 
 	virtual void loadSettings(KConfigSkeleton*);
 

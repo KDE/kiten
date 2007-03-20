@@ -12,6 +12,7 @@ set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS})
 set(kiten_LIB_SRCS
 		DictQuery.cpp
 		DictionaryManager.cpp
+		DictionaryPreferenceDialog.cpp
 		Entry.cpp
 		EntryList.cpp
 		HistoryPtrList.cpp

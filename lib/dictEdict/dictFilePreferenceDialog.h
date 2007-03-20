@@ -34,7 +34,7 @@ class KActionSelector;
 class dictFileFieldSelector : public DictionaryPreferenceDialog {
 	Q_OBJECT
 	public:
-		dictFileFieldSelector(KConfigSkeleton*,const QString &dictionaryTypeName, QWidget *parent, const char *name);
+		dictFileFieldSelector(KConfigSkeleton*,const QString &dictionaryTypeName, QWidget *parent);
 		virtual ~dictFileFieldSelector();
 
 	public slots:

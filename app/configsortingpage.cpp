@@ -24,38 +24,26 @@
 #include <QtGui/QListWidget>
 
 #include "DictionaryManager.h"
-#include "dictFile.h" //TODO: Remove this dependency
 
 #include "kitenconfig.h"
 #include "configsortingpage.h"
 
-ConfigSortingPage::ConfigSortingPage
-	(QWidget *parent,KitenConfigSkeleton *iconfig,Qt::WFlags f) {
-
+ConfigSortingPage::ConfigSortingPage(QWidget *parent,KitenConfigSkeleton *iconfig,Qt::WFlags f) :
+		QWidget(parent,f), m_config(iconfig) {
 	setupUi(this);
-	config = iconfig;
+	m_dictNames = DictionaryManager::listDictFileTypes();
 
 	//Setup the relationship between the checkbox and the dictionary sortlist
 	connect(kcfg_dictionary_enable, SIGNAL(clicked(bool)),
 			dictionary_order,SLOT(setEnabled(bool)));
-	dictionary_order->setEnabled(iconfig->dictionary_enable()=="true");
+	dictionary_order->setEnabled(m_config->dictionary_enable()=="true");
 
-	dictNames = DictionaryManager::listDictFileTypes();
-
-	fields.append("Word/Kanji");
-	fields.append("Meaning");
-	fields.append("Reading");
-
-	foreach(const QString &dict, dictNames) {
-		dictFile *tempDict = DictionaryManager::makeDictFile(dict);
-		QStringList newestFields = tempDict->getSearchableAttributes().keys();
-
-		foreach(const QString &field, newestFields)
-			if(!fields.contains(field)) //No duplicates
-				fields.append(field);
-
-		delete tempDict;
-	}
+	
+	m_fields.append("Word/Kanji");
+	m_fields.append("Meaning");
+	m_fields.append("Reading");
+	QList<QString> fieldListMap = DictionaryManager::generateExtendedFieldsList().keys();
+	m_fields += fieldListMap;
 
 	//Make the connections to alert the main dialog when things change
 	connect(dictionary_order,SIGNAL(added(QListWidgetItem*)),
@@ -80,11 +68,11 @@ ConfigSortingPage::ConfigSortingPage
 void ConfigSortingPage::updateWidgets()
 //Read from preferences and set widgets
 {
-	QStringList selectedDicts = config->dictionary_sortlist();
-	QStringList selectedFields = config->field_sortlist();
+	QStringList selectedDicts = m_config->dictionary_sortlist();
+	QStringList selectedFields = m_config->field_sortlist();
 
-	QStringList availDicts = dictNames;
-	QStringList availFields = fields;
+	QStringList availDicts = m_dictNames;
+	QStringList availFields = m_fields;
 	foreach(const QString &dict, selectedDicts)
 		availDicts.removeAll(dict);
 	foreach(const QString &field, selectedFields)
@@ -106,12 +94,12 @@ void ConfigSortingPage::updateSettings()
 	QStringList list;
 	for(int i=0; i< dictionary_order->selectedListWidget()->count();i++)
 		list.append(dictionary_order->selectedListWidget()->item(i)->text());
-	config->setDictionary_sortlist(list);
+	m_config->setDictionary_sortlist(list);
 
 	list.clear();
 	for(int i=0; i< field_order->selectedListWidget()->count();i++)
 		list.append(field_order->selectedListWidget()->item(i)->text());
-	config->setField_sortlist(list);
+	m_config->setField_sortlist(list);
 }
 
 void ConfigSortingPage::updateWidgetsDefault()

@@ -66,8 +66,8 @@ public:
 	virtual QStringList listDictDisplayOptions(QStringList) const =0 ;
 	/** If you want your own dialog to pick preferences for your dict...
 	  override this */
-	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL, const char *name=0)
-				{if(parent==parent && name==name && config==config) return NULL;}
+	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL)
+				{if(parent==parent && config==config) return NULL;}
 	/** Load information from the KConfigSkeleton that you've setup in
 	  the above preferences widget. */
 	virtual void loadSettings(KConfigSkeleton*) {}

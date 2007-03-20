@@ -195,11 +195,37 @@ void DictionaryManager::loadDictSettings(const QString dictName, KConfigSkeleton
 void DictionaryManager::loadSettings(const KConfig &config) { //TODO
 }
 
-DictionaryPreferenceDialog::DictionaryPreferenceDialog(QWidget *parent, const char *name)
-	: QWidget (parent) {
+QMap<QString,DictionaryPreferenceDialog*>
+DictionaryManager::generatePreferenceDialogs(KConfigSkeleton *config, QWidget *parent) {
+	QMap<QString,DictionaryPreferenceDialog*> result;
+	QStringList dictTypes = listDictFileTypes();
+	foreach(const QString &dictType, dictTypes) {
+		dictFile *tempDictFile = makeDictFile(dictType);
+		DictionaryPreferenceDialog *newDialog =
+				tempDictFile->preferencesWidget(config,parent);
+		if(newDialog==NULL)
+			continue;
+		result.insert(dictType,newDialog);
+		delete tempDictFile;
+	}
+	return result;
 }
-DictionaryPreferenceDialog::~DictionaryPreferenceDialog() {
 
+QMap<QString, QString>
+DictionaryManager::generateExtendedFieldsList() {
+	QMap<QString,QString> result;
+	QStringList dictTypes = listDictFileTypes();
+	foreach(const QString &dictType, dictTypes) {
+		dictFile *tempDictFile = makeDictFile(dictType);
+		QMap<QString,QString> tempList = tempDictFile->getSearchableAttributes();
+		QMap<QString,QString>::const_iterator it = tempList.constBegin();
+		while( it != tempList.constEnd() ) {
+			if(!result.contains(it.key()))
+				result.insert(it.key(),it.value());
+			++it;
+		}
+		delete tempDictFile;
+	}
+	return result;
 }
-
-#include "DictionaryPreferenceDialog.moc"
+		

@@ -483,8 +483,8 @@ QMap<QString,QString> dictFileEdict::displayOptions() const {
 	return list;
 }
 
-DictionaryPreferenceDialog *dictFileEdict::preferencesWidget(KConfigSkeleton *config, QWidget *parent, const char *name) {
-	dictFileFieldSelector *dialog = new dictFileFieldSelector(config, getType(),parent,name);
+DictionaryPreferenceDialog *dictFileEdict::preferencesWidget(KConfigSkeleton *config, QWidget *parent) {
+	dictFileFieldSelector *dialog = new dictFileFieldSelector(config, getType(),parent);
 	dialog->addAvailable(listDictDisplayOptions(QStringList()));
 	return dialog;
 }

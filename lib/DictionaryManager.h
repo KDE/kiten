@@ -77,6 +77,8 @@ class KITEN_EXPORT DictionaryManager {
 	//Generate the Preference widgets
 	static QMap<QString,DictionaryPreferenceDialog*>
 		generatePreferenceDialogs(KConfigSkeleton *config, QWidget *parent=NULL);
+	//Generate a list of all of the extended fields
+	static QMap<QString,QString> generateExtendedFieldsList();
 	//Used to trigger reloading the display settings for a particular dictionary
 	void loadDictSettings(QString dict, KConfigSkeleton*);
 	//Used to load general settings related to output

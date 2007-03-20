@@ -44,9 +44,9 @@ public slots:
 signals:
 	void widgetChanged();
 private:
-	KitenConfigSkeleton *config;
-	QStringList dictNames;
-	QStringList fields;
+	KitenConfigSkeleton *m_config;
+	QStringList m_dictNames;
+	QStringList m_fields;
 };
 
 #endif

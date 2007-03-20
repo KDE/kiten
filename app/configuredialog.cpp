@@ -40,7 +40,6 @@
 
 //Our template for managing individual dict type's settings
 #include "DictionaryPreferenceDialog.h"
-#include "dictFile.h"	//TODO: remove this stuff
 
 //The dictionary file selector widget
 #include "configdictionaryselector.h"
@@ -107,20 +106,15 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 	
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
-	foreach( const QString &dict, dictTypes ) {
-		dictFile *tempDict = DictionaryManager::makeDictFile(dict);
-		
-		DictionaryPreferenceDialog *newTab = tempDict->preferencesWidget(config,parent, dict.toAscii());
-		if(newTab == NULL)
-			continue;
+	QMap<QString,DictionaryPreferenceDialog*> dialogList =
+			DictionaryManager::generatePreferenceDialogs(config,parent);
+	foreach( DictionaryPreferenceDialog *dialog, dialogList ) {
+		connect(dialog, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
+		connect(this, SIGNAL(SIG_updateWidgets()), dialog, SLOT(updateWidgets()));
+		connect(this, SIGNAL(SIG_updateWidgetsDefault()), dialog, SLOT(updateWidgetsDefault()));
+		connect(this, SIGNAL(SIG_updateSettings()), dialog, SLOT(updateSettings()));
 
-		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
-		connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
-		connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));
-		connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
-		
-		delete tempDict;
-		tabWidget->addTab(newTab,dict);
+		tabWidget->addTab(dialog,dialog->name());
 	}
 	return tabWidget;
 }

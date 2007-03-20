@@ -31,10 +31,8 @@
 #include "dictFilePreferenceDialog.h"
 
 dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig, 
-		const QString &dictionaryTypeName, 
-		QWidget *parent, const char *name): DictionaryPreferenceDialog(parent,name) {
-
-	dictName = dictionaryTypeName;
+		const QString &dictionaryTypeName, QWidget *parent) :
+	DictionaryPreferenceDialog(parent,dictionaryTypeName), dictName(dictionaryTypeName) {
 
 	QVBoxLayout *newTabLayout = new QVBoxLayout();
 

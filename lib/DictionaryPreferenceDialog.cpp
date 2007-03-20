@@ -16,29 +16,19 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include <QtCore/QString>
 
-//This is currently the only file in libkiten dict handlers to have moc code included...
+#include "DictionaryPreferenceDialog.h"
 
-#ifndef DICTIONARYPREFERENCEDIALOG__H_
-#define DICTIONARYPREFERENCEDIALOG__H_
+DictionaryPreferenceDialog::DictionaryPreferenceDialog(QWidget *parent, const QString &iName) :
+	QWidget(parent), m_name(iName) {
+}
 
-#include <QtGui/QWidget>
+DictionaryPreferenceDialog::~DictionaryPreferenceDialog() {
+}
 
-class DictionaryPreferenceDialog : public QWidget {
-	Q_OBJECT
-	public:
-		DictionaryPreferenceDialog(QWidget *parent, const QString &name);
-		virtual ~DictionaryPreferenceDialog();
-		const QString &name() const;
-	public slots:
-		virtual void updateWidgets() = 0;
-		virtual void updateWidgetsDefault() = 0;
-		virtual void updateSettings() = 0;
-	signals:
-		void widgetChanged();
+const QString &DictionaryPreferenceDialog::name() const {
+	return m_name;
+}
 
-	private:
-		QString m_name;
-};
-
-#endif
+#include "DictionaryPreferenceDialog.moc"
