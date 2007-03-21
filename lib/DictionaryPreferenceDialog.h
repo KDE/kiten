@@ -23,8 +23,9 @@
 #define DICTIONARYPREFERENCEDIALOG__H_
 
 #include <QtGui/QWidget>
+#include "libkitenexport.h"
 
-class DictionaryPreferenceDialog : public QWidget {
+class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget {
 	Q_OBJECT
 	public:
 		DictionaryPreferenceDialog(QWidget *parent, const QString &name);
