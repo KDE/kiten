@@ -24,7 +24,7 @@
 #include <kglobal.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
-#include <kprocess.h>
+#include <k3process.h>
 
 #include <QtCore/QByteArray>
 #include <QtCore/QVector>
@@ -206,10 +206,10 @@ bool dictFileEdict::loadNewDictionary(const QString &fileName, const QString &di
 		return false;
 
 	//Unlike before... we assume the index is either invalid or not there
-	KProcess proc;
+	K3Process proc;
 	proc << KStandardDirs::findExe("kitengen") << fileName << indexFile.fileName();
 	//TODO: Status dialog or something
-	proc.start(KProcess::Block,KProcess::NoCommunication);
+	proc.start(K3Process::Block,K3Process::NoCommunication);
 
 
 	int dictionaryLength = dictFile.size();
