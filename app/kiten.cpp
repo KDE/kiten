@@ -34,7 +34,7 @@
 #include <ktoolbar.h>
 #include <kglobalaccel.h>
 #include <kiconloader.h>
-#include <kkeydialog.h>
+#include <kshortcutsdialog.h>
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <kstandarddirs.h>
@@ -507,7 +507,7 @@ void kiten::newToolBarConfig()
 void kiten::configureGlobalKeys()
 {
 	//KDE4 TODO: done?
-	KKeyDialog::configure(actionCollection(), KKeyChooser::LetterShortcutsAllowed, this);
+	KShortcutsDialog::configure(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this);
 }
 
 /** This function, as the name says, updates the configuration file.  It should
