@@ -201,7 +201,7 @@ void radselect::showFullSearchString(){
 
 void radselect::configureToolBars()
 {
-	KEditToolbar dlg(actionCollection());
+	KEditToolBar dlg(actionCollection());
 	if (dlg.exec())
 		createGUI();
 
