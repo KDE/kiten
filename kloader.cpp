@@ -35,13 +35,13 @@
 class KLoader::KLoaderPrivate
 {
 public:
-	KLoaderPrivate() : isLocal(true), file(0), textStream(0), dataStream(0) {};
+	KLoaderPrivate() : isLocal(true), file(0), textStream(0), dataStream(0) {}
     ~KLoaderPrivate()
         {
             delete file;
             delete textStream;
             delete dataStream;
-        };
+        }
 	bool isLocal;
 	QString tempFile;
 	QFile *file;

@@ -36,14 +36,14 @@
 class KSaver::KSaverPrivate
 {
 public:
-	KSaverPrivate() : isLocal(true), tempFile(0), file(0), textStream(0), dataStream(0) {};
+	KSaverPrivate() : isLocal(true), tempFile(0), file(0), textStream(0), dataStream(0) {}
     ~KSaverPrivate()
         {
             delete file;
             delete textStream;
             delete dataStream;
             delete tempFile;
-        };
+        }
 	bool isLocal;
 	KTempFile *tempFile;
 	QFile *file;

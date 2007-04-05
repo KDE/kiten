@@ -38,9 +38,9 @@ class KDE_EXPORT Radical
 	public:
 	Radical(QString = QString::null, unsigned int = 0);
 
-	QString radical() { return _Radical; };
-	unsigned int strokes() { return Strokes; };
-	QString kanji() { return Kanji; };
+	QString radical() { return _Radical; }
+	unsigned int strokes() { return Strokes; }
+	QString kanji() { return Kanji; }
 
 	void addKanji(const QString &);
 
