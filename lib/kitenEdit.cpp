@@ -23,7 +23,7 @@
 #include <kdebug.h>
 
 KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) : 
-	KHistoryCombo(bar)
+	KHistoryComboBox(bar)
 {
 	setDuplicatesEnabled(false);
 }

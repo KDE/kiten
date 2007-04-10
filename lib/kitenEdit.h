@@ -25,14 +25,14 @@
 #include "libkitenexport.h"
 #include <QSize>
 #include <kaction.h>
-#include <kcombobox.h>
+#include <khistorycombobox.h>
 #include <kactioncollection.h>
 #define MINIMUMWIDTH 150
 
 class KComboBox;
 class KCompletion;
 
-class KITEN_EXPORT KitenEdit : public KHistoryCombo
+class KITEN_EXPORT KitenEdit : public KHistoryComboBox
 {
 	Q_OBJECT
 	public:
