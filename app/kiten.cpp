@@ -25,7 +25,6 @@
 #include <QtCore/QPair>
 
 #include <kaction.h>
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kconfigdialog.h>
 #include <kdebug.h>
@@ -49,7 +48,8 @@
 #include <qdockwidget.h>
 #include <qtablewidget.h>
 #include <qboxlayout.h>
-
+#include <QApplication>
+#include <kapplication.h>
 #include <khtml_part.h>
 #include <khtmlview.h>
 #include <kurl.h>

@@ -22,9 +22,8 @@
 
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
-#include <kapplication.h>
 #include <kmainwindow.h>
-//#include <qsqlpropertymap.h>
+#include <kapplication.h>
 
 #include <QtDBus/QtDBus>
 

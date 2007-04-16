@@ -30,7 +30,6 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <kactioncollection.h>
-#include <kapplication.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kiconloader.h>
@@ -40,6 +39,7 @@
 #include <kfiledialog.h>
 #include <kconfig.h>
 #include <kconfigdialog.h>
+#include <kapplication.h>
 
 #include <KStandardShortcut>
 #include <kaction.h>

@@ -19,11 +19,10 @@
 
 
 #include "radselect.h"
-#include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
-
+#include <kapplication.h>
 #include <kmessagebox.h>
 
 static const char description[] = I18N_NOOP("A KDE Application");
