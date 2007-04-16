@@ -22,7 +22,7 @@
 
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 #include <kapplication.h>
 
 #include <QtDBus/QtDBus>

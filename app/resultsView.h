@@ -27,7 +27,7 @@
 
 #include <kaction.h>
 #include <klineedit.h>
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 #include <ktextbrowser.h>
 #include <khtml_part.h>
 #include <khtmlview.h>

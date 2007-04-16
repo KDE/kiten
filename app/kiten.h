@@ -43,7 +43,7 @@ class ResultView;
 class QDockWidget;
 class EntryListView;
 
-class kiten : public KMainWindow {
+class kiten : public KXmlGuiWindow {
 	Q_OBJECT
 
 	// The following will be available via dbus.
@@ -58,7 +58,7 @@ public:
 protected:
 	void setupActions();
 	void setupExportListDock();
-	virtual bool queryClose(); //overridden from KMainWindow (called@shutdown)
+	virtual bool queryClose(); //overridden from KXmlGuiWindow (called@shutdown)
 private slots:
 	void finishInit();
 

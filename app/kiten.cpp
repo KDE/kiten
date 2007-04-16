@@ -35,7 +35,7 @@
 #include <kiconloader.h>
 #include <kshortcutsdialog.h>
 #include <klocale.h>
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
 #include <kstandardaction.h>
@@ -67,7 +67,7 @@
 #include "entryListView.h"
 
 kiten::kiten(QWidget *parent, const char *name)
-	: KMainWindow(parent)
+	: KXmlGuiWindow(parent)
 {
 	setStandardToolBarMenuEnabled(true);
 	setObjectName(QLatin1String(name)); /* Set up the config */

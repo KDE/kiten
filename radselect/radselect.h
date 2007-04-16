@@ -20,7 +20,7 @@
 #ifndef _RADSELECT_H_
 #define _RADSELECT_H_
 
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 class radselectView;
 
 //From libkiten
@@ -39,7 +39,7 @@ class QDBusInterface;
  * @author Joseph Kerian <jkerian@gmail.com>
  * @version 0.1
  */
-class radselect : public KMainWindow
+class radselect : public KXmlGuiWindow
 {
 	Q_OBJECT
 public:

@@ -50,7 +50,7 @@
 #include <kedittoolbar.h>
 
 radselect::radselect() :
-	KMainWindow(),
+	KXmlGuiWindow(),
 	m_view(new radselectView(this))
 {
     // accept dnd
