@@ -103,7 +103,7 @@ void radselect::setupActions()
 
     QAction *kac = actionCollection()->addAction( "clear_search" );
     kac->setText(  i18n("&Clear Search Bar") );
-    kac->setIcon( KIcon(BarIcon("locationbar_erase",16)) );
+    kac->setIcon( KIcon(BarIcon("locationbar-erase",16)) );
     connect( kac, SIGNAL(triggered()), Edit, SLOT(clear()) );
     qobject_cast<KAction*>(kac )->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_N));
 
