@@ -33,7 +33,7 @@
 	--Joe
 	*/
 
-#include <config.h>
+#include <config-kiten.h>
 #include <inttypes.h>
 #include <sys/stat.h>
 #include <unistd.h>
