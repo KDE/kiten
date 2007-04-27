@@ -17,8 +17,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-//This is currently the only file in libkiten dict handlers to have moc code included...
-
 #ifndef DICTIONARYPREFERENCEDIALOG__H_
 #define DICTIONARYPREFERENCEDIALOG__H_
 

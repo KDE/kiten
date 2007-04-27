@@ -27,7 +27,9 @@ WordType::WordType(QWidget *parent)
 {
 	//TODO: i18n needed
 	addItem("<No type specified>");
-	addItems(Entry::WordTypesPretty()->uniqueKeys());
+	addItem("Noun");
+	addItem("Verb");
+//	addItems(Entry::WordTypesPretty()->uniqueKeys());
 }
 
 #include "wordType.moc"

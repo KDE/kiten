@@ -104,75 +104,6 @@ public:
 			const QStringList &fieldList) const;
 	virtual bool sortByField(const Entry &that, const QString field) const;
 
-	enum WordType
-	{
-		adj = 0 , /*	adjective (keiyoushi) */
-		adj_na, /*	adjectival nouns or quasi-adjectives (keiyodoshi) */
-		adj_no, /*	nouns which may take the genitive case particle `no' */
-		adj_pn, /*	pre-noun adjectival (rentaishi) */
-		adj_t, /*	`taru' adjective */
-		adv, /*	adverb (fukushi) */
-		adv_n, /*	adverbial noun */
-		adv_to, /*	adverb taking the `to' particle */
-		aux, /*	auxiliary */
-		aux_v, /*	auxiliary verb */
-		aux_adj, /*	auxiliary adjective */
-		conj, /*	conjunction */
-		exp, /*	Expressions (phrases, clauses, etc.) */
-		id, /*	idiomatic expression */
-		inte, /*	interjection (kandoushi)
-					int is a keyword, thus 'inte' instead */
-		iv, /*	irregular verb */
-		n, /*	noun (common) (futsuumeishi) */
-		n_adv, /*	adverbial noun (fukushitekimeishi) */
-		n_pref, /*	noun, used as a prefix */
-		n_suf, /*	noun, used as a suffix */
-		n_t, /*	noun (temporal) (jisoumeishi) */
-		neg, /*	negative (in a negative sentence, or with negative verb) */
-		neg_v, /*	negative verb (when used with) */
-		num, /*	numeric */
-		pref, /*	prefix */
-		prt, /*	particle */
-		suf, /*	suffix */
-		v1, /*	Ichidan verb */
-		v5, /*	Godan verb (not completely classified) */
-		v5aru, /*	Godan verb _ -aru special class */
-		v5b, /*	Godan verb with `bu' ending */
-		v5g, /*	Godan verb with `gu' ending */
-		v5k, /*	Godan verb with `ku' ending */
-		v5k_s, /*	Godan verb - iku/yuku special class */
-		v5m, /*	Godan verb with `mu' ending */
-		v5n, /*	Godan verb with `nu' ending */
-		v5r, /*	Godan verb with `ru' ending */
-		v5r_i, /*	Godan verb with `ru' ending (irregular verb) */
-		v5s, /*	Godan verb with `su' ending */
-		v5t, /*	Godan verb with `tsu' ending */
-		v5u, /*	Godan verb with `u' ending */
-		v5u_s, /*	Godan verb with `u' ending (special class) */
-		v5uru, /*	Godan verb _ uru old class verb (old form of Eru) */
-		vi, /*	intransitive verb */
-		vk, /*	kuru verb _ special class */
-		vs, /*	noun or participle which takes the aux. verb suru */
-		vs_i, /*	suru verb - irregular */
-		vs_s, /*	suru verb - special class */
-		vt, /*	transitive verb */
-		vz, /*	zuru verb _ (alternative form of -jiru verbs) */
-
-		NUMTYPES /* works because the first element is defined as 0 */
-	};
-
-	/**
-	 *  Multihash from pretty names like "Verb" to the enums v1, v5r, etc.
-	 */
-	static QMultiHash<QString, WordType>* WordTypesPretty();
-
-	/**
-	 * Hash from abbreviations in the dictionary to the corresponding
-	 * enums
-	 */
-	static QHash<QString, WordType>* WordTypes();
-
-
 protected:
 	// The actual data of this entry
 	QString Word;
@@ -184,9 +115,6 @@ protected:
 	QString sourceDict;
 	printType favoredPrintType;
 	QString outputListDelimiter;
-
-	static QMultiHash<QString, WordType> *wordTypesPretty;
-	static QHash<QString, WordType> *wordTypes;
 
 	void init();
 
