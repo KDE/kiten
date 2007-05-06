@@ -19,6 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "dictFileEdict.h"
+
 #include <kconfig.h>
 #include <kconfigskeleton.h>
 #include <kglobal.h>
@@ -40,7 +42,6 @@
 
 #include "dictFilePreferenceDialog.h"
 #include "DictQuery.h"  //DictQuery classs
-#include "dictFileEdict.h" //dictFile (superclass) class
 #include "Entry.h"      //Entry and EntryList classes
 #include "EntryList.h"
 

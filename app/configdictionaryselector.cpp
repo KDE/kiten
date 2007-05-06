@@ -20,6 +20,8 @@
  USA
 **/
 
+#include "configdictionaryselector.h"
+
 #include <QtCore/QStringList>
 
 #include <QtGui/QTableWidget>
@@ -27,8 +29,6 @@
 #include <kdebug.h>
 #include <kfiledialog.h>
 #include <kconfigskeleton.h>
-
-#include "configdictionaryselector.h"
 
 
 ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName, 

@@ -16,12 +16,6 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <kdebug.h>
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kconfigskeleton.h>
-#include <QtCore/QString>
-#include <QtCore/QFile>
 
 #include "DictionaryManager.h"
 #include "DictionaryPreferenceDialog.h"
@@ -31,7 +25,14 @@
 
 #include "dictFile.h"
 
-/* Includes to handle various types of dictionaries 
+#include <kdebug.h>
+#include <kglobal.h>
+#include <kconfig.h>
+#include <kconfigskeleton.h>
+#include <QtCore/QString>
+#include <QtCore/QFile>
+
+/* Includes to handle various types of dictionaries
 IMPORTANT: To add a dictionary type, add the header file here and add it to the
  if statement under addDictionary() */
 #include "dictEdict/dictFileEdict.h"
@@ -46,7 +47,7 @@ dictFile *DictionaryManager::makeDictFile(const QString type) {
 	if(type == "kanjidic")
 		return new dictFileKanjidic();
 	//Add new dictionary types here!!!
-	
+
 	return NULL;
 }
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation
@@ -63,12 +64,12 @@ QStringList DictionaryManager::listDictFileTypes() {
 /** Given a named Dict file/name/type... create and add the object if it
   seems to work properly on creation.
   */
-bool DictionaryManager::addDictionary(const QString file, const QString name, 
+bool DictionaryManager::addDictionary(const QString file, const QString name,
 		const QString type) {
-	
+
 	if(dictManagers.contains(name)) //This name already exists in the list!
 		return false;
-	
+
 	dictFile *newDict = makeDictFile(type);
 	if(newDict == NULL)
 		return false;
@@ -98,7 +99,7 @@ DictionaryManager::~DictionaryManager() {
 	}
 }
 
-/** Remove a dictionary from the list, and delete the dictionary object 
+/** Remove a dictionary from the list, and delete the dictionary object
   (it should close files, deallocate memory, etc). */
 bool DictionaryManager::removeDictionary(const QString name) {
 	dictFile *file = dictManagers.take(name);
@@ -141,7 +142,7 @@ QStringList DictionaryManager::listDictionariesOfType(const QString type) const 
   either here or in the dictFile implementations... probably both */
 EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	EntryList *ret=new EntryList();
-	
+
 	//There are two basic modes.... one in which the query
 	//Specifies the dictionary list, one in which it does not
 	QStringList dictsFromQuery = query.getDictionaries();
@@ -169,7 +170,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 }
 
 /** For this case, we let polymorphism do most of the work. We assume that the user wants
-  to pare down the results, so we let the individual entry metching methods run over the 
+  to pare down the results, so we let the individual entry metching methods run over the
   new query and accept (and copy) any of those that pass */
 EntryList *DictionaryManager::doSearchInList(const DictQuery &query, const EntryList *list) const {
 	EntryList *ret = new EntryList();
@@ -228,4 +229,4 @@ DictionaryManager::generateExtendedFieldsList() {
 	}
 	return result;
 }
-		
+

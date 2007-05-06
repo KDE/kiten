@@ -33,18 +33,18 @@ class QByteArray;
 class KRomajiEdit : public KLineEdit
 {
 	Q_OBJECT
-	
+
 	public:
 	KRomajiEdit(QWidget *parent, const char *name);
 	~KRomajiEdit();
 
-	public slots:
+	public Q_SLOTS:
 	void setKana(QAction*);
 
 	protected:
 	void keyPressEvent(QKeyEvent *e);
 	QMenu *createPopupMenu();
-	
+
 	private:
 	QMap<QString, QString> hiragana;
 	QMap<QString, QString> katakana;

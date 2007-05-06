@@ -21,6 +21,8 @@
  USA
 **/
 
+#include "kiten.h"
+
 #include <QtCore/QList>
 #include <QtCore/QPair>
 
@@ -55,7 +57,6 @@
 #include <kurl.h>
 #include <kfiledialog.h>
 
-#include "kiten.h"
 #include "resultsView.h"
 #include "kitenEdit.h"
 #include "wordType.h"

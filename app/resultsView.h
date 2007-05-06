@@ -44,7 +44,7 @@ class ResultView : public KHTMLPart
 	Q_OBJECT
 
 	public:
-		ResultView(QWidget *parent = 0, const char *name = 0);
+		explicit ResultView(QWidget *parent = 0, const char *name = 0);
 
 		void addResult(Entry *result, bool common = false);
 		void addKanjiResult(Entry*, bool common = false);

@@ -4,7 +4,7 @@
 *           Index (.xjdx) generator program fron XJDIC
 *
 *		V2.3 - indexes JIS X 0212 (3-byte EUC) kanji
-*		Copyright: 1998 - Jim Breen - <jwb@csse.monash.edu.au>
+*		Copyright: 1998 Jim Breen <jwb@csse.monash.edu.au>
 ***************************************************************************/
 /*  This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

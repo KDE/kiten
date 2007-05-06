@@ -29,11 +29,11 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget {
 		DictionaryPreferenceDialog(QWidget *parent, const QString &name);
 		virtual ~DictionaryPreferenceDialog();
 		const QString &name() const;
-	public slots:
+	public Q_SLOTS:
 		virtual void updateWidgets() = 0;
 		virtual void updateWidgetsDefault() = 0;
 		virtual void updateSettings() = 0;
-	signals:
+	Q_SIGNALS:
 		void widgetChanged();
 
 	private:

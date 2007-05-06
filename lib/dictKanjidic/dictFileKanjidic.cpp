@@ -19,14 +19,15 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "dictFileKanjidic.h"
+#include "entryKanjidic.h"
+#include "DictQuery.h"  //DictQuery classs
+#include "Entry.h"      //Entry and EntryList classes
+
 #include <kglobal.h>
 #include <kconfigskeleton.h>
-#include <qfile.h>
+#include <QtCore/QFile>
 
-#include "DictQuery.h"  //DictQuery classs
-#include "dictFileKanjidic.h" //dictFile (superclass) class
-#include "Entry.h"      //Entry and EntryList classes
-#include "entryKanjidic.h"
 
 QStringList *dictFileKanjidic::displayFieldsList = NULL;
 QStringList *dictFileKanjidic::displayFieldsFull = NULL;

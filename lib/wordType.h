@@ -26,7 +26,7 @@
 #include <kaction.h>
 #include <kcombobox.h>
 
-#include <QWidget>
+#include <QtGui/QWidget>
 
 class KITEN_EXPORT WordType : public KComboBox
 {

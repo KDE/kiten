@@ -237,7 +237,7 @@ QMultiHash<QString, EntryEDICT::WordType> *EntryEDICT::wordTypesPretty = NULL;
 
 	Note that our File Parser will also expand to general cases, if not included already:
 		For Example: v5aru -> v5aru,v5 (so that a search for "godan" will find it)
-	Also note that the basic edict dictionary does not seperate ikeiyoushi out from the
+	Also note that the basic edict dictionary does not separate ikeiyoushi out from the
 		category "adj", so further breakdown of the "adjective" type would be misleading
 */
 
@@ -247,8 +247,8 @@ const QMultiHash<QString, EntryEDICT::WordType>& EntryEDICT::WordTypesPretty()
 	{
 		QString nounType(i18nc("This must be a single word","noun"));
 		QString verbType(i18nc("This must be a single word","verb"));
-		QString ichidan(i18nc("This is a technical japanese linguist's term... and probably shouldn't be translated, this must be a single word","ichidan"));
-		QString godan(i18nc("This is a technical japanese linguist's term... and probably shouldn't be translated,This must be a single word","godan"));
+		QString ichidan(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","ichidan"));
+		QString godan(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","godan"));
 		QString adjective(i18nc("this must be a single word","adjective"));
 		QString adverb(i18nc("This must be a single word","adverb"));
 		QString particle(i18nc("This must be a single word","particle"));

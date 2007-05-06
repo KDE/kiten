@@ -23,7 +23,7 @@
 #define KITENEDIT_H
 
 #include "libkitenexport.h"
-#include <QSize>
+#include <QtCore/QSize>
 #include <kaction.h>
 #include <khistorycombobox.h>
 #include <kactioncollection.h>

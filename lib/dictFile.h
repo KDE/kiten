@@ -22,9 +22,9 @@
 #include "libkitenexport.h"
 
 #include <QtCore/QMap>
+#include <QtCore/QString>
 
 class QWidget;
-class QString;
 class QStringList;
 
 class Entry;

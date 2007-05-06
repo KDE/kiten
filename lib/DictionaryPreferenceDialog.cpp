@@ -16,9 +16,10 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include <QtCore/QString>
 
 #include "DictionaryPreferenceDialog.h"
+
+#include <QtCore/QString>
 
 DictionaryPreferenceDialog::DictionaryPreferenceDialog(QWidget *parent, const QString &iName) :
 	QWidget(parent), m_name(iName) {

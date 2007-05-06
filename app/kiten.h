@@ -28,10 +28,11 @@
 #include "DictionaryManager.h"
 #include "HistoryPtrList.h"
 
+#include <kxmlguiwindow.h>
+
 class KAction;
 class KitenConfigSkeleton;
-class ConfigureDialog;
-class KitenEdit;
+class ConfigureDialog; class KitenEdit;
 class WordType;
 class KConfig;
 class KGlobalAccel;
@@ -53,7 +54,7 @@ public slots:
 
 		//Constructors and other setup/takedown related methods
 public:
-	kiten(QWidget *parent = 0, const char *name = 0);
+	explicit kiten(QWidget *parent = 0, const char *name = 0);
     ~kiten();
 protected:
 	void setupActions();

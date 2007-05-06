@@ -17,18 +17,19 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <qwidget.h>
-#include <QVBoxLayout>
-#include <qlistwidget.h>
+#include "dictFilePreferenceDialog.h"
+
+#include <QtGui/QWidget>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QListWidget>
+#include <QtGui/QLayout>
+#include <QtGui/QFrame>
+#include <QtCore/QStringList>
+#include <QtCore/QString>
+
 #include <kactionselector.h>
-#include <qlayout.h>
-#include <qstringlist.h>
-#include <qstring.h>
-#include <qframe.h>
 #include <kconfigskeleton.h>
 #include <klocale.h>
-
-#include "dictFilePreferenceDialog.h"
 
 dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig, 
 		const QString &dictionaryTypeName, QWidget *parent) :

@@ -20,16 +20,16 @@
  USA
 **/
 
+#include "configuredialog.h"
+
 #include <klocale.h>
 #include <kconfigdialog.h>
 
-#include <qlayout.h>
-#include <qwidget.h>
-#include <qtabwidget.h>
-#include <qstringlist.h>
-#include <qstring.h>
-
-#include "configuredialog.h"
+#include <QtGui/QLayout>
+#include <QtGui/QWidget>
+#include <QtGui/QTabWidget>
+#include <QtCore/QStringList>
+#include <QtCore/QString>
 
 #include "kitenconfig.h"
 

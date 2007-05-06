@@ -17,13 +17,12 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "radicalfile.h"
+
 #include <QtCore/QString>
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
-
-#include "radicalfile.h"
-
 
 radicalFile::radicalFile(QString &radkfile) {
 	loadRadicalFile(radkfile);

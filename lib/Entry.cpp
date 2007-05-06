@@ -19,18 +19,18 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <k3process.h>
-#include <kstandarddirs.h>
+#include "Entry.h"
+#include "DictQuery.h"
 
 #include <qfileinfo.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
 
-#include "DictQuery.h"
-#include "Entry.h"
+#include <kdebug.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <k3process.h>
+#include <kstandarddirs.h>
 
 #include <iostream>
 #include <cassert>

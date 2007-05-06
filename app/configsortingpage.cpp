@@ -18,6 +18,8 @@
  USA
 **/
 
+#include "configsortingpage.h"
+
 #include <QtCore/QStringList>
 #include <QtCore/QMap>
 #include <QtGui/QCheckBox>
@@ -26,7 +28,6 @@
 #include "DictionaryManager.h"
 
 #include "kitenconfig.h"
-#include "configsortingpage.h"
 
 ConfigSortingPage::ConfigSortingPage(QWidget *parent,KitenConfigSkeleton *iconfig,Qt::WFlags f) :
 		QWidget(parent,f), m_config(iconfig) {

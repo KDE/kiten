@@ -18,6 +18,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include "EntryList.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -30,7 +31,6 @@
 #include <qtextcodec.h>
 
 #include "DictQuery.h"
-#include "EntryList.h"
 #include "Entry.h"
 
 #include <iostream>

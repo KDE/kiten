@@ -32,7 +32,7 @@ class ConfigSortingPage : public QWidget, public Ui::configSorting
 {
 	Q_OBJECT
 public:
-	ConfigSortingPage(QWidget *parent = 0, KitenConfigSkeleton *iconfig=NULL, Qt::WFlags f = 0);
+	explicit ConfigSortingPage(QWidget *parent = 0, KitenConfigSkeleton *iconfig=NULL, Qt::WFlags f = 0);
 
 public slots:	
 	void updateWidgets();
