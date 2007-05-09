@@ -18,19 +18,19 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-
-#include <QtCore/QHash>
-#include <QtCore/QList>
+#include "dictFileDeinflect.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <qtextcodec.h>
-#include <QTextStream>
-#include "dictFileDeinflect.h"
+
+#include <QtCore/QHash>
+#include <QtCore/QList>
+#include <QtCore/QFile>
+#include <QtCore/QRegExp>
+#include <QtCore/QTextCodec>
+#include <QtCore/QTextStream>
 
 //This is a very primative form of information hiding
 //But C++ can get stupid with static QT objects...

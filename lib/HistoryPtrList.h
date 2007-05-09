@@ -23,6 +23,8 @@
 
 #include <QtCore/QList>
 
+#include "libkitenexport.h"
+
 class QStringList;
 class EntryList;
 

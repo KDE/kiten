@@ -17,11 +17,12 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#include "HistoryPtrList.h"
+#include "EntryList.h"
+
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 
-#include "EntryList.h"
-#include "HistoryPtrList.h"
 
 HistoryPtrList::HistoryPtrList():m_index(-1) {
 }
@@ -42,14 +43,14 @@ HistoryPtrList::addItem(EntryList *newItem) {
 		temp->deleteAll();
 		delete temp;
 	}
-	
+
 	//Now... check to make sure our history isn't 'fat'
 	while(count() >= 20) {
 		 temp = this->takeFirst();
 		 temp->deleteAll();
 		 delete temp;
 	}
-	
+
 	//One other odd case... if this query is a repeat of the last query
 	//replace the current one with the new one
 	if(size() > 0) {
@@ -67,12 +68,12 @@ HistoryPtrList::addItem(EntryList *newItem) {
 
 //Get a StringList of the History Items
 QStringList
-HistoryPtrList::toStringList() {	
+HistoryPtrList::toStringList() {
 	QStringList result;
-	
+
 	foreach(EntryList *p, (QList<EntryList*>)(*this))
 		result.append(p->getQuery().toString());
-	
+
 	return result;
 }
 
@@ -89,11 +90,11 @@ HistoryPtrList::toStringListPrev() {
 QStringList
 HistoryPtrList::toStringListNext() {
 	HistoryPtrList localCopy(*this);
-	
+
 	int currentPosition = m_index + 1;
 	while(currentPosition--)
 		localCopy.removeFirst();
-	
+
 	return localCopy.toStringList();
 }
 

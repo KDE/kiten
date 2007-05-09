@@ -18,6 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "kromajiedit.h"
+
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
@@ -32,8 +34,6 @@
 #include <QtGui/QAction>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMenu>
-
-#include "kromajiedit.h"
 
 KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 	: KLineEdit(name, parent) //KDE4 CHANGE

@@ -21,16 +21,18 @@
  USA
 **/
 
+#include "resultsView.h"
+#include "kitenconfig.h"
+
 /* Needed by ResultView only */
-#include <qapplication.h>
+#include <QtGui/QApplication>
+#include <QtGui/QPainter>
+
 #include <kconfig.h>
 #include <kmenu.h>
 #include <kactionmenu.h>
 #include <kprinter.h>
-#include <qpainter.h>
-#include "kitenconfig.h"
 #include <klocale.h>
-#include "resultsView.h"
 #include <kactioncollection.h>
 
 /* TODO: make this a KHTML thing instead of a KTextBrowser? */
