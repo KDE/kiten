@@ -44,7 +44,8 @@
 radselectButtonGrid::radselectButtonGrid(QWidget *parent, radicalFile *iradicalInfo)
     : QWidget(parent), m_currentMode(kSelection), m_radicalInfo(iradicalInfo)
 {
-    buildRadicalButtons(this);
+    if (m_radicalInfo)
+        buildRadicalButtons(this);
 }
 
 radselectButtonGrid::~radselectButtonGrid() {
@@ -131,6 +132,9 @@ void radselectButtonGrid::radicalClicked(const QString &newrad,
 }
 
 void radselectButtonGrid::updateButtons() {
+        if (!m_radicalInfo) {
+            return;
+        }
 	//Special Case/Early exit: no radicals selected
 	if(m_selectedRadicals.isEmpty()) {
 		QList<Kanji> blankList;

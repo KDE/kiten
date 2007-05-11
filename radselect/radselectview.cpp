@@ -45,7 +45,7 @@
 radselectView::radselectView(QWidget *parent) : QWidget(parent)
 {
 	setupUi(this);	//Setup the ui from the .ui file
-
+        radicalInfo = 0L;
 	//Load the radical information
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString radkfilename = dirs->findResource("data", "kiten/radkfile");
@@ -89,6 +89,7 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 
 radselectView::~radselectView()
 {
+    delete radicalInfo;
 }
 
 void
