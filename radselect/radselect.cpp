@@ -101,13 +101,7 @@ void radselect::setupActions()
     QAction *KitenEditAction =actionCollection()->addAction( "KitenEditWidget" );
     qobject_cast<KAction*>( KitenEditAction )->setDefaultWidget(Edit);
 
-    QAction *kac = actionCollection()->addAction( "clear_search" );
-    kac->setText(  i18n("&Clear Search Bar") );
-    kac->setIcon( KIcon(BarIcon("locationbar-erase",16)) );
-    connect( kac, SIGNAL(triggered()), Edit, SLOT(clear()) );
-    qobject_cast<KAction*>(kac )->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_N));
-
-    kac =actionCollection()->addAction( "search" );
+    QAction *kac =actionCollection()->addAction( "search" );
     kac->setText( i18n("S&earch") );
     kac->setIcon( KIcon("browser-go") );
     connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
@@ -118,8 +112,7 @@ void radselect::setupActions()
     showAll->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_S));
     connect( showAll, SIGNAL(triggered()), this, SLOT(showFullSearchString()) );
 
-    (void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()),
-													  actionCollection());
+    (void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
     statusBar()->show();
 
