@@ -122,7 +122,7 @@ private:
 	KAction *forwardAction;
 
 	//TODO: this should probably be a standardaction
-	KAction *globalShortcutsAction; 
+	QAction *globalShortcutsAction; 
 
 	//ResultView *detachedView;
 	KAction *globalSearchAction;

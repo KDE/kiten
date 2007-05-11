@@ -223,7 +223,7 @@ void kiten::setupActions() {
 	(void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
 	//TODO: this should probably be a standardaction
-	globalShortcutsAction = actionCollection()->add<KToggleAction>("options_configure_global_keybinding");
+	globalShortcutsAction = actionCollection()->addAction("options_configure_global_keybinding");
         globalShortcutsAction->setText(i18n("Configure &Global Shortcuts..."));
 	connect(globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()));
 
