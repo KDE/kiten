@@ -39,11 +39,11 @@ class /* NO_EXPORT */ EntryEDICT : public Entry {
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;
 
-		virtual inline QString HTMLWord() const;
-		virtual inline QString Common() const;
+		virtual QString HTMLWord() const;
+		virtual QString Common() const;
 
 	protected:
-		virtual inline QString kanjiLinkify(const QString &) const;
+		virtual QString kanjiLinkify(const QString &) const;
 
 		/* EDICT supports the following word types */
 		enum WordType

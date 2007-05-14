@@ -86,7 +86,7 @@ bool EntryKanjidic::matchesQuery(const DictQuery &query) const {
 }
 
 /** Prepares Readings for output as HTML */
-inline QString EntryKanjidic::HTMLReadings() const
+QString EntryKanjidic::HTMLReadings() const
 {
 	QString htmlReadings;
 	foreach(const QString &it,Readings) //KDE4 CHANGE
@@ -108,11 +108,11 @@ inline QString EntryKanjidic::HTMLReadings() const
 		+ "</span>";
 }
 
-inline QString EntryKanjidic::HTMLWord() const {
+QString EntryKanjidic::HTMLWord() const {
 	return "<span class=\"Word\">" + makeLink(Word) + "</span>";
 }
 
-inline QString EntryKanjidic::HTMLExtendedInfo(const QString &field) const {
+QString EntryKanjidic::HTMLExtendedInfo(const QString &field) const {
 	kDebug() << field <<endl;
 	return "<span class=\"ExtendedInfo\">" + field + ": "+ExtendedInfo[field]+"</span>";
 }

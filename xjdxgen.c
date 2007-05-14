@@ -34,7 +34,6 @@
 	*/
 
 #include <config-kiten.h>
-#include <inttypes.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -45,7 +44,9 @@
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
 #endif
-
+#ifdef HAVE_INTTYPES_H
+#include <inttypes.h>
+#endif
 
 #define TRUE 1
 #define FALSE 0

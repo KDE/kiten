@@ -41,9 +41,9 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 		virtual QString dumpEntry() const;
 
 	protected:
-		virtual inline QString HTMLReadings() const;
-		virtual inline QString HTMLWord() const;
-		virtual inline QString HTMLExtendedInfo(const QString &field) const;
+		virtual QString HTMLReadings() const;
+		virtual QString HTMLWord() const;
+		virtual QString HTMLExtendedInfo(const QString &field) const;
 		virtual QString makeReadingLink(const QString&) const;
 };
 

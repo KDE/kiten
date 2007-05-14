@@ -22,16 +22,19 @@
 #ifndef __DICTFILEEDICT_H_
 #define __DICTFILEEDICT_H_
 
+#include <config-kiten.h>
+
 #include "dictFile.h"
 
 #include <sys/types.h>
 #include <QtCore/QFile>
 #include <QtCore/QMap>
-#ifdef __osf__
+// why not use Qt types here??
+#ifdef HAVE_INTTYPES_H
+#include <inttypes.h>
+#else
 typedef unsigned int uint32_t;
 typedef int int32_t;
-#else
-#include <inttypes.h>
 #endif
 
 class QString;

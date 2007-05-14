@@ -67,7 +67,7 @@ public:
 	/** If you want your own dialog to pick preferences for your dict...
 	  override this */
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL)
-				{if(parent==parent && config==config) return NULL;}
+				{if(parent==parent && config==config) return NULL; return NULL;}
 	/** Load information from the KConfigSkeleton that you've setup in
 	  the above preferences widget. */
 	virtual void loadSettings(KConfigSkeleton*) {}

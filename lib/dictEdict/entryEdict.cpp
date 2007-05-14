@@ -48,7 +48,7 @@ QString EntryEDICT::toHTML(printType printDirective) const
 
 
 /** Makes a link out of each kanji in @p inString */
-inline QString EntryEDICT::kanjiLinkify(const QString &inString) const
+QString EntryEDICT::kanjiLinkify(const QString &inString) const
 {
 	QString outString;
 	int i;
@@ -68,13 +68,13 @@ inline QString EntryEDICT::kanjiLinkify(const QString &inString) const
 	return outString;
 }
 
-inline QString EntryEDICT::HTMLWord() const {
+QString EntryEDICT::HTMLWord() const {
 	return "<span class=\"Word\">"+
 		( Word.isEmpty()?kanjiLinkify(Meanings.first()):kanjiLinkify(Word) ) +
 		"</span>";
 }
 
-inline QString EntryEDICT::Common() const
+QString EntryEDICT::Common() const
 {
 	if (common)
 		return "<span>Common</span>";
@@ -139,7 +139,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 }
 
 /** Regenerate a QString like the one we got in loadEntry() */
-inline QString EntryEDICT::dumpEntry() const
+QString EntryEDICT::dumpEntry() const
 {
 	return Word +
 		((Readings.count() == 0) ? " " : " [" + Readings.first() + "] ")
