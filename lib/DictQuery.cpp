@@ -387,7 +387,7 @@ QStringList DictQuery::getDictionaries() const {
 	return targetDictionaries;
 }
 
-void DictQuery::setDictionaries(const QStringList newDictionaries) {
+void DictQuery::setDictionaries(const QStringList &newDictionaries) {
 	targetDictionaries = newDictionaries;
 }
 

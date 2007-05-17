@@ -38,18 +38,18 @@ class dictFile;
 class DictQuery;
 class DictionaryPreferenceDialog;
 
-/** @short The DictionaryManager class is the fundamental dictionary management class. All 
+/** @short The DictionaryManager class is the fundamental dictionary management class. All
  * interfaces with the rest of the programs using the various dictionaries will
- * work through this "interface class" to keep the formatting and other such 
- * nasty details away from programs and sections which just want to use the 
- * dictionary without bothering with the internal formatting details. As a 
- * general rule, call this class with a DictQuery to get a list of 
- * entries as the result. 
+ * work through this "interface class" to keep the formatting and other such
+ * nasty details away from programs and sections which just want to use the
+ * dictionary without bothering with the internal formatting details. As a
+ * general rule, call this class with a DictQuery to get a list of
+ * entries as the result.
  *
- * The idea is that the interfaces need to know how to load a query, pass the 
- * query to dictionary.	DictionaryManager will return to them an EntryList object, 
- * each Entry knows how to display itself (via the magic of C++ polymorphism). 
- * There are some setup and preference handling methods which complicate 
+ * The idea is that the interfaces need to know how to load a query, pass the
+ * query to dictionary.	DictionaryManager will return to them an EntryList object,
+ * each Entry knows how to display itself (via the magic of C++ polymorphism).
+ * There are some setup and preference handling methods which complicate
  * things, but generally speaking this is the way this should work.
  */
 
@@ -58,20 +58,20 @@ class KITEN_EXPORT DictionaryManager {
 	DictionaryManager();
 	virtual ~DictionaryManager();
 
-	bool addDictionary(const QString file,const QString name,const QString type);
-	bool removeDictionary(const QString name);
+	bool addDictionary(const QString &file,const QString &name,const QString &type);
+	bool removeDictionary(const QString &name);
 	//List names of each open dict
 	QStringList listDictionaries() const;
 	//Returns type and file
-	QPair<QString, QString> listDictionaryInfo(const QString name) const;
+	QPair<QString, QString> listDictionaryInfo(const QString &name) const;
 	//Convenience function for prefs
-	QStringList listDictionariesOfType(const QString type) const;
+	QStringList listDictionariesOfType(const QString &type) const;
 	//This is the main search routine that most of kiten should use
 	EntryList *doSearch(const DictQuery &query) const;
 	//This is used to search in results
 	EntryList *doSearchInList(const DictQuery &query, const EntryList *list) const;
 	//Static methods to handle adding modules to the system in an easier way
-	static dictFile *makeDictFile(const QString);
+	static dictFile *makeDictFile(const QString&);
 	//Mostly required for the Preferences system
 	static QStringList listDictFileTypes();
 	//Generate the Preference widgets
@@ -80,7 +80,7 @@ class KITEN_EXPORT DictionaryManager {
 	//Generate a list of all of the extended fields
 	static QMap<QString,QString> generateExtendedFieldsList();
 	//Used to trigger reloading the display settings for a particular dictionary
-	void loadDictSettings(QString dict, KConfigSkeleton*);
+	void loadDictSettings(const QString &dict, KConfigSkeleton*);
 	//Used to load general settings related to output
 	void loadSettings(const KConfig&);
 

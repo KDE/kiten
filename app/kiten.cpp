@@ -335,14 +335,14 @@ void kiten::searchFromEdit()
 /** This function is called when a kanji is clicked in the result view
 	or any other time in which we want to search for something that didn't
 	come from the input box  */
-void kiten::searchText(const QString text)
+void kiten::searchText(const QString &text)
 {
 	searchAndDisplay(DictQuery(text));
 }
 
 /** This should change the Edit text to be appropriate and then begin a search
 	of the dictionaries' entries. */
-void kiten::searchTextAndRaise(const QString str)
+void kiten::searchTextAndRaise(const QString &str)
 {
 	/* Do the search */
 	searchText(str);
@@ -537,7 +537,7 @@ void kiten::updateConfiguration()
 
 /** This function loads the dictionaries from the config file for the program
   to use via the dictionaryManager object */
-void kiten::loadDictConfig(const QString dictType)
+void kiten::loadDictConfig(const QString &dictType)
 {
 	KStandardDirs *dirs = KGlobal::dirs();
 	KConfigGroup group = config->config()->group("dicts_"+dictType.toLower());

@@ -20,6 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
  USA
 **/
+
 #ifndef KITEN_H
 #define KITEN_H
 
@@ -49,7 +50,7 @@ class kiten : public KXmlGuiWindow {
 
 	// The following will be available via dbus.
 public slots:
-	void searchTextAndRaise(const QString);
+	void searchTextAndRaise(const QString&);
 	void addExportListEntry(int index);
 
 		//Constructors and other setup/takedown related methods
@@ -68,7 +69,7 @@ private slots:
 
 		//Searching related methods
 	void searchFromEdit();
-	void searchText(const QString);
+	void searchText(const QString&);
 	void searchClipboard();
 	void getOptionsFromGui(DictQuery&);
 	void searchAndDisplay(const DictQuery&);
@@ -84,7 +85,7 @@ private slots:
 	void configureGlobalKeys();
 	void newToolBarConfig();
 	void updateConfiguration();
-	void loadDictConfig(const QString); 
+	void loadDictConfig(const QString&); 
 
 		//Other
 	void print();

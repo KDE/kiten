@@ -83,9 +83,9 @@ class QChar;
 	* @author Joseph Kerian \<jkerian@gmail.com>
 	*/
 
-typedef QHash<QString,QString> __stupid_stub_DictQuery_type;
+typedef QHash<QString,QString> _stupid_stub_DictQuery_type;
 
-class KITEN_EXPORT DictQuery : protected __stupid_stub_DictQuery_type
+class KITEN_EXPORT DictQuery : protected _stupid_stub_DictQuery_type
 {
 public:
    /**
@@ -164,10 +164,10 @@ public:
 	  */
 	const QString toString() const;
 	/**
-	  * This is an inline converstion to a QString... useful in a surpring
+	  * This is a converstion to a QString... useful in a surpring
 	  * number of cases
 	  */
-	inline operator QString() const { return toString(); }
+	operator QString() const { return toString(); }
 
 	/**
 	  * Get a QList containing each property:value pair.
@@ -213,7 +213,7 @@ public:
 	  * Set the list of dictionaries to search. This will be read and used
 	  * by the dictionary manager.
 	  */
-	void setDictionaries(const QStringList);
+	void setDictionaries(const QStringList&);
 
 	/**
 	  * Accessor for the non-japanese meaning field
@@ -251,23 +251,23 @@ public:
 	/**
 	  * Convenient override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator==(const QString&, const DictQuery&);
+	friend bool operator==(const QString&, const DictQuery&);
 	/**
 	  * Convenient override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator==(const DictQuery&, const QString&);
+	friend bool operator==(const DictQuery&, const QString&);
 	/**
 	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator!=(const DictQuery&, const DictQuery&);
+	friend bool operator!=(const DictQuery&, const DictQuery&);
 	/**
 	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator!=(const QString&, const DictQuery&);
+	friend bool operator!=(const QString&, const DictQuery&);
 	/**
 	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend inline bool operator!=(const DictQuery&, const QString&);
+	friend bool operator!=(const DictQuery&, const QString&);
 
 	/**
 	  * Set-wise strictly less than. A better way to think of this
@@ -277,16 +277,16 @@ public:
 	/**
 	  * Convenient inverted override of operator<(DictQuery,DictQuery)
 	  */
-	friend inline bool operator>(const DictQuery&, const DictQuery&);
+	friend bool operator>(const DictQuery&, const DictQuery&);
 	/**
 	  * Convenient override of operator<(DictQuery,DictQuery) and operator==
 	  */
-	friend inline bool operator<=(const DictQuery&, const DictQuery&);
+	friend bool operator<=(const DictQuery&, const DictQuery&);
 	/**
 	  * Convenient inverted override of operator<(DictQuery,DictQuery) and
 	  * operator==
 	  */
-	friend inline bool operator>=(const DictQuery&, const DictQuery&);
+	friend bool operator>=(const DictQuery&, const DictQuery&);
 
 	/**
 	  * This will append the properties and other elements of the added kanji

@@ -74,7 +74,7 @@ private:
 	QHash<QString, Kanji> m_kanji;
 
 public:
-	radicalFile(QString &radkfile);
+	explicit radicalFile(QString &radkfile);
 	bool loadRadicalFile(QString &radkfile);
 
 	QMultiMap<int,Radical> *mapRadicalsByStrokes() const;

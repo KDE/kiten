@@ -78,7 +78,7 @@ public:
 	QString getReadings() const {return Readings.join(outputListDelimiter);}
 	QStringList getReadingsList() const { return Readings; }
 	QHash<QString,QString> getExtendedInfo() const { return ExtendedInfo; }
-	QString getExtendedInfoItem(const QString x) const { return ExtendedInfo[x]; }
+	QString getExtendedInfoItem(const QString &x) const { return ExtendedInfo[x]; }
 
 	/* An entry should be able to generate a representation of itself in (valid)
 		HTML */
@@ -102,7 +102,7 @@ public:
 	/* This is needed for sorting */
 	virtual bool sort(const Entry &, const QStringList &dictionaryList,
 			const QStringList &fieldList) const;
-	virtual bool sortByField(const Entry &that, const QString field) const;
+	virtual bool sortByField(const Entry &that, const QString &field) const;
 
 protected:
 	// The actual data of this entry
@@ -119,15 +119,15 @@ protected:
 	void init();
 
 	/* New functions for Entry doing direct display */
-	virtual QString makeLink(const QChar) const;
-	virtual QString makeLink(const QString) const;
+	virtual QString makeLink(const QChar&) const;
+	virtual QString makeLink(const QString&) const;
 	virtual QString HTMLWord() const;
 	virtual QString HTMLReadings() const;
 	virtual QString HTMLMeanings() const;
 
 	/* Handy Utility functions for matching to lists and identifying char types */
 	bool listMatch(const QString&,const QStringList&) const;
-	bool isKanji(const QChar) const;
+	bool isKanji(const QChar&) const;
 };
 
 

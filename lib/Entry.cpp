@@ -156,19 +156,19 @@ Entry::printType Entry::getFavoredPrintType() const {
 
 /* New functions for Entry doing direct display */
 /** Creates a one character link for the given @p entryCharacter. */
-inline QString Entry::makeLink(const QChar entryCharacter) const
+inline QString Entry::makeLink(const QChar &entryCharacter) const
 {
 	return makeLink(QString(entryCharacter));
 }
 
 /** Creates a link for the given @p entryString. */
-inline QString Entry::makeLink(const QString entryString) const
+inline QString Entry::makeLink(const QString &entryString) const
 {
 	return "<a href=\"" + entryString + "\">" + entryString + "</a>";
 }
 
 /** Determines whether @p characeter is a kanji character. */
-bool Entry::isKanji(const QChar character) const
+bool Entry::isKanji(const QChar &character) const
 {
 	ushort value = character.unicode();
 	if(value < 255) return false;
@@ -289,7 +289,7 @@ bool Entry::sort(const Entry &that, const QStringList &dictOrder,
 	return false; //If we reach here, they match as much as possible
 }
 
-bool Entry::sortByField(const Entry &that, const QString field) const {
+bool Entry::sortByField(const Entry &that, const QString &field) const {
 	return this->getExtendedInfoItem(field) < that.getExtendedInfoItem(field);
 }
 
