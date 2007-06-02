@@ -29,7 +29,6 @@
 
 class QTabWidget;
 class KConfigSkeleton;
-class KListView;
 class QString;
 class QWidget;
 
