@@ -24,7 +24,6 @@
 #include "entry.h"
 
 class QString;
-class dictQuery;
 
 class /* NO_EXPORT */ entryDeinflect : public Entry {
 

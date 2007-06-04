@@ -25,7 +25,6 @@
 #include <QStringList>
 
 class QString;
-class DictQuery;
 
 class /* NO_EXPORT */ EntryEDICT : public Entry {
 	public:

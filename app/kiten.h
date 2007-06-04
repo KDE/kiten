@@ -35,7 +35,6 @@ class KAction;
 class KitenConfigSkeleton;
 class ConfigureDialog; class KitenEdit;
 class WordType;
-class KConfig;
 class KGlobalAccel;
 class KStatusBar;
 class KSystemTrayIcon;

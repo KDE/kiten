@@ -32,7 +32,6 @@
 class Entry;
 class EntryList;
 class QString;
-class dictFile;
 
 class KITEN_EXPORT Entry {
 

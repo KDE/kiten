@@ -32,7 +32,6 @@
 #include <khtml_part.h>
 #include <khtmlview.h>
 
-class KStatusBar;
 class KActionMenu;
 class KActionCollection;
 

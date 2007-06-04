@@ -30,8 +30,6 @@ class QString;
 class KConfigSkeleton;
 
 class Entry;
-class EntryList;
-class DictionaryPreferenceDialog;
 
 class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 	public:

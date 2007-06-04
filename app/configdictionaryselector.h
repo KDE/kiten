@@ -27,7 +27,6 @@
 
 #include "ui_configdictselect.h" //From the UI file
 
-class QTabWidget;
 class KConfigSkeleton;
 class QString;
 class QWidget;
