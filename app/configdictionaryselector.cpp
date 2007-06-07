@@ -117,7 +117,7 @@ void ConfigDictionarySelector::addDictSLOT() {
 	
 	QString filename = KFileDialog::getOpenFileName(
 			item? QFileInfo(item->text(1)).absolutePath().append("/") 
-			: QString::null );
+			: QString() );
 	QString name = QFileInfo(filename).fileName();
 	if(filename.isNull())
 		return;

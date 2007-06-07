@@ -288,7 +288,7 @@ void kiten::finishInit()
 
 //	Edit->Completion()->clear(); // make sure the edit is focused initially
 	StatusBar->showMessage(i18n("Welcome to Kiten"));
-	setCaption(QString::null);
+	setCaption(QString());
 }
 
 
