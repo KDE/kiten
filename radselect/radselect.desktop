@@ -8,6 +8,7 @@ Type=Application
 DocPath=radselect/radselect.html
 Comment=A helper program for kiten
 Comment[el]=Ένα βοηθητικό πρόγραμμα του kiten
+Comment[ja]=Kiten のヘルパープログラム
 Comment[sv]=Ett hjälpprogram för Kiten
 Comment[x-test]=xxA helper program for kitenxx
 Terminal=false
