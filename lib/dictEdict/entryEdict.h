@@ -22,7 +22,6 @@
 #define ENTRYEDICT_H_
 
 #include "Entry.h"
-#include <QStringList>
 
 class QString;
 
