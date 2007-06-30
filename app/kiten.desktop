@@ -2,7 +2,6 @@
 Encoding=UTF-8
 GenericName=Japanese Reference/Study Tool
 GenericName[af]=Japanese Verwysings/Leerder
-GenericName[ar]=مرجع اللغة اليابانية
 GenericName[be]=Праграма для паўтарэння/вывучэння японскай мовы
 GenericName[ca]=Eina de referència i estudi del japonès
 GenericName[cs]=Japonský referenční/výukový nástroj
@@ -83,7 +82,6 @@ DocPath=kiten/index.html
 Exec=kiten -caption "%c" %i
 Name=Kiten
 Name[af]=Katjie
-Name[ar]=كيتن
 Name[ne]=किटिन
 Name[ta]=கிட்டன்
 Name[tg]=Китен
