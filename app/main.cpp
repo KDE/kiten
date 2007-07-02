@@ -33,26 +33,22 @@ void noMessageOutput(QtMsgType, const char *)
 {
 }
 
-static KCmdLineOptions options[] =
-{
-	KCmdLineLastOption
-	// INSERT YOUR COMMANDLINE OPTIONS HERE
-};
-
 int main(int argc, char *argv[])
 {
 	qInstallMsgHandler(noMessageOutput);
-	KAboutData aboutData( "kiten", "Kiten",
-	  "1.2", "Japanese Reference Tool", KAboutData::License_GPL,
-	  "(c) 2001-2004, Jason Katz-Brown", 0, "http://www.katzbrown.com/kiten");
+	KAboutData aboutData( "kiten", 0, ki18n("Kiten"),
+	  "1.2", ki18n("Japanese Reference Tool"), KAboutData::License_GPL,
+	  ki18n("(c) 2001-2004, Jason Katz-Brown"), KLocalizedString(), "http://www.katzbrown.com/kiten");
 	aboutData.setOrganizationDomain("kde.org"); //Stupid defaults (this is for the DBuS ID)
 /* KDE4 CHANGE
-	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("Original author"), "jason@katzbrown.com");
-	aboutData.addCredit("Jim Breen", I18N_NOOP("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
-	aboutData.addAuthor("Neil Stevens", I18N_NOOP("Code simplification, UI suggestions."), "neil@qualityassistant.com");
-	aboutData.addCredit("David Vignoni", I18N_NOOP("svg icon"), "david80v@tin.it");
-	aboutData.addCredit("Paul Temple", I18N_NOOP("Porting to KConfig XT, bug fixing"), "paul.temple@gmx.net"); */
+	aboutData.addAuthor(ki18n("Jason Katz-Brown"), ki18n("Original author"), "jason@katzbrown.com");
+	aboutData.addCredit(ki18n("Jim Breen"), ki18n("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au");
+	aboutData.addAuthor(ki18n("Neil Stevens"), ki18n("Code simplification, UI suggestions."), "neil@qualityassistant.com");
+	aboutData.addCredit(ki18n("David Vignoni"), ki18n("svg icon"), "david80v@tin.it");
+	aboutData.addCredit(ki18n("Paul Temple"), ki18n("Porting to KConfig XT, bug fixing"), "paul.temple@gmx.net"); */
 	KCmdLineArgs::init(argc, argv, &aboutData);
+
+	KCmdLineOptions options;
 	KCmdLineArgs::addCmdLineOptions(options); // Add our own options.
 
 	KApplication a;

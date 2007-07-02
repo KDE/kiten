@@ -28,21 +28,18 @@
 static const char description[] = I18N_NOOP("A KDE Application");
 static const char version[] = "0.1";
 
-static KCmdLineOptions options[] =
-{
-	{ "+[Search_String]", I18N_NOOP( "Initial Search String from Kiten" ), 0 },
-	KCmdLineLastOption
-};
-
 int main(int argc, char **argv)
 {
-	KAboutData about("kitenradselect", I18N_NOOP("kitenradselect"), version,
-			description, KAboutData::License_GPL,
-			"(C) 2005 Joseph Kerian", 0, 0, "jkerian@gmail.com");
-	about.addAuthor( "Joseph Kerian", 0, "jkerian@gmail.com" );
+	KAboutData about("kitenradselect", 0, ki18n("kitenradselect"), version,
+			ki18n(description), KAboutData::License_GPL,
+			ki18n("(C) 2005 Joseph Kerian"), KLocalizedString(), 0, "jkerian@gmail.com");
+	about.addAuthor( ki18n("Joseph Kerian"), KLocalizedString(), "jkerian@gmail.com" );
 	about.setOrganizationDomain("kde.org"); //For DBus domain
 
 	KCmdLineArgs::init(argc, argv, &about);
+
+	KCmdLineOptions options;
+	options.add("+[Search_String]", ki18n( "Initial Search String from Kiten" ));
 	KCmdLineArgs::addCmdLineOptions(options);
 	KApplication app;
 
