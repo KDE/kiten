@@ -23,7 +23,6 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <k3process.h>
 #include <kstandarddirs.h>
 
 #include <qfileinfo.h>
