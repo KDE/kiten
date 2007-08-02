@@ -141,7 +141,7 @@ void kiten::saveAs()
 	file.open(QIODevice::WriteOnly);
 	if (!file.isOpen())
 	{
-		kDebug() << "ERROR: File not opened properly" << endl;
+		kDebug() << "ERROR: File not opened properly";
 		return;
 	}
 	EntryListModel *model = qobject_cast<EntryListModel*>(exportList->model());

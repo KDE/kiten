@@ -75,12 +75,12 @@ bool DictionaryManager::addDictionary(const QString &file, const QString &name,
 		return false;
 
 	if(!newDict->loadDictionary(file,name)) {
-		kDebug() << "Dictionary load FAILED: " << newDict->getName() << endl;
+		kDebug() << "Dictionary load FAILED: " << newDict->getName();
 		delete newDict;
 		return false;
 	}
 
-	kDebug() << "Dictionary Loaded : " << newDict->getName() << endl;
+	kDebug() << "Dictionary Loaded : " << newDict->getName();
 	dictManagers.insert(name,newDict);
 	return true;
 }
@@ -164,8 +164,8 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	}
 
 	ret->setQuery(query); //Store the query for later use.
-	kDebug() << "From query: '" << query.toString() << "'"<< endl;
-	kDebug() << "Found " << ret->count() << " results"<<endl;
+	kDebug() << "From query: '" << query.toString() << "'";
+	kDebug() << "Found " << ret->count() << " results";
 	return ret;
 }
 

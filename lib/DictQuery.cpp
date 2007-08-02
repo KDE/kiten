@@ -41,7 +41,7 @@ DictQuery::DictQuery() : QHash<QString,QString>()
 }
 
 DictQuery::DictQuery(const QString& str) : QHash<QString,QString>() {
-	kDebug() << "DictQuery Constructor: " << str << endl;
+	kDebug() << "DictQuery Constructor: " << str;
 	init();
 	this->operator=((QString)str);
 }

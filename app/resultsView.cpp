@@ -157,7 +157,7 @@ void ResultView::urlSelected(const QString & 	url,
 		const QString & 	_target,
 		KParts::URLArgs 	args )
 {
-	kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML() << endl;
+	kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
 	emit urlClicked(url);
 }
 
@@ -223,7 +223,7 @@ void ResultView::openPopupMenu( const QString& url, const QPoint& point )
 
 	} else
 	{
-		kDebug() << "No menu action clicked." << endl;
+		kDebug() << "No menu action clicked.";
 	}
 
 }

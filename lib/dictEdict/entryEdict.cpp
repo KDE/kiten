@@ -40,7 +40,7 @@ QString EntryEDICT::toHTML(printType printDirective) const
 		else if(field == "Meaning")		result += HTMLMeanings()+' ';
 		else if(field == "Reading")		result += HTMLReadings()+' ';
 		else if(field == "C")			result += Common();
-		else kDebug() << "Unknown field: " << field << endl;
+		else kDebug() << "Unknown field: " << field;
 	}
 	result += "</div>";
 	return result;
@@ -93,7 +93,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 	/* EDICT requires at least two '/' marks and a ' ' */
 	if(entryLine.count("/") < 2 || entryLine.at(0)==' ') //KDE4 CHANGE
 	{
-//		kDebug() << "EDICT Parser received bad data! : "<<entryLine<<endl;
+//		kDebug() << "EDICT Parser received bad data! : "<<entryLine;
 		return false;
 	}
 

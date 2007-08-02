@@ -53,10 +53,10 @@ Entry::Entry(const QString &sourceDictionary,const QString &parseMe)
 	: sourceDict(sourceDictionary)
 {
 	init();
-	kDebug() << "ERROR: This method should not have been called. If the"<<endl<<
+	kDebug() << "ERROR: This method should not have been called. If the"<<
 		"\tsubclass of Entry did have a(QString dict,QString parseString)"<<endl<<
 		"\tconstructor, you need to call Entry(dict) instead for init."<<endl;
-	kDebug() << "You tried to create this obj: "<<parseMe<<endl;
+	kDebug() << "You tried to create this obj: "<<parseMe;
 }
 
 Entry::Entry(const QString &sourceDictionary, const QString &word,

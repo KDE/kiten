@@ -186,7 +186,7 @@ bool dictFileEdict::loadDictionary(const QString &fileName, const QString &dictN
 	}
 	//If we reach here... we opened the index file but one of the checks failed
 	indexFile.close();
-	kDebug() << "Opening dictionary failure" <<endl;
+	kDebug() << "Opening dictionary failure";
 	return loadNewDictionary(fileName,dictName);
 }
 
@@ -267,7 +267,7 @@ bool dictFileEdict::loadNewDictionary(const QString &fileName, const QString &di
  them using the rest of the query with the validate method.
  */
 EntryList *dictFileEdict::doSearch(const DictQuery &query) {
-	kDebug()<< "Search from : " << getName() << endl;
+	kDebug()<< "Search from : " << getName();
 	if(query.isEmpty() || !valid)	//No query or dict, no results.
 		return new EntryList();
 

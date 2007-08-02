@@ -33,7 +33,7 @@ QString EntryKanjidic::toHTML(printType printDirective) const
 	QString result="<div class=\"KanjidicBrief\">";
 
 	foreach(const QString &field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
-		kDebug() << "Display: "<<field <<endl;
+		kDebug() << "Display: "<<field;
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
 		else if(field == "Meaning")		result += HTMLMeanings()+' ';
@@ -68,8 +68,8 @@ bool EntryKanjidic::matchesQuery(const DictQuery &query) const {
 
 	QString readingsCopy = Readings.join(" ");
 	readingsCopy = readingsCopy.remove(".").remove("-");
-	kDebug() << readingsCopy << endl;
-	kDebug() << query.getPronunciation() << endl;
+	kDebug() << readingsCopy;
+	kDebug() << query.getPronunciation();
 	if(!query.getPronunciation().isEmpty())
 		if(!listMatch(readingsCopy,
 					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
@@ -113,7 +113,7 @@ QString EntryKanjidic::HTMLWord() const {
 }
 
 QString EntryKanjidic::HTMLExtendedInfo(const QString &field) const {
-	kDebug() << field <<endl;
+	kDebug() << field;
 	return "<span class=\"ExtendedInfo\">" + field + ": "+ExtendedInfo[field]+"</span>";
 }
 
@@ -163,7 +163,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 		} \
 	}	\
 
-//	kDebug() << "LOADSTRING: '" << stringToLoad << "'" << endl;
+//	kDebug() << "LOADSTRING: '" << stringToLoad << "'";
 
 	/* we can start looping at 8 because we have guarantees about the initial
 		data.  This loop is used because the kanjidic format allows the data
@@ -296,7 +296,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 					ichar = entryLine.at(i);
 				}
 				INCI
-//				kDebug() << "Meaning's curString: '" << curString << "'" << endl;
+//				kDebug() << "Meaning's curString: '" << curString << "'";
 				Meanings.append(curString);
 				break;
 			case 'T':
@@ -309,7 +309,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				break;
 			default:
 				/* either a character we don't address or a problem...we should ignore it */
-//				kDebug() << "hit default in kanji parser.  Unicode: '" << ichar.unicode() << "'" << endl;
+//				kDebug() << "hit default in kanji parser.  Unicode: '" << ichar.unicode() << "'";
 
 				/* This should detect unicode kana */
 				if(0x3040 <= ichar.unicode() && ichar.unicode() <= 0x309F)

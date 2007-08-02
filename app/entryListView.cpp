@@ -99,7 +99,7 @@ int EntryListModel::columnCount( const QModelIndex & parent ) const
 
 QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
 {
-	//kDebug() << "Retrieving data at line" << index.row() << endl;
+	//kDebug() << "Retrieving data at line" << index.row();
 	switch (role)
 	{
 		/* DisplayRole and EditRole have the same output */
