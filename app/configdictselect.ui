@@ -26,9 +26,6 @@
               <property name="text" >
                 <string>Use prei&amp;nstalled dict</string>
               </property>
-              <property name="shortcut" >
-                <string>Alt+N</string>
-              </property>
             </widget>
           </item>
           <item>
@@ -89,9 +86,6 @@
                 <widget class="QPushButton" name="addButton" >
                   <property name="text" >
                     <string>&amp;Add...</string>
-                  </property>
-                  <property name="shortcut" >
-                    <string>Alt+A</string>
                   </property>
                 </widget>
               </item>

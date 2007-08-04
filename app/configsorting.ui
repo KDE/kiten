@@ -21,9 +21,6 @@
           <property name="text" >
             <string>Sort Se&amp;arch Results By Dictionary</string>
           </property>
-          <property name="shortcut" >
-            <string>Alt+A</string>
-          </property>
         </widget>
       </item>
       <item>
