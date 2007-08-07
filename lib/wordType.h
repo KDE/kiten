@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KITENSEARCHOPTIONS_H
-#define KITENSEARCHOPTIONS_H
+#ifndef WORDTYPE_H
+#define WORDTYPE_H
 
 #include "libkitenexport.h"
 #include <kaction.h>

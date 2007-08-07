@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KANJIPARTS_H_
-#define _KANJIPARTS_H_
+#ifndef _RADICALFILE_H_
+#define _RADICALFILE_H_
 
 #include <QtCore/QString>
 #include <QtCore/QHash>

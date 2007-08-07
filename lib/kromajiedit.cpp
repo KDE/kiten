@@ -263,7 +263,7 @@ QMenu *KRomajiEdit::createPopupMenu()
 	QActionGroup *group = new QActionGroup(menu);
 	
 	QAction *temp;
-	temp = new QAction(i18n("English"),group);
+	temp = new QAction(i18nc("@option:radio selects english translation", "English"),group);
 	temp->setCheckable(true);
 	menu->addAction(temp);
 	if(kana == "english")
@@ -271,7 +271,7 @@ QMenu *KRomajiEdit::createPopupMenu()
 	else
 		temp->setChecked(false);
 
-	temp = new QAction(i18n("Kana"),group);
+	temp = new QAction(i18nc("@option:radio selects japanese translation", "Kana"),group);
 	temp->setCheckable(true);
 	menu->addAction(temp);
 	if(kana == "kana")

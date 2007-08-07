@@ -70,7 +70,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	cf.setupUi(widget);
 	addPage(widget, i18n("Font"), "fonts");
 	
-	addPage(makeDictionaryPreferencesPage(0,config),i18n("Display"),"format-indent-more");
+	addPage(makeDictionaryPreferencesPage(0,config),i18nc("@title:group the settings for the dictionary display", "Display"),"format-indent-more");
 
 	addPage(makeSortingPage(0,config),i18n("Results Sorting"), "format-indent-more");
 

@@ -20,8 +20,8 @@
  USA
 **/
 
-#ifndef OPTIONDIALOG_H
-#define OPTIONDIALOG_H
+#ifndef CONFIGUREDIALOG_H
+#define CONFIGUREDIALOG_H
 
 #include <kconfigdialog.h>
 

@@ -20,8 +20,8 @@
  USA
 **/
 
-#ifndef KITEN_WIDGETS_H
-#define KITEN_WIDGETS_H
+#ifndef RESULTSVIEW_H
+#define RESULTSVIEW_H
 
 #include <qpointer.h>
 

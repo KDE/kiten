@@ -19,8 +19,8 @@
 
 //This is currently the only file in libkiten dict handlers to have moc code included...
 
-#ifndef DICTFILEFIELDSELECTOR_H_
-#define DICTFILEFIELDSELECTOR_H_
+#ifndef DICTFILEPREFERENCEDIALOG_H_
+#define DICTFILEPREFERENCEDIALOG_H_
 
 
 class QStringList;
