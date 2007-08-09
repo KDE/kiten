@@ -175,12 +175,10 @@ void kiten::setupActions() {
 	qobject_cast<KAction*>( EditToolbarWidget )->setDefaultWidget(Edit);
 	Edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-	QAction *a= actionCollection()->addAction( "clear_search");
-        a->setText( i18n("&Clear Search Bar") );
         QAction *searchButton = actionCollection()->addAction( "search" );
         searchButton->setText( i18n("S&earch") );
 
-        a= actionCollection()->addAction( "search_beginning");
+        QAction *a= actionCollection()->addAction( "search_beginning");
         a->setText( i18n("Search with &Beginning of Word") );
 
         a= actionCollection()->addAction( "search_anywhere");

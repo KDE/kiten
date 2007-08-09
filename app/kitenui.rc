@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Kiten" version="11">
+<kpartgui name="Kiten" version="12">
 
 <MenuBar>
 
@@ -10,8 +10,6 @@
 
 <Menu name="go_web">
   <Action name="history" />
-  <Separator/>
-  <Action name="clear_search" />
 </Menu>
 
 <Menu name="search"><text>S&amp;earch</text>
@@ -36,7 +34,6 @@
 </MenuBar>
 
 <ToolBar name="locationToolBar" fullWidth="true" newline="true"><text>&amp;Search Toolbar</text>
-  <Action name="clear_search" />
   <Action name="EditToolbarWidget" />
   <Action name="search" />
   <Action name="search_in_results" />
