@@ -43,7 +43,7 @@ radicalFile::loadRadicalFile(QString &radkfile) {
 	while (!t.atEnd())
 	{
 		QString line = t.readLine();
-		if(line.at(0) == '#' || line.length() == 0)	//Skip comment characters
+		if(line.length() == 0 || line.at(0) == '#' )	//Skip comment characters
 			continue;
 		else if(line.at(0) == '$') {	//Start of a new radical
 			if(newestRadical != NULL)
@@ -60,13 +60,11 @@ radicalFile::loadRadicalFile(QString &radkfile) {
 	}
 	if(newestRadical != NULL)
 		m_radicals[*newestRadical] = *newestRadical;
-
 	//Move contents of our krad QHash into our hash of m_kanji
 	for(QHash<QString,QSet<QString> >::iterator it = krad.begin();
 			it != krad.end(); ++it)
 		m_kanji.insert(it.key(),Kanji(it.key(), it.value()))
 					->calculateStrokes(m_radicals.values());
-
 	f.close();
 	return true;
 }
