@@ -63,7 +63,10 @@ class ResultView : public KHTMLPart
 		void entrySpecifiedForExport(int index);
 
 	protected:
-		virtual void urlSelected (const QString &url, int button, int state, const QString &	_target, KParts::URLArgs args = KParts::URLArgs());
+		virtual bool urlSelected(const QString &url, int button, int state, const QString &_target,
+		    const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
+		    const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments());
+
 		DOM::Node findEntryNode(DOM::Node node);
 		DOM::Node findChildWithClassValue(DOM::Node node, const QString& classValue);
 		QString deLinkify(DOM::Node);

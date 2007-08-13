@@ -151,11 +151,12 @@ void ResultView::updateFont()
 	////////setFont(KitenConfigSkeleton::self()->font());
 }
 
-void ResultView::urlSelected(const QString & 	url,
+bool ResultView::urlSelected(const QString & 	url,
 		int 	button,
 		int 	state,
 		const QString & 	_target,
-		KParts::URLArgs 	args )
+		const KParts::OpenUrlArguments& 	args,
+		const KParts::BrowserArguments& 	browserArgs )
 {
 	kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
 	emit urlClicked(url);
