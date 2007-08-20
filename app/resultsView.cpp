@@ -160,6 +160,7 @@ bool ResultView::urlSelected(const QString & 	url,
 {
 	kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
 	emit urlClicked(url);
+	return KHTMLPart::urlSelected(url, button, state, _target, args, browserArgs);
 }
 
 DOM::Node ResultView::findEntryNode(DOM::Node node)
