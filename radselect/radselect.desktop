@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=radselect
+Name[ne]=र्याड चयन
 Name[x-test]=xxradselectxx
 Exec=kitenradselect %i -caption "%c"
 Icon=radselect
@@ -14,6 +15,7 @@ Comment[fa]=برنامه کمک‌رسان برای kiten
 Comment[ga]=Clár cabhrach le haghaidh kiten
 Comment[it]=Programma di supporto per kiten
 Comment[ja]=Kiten のヘルパープログラム
+Comment[ne]=किटेनका लागि मद्दतकर्ता कार्यक्रम
 Comment[pt]=Um programa auxiliar para o kiten
 Comment[pt_BR]=Um programa auxiliar para o kiten
 Comment[sv]=Ett hjälpprogram för Kiten
