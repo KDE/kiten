@@ -215,7 +215,7 @@ bool dictFileEdict::loadNewDictionary(const QString &fileName, const QString &di
 	proc.waitForStarted();
 	do {
 	   KApplication::processEvents(); 
-	} while(proc.waitForFinished(10));
+	} while(proc.waitForFinished(5000));	//FIXME: this just cuts the index generator off after 5s
 
 	int dictionaryLength = dictFile.size();
 	dictionaryLength++;
