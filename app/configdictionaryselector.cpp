@@ -37,7 +37,7 @@ ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName
 	setupUi(this);
 	dictName = dictionaryName;
 	config = iconfig;
-	
+
 	connect(addButton,SIGNAL(clicked()), this, SLOT(addDictSLOT()));
 	connect(delButton,SIGNAL(clicked()), this, SLOT(deleteDictSLOT()));
 	__useGlobal->setObjectName(QString("kcfg_"+dictName+"__useGlobal"));
@@ -48,7 +48,7 @@ void ConfigDictionarySelector::updateWidgets()
 //Read from preferences to the active list
 {
 	QStringList names;
-	
+
 	config->setCurrentGroup("dicts_"+dictName);
 	KConfigSkeletonItem *item = config->findItem(dictName+"__NAMES");
 	if(item != NULL)
@@ -114,9 +114,9 @@ bool ConfigDictionarySelector::hasChanged()
 
 void ConfigDictionarySelector::addDictSLOT() {
    QTreeWidgetItem *item = fileList->topLevelItem(0);
-	
+
 	QString filename = KFileDialog::getOpenFileName(
-			item? QFileInfo(item->text(1)).absolutePath().append("/") 
+			item? QFileInfo(item->text(1)).absolutePath().append("/")
 			: QString() );
 	QString name = QFileInfo(filename).fileName();
 	if(filename.isNull())

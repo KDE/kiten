@@ -53,7 +53,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	: KConfigDialog(parent, "Settings", config)
 {
 	//TODO: Figure out why these pages are unmanaged... is this needed?
-	addPage(makeDictionaryFileSelectionPage(0,config),i18n("Dictionaries"),"help-contents");
+	addPage(makeDictionaryFileSelectionPage(NULL,config),i18n("Dictionaries"),"help-contents");
 
 	QWidget *widget;
 	widget = new QWidget();
@@ -64,17 +64,18 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	widget = new QWidget();
 	Ui::ConfigLearn cl; cl.setupUi(widget);
 	addPage(widget, i18n("Learn"), "pencil");
-	
+
 	widget = new QWidget();
 	Ui::ConfigFont cf;
 	cf.setupUi(widget);
 	addPage(widget, i18n("Font"), "fonts");
-	
-	addPage(makeDictionaryPreferencesPage(0,config),i18nc("@title:group the settings for the dictionary display", "Display"),"format-indent-more");
 
-	addPage(makeSortingPage(0,config),i18n("Results Sorting"), "format-indent-more");
+	addPage(makeDictionaryPreferencesPage(NULL,config),i18nc("@title:group the settings for the dictionary display", "Display"),"format-indent-more");
+
+	addPage(makeSortingPage(NULL,config),i18n("Results Sorting"), "format-indent-more");
 
 	hasChangedMarker = false;
+
 
 	connect(this,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(settingsChanged()));
 }
@@ -85,7 +86,7 @@ ConfigureDialog::~ConfigureDialog()
 
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 		KitenConfigSkeleton *config) {
-	
+
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
 	foreach( const QString &dict, config->dictionary_list() ) {
@@ -96,6 +97,7 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 		connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
 		tabWidget->addTab(newTab, '&'+dict);
 	}
+
 	return tabWidget;
 }
 
@@ -103,7 +105,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 	(QWidget *parent, KitenConfigSkeleton *config) {
 
 	QStringList dictTypes = DictionaryManager::listDictFileTypes();
-	
+
 	QTabWidget *tabWidget = new QTabWidget(parent);
 
 	QMap<QString,DictionaryPreferenceDialog*> dialogList =
@@ -122,13 +124,13 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 QWidget *ConfigureDialog::makeSortingPage
 	(QWidget *parent, KitenConfigSkeleton *config) {
 	ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
-	
+
 	connect(newPage, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 	connect(this, SIGNAL(SIG_updateWidgets()), newPage, SLOT(updateWidgets()));
 	connect(this, SIGNAL(SIG_updateWidgetsDefault()), newPage, SLOT(updateWidgetsDefault()));
 	connect(this, SIGNAL(SIG_updateSettings()), newPage, SLOT(updateSettings()));
-	
-	return newPage;	
+
+	return newPage;
 }
 
 void ConfigureDialog::updateButtons() {
@@ -164,7 +166,7 @@ bool ConfigureDialog::hasChanged()
 
 bool ConfigureDialog::isDefault()
 {
-	 return false; 
+	 return false;
 	 //Always show the defaults button.... perhaps make a workaround later
 }
 

@@ -452,6 +452,7 @@ void kiten::searchOnTheSpot()
 //////////////////////////////////////////////////////////////////////////////
 void kiten::slotConfigure()
 {
+	//If the settings dialog is open and obscured/hidden/cached, show it
 	if (ConfigureDialog::showDialog("settings"))
 		return;
 

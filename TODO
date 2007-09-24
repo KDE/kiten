@@ -1,12 +1,18 @@
+TODO by 4.0:
+	Make font config dialog work
+	Expunge the rest of Learn mode (we'll put it back in 4.1 in some form)
+	Return to basic HTML output... we'll do model/view later
+
+
 Main Sections:
 	Learn Mode Rewrite, IPC Interfaces, Preferences System
 
 	Preference System:
-	Dictionaries: Centrally controlled... generate a tab for each 
+	Dictionaries: Centrally controlled... generate a tab for each
 		dictionary type that we understand... verify the dict when selected
 		(percentage match perhaps)
-	Fonts: Split <Main Item> <Readings> <Meanings> <Extra Info>
-	Display: Split into a panel for each dictionary type, call a 
+	Fonts: One main font, three options for making things bigger
+	Display: Split into a panel for each dictionary type, call a
 		dictConfig<dictName> class for each one. Class should store whatever
 		it needs in the KConfigXT system and it can be pulled up when done.
 	Search: More or less the same as now (possibly add 'hide data' options)
@@ -16,7 +22,7 @@ Main Sections:
 		in and display in a given size.
 
 	libkiten questions:
-	Code Files: When all are near stable, seperate directories (DONE!)
+	Code Files:
 			dictquery.cpp		stable	(could use some cleaning/optimizing, but it works)
 			dictionary.cpp		stable	(for current needs, minor feature updates in future)
 			historyPtrList.cpp stable	(Should work fine at this point, two methods untested)
@@ -28,8 +34,8 @@ Main Sections:
 			entryXXXXXX.cpp   volotile (still some bugs missing features)
 
 	rewrite the index generator
-		Joe comments: I've reformated and commented the index generator code...it's 
-		significantly less scary now. Time will tell whether the index generator 
+		Joe comments: I've reformated and commented the index generator code...it's
+		significantly less scary now. Time will tell whether the index generator
 		will get qt'd first, or the indexes will be replaced by a db.
 
 Main Interface:

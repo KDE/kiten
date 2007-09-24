@@ -75,7 +75,7 @@ private slots:
 	void searchInResults();
 	void displayResults(EntryList *);
 	//void searchOnTheSpot();
-		
+
 		//Configuration related slots
 	void slotConfigure();
 	void slotConfigureHide();
@@ -110,9 +110,9 @@ private slots:
 private:
 	KStatusBar *StatusBar;
 	DictionaryManager dictionaryManager;
-	
+
 	ResultView *mainView;
-	
+
 	KToggleAction *autoSearchToggle;
 	KToggleAction *deinfCB;
 	KListAction *historyAction;
@@ -122,7 +122,7 @@ private:
 	KAction *forwardAction;
 
 	//TODO: this should probably be a standardaction
-	QAction *globalShortcutsAction; 
+	QAction *globalShortcutsAction;
 
 	//ResultView *detachedView;
 	KAction *globalSearchAction;
