@@ -44,14 +44,11 @@ private slots:
 	void updateWidgets();
 	void updateWidgetsDefault();
 	void updateSettings();
-	void updateButtons();
 
 private:
 	QWidget *makeDictionaryPreferencesPage(QWidget *, KitenConfigSkeleton*);
 	QWidget *makeDictionaryFileSelectionPage(QWidget *, KitenConfigSkeleton*);
 	QWidget *makeSortingPage(QWidget *, KitenConfigSkeleton*);
-	bool hasChangedMarker;
-	bool hasChanged();
 	bool isDefault();
 };
 

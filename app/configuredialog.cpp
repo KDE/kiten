@@ -74,9 +74,6 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 
 	addPage(makeSortingPage(NULL,config),i18n("Results Sorting"), "format-indent-more");
 
-	hasChangedMarker = false;
-
-
 	connect(this,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(settingsChanged()));
 }
 
@@ -111,7 +108,6 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 	QMap<QString,DictionaryPreferenceDialog*> dialogList =
 			DictionaryManager::generatePreferenceDialogs(config,parent);
 	foreach( DictionaryPreferenceDialog *dialog, dialogList ) {
-		connect(dialog, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
 		connect(this, SIGNAL(SIG_updateWidgets()), dialog, SLOT(updateWidgets()));
 		connect(this, SIGNAL(SIG_updateWidgetsDefault()), dialog, SLOT(updateWidgetsDefault()));
 		connect(this, SIGNAL(SIG_updateSettings()), dialog, SLOT(updateSettings()));
@@ -133,35 +129,19 @@ QWidget *ConfigureDialog::makeSortingPage
 	return newPage;
 }
 
-void ConfigureDialog::updateButtons() {
-	hasChangedMarker = true;
-	KConfigDialog::updateButtons();
-}
-
 void ConfigureDialog::updateWidgets()
 {
-	hasChangedMarker = false;
 	emit SIG_updateWidgets();
 }
 
 void ConfigureDialog::updateWidgetsDefault()
 {
-	hasChangedMarker = false;
 	emit SIG_updateWidgetsDefault();
 }
 
 void ConfigureDialog::updateSettings()
 {
 	emit SIG_updateSettings();
-	if(hasChanged())
-		KConfigDialog::settingsChangedSlot();
-
-	hasChangedMarker = false;
-}
-
-bool ConfigureDialog::hasChanged()
-{
-	return hasChangedMarker;
 }
 
 bool ConfigureDialog::isDefault()
