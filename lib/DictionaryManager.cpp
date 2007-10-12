@@ -149,7 +149,8 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	if(dictsFromQuery.isEmpty()) { //None specified, search all
 		foreach( dictFile *it, dictManagers) {
 			EntryList *temp=it->doSearch(query);
-			ret->appendList(temp);
+                        if(temp)
+			   ret->appendList(temp);
 			delete temp;
 		}
 	} else {
@@ -157,7 +158,8 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 			dictFile *newestFound = dictManagers.find(target).value();
 			if(newestFound != 0) {
 				EntryList *temp = newestFound->doSearch(query);
-				ret->appendList(temp);
+                                if(temp)
+				   ret->appendList(temp);
 				delete temp;
 			}
 		}

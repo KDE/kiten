@@ -275,8 +275,10 @@ EntryList *dictFileEdict::doSearch(const DictQuery &query) {
 	//TODO: Fix this to search for meaning, pronunciation, then entry
 	//TODO:If searching for entry... we need to modify the search mechanism
 	//TODO:Right now it fails if we search for more than one Kanji in a row
-	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
-	QByteArray searchString = codec.fromUnicode
+	QTextCodec *codec = QTextCodec::codecForName("eucJP");
+        if(!codec)
+            return 0; //we can't success to add codec => return nil value 
+	QByteArray searchString = codec->fromUnicode
 		(query.toString().split(DictQuery::mainDelimiter).first());
 
 	//Calculate the sizes of our two files, measured in their internal
@@ -352,7 +354,7 @@ EntryList *dictFileEdict::doSearch(const DictQuery &query) {
 		if(last != it) {
 			last = it;
 			//Grab a Line, translate it from euc, make an entry
-			result = makeEntry(codec.toUnicode(lookupFullLine(it)));
+			result = makeEntry(codec->toUnicode(lookupFullLine(it)));
 			//Evaluate more carefully
 			if(result->matchesQuery(query))
 			//Add to list if acceptable
