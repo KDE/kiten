@@ -103,7 +103,7 @@ void radselect::setupActions()
 
     QAction *kac =actionCollection()->addAction( "search" );
     kac->setText( i18n("S&earch") );
-    kac->setIcon( KIcon("browser-go") );
+    kac->setIcon( KIcon("go-jump-locationbar") );
     connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
 
     showAll = actionCollection()->add<KToggleAction>( "show_full_search" );
