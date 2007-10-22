@@ -31,7 +31,6 @@
 #include <kconfig.h>
 #include <kmenu.h>
 #include <kactionmenu.h>
-#include <kprinter.h>
 #include <klocale.h>
 #include <kactioncollection.h>
 
