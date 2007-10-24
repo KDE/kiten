@@ -130,7 +130,7 @@ void radselect::saveProperties(KConfigGroup &config) { //For suspend
 }
 
 void radselect::readProperties(const KConfigGroup &config) { //For resume
-	loadSearchString(config.readPathEntry("searchString"));
+	loadSearchString(config.readPathEntry("searchString", QString()));
 }
 
 void radselect::dragEnterEvent(QDragEnterEvent *event)
