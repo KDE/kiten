@@ -18,11 +18,11 @@ kde4_add_ui_files(kiten_bin_SRCS
 kde4_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
 
 if(MSVC)
-  set(kiten_SRCS ${kiten_SRCS} kiten.rc)
+  set(kiten_SRCS ${kiten_bin_SRCS} kiten.rc)
 endif(MSVC)
 
 if(MINGW)
-   KDE_ADD_RESOURCES2(kiten_SRCS kiten.rc)
+   KDE_ADD_RESOURCES2(kiten_bin_SRCS kiten.rc)
 endif(MINGW)
 
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
