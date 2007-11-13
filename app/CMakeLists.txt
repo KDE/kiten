@@ -24,7 +24,7 @@ set(kiten_icons
     ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/64x64/apps/kiten.png
     ${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/128x128/apps/kiten.png
 )
-kde4_add_win32_app_icon(kiten kiten_SRCS ${kiten_icons})
+kde4_add_win32_app_icon(kiten_SRCS ${kiten_icons})
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
 set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
