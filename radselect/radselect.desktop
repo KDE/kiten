@@ -1,12 +1,11 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=radselect
 Name[ne]=र्याड चयन
 Name[x-test]=xxradselectxx
 Exec=kitenradselect %i -caption "%c"
 Icon=radselect
 Type=Application
-DocPath=radselect/radselect.html
+X-DocPath=radselect/radselect.html
 Comment=A helper program for kiten
 Comment[bg]=Помощна програма за kiten
 Comment[ca]=Un programa auxiliar per al Kiten
