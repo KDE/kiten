@@ -163,7 +163,7 @@ void kiten::setupActions() {
 	/* Setup the Go-to-learn-mode actions */
 //	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	/* TODO: put back when Dictionary Editor is reorganised */
-//	(void) new KAction(i18n("&Dictionary Editor..."), "edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
+//	(void) new KAction(i18n("&Dictionary Editor..."), "object-edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	/* TODO: Replace with the new radical search launching system */
 //	(void) new KAction(i18n("Ra&dical Search..."), "gear", CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
 	//Create the edit box, linking to our searchMethod in the constructor.
