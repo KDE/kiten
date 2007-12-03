@@ -30,7 +30,7 @@ static const char version[] = "0.1";
 
 int main(int argc, char **argv)
 {
-	KAboutData about("kitenradselect", 0, ki18n("kitenradselect"), version,
+	KAboutData about("kitenradselect", "kiten", ki18n("kitenradselect"), version,
 			ki18n(description), KAboutData::License_GPL,
 			ki18n("(C) 2005 Joseph Kerian"), KLocalizedString(), 0, "jkerian@gmail.com");
 	about.addAuthor( ki18n("Joseph Kerian"), KLocalizedString(), "jkerian@gmail.com" );
