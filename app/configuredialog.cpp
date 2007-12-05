@@ -68,7 +68,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	widget = new QWidget();
 	Ui::ConfigFont cf;
 	cf.setupUi(widget);
-	addPage(widget, i18n("Font"), "fonts");
+	addPage(widget, i18n("Font"), "preferences-desktop-font");
 
 	addPage(makeDictionaryPreferencesPage(NULL,config),i18nc("@title:group the settings for the dictionary display", "Display"),"format-indent-more");
 
