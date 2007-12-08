@@ -161,7 +161,7 @@ void kiten::setupActions() {
 	KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
 	/* Setup the Go-to-learn-mode actions */
-//	(void) new KAction(i18n("&Learn"), "pencil", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
+//	(void) new KAction(i18n("&Learn"), "draw-freehand", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	/* TODO: put back when Dictionary Editor is reorganised */
 //	(void) new KAction(i18n("&Dictionary Editor..."), "object-edit", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	/* TODO: Replace with the new radical search launching system */

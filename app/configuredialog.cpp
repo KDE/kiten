@@ -63,7 +63,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 
 	widget = new QWidget();
 	Ui::ConfigLearn cl; cl.setupUi(widget);
-	addPage(widget, i18n("Learn"), "pencil");
+	addPage(widget, i18n("Learn"), "draw-freehand");
 
 	widget = new QWidget();
 	Ui::ConfigFont cf;
