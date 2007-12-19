@@ -34,3 +34,4 @@ Comment[x-test]=xxA helper program for kitenxx
 Comment[zh_CN]=Kiten 辅助程序
 Comment[zh_TW]=kiten 的輔助程式
 Terminal=false
+Categories=Qt;KDE;Education;X-KDE-Edu-Language;
