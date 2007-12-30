@@ -17,14 +17,8 @@ kde4_add_ui_files(kiten_bin_SRCS
 	)
 kde4_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
 
-set(kiten_bin_icons
-    ${KDE4_ICON_DIR}/oxygen/16x16/apps/kiten.png
-    ${KDE4_ICON_DIR}/oxygen/32x32/apps/kiten.png
-    ${KDE4_ICON_DIR}/oxygen/48x48/apps/kiten.png
-    ${KDE4_ICON_DIR}/oxygen/64x64/apps/kiten.png
-    ${KDE4_ICON_DIR}/oxygen/128x128/apps/kiten.png
-)
-kde4_add_win32_app_icon(kiten_bin_SRCS ${kiten_bin_icons})
+kde4_add_app_icon(kiten_bin_SRCS "${KDE4_ICON_DIR}/oxygen/*/apps/kiten.png")
+
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
 set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
 
