@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=radselect
+Name[hi]=रेडसलेक्ट
 Name[ne]=र्याड चयन
 Name[x-test]=xxradselectxx
 Exec=kitenradselect %i -caption "%c"
@@ -17,6 +18,7 @@ Comment[et]=Kiteni abiprogramm
 Comment[fa]=برنامه کمک‌رسان برای kiten
 Comment[fr]=Un programme d'aide pour kiten
 Comment[ga]=Clár cabhrach le haghaidh kiten
+Comment[hi]=किटेन के लिए सहायक प्रोग्राम
 Comment[it]=Programma di supporto per kiten
 Comment[ja]=Kiten のヘルパープログラム
 Comment[ko]=kiten 도우미 프로그램
