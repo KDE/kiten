@@ -73,7 +73,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
 	addPage(makeDictionaryPreferencesPage(NULL,config),i18nc("@title:group the settings for the dictionary display", "Display"),"format-indent-more");
 
 	addPage(makeSortingPage(NULL,config),i18n("Results Sorting"), "format-indent-more");
-
+        setHelp(QString(),"kiten");
 	connect(this,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(settingsChanged()));
 }
 
