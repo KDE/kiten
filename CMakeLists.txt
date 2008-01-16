@@ -13,6 +13,7 @@ configure_file( config-kiten.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kiten.h 
 ## Build each subdir
 add_subdirectory( radselect )
 add_subdirectory( app )
+add_subdirectory( data/pics )
 add_subdirectory( lib )
 
 ## Build kitengen, a small index generator used by the kiten app
