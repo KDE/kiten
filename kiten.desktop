@@ -98,6 +98,7 @@ Comment[sr@Latn]=Alat za podsećanje i učenje japanskog
 Comment[sv]=Japanskt referens- och studieverktyg
 Comment[tr]=Japonca Referans ve Çalışma Aracı
 Comment[uk]=Програма вивчення японської мови
+Comment[zh_CN]=日语参考/学习工具
 Comment[zh_TW]=日語參考/學習工具
 DocPath=kiten/index.html
 Exec=kiten -caption "%c" %i %m
