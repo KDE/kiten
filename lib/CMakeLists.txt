@@ -24,7 +24,7 @@ set(kiten_LIB_SRCS
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 target_link_libraries(kiten ${KDE4_KDEUI_LIBS} )
 set_target_properties(kiten PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install( TARGETS kiten  DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+install( TARGETS kiten  ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ############ install headers #############
 install( FILES
