@@ -28,6 +28,7 @@ class KToggleAction;
 class KSelectAction;
 class WordType;
 class KitenEdit;
+class kiten;
 
 class searchStringInput : public QObject {
 	Q_OBJECT
@@ -50,6 +51,7 @@ class searchStringInput : public QObject {
 		KSelectAction *actionSearchSection;	//Search exact/anywhere/begining
 		KSelectAction *actionSelectWordType;
 		KitenEdit *actionTextInput;
+		kiten *parent;
 };
 
 #endif

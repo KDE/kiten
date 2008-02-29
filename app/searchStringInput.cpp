@@ -36,9 +36,11 @@
 #include <kconfig.h>
 #include <kdeversion.h>
 #include <kedittoolbar.h>
+#include <ktoolbar.h>
 #include <qclipboard.h>
 
-searchStringInput::searchStringInput(kiten *parent) : QObject(parent) {
+searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
+	parent = iparent;
 	actionDeinflect = parent->actionCollection()->add<KToggleAction>("search_deinflect");
 	actionDeinflect->setText(i18n("Deinflect Verbs/Adjectives"));
 
@@ -92,7 +94,13 @@ DictQuery searchStringInput::getSearchQuery() const {
 }
 
 void searchStringInput::setSearchQuery(const DictQuery &query) {
-	actionTextInput->setCurrentItem(query.toString(), true);
+	DictQuery copy(query);
+	foreach(KToolBar *bar, parent->toolBars()) {
+		if(bar->widgetForAction(actionFilterRare) != NULL)
+			copy.removeProperty(QString("common"));
+	}
+
+	actionTextInput->setCurrentItem(copy.toString(), true);
 }
 
 #include "searchStringInput.moc"
