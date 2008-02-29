@@ -83,20 +83,9 @@ class QChar;
 	* @author Joseph Kerian \<jkerian@gmail.com>
 	*/
 
-typedef QHash<QString,QString> _stupid_stub_DictQuery_type;
-
-class KITEN_EXPORT DictQuery : protected _stupid_stub_DictQuery_type
+class KITEN_EXPORT DictQuery
 {
 public:
-   /**
-	 * This iterator is available to iterate over a DictQuery's properties
-	 */
-	typedef QHashIterator<QString,QString> Iterator;
-	/**
-	  * Because the properties are an internal type, you need
-	  * a special accessor in order to get to an interator. This is it.
-	  */
-	QHashIterator<QString,QString> getPropertyIterator() const;
 	/**
 	  * This is the main delimiter that the DictQuery uses when parsing strings.
 	  * It is set to "space" at the moment.
@@ -128,7 +117,6 @@ public:
 	virtual ~DictQuery();
 
 	/**
-	  * Returns true if the DictQuery is completely empty
 	  * @return true if the DictQuery is completely empty
 	  */
 	bool isEmpty() const;
@@ -136,19 +124,6 @@ public:
 	  * Removes all text/entries from the DictQuery
 	  */
 	virtual void clear ();
-
-	/**
-	  * Returns a given extended attribute
-	  */
-	const QString operator[] (const QString &key) const {
-	   return QHash<QString,QString>::operator[](key);
-	}
-	/**
-	  * Sets a given extended attribute
-	  */
-	QString &operator[] (const QString &key) {
-		return QHash<QString,QString>::operator[](key);
-	}
 	/**
 	  * The assignment copy operator
 	  */
@@ -170,13 +145,17 @@ public:
 	operator QString() const { return toString(); }
 
 	/**
-	  * Get a QList containing each property:value pair.
+	 * Use this to get a list of all the property keys in the query
 	  */
-	QStringList getPropertyList() const;
+	const QList<QString> listPropertyKeys() const;
 	/**
-	  * Get a list of only the keys of each property entry
+	  * Returns a given extended attribute
 	  */
-	QStringList getPropertyKeysList() const;
+	QString operator[] (const QString &key) const;
+	/**
+	  * Sets a given extended attribute
+	  */
+	QString operator[] (const QString &key);
 	/**
 	  * Get a specific property by key (is the same as using operator[] const)
 	  */
@@ -247,47 +226,20 @@ public:
 	  * Note that order is not important here... only each element
 	  * that is one of the DictQuery objects appears in the other
 	  */
-	friend bool operator==(const DictQuery&, const DictQuery&);
-	/**
-	  * Convenient override of operator==(DictQuery,DictQuery)
-	  */
-	friend bool operator==(const QString&, const DictQuery&);
-	/**
-	  * Convenient override of operator==(DictQuery,DictQuery)
-	  */
-	friend bool operator==(const DictQuery&, const QString&);
+	KITEN_EXPORT friend bool operator==(const DictQuery&, const DictQuery&);
 	/**
 	  * Convenient inverted override of operator==(DictQuery,DictQuery)
 	  */
-	friend bool operator!=(const DictQuery&, const DictQuery&);
-	/**
-	  * Convenient inverted override of operator==(DictQuery,DictQuery)
-	  */
-	friend bool operator!=(const QString&, const DictQuery&);
-	/**
-	  * Convenient inverted override of operator==(DictQuery,DictQuery)
-	  */
-	friend bool operator!=(const DictQuery&, const QString&);
-
+	KITEN_EXPORT friend bool operator!=(const DictQuery&, const DictQuery&);
 	/**
 	  * Set-wise strictly less than. A better way to think of this
 	  * might be the "subset" operator
 	  */
-	friend bool operator<(const DictQuery&, const DictQuery&);
-	/**
-	  * Convenient inverted override of operator<(DictQuery,DictQuery)
-	  */
-	friend bool operator>(const DictQuery&, const DictQuery&);
+	KITEN_EXPORT friend bool operator<(const DictQuery&, const DictQuery&);
 	/**
 	  * Convenient override of operator<(DictQuery,DictQuery) and operator==
 	  */
-	friend bool operator<=(const DictQuery&, const DictQuery&);
-	/**
-	  * Convenient inverted override of operator<(DictQuery,DictQuery) and
-	  * operator==
-	  */
-	friend bool operator>=(const DictQuery&, const DictQuery&);
-
+	KITEN_EXPORT friend bool operator<=(const DictQuery&, const DictQuery&);
 	/**
 	  * This will append the properties and other elements of the added kanji
 	  * onto the elements of the current element. If regenerated as a string,
@@ -306,30 +258,17 @@ public:
 	  * Simple addition... similer to operator+=
 	  */
 	KITEN_EXPORT friend DictQuery &operator+( const DictQuery&, const DictQuery&);
-	/**
-	  * Addition involving a QString parse
-	  */
-	friend DictQuery &operator+(const DictQuery&, const QString&);
-	/**
-	  * Addition involving a QString parse
-	  */
-	friend DictQuery &operator+(const QString&, const DictQuery&);
 #ifndef QT_NO_CAST_ASCII
 	/**
 	  * An ascii cast variant of the operator=
 	  * Only available if QT_NO_CAST_ASCII is not defined on lib compilation
 	  */
 	DictQuery    &operator=(const char *);
-	/**
-	  * An ascii cast variant of the operator+=
-	  * Only available if QT_NO_CAST_ASCII is not defined on lib compilation
-	  */
-	DictQuery    &operator+=(const char *);
 #endif
 
 	 //Specify the type of matching
 	/**
-	  * This enum is used to define the type of matching this query is supposed
+	  * @enum This enum is used to define the type of matching this query is supposed
 	  * to do. The names are fairly self-explanatory
 	  */
 	enum matchTypeSettings {matchExact, matchBeginning, matchEnd, matchAnywhere};
@@ -340,15 +279,16 @@ public:
 	/**
 	  * Set a match type. If this is not called, the default is matchExact.
 	  */
-	void setMatchType(const matchTypeSettings);
+	void setMatchType(matchTypeSettings);
 
 protected:	//The QDict itself tracks properties as key->value pairs
-	QString meaning;		//Stores the (presumably english) meaning
-	QString pronunciation;	//Stores the (presumed non-english) pronunciation
-	QString word;             //The 'key' word (this can potentially contain kanji)
-	QStringList entryOrder;	//Keeps track of the order that things were entered
-	QStringList targetDictionaries; //Tracks what dictionaries this entry will go into
-	matchTypeSettings matchType;
+	QString m_meaning;		//Stores the (presumably english) meaning
+	QString m_pronunciation;	//Stores the (presumed non-english) pronunciation
+	QString m_word;             //The 'key' word (this can potentially contain kanji)
+	QHash<QString,QString> m_extendedAttributes;
+	QStringList m_entryOrder;	//Keeps track of the order that things were entered
+	QStringList m_targetDictionaries; //Tracks what dictionaries this entry will go into
+	matchTypeSettings m_matchType;
 
 	static const QString pronunciationMarker; //Internal markers in entryOrder
 	static const QString meaningMarker;        //For where pronunciation and Meaningfound

@@ -18,7 +18,6 @@
 		one, be sure to provide the variables that you need.
 		?>
 		<default>edict,kanjidic</default>
-
 	 </entry>
   </group>
   <group name="dicts_edict">

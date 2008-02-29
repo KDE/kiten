@@ -261,7 +261,7 @@ bool dictFileEdict::loadNewDictionary(const QString &fileName, const QString &di
 	return false;
 }
 
-/** Do a search, respond with a list of entries.
+/* Do a search, respond with a list of entries.
  The general strategy will be to take the first word of the query, and do a
  binary search on the dictionary for that item. Take all results and filter
  them using the rest of the query with the validate method.
@@ -271,15 +271,33 @@ EntryList *dictFileEdict::doSearch(const DictQuery &query) {
 	if(query.isEmpty() || !valid)	//No query or dict, no results.
 		return new EntryList();
 
-	//Convert the first word of the query to euc for the binary search
-	//TODO: Fix this to search for meaning, pronunciation, then entry
+	QString firstChoice = query.getWord();
+	if(firstChoice.length() == 0) {
+		firstChoice = query.getPronunciation();
+		if(firstChoice.length() == 0) {
+			firstChoice = query.getMeaning().split(" ").first();
+			if(firstChoice.length() == 0) {
+				//The nastiest situation... we have to assemble a search string
+				//from the first property
+				QList<QString> keys = query.listPropertyKeys();
+				if(keys.size() == 0) //Shouldn't happen... but maybe in the future
+					return new EntryList();
+				firstChoice = keys[0];
+				firstChoice = firstChoice + query.getProperty(firstChoice);
+				//TODO: doSearch: some accomodation for searching for ranges and such of properties
+			}
+		}
+	} else
+		firstChoice = firstChoice.at(0); //Only search for one kanji or the
+		                                 //binary lookup mechanism breaks
+
+	//Convert our firstChoice of the query to euc for the binary search
 	//TODO:If searching for entry... we need to modify the search mechanism
 	//TODO:Right now it fails if we search for more than one Kanji in a row
 	QTextCodec *codec = QTextCodec::codecForName("eucJP");
-        if(!codec)
-            return 0; //we can't success to add codec => return nil value 
-	QByteArray searchString = codec->fromUnicode
-		(query.toString().split(DictQuery::mainDelimiter).first());
+	if(!codec)
+		return new EntryList();
+	QByteArray searchString = codec->fromUnicode(firstChoice);
 
 	//Calculate the sizes of our two files, measured in their internal
 	//data type sizes
@@ -355,6 +373,7 @@ EntryList *dictFileEdict::doSearch(const DictQuery &query) {
 			last = it;
 			//Grab a Line, translate it from euc, make an entry
 			result = makeEntry(codec->toUnicode(lookupFullLine(it)));
+			kDebug() << result->toString() << endl;
 			//Evaluate more carefully
 			if(result->matchesQuery(query))
 			//Add to list if acceptable
@@ -487,6 +506,7 @@ QStringList dictFileEdict::listDictDisplayOptions(QStringList x) const {
 QMap<QString,QString> dictFileEdict::displayOptions() const {
 	QMap<QString,QString> list;
 	list["Common(C)"]="C";
+	list["Part of speech(type)"]="type";
 	return list;
 }
 

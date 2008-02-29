@@ -88,11 +88,13 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 
 	foreach( const QString &dict, config->dictionary_list() ) {
 		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
-		connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
-		connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
-		connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));
-		connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
-		tabWidget->addTab(newTab, '&'+dict);
+		if(newTab) {
+			connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
+			connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
+			connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));
+			connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
+			tabWidget->addTab(newTab, '&'+dict);
+		}
 	}
 
 	return tabWidget;

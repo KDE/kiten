@@ -238,25 +238,22 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
 			return false;
 
-	DictQuery::Iterator it = query.getPropertyIterator();
-	while(it.hasNext()) {
-		it.next();
-		QString extendedItem = getExtendedInfoItem(it.key());
-		//if( !extendedItemCheck(it.key(), it.value()))
-			//return false;
-
+	QList<QString> propList = query.listPropertyKeys();
+	foreach(const QString &key, propList) {
+		if( !extendedItemCheck(key, query.getProperty(key)))
+			return false;
 	}
 
 	return true;
 
 }
 
-/*
-bool Entry::extendedItemCheck(const DictQuery& query)
-{
 
+bool Entry::extendedItemCheck(const QString& key, const QString &value) const
+{
+	return getExtendedInfoItem(key) == value;
 }
-*/
+
 
 //Returns true if all members of test are in list
 bool Entry::listMatch(const QString &list, const QStringList &test) const {

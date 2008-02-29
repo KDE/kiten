@@ -24,6 +24,22 @@
 
 #include <klocalizedstring.h>
 
+struct EDICT_formatting {
+	EDICT_formatting();
+	QString nounType,verbType,adjectiveType,adverbType,ichidanType,godanType,particleType;
+	QMultiHash<QString, QString> partOfSpeechCategories;
+	QSet<QString> partsOfSpeech,miscMarkings,fieldOfApplication;
+};
+EDICT_formatting *EntryEDICT::m_format = NULL;
+
+EntryEDICT::EntryEDICT(const QString &dict) : Entry(dict) {
+}
+
+EntryEDICT::EntryEDICT(const QString &dict, const QString &entry) : Entry(dict) {
+	loadEntry(entry);
+}
+Entry *EntryEDICT::clone() const { return new EntryEDICT(*this); }
+
 /* DISPLAY FUNCTIONS */
 
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
@@ -76,7 +92,7 @@ QString EntryEDICT::HTMLWord() const {
 
 QString EntryEDICT::Common() const
 {
-	if (common)
+	if (getExtendedInfoItem(QString("common")) == "1")
 		return "<span>Common</span>";
 	else
 		return QString();
@@ -84,53 +100,57 @@ QString EntryEDICT::Common() const
 
 /* DATA LOADING FUNCTIONS */
 
-/* TODO: extendedInfo as described on Breen's site
-	http://www.csse.monash.edu.au/~jwb/edict_doc.html */
 /** Take a QString and load it into the Entry as appropriate */
+/* The format is basically: KANJI [KANA] /(general information) gloss/gloss/.../
+ * Note that they can rudely place more (general information) in gloss's that are
+ * not the first one */
+
 bool EntryEDICT::loadEntry(const QString &entryLine)
 {
-	/* Check the requirements of validity first */
-	/* EDICT requires at least two '/' marks and a ' ' */
-	if(entryLine.count("/") < 2 || entryLine.at(0)==' ') //KDE4 CHANGE
-	{
-//		kDebug() << "EDICT Parser received bad data! : "<<entryLine;
-		return false;
-	}
-
-
 	/* Set tempQString to be the reading and word portion of the entryLine */
-	QString tempQString = entryLine.left(entryLine.indexOf('/'));
+	int endOfKanjiAndKanaSection = entryLine.indexOf('/');
+	if(endOfKanjiAndKanaSection == -1)
+		return false;
+	QString tempQString = entryLine.left(endOfKanjiAndKanaSection);
 	/* The actual Word is the beginning of the line */
-	Word = tempQString.left(tempQString.indexOf(' '));
+	int endOfKanji = tempQString.indexOf(' ');
+	if(endOfKanji == -1)
+		return false;
+	Word = tempQString.left(endOfKanji);
 
 	/* The Reading is either Word or encased in '[' */
 	Readings.clear();
 	int startOfReading = tempQString.indexOf('[');
-	if(startOfReading != -1)  // This field is optional for kiten
+	if(startOfReading != -1)  // This field is optional for EDICT (and kiten)
 		Readings.append(
 				tempQString.left(tempQString.lastIndexOf(']')).mid(startOfReading+1));
 
 	/* set Meanings to be all of the meanings in the definition */
-	Meanings = entryLine.left(entryLine.lastIndexOf('/')).mid(tempQString.length()).split('/', QString::SkipEmptyParts);
-	common = (Meanings.last() == "(P)");
-	if (common) Meanings.removeLast();
+	QString remainingLine = entryLine.mid(endOfKanjiAndKanaSection);
+	remainingLine = remainingLine.left(remainingLine.lastIndexOf('/'));	//Trim to last '/'
+	Meanings = remainingLine.split('/', QString::SkipEmptyParts);
+	if(Meanings.last() == "(P)") {
+		ExtendedInfo[QString("common")] = "1";
+		Meanings.removeLast();
+	}
 
 	QString firstWord = Meanings.first();
 	QStringList stringTypes;
 
-	//TODO: optimize so later parentheses are ignored
+	//Pulls the various types out
+	//TODO: Remove them from the original string
 	for (int i = firstWord.indexOf("("); i != -1; i = firstWord.indexOf("(", i + 1))
 	{
 		QString parantheses = firstWord.mid(i + 1, firstWord.indexOf(")", i) - i - 1);
 		stringTypes += parantheses.split(",");
 	}
-
-	foreach( const QString &str, stringTypes)
-	{
-		if (WordTypes().contains(str))
-		{
-			types += WordTypes().value(str);
-		}
+	foreach(const QString &str, stringTypes) {
+		if(format().partsOfSpeech.contains(str))
+			m_typeList += str;
+		else if(format().fieldOfApplication.contains(str))
+			ExtendedInfo["field"] = str;
+		else if(format().miscMarkings.contains(str))
+			m_miscMarkings += str;
 	}
 
 //	kdDebug()<< "Parsed: '"<<Word<<"' ("<<Readings.front()<<") \""<<
@@ -146,72 +166,14 @@ QString EntryEDICT::dumpEntry() const
 		+ '/' + Meanings.join("/") + '/';
 }
 
-/* TYPES RELATED FUNCTIONS */
-
-QHash<QString, EntryEDICT::WordType> *EntryEDICT::wordTypes = NULL;
-
-const QHash<QString, EntryEDICT::WordType>& EntryEDICT::WordTypes()
-{
-	if (wordTypes == NULL)
-	{
-		wordTypes = new QHash<QString, EntryEDICT::WordType>;
-		(*wordTypes)["adj"] = adj;  /*	adjective (keiyoushi) */
-		(*wordTypes)["adj-na"] = adj_na;  /*	adjectival nouns or quasi-adjectives (keiyodoshi) */
-		(*wordTypes)["adj-no"] = adj_no;  /*	nouns which may take the genitive case particle `no' */
-		(*wordTypes)["adj-pn"] = adj_pn;  /*	pre-noun adjectival (rentaishi) */
-		(*wordTypes)["adj-t"] = adj_t;  /*	`taru' adjective */
-		(*wordTypes)["adv"] = adv;  /*	adverb (fukushi) */
-		(*wordTypes)["adv-n"] = adv_n;  /*	adverbial noun */
-		(*wordTypes)["adv-to"] = adv_to;  /*	adverb taking the `to' particle */
-		(*wordTypes)["aux"] = aux;  /*	auxiliary */
-		(*wordTypes)["aux-v"] = aux_v;  /*	auxiliary verb */
-		(*wordTypes)["aux-adj"] = aux_adj;  /*	auxiliary adjective */
-		(*wordTypes)["conj"] = conj;  /*	conjunction */
-		(*wordTypes)["exp"] = exp; /*	Expressions (phrases, clauses;  etc.) */
-		(*wordTypes)["id"] = id;  /*	idiomatic expression */
-		(*wordTypes)["inte"] = inte;  /*	interjection (kandoushi)
-										(*wordTypes)["int"] = int is a keyword;  thus 'inte' instead */
-		(*wordTypes)["iv"] = iv;  /*	irregular verb */
-		(*wordTypes)["n"] = n;  /*	noun (common) (futsuumeishi) */
-		(*wordTypes)["n-adv"] = n_adv;  /*	adverbial noun (fukushitekimeishi) */
-		(*wordTypes)["n-pref"] = n_pref; /*	noun;  used as a prefix */
-		(*wordTypes)["n-suf"] = n_suf; /*	noun;  used as a suffix */
-		(*wordTypes)["n-t"] = n_t;  /*	noun (temporal) (jisoumeishi) */
-		(*wordTypes)["neg"] = neg; /*	negative (in a negative sentence;  or with negative verb) */
-		(*wordTypes)["neg-v"] = neg_v;  /*	negative verb (when used with) */
-		(*wordTypes)["num"] = num;  /*	numeric */
-		(*wordTypes)["pref"] = pref;  /*	prefix */
-		(*wordTypes)["prt"] = prt;  /*	particle */
-		(*wordTypes)["suf"] = suf;  /*	suffix */
-		(*wordTypes)["v1"] = v1;  /*	Ichidan verb */
-		(*wordTypes)["v5"] = v5;  /*	Godan verb (not completely classified) */
-		(*wordTypes)["v5aru"] = v5aru;  /*	Godan verb - -aru special class */
-		(*wordTypes)["v5b"] = v5b;  /*	Godan verb with `bu' ending */
-		(*wordTypes)["v5g"] = v5g;  /*	Godan verb with `gu' ending */
-		(*wordTypes)["v5k"] = v5k;  /*	Godan verb with `ku' ending */
-		(*wordTypes)["v5k-s"] = v5k_s;  /*	Godan verb - iku/yuku special class */
-		(*wordTypes)["v5m"] = v5m;  /*	Godan verb with `mu' ending */
-		(*wordTypes)["v5n"] = v5n;  /*	Godan verb with `nu' ending */
-		(*wordTypes)["v5r"] = v5r;  /*	Godan verb with `ru' ending */
-		(*wordTypes)["v5r-i"] = v5r_i;  /*	Godan verb with `ru' ending (irregular verb) */
-		(*wordTypes)["v5s"] = v5s;  /*	Godan verb with `su' ending */
-		(*wordTypes)["v5t"] = v5t;  /*	Godan verb with `tsu' ending */
-		(*wordTypes)["v5u"] = v5u;  /*	Godan verb with `u' ending */
-		(*wordTypes)["v5u-s"] = v5u_s;  /*	Godan verb with `u' ending (special class) */
-		(*wordTypes)["v5uru"] = v5uru;  /*	Godan verb - uru old class verb (old form of Eru) */
-		(*wordTypes)["vi"] = vi;  /*	intransitive verb */
-		(*wordTypes)["vk"] = vk;  /*	kuru verb - special class */
-		(*wordTypes)["vs"] = vs;  /*	noun or participle which takes the aux. verb suru */
-		(*wordTypes)["vs-i"] = vs_i;  /*	suru verb - irregular */
-		(*wordTypes)["vs-s"] = vs_s;  /*	suru verb - special class */
-		(*wordTypes)["vt"] = vt;  /*	transitive verb */
-		(*wordTypes)["vz"] = vz;  /*	zuru verb - (alternative form of -jiru verbs) */
-	}
-	return *wordTypes;
+const EDICT_formatting &EntryEDICT::format() {
+	if(EntryEDICT::m_format == NULL)
+		EntryEDICT::m_format = new EDICT_formatting;
+	return *EntryEDICT::m_format;
 }
 
+/* TYPES RELATED FUNCTIONS */
 
-QMultiHash<QString, EntryEDICT::WordType> *EntryEDICT::wordTypesPretty = NULL;
 /* The basic idea of this function is to provide a mapping from possible entry types to
 	possible things the user could enter. Then our code for the matching entry can simply
 	use this mapping to determine if a given entry could be understood to match the user's
@@ -241,83 +203,93 @@ QMultiHash<QString, EntryEDICT::WordType> *EntryEDICT::wordTypesPretty = NULL;
 		category "adj", so further breakdown of the "adjective" type would be misleading
 */
 
-const QMultiHash<QString, EntryEDICT::WordType>& EntryEDICT::WordTypesPretty()
-{
-	if (wordTypesPretty == NULL)
-	{
-		QString nounType(i18nc("This must be a single word","noun"));
-		QString verbType(i18nc("This must be a single word","verb"));
-		QString ichidan(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","ichidan"));
-		QString godan(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","godan"));
-		QString adjective(i18nc("this must be a single word","adjective"));
-		QString adverb(i18nc("This must be a single word","adverb"));
-		QString particle(i18nc("This must be a single word","particle"));
-
-		wordTypesPretty = new QMultiHash<QString, EntryEDICT::WordType>;
+EDICT_formatting::EDICT_formatting() {
+	nounType = QString(i18nc("This must be a single word","noun"));
+	verbType = QString(i18nc("This must be a single word","verb"));
+	adjectiveType = QString(i18nc("This must be a single word","adjective"));
+	adverbType = QString(i18nc("This must be a single word","adverb"));
+	particleType = QString(i18nc("This must be a single word","particle"));
+	ichidanType = QString(i18nc("This is a technical japanese linguist's term... and probably should not be translated(except possibly in far-eastern languages), this must be a single word","ichidan"));
+	godanType = QString(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","godan"));
 
 		//Nouns
-		wordTypesPretty->insert(nounType,  n);
-		wordTypesPretty->insert(nounType,  n_adv);
-		wordTypesPretty->insert(nounType,  n_pref);
-		wordTypesPretty->insert(nounType,  n_suf);
-		wordTypesPretty->insert(nounType,  n_t);
-		wordTypesPretty->insert(nounType,  adv_n);
-		//Ichidan Verbs
-		wordTypesPretty->insert(verbType,  v1);
-		wordTypesPretty->insert(ichidan,  v1);
-		//Godan Verbs
-		wordTypesPretty->insert(verbType,  v5);
-		wordTypesPretty->insert(verbType,  v5aru);
-		wordTypesPretty->insert(verbType,  v5b);
-		wordTypesPretty->insert(verbType,  v5g);
-		wordTypesPretty->insert(verbType,  v5k);
-		wordTypesPretty->insert(verbType,  v5k_s);
-		wordTypesPretty->insert(verbType,  v5m);
-		wordTypesPretty->insert(verbType,  v5n);
-		wordTypesPretty->insert(verbType,  v5r);
-		wordTypesPretty->insert(verbType,  v5r_i);
-		wordTypesPretty->insert(verbType,  v5s);
-		wordTypesPretty->insert(verbType,  v5t);
-		wordTypesPretty->insert(verbType,  v5u);
-		wordTypesPretty->insert(verbType,  v5u_s);
-		wordTypesPretty->insert(verbType,  v5uru);
-		wordTypesPretty->insert(godan,  v5);
-		wordTypesPretty->insert(godan,  v5aru);
-		wordTypesPretty->insert(godan,  v5b);
-		wordTypesPretty->insert(godan,  v5g);
-		wordTypesPretty->insert(godan,  v5k);
-		wordTypesPretty->insert(godan,  v5k_s);
-		wordTypesPretty->insert(godan,  v5m);
-		wordTypesPretty->insert(godan,  v5n);
-		wordTypesPretty->insert(godan,  v5r);
-		wordTypesPretty->insert(godan,  v5r_i);
-		wordTypesPretty->insert(godan,  v5s);
-		wordTypesPretty->insert(godan,  v5t);
-		wordTypesPretty->insert(godan,  v5u);
-		wordTypesPretty->insert(godan,  v5u_s);
-		wordTypesPretty->insert(godan,  v5uru);
-		//Other Verbs
-		wordTypesPretty->insert(verbType,  iv);
-		wordTypesPretty->insert(verbType,  vi);
-		wordTypesPretty->insert(verbType,  vk);
-		wordTypesPretty->insert(verbType,  vs);
-		wordTypesPretty->insert(verbType,  vs_i);
-		wordTypesPretty->insert(verbType,  vs_s);
-		wordTypesPretty->insert(verbType,  vt);
-		wordTypesPretty->insert(verbType,  vz);
-		//Adjectives
-		wordTypesPretty->insert(adjective,adj);
-		wordTypesPretty->insert(adjective,adj_na);
-		wordTypesPretty->insert(adjective,adj_no);
-		wordTypesPretty->insert(adjective,adj_pn);
-		wordTypesPretty->insert(adjective,adj_t);
-		//Adverbs
-		wordTypesPretty->insert(adverb,adv);
-		wordTypesPretty->insert(adverb,adv_n);
-		wordTypesPretty->insert(adverb,adv_to);
-		//Particle
-		wordTypesPretty->insert(particle,prt);
-	}
-	return *wordTypesPretty;
-}
+	partOfSpeechCategories.insert(nounType,  "n");
+	partOfSpeechCategories.insert(nounType,  "n-adv");
+	partOfSpeechCategories.insert(nounType,  "n-pref");
+	partOfSpeechCategories.insert(nounType,  "n-suf");
+	partOfSpeechCategories.insert(nounType,  "n-t");
+	partOfSpeechCategories.insert(nounType,  "adv_n");
+	//Ichidan Verbs
+	partOfSpeechCategories.insert(verbType,  "v1");
+	partOfSpeechCategories.insert(ichidanType,  "v1");
+	//Godan Verbs
+	partOfSpeechCategories.insert(verbType,  "v5");
+	partOfSpeechCategories.insert(verbType,  "v5aru");
+	partOfSpeechCategories.insert(verbType,  "v5b");
+	partOfSpeechCategories.insert(verbType,  "v5g");
+	partOfSpeechCategories.insert(verbType,  "v5k");
+	partOfSpeechCategories.insert(verbType,  "v5k_s");
+	partOfSpeechCategories.insert(verbType,  "v5m");
+	partOfSpeechCategories.insert(verbType,  "v5n");
+	partOfSpeechCategories.insert(verbType,  "v5r");
+	partOfSpeechCategories.insert(verbType,  "v5r_i");
+	partOfSpeechCategories.insert(verbType,  "v5s");
+	partOfSpeechCategories.insert(verbType,  "v5t");
+	partOfSpeechCategories.insert(verbType,  "v5u");
+	partOfSpeechCategories.insert(verbType,  "v5u_s");
+	partOfSpeechCategories.insert(verbType,  "v5uru");
+	partOfSpeechCategories.insert(godanType,  "v5");
+	partOfSpeechCategories.insert(godanType,  "v5aru");
+	partOfSpeechCategories.insert(godanType,  "v5b");
+	partOfSpeechCategories.insert(godanType,  "v5g");
+	partOfSpeechCategories.insert(godanType,  "v5k");
+	partOfSpeechCategories.insert(godanType,  "v5k_s");
+	partOfSpeechCategories.insert(godanType,  "v5m");
+	partOfSpeechCategories.insert(godanType,  "v5n");
+	partOfSpeechCategories.insert(godanType,  "v5r");
+	partOfSpeechCategories.insert(godanType,  "v5r_i");
+	partOfSpeechCategories.insert(godanType,  "v5s");
+	partOfSpeechCategories.insert(godanType,  "v5t");
+	partOfSpeechCategories.insert(godanType,  "v5u");
+	partOfSpeechCategories.insert(godanType,  "v5u_s");
+	partOfSpeechCategories.insert(godanType,  "v5uru");
+	//Other Verbs
+	partOfSpeechCategories.insert(verbType,  "iv");
+	partOfSpeechCategories.insert(verbType,  "vi");
+	partOfSpeechCategories.insert(verbType,  "vk");
+	partOfSpeechCategories.insert(verbType,  "vs");
+	partOfSpeechCategories.insert(verbType,  "vs_i");
+	partOfSpeechCategories.insert(verbType,  "vs_s");
+	partOfSpeechCategories.insert(verbType,  "vt");
+	partOfSpeechCategories.insert(verbType,  "vz");
+	//Adjectives
+	partOfSpeechCategories.insert(adjectiveType,"adj");
+	partOfSpeechCategories.insert(adjectiveType,"adj_na");
+	partOfSpeechCategories.insert(adjectiveType,"adj_no");
+	partOfSpeechCategories.insert(adjectiveType,"adj_pn");
+	partOfSpeechCategories.insert(adjectiveType,"adj_t");
+	//Adverbs
+	partOfSpeechCategories.insert(adverbType,"adv");
+	partOfSpeechCategories.insert(adverbType,"adv_n");
+	partOfSpeechCategories.insert(adverbType,"adv_to");
+	//Particle
+	partOfSpeechCategories.insert(particleType,"prt");
 
+	partsOfSpeech <<"n" <<"n-adv" <<"n-pref" <<"n-suf" <<"n-t" <<"adv_n"
+	 <<"v1" <<"v1" <<"v5" <<"v5aru" <<"v5b" <<"v5g" <<"v5k" <<"v5k_s"
+	 <<"v5m" <<"v5n" <<"v5r" <<"v5r_i" <<"v5s" <<"v5t" <<"v5u" <<"v5u_s"
+	 <<"v5uru" <<"v5" <<"v5aru" <<"v5b" <<"v5g" <<"v5k" <<"v5k_s" <<"v5m"
+	 <<"v5n" <<"v5r" <<"v5r_i" <<"v5s" <<"v5t" <<"v5u" <<"v5u_s" <<"v5uru"
+	 <<"iv" <<"vi" <<"vk" <<"vs" <<"vs_i" <<"vs_s" <<"vt" <<"vz"
+	 <<"adj" <<"adj_na" <<"adj_no" <<"adj_pn" <<"adj_t"
+	 <<"adv" <<"adv_n" <<"adv_to"
+	 <<"prt";
+		//Field of Application terms
+	fieldOfApplication<<"Buddh" <<"MA" <<"comp" <<"food" <<"geom"
+		<<"ling" <<"math" <<"mil" <<"physics";
+		//Miscellaneous Markings (in EDICT terms)
+	miscMarkings<<"X" <<"abbr" <<"arch" <<"ateji" <<"chn" <<"col" <<"derog"
+		<<"eK" <<"ek" <<"fam" <<"fem" <<"gikun" <<"hon" <<"hum" <<"iK" <<"id"
+		<<"io" <<"m-sl" <<"male" <<"male-sl" <<"ng" <<"oK" <<"obs" <<"obsc" <<"ok"
+		<<"poet" <<"pol" <<"rare" <<"sens" <<"sl" <<"uK" <<"uk" <<"vulg";
+}

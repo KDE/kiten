@@ -58,14 +58,15 @@
 #include <kfiledialog.h>
 
 #include "resultsView.h"
-#include "kitenEdit.h"
-#include "wordType.h"
+#include "KitenEdit.h"
+#include "DictQuery.h"
 /* Separting Learn */
 //#include "learn.h"
 #include "kitenconfig.h"
 #include "configuredialog.h"
 #include "HistoryPtrList.h"
 #include "entryListView.h"
+#include "searchStringInput.h"
 
 kiten::kiten(QWidget *parent, const char *name)
 	: KXmlGuiWindow(parent)
@@ -83,11 +84,11 @@ kiten::kiten(QWidget *parent, const char *name)
 	Accel->readSettings(KGlobal::config());
 	Accel->updateConnections();
 */
-	/* Make the ResultView object */
+	/* ResultView is our main widget, displaying the results of a search */
 	mainView = new ResultView(this, "mainView");
 
 	/* Create the export list */
-	setupExportListDock();
+//	setupExportListDock();
 
 	/* TODO: have a look at this idea
 	detachedView = new ResultView(NULL, "detachedView");
@@ -107,18 +108,16 @@ kiten::kiten(QWidget *parent, const char *name)
 	sysTrayIcon->show();
 
 	/* Set things as they were (as told in the config) */
-	comCB->setChecked(config->com());
 	autoSearchToggle->setChecked(config->autosearch());
-//	deinfCB->setChecked(config->deinf());
+	inputManager->setDefaultsFromConfig();
 	updateConfiguration();
-	applyMainWindowSettings( KGlobal::config()->group( "kitenWindow") );
+	applyMainWindowSettings( KGlobal::config()->group("kitenWindow") );
 
 	/* What happens when links are clicked or things are selected in the clipboard */
 	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
-
 	connect(mainView, SIGNAL(entrySpecifiedForExport(int)), this, SLOT(addExportListEntry(int)));
-
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
+	connect(inputManager, SIGNAL(search()), this, SLOT(searchFromEdit()));
 
 	/* See below for what else needs to be done */
 	QTimer::singleShot(10, this, SLOT(finishInit()));
@@ -154,10 +153,11 @@ void kiten::setupActions() {
 
 	/* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
 	(void) KStandardAction::quit(this, SLOT(close()), actionCollection());
-	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
+	//Why the heck is KSA:print adding it's own toolbar!?
+	//	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
 	(void) KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
-	//KDE4 FIXME (const QObject*) cast
+	//	(void) KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
+	//old style cast seems needed here, (const QObject*)
 	KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
 	/* Setup the Go-to-learn-mode actions */
@@ -169,41 +169,12 @@ void kiten::setupActions() {
 	//Create the edit box, linking to our searchMethod in the constructor.
 
 	/* Setup the Search Actions and our custom Edit Box */
-	Edit = new KitenEdit(actionCollection(), this);
-        QAction *EditToolbarWidget = actionCollection()->addAction( "EditToolbarWidget" );
-        EditToolbarWidget->setText( i18n("Search t&ext") );
-	qobject_cast<KAction*>( EditToolbarWidget )->setDefaultWidget(Edit);
-	Edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-        QAction *searchButton = actionCollection()->addAction( "search" );
-        searchButton->setText( i18n("S&earch") );
-
-        QAction *a= actionCollection()->addAction( "search_beginning");
-        a->setText( i18n("Search with &Beginning of Word") );
-
-        a= actionCollection()->addAction( "search_anywhere");
-        a->setText(i18n("Search &Anywhere") );
-
-        a=actionCollection()->addAction( "search_stroke");
-        a->setText( i18n("Stro&kes") );
-
-        a=actionCollection()->addAction( "search_grade");
-        a->setText( i18n("&Grade") );
+	inputManager = new searchStringInput(this);
+  QAction *searchButton = actionCollection()->addAction( "search" );
+  searchButton->setText( i18n("S&earch") );
 
 	// Set the search button to search
 	connect(searchButton, SIGNAL(triggered()), this, SLOT(searchFromEdit()));
-	// and the enter key from Edit
-	connect(Edit, SIGNAL(returnPressed()), this, SLOT(searchFromEdit()));
-	// and the selection of an item from history
-	connect(Edit, SIGNAL(activated(const QString &)), this, SLOT(searchFromEdit()));
-
-
-	/* Extra search options */
-	wordType = new WordType(this);
-	QAction *WordTypeAction = actionCollection()->addAction("WordType");
-        WordTypeAction->setText(i18n("Word type"));
-	qobject_cast<KAction*>( WordTypeAction )->setDefaultWidget(wordType);
-
 
 	// That's not it, that's "find as you type"...
 	//connect(Edit, SIGNAL(completion(const QString &)), this, SLOT(searchFromEdit()));
@@ -211,8 +182,7 @@ void kiten::setupActions() {
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
 //	comCB = new KToggleAction(i18n("&Filter Rare"), "view-filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
-	comCB = actionCollection()->add<KToggleAction>("common");
-        comCB->setText(i18n("&Filter Rare"));
+
 //autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "edit-find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	autoSearchToggle = actionCollection()->add<KToggleAction>("autosearch_toggle");
         autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
@@ -283,6 +253,8 @@ void kiten::finishInit()
 	if (config->initialSearch())
 		if (!kapp->sessionConfig()->hasGroup("app"))
 			searchTextAndRaise(QString::fromUtf8("辞書"));
+			//Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
+			//it's an embedded unicode search string to find "dictionary" in japanese
 
 //	Edit->Completion()->clear(); // make sure the edit is focused initially
 	StatusBar->showMessage(i18n("Welcome to Kiten"));
@@ -294,9 +266,7 @@ void kiten::finishInit()
     It saves the settings in the config. */
 bool kiten::queryClose()
 {
-	config->setCom(comCB->isChecked());
 	config->setAutosearch(autoSearchToggle->isChecked());
-//	config->setDeinf(deinfCB->isChecked());
 	config->writeConfig();
 
 	saveMainWindowSettings( KGlobal::config()->group( "kitenWindow") );
@@ -307,26 +277,11 @@ bool kiten::queryClose()
 // SEARCHING METHODS
 //////////////////////////////////////////////////////////////////////////////
 
-/**
- * Extracts options from the gui and applies them to the query
- */
-void kiten::getOptionsFromGui( DictQuery& query)
-{
-	if (wordType->currentIndex())
-	{
-		query.setProperty("type", wordType->currentText());
-	}
-}
-
 /** This function searches for the contents of the Edit field in the mainwindow.
  * Any gui choices will also be included here. */
 void kiten::searchFromEdit()
 {
-	DictQuery query;
-
-	query = Edit->currentText();
-	getOptionsFromGui(query);
-
+	DictQuery query = inputManager->getSearchQuery();
 	searchAndDisplay(query);
 }
 
@@ -344,7 +299,6 @@ void kiten::searchTextAndRaise(const QString &str)
 {
 	/* Do the search */
 	searchText(str);
-
 	/* get the window as we'd like it */
 	raise();
 }
@@ -359,10 +313,10 @@ void kiten::searchClipboard()
 {
 	if (autoSearchToggle->isChecked()) {
 		QString clipboard = QApplication::clipboard()->text(QClipboard::Selection).simplified();
+		DictQuery potentialQuery(clipboard);
 
-		if (clipboard.length() < 40 && Edit->currentText() != clipboard)
-			if(!(Edit->currentText().contains(clipboard)
-					&& historyList.current()->count() > 0))
+		if (clipboard.length() < 40 && !(potentialQuery < inputManager->getSearchQuery())
+					&& historyList.current()->count() > 0)
 				searchTextAndRaise(clipboard);
 	}
 }
@@ -383,7 +337,7 @@ void kiten::searchAndDisplay(const DictQuery &query)
 	addHistory(results);
 
 	/* Add the current search to our drop down list */
-	Edit->setCurrentItem(query.toString(), true);
+	inputManager->setSearchQuery(query);
 
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
@@ -394,11 +348,11 @@ void kiten::searchInResults()
 {
 	StatusBar->showMessage(i18n("Searching..."));
 
-	DictQuery searchQuery(Edit->currentText());
+	DictQuery searchQuery = inputManager->getSearchQuery();
 	EntryList *results = dictionaryManager.doSearchInList(searchQuery,historyList.current());
 
 	addHistory(results);
-	Edit->setCurrentItem(searchQuery.toString(), true);
+	inputManager->setSearchQuery(searchQuery);
 	displayResults(results);
 }
 
@@ -406,21 +360,15 @@ void kiten::searchInResults()
     to put the interface into an appropriate state for those searchResults */
 void kiten::displayResults(EntryList *results)
 {
+	QString infoStr;
 	/* synchronize the statusbar */
 	if(results->count() > 0)
-	{
-		QString str;
-		str = i18n("Found ") + QString::number(results->count()) + i18n(" results");
-
-		StatusBar->showMessage(str);
-		setCaption(str);
-	}
+		infoStr = i18np("Found 1 result", "Found %1 results", results->count());
 	else
-	{
-		QString noneFound = i18n("No results found");
-		StatusBar->showMessage(noneFound);
-		setCaption(noneFound);
-	}
+		infoStr = i18n("No results found");
+	StatusBar->showMessage(infoStr);
+	setCaption(infoStr);
+
 	/* sort the results */
 	QStringList dictSort;
 	QStringList fieldSort = config->field_sortlist();
@@ -626,7 +574,7 @@ void kiten::goInHistory(int index)
 }
 
 void kiten::displayHistoryItem() {
-	Edit->setCurrentItem(historyList.current()->getQuery().toString(), true);
+	inputManager->setSearchQuery(historyList.current()->getQuery());
 	enableHistoryButtons();
 
 	displayResults( historyList.current() );

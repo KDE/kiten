@@ -1,7 +1,8 @@
-TODO by 4.0:
+TODO by 4.1:
 	Make font config dialog work
 	Expunge the rest of Learn mode (we'll put it back in 4.1 in some form)
 	Return to basic HTML output... we'll do model/view later
+	Look carefully at EDICT2 format... note the multiple kanji/kana given
 
 
 Main Sections:

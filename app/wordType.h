@@ -22,13 +22,12 @@
 #ifndef WORDTYPE_H
 #define WORDTYPE_H
 
-#include "libkitenexport.h"
 #include <kaction.h>
 #include <kcombobox.h>
 
 #include <QtGui/QWidget>
 
-class KITEN_EXPORT WordType : public KComboBox
+class /* NO_EXPORT */ WordType : public KComboBox
 {
 	Q_OBJECT
 

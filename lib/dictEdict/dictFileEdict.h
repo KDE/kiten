@@ -29,7 +29,7 @@
 #include <sys/types.h>
 #include <QtCore/QFile>
 #include <QtCore/QMap>
-// why not use Qt types here??
+// Using uint32_t and int32_t to match with the C program that generates the indexes
 #ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
 #else

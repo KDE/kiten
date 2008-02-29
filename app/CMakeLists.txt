@@ -1,14 +1,16 @@
 ############## kiten binary #############
-set(kiten_bin_SRCS 
+set(kiten_bin_SRCS
 	main.cpp
 	kiten.cpp
+	searchStringInput.cpp
 	resultsView.cpp
 	configuredialog.cpp
 	configdictionaryselector.cpp
 	configsortingpage.cpp
 	entryListView.cpp
+	wordType.cpp
 	)
-kde4_add_ui_files(kiten_bin_SRCS 
+kde4_add_ui_files(kiten_bin_SRCS
 	configsearching.ui
 	configlearn.ui
 	configfont.ui

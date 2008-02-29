@@ -44,6 +44,10 @@ QString EntryKanjidic::toHTML(printType printDirective) const
 	return result;
 }
 
+//We have to override matchesQuery to handle the wierd case of the readings
+//With extra punctuation in it
+//Possible TODO, move the original readings to a member variable (used in display)
+// and modify the inherited readings variable when reading from the file
 bool EntryKanjidic::matchesQuery(const DictQuery &query) const {
 	//TODO: Handle Radicals
 	if(!query.getWord().isEmpty()) {
@@ -68,21 +72,18 @@ bool EntryKanjidic::matchesQuery(const DictQuery &query) const {
 
 	QString readingsCopy = Readings.join(" ");
 	readingsCopy = readingsCopy.remove(".").remove("-");
-	kDebug() << readingsCopy;
-	kDebug() << query.getPronunciation();
 	if(!query.getPronunciation().isEmpty())
 		if(!listMatch(readingsCopy,
 					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
 			return false;
 
-	DictQuery::Iterator it = query.getPropertyIterator();
-	while(it.hasNext()) {
-		it.next();
-		if( getExtendedInfoItem(it.key()) != it.value() )
+	QList<QString> propList = query.listPropertyKeys();
+	foreach(const QString &key, propList) {
+		if( !extendedItemCheck(key, query.getProperty(key)))
 			return false;
 	}
-	return true;
 
+	return true;
 }
 
 /** Prepares Readings for output as HTML */
@@ -174,7 +175,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 		ichar = entryLine.at(i);
 
 		curString = "";
-		switch(ichar.toAscii()) //KDE4 CHANGE
+		switch(ichar.toAscii())
 		{
 			case ' ':
 				/* as far as I can tell, there is no real rule forcing only 1 space so

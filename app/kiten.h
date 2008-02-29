@@ -34,7 +34,7 @@
 class KAction;
 class KitenConfigSkeleton;
 class ConfigureDialog; class KitenEdit;
-class WordType;
+class searchStringInput;
 class KGlobalAccel;
 class KStatusBar;
 class KSystemTrayIcon;
@@ -70,7 +70,6 @@ private slots:
 	void searchFromEdit();
 	void searchText(const QString&);
 	void searchClipboard();
-	void getOptionsFromGui(DictQuery&);
 	void searchAndDisplay(const DictQuery&);
 	void searchInResults();
 	void displayResults(EntryList *);
@@ -100,7 +99,6 @@ private slots:
 
 //	void createEEdit();
 //	void kanjiDictChange();
-//	void toggleCom();
 //	void slotLearnConfigure();
 //signals:
 //	void saveLists();
@@ -111,13 +109,12 @@ private:
 	KStatusBar *StatusBar;
 	DictionaryManager dictionaryManager;
 
+	searchStringInput *inputManager;
 	ResultView *mainView;
 
 	KToggleAction *autoSearchToggle;
-	KToggleAction *deinfCB;
 	KListAction *historyAction;
 	KAction *irAction;
-	KToggleAction *comCB;
 	KAction *backAction;
 	KAction *forwardAction;
 
@@ -138,12 +135,8 @@ private:
 	ConfigureDialog *optionDialog;
 	KitenConfigSkeleton* config;
 
-	KitenEdit *Edit;
-	WordType *wordType;
-
 	HistoryPtrList historyList;
 	QString personalDict;
-
 
 };
 

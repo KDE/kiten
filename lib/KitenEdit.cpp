@@ -17,12 +17,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "kitenEdit.h"
+#include "KitenEdit.h"
 #include <kcombobox.h>
 #include <kcompletion.h>
 #include <kdebug.h>
 
-KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) : 
+KitenEdit::KitenEdit(KActionCollection *parent, QWidget *bar) :
 	KHistoryComboBox(bar)
 {
 	setDuplicatesEnabled(false);
@@ -32,4 +32,4 @@ KitenEdit::~KitenEdit()
 {
 }
 
-#include "kitenEdit.moc"
+#include "KitenEdit.moc"

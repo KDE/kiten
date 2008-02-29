@@ -1,6 +1,6 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright  (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,35 +18,38 @@
  USA
 **/
 
-#ifndef CONFIGSORTINGPAGE_H
-#define CONFIGSORTINGPAGE_H
+#ifndef SEARCHSTRINGINPUT_H
+#define SEARCHSTRINGINPUT_H
 
-#include <QtGui/QWidget>
+#include "DictQuery.h"
 
-#include "ui_configsorting.h" //From the UI file
+class KAction;
+class KToggleAction;
+class KSelectAction;
+class WordType;
+class KitenEdit;
 
-class KitenConfigSkeleton;
-class QString;
-
-class ConfigSortingPage : public QWidget, public Ui::configSorting
-{
+class searchStringInput : public QObject {
 	Q_OBJECT
-public:
-	explicit ConfigSortingPage(QWidget *parent = 0, KitenConfigSkeleton *iconfig=NULL, Qt::WFlags f = 0);
 
-public slots:
-	void updateWidgets();
-	void updateWidgetsDefault();
-	void updateSettings();
-	bool hasChanged();
-	bool isDefault();
+	public:
+		explicit searchStringInput(kiten *parent);
+		virtual ~searchStringInput();
 
-signals:
-	void widgetChanged();
-private:
-	KitenConfigSkeleton *m_config;
-	QStringList m_dictNames;
-	QStringList m_fields;
+		void setDefaultsFromConfig();
+
+		DictQuery getSearchQuery() const;
+		void setSearchQuery(const DictQuery &query);
+
+	signals:
+		void search();
+
+	private:
+		KToggleAction *actionDeinflect;
+		KToggleAction *actionFilterRare;
+		KSelectAction *actionSearchSection;	//Search exact/anywhere/begining
+		KSelectAction *actionSelectWordType;
+		KitenEdit *actionTextInput;
 };
 
 #endif

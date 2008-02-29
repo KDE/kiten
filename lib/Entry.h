@@ -33,6 +33,8 @@ class Entry;
 class EntryList;
 class QString;
 
+/** The Entry class is a generic base class for each particular entry in a given dictionary. It's used as the
+  basic class to ferry information back to the user application. */
 class KITEN_EXPORT Entry {
 
 	friend class EntryListModel;
@@ -66,7 +68,7 @@ public:
 	/** Fairly important method, this tests if this particular entry matches a query */
 	virtual bool matchesQuery(const DictQuery&) const;
 
-	/** Any enum used by the print methods as an argument */
+	/** @enum An enum used by the print methods as an argument */
 	typedef enum printType {printBrief, printVerbose, printAuto};
 
 	/* Some regular old accessors */
@@ -78,6 +80,7 @@ public:
 	QStringList getReadingsList() const { return Readings; }
 	QHash<QString,QString> getExtendedInfo() const { return ExtendedInfo; }
 	QString getExtendedInfoItem(const QString &x) const { return ExtendedInfo[x]; }
+	virtual bool extendedItemCheck(const QString &key, const QString &value) const;
 
 	/* An entry should be able to generate a representation of itself in (valid)
 		HTML */

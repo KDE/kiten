@@ -81,7 +81,7 @@ bool dictFileKanjidic::validQuery(const DictQuery &query) {
 		return false;
 
 	//Now check if we have any properties specified that we don't understand
-	QStringList properties = query.getPropertyKeysList();
+	QStringList properties = query.listPropertyKeys();
 	QStringList propertiesWeHandle = 
 		searchableAttributes.values()+searchableAttributes.keys();
 	for(QStringList::Iterator it=properties.begin(); it != properties.end(); ++it)

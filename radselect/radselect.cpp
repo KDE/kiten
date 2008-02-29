@@ -20,7 +20,7 @@
 #include "radselect.h"
 #include "radselectview.h"
 #include "kromajiedit.h"
-#include "kitenEdit.h"
+#include "KitenEdit.h"
 #include "radselectconfig.h"
 #include "ui_radselectprefdialog.h"
 

@@ -16,9 +16,8 @@ set(kiten_LIB_SRCS
 		Entry.cpp
 		EntryList.cpp
 		HistoryPtrList.cpp
-		kitenEdit.cpp
+		KitenEdit.cpp
 		kromajiedit.cpp
-		wordType.cpp
 		${dictionary_SRCS}
 		)
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
@@ -34,9 +33,8 @@ install( FILES
 		Entry.h
 		EntryList.h
 		HistoryPtrList.h
-		kitenEdit.h
+		KitenEdit.h
 		kromajiedit.h
 		libkitenexport.h
-		wordType.h
 	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten
 		)
