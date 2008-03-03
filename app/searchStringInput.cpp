@@ -55,8 +55,11 @@ searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
 
 	actionSelectWordType = parent->actionCollection()->add<KSelectAction>("search_wordType");
 	actionSelectWordType->setText(i18n("Word Type"));
+	actionSelectWordType->addAction(i18n("Any"));
 	actionSelectWordType->addAction(i18n("Verb"));
 	actionSelectWordType->addAction(i18n("Noun"));
+	actionSelectWordType->addAction(i18n("Adjective"));
+	actionSelectWordType->addAction(i18n("Adverb"));
 
 	actionTextInput = new KitenEdit(parent->actionCollection(), parent);
 	QAction *EditToolbarWidget = parent->actionCollection()->addAction( "EditToolbarWidget" );
@@ -80,15 +83,20 @@ void searchStringInput::setDefaultsFromConfig() {
 	KitenConfigSkeleton* config = KitenConfigSkeleton::self();
 	actionFilterRare->setChecked(config->com());
 	actionSearchSection->setCurrentItem(2);
+	actionSelectWordType->setCurrentItem(0);
 }
 
 DictQuery searchStringInput::getSearchQuery() const {
-	DictQuery result;
-	result = actionTextInput->currentText();
+	DictQuery result(actionTextInput->currentText());
+
 	if(actionSelectWordType->currentItem())
 		result.setProperty("type", actionSelectWordType->currentText());
+
 	if(actionFilterRare->isChecked())
 		result.setProperty("common","1");
+	DictQuery::matchTypeSettings options[3] = {DictQuery::matchExact,DictQuery::matchBeginning,
+	                                          DictQuery::matchAnywhere};
+	result.setMatchType(options[actionSearchSection->currentItem()]);
 
 	return result;
 }
@@ -97,7 +105,9 @@ void searchStringInput::setSearchQuery(const DictQuery &query) {
 	DictQuery copy(query);
 	foreach(KToolBar *bar, parent->toolBars()) {
 		if(bar->widgetForAction(actionFilterRare) != NULL)
-			copy.removeProperty(QString("common"));
+			copy.removeProperty("common");
+		if(bar->widgetForAction(actionSelectWordType) != NULL)
+			copy.removeProperty("type");
 	}
 
 	actionTextInput->setCurrentItem(copy.toString(), true);
