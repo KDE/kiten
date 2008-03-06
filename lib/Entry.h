@@ -131,7 +131,7 @@ protected:
 	virtual QString HTMLMeanings() const;
 
 	/* Handy Utility functions for matching to lists and identifying char types */
-	bool listMatch(const QString&,const QStringList&) const;
+	bool listMatch(const QStringList&,const QStringList&,DictQuery::MatchType) const;
 	bool isKanji(const QChar&) const;
 };
 

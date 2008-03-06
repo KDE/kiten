@@ -161,7 +161,6 @@ void kiten::setupActions() {
 	KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
 	/* Setup the Go-to-learn-mode actions */
-//	(void) new KAction(i18n("&Learn"), "draw-freehand", CTRL+Key_L, this, SLOT(createLearn()), actionCollection(), "file_learn");
 	/* TODO: put back when Dictionary Editor is reorganised */
 //	(void) new KAction(i18n("&Dictionary Editor..."), "document-properties", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
 	/* TODO: Replace with the new radical search launching system */
@@ -372,13 +371,16 @@ void kiten::displayResults(EntryList *results)
 	setCaption(infoStr);
 
 	/* sort the results */
-	QStringList dictSort;
-	QStringList fieldSort = config->field_sortlist();
-	if(config->dictionary_enable()=="true")
-		dictSort = config->dictionary_sortlist();
-	results->sort(fieldSort,dictSort);
 	/* synchronize the results window */
-	mainView->setContents(results->toHTML());
+	if(results->count() > 0) {
+		QStringList dictSort;
+		QStringList fieldSort = config->field_sortlist();
+		if(config->dictionary_enable()=="true")
+			dictSort = config->dictionary_sortlist();
+		results->sort(fieldSort,dictSort);
+		mainView->setContents(results->toHTML());
+	} else
+		mainView->setContents("<html><body>No Results found</body></html>");
 
 	/* to print the html results to file:
 	QFile file("/tmp/lala");

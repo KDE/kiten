@@ -94,7 +94,7 @@ DictQuery searchStringInput::getSearchQuery() const {
 
 	if(actionFilterRare->isChecked())
 		result.setProperty("common","1");
-	DictQuery::matchTypeSettings options[3] = {DictQuery::matchExact,DictQuery::matchBeginning,
+	DictQuery::MatchType options[3] = {DictQuery::matchExact,DictQuery::matchBeginning,
 	                                          DictQuery::matchAnywhere};
 	result.setMatchType(options[actionSearchSection->currentItem()]);
 
@@ -102,6 +102,14 @@ DictQuery searchStringInput::getSearchQuery() const {
 }
 
 void searchStringInput::setSearchQuery(const DictQuery &query) {
+	//First we set the various actions according to the query
+	actionFilterRare->setChecked(query.getProperty("common") == "1");
+	switch(query.getMatchType()) {
+		case DictQuery::matchExact: actionSearchSection->setCurrentItem(0); break;
+		case DictQuery::matchBeginning: actionSearchSection->setCurrentItem(1); break;
+		case DictQuery::matchAnywhere: actionSearchSection->setCurrentItem(2); break;
+	}
+	//Secondly we remove aspects that are visible in the gui from the search string
 	DictQuery copy(query);
 	foreach(KToolBar *bar, parent->toolBars()) {
 		if(bar->widgetForAction(actionFilterRare) != NULL)

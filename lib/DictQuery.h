@@ -114,7 +114,7 @@ public:
 	/**
 	  * Destructor
 	  */
-	virtual ~DictQuery();
+	~DictQuery();
 
 	/**
 	  * @return true if the DictQuery is completely empty
@@ -123,7 +123,7 @@ public:
 	/**
 	  * Removes all text/entries from the DictQuery
 	  */
-	virtual void clear ();
+	void clear ();
 	/**
 	  * The assignment copy operator
 	  */
@@ -131,7 +131,7 @@ public:
 	/**
 	  * The clone method
 	  */
-	virtual DictQuery *clone() const { return new DictQuery(*this); }
+	DictQuery *clone() const;
 	/**
 	  * This returns a QString that represents the query. This may be the same
 	  * as the original string, but some slight changes may have occurred if you
@@ -142,7 +142,7 @@ public:
 	  * This is a converstion to a QString... useful in a surpring
 	  * number of cases
 	  */
-	operator QString() const { return toString(); }
+	operator QString() const;
 
 	/**
 	 * Use this to get a list of all the property keys in the query
@@ -151,7 +151,7 @@ public:
 	/**
 	  * Returns a given extended attribute
 	  */
-	QString operator[] (const QString &key) const;
+	const QString operator[] (const QString &key) const;
 	/**
 	  * Sets a given extended attribute
 	  */
@@ -257,7 +257,7 @@ public:
 	/**
 	  * Simple addition... similer to operator+=
 	  */
-	KITEN_EXPORT friend DictQuery &operator+( const DictQuery&, const DictQuery&);
+	KITEN_EXPORT friend DictQuery operator+( const DictQuery&, const DictQuery&);
 #ifndef QT_NO_CAST_ASCII
 	/**
 	  * An ascii cast variant of the operator=
@@ -271,15 +271,15 @@ public:
 	  * @enum This enum is used to define the type of matching this query is supposed
 	  * to do. The names are fairly self-explanatory
 	  */
-	enum matchTypeSettings {matchExact, matchBeginning, matchEnd, matchAnywhere};
+	enum MatchType {matchExact, matchBeginning, matchAnywhere};
 	/**
 	  * Get which match type is currently set on the DictQuery
 	  */
-	matchTypeSettings getMatchType() const;
+	MatchType getMatchType() const;
 	/**
 	  * Set a match type. If this is not called, the default is matchExact.
 	  */
-	void setMatchType(matchTypeSettings);
+	void setMatchType(MatchType);
 
 protected:	//The QDict itself tracks properties as key->value pairs
 	QString m_meaning;		//Stores the (presumably english) meaning
@@ -288,7 +288,7 @@ protected:	//The QDict itself tracks properties as key->value pairs
 	QHash<QString,QString> m_extendedAttributes;
 	QStringList m_entryOrder;	//Keeps track of the order that things were entered
 	QStringList m_targetDictionaries; //Tracks what dictionaries this entry will go into
-	matchTypeSettings m_matchType;
+	MatchType m_matchType;
 
 	static const QString pronunciationMarker; //Internal markers in entryOrder
 	static const QString meaningMarker;        //For where pronunciation and Meaningfound

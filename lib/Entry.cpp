@@ -154,19 +154,19 @@ Entry::printType Entry::getFavoredPrintType() const {
 
 
 /* New functions for Entry doing direct display */
-/** Creates a one character link for the given @p entryCharacter. */
+/* Creates a one character link for the given @p entryCharacter. */
 inline QString Entry::makeLink(const QChar &entryCharacter) const
 {
 	return makeLink(QString(entryCharacter));
 }
 
-/** Creates a link for the given @p entryString. */
+/* Creates a link for the given @p entryString. */
 inline QString Entry::makeLink(const QString &entryString) const
 {
 	return "<a href=\"" + entryString + "\">" + entryString + "</a>";
 }
 
-/** Determines whether @p characeter is a kanji character. */
+/* Determines whether @p characeter is a kanji character. */
 bool Entry::isKanji(const QChar &character) const
 {
 	ushort value = character.unicode();
@@ -190,13 +190,13 @@ inline QString Entry::toKVTML() const
 		"<t l=\"jp-kana\">" + getReadings() + "</t></e>\n\n";
 }
 
-/** Prepares Word for output as HTML */
+/* Prepares Word for output as HTML */
 inline QString Entry::HTMLWord() const
 {
 	return "<span class=\"Word\">" + Word + "</span>";
 }
 
-/** Prepares Readings for output as HTML */
+/* Prepares Readings for output as HTML */
 inline QString Entry::HTMLReadings() const
 {
 	QStringList copy = Readings;
@@ -205,7 +205,7 @@ inline QString Entry::HTMLReadings() const
 	return "<span class=\"Readings\">"+copy.join(outputListDelimiter)+"</span>";
 }
 
-/** Prepares Meanings for output as HTML */
+/* Prepares Meanings for output as HTML */
 inline QString Entry::HTMLMeanings() const
 {
 	return "<span class=\"Meanings\">" + Meanings.join(outputListDelimiter)
@@ -214,29 +214,27 @@ inline QString Entry::HTMLMeanings() const
 
 bool Entry::matchesQuery(const DictQuery &query) const {
 	if(!query.getWord().isEmpty()) {
-	/*	if(query.getMatchType() == DictQuery::matchExact &&
+		if(query.getMatchType() == DictQuery::matchExact &&
 				this->getWord() != query.getWord())
 				return false;
 		if(query.getMatchType() == DictQuery::matchBeginning &&
 				!this->getWord().startsWith(query.getWord()))
 				return false;
-		if(query.getMatchType() == DictQuery::matchEnd &&
-				!this->getWord().endsWith(query.getWord()))
-				return false;
 		if(query.getMatchType() == DictQuery::matchAnywhere &&
-	*/ if(!this->getWord().contains(query.getWord()))
+				!this->getWord().contains(query.getWord()))
 				return false;
 	}
 
-	if(!query.getMeaning().isEmpty())
-		if(!listMatch(Meanings.join(" "),
-						query.getMeaning().split(DictQuery::mainDelimiter) ) )
+	if(!query.getPronunciation().isEmpty())
+		if(!listMatch(Readings, query.getPronunciation().split(DictQuery::mainDelimiter),
+					query.getMatchType() ) )
 			return false;
 
-	if(!query.getPronunciation().isEmpty())
-		if(!listMatch(Readings.join(" "),
-					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
+	if(!query.getMeaning().isEmpty())
+		if(!listMatch(Meanings.join(" ").split(" "),query.getMeaning().split(DictQuery::mainDelimiter),
+						query.getMatchType()) )
 			return false;
+
 
 	QList<QString> propList = query.listPropertyKeys();
 	foreach(const QString &key, propList) {
@@ -256,10 +254,35 @@ bool Entry::extendedItemCheck(const QString& key, const QString &value) const
 
 
 //Returns true if all members of test are in list
-bool Entry::listMatch(const QString &list, const QStringList &test) const {
-	foreach(const QString &it, test)
-		if(!list.contains(it))
-			return false;
+bool Entry::listMatch(const QStringList &list, const QStringList &test, DictQuery::MatchType type) const
+{
+	if(type == DictQuery::matchExact) {
+		foreach(const QString &it, test)
+			if(!list.contains(it))
+				return false;
+	} else if(type == DictQuery::matchBeginning) {
+		foreach(const QString &it, test) {
+			bool found = false;
+			foreach(const QString &it2, list)
+				if(it2.startsWith(it)) {
+					found = true;
+					break;
+				}
+			if(!found)
+				return false;
+		}
+	} else {
+		foreach(const QString &it, test) {
+			bool found = false;
+			foreach(const QString &it2, list)
+				if(it2.contains(it)) {
+					found = true;
+					break;
+				}
+			if(!found)
+				return false;
+		}
+	}
 	return true;
 }
 

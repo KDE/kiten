@@ -23,6 +23,7 @@
 #define KITEN_ENTRYKANJIDIC_H
 
 #include "Entry.h"
+#include <QtCore/QStringList>
 
 class QString;
 
@@ -35,8 +36,6 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 
 		virtual QString toHTML(printType=printAuto) const;
 
-		virtual bool matchesQuery(const DictQuery&) const;
-
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;
 
@@ -45,6 +44,8 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 		virtual QString HTMLWord() const;
 		virtual QString HTMLExtendedInfo(const QString &field) const;
 		virtual QString makeReadingLink(const QString&) const;
+
+		QStringList originalReadings;
 };
 
 #endif

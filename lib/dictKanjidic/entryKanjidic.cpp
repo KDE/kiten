@@ -44,53 +44,11 @@ QString EntryKanjidic::toHTML(printType printDirective) const
 	return result;
 }
 
-//We have to override matchesQuery to handle the wierd case of the readings
-//With extra punctuation in it
-//Possible TODO, move the original readings to a member variable (used in display)
-// and modify the inherited readings variable when reading from the file
-bool EntryKanjidic::matchesQuery(const DictQuery &query) const {
-	//TODO: Handle Radicals
-	if(!query.getWord().isEmpty()) {
-	/*	if(query.getMatchType() == DictQuery::matchExact &&
-				this->getWord() != query.getWord())
-				return false;
-		if(query.getMatchType() == DictQuery::matchBeginning &&
-				!this->getWord().startsWith(query.getWord()))
-				return false;
-		if(query.getMatchType() == DictQuery::matchEnd &&
-				!this->getWord().endsWith(query.getWord()))
-				return false;
-		if(query.getMatchType() == DictQuery::matchAnywhere &&
-	*/ if(			!this->getWord().contains(query.getWord()))
-				return false;
-	}
-
-	if(!query.getMeaning().isEmpty())
-		if(!listMatch(Meanings.join(" "),
-					query.getMeaning().split(DictQuery::mainDelimiter) ) )
-			return false;
-
-	QString readingsCopy = Readings.join(" ");
-	readingsCopy = readingsCopy.remove(".").remove("-");
-	if(!query.getPronunciation().isEmpty())
-		if(!listMatch(readingsCopy,
-					query.getPronunciation().split(DictQuery::mainDelimiter) ) )
-			return false;
-
-	QList<QString> propList = query.listPropertyKeys();
-	foreach(const QString &key, propList) {
-		if( !extendedItemCheck(key, query.getProperty(key)))
-			return false;
-	}
-
-	return true;
-}
-
 /** Prepares Readings for output as HTML */
 QString EntryKanjidic::HTMLReadings() const
 {
 	QString htmlReadings;
-	foreach(const QString &it,Readings) //KDE4 CHANGE
+	foreach(const QString &it,originalReadings)
 	{
 		if (it == "T1")
 			htmlReadings += i18n("In names: ");
@@ -154,15 +112,9 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 #define LOADSTRING(stringToLoad) while(entryLine.at(i) != ' ') \
 	{ \
 		stringToLoad += entryLine.at(i); \
-		if(i < length) \
-		{ \
-			i++; \
-		} \
-		else \
-		{ \
-			break; \
-		} \
-	}	\
+		if(i < length) i++; \
+		else break; \
+	}
 
 //	kDebug() << "LOADSTRING: '" << stringToLoad << "'";
 
@@ -306,6 +258,8 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				/* a reading that is only in postposition */
 				/* any of those 2 signals a reading is to ensue. */
 				LOADSTRING(curString)
+				originalReadings.append(curString);
+				curString = curString.remove("-").remove(".");
 				Readings.append(curString);
 				break;
 			default:
@@ -316,6 +270,8 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				if(0x3040 <= ichar.unicode() && ichar.unicode() <= 0x309F)
 				{
 					LOADSTRING(curString)
+					originalReadings.append(curString);
+					curString = curString.remove("-").remove(".");
 					Readings.append(curString);
 					break;
 				}

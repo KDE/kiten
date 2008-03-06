@@ -54,6 +54,15 @@ void DictQuery::init() {
 	m_matchType=matchExact;
 }
 
+DictQuery *DictQuery::clone() const {
+	return new DictQuery(*this);
+}
+
+DictQuery::operator QString() const {
+	kDebug() << "DictQuery toString operator called!";
+	return toString();
+}
+
 DictQuery::~DictQuery()
 {
 }
@@ -78,6 +87,7 @@ void DictQuery::clear() {
 DictQuery &DictQuery::operator=(const DictQuery &d) {
 	if ( &d == this ) return *this;
 	clear();
+	m_matchType = d.m_matchType;
 	m_extendedAttributes = d.m_extendedAttributes;
 	m_meaning=d.m_meaning;
 	m_pronunciation=d.m_pronunciation;
@@ -87,10 +97,31 @@ DictQuery &DictQuery::operator=(const DictQuery &d) {
 }
 
 DictQuery &DictQuery::operator+=(const DictQuery &d) {
-	return operator=(this->toString()+mainDelimiter+d.toString());
+	foreach(QString item, d.m_entryOrder) {
+		if(item == meaningMarker) {
+			if(m_entryOrder.removeAll(meaningMarker) > 0 )
+				setMeaning(getMeaning() + mainDelimiter + d.getMeaning());
+			else
+				setMeaning(d.getMeaning());
+		} else if(item == pronunciationMarker) {
+			if(m_entryOrder.removeAll(pronunciationMarker)>0)
+				setPronunciation(getPronunciation() + mainDelimiter + d.getPronunciation() );
+			else
+				setPronunciation(d.getPronunciation());
+		} else if(item == wordMarker) {
+			m_entryOrder.removeAll(wordMarker);
+			setWord( d.getWord() ); //Only one of these allowed
+		} else {
+			setProperty(item,d.getProperty(item));
+		}
+	}
+	return *this;
 }
-DictQuery &operator+( const DictQuery &a, const DictQuery &b) {
-	return (*(new DictQuery(a))) += b;
+
+DictQuery operator+(const DictQuery &a, const DictQuery &b) {
+	DictQuery val(a);
+	val += b;
+	return val;
 }
 
 bool operator==(const DictQuery &other, const DictQuery &query ) {
@@ -98,7 +129,9 @@ bool operator==(const DictQuery &other, const DictQuery &query ) {
 		|| (other.m_meaning != query.m_meaning)
 		|| (other.m_word != query.m_word)
 		|| (other.m_entryOrder != query.m_entryOrder)
-		|| (other.m_extendedAttributes != query.m_extendedAttributes) )
+		|| (other.m_extendedAttributes != query.m_extendedAttributes)
+		|| (other.m_matchType != query.m_matchType)
+	  )
 		return false;
 
 	return true;
@@ -143,7 +176,6 @@ bool operator<(const DictQuery &A, const DictQuery &B) {
 	return true;
 }
 
-
 /*****************************************************************************
 *	Methods to extract from QStrings and recreate QStrings
 *
@@ -177,11 +209,7 @@ DictQuery &DictQuery::operator=(const QString &str) {
 			if(it.contains(propertySeperator)) {
 				QStringList prop = it.split(propertySeperator);
 				if(prop.count() != 2)
-#ifdef USING_QUERY_EXCEPTIONS
-					throw invalidQueryException(it);
-#else
 					break;
-#endif
 				result.setProperty(prop[0],prop[1]);
 				//replace or throw an error with duplicates?
 			} else switch(stringTypeCheck(it)) {
@@ -205,13 +233,10 @@ DictQuery &DictQuery::operator=(const QString &str) {
 					break;
 
 				case DictQuery::mixed :
-					qWarning("DictQuery: String parsing error - mixed type");
-				case DictQuery::stringParseError :
-					qWarning("DictQuery: String parsing error");
-#ifdef USING_QUERY_EXCEPTIONS
-					throw invalidQueryException(it);
-#endif
+					kWarning() <<"DictQuery: String parsing error - mixed type";
 					break;
+				case DictQuery::stringParseError :
+					kWarning() << "DictQuery: String parsing error";
 			}
 		}
 	kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronunciation()<<"] :"<<
@@ -271,8 +296,8 @@ QString DictQuery::getProperty(const QString &key) const {
 const QList<QString> DictQuery::listPropertyKeys() const {
 	return m_extendedAttributes.keys();
 }
-QString DictQuery::operator[] (const QString &key) const {
-	return m_extendedAttributes[key];
+const QString DictQuery::operator[] (const QString &key) const {
+	return m_extendedAttributes.value(key);
 }
 QString DictQuery::operator[] (const QString &key) {
 	return m_extendedAttributes[key];
@@ -287,11 +312,7 @@ bool DictQuery::hasProperty(const QString &key) const {
 bool DictQuery::setProperty(const QString& key,const QString& value) {
 	if(key==pronunciationMarker || key==meaningMarker ||
 		key.isEmpty() || value.isEmpty())
-#ifdef USING_QUERY_EXCEPTIONS
-		throw invalidQueryException(key+propertySeperator+value);
-#else
 		return false;
-#endif
 	if ( ! m_extendedAttributes.contains( key ) )
 		m_entryOrder.append(key);
 	m_extendedAttributes.insert(key,value);
@@ -376,11 +397,11 @@ void DictQuery::setDictionaries(const QStringList &newDictionaries) {
 /**************************************************************
   Match Type Accessors and Mutators
   ************************************************************/
-DictQuery::matchTypeSettings DictQuery::getMatchType() const {
+DictQuery::MatchType DictQuery::getMatchType() const {
 	return m_matchType;
 }
 
-void DictQuery::setMatchType(matchTypeSettings newType) {
+void DictQuery::setMatchType(MatchType newType) {
 	m_matchType = newType;
 }
 

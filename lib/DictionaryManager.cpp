@@ -149,7 +149,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	if(dictsFromQuery.isEmpty()) { //None specified, search all
 		foreach( dictFile *it, dictManagers) {
 			EntryList *temp=it->doSearch(query);
-                        if(temp)
+			if(temp)
 			   ret->appendList(temp);
 			delete temp;
 		}
@@ -158,7 +158,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 			dictFile *newestFound = dictManagers.find(target).value();
 			if(newestFound != 0) {
 				EntryList *temp = newestFound->doSearch(query);
-                                if(temp)
+				if(temp)
 				   ret->appendList(temp);
 				delete temp;
 			}
@@ -166,8 +166,8 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	}
 
 	ret->setQuery(query); //Store the query for later use.
-	kDebug() << "From query: '" << query.toString() << "'";
-	kDebug() << "Found " << ret->count() << " results";
+	kDebug()<<"From query: '"<<query.toString()<<"' Found " << ret->count() << " results";
+	kDebug()<<"Incoming match type: "<<query.getMatchType()<<" Outgoing: "<<ret->getQuery().getMatchType();
 	return ret;
 }
 
