@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KITENEDIT_H
-#define KITENEDIT_H
+#ifndef KITEN_KITENEDIT_H
+#define KITEN_KITENEDIT_H
 
 #include "libkitenexport.h"
 #include <QtCore/QSize>

@@ -18,22 +18,21 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef LIBKITENEXPORTS_H
-#define LIBKITENEXPORTS_H
+#ifndef KITEN_LIBKITENEXPORT_H
+#define KITEN_LIBKITENEXPORT_H
 
 #include <kdemacros.h>
 
 #if defined Q_OS_WIN
-#ifndef KITEN_EXPORT
-# ifdef MAKE_KITEN_LIB
-#  define KITEN_EXPORT KDE_EXPORT
-# else
-#  define KITEN_EXPORT KDE_IMPORT
+# ifndef KITEN_EXPORT
+#  ifdef MAKE_KITEN_LIB
+#   define KITEN_EXPORT KDE_EXPORT
+#  else
+#   define KITEN_EXPORT KDE_IMPORT
+#  endif
 # endif
-#endif
-
 #else /* UNIX */
-#define KITEN_EXPORT KDE_EXPORT
+# define KITEN_EXPORT KDE_EXPORT
 #endif
 
 #endif

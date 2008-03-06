@@ -35,7 +35,7 @@ void noMessageOutput(QtMsgType, const char *)
 
 int main(int argc, char *argv[])
 {
-	qInstallMsgHandler(noMessageOutput);	//Disable Qt Errors from showing
+//	qInstallMsgHandler(noMessageOutput);	//Disable Qt Errors from showing
 
 	//Copyright and author information
 	KAboutData aboutData( "kiten", 0, ki18n("Kiten"), "1.2", ki18n("Japanese Reference Tool"),

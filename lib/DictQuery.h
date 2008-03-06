@@ -16,8 +16,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef DICTQUERY_H
-#define DICTQUERY_H
+#ifndef KITEN_DICTQUERY_H
+#define KITEN_DICTQUERY_H
 
 #include <QtCore/QHash>
 #include <QtCore/QHashIterator>

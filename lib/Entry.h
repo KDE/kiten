@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ENTRY_H
-#define ENTRY_H
+#ifndef KITEN_ENTRY_H
+#define KITEN_ENTRY_H
 
 #include <QtCore/QStringList>
 #include <QtCore/QList>
@@ -68,24 +68,27 @@ public:
 	/** Fairly important method, this tests if this particular entry matches a query */
 	virtual bool matchesQuery(const DictQuery&) const;
 
-	/** @enum An enum used by the print methods as an argument */
+	/** An enum used by the print methods as an argument */
 	typedef enum printType {printBrief, printVerbose, printAuto};
 
-	/* Some regular old accessors */
+	/** Get the dictionary name that generated this Entry */
 	QString getDictName() const { return sourceDict; }
+	/** Get the word from this Entry. If the entry is of type kanji/kana/meaning/etc, this will return
+	 * the kanji. If it is of kana/meaning/etc, it will return kana  */
 	QString getWord() const { return Word; }
+	/** Get a QString containing all of the meanings known, connected by the outputListDelimiter  */
 	QString getMeanings() const {return Meanings.join(outputListDelimiter);}
 	QStringList getMeaningsList() const { return Meanings; }
 	QString getReadings() const {return Readings.join(outputListDelimiter);}
 	QStringList getReadingsList() const { return Readings; }
-	QHash<QString,QString> getExtendedInfo() const { return ExtendedInfo; }
+	const QHash<QString,QString> &getExtendedInfo() const { return ExtendedInfo; }
 	QString getExtendedInfoItem(const QString &x) const { return ExtendedInfo[x]; }
 	virtual bool extendedItemCheck(const QString &key, const QString &value) const;
 
-	/* An entry should be able to generate a representation of itself in (valid)
+	/** An entry should be able to generate a representation of itself in (valid)
 		HTML */
 	virtual QString toHTML(printType=printAuto) const;
-	/* KVTML format for exporting */
+	/** KVTML format for exporting */
 	virtual QString toKVTML() const;
 	/** This will return a pure text interpretation of the Entry */
 	virtual QString toString(printType=printAuto) const;

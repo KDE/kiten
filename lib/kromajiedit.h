@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KROMAJIEDIT_H
-#define KROMAJIEDIT_H
+#ifndef KITEN_KROMAJIEDIT_H
+#define KITEN_KROMAJIEDIT_H
 
 #include <QtCore/QMap>
 

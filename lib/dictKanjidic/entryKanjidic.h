@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ENTRYKANJIDIC__
-#define ENTRYKANJIDIC__
+#ifndef KITEN_ENTRYKANJIDIC_H
+#define KITEN_ENTRYKANJIDIC_H
 
 #include "Entry.h"
 

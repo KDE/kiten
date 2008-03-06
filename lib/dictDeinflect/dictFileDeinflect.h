@@ -20,8 +20,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DICTFILEDEINFLECT_H
-#define DICTFILEDEINFLECT_H
+#ifndef KITEN_DICTFILEDEINFLECT_H
+#define KITEN_DICTFILEDEINFLECT_H
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>

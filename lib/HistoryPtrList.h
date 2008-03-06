@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __HISTORY_PTR_LIST_H__
-#define __HISTORY_PTR_LIST_H__
+#ifndef KITEN_HISTORYPTRLIST_H
+#define KITEN_HISTORYPTRLIST_H
 
 #include <QtCore/QList>
 

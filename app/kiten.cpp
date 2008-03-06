@@ -170,9 +170,9 @@ void kiten::setupActions() {
 
 	/* Setup the Search Actions and our custom Edit Box */
 	inputManager = new searchStringInput(this);
-  QAction *searchButton = actionCollection()->addAction( "search" );
-  searchButton->setText( i18n("S&earch") );
 
+	QAction *searchButton = actionCollection()->addAction( "search" );
+	searchButton->setText( i18n("S&earch") );
 	// Set the search button to search
 	connect(searchButton, SIGNAL(triggered()), this, SLOT(searchFromEdit()));
 
@@ -197,7 +197,9 @@ void kiten::setupActions() {
 
 	globalSearchAction = actionCollection()->add<KToggleAction>("search_on_the_spot");
         globalSearchAction->setText(i18n("On The Spo&t Search"));
-	qobject_cast<KAction*>( globalSearchAction )->setGlobalShortcut(KShortcut("Ctrl+Alt+S"));
+	KAction *temp = qobject_cast<KAction*>( globalSearchAction );
+	KShortcut shrt("Ctrl+Alt+S");
+	//globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
 	connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
 	/* Set up history interface management */

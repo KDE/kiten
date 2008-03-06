@@ -16,8 +16,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef __DICTFILE_H_
-#define __DICTFILE_H_
+#ifndef KITEN_DICTFILE_H
+#define KITEN_DICTFILE_H
 
 #include "libkitenexport.h"
 

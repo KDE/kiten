@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __DICTFILEKANJIDIC_H_
-#define __DICTFILEKANJIDIC_H_
+#ifndef KITEN_DICTFILEKANJIDIC_H
+#define KITEN_DICTFILEKANJIDIC_H
 
 #include "../dictEdict/dictFileEdict.h" //dictFileEdict definition
 #include "entryKanjidic.h"

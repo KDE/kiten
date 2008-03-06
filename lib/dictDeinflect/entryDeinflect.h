@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ENTRYDEINFLECT_H_
-#define ENTRYDEINFLECT_H_
+#ifndef KITEN_ENTRYDEINFLECT_H
+#define KITEN_ENTRYDEINFLECT_H
 
 #include "entry.h"
 

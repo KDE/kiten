@@ -19,23 +19,17 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __DICTFILEEDICT_H_
-#define __DICTFILEEDICT_H_
+#ifndef KITEN_DICTFILEEDICT_H_
+#define KITEN_DICTFILEEDICT_H_
 
 #include <config-kiten.h>
 
 #include "dictFile.h"
+#include "indexedEDICTFile.h"
 
 #include <sys/types.h>
 #include <QtCore/QFile>
 #include <QtCore/QMap>
-// Using uint32_t and int32_t to match with the C program that generates the indexes
-#ifdef HAVE_INTTYPES_H
-#include <inttypes.h>
-#else
-typedef unsigned int uint32_t;
-typedef int int32_t;
-#endif
 
 class QString;
 class QByteArray;
@@ -62,8 +56,6 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	virtual EntryList *doSearch(const DictQuery &query);
 	virtual QStringList listDictDisplayOptions(QStringList) const;
 
-	virtual QString getFile() const { return dictFile.fileName(); }
-
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton*,QWidget *parent=NULL);
 
 	virtual void loadSettings(KConfigSkeleton*);
@@ -75,22 +67,7 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	//This is a blatant abuse of protected methods to make the kanji subclass easy
 	virtual inline Entry *makeEntry(QString x) { return new EntryEDICT(getName(),x); }
 
-	//Utility methods for handling the index files
-	unsigned char lookupDictChar(unsigned);
-	QByteArray lookupDictLine(unsigned);
-	QByteArray lookupFullLine(unsigned);
-	int equalOrSubstring(const char*, const char *);
-	int findMatches(const char*, const char *);
-
-	static const int indexFileVersion = 14;	//This code understands version 14 index (.xjdx) files
-
-	QFile dictFile;
-	const unsigned char *dictPtr;
-
-	QFile indexFile;
-	const uint32_t *indexPtr;
-
-	bool valid;
+	indexedEDICTFile m_file;
 	static QStringList *displayFieldsList,*displayFieldsFull;
 
 	friend class EntryEDICT;

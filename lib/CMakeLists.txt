@@ -2,7 +2,8 @@
 set(edict_SRCS
 		dictEdict/dictFileEdict.cpp
 		dictEdict/entryEdict.cpp
-		dictEdict/dictFilePreferenceDialog.cpp)
+		dictEdict/dictFilePreferenceDialog.cpp
+		dictEdict/indexedEDICTFile.cpp)
 set(kanjidic_SRCS
 		dictKanjidic/dictFileKanjidic.cpp
 		dictKanjidic/entryKanjidic.cpp)

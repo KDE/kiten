@@ -38,7 +38,11 @@
 #include <stdio.h>
 
 
+EntryList::EntryList() : QList<Entry*>() {
+}
 
+EntryList::EntryList(const EntryList &old) : QList<Entry*> (old) {
+}
 EntryList::~EntryList() {
 //	kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
 }

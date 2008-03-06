@@ -51,7 +51,7 @@ searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
 	actionSearchSection->setText(i18n("Match Type"));
 	actionSearchSection->addAction(i18n("Exact Match"));
 	actionSearchSection->addAction(i18n("Match Beginning"));
-	actionSearchSection->addAction(i18n("Match Anywhere"));
+	actionSearchSection->addAction(i18n("Match Anywhere (Kanji Only)"));
 
 	actionSelectWordType = parent->actionCollection()->add<KSelectAction>("search_wordType");
 	actionSelectWordType->setText(i18n("Word Type"));

@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ENTRYEDICT_H_
-#define ENTRYEDICT_H_
+#ifndef KITEN_ENTRYEDICT_H
+#define KITEN_ENTRYEDICT_H
 
 #include "Entry.h"
 #include <QtCore/QHash>

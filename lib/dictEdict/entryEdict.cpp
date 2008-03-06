@@ -153,8 +153,6 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 			m_miscMarkings += str;
 	}
 
-//	kdDebug()<< "Parsed: '"<<Word<<"' ("<<Readings.front()<<") \""<<
-//		Meanings.join("|")<<"\" from :"<<entryLine<<endl;
 	return true;
 }
 
@@ -204,13 +202,13 @@ const EDICT_formatting &EntryEDICT::format() {
 */
 
 EDICT_formatting::EDICT_formatting() {
-	nounType = QString(i18nc("This must be a single word","noun"));
-	verbType = QString(i18nc("This must be a single word","verb"));
-	adjectiveType = QString(i18nc("This must be a single word","adjective"));
-	adverbType = QString(i18nc("This must be a single word","adverb"));
-	particleType = QString(i18nc("This must be a single word","particle"));
-	ichidanType = QString(i18nc("This is a technical japanese linguist's term... and probably should not be translated(except possibly in far-eastern languages), this must be a single word","ichidan"));
-	godanType = QString(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","godan"));
+	nounType = QString(i18nc("This must be a single word","Noun"));
+	verbType = QString(i18nc("This must be a single word","Verb"));
+	adjectiveType = QString(i18nc("This must be a single word","Adjective"));
+	adverbType = QString(i18nc("This must be a single word","Adverb"));
+	particleType = QString(i18nc("This must be a single word","Particle"));
+	ichidanType = QString(i18nc("This is a technical japanese linguist's term... and probably should not be translated(except possibly in far-eastern languages), this must be a single word","Ichidan"));
+	godanType = QString(i18nc("This is a technical japanese linguist's term... and probably should not be translated, this must be a single word","Godan"));
 
 		//Nouns
 	partOfSpeechCategories.insert(nounType,  "n");
