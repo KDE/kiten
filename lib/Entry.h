@@ -34,7 +34,7 @@ class EntryList;
 class QString;
 
 /** The Entry class is a generic base class for each particular entry in a given dictionary. It's used as the
-  basic class to ferry information back to the user application. */
+  basic class to ferry information back to the user application. It also handles some of the display aspects*/
 class KITEN_EXPORT Entry {
 
 	friend class EntryListModel;
@@ -44,20 +44,20 @@ private:
 	 that you're doing something wrong if you try to call this */
 	Entry();
 protected:
-	/** A constructor that takes a dictionary and a string to parse. THIS MUST
-	  BE OVERRIDDEN IN EVERY SUBCLASS */
-	Entry(const QString &sourceDictionary, const QString &parse);
-
 	/** Copy constructor. */
 	Entry(const Entry&);
-	/** Constructor that includes the dictionary source */
+	/** Constructor that includes the dictionary source. This does not need to be overridded by
+	 * subclasses, but you might find it to be convenient as the superclass constructor to call
+	 * from your constructors.
+	 * @param sourceDictionary the dictionary name (not fileName) that this entry originated with */
 	Entry(const QString &sourceDictionary);
-	/** A constructor that includes the basic information, nicely separated */
+	/** A constructor that includes the basic information, nicely separated
+	 * @param sourceDictionary the dictionary name (not fileName) that this entry originated with
+	 * @param word the word entry of this dictionary entry (normally kanji/kana)
+	 * @param readings a list of possible pronunciations for this result (kana)
+	 * @param meanings a list of possible meanings for this word */
 	Entry(const QString &sourceDictionary, const QString &word,
 			const QStringList &readings, const QStringList &meanings);
-	/** A constructor pattern that includes support for the extended info (copied) */
-	Entry(const QString &sourceDictionary, const QString &word, const QStringList
-			&readings, const QStringList &meanings, const QHash<QString,QString> &extendedInfo);
 
 public:
 	/** Generic Destructor */
@@ -65,10 +65,13 @@ public:
 	/** A clone method, this should just implement "return new EntrySubClass(*this)" */
 	virtual Entry *clone() const = 0;
 
-	/** Fairly important method, this tests if this particular entry matches a query */
+	/** Fairly important method, this tests if this particular entry matches a query. The
+	 * EDICT and Kanjidic doSearch methods do an approximate match, load an Entry, and then
+	 * check more carefully by calling this method. This works nicely for handling searchWithinResults
+	 * cleanly */
 	virtual bool matchesQuery(const DictQuery&) const;
 
-	/** An enum used by the print methods as an argument */
+	/** An enum used by the print methods as an argument. now deprecated */
 	typedef enum printType {printBrief, printVerbose, printAuto};
 
 	/** Get the dictionary name that generated this Entry */
@@ -78,11 +81,21 @@ public:
 	QString getWord() const { return Word; }
 	/** Get a QString containing all of the meanings known, connected by the outputListDelimiter  */
 	QString getMeanings() const {return Meanings.join(outputListDelimiter);}
+	/** Simple accessor */
 	QStringList getMeaningsList() const { return Meanings; }
+	/** Simple accessor */
 	QString getReadings() const {return Readings.join(outputListDelimiter);}
+	/** Simple accessor */
 	QStringList getReadingsList() const { return Readings; }
+	/** Simple accessor */
 	const QHash<QString,QString> &getExtendedInfo() const { return ExtendedInfo; }
+	/** Simple accessor
+	 * @param x the key for the extended info item to get */
 	QString getExtendedInfoItem(const QString &x) const { return ExtendedInfo[x]; }
+	/** Simple accessor
+	 * @param key the key for the extended item that is being verified
+	 * @param value the value it is supposed to have
+	 * @returns true if the key has that value, false if it is different or does not exist */
 	virtual bool extendedItemCheck(const QString &key, const QString &value) const;
 
 	/** An entry should be able to generate a representation of itself in (valid)
@@ -95,43 +108,67 @@ public:
 
 	/** the favoredPrintType parameter may be used by the HTML and toString
 	  printing methods */
-	virtual void setFavoredPrintType(const printType);
+	virtual void setFavoredPrintType(printType);
+	/** deprecated */
 	virtual printType getFavoredPrintType() const;
 
-	/* An entry should be able to parse an in-file representation of an entry
+	/** An entry should be able to parse an in-file representation of an entry
 		as a QString and put it back.  The latter will be useful for writing
 		to dictionaries on disk at some point. */
-	virtual bool loadEntry(const QString &entryLine) = 0;
+	virtual bool loadEntry(const QString &) = 0;
+	/** Return a QString of an entry, as if it were dumped back into it's source file */
 	virtual QString dumpEntry() const = 0;
 
-	/* This is needed for sorting */
-	virtual bool sort(const Entry &, const QStringList &dictionaryList,
+	/** An overrideable sorting function, similer to operator< in most contexts
+	 * The default version will sort by dictionary, then by fields
+	 * @param that the second item we are comparing (this) with
+	 * @param dictionaryList the list of dictionaries (in order) to sort
+	 *			If this list is empty, the entries will not be sorted in order
+	 *	@param fieldList the list of fields to sort in, uses special codes of
+	 *			Reading, Meaning, Word/Kanji for those elements, all others by their
+	 *			extended attribute keys. */
+	virtual bool sort(const Entry &that, const QStringList &dictionaryList,
 			const QStringList &fieldList) const;
+	/** Overrideable sorting mechanism for sorting by individual fields
+	 * @param that the second item we are comparing (this) with
+	 * @param field the specific extended item field that is being compared */
 	virtual bool sortByField(const Entry &that, const QString &field) const;
 
 protected:
-	// The actual data of this entry
+	/** The Word (usually containing kanji) that matches this entry. If you override the accessors
+	 * above, this has no use */
 	QString Word;
+	/** The Meanings that match this entry. If you override the accessors
+	 * above, this has no use */
 	QStringList Meanings;
+	/** The Readings (usually kana) that match this entry. If you override the accessors
+	 * above, this has no use */
 	QStringList Readings;
+	/** A hash of extended information. You may find it useful to store all sorts of details here */
 	QHash<QString,QString> ExtendedInfo;
 
-	//A bit of metadata
+	/** The dictionary that this entry originated at */
 	QString sourceDict;
+	/** The method this entry would prefer to print with */
 	printType favoredPrintType;
+	/** The delimiter for lists... usually space */
 	QString outputListDelimiter;
 
+	/** This is used by the constructors to set some default values */
 	void init();
 
-	/* New functions for Entry doing direct display */
-	virtual QString makeLink(const QChar&) const;
+	/** Handy function for generating a link from a given QString*/
 	virtual QString makeLink(const QString&) const;
+	/** Return and HTML version of a word */
 	virtual QString HTMLWord() const;
+	/** Return and HTML version of a reading list */
 	virtual QString HTMLReadings() const;
+	/** Return and HTML version of a meaning list */
 	virtual QString HTMLMeanings() const;
 
-	/* Handy Utility functions for matching to lists and identifying char types */
+	/** Handy Utility functions for matching to lists and identifying char types */
 	bool listMatch(const QStringList&,const QStringList&,DictQuery::MatchType) const;
+	/** Handy Utility functions for matching to lists and identifying char types */
 	bool isKanji(const QChar&) const;
 };
 

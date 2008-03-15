@@ -73,7 +73,7 @@ QString EntryEDICT::kanjiLinkify(const QString &inString) const
 	{
 		if(isKanji(inString.at(i)))
 		{
-			outString += makeLink(inString.at(i));
+			outString += makeLink(QString(inString.at(i)));
 		}
 		else
 		{

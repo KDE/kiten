@@ -49,33 +49,12 @@ Entry::Entry(const QString &sourceDictionary)
 {
 	init();
 }
-Entry::Entry(const QString &sourceDictionary,const QString &parseMe)
-	: sourceDict(sourceDictionary)
-{
-	init();
-	kDebug() << "ERROR: This method should not have been called. If the"<<
-		"\tsubclass of Entry did have a(QString dict,QString parseString)"<<endl<<
-		"\tconstructor, you need to call Entry(dict) instead for init."<<endl;
-	kDebug() << "You tried to create this obj: "<<parseMe;
-}
 
 Entry::Entry(const QString &sourceDictionary, const QString &word,
 				const QStringList &reading, const QStringList &meanings)
 	: Word(word)
 	, Meanings(meanings)
 	, Readings(reading)
-	, sourceDict(sourceDictionary)
-{
-	init();
-}
-
-Entry::Entry(const QString &sourceDictionary, const QString &word,
-		const QStringList &readings, const QStringList &meanings,
-		const QHash<QString,QString> &extendedInfo)
-	: Word(word)
-	, Meanings(meanings)
-	, Readings(readings)
-	, ExtendedInfo(extendedInfo)
 	, sourceDict(sourceDictionary)
 {
 	init();
@@ -137,7 +116,7 @@ QString Entry::toString(printType type) const {
 	}
 }
 
-/**This method allows the creator of the object to
+/* This method allows the creator of the object to
   "register their vote" on how the object should eventually
   be displayed. It may be ignored later on though
  If the print methods are called using printAuto, this
@@ -147,19 +126,13 @@ void Entry::setFavoredPrintType(const printType type) {
 	favoredPrintType = type;
 }
 
-/**Fetch the information set in setFavoredPrintType */
+/* Fetch the information set in setFavoredPrintType */
 Entry::printType Entry::getFavoredPrintType() const {
 	return favoredPrintType;
 }
 
 
 /* New functions for Entry doing direct display */
-/* Creates a one character link for the given @p entryCharacter. */
-inline QString Entry::makeLink(const QChar &entryCharacter) const
-{
-	return makeLink(QString(entryCharacter));
-}
-
 /* Creates a link for the given @p entryString. */
 inline QString Entry::makeLink(const QString &entryString) const
 {
@@ -231,7 +204,8 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 			return false;
 
 	if(!query.getMeaning().isEmpty())
-		if(!listMatch(Meanings.join(" ").split(" "),query.getMeaning().split(DictQuery::mainDelimiter),
+		if(!listMatch(Meanings.join(" ").toLower().split(" "),
+					query.getMeaning().toLower().split(DictQuery::mainDelimiter),
 						query.getMatchType()) )
 			return false;
 

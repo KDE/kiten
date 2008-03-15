@@ -53,7 +53,7 @@ EntryList::deleteAll() {
 		delete this->takeFirst();
 }
 
-/** Returns the EntryList as HTML */
+/* Returns the EntryList as HTML */
 //TODO: Some intelligent decision making regarding when to print what when AutoPrinting is on
 QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printType type) const {
 	unsigned int max = count();
@@ -97,7 +97,7 @@ QString EntryList::toHTML(Entry::printType type) const {
 	return toHTML(0,count(),type);
 }
 
-/** Returns the EntryList as HTML */
+/* Returns the EntryList as HTML */
 //TODO: Some intelligent decision making... regarding the output format (differ for
 //different types of searches?
 QString EntryList::toString(unsigned int start, unsigned int length, Entry::printType type) const {
@@ -119,7 +119,7 @@ QString EntryList::toString(Entry::printType type) const {
 	return toString(0,count(),type);
 }
 
-/** sorts the EntryList in a C++ish, thread-safe manner. */
+/* sorts the EntryList in a C++ish, thread-safe manner. */
 class sortFunctor {
 	public:
 		QStringList *dictionary_order;

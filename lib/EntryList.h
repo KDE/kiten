@@ -41,7 +41,7 @@ public:
 	/** Basic constructor, create an empty EntryList */
 	EntryList();
 	/** Copy constructor */
-	EntryList(const EntryList &old);
+	EntryList(const EntryList &);
 	/** Basic Destructor, does not delete Entry* objects. Please remember to call
 	 * deleteAll() before deleting an EntryList */
 	virtual ~EntryList();
@@ -49,27 +49,36 @@ public:
 	 * counting system, and this will be deprecated */
 	void deleteAll();
 
-	/** Convert every element of the EntryList to a QString and return it */
+	/** Convert every element of the EntryList to a QString and return it
+	 * */
 	QString toString(Entry::printType=Entry::printAuto) const;
 	/** Convert every element of the EntryList to a QString in HTML form and return it */
 	QString toHTML(Entry::printType=Entry::printAuto) const;
 
-	/** Convert a given range of the EntryList to a QString and return it */
+	/** Convert a given range of the EntryList to a QString and return it
+	 * @param start the location in the list where we should start
+	 * @param length the length of the list we should generate */
 	QString toString(unsigned int start, unsigned int length,
 			Entry::printType=Entry::printAuto) const;
-	/** Convert a given range of the EntryList to a QString in HTML form and return it */
+	/** Convert a given range of the EntryList to a QString in HTML form and return it
+	 * @param start the location in the list where we should start
+	 * @param length the length of the list we should generate  */
 	QString toHTML(unsigned int start, unsigned int length,
 			Entry::printType=Entry::printAuto) const;
-	/** Convert the entire list to KVTML for export to a flashcard app */
+	/** Convert the entire list to KVTML for export to a flashcard app
+	 * @param start the location in the list where we should start
+	 * @param length the length of the list we should generate */
 	QString toKVTML(unsigned int start, unsigned int length) const;
 
-	/** Sort the list according to the given fields in @p sortOrder, if @p dictionaryOrder
+	/** Sort the list according to the given fields in sortOrder, if dictionaryOrder
 	 * is blank, don't order the list by dictionary, otherwise items are sorted by dictionary
-	 * then by sortOrder aspects */
+	 * then by sortOrder aspects
+	 * @param sortOrder the keys to sort by, see Entry::sort
+	 * @param dictionaryOrder the order for the Entry objects to be sorted in, dictionary-wise */
 	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
 
 	/** Append another EntryList onto this one */
-	const EntryList& operator+=(const EntryList &other);
+	const EntryList& operator+=(const EntryList &);
 	/** Append another EntryList onto this one */
 	void appendList(const EntryList *);
 	/** Get the query that generated this list, note that if you have appended EntryLists from
@@ -79,9 +88,13 @@ public:
 	void setQuery(const DictQuery&);
 
 protected:
+	/** The query that this list was generated from.
+	 * Note that if this list was the result of a merge (using operator+=) of two or more EntryList objects,
+	 * the value of this is undefined */
 	DictQuery query;
 
-private: //Utility Methods
+private:
+	/** An easy function that returns the html result for an empty list */
 	inline QString noResultsHTML();
 };
 

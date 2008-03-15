@@ -51,7 +51,6 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	bool validQuery(const DictQuery &query);
 
 	bool loadDictionary(const QString &file, const QString &name);
-	bool loadNewDictionary(const QString &file, const QString &name);
 
 	virtual EntryList *doSearch(const DictQuery &query);
 	virtual QStringList listDictDisplayOptions(QStringList) const;

@@ -37,23 +37,40 @@ class DictQuery;
 class DictionaryPreferenceDialog;
 /** This is a virtual class that enforces the interface between the DictionaryManager
  *  class and the DictionaryManager.handler files. IMPLEMENT in combination with an
- *   Entry subclass to add a new dictionary format. Also see the addDictionary
- *   method in the dictionary class. */
-class KITEN_EXPORT dictFile {
+ *   Entry subclass (if needed) to add a new dictionary format. Also see the addDictionary
+ *   method in the dictionary class.
+ *
+ *   This documentation is mostly for those who are adding a new type of dictionary to
+ *   kiten. This class is not exported outside of the library */
+class /* NO_EXPORT */ dictFile {
 public:
-	/** Please see the comment at the dictionaryType protected variable*/
+	/** Please see the comment at the dictionaryType protected variable */
 	dictFile() {}
-	virtual ~dictFile() {}
-	/** Test to see if a dictionary file is of the proper type */
+	/** This method allows the user to test if a dictionary is the proper type for this format.
+	 * This process is allowed to take some time, but nonetheless you should find checking the format
+	 * of a few hundred entries sufficient for this.
+	 * @param filename the name of the file, suitable for using with QFile::setFileName() */
 	virtual bool validDictionaryFile(const QString &filename) = 0;
-	/** Is this query relevant to this dictionary type? */
+	/** Is this query relevent to this dictionary type? Usually this will return true,
+	 * unless the query specifies extended attributes that the dictionary does not provide
+	 * @param query the query to examine for relevence to this dictionary type */
 	virtual bool validQuery(const DictQuery &query) = 0;
-	/** This actually conducts the search. This is usually most of the work */
+	/** This actually conducts the search on the given query. This is usually most of the work
+	 * @param query the DictQuery that specifies what results to return */
 	virtual EntryList *doSearch(const DictQuery &query) = 0;
-	/** Load a dictionary (as in system startup) */
+	/** Load a dictionary as at system startup.
+	 * @param file the file to open, in a format suitable for use with QFile::setFileName()
+	 * @param name the name of the file to open, used in various user-interface aspects. It
+	 * May be related to the file parameter, but perhaps not.  */
 	virtual bool loadDictionary(const QString &file, const QString &name)=0;
-	/** Load a new dictionary (as from add dictionary dialog */
-	virtual bool loadNewDictionary(const QString &file, const QString &name)=0;
+	/** Load a new dictionary. This is called with the assumption that this dictionary
+	 * has not been opened previously, in case you need to build an index or other activity.
+	 * If you do not re-implement this method, it simply calls loadDictionary().
+	 * @param file the file to open, in a format suitable for use with QFile::setFileName()
+	 * @param name the name of the file to open, used in various user-interface aspects. It
+	 * May be related to the file parameter, but perhaps not.  */
+	virtual bool loadNewDictionary(const QString &file, const QString &name)
+		{return loadDictionary(file,name);}
 	/** Return a list of the fields that can be displayed, note the following
 	  should probably always be retured: --NewLine--, Word/Kanji, Meaning,
 	  Reading.  This function is passed a list originally containing those
@@ -62,22 +79,26 @@ public:
 	  This will often be a very similer list to getSearchableAttributes(),
 	  but due to optional forms of spelling and other situations, it may
 	  not be exactly the same. Note: The "Dictionary" option will be
-	  appended to your list at the end*/
+	  appended to your list at the end */
 	virtual QStringList listDictDisplayOptions(QStringList) const =0 ;
-	/** If you want your own dialog to pick preferences for your dict...
-	  override this */
+	/** If you want your own dialog to pick preferences for your dict, then override this.
+	 * Leaving it blank will leave your dictionary type without a preferences dialog.
+	 * @param config the KConfigSkeleton object that is currently in use
+	 * @param parent the parent widget for your preferences dialog. */
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL)
-				{if(parent==parent && config==config) return NULL; return NULL;}
+				{Q_UNUSED(parent);Q_UNUSED(config);}
 	/** Load information from the KConfigSkeleton that you've setup in
 	  the above preferences widget. */
 	virtual void loadSettings(KConfigSkeleton*) {}
 
-	/** Basic functions to return quick info */
+	/** Returns the name of the dictionary */
 	virtual QString getName() const {return dictionaryName;}
+	/** Returns the type of files this dictFile object deals with */
 	virtual QString getType() const {return dictionaryType;}
+	/** Returns the file that this is working with, usually used in the preferences display */
 	virtual QString getFile() const {return dictionaryFile;}
 	/** Fetch a list of searchable attributes and their codes */
-	virtual QMap<QString,QString> getSearchableAttributes() const
+	virtual const QMap<QString,QString> &getSearchableAttributes() const
 													{return searchableAttributes;}
 protected:
 	/** Name is the 'primary key' of the list of dictionaries. You will want to

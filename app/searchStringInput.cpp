@@ -102,6 +102,7 @@ DictQuery searchStringInput::getSearchQuery() const {
 }
 
 void searchStringInput::setSearchQuery(const DictQuery &query) {
+	kDebug() << "------------------------------Set Triggered";
 	//First we set the various actions according to the query
 	actionFilterRare->setChecked(query.getProperty("common") == "1");
 	switch(query.getMatchType()) {

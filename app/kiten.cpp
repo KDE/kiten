@@ -314,11 +314,16 @@ void kiten::searchClipboard()
 {
 	if (autoSearchToggle->isChecked()) {
 		QString clipboard = QApplication::clipboard()->text(QClipboard::Selection).simplified();
-		DictQuery potentialQuery(clipboard);
 
-		if (clipboard.length() < 40 && !(potentialQuery < inputManager->getSearchQuery())
-					&& historyList.current()->count() > 0)
+		//Only search if the clipboard selection was less than 20 characters wide
+		if (clipboard.length() < 20) {
+			DictQuery potentialQuery(clipboard);
+			//Make sure that we're not looking for a substring of the current string (needed?)
+			if(!(potentialQuery < inputManager->getSearchQuery()))
 				searchTextAndRaise(clipboard);
+			kDebug() << "Clipboard item is a substring (rejected)";
+		} else
+			kDebug() << "Clipboard entry too long";
 	}
 }
 

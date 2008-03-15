@@ -40,7 +40,9 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget {
 	Q_OBJECT
 	public:
 		/** Basic constructor. Used by internal classes only. Implement if you are
-		 adding your own dictionary type */
+		 adding your own dictionary type
+		 @param parent the parent widget, as per normal Qt Widget handling
+		 @param name the name of your widget, as understood by the preference code */
 		DictionaryPreferenceDialog(QWidget *parent, const QString &name);
 		/** Basic destructor. */
 		virtual ~DictionaryPreferenceDialog();
@@ -61,6 +63,7 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget {
 		void widgetChanged();
 
 	private:
+		/** A place to store the name, passed in the constructor */
 		QString m_name;
 };
 

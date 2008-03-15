@@ -34,7 +34,7 @@ class QChar;
 	* In general, you either pass or parse in parameters from users or automated
 	* programs to be later sent to the dictionary manager.
 	*
-	* @long This class is one of the three critical classes (along with
+	* This class is one of the three critical classes (along with
 	* dictionary and EntryList) that are needed to use libkiten. Essentially...
 	* you feed the dictionary class a DictQuery, and dictionary will return an
 	* EntryList that matches the query.
@@ -52,7 +52,7 @@ class QChar;
 	* Japanese Kanji
 	* Japanese Kana
 	* English Characters
-	* Property Pairs of the form <i>name</i>:<i>value</i>
+	* Property Pairs of the form \<i\>name\</i\>:\<i\>value\</i\>
 	*
 	* It is left up to the individual dictionary types to parse these values
 	* for matching and appropriateness to each dictionary.
@@ -72,13 +72,13 @@ class QChar;
 	* mutators for a limited set of properties. (in this case, radicals)
 	*
 	* The query string input is of the following format:
-	* <QS> ::= <M>DictQuery::mainDelimiter<QS>|<R>DictQuery::mainDelimiter<QS>|
-	*       <O>DictQuery::mainDelimiter<QS>|NULL
-	* <M>  ::= kana<M>|kana
-	* <R>  ::= character<R>|character
-	* <O>  ::= <C>DictQuery::propertySeperator<D>
-	* <C>  ::= character<C>|character
-	* <D>  ::= character<D>|character
+	* &lt;QS&gt; ::= &lt;M&gt;DictQuery::mainDelimiter&lt;QS&gt;|&lt;R&gt;DictQuery::mainDelimiter&lt;QS&gt;|
+	*       &lt;O&gt;DictQuery::mainDelimiter&lt;QS&gt;|NULL
+	* &lt;M&gt;  ::= kana&lt;M&gt;|kana
+	* &lt;R&gt;  ::= character&lt;R&gt;|character
+	* &lt;O&gt;  ::= &lt;C&gt;DictQuery::propertySeperator&lt;D&gt;
+	* &lt;C&gt;  ::= character&lt;C&gt;|character
+	* &lt;D&gt;  ::= character&lt;D&gt;|character
 	*
 	* @author Joseph Kerian \<jkerian@gmail.com>
 	*/
@@ -103,12 +103,12 @@ public:
 	DictQuery();
 	/**
 	  * Constructor with a given QString.
-	  * @param str This QString will be parsed as described below in
-	  * operator=(const QString&)
+	  * @param str the QString will be parsed as described below in operator=(const QString&)
 	  */
 	DictQuery(const QString& str);
 	/**
 	  * Copy constructor
+	  * @param orig the original DictQuery to be copied
 	  */
 	DictQuery(const DictQuery& orig);
 	/**
@@ -151,11 +151,11 @@ public:
 	/**
 	  * Returns a given extended attribute
 	  */
-	const QString operator[] (const QString &key) const;
+	const QString operator[] (const QString &) const;
 	/**
 	  * Sets a given extended attribute
 	  */
-	QString operator[] (const QString &key);
+	QString operator[] (const QString &);
 	/**
 	  * Get a specific property by key (is the same as using operator[] const)
 	  */
@@ -164,11 +164,13 @@ public:
 	  * Verify if a given DictQuery object has a search parameter of a
 	  * particular property
 	  */
-	bool hasProperty(const QString& key) const;
+	bool hasProperty(const QString&) const;
 	/**
 	  * Set a particular property... this does significantly more error checking
 	  * than the operator[] version, and will return false if there was a
 	  * problem (an empty value or bad key)
+	  * @param key the key for this entry
+	  * @param value the value to set this to, will overwrite the current contents of this location
 	  * @returns false on failure
 	  */
 	bool setProperty(const QString& key, const QString& value);
@@ -176,11 +178,11 @@ public:
 	  * Remove all instances of a property
 	  * @returns true if the DictQuery had properties of the given type
 	  */
-	bool removeProperty(const QString& key);
+	bool removeProperty(const QString&);
 	/**
 	  * Returns and removes the property
 	  */
-	QString takeProperty(const QString& key);
+	QString takeProperty(const QString&);
 
 	/**
 	  * Returns a list of the dictionaries that this particular query
@@ -268,7 +270,7 @@ public:
 
 	 //Specify the type of matching
 	/**
-	  * @enum This enum is used to define the type of matching this query is supposed
+	  * This enum is used to define the type of matching this query is supposed
 	  * to do. The names are fairly self-explanatory
 	  */
 	enum MatchType {matchExact, matchBeginning, matchAnywhere};
@@ -281,24 +283,46 @@ public:
 	  */
 	void setMatchType(MatchType);
 
-protected:	//The QDict itself tracks properties as key->value pairs
-	QString m_meaning;		//Stores the (presumably english) meaning
-	QString m_pronunciation;	//Stores the (presumed non-english) pronunciation
-	QString m_word;             //The 'key' word (this can potentially contain kanji)
+	/** This enum is used as the return type for the two utility functions, stringTypeCheck and
+	 * charTypeCheck */
+	enum stringTypeEnum {strTypeKanji, strTypeKana, strTypeLatin, mixed, stringParseError};
+	/** A simple utility routine to tell us what sort of string we have
+	 * If the string contains only kanji, kana or non-kanji/kana characters, the result is strTypeKanji,
+	 * strTypeKana or strTypeLatin (perhaps a misnomer... but so far it's valid).
+	 * If the string contains both kanji and kana, the type returned is strTypeKanji
+	 * If the string contains any other combination, the return type is mixed */
+	static stringTypeEnum stringTypeCheck(const QString &);
+	/** This utility does the same thing for QChar as stringTypeCheck does for QString. At the moment
+	 * the implementation is rather simple, and it assumes that anything that is not latin1 or kana is
+	 * a kanji */
+	static stringTypeEnum charTypeCheck(const QChar &);
+
+private:
+	/** Stores the (english or otherwise non-japanese) meaning */
+	QString m_meaning;
+	/** Stores the pronunciation in kana */
+	QString m_pronunciation;
+	/** The main word, this usually contains kanji */
+	QString m_word;
+	/** Any amount of extended attributes, grade leve, heisig/henshall/etc index numbers, whatever you want */
 	QHash<QString,QString> m_extendedAttributes;
-	QStringList m_entryOrder;	//Keeps track of the order that things were entered
-	QStringList m_targetDictionaries; //Tracks what dictionaries this entry will go into
+	/** The order that various attributes, meanings, and pronunciations were entered, so we can
+	 * regenerate the list for the user if they need them again */
+	QStringList m_entryOrder;
+	/** A list of dictionaries to limit the search to, and empty list implies "all loaded dictionaries" */
+	QStringList m_targetDictionaries;
+	/** What MatchType is this set to */
 	MatchType m_matchType;
 
-	static const QString pronunciationMarker; //Internal markers in entryOrder
-	static const QString meaningMarker;        //For where pronunciation and Meaningfound
-	static const QString wordMarker;           // and word
+	/** Marker in the m_entryOrder for the location of the pronunciation element */
+	static const QString pronunciationMarker;
+	/** Marker in the m_entryOrder for the location of the translated meaning element */
+	static const QString meaningMarker;
+	/** Marker in the m_entryOrder for the location of the word (kanji) element */
+	static const QString wordMarker;
 
+	/** This function needs to be called by all constructors, just to setup default values */
 	void init();
-
-	enum stringTypeEnum {strTypeKanji, strTypeKana, strTypeLatin, mixed, stringParseError};
-	static stringTypeEnum stringTypeCheck(const QString &in); //returns a string's consistant class.
-	static stringTypeEnum charTypeCheck(const QChar &ch);   //Same for the first char of a string
 };
 
 //Currently... KDE doesn't seem to want to use exceptions

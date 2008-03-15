@@ -39,7 +39,7 @@ IMPORTANT: To add a dictionary type, add the header file here and add it to the
 #include "dictKanjidic/dictFileKanjidic.h"
 
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation
-	step here, the next method, and #include your header file above. If you have
+	step here, the next method, and \#include your header file above. If you have
 	fully implemented the interface in DictionaryManager.h, It should simply work.*/
 dictFile *DictionaryManager::makeDictFile(const QString &type) {
 	if(type == "edict")
@@ -51,7 +51,7 @@ dictFile *DictionaryManager::makeDictFile(const QString &type) {
 	return NULL;
 }
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation
-	step here, the prev method, and #include your header file above. If you have
+	step here, the prev method, and \#include your header file above. If you have
 	fully implemented the interface in DictionaryManager.h, It should simply work.*/
 QStringList DictionaryManager::listDictFileTypes() {
 	QStringList list;
@@ -61,9 +61,8 @@ QStringList DictionaryManager::listDictFileTypes() {
 	return list;
 }
 
-/** Given a named Dict file/name/type... create and add the object if it
-  seems to work properly on creation.
-  */
+/* Given a named Dict file/name/type... create and add the object if it
+  seems to work properly on creation. */
 bool DictionaryManager::addDictionary(const QString &file, const QString &name,
 		const QString &type) {
 
@@ -85,11 +84,11 @@ bool DictionaryManager::addDictionary(const QString &file, const QString &name,
 	return true;
 }
 
-/** The constructor. Set autodelete on our dictionary list */
+/* The constructor. Set autodelete on our dictionary list */
 DictionaryManager::DictionaryManager() {
 }
 
-/** Delete everything in our hash */
+/* Delete everything in our hash */
 DictionaryManager::~DictionaryManager() {
 	QMutableHashIterator<QString, dictFile*> it(dictManagers);
 	while(it.hasNext()) {
@@ -99,15 +98,16 @@ DictionaryManager::~DictionaryManager() {
 	}
 }
 
-/** Remove a dictionary from the list, and delete the dictionary object
-  (it should close files, deallocate memory, etc). */
+/* Remove a dictionary from the list, and delete the dictionary object
+  (it should close files, deallocate memory, etc).
+  @param name the name of the dictionary, as given in the addDictionary method */
 bool DictionaryManager::removeDictionary(const QString &name) {
 	dictFile *file = dictManagers.take(name);
 	delete file;
 	return true;
 }
 
-/** Return a list of the dictionaries by their name (our key)
+/* Return a list of the dictionaries by their name (our key)
   Note that this dictionary name does not necessarily have to have anything
   to do with the actual dictionary name... */
 QStringList DictionaryManager::listDictionaries() const {
@@ -117,15 +117,17 @@ QStringList DictionaryManager::listDictionaries() const {
 	return ret;
 }
 
-/** Return the dictionary type and file used by a named dictionary.
-  returns a pair of empty QStrings if you specify an invalid name */
+/* Return the dictionary type and file used by a named dictionary.
+  returns a pair of empty QStrings if you specify an invalid name
+  @param name the name of the dictionary, as given in the addDictionary method */
 QPair<QString, QString> DictionaryManager::listDictionaryInfo(const QString &name) const {
 	if(!dictManagers.contains(name)) //This name not in list!
 		return qMakePair(QString(),QString()); //KDE4 CHANGE
 	return qMakePair(dictManagers[name]->getName(),dictManagers[name]->getFile());
 }
 
-/** Return a list of the names of each dictionary of a given type. */
+/* Return a list of the names of each dictionary of a given type.
+ * @param type the type of the dictionary we want a list of */
 QStringList DictionaryManager::listDictionariesOfType(const QString &type) const {
 	QStringList ret;
 	QHash<QString, dictFile*>::const_iterator it = dictManagers.begin();
@@ -137,9 +139,10 @@ QStringList DictionaryManager::listDictionariesOfType(const QString &type) const
 	return ret;
 }
 
-/** Examine the DictQuery and farm out the search to the specialized dict 
-  managers. Note that a global search limit will probably be implemented 
-  either here or in the dictFile implementations... probably both */
+/* Examine the DictQuery and farm out the search to the specialized dict
+  managers. Note that a global search limit will probably be implemented
+  either here or in the dictFile implementations... probably both
+  @param query the query, see DictQuery documentation */
 EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	EntryList *ret=new EntryList();
 
@@ -171,7 +174,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	return ret;
 }
 
-/** For this case, we let polymorphism do most of the work. We assume that the user wants
+/* For this case, we let polymorphism do most of the work. We assume that the user wants
   to pare down the results, so we let the individual entry metching methods run over the
   new query and accept (and copy) any of those that pass */
 EntryList *DictionaryManager::doSearchInList(const DictQuery &query, const EntryList *list) const {
@@ -187,6 +190,7 @@ EntryList *DictionaryManager::doSearchInList(const DictQuery &query, const Entry
 	return ret;
 }
 
+/* Load preference settings for a particular dictionary */
 void DictionaryManager::loadDictSettings(const QString &dictName, KConfigSkeleton *config) {
 	dictFile *dict = this->makeDictFile(dictName);
 	if(dict != NULL) {

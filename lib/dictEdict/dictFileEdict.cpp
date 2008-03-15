@@ -116,11 +116,6 @@ bool dictFileEdict::loadDictionary(const QString &fileName, const QString &dictN
 	return false;
 }
 
-/** Load up a dictionary for the first time. At the moment we just do the normal load */
-bool dictFileEdict::loadNewDictionary(const QString &fileName, const QString &dictName) {
-	return loadDictionary(fileName,dictName);
-}
-
 /* Do a search, respond with a list of entries.
  The general strategy will be to take the first word of the query, and do a
  binary search on the dictionary for that item. Take all results and filter
@@ -140,7 +135,7 @@ EntryList *dictFileEdict::doSearch(const DictQuery &i_query) {
 			query.setMatchType(DictQuery::matchBeginning);
 		firstChoice = query.getPronunciation();
 		if(firstChoice.length() == 0) {
-			firstChoice = query.getMeaning().split(" ").first();
+			firstChoice = query.getMeaning().split(" ").first().toLower();
 			if(firstChoice.length() == 0) {
 				//The nastiest situation... we have to assemble a search string
 				//from the first property

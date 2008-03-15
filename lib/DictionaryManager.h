@@ -62,39 +62,57 @@ class KITEN_EXPORT DictionaryManager {
 	/** Basic destructor */
 	virtual ~DictionaryManager();
 
-	/** Open a dictionary specified by @p file, named @p name, of type @p type */
+	/** Open a specified dictionary, and load it under this manager's control
+	  @param file the filename, suitable for using with QFile::setFileName()
+	  @param name the name of the file, which may be related to file, but perhaps not,
+	        for all future dealings with this file, this name will be the key value
+	  @param type the known dictionary type of this file
+	 */
 	bool addDictionary(const QString &file,const QString &name,const QString &type);
-	/** Close a dictionary by @p name */
+	/** Close a dictionary by name
+	 * @param name the name of the dictionary file, as given in addDictionary */
 	bool removeDictionary(const QString &name);
 	/** List names of each open dictionary */
 	QStringList listDictionaries() const;
-	/** Returns type and file for an open dictionary of a given @p name */
+	/** Returns type and file for an open dictionary of a given
+	 @param name the name of the dictionary whose information we are looking for */
 	QPair<QString, QString> listDictionaryInfo(const QString &name) const;
-	/** Lists all dictionaries of a given @p type (Convenient for preference dialogs) */
+	/** Lists all dictionaries of a given type (Convenient for preference dialogs)
+	 @param type the type of dictionaries to list */
 	QStringList listDictionariesOfType(const QString &type) const;
-	/** This is the main search routine that most of kiten should use */
+	/** This is the main search routine that most of kiten should use
+	 * @param query the DictQuery object describing the search to conduct*/
 	EntryList *doSearch(const DictQuery &query) const;
-	/** This should be significantly more efficient than repeating a doSearch call */
+	/**  A simple method for searching inside of a given set of results
+	  @param query the new query that will pare down our results list, there is no requirement that
+				this query includes the query that generated the EntryList, the results are calculated
+				only out of the second parameter
+	  @param list the list of results to search for the above query in. */
 	EntryList *doSearchInList(const DictQuery &query, const EntryList *list) const;
 	/** Static method, used to create the polymorphic dictFile object. Do not use externally.
 			If you are adding a new dictionary type, see the instructions in the code. */
 	static dictFile *makeDictFile(const QString&);
 	/** Get a list of all supported dictionary types. Useful for preference code */
 	static QStringList listDictFileTypes();
-	/** Given a @p config and @p parent widget, return a mapping from dictionary types to preference dialogs.
+	/** Given a config and parent widget, return a mapping from dictionary types to preference dialogs.
 	  If a particular dictionary type does not provide a preference dialog, it will not be included in this list,
-	  so occasionally keys(returnvalue) != listDictFileTypes() */
+	  so occasionally keys(returnvalue) != listDictFileTypes()
+	  @param config the config skeleton
+		@param parent the parent widget, as per the normal Qt widget system */
 	static QMap<QString,DictionaryPreferenceDialog*>
 		generatePreferenceDialogs(KConfigSkeleton *config, QWidget *parent=NULL);
 	/** Compiles a list of all fields beyond the basic three (word/pronounciation/meaning) that all dictionary
 	  types support. This can be used to generate a preference dialog, or provide more direct references */
 	static QMap<QString,QString> generateExtendedFieldsList();
-	/** Trigger loading preferences from a given KConfigSkeleton @p config object for a dictionary of type @p dict */
+	/** Trigger loading preferences from a given KConfigSkeleton config object for a dictionary of type dict 
+	 * @param dict the dictionary type to load settings for
+	 * @param config the config skeleton object */
 	void loadDictSettings(const QString &dict, KConfigSkeleton* config);
 	/** Load general settings */
 	void loadSettings(const KConfig&);
 
 	private:
+	/** List of dictionaries, indexed by name */
 	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
 };
 
