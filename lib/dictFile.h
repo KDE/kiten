@@ -86,7 +86,7 @@ public:
 	 * @param config the KConfigSkeleton object that is currently in use
 	 * @param parent the parent widget for your preferences dialog. */
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL)
-				{Q_UNUSED(parent);Q_UNUSED(config);}
+				{Q_UNUSED(parent);Q_UNUSED(config); return 0; }
 	/** Load information from the KConfigSkeleton that you've setup in
 	  the above preferences widget. */
 	virtual void loadSettings(KConfigSkeleton*) {}
