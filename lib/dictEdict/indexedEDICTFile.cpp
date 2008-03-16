@@ -154,7 +154,7 @@ bool indexedEDICTFile::buildIndex() {
 		KApplication::processEvents();
 	} while(proc.waitForFinished(5000));	//FIXME: This just cuts the index generator off after 5 sec
 	//FIXME: Check for the result of this operation
-
+  return proc.exitStatus() == QProcess::NormalExit && proc.exitCode() == 0;
 }
 
 //Warning: This assumes that both files have already been opened
