@@ -22,14 +22,13 @@
 #include "searchStringInput.h"
 #include "kitenconfig.h"
 
-#include "KitenEdit.h"
-
 #include <kdebug.h>
 #include <klocale.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kselectaction.h>
 #include <ktoggleaction.h>
+#include <khistorycombobox.h>
 
 #include <ktoolbar.h>
 
@@ -61,7 +60,8 @@ searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
 	actionSelectWordType->addAction(i18n("Adjective"));
 	actionSelectWordType->addAction(i18n("Adverb"));
 
-	actionTextInput = new KitenEdit(parent->actionCollection(), parent);
+	actionTextInput = new KHistoryComboBox(parent);
+	actionTextInput->setDuplicatesEnabled(false);
 	QAction *EditToolbarWidget = parent->actionCollection()->addAction( "EditToolbarWidget" );
 	EditToolbarWidget->setText( i18n("Search t&ext") );
 	qobject_cast<KAction*>( EditToolbarWidget )->setDefaultWidget(actionTextInput);
@@ -72,7 +72,7 @@ searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
 	}
 
 	connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
-	connect(actionTextInput, SIGNAL(activated(const QString&)), this, SIGNAL(search()));
+	connect(actionTextInput, SIGNAL(activated(const QString&)), this, SLOT(test()));
 
 }
 
@@ -120,6 +120,12 @@ void searchStringInput::setSearchQuery(const DictQuery &query) {
 	}
 
 	actionTextInput->setCurrentItem(copy.toString(), true);
+}
+
+void searchStringInput::test() {
+	kDebug() << "test1";
+	emit search();
+	kDebug() << "test2";
 }
 
 #include "searchStringInput.moc"

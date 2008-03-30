@@ -25,7 +25,7 @@ class radselectView;
 
 //From libkiten
 #include <DictQuery.h>
-class KitenEdit;
+class KHistoryComboBox;
 
 //QT and kdelibs
 class KToggleAction;
@@ -92,7 +92,7 @@ private:
 	radselectView *m_view;
 	DictQuery m_currentQuery;
 
-	KitenEdit *Edit;
+	KHistoryComboBox *Edit;
 	KToggleAction *showAll;
 
 };

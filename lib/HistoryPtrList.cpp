@@ -28,12 +28,15 @@ HistoryPtrList::HistoryPtrList():m_index(-1) {
 }
 
 HistoryPtrList::~HistoryPtrList() {
-	for(int i=size()-1; i>=0; i--)
+	for(int i=size()-1; i>=0; i--) {
+		this->at(i)->deleteAll();
 		delete this->at(i);
+	}
 }
 
 void
 HistoryPtrList::addItem(EntryList *newItem) {
+	if(!newItem) return;
 	//If we're currently looking at something prior to the end of the list
 	//Remove everything in the list up to this point.
 	int currentPosition = m_index+1;
@@ -45,11 +48,12 @@ HistoryPtrList::addItem(EntryList *newItem) {
 	}
 
 	//Now... check to make sure our history isn't 'fat'
-	while(count() >= 20) {
+	while(count() >= s_max_size) {
 		 temp = this->takeFirst();
 		 temp->deleteAll();
 		 delete temp;
 	}
+	m_index = count()-1; //Since we have trimmed down to the current position
 
 	//One other odd case... if this query is a repeat of the last query
 	//replace the current one with the new one
@@ -60,7 +64,6 @@ HistoryPtrList::addItem(EntryList *newItem) {
 			delete temp;
 		}
 	}
-
 	//Now add the item
 	append(newItem);
 	m_index = count()-1;

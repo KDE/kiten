@@ -158,7 +158,7 @@ EntryList *dictFileEdict::doSearch(const DictQuery &i_query) {
 
 	EntryList *results = new EntryList();
 	foreach(const QString &it, preliminaryResults) {
-		kDebug() << "result: " << it << endl;
+//		kDebug() << "result: " << it << endl;
 			Entry *result = makeEntry(it);
 			if(result->matchesQuery(query))
 				results->append(result);

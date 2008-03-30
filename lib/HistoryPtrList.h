@@ -31,6 +31,7 @@ class EntryList;
 class KITEN_EXPORT HistoryPtrList : protected QList<EntryList*> {
 	private:
 		int m_index;
+		static const int s_max_size = 20;
 	public:
 		/** Construct a HistoryPtrList, this should be done early on */
 		HistoryPtrList();
@@ -40,7 +41,7 @@ class KITEN_EXPORT HistoryPtrList : protected QList<EntryList*> {
 		  the current displayed item */
 		void addItem(EntryList*);
 		/** Return a list of the entries. Note that this is usually
-		  just a QStringList of all of the EntryList's DictQuery->toString() 
+		  just a QStringList of all of the EntryList's DictQuery->toString()
 		  calls. */
 		QStringList toStringList();
 		/** Return a list of the entries prior to the current one (not including

@@ -58,7 +58,6 @@
 #include <kfiledialog.h>
 
 #include "resultsView.h"
-#include "KitenEdit.h"
 #include "DictQuery.h"
 /* Separting Learn */
 //#include "learn.h"
@@ -282,6 +281,7 @@ bool kiten::queryClose()
  * Any gui choices will also be included here. */
 void kiten::searchFromEdit()
 {
+	kDebug() << "SEARCH FROM EDIT CALLED";
 	DictQuery query = inputManager->getSearchQuery();
 	searchAndDisplay(query);
 }

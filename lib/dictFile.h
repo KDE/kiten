@@ -35,7 +35,8 @@ class KConfig;
 class DictQuery;
 
 class DictionaryPreferenceDialog;
-/** This is a virtual class that enforces the interface between the DictionaryManager
+/** @short Abstract base class, used internally by the library for handling different types of dictionaries
+ * This is a virtual class that enforces the interface between the DictionaryManager
  *  class and the DictionaryManager.handler files. IMPLEMENT in combination with an
  *   Entry subclass (if needed) to add a new dictionary format. Also see the addDictionary
  *   method in the dictionary class.

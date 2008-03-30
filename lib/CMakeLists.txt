@@ -17,7 +17,6 @@ set(kiten_LIB_SRCS
 		Entry.cpp
 		EntryList.cpp
 		HistoryPtrList.cpp
-		KitenEdit.cpp
 		kromajiedit.cpp
 		${dictionary_SRCS}
 		)
@@ -34,7 +33,6 @@ install( FILES
 		Entry.h
 		EntryList.h
 		HistoryPtrList.h
-		KitenEdit.h
 		kromajiedit.h
 		libkitenexport.h
 	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten

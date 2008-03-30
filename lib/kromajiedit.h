@@ -30,7 +30,7 @@ class QWidget;
 class QMenu;
 class QByteArray;
 
-class KRomajiEdit : public KLineEdit
+class /* NO_EXPORT */ KRomajiEdit : public KLineEdit
 {
 	Q_OBJECT
 

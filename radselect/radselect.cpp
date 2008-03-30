@@ -19,8 +19,6 @@
 
 #include "radselect.h"
 #include "radselectview.h"
-#include "kromajiedit.h"
-#include "KitenEdit.h"
 #include "radselectconfig.h"
 #include "ui_radselectprefdialog.h"
 
@@ -48,6 +46,7 @@
 #include <kicon.h>
 
 #include <kedittoolbar.h>
+#include <khistorycombobox.h>
 
 radselect::radselect() :
 	KXmlGuiWindow(),
@@ -97,7 +96,8 @@ void radselect::setupActions()
 
     KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
-    Edit = new KitenEdit(actionCollection(), this);
+    Edit = new KHistoryComboBox(this);
+	 Edit->setDuplicatesEnabled(false);
     QAction *KitenEditAction =actionCollection()->addAction( "KitenEditWidget" );
     qobject_cast<KAction*>( KitenEditAction )->setDefaultWidget(Edit);
 

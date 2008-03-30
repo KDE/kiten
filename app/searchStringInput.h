@@ -27,7 +27,7 @@ class KAction;
 class KToggleAction;
 class KSelectAction;
 class WordType;
-class KitenEdit;
+class KHistoryComboBox;
 class kiten;
 
 class searchStringInput : public QObject {
@@ -41,6 +41,8 @@ class searchStringInput : public QObject {
 
 		DictQuery getSearchQuery() const;
 		void setSearchQuery(const DictQuery &query);
+	public slots:
+		void test();
 
 	signals:
 		void search();
@@ -50,7 +52,7 @@ class searchStringInput : public QObject {
 		KToggleAction *actionFilterRare;
 		KSelectAction *actionSearchSection;	//Search exact/anywhere/begining
 		KSelectAction *actionSelectWordType;
-		KitenEdit *actionTextInput;
+		KHistoryComboBox *actionTextInput;
 		kiten *parent;
 };
 
