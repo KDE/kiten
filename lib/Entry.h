@@ -108,7 +108,7 @@ public:
 
 	/** the favoredPrintType parameter may be used by the HTML and toString
 	  printing methods */
-	virtual void setFavoredPrintType(printType);
+	virtual void setFavoredPrintType(const printType);
 	/** deprecated */
 	virtual printType getFavoredPrintType() const;
 
