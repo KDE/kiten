@@ -73,8 +73,13 @@ public:
 	/** Sort the list according to the given fields in sortOrder, if dictionaryOrder
 	 * is blank, don't order the list by dictionary, otherwise items are sorted by dictionary
 	 * then by sortOrder aspects
-	 * @param sortOrder the keys to sort by, see Entry::sort
-	 * @param dictionaryOrder the order for the Entry objects to be sorted in, dictionary-wise */
+	 * @param sortOrder the keys to sort by, this should be a list of fields to sort by, this should
+	 *        be the same as the fields that are returned from dictFile::listDictDisplayOptions().
+	 *        "--NewLine--" entries will be ignored, "Word/Kanji", "Meaning", and "Reading" entries will
+	 *        be accepted. An entry which has an extended attribute is considered higher ranking (sorted to
+	 *        a higher position) than an entry which does not have such an attribute.
+	 * @param dictionaryOrder the order for the Entry objects to be sorted in, dictionary-wise. This should
+	 *        match the names of the dictionary objects, passed to the DictionaryManager */
 	void sort(QStringList &sortOrder,QStringList &dictionaryOrder);
 
 	/** Append another EntryList onto this one */
@@ -92,10 +97,8 @@ protected:
 	 * Note that if this list was the result of a merge (using operator+=) of two or more EntryList objects,
 	 * the value of this is undefined */
 	DictQuery query;
-
-private:
-	/** An easy function that returns the html result for an empty list */
-	inline QString noResultsHTML();
+	bool m_sorted;
+	bool m_sortedByDictionary;
 };
 
 #endif

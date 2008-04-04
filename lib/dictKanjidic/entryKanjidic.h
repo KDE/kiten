@@ -44,6 +44,7 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 		virtual QString HTMLWord() const;
 		virtual QString HTMLExtendedInfo(const QString &field) const;
 		virtual QString makeReadingLink(const QString&) const;
+		virtual bool extendedItemCheck(const QString &, const QString &) const;
 
 		QStringList originalReadings;
 };

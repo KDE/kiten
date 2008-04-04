@@ -74,8 +74,8 @@ public:
 	/** An enum used by the print methods as an argument. now deprecated */
 	typedef enum printType {printBrief, printVerbose, printAuto};
 
-	/** Get the dictionary name that generated this Entry */
-	QString getDictName() const { return sourceDict; }
+	/** Get the dictionary name that generated this Entry. I can't think of a reason to be changing this.  */
+	const QString &getDictName() const { return sourceDict; }
 	/** Get the word from this Entry. If the entry is of type kanji/kana/meaning/etc, this will return
 	 * the kanji. If it is of kana/meaning/etc, it will return kana  */
 	QString getWord() const { return Word; }
@@ -129,7 +129,9 @@ public:
 	 *			extended attribute keys. */
 	virtual bool sort(const Entry &that, const QStringList &dictionaryList,
 			const QStringList &fieldList) const;
-	/** Overrideable sorting mechanism for sorting by individual fields
+	/** Overrideable sorting mechanism for sorting by individual fields.
+	 * The sort routine checks if the given field is equal, before calling this virtual function
+	 * So if this is called, you can assume that this->extendedItem(field) != that.extendedItem(field)
 	 * @param that the second item we are comparing (this) with
 	 * @param field the specific extended item field that is being compared */
 	virtual bool sortByField(const Entry &that, const QString &field) const;

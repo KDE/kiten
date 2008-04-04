@@ -33,7 +33,7 @@ QStringList *dictFileKanjidic::displayFieldsList = NULL;
 QStringList *dictFileKanjidic::displayFieldsFull = NULL;
 
 dictFileKanjidic::dictFileKanjidic() : dictFileEdict(){
-	dictionaryType = "kanjidic";
+	dictionaryType = "kanjidic";		//Override the default type
 	searchableAttributes.insert("bushu","B");
 	searchableAttributes.insert("classical","C");
 	searchableAttributes.insert("henshall","E");
@@ -81,9 +81,11 @@ bool dictFileKanjidic::validQuery(const DictQuery &query) {
 		return false;
 
 	//Now check if we have any properties specified that we don't understand
-	QStringList properties = query.listPropertyKeys();
-	QStringList propertiesWeHandle = 
+	QStringList propertiesWeHandle =
 		searchableAttributes.values()+searchableAttributes.keys();
+	propertiesWeHandle += "common";	//We map this to be (has a G value)
+
+	QStringList properties = query.listPropertyKeys();
 	for(QStringList::Iterator it=properties.begin(); it != properties.end(); ++it)
 		if(!propertiesWeHandle.contains(*it))
 			return false;

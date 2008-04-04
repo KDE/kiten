@@ -274,15 +274,23 @@ bool Entry::sort(const Entry &that, const QStringList &dictOrder,
 		}
 	} else {
 		foreach(const QString &field, fields) {
-			if(this->getExtendedInfoItem(field) !=
-					that.getExtendedInfoItem(field))
+			//Only sort by this field if the values differ, otherwise move to the next field
+			const QString thisOne = this->getExtendedInfoItem(field);
+			const QString thatOne = that.getExtendedInfoItem(field);
+			if(thisOne != thatOne) {
+				//If the second item does not have this field, sort this one first
+				if(thatOne.isEmpty()) return true;
+				//If we don't have this field, sort "this" to second
+				if(thisOne.isEmpty()) return false;
+				//Otherwise, send it to a virtual function (to allow dictionaries to override sorting)
 				return this->sortByField(that,field);
+			}
 		}
 	}
 	return false; //If we reach here, they match as much as possible
 }
 
 bool Entry::sortByField(const Entry &that, const QString &field) const {
-	return this->getExtendedInfoItem(field) < that.getExtendedInfoItem(field);
+	return  this->getExtendedInfoItem(field) < that.getExtendedInfoItem(field);
 }
 

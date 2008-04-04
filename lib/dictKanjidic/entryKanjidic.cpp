@@ -304,3 +304,9 @@ QString EntryKanjidic::dumpEntry() const
 
 	return Word + ' ' + Readings.join(" ") + dumpExtendedInfo;
 }
+
+bool EntryKanjidic::extendedItemCheck(const QString &key, const QString &value) const {
+	if(key == "common")
+		return !getExtendedInfoItem("G").isEmpty();
+	return Entry::extendedItemCheck(key,value);
+}

@@ -38,10 +38,11 @@
 #include <stdio.h>
 
 
-EntryList::EntryList() : QList<Entry*>() {
+EntryList::EntryList() : QList<Entry*>(), m_sorted(false), m_sortedByDictionary(false)  {
 }
 
-EntryList::EntryList(const EntryList &old) : QList<Entry*> (old) {
+EntryList::EntryList(const EntryList &old) :
+	QList<Entry*> (old), m_sorted(false), m_sortedByDictionary(false) {
 }
 EntryList::~EntryList() {
 //	kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
@@ -51,6 +52,7 @@ void
 EntryList::deleteAll() {
 	while(!this->isEmpty())
 		delete this->takeFirst();
+	m_sorted = false;
 }
 
 /* Returns the EntryList as HTML */
@@ -61,11 +63,21 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 	if(start+length > max) length = max-start;
 
 	QString result;
+	QString temp;
+	QString &lastDictionary = temp;
+	const QString fromDictionary = i18n("From Dictionary:");
 	for (unsigned int i = 0; i < max; ++i)
 	{
 		Entry *it = at(i);
+		if(m_sortedByDictionary) {
+			const QString &newDictionary = it->getDictName();
+			if(lastDictionary != newDictionary) {
+				lastDictionary = newDictionary;
+				result += "<div class=\"DictionaryHeader\">"+fromDictionary+" "+newDictionary+"</div>";
+			}
+		}
 		if(length-- > 0)
-			result = result + "<div class=\"Entry\" index=\"" +
+			result += "<div class=\"Entry\" index=\"" +
 				QString::number(i) + "\" dict=\"" + it->getDictName()
 				+ "\">" + it->toHTML(type) + "</div>";
 		else
@@ -130,28 +142,30 @@ class sortFunctor {
 };
 
 void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder) {
+	//Don't shortcut sorting, unless we start to keep track of the last sorting order,
+	//Otherwise we won't respond when the user changes the sorting order
 	sortFunctor sorter;
 	sorter.dictionary_order = &dictionaryOrder;
 	sorter.sort_order = &sortOrder;
 
 	qSort(this->begin(),this->end(),sorter);
-}
-
-/** displays an HTML version of the "no results" message */
-inline QString EntryList::noResultsHTML()
-{
-	return "<div class=\"noResults\">No Results Found</div>";
+	m_sorted = true;
+	m_sortedByDictionary = dictionaryOrder.size() > 0;
 }
 
 const EntryList& EntryList::operator+=(const EntryList &other) {
 	foreach(Entry *it, other)
 			this->append(it);
+	if(other.size() > 0)
+		m_sorted = false;
 	return *this;
 }
 
 void EntryList::appendList(const EntryList *other) {
 	foreach(Entry *it, *other)
 		append(it);
+	if(other->size() > 0)
+		m_sorted = false;
 }
 
 /**This method retrieves an earlier saved query in the EntryList,

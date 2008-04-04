@@ -385,9 +385,9 @@ void kiten::displayResults(EntryList *results)
 		results->sort(fieldSort,dictSort);
 		mainView->setContents(results->toHTML());
 	} else
-		mainView->setContents("<html><body>No Results found</body></html>");
+		mainView->setContents("<html><body>"+infoStr+"</body></html>");
 
-	/* to print the html results to file:
+	/* //Debuggery: to print the html results to file:
 	QFile file("/tmp/lala");
 	file.open(QIODevice::WriteOnly);
 	file.write(results->toHTML().toUtf8());

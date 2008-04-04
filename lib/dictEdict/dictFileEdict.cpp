@@ -45,9 +45,8 @@
 
 /** Per instructions in the super-class, this constructor basically sets the
   dictionaryType member variable to identify this as an edict-type database handler */
-dictFileEdict::dictFileEdict() : dictFile()
+dictFileEdict::dictFileEdict() : dictFile("edict")
 {
-	dictionaryType = "edict";
 }
 
 QStringList *dictFileEdict::displayFieldsList = NULL;

@@ -44,9 +44,13 @@ class DictionaryPreferenceDialog;
  *   This documentation is mostly for those who are adding a new type of dictionary to
  *   kiten. This class is not exported outside of the library */
 class /* NO_EXPORT */ dictFile {
-public:
-	/** Please see the comment at the dictionaryType protected variable */
+private:
+	/** You are not allowed to create a dictFile subclass without specifying the type-name */
 	dictFile() {}
+public:
+	/** Use this constructor for your subclasses. Dictionary subclasses MUST specify their type
+	 * at creation */
+	dictFile(QString dictionaryTypeName) : dictionaryType(dictionaryTypeName) {}
 	/** This method allows the user to test if a dictionary is the proper type for this format.
 	 * This process is allowed to take some time, but nonetheless you should find checking the format
 	 * of a few hundred entries sufficient for this.
@@ -87,7 +91,7 @@ public:
 	 * @param config the KConfigSkeleton object that is currently in use
 	 * @param parent the parent widget for your preferences dialog. */
 	virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config,QWidget *parent=NULL)
-				{Q_UNUSED(parent);Q_UNUSED(config); return 0; }
+				{Q_UNUSED(parent);Q_UNUSED(config); return NULL; }
 	/** Load information from the KConfigSkeleton that you've setup in
 	  the above preferences widget. */
 	virtual void loadSettings(KConfigSkeleton*) {}
