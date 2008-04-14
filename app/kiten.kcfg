@@ -13,7 +13,7 @@
 		<dictname>__useGlobal and <dictname>__NAMES list if you list it in this
 		set... the program will crash otherwise.
 		  You must also provide the __displayFields information, although you
-		can provide this even if you dont allow the user to enter other
+		can provide this even if you do not allow the user to enter other
 		dictionaries. If you use a custom kcfg dialog instead of the standard
 		one, be sure to provide the variables that you need.
 		?>

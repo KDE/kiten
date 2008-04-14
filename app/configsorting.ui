@@ -34,7 +34,7 @@
         </widget>
       </item>
       <item>
-        <widget class="Line" name="seperator" >
+        <widget class="Line" name="separator" >
           <property name="frameShape" >
             <enum>QFrame::HLine</enum>
           </property>

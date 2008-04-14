@@ -18,8 +18,8 @@
  USA
 **/
 
-#include "kiten.h"
 #include "searchStringInput.h"
+#include "kiten.h"
 #include "kitenconfig.h"
 
 #include <kdebug.h>
@@ -35,7 +35,6 @@
 #include <kconfig.h>
 #include <kdeversion.h>
 #include <kedittoolbar.h>
-#include <ktoolbar.h>
 #include <qclipboard.h>
 
 searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {

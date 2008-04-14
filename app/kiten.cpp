@@ -25,6 +25,8 @@
 
 #include <QtCore/QList>
 #include <QtCore/QPair>
+#include <QtCore/QFile>
+#include <QtGui/QApplication>
 
 #include <kaction.h>
 #include <kconfig.h>
@@ -50,7 +52,6 @@
 #include <qdockwidget.h>
 #include <qtablewidget.h>
 #include <qboxlayout.h>
-#include <QApplication>
 #include <kapplication.h>
 #include <khtml_part.h>
 #include <khtmlview.h>
@@ -129,7 +130,6 @@ kiten::~kiten()
     optionDialog = 0;
 }
 
-#include <QFile>
 
 void kiten::saveAs()
 {
@@ -538,7 +538,6 @@ void kiten::loadDictConfig(const QString &dictType)
 	}
 */
 }
-
 
 
 /** This function allows one to print out the currently displayed result. */

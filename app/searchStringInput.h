@@ -50,7 +50,7 @@ class searchStringInput : public QObject {
 	private:
 		KToggleAction *actionDeinflect;
 		KToggleAction *actionFilterRare;
-		KSelectAction *actionSearchSection;	//Search exact/anywhere/begining
+		KSelectAction *actionSearchSection;	//Search exact/anywhere/beginning
 		KSelectAction *actionSelectWordType;
 		KHistoryComboBox *actionTextInput;
 		kiten *parent;

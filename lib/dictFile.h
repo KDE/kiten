@@ -56,7 +56,7 @@ public:
 	 * of a few hundred entries sufficient for this.
 	 * @param filename the name of the file, suitable for using with QFile::setFileName() */
 	virtual bool validDictionaryFile(const QString &filename) = 0;
-	/** Is this query relevent to this dictionary type? Usually this will return true,
+	/** Is this query relevant to this dictionary type? Usually this will return true,
 	 * unless the query specifies extended attributes that the dictionary does not provide
 	 * @param query the query to examine for relevence to this dictionary type */
 	virtual bool validQuery(const DictQuery &query) = 0;

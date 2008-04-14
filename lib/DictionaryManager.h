@@ -101,7 +101,7 @@ class KITEN_EXPORT DictionaryManager {
 		@param parent the parent widget, as per the normal Qt widget system */
 	static QMap<QString,DictionaryPreferenceDialog*>
 		generatePreferenceDialogs(KConfigSkeleton *config, QWidget *parent=NULL);
-	/** Compiles a list of all fields beyond the basic three (word/pronounciation/meaning) that all dictionary
+	/** Compiles a list of all fields beyond the basic three (word/pronunciation/meaning) that all dictionary
 	  types support. This can be used to generate a preference dialog, or provide more direct references */
 	static QMap<QString,QString> generateExtendedFieldsList();
 	/** Trigger loading preferences from a given KConfigSkeleton config object for a dictionary of type dict 

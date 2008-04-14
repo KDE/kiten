@@ -35,12 +35,11 @@ protected:
 	QSet<QString> componants;
 public:
 	Radical() : stroke_count(0) {}
-	Radical(const QString &irad, unsigned int iStrokes=0)
+	explicit Radical(const QString &irad, unsigned int iStrokes=0)
 		: QString(irad.at(0)), stroke_count(iStrokes) {}
 	const QSet<QString>	&getKanji() const {return kanji;}
 	void addKanji(const QSet<QString> &newKanji) {kanji += newKanji;}
-	unsigned int strokes() const
-		{return stroke_count;}
+	unsigned int strokes() const {return stroke_count;}
 	bool operator<(const Radical &other) const {
 		return this->stroke_count < other.stroke_count;
 	}
@@ -59,7 +58,7 @@ public:
 	void calculateStrokes(const QList<Radical> &lookup) {
 		stroke_count = 0;
 		foreach( const QString &it, componants )
-			stroke_count += lookup.value(lookup.indexOf(it)).strokes();
+			stroke_count += lookup.value(lookup.indexOf(Radical(it))).strokes();
 	}
 	unsigned int strokes() const
 		{return stroke_count;}

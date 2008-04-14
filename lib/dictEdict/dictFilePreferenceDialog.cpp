@@ -42,7 +42,7 @@ dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig,
 	ListView->setAvailableLabel(i18n("&Available List Fields:"));
 	newTabLayout->addWidget(ListView);
 
-	//Make Seperator Line
+	//Make Separator Line
 	QFrame *seperatorLine = new QFrame(this);
 	seperatorLine->setFrameShape(QFrame::HLine);
 	seperatorLine->setFrameShadow(QFrame::Sunken);
