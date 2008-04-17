@@ -200,16 +200,10 @@ void kiten::setupActions() {
 	//globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
 	connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
-	/* Set up history interface management */
-	//KDE4 TODO
-/*	historyAction = new KListAction(i18n("&History"), 0, 0, 0, actionCollection(), "history");
-	connect(historyAction, SIGNAL(activated(int)), this, SLOT(goInHistory(int)));
-	*/
 	backAction = KStandardAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStandardAction::forward(this, SLOT(forward()), actionCollection());
 	backAction->setEnabled(false);
 	forwardAction->setEnabled(false);
-
 
 }
 

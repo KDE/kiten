@@ -29,8 +29,7 @@
 #include <QtCore/QFile>
 
 
-QStringList *dictFileKanjidic::displayFieldsList = NULL;
-QStringList *dictFileKanjidic::displayFieldsFull = NULL;
+QStringList *dictFileKanjidic::displayFields = NULL;
 
 dictFileKanjidic::dictFileKanjidic() : dictFileEdict(){
 	dictionaryType = "kanjidic";		//Override the default type
@@ -132,10 +131,6 @@ dictFileKanjidic::loadSettings(KConfigSkeleton *config) {
 	list["Meaning"]="Meaning";
 	list["--Newline--"]="--Newline--";
 
-	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFieldsFullView");
-	this->displayFieldsFull = loadListType(item,this->displayFieldsFull,list);
-	
-	item = config->findItem(getType()+"__displayFieldsListView");
-	this->displayFieldsList = loadListType(item,this->displayFieldsList,list);
-
+	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFields");
+	this->displayFields = loadListType(item,this->displayFields,list);
 }

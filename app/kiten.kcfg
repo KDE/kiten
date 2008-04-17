@@ -28,11 +28,7 @@
       <label>Use preinstalled edict</label>
       <default>true</default>
     </entry>
-    <entry key="__displayFieldsList" name="edict__displayFieldsListView" type="StringList">
-		<label>Set of fields to display for this dictionary type</label>
-		<default>Word/Kanji,Reading,Meaning</default>
-    </entry>
-    <entry key="__displayFieldsFull" name="edict__displayFieldsFullView" type="StringList">
+    <entry key="__displayFields" name="edict__displayFields" type="StringList">
 		<label>Set of fields to display for this dictionary type</label>
 		<default>Word/Kanji,Reading,Meaning</default>
     </entry>
@@ -46,11 +42,7 @@
       <label>Use preinstalled kanjidic</label>
       <default>true</default>
     </entry>
-    <entry key="__displayFieldsList" name="kanjidic__displayFieldsListView" type="StringList">
-		<label>Set of fields to display for this dictionary type</label>
-		<default>Word/Kanji,Reading,Meaning</default>
-    </entry>
-    <entry key="__displayFieldsFull" name="kanjidic__displayFieldsFullView" type="StringList">
+    <entry key="__displayFields" name="kanjidic__displayFields" type="StringList">
 		<label>Set of fields to display for this dictionary type</label>
 		<default>Word/Kanji,Reading,Meaning</default>
     </entry>
@@ -61,19 +53,24 @@
       <label>Do we search for "jiten" on startup</label>
       <default>true</default>
     </entry>
-     <entry key="wholeWord" type="Bool">
-      <label>Match only whole English word</label>
-      <default>true</default>
-    </entry>
     <entry key="caseSensitive" type="Bool">
       <label>Case sensitive searches</label>
       <default>false</default>
     </entry>
   </group>
   <group name="Sorting">
-    <entry key="dictionary_enable" type="String"></entry>
-	 <entry key="dictionary_sortlist" type="StringList"></entry>
-	 <entry key="field_sortlist" type="StringList"></entry>
+	  <entry key="dictionary_enable" type="String">
+		<label>Enable Sorting By Dictionary</label>
+		<default>true></default>
+	  </entry>
+	  <entry key="dictionary_sortlist" type="StringList">
+		  <label>What order do we sort the dictionaries in?</label>
+		  <default>kanjidic,edict</default>
+	  </entry>
+	  <entry key="field_sortlist" type="StringList">
+		  <label>What order do we sort the fields in?</label>
+		  <default>Word/Kanji,Reading,Meaning,strokes</default>
+	  </entry>
   </group>
   <group name="Font">
     <entry key="font" type="Font"></entry>
@@ -88,33 +85,26 @@
 	 </entry>
   </group>
   <group name="Learn">
-    <entry key="Guess On" type="Int">
-      <default>1</default>
-    </entry>
-    <entry key="Quiz On" type="Int">
-      <default>0</default>
-    </entry>
-    <entry key="grade" type="Int">
-      <default>1</default>
-    </entry>
-    <entry key="lastFile" type="Path">
-    </entry>
-    <entry key="startLearn" type="Bool">
-      <label>Start "learn" on Kiten startup</label>
-      <default>false</default>
-    </entry>
   </group>
   <group name="app">
-    <entry key="com" type="Bool">
+	  <entry key="common_only" type="Bool">
+		<label>Limit search results to "common" entries only?</label>
+      <default>false</default>
+	</entry>
+	<entry key="search_precision" type="Int">
+		<label>The the users last type of search, 0=Exact, 1=Match Start, 2=Match Anywhere</label>
+		<default>2</default>
+	</entry>
+	<entry key="search_limit_to_wordtype" type="Int">
+		<label>Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb</label>
+		<default>0</default>
+	</entry>
+	 <entry key="autosearch" type="Bool">
+		 <label>Automatically search for clipboard entries?</label>
       <default>false</default>
     </entry>
-    <entry key="kanji" type="Bool">
-      <default>false</default>
-    </entry>
-    <entry key="autosearch" type="Bool">
-      <default>false</default>
-    </entry>
-    <entry key="deinf" type="Bool">
+	 <entry key="deinf" type="Bool">
+		 <label>Enable the Deinflection checker?</label>
       <default>true</default>
     </entry>
   </group>

@@ -41,7 +41,6 @@ class dictFileFieldSelector : public DictionaryPreferenceDialog {
 		void setAvailable(const QStringList &list);
 		void addAvailable(const QStringList &list);
 		void setDefaultList(const QStringList &list);
-		void setDefaultFull(const QStringList &list);
 		void readFromPrefs();
 		void writeToPrefs();
 
@@ -53,12 +52,9 @@ class dictFileFieldSelector : public DictionaryPreferenceDialog {
 		void widgetChanged();
 
 	private:
-		QStringList fetchItemFromPreferences(const QString &dictName, const QString &type);
-		QStringList extractList(KActionSelector*);
-
-		QStringList completeList, defaultList,defaultFull;
+		QStringList completeList, defaultList;
 		QString dictName;
-		KActionSelector *ListView, *FullView;
+		KActionSelector *ListView;
 		KConfigSkeleton *config;
 
 };

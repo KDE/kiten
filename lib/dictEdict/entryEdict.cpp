@@ -50,7 +50,7 @@ QString EntryEDICT::toHTML(printType printDirective) const
 {
 	QString result="<div class=\"EDICTBrief\">";
 
-	foreach(const QString &field, QSTRINGLISTCHECK(dictFileEdict::displayFieldsList)) {
+	foreach(const QString &field, QSTRINGLISTCHECK(dictFileEdict::displayFields)) {
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
 		else if(field == "Meaning")		result += HTMLMeanings()+' ';

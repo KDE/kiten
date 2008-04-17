@@ -32,7 +32,7 @@ QString EntryKanjidic::toHTML(printType printDirective) const
 {
 	QString result="<div class=\"KanjidicBrief\">";
 
-	foreach(const QString &field, QSTRINGLISTCHECK(dictFileKanjidic::displayFieldsList)) {
+	foreach(const QString &field, QSTRINGLISTCHECK(dictFileKanjidic::displayFields)) {
 		kDebug() << "Display: "<<field;
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';

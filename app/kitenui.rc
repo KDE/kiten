@@ -34,7 +34,7 @@
 	<Action name="go_back" />
 	<Action name="go_forward" />
 	<Separator/>
-	<Action name="common" />
+	<Action name="search_filterRare" />
 	<Action name="search_searchType" />
 </ToolBar>
 
@@ -44,7 +44,7 @@
 
 <ToolBar name="searchToolbar" fullWidth="true" newline="true">
 	<text>Search Toolbar</text>
-	<Action name="EditToolbarWidget" />
+	<Action name="searchbox" />
 	<Action name="search" />
 	<Action name="search_in_results" />
 	<Action name="search_radical" />

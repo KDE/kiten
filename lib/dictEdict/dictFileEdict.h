@@ -67,7 +67,7 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	virtual inline Entry *makeEntry(QString x) { return new EntryEDICT(getName(),x); }
 
 	indexedEDICTFile m_file;
-	static QStringList *displayFieldsList,*displayFieldsFull;
+	static QStringList *displayFields;
 
 	friend class EntryEDICT;
 };

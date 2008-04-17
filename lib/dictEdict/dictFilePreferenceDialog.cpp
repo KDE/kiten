@@ -37,21 +37,10 @@ dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig,
 
 	QVBoxLayout *newTabLayout = new QVBoxLayout();
 
-	//Make top selection box	
+	//Make selection box
 	ListView = new KActionSelector();
-	ListView->setAvailableLabel(i18n("&Available List Fields:"));
+	ListView->setAvailableLabel(i18n("&Available Fields:"));
 	newTabLayout->addWidget(ListView);
-
-	//Make Separator Line
-	QFrame *seperatorLine = new QFrame(this);
-	seperatorLine->setFrameShape(QFrame::HLine);
-	seperatorLine->setFrameShadow(QFrame::Sunken);
-	newTabLayout->addWidget(seperatorLine);
-
-	//Make Bottom Selection Box
-	FullView = new KActionSelector();
-	FullView->setAvailableLabel(i18n("&Available Full View Fields:"));
-	newTabLayout->addWidget(FullView);
 
 	//Add layout to our widget
 	this->setLayout(newTabLayout);
@@ -69,11 +58,7 @@ dictFileFieldSelector::dictFileFieldSelector(KConfigSkeleton *iconfig,
 	connect(ListView, SIGNAL(removed(QListWidgetItem*)), this, SLOT(settingChanged()));
 	connect(ListView, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(settingChanged()));
 	connect(ListView, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(added(QListWidgetItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(removed(QListWidgetItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(settingChanged()));
-	connect(FullView, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(settingChanged()));
-	
+
 	config = iconfig;
 	updateWidgets();
 }
@@ -94,10 +79,6 @@ void dictFileFieldSelector::setDefaultList(const QStringList &list) {
 	defaultList = list;
 }
 
-void dictFileFieldSelector::setDefaultFull(const QStringList &list) {
-	defaultFull = list;
-}
-
 void dictFileFieldSelector::updateWidgets() {
 	readFromPrefs();
 }
@@ -114,12 +95,22 @@ void dictFileFieldSelector::settingChanged() {
 }
 
 void dictFileFieldSelector::readFromPrefs() {
-	QStringList actionList, selectedList;
+	QStringList selectedList;
 
 	config->setCurrentGroup("dicts_"+dictName);
-	
-	actionList = completeList;
-	selectedList = fetchItemFromPreferences(dictName, QString("List"));
+
+	QStringList actionList = completeList;
+	QString itemName = dictName + "__displayFields";
+	KConfigSkeletonItem *item = config->findItem(itemName);
+	if(item != NULL) {
+		selectedList = item->property().toStringList();
+	} else {	//it's not currently in the preferences list
+		config->addItem(new KConfigSkeleton::ItemStringList(
+					"dicts_"+dictName,itemName,*new QStringList()),itemName);
+		config->readConfig();
+		selectedList = config->findItem(itemName)->property().toStringList();
+	}
+
 	foreach( const QString &it, selectedList)
 		actionList.removeAt(actionList.indexOf(it)); //don't just use remove()... will remove all
 
@@ -127,16 +118,6 @@ void dictFileFieldSelector::readFromPrefs() {
 	ListView->selectedListWidget()->clear();
 	ListView->availableListWidget()->addItems(actionList);
 	ListView->selectedListWidget()->addItems(selectedList);
-	
-	actionList = completeList;
-	selectedList = fetchItemFromPreferences(dictName, QString("Full"));
-	for(QStringList::Iterator it = selectedList.begin(); it != selectedList.end(); ++it)
-		actionList.removeAt(actionList.indexOf(*it)); 
-
-	FullView->availableListWidget()->clear();
-	FullView->selectedListWidget()->clear();
-	FullView->availableListWidget()->addItems(actionList);
-	FullView->selectedListWidget()->addItems(selectedList);
 }
 
 void dictFileFieldSelector::writeToPrefs() {
@@ -144,9 +125,11 @@ void dictFileFieldSelector::writeToPrefs() {
 	QStringList theList;
 	KConfigSkeletonItem *item;
 	QString itemName;
-	
-	theList = extractList(ListView);
-	itemName = dictName+"__displayFieldsListView";
+
+	for(int i=0; i < ListView->selectedListWidget()->count(); i++)
+		theList.append(ListView->selectedListWidget()->item(i)->text());
+
+	itemName = dictName+"__displayFields";
 	item = config->findItem(itemName);
 	if(!item) {
 		item = new KConfigSkeleton::ItemStringList("dicts_"+dictName,itemName,*new QStringList());
@@ -154,36 +137,7 @@ void dictFileFieldSelector::writeToPrefs() {
 	}
 	item->setProperty(theList);
 
-	theList = extractList(FullView);
-	itemName = dictName+"__displayFieldsFullView";
-	item = config->findItem(itemName);
-	if(!item) {
-		item = new KConfigSkeleton::ItemStringList("dicts_"+dictName,itemName,*new QStringList());
-		config->addItem(item,itemName);
-	}
-	item->setProperty(theList);
-	
 	config->writeConfig();
 }
 
-QStringList dictFileFieldSelector::extractList(KActionSelector *box) {
-	QStringList result;
-	for(int i=0; i < box->selectedListWidget()->count(); i++)
-		result.append(box->selectedListWidget()->item(i)->text());
-	return result;
-}
-
-QStringList
-dictFileFieldSelector::fetchItemFromPreferences(const QString &dictName, const QString &type) {
-	QString itemName = dictName + "__displayFields"+type+"View";
-	KConfigSkeletonItem *item = config->findItem(itemName);
-	if(item != NULL)
-		return item->property().toStringList();
-
-	//else it's not currently in the preferences list
-	config->addItem(new KConfigSkeleton::ItemStringList(
-				"dicts_"+dictName,itemName,*new QStringList()),itemName);
-	config->readConfig();
-	return config->findItem(itemName)->property().toStringList();
-}
 #include "dictFilePreferenceDialog.moc"

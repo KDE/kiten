@@ -37,8 +37,8 @@
 #include <kedittoolbar.h>
 #include <qclipboard.h>
 
-searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
-	parent = iparent;
+searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
+	parent = iParent;
 	actionDeinflect = parent->actionCollection()->add<KToggleAction>("search_deinflect");
 	actionDeinflect->setText(i18n("Deinflect Verbs/Adjectives"));
 
@@ -61,28 +61,28 @@ searchStringInput::searchStringInput(kiten *iparent) : QObject(iparent) {
 
 	actionTextInput = new KHistoryComboBox(parent);
 	actionTextInput->setDuplicatesEnabled(false);
-	QAction *EditToolbarWidget = parent->actionCollection()->addAction( "EditToolbarWidget" );
-	EditToolbarWidget->setText( i18n("Search t&ext") );
-	qobject_cast<KAction*>( EditToolbarWidget )->setDefaultWidget(actionTextInput);
 	actionTextInput->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-	if(!actionDeinflect || !actionFilterRare || !actionSearchSection || !actionSelectWordType) {
-		kDebug() << "Error creating user interface elements" << endl;
+	KAction *actionsearchbox = parent->actionCollection()->addAction( "searchbox" );
+	actionsearchbox->setText( i18n("Search Bar") );
+	actionsearchbox->setDefaultWidget(actionTextInput);
+
+	if(!actionDeinflect || !actionFilterRare || !actionSearchSection || !actionSelectWordType
+			|| !actionsearchbox) {
+		kError() << "Error creating user interface elements:" <<
+			!actionDeinflect << !actionFilterRare << !actionSearchSection << !actionSelectWordType <<
+			!actionsearchbox;
 	}
 
-	connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
+	//connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
 	connect(actionTextInput, SIGNAL(activated(const QString&)), this, SLOT(test()));
-
-}
-
-searchStringInput::~searchStringInput() {
 }
 
 void searchStringInput::setDefaultsFromConfig() {
 	KitenConfigSkeleton* config = KitenConfigSkeleton::self();
-	actionFilterRare->setChecked(config->com());
-	actionSearchSection->setCurrentItem(2);
-	actionSelectWordType->setCurrentItem(0);
+	actionFilterRare->setChecked(config->common_only());
+	actionSearchSection->setCurrentItem(config->search_precision());
+	actionSelectWordType->setCurrentItem(config->search_limit_to_wordtype());
 }
 
 DictQuery searchStringInput::getSearchQuery() const {

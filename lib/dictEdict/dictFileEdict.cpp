@@ -49,8 +49,7 @@ dictFileEdict::dictFileEdict() : dictFile("edict")
 {
 }
 
-QStringList *dictFileEdict::displayFieldsList = NULL;
-QStringList *dictFileEdict::displayFieldsFull = NULL;
+QStringList *dictFileEdict::displayFields = NULL;
 
 /** The destructor... ditch our memory maps and close our files here
   (if they were open) */
@@ -193,13 +192,8 @@ dictFileEdict::loadSettings(KConfigSkeleton *config) {
 	long2short["Meaning"]="Meaning";
 	long2short["--Newline--"]="--Newline--";
 
-
-	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFieldsFullView");
-	this->displayFieldsFull = loadListType(item,this->displayFieldsFull,long2short);
-
-	item = config->findItem(getType()+"__displayFieldsListView");
-	this->displayFieldsList = loadListType(item,this->displayFieldsList,long2short);
-
+	KConfigSkeletonItem *item = config->findItem(getType()+"__displayFields");
+	this->displayFields = loadListType(item,this->displayFields,long2short);
 }
 
 QStringList *

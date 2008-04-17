@@ -45,7 +45,7 @@ class /* NO_EXPORT */  dictFileKanjidic : public dictFileEdict {
 	protected:
 	virtual inline Entry *makeEntry(QString x) {return new EntryKanjidic(getName(),x);}
 
-	static QStringList *displayFieldsList,*displayFieldsFull;
+	static QStringList *displayFields;
 	friend class EntryKanjidic;
 };
 

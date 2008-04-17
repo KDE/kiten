@@ -35,7 +35,6 @@ class searchStringInput : public QObject {
 
 	public:
 		explicit searchStringInput(kiten *parent);
-		virtual ~searchStringInput();
 
 		void setDefaultsFromConfig();
 
