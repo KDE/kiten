@@ -54,7 +54,6 @@ class ResultView : public KHTMLPart
 		void clear();
 		void setContents(const QString &);
 		void setBasicMode(bool yes) { basicMode = yes; }
-		void openPopupMenu( const QString&, const QPoint&);
 
 		void updateFont();
 
@@ -67,8 +66,6 @@ class ResultView : public KHTMLPart
 		    const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
 		    const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments());
 
-		DOM::Node findEntryNode(DOM::Node node);
-		DOM::Node findChildWithClassValue(DOM::Node node, const QString& classValue);
 		QString deLinkify(DOM::Node);
 
 	private:
