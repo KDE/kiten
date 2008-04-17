@@ -115,7 +115,6 @@ kiten::kiten(QWidget *parent, const char *name)
 
 	/* What happens when links are clicked or things are selected in the clipboard */
 	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
-	connect(mainView, SIGNAL(entrySpecifiedForExport(int)), this, SLOT(addExportListEntry(int)));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 	connect(inputManager, SIGNAL(search()), this, SLOT(searchFromEdit()));
 
@@ -131,23 +130,6 @@ kiten::~kiten()
 }
 
 
-void kiten::saveAs()
-{
-	//TODO: remember last path used
-	QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("Kvtml files (*.kvtml)"), this, i18n("Choose file to export to"));
-	QFile file(filename);
-	file.open(QIODevice::WriteOnly);
-	if (!file.isOpen())
-	{
-		kDebug() << "ERROR: File not opened properly";
-		return;
-	}
-	EntryListModel *model = qobject_cast<EntryListModel*>(exportList->model());
-	EntryList list = model->entryList();
-	file.write(list.toKVTML(0, list.size()).toUtf8());
-	file.close();
-}
-
 void kiten::setupActions() {
 
 	/* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
@@ -155,7 +137,6 @@ void kiten::setupActions() {
 	//Why the heck is KSA:print adding it's own toolbar!?
 	//	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
 	(void) KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	//	(void) KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
 	//old style cast seems needed here, (const QObject*)
 	KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
 
