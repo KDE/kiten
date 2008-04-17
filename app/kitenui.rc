@@ -35,6 +35,9 @@
 	<Action name="go_forward" />
 	<Separator/>
 	<Action name="search_filterRare" />
+
+	<Action name="search_radical" />
+
 	<Action name="search_searchType" />
 </ToolBar>
 
@@ -46,8 +49,6 @@
 	<text>Search Toolbar</text>
 	<Action name="searchbox" />
 	<Action name="search" />
-	<Action name="search_in_results" />
-	<Action name="search_radical" />
 </ToolBar>
 
 </gui>
