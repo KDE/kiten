@@ -43,6 +43,7 @@
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
 #include <kstandardaction.h>
+#include <kstandardguiitem.h>
 #include <ksystemtrayicon.h>
 #include <ktoggleaction.h>
 #include <kactioncollection.h>
@@ -154,6 +155,7 @@ void kiten::setupActions() {
 	searchButton->setText( i18n("S&earch") );
 	// Set the search button to search
 	connect(searchButton, SIGNAL(triggered()), this, SLOT(searchFromEdit()));
+	searchButton->setIcon(KStandardGuiItem::find().icon());
 
 	// That's not it, that's "find as you type"...
 	//connect(Edit, SIGNAL(completion(const QString &)), this, SLOT(searchFromEdit()));
@@ -165,8 +167,12 @@ void kiten::setupActions() {
 //autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "edit-find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	autoSearchToggle = actionCollection()->add<KToggleAction>("autosearch_toggle");
         autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
-	irAction = actionCollection()->add<KToggleAction>("search_in_results");
-        irAction->setText(i18n("Search &in Results"));
+
+	irAction = actionCollection()->add<KAction>("search_in_results");
+	irAction->setText(i18n("Search &in Results"));
+	connect(irAction, SIGNAL(triggered()), this, SLOT(searchInResults()));
+
+
 	(void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
 	//TODO: this should probably be a standardaction
