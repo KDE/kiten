@@ -71,9 +71,6 @@ public:
 	 * cleanly */
 	virtual bool matchesQuery(const DictQuery&) const;
 
-	/** An enum used by the print methods as an argument. now deprecated */
-	typedef enum printType {printBrief, printVerbose, printAuto};
-
 	/** Get the dictionary name that generated this Entry. I can't think of a reason to be changing this.  */
 	const QString &getDictName() const { return sourceDict; }
 	/** Get the word from this Entry. If the entry is of type kanji/kana/meaning/etc, this will return
@@ -100,17 +97,11 @@ public:
 
 	/** An entry should be able to generate a representation of itself in (valid)
 		HTML */
-	virtual QString toHTML(printType=printAuto) const;
+	virtual QString toHTML() const;
 	/** KVTML format for exporting */
 	virtual QString toKVTML() const;
 	/** This will return a pure text interpretation of the Entry */
-	virtual QString toString(printType=printAuto) const;
-
-	/** the favoredPrintType parameter may be used by the HTML and toString
-	  printing methods */
-	virtual void setFavoredPrintType(const printType);
-	/** deprecated */
-	virtual printType getFavoredPrintType() const;
+	virtual QString toString() const;
 
 	/** An entry should be able to parse an in-file representation of an entry
 		as a QString and put it back.  The latter will be useful for writing
@@ -151,8 +142,6 @@ protected:
 
 	/** The dictionary that this entry originated at */
 	QString sourceDict;
-	/** The method this entry would prefer to print with */
-	printType favoredPrintType;
 	/** The delimiter for lists... usually space */
 	QString outputListDelimiter;
 

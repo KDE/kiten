@@ -182,11 +182,12 @@ void
 radselectView::strokeLimitChanged(int newvalue) {
 	int low = strokes_low->value();
 	int high = strokes_high->value();
-	if(low > high)
+	if(low > high) {
 		if(low == newvalue)
 			strokes_high->setValue(newvalue);
 		else
 			strokes_low->setValue(newvalue);
+	}
 
 	//This will force reevaluation of the list if it's needed
 	QList<Kanji> newList = m_possibleKanji;

@@ -23,7 +23,7 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kxmlguiwindow.h>
-#include <kapplication.h>
+#include <kuniqueapplication.h>
 
 #include <QtDBus/QtDBus>
 
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	KCmdLineOptions options;
 	KCmdLineArgs::addCmdLineOptions(options); // Add our own options.
 
-	KApplication a;
+	KUniqueApplication a;
 
 	kiten *t = new kiten();
 

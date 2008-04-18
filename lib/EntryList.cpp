@@ -57,7 +57,7 @@ EntryList::deleteAll() {
 
 /* Returns the EntryList as HTML */
 //TODO: Some intelligent decision making regarding when to print what when AutoPrinting is on
-QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printType type) const {
+QString EntryList::toHTML(unsigned int start, unsigned int length) const {
 	unsigned int max = count();
 	if(start > max) return QString();
 	if(start+length > max) length = max-start;
@@ -79,7 +79,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length, Entry::printT
 		if(length-- > 0)
 			result += "<div class=\"Entry\" index=\"" +
 				QString::number(i) + "\" dict=\"" + it->getDictName()
-				+ "\">" + it->toHTML(type) + "</div>";
+				+ "\">" + it->toHTML() + "</div>";
 		else
 			break;
 
@@ -105,14 +105,14 @@ QString EntryList::toKVTML(unsigned int start, unsigned int length) const {
 	return result +"</kvtml>\n";
 }
 
-QString EntryList::toHTML(Entry::printType type) const {
-	return toHTML(0,count(),type);
+QString EntryList::toHTML() const {
+	return toHTML(0,count());
 }
 
 /* Returns the EntryList as HTML */
 //TODO: Some intelligent decision making... regarding the output format (differ for
 //different types of searches?
-QString EntryList::toString(unsigned int start, unsigned int length, Entry::printType type) const {
+QString EntryList::toString(unsigned int start, unsigned int length) const {
 	unsigned int max = count();
 	if(start > max) return QString();
 	if(start+length > max) length = max-start;
@@ -120,15 +120,15 @@ QString EntryList::toString(unsigned int start, unsigned int length, Entry::prin
 	QString result;
 	foreach(Entry *it, *this) {
 		if(length-- > 0)
-			result = result + it->toString(type);
+			result = result + it->toString();
 		else
 			break;
 	}
 	return result;
 }
 
-QString EntryList::toString(Entry::printType type) const {
-	return toString(0,count(),type);
+QString EntryList::toString() const {
+	return toString(0,count());
 }
 
 /* sorts the EntryList in a C++ish, thread-safe manner. */

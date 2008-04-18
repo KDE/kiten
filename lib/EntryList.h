@@ -49,22 +49,19 @@ public:
 	 * counting system, and this will be deprecated */
 	void deleteAll();
 
-	/** Convert every element of the EntryList to a QString and return it
-	 * */
-	QString toString(Entry::printType=Entry::printAuto) const;
+	/** Convert every element of the EntryList to a QString and return it  */
+	QString toString() const;
 	/** Convert every element of the EntryList to a QString in HTML form and return it */
-	QString toHTML(Entry::printType=Entry::printAuto) const;
+	QString toHTML() const;
 
 	/** Convert a given range of the EntryList to a QString and return it
 	 * @param start the location in the list where we should start
 	 * @param length the length of the list we should generate */
-	QString toString(unsigned int start, unsigned int length,
-			Entry::printType=Entry::printAuto) const;
+	QString toString(unsigned int start, unsigned int length) const;
 	/** Convert a given range of the EntryList to a QString in HTML form and return it
 	 * @param start the location in the list where we should start
 	 * @param length the length of the list we should generate  */
-	QString toHTML(unsigned int start, unsigned int length,
-			Entry::printType=Entry::printAuto) const;
+	QString toHTML(unsigned int start, unsigned int length) const;
 	/** Convert the entire list to KVTML for export to a flashcard app
 	 * @param start the location in the list where we should start
 	 * @param length the length of the list we should generate */

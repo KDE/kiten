@@ -34,7 +34,7 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry {
 		EntryKanjidic(const QString &dict, const QString &entry) : Entry(dict) {loadEntry(entry);}
 		Entry *clone() const {return new EntryKanjidic(*this); }
 
-		virtual QString toHTML(printType=printAuto) const;
+		virtual QString toHTML() const;
 
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;

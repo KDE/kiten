@@ -28,7 +28,7 @@
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
 /** returns a HTML version of an Entry */
-QString EntryKanjidic::toHTML(printType printDirective) const
+QString EntryKanjidic::toHTML() const
 {
 	QString result="<div class=\"KanjidicBrief\">";
 

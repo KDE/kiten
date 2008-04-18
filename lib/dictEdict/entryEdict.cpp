@@ -45,8 +45,7 @@ Entry *EntryEDICT::clone() const { return new EntryEDICT(*this); }
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
 /** returns a HTML version of an Entry */
-/* TODO: Currently ingnoring printType */
-QString EntryEDICT::toHTML(printType printDirective) const
+QString EntryEDICT::toHTML() const
 {
 	QString result="<div class=\"EDICTBrief\">";
 

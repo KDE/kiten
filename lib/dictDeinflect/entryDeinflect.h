@@ -31,7 +31,7 @@ class /* NO_EXPORT */ entryDeinflect : public Entry {
 		entryDeinflect(const QString &original, const QString &correction);
 		entryDeinflect *clone() const { return new entryDeinflect(*this); }
 
-		virtual QString toHTML(printType=printAuto) const;
+		virtual QString toHTML() const;
 
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;

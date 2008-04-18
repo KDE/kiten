@@ -51,6 +51,8 @@ public:
 	/** Use this constructor for your subclasses. Dictionary subclasses MUST specify their type
 	 * at creation */
 	dictFile(QString dictionaryTypeName) : dictionaryType(dictionaryTypeName) {}
+	/** Destructor */
+	virtual ~dictFile() {}
 	/** This method allows the user to test if a dictionary is the proper type for this format.
 	 * This process is allowed to take some time, but nonetheless you should find checking the format
 	 * of a few hundred entries sufficient for this.

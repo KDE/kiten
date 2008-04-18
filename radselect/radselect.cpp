@@ -177,8 +177,9 @@ void radselect::sendSearch(const QStringList& kanji) {
 		QDBusMessage reply = dbusInterface->call(
 				QLatin1String("searchTextAndRaise"),
 				m_currentQuery.toString());
-		if(reply.type() == QDBusMessage::ErrorMessage)
+		if(reply.type() == QDBusMessage::ErrorMessage) {
 			kDebug() << "QDBus Error: " << reply.signature() <<"<eoe>";
+		}
 	}
 }
 

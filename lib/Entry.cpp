@@ -68,12 +68,10 @@ Entry::Entry(const Entry &src)
 	, sourceDict(src.sourceDict)
 {
 	outputListDelimiter=src.outputListDelimiter;
-	favoredPrintType = src.favoredPrintType;
 }
 
 void Entry::init() {
 	outputListDelimiter=i18n("; ");
-	favoredPrintType = printBrief;
 }
 
 Entry::~Entry() {
@@ -82,55 +80,17 @@ Entry::~Entry() {
 }
 
 /** Main switching function for displaying to the user */
-QString Entry::toHTML(printType type) const {
-	switch(type) {
-		case printBrief:
-			return "<div class=\"EntryBrief\">" + HTMLWord() +
-				HTMLReadings() + HTMLMeanings() + "</div>";
-		case printVerbose:
-			return "<div class=\"EntryVerbose\">" + HTMLWord() +
-				HTMLReadings() + HTMLMeanings() + "</div>";
-		default:
-			if(favoredPrintType != printAuto)
-				return toHTML(favoredPrintType);
-			else
-				return toHTML(printBrief);
-	}
+QString Entry::toHTML() const {
+	return "<div class=\"Entry\">" + HTMLWord() + HTMLReadings() + HTMLMeanings() + "</div>";
 }
 
 /** This method should return the entry object in a simple QString format
   Brief form should be useable in quick summaries, for example
   Verbose form might be used to save a complete list of entries to a file,
   for example */
-QString Entry::toString(printType type) const {
-	switch(type) {
-		case printBrief:
-			return Word;
-		case printVerbose:
-			return Word + " (" + getReadings() + ") " + getMeanings();
-		default:
-			if(favoredPrintType != printAuto)
-				return toString(favoredPrintType);
-			else
-				return toString(printBrief);
-	}
+QString Entry::toString() const {
+	return Word + " (" + getReadings() + ") " + getMeanings();
 }
-
-/* This method allows the creator of the object to
-  "register their vote" on how the object should eventually
-  be displayed. It may be ignored later on though
- If the print methods are called using printAuto, this
- value will be respected. If this value is not set, the
- object defaults to printBrief */
-void Entry::setFavoredPrintType(const printType type) {
-	favoredPrintType = type;
-}
-
-/* Fetch the information set in setFavoredPrintType */
-Entry::printType Entry::getFavoredPrintType() const {
-	return favoredPrintType;
-}
-
 
 /* New functions for Entry doing direct display */
 /* Creates a link for the given @p entryString. */

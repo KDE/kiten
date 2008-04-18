@@ -35,7 +35,7 @@ class /* NO_EXPORT */ EntryEDICT : public Entry {
 		EntryEDICT(const QString &dict, const QString &entry);
 		Entry *clone() const;
 
-		virtual QString toHTML(printType=printAuto) const;
+		virtual QString toHTML() const;
 
 		virtual bool loadEntry(const QString &);
 		virtual QString dumpEntry() const;

@@ -96,12 +96,11 @@ QVector<QString> indexedEDICTFile::findMatches(const QString &query) const {
 	int dictSize = m_dictFile.size()/sizeof(unsigned char);
 
 	int matchLocation = findFirstMatch(searchString);
+	QByteArray currentWord = lookupDictLine(++matchLocation);
 	if(matchLocation == 0)
 		return results;
-	QByteArray currentWord = lookupDictLine(matchLocation);
 	QVector<uint32_t> possibleHits;
 	do {
-		int comparison = findMatches(searchString,currentWord);
 		currentWord = lookupDictLine(++matchLocation);
 		int i=0;
 		while(lookupDictChar(m_indexPtr[matchLocation-1]+i-2) != 0x0A)
