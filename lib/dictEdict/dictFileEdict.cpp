@@ -37,7 +37,6 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QFile>
 
-#include "indexedEDICTFile.h"
 #include "dictFilePreferenceDialog.h"
 #include "DictQuery.h"  //DictQuery classs
 #include "Entry.h"      //Entry and EntryList classes

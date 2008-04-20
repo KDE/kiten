@@ -1,0 +1,84 @@
+/* This file is part of Kiten, a KDE Japanese Reference Tool...
+    Copyright (C) 2001 by Jason Katz-Brown
+              (C) 2008 by Joseph Kerian  <jkerian@gmail.com>
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
+*/
+
+#include "linearEDICTFile.h"
+
+#include <kglobal.h>
+#include <kdebug.h>
+#include <kstandarddirs.h>
+#include <kprocess.h>
+#include <kapplication.h>
+
+#include <QtCore/QTextCodec>
+
+
+linearEDICTFile::linearEDICTFile() :
+		m_valid(false)
+{
+}
+
+linearEDICTFile::~linearEDICTFile()
+{
+
+}
+
+bool linearEDICTFile::loadFile(const QString& filename)
+{
+	qDebug() << "Loading edict from " << filename;
+
+	//if already loaded
+	if (!edict.isEmpty())
+		return true;
+
+	QFile file(filename);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+		return false;
+
+	QTextStream fileStream(&file);
+	fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+
+	while (!file.atEnd()) {
+		edict << fileStream.readLine();
+	}
+
+	file.close();
+	return true;
+}
+
+bool linearEDICTFile::valid() const
+{
+	return true;
+}
+
+/** Get everything that looks remotely like a given search string */
+QVector<QString> linearEDICTFile::findMatches(const QString &searchString) const
+{
+	QVector<QString> matches;
+
+	foreach(const QString &it, edict) {
+		if (it.contains(searchString))
+		{
+			matches.append(it);
+		}
+	}
+
+	return matches;
+
+}

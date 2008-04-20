@@ -26,6 +26,7 @@
 
 #include "dictFile.h"
 #include "indexedEDICTFile.h"
+#include "linearEDICTFile.h"
 
 #include <sys/types.h>
 #include <QtCore/QFile>
@@ -66,7 +67,7 @@ class /* NO_EXPORT */ dictFileEdict : public dictFile {
 	//This is a blatant abuse of protected methods to make the kanji subclass easy
 	virtual inline Entry *makeEntry(QString x) { return new EntryEDICT(getName(),x); }
 
-	indexedEDICTFile m_file;
+	linearEDICTFile m_file;
 	static QStringList *displayFields;
 
 	friend class EntryEDICT;
