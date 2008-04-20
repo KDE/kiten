@@ -48,8 +48,7 @@ class /* NO_EXPORT */ linearEDICTFile {
 
 	private:
 	QStringList edict;
-	QFile m_dictFile;
-	bool m_valid;
+	bool properlyLoaded;
 };
 
 #endif

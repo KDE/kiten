@@ -30,7 +30,7 @@
 
 
 linearEDICTFile::linearEDICTFile() :
-		m_valid(false)
+	properlyLoaded(false)
 {
 }
 
@@ -41,7 +41,7 @@ linearEDICTFile::~linearEDICTFile()
 
 bool linearEDICTFile::loadFile(const QString& filename)
 {
-	qDebug() << "Loading edict from " << filename;
+	kDebug() << "Loading edict from " << filename << "\n";
 
 	//if already loaded
 	if (!edict.isEmpty())
@@ -59,17 +59,20 @@ bool linearEDICTFile::loadFile(const QString& filename)
 	}
 
 	file.close();
+	properlyLoaded = true;
+
 	return true;
 }
 
 bool linearEDICTFile::valid() const
 {
-	return true;
+	return properlyLoaded;
 }
 
 /** Get everything that looks remotely like a given search string */
 QVector<QString> linearEDICTFile::findMatches(const QString &searchString) const
 {
+
 	QVector<QString> matches;
 
 	foreach(const QString &it, edict) {
