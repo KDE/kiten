@@ -127,9 +127,6 @@ EntryList *dictFileEdict::doSearch(const DictQuery &i_query) {
 
 	QString firstChoice = query.getWord();
 	if(firstChoice.length() == 0) {
-		//If we don't have a kanji to search on, matchanywhere devolves to matchbeginning
-		if(query.getMatchType() == DictQuery::matchAnywhere)
-			query.setMatchType(DictQuery::matchBeginning);
 		firstChoice = query.getPronunciation();
 		if(firstChoice.length() == 0) {
 			firstChoice = query.getMeaning().split(" ").first().toLower();

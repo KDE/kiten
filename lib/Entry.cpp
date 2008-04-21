@@ -146,6 +146,7 @@ inline QString Entry::HTMLMeanings() const
 }
 
 bool Entry::matchesQuery(const DictQuery &query) const {
+
 	if(!query.getWord().isEmpty()) {
 		if(query.getMatchType() == DictQuery::matchExact &&
 				this->getWord() != query.getWord())
@@ -154,11 +155,11 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 				!this->getWord().startsWith(query.getWord()))
 				return false;
 		if(query.getMatchType() == DictQuery::matchAnywhere &&
-				!this->getWord().contains(query.getWord()))
+				!this->getWord().contains(query.toString()))
 				return false;
 	}
 
-	if(!query.getPronunciation().isEmpty())
+	if(!query.getPronunciation().isEmpty() && !Readings.isEmpty())
 		if(!listMatch(Readings, query.getPronunciation().split(DictQuery::mainDelimiter),
 					query.getMatchType() ) )
 			return false;
