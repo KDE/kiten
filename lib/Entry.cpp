@@ -149,20 +149,39 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 
 	if(!query.getWord().isEmpty()) {
 		if(query.getMatchType() == DictQuery::matchExact &&
-				this->getWord() != query.getWord())
+				this->getWord() != query.toString())
 				return false;
 		if(query.getMatchType() == DictQuery::matchBeginning &&
-				!this->getWord().startsWith(query.getWord()))
+				!this->getWord().startsWith(query.toString()))
 				return false;
 		if(query.getMatchType() == DictQuery::matchAnywhere &&
 				!this->getWord().contains(query.toString()))
 				return false;
 	}
 
-	if(!query.getPronunciation().isEmpty() && !Readings.isEmpty())
+	if(!query.getPronunciation().isEmpty() && !getReadings().isEmpty())
 		if(!listMatch(Readings, query.getPronunciation().split(DictQuery::mainDelimiter),
 					query.getMatchType() ) )
 			return false;
+
+	if(!query.getPronunciation().isEmpty() && getReadings().isEmpty())
+	{
+		switch (query.getMatchType())
+		{
+			case DictQuery::matchExact:
+				if (query.getPronunciation() != getWord())
+					return false;
+				break;
+			case DictQuery::matchBeginning:
+				if (!getWord().startsWith(query.getPronunciation()))
+					return false;
+				break;
+			case DictQuery::matchAnywhere:
+				if (!getWord().contains(query.getPronunciation()))
+					return false;
+				break;
+		}
+	}
 
 	if(!query.getMeaning().isEmpty())
 		if(!listMatch(Meanings.join(" ").toLower().split(" "),
