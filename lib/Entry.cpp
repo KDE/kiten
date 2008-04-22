@@ -149,27 +149,27 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 
 	if(!query.getWord().isEmpty()) {
 		if(query.getMatchType() == DictQuery::matchExact &&
-				this->getWord() != query.toString())
+				this->getWord() != query.getWord())
 				return false;
 		if(query.getMatchType() == DictQuery::matchBeginning &&
-				!this->getWord().startsWith(query.toString()))
+				!this->getWord().startsWith(query.getWord()))
 				return false;
 		if(query.getMatchType() == DictQuery::matchAnywhere &&
-				!this->getWord().contains(query.toString()))
+				!this->getWord().contains(query.getWord()))
 				return false;
 	}
-
+	
 	if(!query.getPronunciation().isEmpty() && !getReadings().isEmpty())
 		if(!listMatch(Readings, query.getPronunciation().split(DictQuery::mainDelimiter),
 					query.getMatchType() ) )
 			return false;
 
-	if(!query.getPronunciation().isEmpty() && getReadings().isEmpty())
+	if(!query.getPronunciation().isEmpty() && getReadings().isEmpty() && !getWord().isEmpty())
 	{
 		switch (query.getMatchType())
 		{
 			case DictQuery::matchExact:
-				if (query.getPronunciation() != getWord())
+				if (getWord() != query.getPronunciation())
 					return false;
 				break;
 			case DictQuery::matchBeginning:
