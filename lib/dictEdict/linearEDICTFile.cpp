@@ -54,8 +54,10 @@ bool linearEDICTFile::loadFile(const QString& filename)
 	QTextStream fileStream(&file);
 	fileStream.setCodec(QTextCodec::codecForName("eucJP"));
 
-	while (!file.atEnd()) {
-		edict << fileStream.readLine();
+	QString lastLine;
+	while (!fileStream.atEnd()) {
+		lastLine = fileStream.readLine();
+		edict << lastLine;
 	}
 
 	file.close();
@@ -74,14 +76,12 @@ QVector<QString> linearEDICTFile::findMatches(const QString &searchString) const
 {
 
 	QVector<QString> matches;
-
 	foreach(const QString &it, edict) {
 		if (it.contains(searchString))
 		{
 			matches.append(it);
 		}
 	}
-
 	return matches;
 
 }
