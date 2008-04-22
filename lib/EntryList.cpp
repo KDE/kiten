@@ -148,7 +148,7 @@ void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder) {
 	sorter.dictionary_order = &dictionaryOrder;
 	sorter.sort_order = &sortOrder;
 
-	qSort(this->begin(),this->end(),sorter);
+	qStableSort(this->begin(),this->end(),sorter);
 	m_sorted = true;
 	m_sortedByDictionary = dictionaryOrder.size() > 0;
 }
