@@ -24,10 +24,10 @@
 
 #include <klocale.h>
 #include <kconfigdialog.h>
+#include <ktabwidget.h>
 
 #include <QtGui/QLayout>
 #include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
 #include <QtCore/QStringList>
 #include <QtCore/QString>
 
@@ -84,7 +84,7 @@ ConfigureDialog::~ConfigureDialog()
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 		KitenConfigSkeleton *config) {
 
-	QTabWidget *tabWidget = new QTabWidget(parent);
+	KTabWidget *tabWidget = new KTabWidget(parent);
 
 	foreach( const QString &dict, config->dictionary_list() ) {
 		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
@@ -93,7 +93,7 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 			connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
 			connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));
 			connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
-			tabWidget->addTab(newTab, '&'+dict);
+			tabWidget->addTab(newTab, dict);
 		}
 	}
 
@@ -105,7 +105,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage
 
 	QStringList dictTypes = DictionaryManager::listDictFileTypes();
 
-	QTabWidget *tabWidget = new QTabWidget(parent);
+	KTabWidget *tabWidget = new KTabWidget(parent);
 
 	QMap<QString,DictionaryPreferenceDialog*> dialogList =
 			DictionaryManager::generatePreferenceDialogs(config,parent);
