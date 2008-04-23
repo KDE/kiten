@@ -36,6 +36,7 @@
 #include <kdeversion.h>
 #include <kedittoolbar.h>
 #include <qclipboard.h>
+#include <qlineedit.h>
 
 searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	parent = iParent;
@@ -62,6 +63,10 @@ searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	actionTextInput = new KHistoryComboBox(parent);
 	actionTextInput->setDuplicatesEnabled(false);
 	actionTextInput->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+	actionFocusInput = parent->actionCollection()->addAction("focusinputfield", this, SLOT(focusInput()));
+	actionFocusInput->setShortcut(QString("Ctrl+L"));
+	actionFocusInput->setText(i18n("Focus input field"));
 
 	KAction *actionsearchbox = parent->actionCollection()->addAction( "searchbox" );
 	actionsearchbox->setText( i18n("Search Bar") );
@@ -125,6 +130,12 @@ void searchStringInput::test() {
 	kDebug() << "test1";
 	emit search();
 	kDebug() << "test2";
+}
+
+void searchStringInput::focusInput()
+{
+	actionTextInput->setFocus();
+	actionTextInput->lineEdit()->selectAll();
 }
 
 #include "searchStringInput.moc"

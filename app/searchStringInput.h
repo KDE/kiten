@@ -46,12 +46,16 @@ class searchStringInput : public QObject {
 	signals:
 		void search();
 
+	private slots:
+		void focusInput();
+
 	private:
 		KToggleAction *actionDeinflect;
 		KToggleAction *actionFilterRare;
 		KSelectAction *actionSearchSection;	//Search exact/anywhere/beginning
 		KSelectAction *actionSelectWordType;
 		KHistoryComboBox *actionTextInput;
+		KAction *actionFocusInput;
 		kiten *parent;
 };
 
