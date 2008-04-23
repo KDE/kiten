@@ -67,6 +67,7 @@ class ResultView : public KHTMLPart
 		    const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments());
 
 		QString deLinkify(DOM::Node);
+		QString generateCSS();
 
 	private:
 		QString printText;

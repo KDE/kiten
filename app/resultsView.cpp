@@ -33,6 +33,7 @@
 #include <kactionmenu.h>
 #include <klocale.h>
 #include <kactioncollection.h>
+#include <kcolorscheme.h>
 
 ResultView::ResultView(QWidget *parent, const char *name)
 	: KHTMLPart(parent, parent)
@@ -63,6 +64,7 @@ void ResultView::clear()
 void ResultView::flush()
 {
 	begin();
+	setUserStyleSheet(generateCSS());
 	write(printText);
 	end();
 //KDE4 CHANGE	setCursorPosition(0, 0);
@@ -74,8 +76,11 @@ void ResultView::setContents(const QString &text)
 {
 
 	begin();
+	setUserStyleSheet(generateCSS());
 	write(text);
 	end();
+
+	kDebug() << "Set CSS to " << generateCSS(); 
 //KDE4 CHANGE	setCursorPosition(0,0);
 	////////ensureCursorVisible();
 }
@@ -139,6 +144,11 @@ void ResultView::print(const QString &title)
 /** updates the font.  Used on font change */
 void ResultView::updateFont()
 {
+	begin();
+	setUserStyleSheet(generateCSS());
+	//write(
+	end();
+
 	////////setFont(KitenConfigSkeleton::self()->font());
 }
 
@@ -166,6 +176,28 @@ QString ResultView::deLinkify(DOM::Node node)
 		word += node.childNodes().item(i).childNodes().item(0).nodeValue().string();
 	}
 	return word;
+}
+
+QString ResultView::generateCSS()
+{
+	KColorScheme scheme(QPalette::Active);
+	return QString(
+			".Word { font-size: x-large; }"
+			".Entry { color: %1; }"
+			".DictionaryHeader { color: %2; border-bottom: solid %3 }"
+			"a:link { color: %4; }"
+			"a:visited {color: %5} "
+			"a:hover {color: %6 } "
+			"a:active {color: %6}"
+		   )
+		.arg(scheme.foreground().color().name())
+		.arg(scheme.foreground(KColorScheme::InactiveText).color().name())
+		.arg(scheme.shade(KColorScheme::MidlightShade).name())
+		.arg(scheme.foreground(KColorScheme::LinkText).color().name())
+		.arg(scheme.foreground(KColorScheme::VisitedText).color().name())
+		.arg(scheme.foreground(KColorScheme::ActiveText).color().name())
+		;
+
 }
 
 
