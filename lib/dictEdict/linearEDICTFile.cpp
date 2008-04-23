@@ -27,6 +27,7 @@
 #include <kapplication.h>
 
 #include <QtCore/QTextCodec>
+#include <QtCore/QFile>
 
 
 linearEDICTFile::linearEDICTFile() :

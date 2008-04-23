@@ -42,7 +42,7 @@
 #include "Entry.h"      //Entry and EntryList classes
 #include "EntryList.h"
 
-/** Per instructions in the super-class, this constructor basically sets the
+/* Per instructions in the super-class, this constructor basically sets the
   dictionaryType member variable to identify this as an edict-type database handler */
 dictFileEdict::dictFileEdict() : dictFile("edict")
 {
@@ -50,12 +50,12 @@ dictFileEdict::dictFileEdict() : dictFile("edict")
 
 QStringList *dictFileEdict::displayFields = NULL;
 
-/** The destructor... ditch our memory maps and close our files here
+/* The destructor... ditch our memory maps and close our files here
   (if they were open) */
 dictFileEdict::~dictFileEdict() {
 }
 
-/** Scan a potential file for the correct format, remembering to skip comment
+/* Scan a potential file for the correct format, remembering to skip comment
   characters. This is not a foolproof scan, but it should be checked before adding
   a new dictionary.
   Valid EDICT format is considered:
@@ -95,13 +95,13 @@ bool dictFileEdict::validDictionaryFile(const QString &filename) {
 	return returnFlag;
 }
 
-/** Reject queries that specify anything we don't understand */
+/* Reject queries that specify anything we don't understand */
 //TODO: Actually write this method (validQuery)
 bool dictFileEdict::validQuery(const DictQuery &query) {
 	return true;
 }
 
-/** Load up the dictionary... */
+/* Load up the dictionary... */
 bool dictFileEdict::loadDictionary(const QString &fileName, const QString &dictName) {
 	if(m_file.valid()) return false; //Already loaded
 
@@ -160,7 +160,7 @@ EntryList *dictFileEdict::doSearch(const DictQuery &i_query) {
 	return results;
 }
 
-/** Make a list of all the extra fields in our db.. Entry uses this to decide
+/* Make a list of all the extra fields in our db.. Entry uses this to decide
   what goes in the interpretations it gives. */
 QStringList dictFileEdict::listDictDisplayOptions(QStringList x) const {
 	x += displayOptions().keys();

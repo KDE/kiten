@@ -21,16 +21,9 @@
 #ifndef KITEN_LINEAREDICTFILE_H
 #define KITEN_LINEAREDICTFILE_H
 
-#include <QtCore/QFile>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QByteArray>
 #include <QtCore/QVector>
-
-#ifdef HAVE_INTTYPES_H
-#include <inttypes.h>
-#else
-typedef unsigned int uint32_t;
-#endif
 
 /** A class for managing the EDICT formatted dictionaries with their
  * dictionary files. This class is not really designed for subclassing */
