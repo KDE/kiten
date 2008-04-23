@@ -47,7 +47,11 @@ Entry *EntryEDICT::clone() const { return new EntryEDICT(*this); }
 /** returns a HTML version of an Entry */
 QString EntryEDICT::toHTML() const
 {
-	QString result="<div class=\"EDICTBrief\">";
+
+	QString result="<div class=\"EDICT\">";
+	bool boldBecauseItsCommon = (getExtendedInfoItem(QString("common")) == "1");
+	if(boldBecauseItsCommon)
+		result += "<div class=\"Common\">";
 
 	foreach(const QString &field, QSTRINGLISTCHECK(dictFileEdict::displayFields)) {
 		if(field == "--NewLine--")			result += "<br>";
@@ -57,6 +61,8 @@ QString EntryEDICT::toHTML() const
 		else if(field == "C")			result += Common();
 		else kDebug() << "Unknown field: " << field;
 	}
+	if(boldBecauseItsCommon)
+		result += "</div>";
 	result += "</div>";
 	return result;
 }
@@ -123,6 +129,15 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 	if(startOfReading != -1)  // This field is optional for EDICT (and kiten)
 		Readings.append(
 				tempQString.left(tempQString.lastIndexOf(']')).mid(startOfReading+1));
+	/* TODO: use this code or not?
+	 * app does not handle only reading and no word entries 
+	 * very well so far
+	else
+	{
+		Readings.append(Word);
+		Word.clear();
+	}
+	*/
 
 	/* set Meanings to be all of the meanings in the definition */
 	QString remainingLine = entryLine.mid(endOfKanjiAndKanaSection);
