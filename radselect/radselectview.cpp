@@ -41,11 +41,12 @@
 
 #include "kstandarddirs.h"
 #include "kmessagebox.h"
+#include "kdebug.h"
 
 radselectView::radselectView(QWidget *parent) : QWidget(parent)
 {
 	setupUi(this);	//Setup the ui from the .ui file
-        radicalInfo = 0L;
+   radicalInfo = 0L;
 	//Load the radical information
 	KStandardDirs *dirs = KGlobal::dirs();
 	QString radkfilename = dirs->findResource("data", "kiten/radkfile");
@@ -55,7 +56,7 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 		radicalInfo = new radicalFile(radkfilename);
 
 	//Configure the scrolling area
-	m_buttongrid = new radselectButtonGrid(this, radicalInfo);
+	m_buttongrid = new radselectButtonGrid(radical_box, radicalInfo);
 	radical_box->setWidget(m_buttongrid);
 	radical_box->setWidgetResizable(true);
 

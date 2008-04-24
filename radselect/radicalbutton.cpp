@@ -20,15 +20,36 @@
 
 #include "radicalbutton.h"
 #include <QtGui/QPushButton>
+#include <QtGui/QStyle>
+#include <QtGui/QStyleOptionButton>
 
 #include <QtCore/QString>
 
 #include <QtGui/QWidget>
 #include <QtGui/QMouseEvent>
+#include <kstyle.h>
+#include <kapplication.h>
 
 radicalButton::radicalButton(const QString &text, QWidget *parent)
 	: QPushButton(text,parent) {
 		setCheckable(true);
+}
+
+QSize radicalButton::minimumSizeHint() const {
+	int width = fontMetrics().size(Qt::TextShowMnemonic,text()).width();
+	int height = QPushButton::sizeHint().height();
+//TODO: radicalButton size calculation right, one of these days
+//	QSize sz = fontMetrics().size(Qt::TextShowMnemonic, *it);
+//	setMinimumSize(sz);
+
+//	QStyleOptionButton opt;
+//	opt.initFrom(this);
+//	QRect rect = kapp->style()->subElementRect(QStyle::SE_PushButtonContents,&opt,this);
+	return QSize(width,height);
+}
+
+QSize radicalButton::sizeHint() const {
+	return minimumSizeHint();
 }
 
 bool radicalButton::event(QEvent *event) {

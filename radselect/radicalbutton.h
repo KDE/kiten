@@ -39,6 +39,8 @@ public:
 		kRelated,				// Display only this radical and related ones: italics?
 		kHidden}					// Not related (to above), so hide()
 	ButtonStatus;
+	QSize minimumSizeHint() const;
+	QSize sizeHint() const;
 signals:
 	void userClicked(const QString&, radicalButton::ButtonStatus);
 public slots:

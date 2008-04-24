@@ -51,7 +51,7 @@ public slots:
 	void setFont(const QFont&);
 
 private:
-	void buildRadicalButtons(QWidget*);
+	void buildRadicalButtons();
 	void updateButtons();
 
 	static const unsigned int number_of_radical_columns = 11;

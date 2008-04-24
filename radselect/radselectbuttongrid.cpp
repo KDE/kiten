@@ -45,20 +45,20 @@ radselectButtonGrid::radselectButtonGrid(QWidget *parent, radicalFile *iradicalI
     : QWidget(parent), m_currentMode(kSelection), m_radicalInfo(iradicalInfo)
 {
     if (m_radicalInfo)
-        buildRadicalButtons(this);
+        buildRadicalButtons();
 }
 
 radselectButtonGrid::~radselectButtonGrid() {
 }
 
-void radselectButtonGrid::buildRadicalButtons(QWidget* box)
+void radselectButtonGrid::buildRadicalButtons()
 {
 	//Setup the grid
-	QGridLayout *grid = new QGridLayout(box);
+	QGridLayout *grid = new QGridLayout(this);
 
 	//Now make labels
 	for(unsigned int i=0;i<number_of_radical_columns;i++){
-		QLabel *header = new QLabel(QString::number(i+1),box);
+		QLabel *header = new QLabel(QString::number(i+1),this);
 		header->setAlignment(Qt::AlignHCenter);
 		grid->addWidget(header,0,i);
 	}
@@ -79,14 +79,7 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 			row_index = 1;
 
 		//Make the button
-		radicalButton *button = new radicalButton(it.value(), box);
-		//Note that this is slightly naughty... since this does not consult
-		//QStyle before setting this. (see QPushButton's sizeHint() for what
-		//one should do, but that looks fugly in this case)
-		QFontMetrics fm = button->fontMetrics();
-		QSize sz = fm.size(Qt::TextShowMnemonic, *it);
-		button->setMinimumSize(sz);
-
+		radicalButton *button = new radicalButton(*it, this);
 		grid->addWidget(button, row_index++, column_index);
 		//Bind slots/signals for this button
 		connect(
@@ -102,14 +95,12 @@ void radselectButtonGrid::buildRadicalButtons(QWidget* box)
 		last_column = column_index;
 		++it;
 	}
+	setLayout(grid);
 }
 
 void radselectButtonGrid::setFont(const QFont &font) {
 	foreach(QPushButton *button, m_buttons.values()) {
 		button->setFont(font);
-		QFontMetrics fm = button->fontMetrics();
-		QSize sz = fm.size(Qt::TextShowMnemonic, button->text());
-		button->setMinimumSize(sz);
 	}
 }
 
