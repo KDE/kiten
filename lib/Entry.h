@@ -72,23 +72,23 @@ public:
 	virtual bool matchesQuery(const DictQuery&) const;
 
 	/** Get the dictionary name that generated this Entry. I can't think of a reason to be changing this.  */
-	const QString &getDictName() const { return sourceDict; }
+	const QString &getDictName() const;
 	/** Get the word from this Entry. If the entry is of type kanji/kana/meaning/etc, this will return
 	 * the kanji. If it is of kana/meaning/etc, it will return kana  */
-	QString getWord() const { return Word; }
+	QString getWord() const;
 	/** Get a QString containing all of the meanings known, connected by the outputListDelimiter  */
-	QString getMeanings() const {return Meanings.join(outputListDelimiter);}
+	QString getMeanings() const;
 	/** Simple accessor */
-	QStringList getMeaningsList() const { return Meanings; }
+	QStringList getMeaningsList() const;
 	/** Simple accessor */
-	QString getReadings() const {return Readings.join(outputListDelimiter);}
+	QString getReadings() const;
 	/** Simple accessor */
-	QStringList getReadingsList() const { return Readings; }
+	QStringList getReadingsList() const;
 	/** Simple accessor */
-	const QHash<QString,QString> &getExtendedInfo() const { return ExtendedInfo; }
+	const QHash<QString,QString> &getExtendedInfo() const;
 	/** Simple accessor
 	 * @param x the key for the extended info item to get */
-	QString getExtendedInfoItem(const QString &x) const { return ExtendedInfo[x]; }
+	QString getExtendedInfoItem(const QString &x) const;
 	/** Simple accessor
 	 * @param key the key for the extended item that is being verified
 	 * @param value the value it is supposed to have

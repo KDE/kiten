@@ -79,6 +79,25 @@ Entry::~Entry() {
 
 }
 
+/* Get the dictionary name that generated this Entry. I can't think of a reason to be changing this.  */
+const QString &Entry::getDictName() const { return sourceDict; }
+/* Get the word from this Entry. If the entry is of type kanji/kana/meaning/etc, this will return
+ * the kanji. If it is of kana/meaning/etc, it will return kana  */
+QString Entry::getWord() const { return Word; }
+/* Get a QString containing all of the meanings known, connected by the outputListDelimiter  */
+QString Entry::getMeanings() const {return Meanings.join(outputListDelimiter);}
+/* Simple accessor */
+QStringList Entry::getMeaningsList() const { return Meanings; }
+/* Simple accessor */
+QString Entry::getReadings() const {return Readings.join(outputListDelimiter);}
+/* Simple accessor */
+QStringList Entry::getReadingsList() const { return Readings; }
+/* Simple accessor */
+const QHash<QString,QString> &Entry::getExtendedInfo() const { return ExtendedInfo; }
+/* Simple accessor
+ * @param x the key for the extended info item to get */
+QString Entry::getExtendedInfoItem(const QString &x) const { return ExtendedInfo[x]; }
+
 /** Main switching function for displaying to the user */
 QString Entry::toHTML() const {
 	return "<div class=\"Entry\">" + HTMLWord() + HTMLReadings() + HTMLMeanings() + "</div>";
