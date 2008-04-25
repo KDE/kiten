@@ -97,7 +97,7 @@ DictQuery &DictQuery::operator=(const DictQuery &d) {
 }
 
 DictQuery &DictQuery::operator+=(const DictQuery &d) {
-	foreach(QString item, d.m_entryOrder) {
+	foreach(const QString &item, d.m_entryOrder) {
 		if(item == meaningMarker) {
 			if(m_entryOrder.removeAll(meaningMarker) > 0 )
 				setMeaning(getMeaning() + mainDelimiter + d.getMeaning());
