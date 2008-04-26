@@ -99,7 +99,7 @@ void radselectButtonGrid::buildRadicalButtons()
 }
 
 void radselectButtonGrid::setFont(const QFont &font) {
-	foreach(QPushButton *button, m_buttons.values()) {
+	foreach(QPushButton *button, m_buttons) {
 		button->setFont(font);
 	}
 }
