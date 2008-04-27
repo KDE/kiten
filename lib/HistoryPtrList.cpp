@@ -119,6 +119,7 @@ HistoryPtrList::prev(int distance) {
 
 EntryList*
 HistoryPtrList::current() {
+	if(m_index == -1) return NULL;
 	return at(m_index);
 }
 
