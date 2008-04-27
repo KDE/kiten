@@ -180,6 +180,7 @@ QString ResultView::generateCSS()
 			"a:visited {color: %5} "
 			"a:hover {color: %6 } "
 			"a:active {color: %6}"
+			".Entry:hover { background-color: %10 }"
 		   )
 		.arg(scheme.foreground().color().name())
 		.arg(scheme.foreground(KColorScheme::InactiveText).color().name())
@@ -190,6 +191,7 @@ QString ResultView::generateCSS()
 		.arg(font.family())
 		.arg(font.pointSize()) // the text size
 		.arg(font.pointSize() + 10) // a larger size for kanji
+		.arg(scheme.background(KColorScheme::AlternateBackground).color().name())
 		;
 
 }
