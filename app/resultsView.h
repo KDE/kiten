@@ -55,8 +55,6 @@ class ResultView : public KHTMLPart
 		void setContents(const QString &);
 		void setBasicMode(bool yes) { basicMode = yes; }
 
-		void updateFont();
-
 	signals:
 		void urlClicked( const QString& );
 		void entrySpecifiedForExport(int index);

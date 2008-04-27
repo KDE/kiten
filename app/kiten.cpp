@@ -461,7 +461,7 @@ void kiten::updateConfiguration()
 		dictionaryManager.loadDictSettings(it,config);
 
 	//Update the HTML/CSS for our fonts
-	mainView->updateFont();
+	displayHistoryItem();
 
 	/*: TODO: have a look at this as well
 	detachedView->updateFont();
@@ -563,6 +563,7 @@ void kiten::goInHistory(int index)
 }
 
 void kiten::displayHistoryItem() {
+	if (historyList.current() == NULL) return;
 	inputManager->setSearchQuery(historyList.current()->getQuery());
 	enableHistoryButtons();
 

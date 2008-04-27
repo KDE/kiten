@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
-    <height>466</height>
+    <width>546</width>
+    <height>284</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -23,8 +23,8 @@
       </widget>
      </item>
      <item>
-      <widget class="KFontRequester" native="1" name="kcfg_font" >
-       <property name="sampleText" stdset="0" >
+      <widget class="KFontRequester" name="kcfg_font" >
+       <property name="sampleText" >
         <string>漢字 かな romaji</string>
        </property>
       </widget>
@@ -32,37 +32,17 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
-      <string>GroupBox</string>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
      </property>
-     <layout class="QVBoxLayout" >
-      <item>
-       <widget class="QRadioButton" name="kcfg_textSameSize" >
-        <property name="text" >
-         <string>All Text is the same size</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="kcfg_textKanjiBig" >
-        <property name="text" >
-         <string>All Kanji are written bigger</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="kcfg_textMainWordBig" >
-        <property name="text" >
-         <string>Make the main dictionary entry larger</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

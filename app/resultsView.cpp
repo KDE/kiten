@@ -141,17 +141,6 @@ void ResultView::print(const QString &title)
 */
 }
 
-/** updates the font.  Used on font change */
-void ResultView::updateFont()
-{
-	begin();
-	setUserStyleSheet(generateCSS());
-	//write(
-	end();
-
-	////////setFont(KitenConfigSkeleton::self()->font());
-}
-
 bool ResultView::urlSelected(const QString & 	url,
 		int 	button,
 		int 	state,
@@ -181,9 +170,11 @@ QString ResultView::deLinkify(DOM::Node node)
 QString ResultView::generateCSS()
 {
 	KColorScheme scheme(QPalette::Active);
+	QFont font = KitenConfigSkeleton::self()->font();
+
 	return QString(
-			".Word { font-size: x-large; }"
-			".Entry { color: %1; }"
+			".Word { font-size: %9px }"
+			".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
 			".DictionaryHeader { color: %2; border-bottom: solid %3 }"
 			"a:link { color: %4; }"
 			"a:visited {color: %5} "
@@ -196,6 +187,9 @@ QString ResultView::generateCSS()
 		.arg(scheme.foreground(KColorScheme::LinkText).color().name())
 		.arg(scheme.foreground(KColorScheme::VisitedText).color().name())
 		.arg(scheme.foreground(KColorScheme::ActiveText).color().name())
+		.arg(font.family())
+		.arg(font.pointSize()) // the text size
+		.arg(font.pointSize() + 10) // a larger size for kanji
 		;
 
 }
