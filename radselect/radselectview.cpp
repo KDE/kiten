@@ -146,8 +146,6 @@ radselectView::listPossibleKanji(const QList<Kanji>& list)
 	foreach(const Kanji &it, list)
 		if(low <= it.strokes() && it.strokes() <= high)
 			new QListWidgetItem((QString)it,selected_radicals);
-	if(selected_radicals->count() > 1)
-		new QListWidgetItem(i18nc("@item:inlist all matches should be found", "(All)"),selected_radicals);
 
 	m_possibleKanji = list;
 

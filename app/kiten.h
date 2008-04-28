@@ -70,6 +70,7 @@ private slots:
 	void searchAndDisplay(const DictQuery&);
 	void searchInResults();
 	void displayResults(EntryList *);
+	void radicalSearch();
 	//void searchOnTheSpot();
 
 		//Configuration related slots
@@ -93,7 +94,6 @@ private slots:
 	void addHistory(EntryList*);
 	void enableHistoryButtons();
 	void setCurrentScrollValue(int value);
-
 
 //	void createEEdit();
 //	void kanjiDictChange();

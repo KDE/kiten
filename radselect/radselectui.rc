@@ -1,9 +1,3 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <kpartgui name="radselect" version="1">
-<ToolBar fullWidth="true" name="searchToolBar"><text>Search Bar</text>
-	<Action name="KitenEditWidget" />
-	<Action name="clear_search" />
-	<Action name="search_edit" />
-	<Action name="search" />
-</ToolBar>
 </kpartgui>

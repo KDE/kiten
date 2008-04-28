@@ -30,6 +30,7 @@
 #include <QtGui/QScrollBar>
 
 #include <kaction.h>
+#include <kprocess.h>
 #include <kconfig.h>
 #include <kconfigdialog.h>
 #include <kdebug.h>
@@ -55,8 +56,6 @@
 #include <qtablewidget.h>
 #include <qboxlayout.h>
 #include <kapplication.h>
-#include <khtml_part.h>
-#include <khtmlview.h>
 #include <kurl.h>
 #include <kfiledialog.h>
 
@@ -133,10 +132,9 @@ kiten::kiten(QWidget *parent, const char *name)
 /** destructor to clean up the little bits */
 kiten::~kiten()
 {
-    delete optionDialog;
-    optionDialog = 0;
+	delete optionDialog;
+	optionDialog = 0;
 }
-
 
 void kiten::setupActions() {
 
@@ -151,14 +149,16 @@ void kiten::setupActions() {
 	/* Setup the Go-to-learn-mode actions */
 	/* TODO: put back when Dictionary Editor is reorganised */
 //	(void) new KAction(i18n("&Dictionary Editor..."), "document-properties", 0, this, SLOT(createEEdit()), actionCollection(), "dict_editor");
-	/* TODO: Replace with the new radical search launching system */
-//	(void) new KAction(i18n("Ra&dical Search..."), "system-run" /* or better "edit-find"? */, CTRL+Key_R, this, SLOT(radicalSearch()), actionCollection(), "search_radical");
-	//Create the edit box, linking to our searchMethod in the constructor.
+	KAction *radselect = actionCollection()->addAction("radselect");
+	radselect->setText(i18n("Radical Selector"));
+//	radselect->setIcon("edit-find");
+	radselect->setShortcut(Qt::CTRL+Qt::Key_R);
+	connect(radselect,SIGNAL(triggered()), this, SLOT(radicalSearch()));
 
 	/* Setup the Search Actions and our custom Edit Box */
 	inputManager = new searchStringInput(this);
 
-	QAction *searchButton = actionCollection()->addAction( "search" );
+	KAction *searchButton = actionCollection()->addAction( "search" );
 	searchButton->setText( i18n("S&earch") );
 	// Set the search button to search
 	connect(searchButton, SIGNAL(triggered()), this, SLOT(searchFromEdit()));
@@ -169,11 +169,9 @@ void kiten::setupActions() {
 
 	/* Setup our widgets that handle preferences */
 	//deinfCB = new KToggleAction(i18n("&Deinflect Verbs in Regular Search"), 0, this, SLOT(kanjiDictChange()), actionCollection(), "deinf_toggle");
-//	comCB = new KToggleAction(i18n("&Filter Rare"), "view-filter", CTRL+Key_F, this, SLOT(toggleCom()), actionCollection(), "common");
 
-//autoSearchToggle = new KToggleAction(i18n("&Automatically Search Clipboard Selections"), "edit-find", 0, this, SLOT(kanjiDictChange()), actionCollection(), "autosearch_toggle");
 	autoSearchToggle = actionCollection()->add<KToggleAction>("autosearch_toggle");
-        autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
+   autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
 
 	irAction = actionCollection()->add<KAction>("search_in_results");
 	irAction->setText(i18n("Search &in Results"));
@@ -393,6 +391,13 @@ void kiten::searchOnTheSpot()
 }
 
 */
+
+void kiten::radicalSearch() {
+	KProcess *local_proc = new KProcess;
+	local_proc->setProgram(KStandardDirs::findExe("kitenradselect"));
+	local_proc->start();
+}
+
 
 //////////////////////////////////////////////////////////////////////////////
 // PREFERENCES RELATED METHODS

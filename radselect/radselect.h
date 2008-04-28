@@ -20,16 +20,14 @@
 #ifndef _RADSELECT_H_
 #define _RADSELECT_H_
 
+//QT and kdelibs
 #include <kxmlguiwindow.h>
-class radselectView;
+class QDBusInterface;
 
 //From libkiten
+class radselectView;
 #include <DictQuery.h>
-class KHistoryComboBox;
 
-//QT and kdelibs
-class KToggleAction;
-class QDBusInterface;
 
 /**
  * This class serves as the main window for radselect.  It handles the
@@ -73,28 +71,15 @@ protected:
 
 private slots:
 	void optionsPreferences();
-	void configureToolBars();
 
 	void changeStatusbar(const QString& text);
 
-	void showFullSearchString();
-	void search();
-	void clear();
-
 	void sendSearch(const QStringList&);
-
-private:
-	void setupAccel();
-	void setupActions();
 
 private:
 	QDBusInterface *dbusInterface;
 	radselectView *m_view;
 	DictQuery m_currentQuery;
-
-	KHistoryComboBox *Edit;
-	KToggleAction *showAll;
-
 };
 
 #endif // _RADSELECT_H_

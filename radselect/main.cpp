@@ -22,7 +22,7 @@
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
-#include <kapplication.h>
+#include <kuniqueapplication.h>
 #include <kmessagebox.h>
 
 static const char description[] = I18N_NOOP("A KDE Application");
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 	KCmdLineOptions options;
 	options.add("+[Search_String]", ki18n( "Initial Search String from Kiten" ));
 	KCmdLineArgs::addCmdLineOptions(options);
-	KApplication app;
+	KUniqueApplication app;
 
    // see if we are starting with session management
 	if (app.isSessionRestored()) {

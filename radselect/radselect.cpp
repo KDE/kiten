@@ -23,10 +23,9 @@
 #include "ui_radselectprefdialog.h"
 
 #include <QtDBus/QtDBus>
-
-#include <qpainter.h>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+
 #include <kactioncollection.h>
 #include <kglobal.h>
 #include <klocale.h>
@@ -57,7 +56,16 @@ radselect::radselect() :
     setCentralWidget(m_view);  //This is the main widget
     setObjectName(QLatin1String("radselect"));
 
-    setupActions();
+    KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
+    KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
+    KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
+    statusBar()->show();
+
+    // Apply the create the main window and ask the mainwindow to
+    // automatically save settings if changed: window size, toolbar
+    // position, icon size, etc.  Also to add actions for the statusbar
+    // toolbar, and keybindings if necessary.
+    setupGUI(Default,"radselectui.rc");
 
     // allow the view to change the statusbar
     connect(m_view, SIGNAL(signalChangeStatusbar(const QString&)),
@@ -89,42 +97,7 @@ void radselect::loadSearchString(const QString &searchString) {
 	m_view->loadRadicals(m_currentQuery.getProperty("R"), min, max);
 }
 
-void radselect::setupActions()
-{
-    KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
-    KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
-
-    KStandardAction::keyBindings((const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection());
-
-    Edit = new KHistoryComboBox(this);
-	 Edit->setDuplicatesEnabled(false);
-    QAction *KitenEditAction =actionCollection()->addAction( "KitenEditWidget" );
-    qobject_cast<KAction*>( KitenEditAction )->setDefaultWidget(Edit);
-
-    QAction *kac =actionCollection()->addAction( "search" );
-    kac->setText( i18n("S&earch") );
-    kac->setIcon( KIcon("go-jump-locationbar") );
-    connect( kac, SIGNAL(triggered()), this, SLOT(search()) );
-
-    showAll = actionCollection()->add<KToggleAction>( "show_full_search" );
-    showAll->setText( i18n("&Show Full Search String") );
-    showAll->setIcon( KIcon("full_string") );
-    showAll->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_S));
-    connect( showAll, SIGNAL(triggered()), this, SLOT(showFullSearchString()) );
-
-    (void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
-
-    statusBar()->show();
-
-    // Apply the create the main window and ask the mainwindow to
-    // automatically save settings if changed: window size, toolbar
-    // position, icon size, etc.  Also to add actions for the statusbar
-    // toolbar, and keybindings if necessary.
-    setupGUI(Default,"radselectui.rc");
-}
-
 void radselect::saveProperties(KConfigGroup &config) { //For suspend
-
     if (!m_currentQuery.isEmpty())
         config.writePathEntry("searchString", m_currentQuery);
 }
@@ -168,8 +141,10 @@ void radselect::changeStatusbar(const QString& text)
 //This one is triggered if the search button is used (or the widget interface
 //is in some other way given priority.
 void radselect::sendSearch(const QStringList& kanji) {
+	if(kanji.size() == 0) return;
+
 	//This may need to be done differently for handling collisions
-	m_currentQuery = Edit->currentText() + kanji.join("");
+	m_currentQuery = kanji.at(0);
 
 	changeStatusbar(m_currentQuery);
 
@@ -182,34 +157,5 @@ void radselect::sendSearch(const QStringList& kanji) {
 		}
 	}
 }
-
-
-void radselect::clear() {
-}
-
-void radselect::search() {
-}
-
-void radselect::showFullSearchString(){
-}
-
-void radselect::configureToolBars()
-{
-	KEditToolBar dlg(actionCollection());
-	if (dlg.exec())
-		createGUI();
-
-//	saveMainWindowSettings(KGlobal::config(), "TopLevelWindow");
-//	KEditToolbar dlg(actionCollection(), "kitenui.rc");
-//	connect(&dlg, SIGNAL(newToolBarConfig()), SLOT(newToolBarConfig()));
-//	dlg.exec();
-}
-
-/*void radselect::newToolBarConfig()
-{
-	createGUI("kitenui.rc");
-	applyMainWindowSettings(KGlobal::config(), "TopLevelWindow");
-}
-*/
 
 #include "radselect.moc"
