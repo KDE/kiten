@@ -92,6 +92,7 @@ private slots:
 	void displayHistoryItem();
 	void addHistory(EntryList*);
 	void enableHistoryButtons();
+	void setCurrentScrollValue(int value);
 
 
 //	void createEEdit();

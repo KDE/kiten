@@ -27,6 +27,7 @@
 #include <QtCore/QPair>
 #include <QtCore/QFile>
 #include <QtGui/QApplication>
+#include <QtGui/QScrollBar>
 
 #include <kaction.h>
 #include <kconfig.h>
@@ -118,6 +119,12 @@ kiten::kiten(QWidget *parent, const char *name)
 	connect(mainView, SIGNAL(urlClicked(const QString &)), SLOT(searchText(const QString &)));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(searchClipboard()));
 	connect(inputManager, SIGNAL(search()), this, SLOT(searchFromEdit()));
+
+	connect( mainView->view()->verticalScrollBar(),
+			SIGNAL(valueChanged(int)),
+			this,
+			SLOT(setCurrentScrollValue(int))
+		   );
 
 	/* See below for what else needs to be done */
 	QTimer::singleShot(10, this, SLOT(finishInit()));
@@ -368,6 +375,8 @@ void kiten::displayResults(EntryList *results)
 	} else
 		mainView->setContents("<html><body>"+infoStr+"</body></html>");
 
+	mainView->view()->verticalScrollBar()->setValue(results->scrollValue());
+
 	/* //Debuggery: to print the html results to file:
 	QFile file("/tmp/lala");
 	file.open(QIODevice::WriteOnly);
@@ -577,6 +586,13 @@ void kiten::enableHistoryButtons()
 {
 	backAction->setEnabled(historyList.index() > 0);
 	forwardAction->setEnabled(historyList.index()+1 < historyList.count());
+}
+
+void kiten::setCurrentScrollValue(int value)
+{
+	if (historyList.current() == NULL) return;
+
+	historyList.current()->setScrollValue(value);
 }
 
 #include "kiten.moc"

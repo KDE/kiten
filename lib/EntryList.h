@@ -89,6 +89,9 @@ public:
 	/** Set the query for this list.  */
 	void setQuery(const DictQuery&);
 
+	int scrollValue() { return storedScrollValue; }
+	void setScrollValue(int val) { storedScrollValue = val; }
+
 protected:
 	/** The query that this list was generated from.
 	 * Note that if this list was the result of a merge (using operator+=) of two or more EntryList objects,
@@ -96,6 +99,7 @@ protected:
 	DictQuery query;
 	bool m_sorted;
 	bool m_sortedByDictionary;
+	int storedScrollValue;
 };
 
 #endif

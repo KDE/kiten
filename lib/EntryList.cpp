@@ -38,11 +38,13 @@
 #include <stdio.h>
 
 
-EntryList::EntryList() : QList<Entry*>(), m_sorted(false), m_sortedByDictionary(false)  {
+EntryList::EntryList() : QList<Entry*>(), m_sorted(false), m_sortedByDictionary(false),  storedScrollValue(0)  {
 }
 
 EntryList::EntryList(const EntryList &old) :
-	QList<Entry*> (old), m_sorted(false), m_sortedByDictionary(false) {
+	QList<Entry*> (old), m_sorted(false), m_sortedByDictionary(false) , storedScrollValue(0)
+
+{
 }
 EntryList::~EntryList() {
 //	kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
