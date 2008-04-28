@@ -1,182 +1,83 @@
-TODO by 4.1:
-	Make font config dialog work
-	Expunge the rest of Learn mode (we'll put it back in 4.1 in some form)
-	Return to basic HTML output... we'll do model/view later
-	Look carefully at EDICT2 format... note the multiple kanji/kana given
-	Do something about preferences... as they're effectively broken right now (lib and app require
-			complete sync in the preference code or the app will segfault)
+---------------------------TODO List---------------------------
+Cat By  Description
+By 4.1:
+F+  4.1 Connect Radselect to kiten (IN PROGRESS-joe)
+F   4.1 Sort by "Exact Match"
+F-  4.1 Deinflection Dictionary
+B   4.1 Fix "Search in Results"
+B+  4.1 Display Field Preferences
+R+  4.1 Profile the linear vs indexed EDICT back-ends
+R   4.1 Update Help Files
+R   4.1 Set Default Visible Widgets
+R   4.1 Doublecheck README, AUTHORS, etc
+R   4.1 D-ptr-ize libkiten
+R   4.1 Correct radselect license (requires consult with various authors)
+R   4.1 Be EBN-clean and dashboard-clean (RECURRANT)
+By 4.2:
+F+  4.2 GHNS support (including dictionary "updates")
+B   4.2 Make radselect hilight colors noticeable (use current theme)
+B   4.2 Investigate http://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
+R+  4.2 Trim data/edict down to "common entries only" to help distros/svn users
+R   4.2 DBUS Interface + Documentation
+Unscheduled:
+B-   -  Can't search for kanji readings
+B-   -  Searching is duplicated from input box, atm
+B    -  Handle searches that don't include Word, Reading or Meaning in a sane way
+B+   -  Match type occasionally mysteriously reverts to "Match Exact"
+F-   -  Add popup menus to Forward/Back history buttons
+F-   -  Nicely format output fields (word type in particular)
+F-   -  Links directly from things like word type to Help File
+F-   -  Verify Dicitionary format (to some extent) in "add dictionary" selector
+F-   -  Support search ranges(G:1-3) and selections (G:1,3,5) in Extended field searches
+F    -  Search by word type
+F+   -  Radical decomposition in radselect (including in drag and drop)
+F+   -  Heisig "primitive" set in radselect
+F+   -  Mouse-over kanji information in radselect
+F+   -  Greatly expand the radkfile, to include pronunciation, alternatives, etc
+F+   -  Multi-thread the app, so the interface doesn't wait for the results
+F+   -  Handle JMDict files
+F+   -  Handle fpwing files
+F+   -  "Quick-Select" widget to adjust which dictionaries a given query will use
+F+   -  Export to various types of flashcard programs (Learn mode replacement)
+C    -  Move display to an MVC system
+C    -  Preferences Framework
+?    -  Look carefully at EDICT2 format... note the multiple kanji/kana given
+?    -  Input Filters?
+?    -  Search within results? (F3/"/")
+?    -  Add widget to select "Grade X kanji"
+?    -  Implement Multi-search?
+?    -  Sequential lists?
+?    -  Dictionary Editor? (Version and upload changes?)
+?    -  Custom Dictionaries? (Open flashcard decks as dictionaries?)
+Category: (F)eature, (B)ug, (R)elease Requirement, (C)ode Organizaion, (?)Investigate as possible
+        (+/- indicate relative importance IMNSHO)
+	(RECURRENT) = After a release, move this to the next planned release
 
+---------------------------TODO Details---------------------------
+MVC: Primary advantages of moving to a model-view system are that we would be able to offer things like
+	"right click on the entry, and see a list of other fields that could be displayed". Mouse-over kanji
+	writing and such would be easy
+	Disadvantages: the current CSS code is fairly easy to work with and understand
 
-Main Sections:
-	Learn Mode Rewrite, IPC Interfaces, Preferences System
+Preferences Framework:
+	At the moment, the lib and app preference files need to be exactly in sync, or a crash will occur.
+	We probably need to make our own layer on top of the general preferences code.
 
-	Preference System:
-	Dictionaries: Centrally controlled... generate a tab for each
-		dictionary type that we understand... verify the dict when selected
-		(percentage match perhaps)
-	Fonts: One main font, three options for making things bigger
-	Display: Split into a panel for each dictionary type, call a
-		dictConfig<dictName> class for each one. Class should store whatever
-		it needs in the KConfigXT system and it can be pulled up when done.
-	Search: More or less the same as now (possibly add 'hide data' options)
-	Learn: Will be redone when Learn is reconfigured.
+Multi-search;
+	This capability would allow you to select, for example, all words that contain any of a list of kanji.
+	Alternatively, it would allow you select all words that contain at least one of the listed kanji, and
+	no kanji that are not on the list. The interface for this might be tricky.
 
-	dictConfig Plan... make it a subclass of a view so that it can just drop
-		in and display in a given size.
-
-	libkiten questions:
-	Code Files:
-			dictquery.cpp		stable	(could use some cleaning/optimizing, but it works)
-			dictionary.cpp		stable	(for current needs, minor feature updates in future)
-			historyPtrList.cpp stable	(Should work fine at this point, two methods untested)
-			deinf.cpp:			stable	(Redone as a simple object... need to make into a dictFile)
-
-			entry.cpp			moderate (needs a bit of fleshing out in entry still)
-			kromajiedit.cpp:	volotile (should mix with widget's EditAction?)
-			dictFileXXXX.cpp	volotile (search needs revisiting, 3-4 methods need writing)
-			entryXXXXXX.cpp   volotile (still some bugs missing features)
-
-	rewrite the index generator
-		Joe comments: I've reformated and commented the index generator code...it's
-		significantly less scary now. Time will tell whether the index generator
-		will get qt'd first, or the indexes will be replaced by a db.
-
-Main Interface:
-	Infrastructure for input filters(replace deinflection)
-	Selector for displayed fields, possibly organized like a toolbar configuration
-	Fix "Filter Rare" in results printing.
-	Add pop-ups to the forward/back buttons
-	Highlight search target feature
-
-	Integration with Learn Mode/Targeting vocabulary lists (Add/Add Common/Add All)
-	Eric: Definitely need to add a way to add compounds to learn list when the
-		compound-handling learn list is implemented.
-	Eric: Alright, the Add will be attached to each definition (somehow) and an
-		Add All feature will have to be tossed into the menu somewhere if we want
-		such a thing.
-
-	Add button to Browse kanji lists (same as in Learn mode currently)
-	Eric: Move this to something kanji-specific (i.e. radical search interface)
-	Eric: Being nullified by the newfound desire to browse wonderful personal
-		dictionaries.
-	Joe: I guess I wasnt too clear... this just means add the same drop down
-		to browse Grade level kanji to the main app that currently exists in
-		Learn (or did, anyways)
-
-	Move (X)HTML generation to the EntryList and it further to the Entry
-
-	Add some complex search capabilities (space seperated or symbol seperated)
-		Search Modes: (order doesn't matter)
-			Kanji Mode: <S>? <R>? <G>? <meaning>? <KanaReading>*
-				<SingleKanjiReading>?
-			Compound Mode: <meaning>? <KanaReading>* <MultiKanjiReading>*
-		There is an overlap between these two modes if only a single kanji
-			reading is specified. In this case, print Kanji results followed
-			by Compounds
-		Eric: Not an issue if we continue as modal.  Should it be switched to
-			non-modal search?
-		Eric: Guess so :p  A search handled completely by the Dictionary object
-			on its way now.
-
-		Search Options: (spaces after the S/R/G: are allowed)
-			S: X,Y,Z (S can be replaced with "Stroke[s]") searches only those kanji
-				that have strokes within one of the STROKE RANGES X,Y or Z
-				(specified as #-# or as #)
-			R: X,Y,Z (R can be "Radical[s]") Searches only those kanji that contain
-				all of the comma seperated radicals. Support radical numbers,
-				japanese radical names (in romaji or kana/kanji) and radicals.
-			G: X,Y,Z (G can be "Grade[s]") Searches only those kanji that are
-				contained within the Jouyou grade levels listed. "Jouyou" will search
-				the remaining non-grade-level kanji, and Jinmeiyou will search that
-				name set. (Jouyou and Jinmeiyou may be written in kana/kanji)
-			All others are either:
-				english: interpreted as a meaning search, multiple entries are OR'd
-				kana/kanji: Interpreted according to Search Mode, shown above
-				Multiple pronounciations are considered "AND"d together
-				Eric: So, how about extending this logic to the following:  All
-					non-meaning, non-reading, non-radical fields are extendedKanjiInfo
-					fields and are thus prefaced by their key: and are then ANDed
-					together.  (Intersection).  A comma-seperated list would be possible
-					afterwords for OR. (Union).  This leaves a convenience issue for
-					ranges.  How about the traditional '-' except in the case of SKIP?
-					For Radicals, a slightly varied system should be used where there
-					is no OR, and commas mean AND.  A preface should be chosen.  @R,
-					seems like a safe choice, though R isn't yet taken.  Using that
-					method, all non-extendedInfo items could have an @<char> for
-					making their use explicit.
-				Eric: somewhat nullified now by Dicts doing this in themselves,
-					though the general principles of the user entering fields is of
-					course still valid.
-
-		Search Result Sorting:
-			Sort Grade Lists by Grade, then by number within Grade
-			Sort Radical Lists by: Total Radical, Primary Radical, Non-Primary,
-				Unusual Kanji
-			Eric: Sorting should be done by whatever displays the results.  Where
-				should that be now?  Perhaps EntryList
-
-			Search Begining/End/Anywhere: Whole results first, followed by partials, Unusual Kanji
-			Eric: a '*' syntax...maybe for next revision?
-
-For Radical Lookup:
-	Allow radical decomposition (right click to decompose)
-	Eric: and I liked your drop-on decompose kanji to radicals feature :)
-
-	This will probably require a small decomposition db/hash.
-	Include Stroke Variance, stroke count lookup (or just do this as search/within?)
-	Hilight (red?/blue?) common companion radicals (perhaps mod hotlist for this?)
-	Erin's request: click on the number to show only radicals with the
-		corresponding stroke count.
-
-	Radical by reading?
-	Essentially for these features we need to greatly expand on the current radkfile
-	  I've come to believe that this will require an entirely new datafile. --Joe
-
-Learn Mode:
-	Change interface to add kanji/compounds to list from main search interface.
-	Eric: That is to say modify the current Kanji "Add to list" to make it
-		more usable and add _something_ for the compounds.
-
-	Add capability to have multiple learning lists.
-	This includes the capability to shuffle "selected" kanji between lists
-	Eric: Learn mode is almost ready for a complete rework.
-
+Sequential Lists
 	Be able to generate sequential learning lists, given a list of known kanji
 	The Layered method is either very time intensive, or very memory intensive
 		pick one and try implementing. Provided we limit the lists to containing
 		only the resultant kanji, even the memory intensive version will only be a
 		few (~20) megs for fairly large lists.
-
-	Learn needs to handle the new dictionary system.
-
 	Split into a separate app.  This is the optimal time for a complete rewrite
 		"inspired by learn mode".
 
-	Handle custom dictionaries instead of just learn lists.  So much TODO...
-
-Input/Dictionary Engine:
-	Handle more file formats (fpwing, etc)
-		User Dictionary handling:
-			Just toss edict or kanjidic formatted lines into the dict
-	Rewrite the Indexer in QT/C++.
-
-	In kiten.cpp, add a menu or similar for choosing which dictionaries will be
-		searched more convenient then adding/removing dicts
-	Add facilities for adding to and removing from custom dicts
-	Eric: Regarding that, for removing, how is one to know whether or not an
-		entry is from a custom dict?  if one was from a custom dict, it could
-		have a "remove from <custom dict> link".  We could do the add to as a
-		dialogue that displays whet "add to custom dict" link is clicked ...
-		and that interface could also be used for creating new custom dicts, etc.
-	Joe: I propose handling that internally to the Entry<dictType> class. Since it will
-		know that any Entry that it is working with is of it's own type.
-	DictConfig proposal:
-		Make a class per dictionary type that will handle configuration options.
-		Store the information in static variables, implicitly accessable to the
-		DictFile<type> and Entry<type> classes. Possibly implement a custom config
-		dialog in this class (subclass it from a pane/view for display in a tab).
-
-Dictionaries:
+Other Formats:
 	(Potential) other formats to look into:
 		(fre)epwing: http://www.sra.co.jp/people/m-kasahr/freepwing/
 			using libeb?  Using it would allow "accessing EB, EBG, EBXA and EPWING CD-ROM dictionaries"
@@ -187,18 +88,22 @@ Dictionaries:
 			Check out kdict for a client in action.
 		JMDict: http://www.csse.monash.edu.au/~jwb/j_jmdict.html
 
-Housekeeping:
-	Update documentation for whatever gets overhauled
-	Eric: update code documentation as we go, try and talk Erin or someone
-		else into User Docs.
-	Update these: README AUTHORS Authors in main.cpp the Copyrights at the top
-		of every source file
 
-On the horizon:
-	A "get new dictionary" feature like in khangman
-	Would it be possible to integrate an "update dictionary" feature via anonsvn?
+---------------------------Design Notes---------------------------
+Search String Design:
+	Add some complex search capabilities (space seperated or symbol seperated)
+		Search String BNF: [<item>]*
+			<item> := <non-japanese meaning - not allowed to contain ':'>
+			<item> := <kana word - must be exclusively kana>
+			<item> := <word containing kanji - may contain kana>
+			<item> := <key>:<extended value>
+			<key> := either a single character or code for one of the dictionaries
+			<extended value> := a value that the key has to match
+		The Search <item> list is "and"ed together logically, to determine results
+			This can be modified with the match-type setting, which is evaluated
+			seperately for each field
 
-Code Audit:
+Code Audit Checklist:
 	Static Variables (avoid them)... use KStaticDeleter with pointers if needed
 	Static Methods (use them if possible)
 	Forward Declarations (eliminate header includes from header files)
@@ -212,18 +117,3 @@ Code Audit:
 	Check ALL files for i18n strings that are not inside of i18n() or tr() methods
 	Look through and get rid of redundant headers (particularly in the lib files)
 
-IDEA:
-For results display... use an expanding diamond?
-Example: (think of the |> and the downwards version instead of +/-)
-+ Kanji       Readings                Meanings
-+ Word        Readings                Meanings
-- Kanji       Readings                Meanings
-    Bushu      Strokes         Grade     Heisig
-	 SKIP Code  NelsonIndex     Etc       (add to list button)
-
-The entire area would be clickable for drag and drop to VTML lists (aside from the things that were clickable for searching). Double click on the background should have the same effect as clicking the expand/contract box.
-
-in our current codebase... the code is
-+ printHTML(printBrief)
-- printHTML(printVerbose)
-For the normal case (printAuto)... this does give us a bit of trouble in getting that result up to the widget-controls out of the lib... should that information be buried in the returned HTML?
