@@ -45,11 +45,18 @@ class searchStringInput : public QObject {
 
 	signals:
 		void search();
+		void escapeKeyPressed();
 
 	private slots:
 		void focusInput();
 
 	private:
+        
+	    //for widgets where this searchStringInput is installed as eventfilter,
+		//an escape-button QKeyEvent will be eaten and trigger the
+		//escapeKeyPressed signal
+		virtual bool eventFilter(QObject *obj, class QEvent *event);
+
 		KToggleAction *actionDeinflect;
 		KToggleAction *actionFilterRare;
 		KSelectAction *actionSearchSection;	//Search exact/anywhere/beginning

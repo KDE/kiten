@@ -37,6 +37,7 @@
 #include <kedittoolbar.h>
 #include <qclipboard.h>
 #include <qlineedit.h>
+#include <qevent.h>
 
 searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	parent = iParent;
@@ -63,6 +64,7 @@ searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	actionTextInput = new KHistoryComboBox(parent);
 	actionTextInput->setDuplicatesEnabled(false);
 	actionTextInput->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	actionTextInput->installEventFilter(this);
 
 	actionFocusInput = parent->actionCollection()->addAction("focusinputfield", this, SLOT(focusInput()));
 	actionFocusInput->setShortcut(QString("Ctrl+L"));
@@ -81,6 +83,20 @@ searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 
 	//connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
 	connect(actionTextInput, SIGNAL(activated(const QString&)), this, SLOT(test()));
+}
+
+bool searchStringInput::eventFilter(QObject *obj, QEvent *event)
+{
+	if (event->type() == QEvent::KeyPress && ((QKeyEvent*)event)->key() == Qt::Key_Escape)
+	{
+		emit escapeKeyPressed();
+		return true;
+	}
+	else
+	{
+		//normal event filtering
+		return QObject::eventFilter(obj, event);
+	}
 }
 
 void searchStringInput::setDefaultsFromConfig() {

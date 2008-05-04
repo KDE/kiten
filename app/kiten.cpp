@@ -125,6 +125,12 @@ kiten::kiten(QWidget *parent, const char *name)
 			SLOT(setCurrentScrollValue(int))
 		   );
 
+	connect(inputManager,
+			SIGNAL(escapeKeyPressed()),
+			this,
+			SLOT(focusResultView())
+		   );
+
 	/* See below for what else needs to be done */
 	QTimer::singleShot(10, this, SLOT(finishInit()));
 }
@@ -245,6 +251,11 @@ void kiten::finishInit()
 //	Edit->Completion()->clear(); // make sure the edit is focused initially
 	StatusBar->showMessage(i18n("Welcome to Kiten"));
 	setCaption(QString());
+}
+
+void kiten::focusResultView()
+{
+	mainView->view()->setFocus();
 }
 
 

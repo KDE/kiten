@@ -62,6 +62,7 @@ protected:
 	virtual bool queryClose(); //overridden from KXmlGuiWindow (called@shutdown)
 private slots:
 	void finishInit();
+	void focusResultView();
 
 		//Searching related methods
 	void searchFromEdit();
