@@ -125,12 +125,6 @@ kiten::kiten(QWidget *parent, const char *name)
 			SLOT(setCurrentScrollValue(int))
 		   );
 
-	connect(inputManager,
-			SIGNAL(escapeKeyPressed()),
-			this,
-			SLOT(focusResultView())
-		   );
-
 	/* See below for what else needs to be done */
 	QTimer::singleShot(10, this, SLOT(finishInit()));
 }
@@ -182,6 +176,12 @@ void kiten::setupActions() {
 	irAction = actionCollection()->add<KAction>("search_in_results");
 	irAction->setText(i18n("Search &in Results"));
 	connect(irAction, SIGNAL(triggered()), this, SLOT(searchInResults()));
+
+
+	KAction *actionFocusResultView;
+	actionFocusResultView = actionCollection()->addAction("focusresultview", this, SLOT(focusResultView()));
+	actionFocusResultView->setShortcut(QString("Escape"));
+	actionFocusResultView->setText(i18n("Focus result view"));
 
 
 	(void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
