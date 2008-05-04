@@ -46,6 +46,7 @@ class ResultView : public KHTMLPart
 
 		void addResult(Entry *result, bool common = false);
 		void addKanjiResult(Entry*, bool common = false);
+		void setLaterScrollValue(int scrollValue);
 
 	public slots:
 		void print(const QString&);
@@ -67,12 +68,16 @@ class ResultView : public KHTMLPart
 		QString deLinkify(DOM::Node);
 		QString generateCSS();
 
+	private slots:
+		void doScroll();
+
 	private:
 		QString printText;
 		bool basicMode;
 		QAction *addToExportListAction;
 		KActionCollection *popupActions;
 		KActionMenu *popupMenu;
+		int scrollValue;
 };
 
 #endif

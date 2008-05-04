@@ -27,6 +27,7 @@
 /* Needed by ResultView only */
 #include <QtGui/QApplication>
 #include <QtGui/QPainter>
+#include <QtGui/QScrollBar>
 
 #include <kconfig.h>
 #include <kmenu.h>
@@ -36,7 +37,8 @@
 #include <kcolorscheme.h>
 
 ResultView::ResultView(QWidget *parent, const char *name)
-	: KHTMLPart(parent, parent)
+	: KHTMLPart(parent, parent),
+	scrollValue(0)
 {
 
 	////////setReadOnly(true);
@@ -46,6 +48,9 @@ ResultView::ResultView(QWidget *parent, const char *name)
 
 	// don't let ktextbrowser internally handle link clicks
 	////////setNotifyClick(true);
+	connect(view(), SIGNAL(finishedLayout()),
+			this, SLOT(doScroll())
+		   );
 }
 
 /** As the name implies, it appends @p text to the printText */
@@ -196,5 +201,14 @@ QString ResultView::generateCSS()
 
 }
 
+void ResultView::setLaterScrollValue(int scrollValue)
+{
+	this->scrollValue = scrollValue;
+}
+
+void ResultView::doScroll()
+{
+	view()->verticalScrollBar()->setValue(scrollValue);
+}
 
 #include "resultsView.moc"

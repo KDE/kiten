@@ -384,7 +384,8 @@ void kiten::displayResults(EntryList *results)
 	} else
 		mainView->setContents("<html><body>"+infoStr+"</body></html>");
 
-	mainView->view()->verticalScrollBar()->setValue(results->scrollValue());
+	mainView->setLaterScrollValue(results->scrollValue());
+
 
 	/* //Debuggery: to print the html results to file:
 	QFile file("/tmp/lala");
