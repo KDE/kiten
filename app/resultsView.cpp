@@ -181,6 +181,7 @@ QString ResultView::generateCSS()
 			".Word { font-size: %9px }"
 			".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
 			".DictionaryHeader { color: %2; border-bottom: solid %3 }"
+			"a{ text-decoration: none; }"
 			"a:link { color: %4; }"
 			"a:visited {color: %5} "
 			"a:hover {color: %6 } "
