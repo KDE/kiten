@@ -177,7 +177,7 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 				!this->getWord().contains(query.getWord()))
 				return false;
 	}
-	
+
 	if(!query.getPronunciation().isEmpty() && !getReadings().isEmpty())
 		if(!listMatch(Readings, query.getPronunciation().split(DictQuery::mainDelimiter),
 					query.getMatchType() ) )
@@ -216,7 +216,6 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 	}
 
 	return true;
-
 }
 
 

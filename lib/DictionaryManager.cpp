@@ -37,6 +37,7 @@ IMPORTANT: To add a dictionary type, add the header file here and add it to the
  if statement under addDictionary() */
 #include "dictEdict/dictFileEdict.h"
 #include "dictKanjidic/dictFileKanjidic.h"
+#include "dictDeinflect/dictFileDeinflect.h"
 
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation
 	step here, the next method, and \#include your header file above. If you have
@@ -46,6 +47,8 @@ dictFile *DictionaryManager::makeDictFile(const QString &type) {
 		return new dictFileEdict();
 	if(type == "kanjidic")
 		return new dictFileKanjidic();
+	if(type == "deinflect")
+		return new dictFileDeinflect();
 	//Add new dictionary types here!!!
 
 	return NULL;
@@ -57,6 +60,7 @@ QStringList DictionaryManager::listDictFileTypes() {
 	QStringList list;
 	list.append("edict");
 	list.append("kanjidic");
+	list.append("deinflect");
 	//Add your dictionary type here!
 	return list;
 }

@@ -23,31 +23,32 @@
 #ifndef KITEN_DICTFILEDEINFLECT_H
 #define KITEN_DICTFILEDEINFLECT_H
 
-#include <QtCore/QString>
 #include <QtCore/QStringList>
 
 #include "dictFile.h"
-#include "entry.h"
-#include "dictQuery.h"
+class DictQuery;
+class QString;
 
 class /* NO_EXPORT */ dictFileDeinflect: public dictFile
 {
 	public:
-		dictFileDeinflect() : dictFile() {dictionaryType = "Deinflect";}
-		virtual ~dictFileDeinflect() {}
+		dictFileDeinflect();
 
 		bool loadDictionary(const QString &file, const QString &name);
-		bool loadNewDictionary(const QString &file, const QString &name)
-				{ return loadDictionary(file,name); }
-		QStringList listDictDisplayOptions(QStringList orig) const
-				{ return QStringList("Word/Kanji") << QString("Deinflected Word"); }
+		QStringList listDictDisplayOptions(QStringList orig) const;
 
-		EntryList *doSearch (const dictQuery &query);
+		EntryList *doSearch (const DictQuery &query);
 
-		//TODO: The following methods (validDictionaryFile & validQuery)
-		bool validDictionaryFile(const QString &filename) { return true; }
-		bool validQuery(const dictQuery &query) { return true; }
-
+		bool validDictionaryFile(const QString &filename);
+		bool validQuery(const DictQuery &query);
+	private:
+		struct Conjugation
+		{
+			QString ending; //The ending we are replacing
+			QString replace; //The replacement (dictionary form) ending
+			QString label; //What this type of replacement is called
+		};
+		static QList<Conjugation> *conjugationList;
 };
 
 

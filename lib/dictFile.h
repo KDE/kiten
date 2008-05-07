@@ -81,7 +81,7 @@ public:
 	/** Return a list of the fields that can be displayed, note the following
 	  should probably always be retured: --NewLine--, Word/Kanji, Meaning,
 	  Reading.  This function is passed a list originally containing those
-	  items. This function is used to enumerate possible types the user
+	  four items. This function is used to enumerate possible types the user
 	  chooses to have displayed in the preferences dialog box.
 	  This will often be a very similer list to getSearchableAttributes(),
 	  but due to optional forms of spelling and other situations, it may

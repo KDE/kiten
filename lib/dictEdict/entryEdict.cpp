@@ -49,8 +49,8 @@ QString EntryEDICT::toHTML() const
 {
 
 	QString result="<div class=\"EDICT\">";
-	bool boldBecauseItsCommon = (getExtendedInfoItem(QString("common")) == "1");
-	if(boldBecauseItsCommon)
+	bool isCommon = (getExtendedInfoItem(QString("common")) == "1");
+	if(isCommon)
 		result += "<div class=\"Common\">";
 
 	foreach(const QString &field, QSTRINGLISTCHECK(dictFileEdict::displayFields)) {
@@ -61,7 +61,7 @@ QString EntryEDICT::toHTML() const
 		else if(field == "C")			result += Common();
 		else kDebug() << "Unknown field: " << field;
 	}
-	if(boldBecauseItsCommon)
+	if(isCommon)
 		result += "</div>";
 	result += "</div>";
 	return result;

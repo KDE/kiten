@@ -50,6 +50,8 @@ EntryList::~EntryList() {
 //	kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
 }
 
+int EntryList::scrollValue() const { return storedScrollValue; }
+void EntryList::setScrollValue(int val) { storedScrollValue = val; }
 void
 EntryList::deleteAll() {
 	while(!this->isEmpty())

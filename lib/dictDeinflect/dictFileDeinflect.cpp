@@ -19,12 +19,15 @@
    Boston, MA 02110-1301, USA.
 */
 #include "dictFileDeinflect.h"
+#include "entryDeinflect.h"
+#include "EntryList.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 
+#include <QtCore/QString>
 #include <QtCore/QHash>
 #include <QtCore/QList>
 #include <QtCore/QFile>
@@ -36,33 +39,43 @@
 //But C++ can get stupid with static QT objects...
 //So this turns out to be much, much easier
 //TODO: Fix this for thread safety/functionality (I'm presuming it's broken atm)
-typedef struct Conjugation
-{
-	QString ending; //The ending we are replacing
-	QString replace; //The replacement (dictionary form) ending
-	QString label; //What this type of replacement is called
-}Conjugation;
 
 //Declare our constants
-QHash<long,QString> names;
-QList<Conjugation> list;
+QList<dictFileDeinflect::Conjugation> *dictFileDeinflect::conjugationList = NULL;
+
+dictFileDeinflect::dictFileDeinflect() : dictFile("Deinflect") {}
+
+QStringList dictFileDeinflect::listDictDisplayOptions(QStringList orig) const {
+	return QStringList("Deinflection");
+}
+bool dictFileDeinflect::validDictionaryFile(const QString &filename) {
+	return false;
+}
+bool dictFileDeinflect::validQuery(const DictQuery &query) {
+	return true;
+}
 
 bool dictFileDeinflect::loadDictionary(const QString &file, const QString &name)
 {
-	if (list.count() > 0)
+	if (conjugationList != NULL)
 		return true;
 
-	list.clear();
-	names.clear();
-	//Find the file
-	KStandardDirs *dirs = KGlobal::dirs();
-	QString vconj = dirs->findResource("data", file);
-	if (vconj.isNull())
-	{
-		KMessageBox::error(0, i18n("Verb deinflection information not found, so verb deinflection cannot be used."));
-		return false;
-	}
+	conjugationList = new QList<Conjugation>;
 
+	QString vconj;
+	if(file.isEmpty()) {
+		KStandardDirs *dirs = KGlobal::dirs();
+		vconj = dirs->findResource("data", "kiten/vconj");
+		//Find the file
+		if (vconj.isEmpty())
+		{
+			KMessageBox::error(0, i18n("Verb deinflection information not found, so verb deinflection cannot be used."));
+			return false;
+		}
+	} else
+		vconj = file;
+
+	QHash<unsigned long,QString> names;
 	//Open the file
 	QFile f(vconj);
 	if (!f.open(QIODevice::ReadOnly))
@@ -70,7 +83,6 @@ bool dictFileDeinflect::loadDictionary(const QString &file, const QString &name)
 		KMessageBox::error(0, i18n("Verb deinflection information could not be loaded, so verb deinflection cannot be used."));
 		return false;
 	}
-
 
 	QTextStream t(&f);
 	t.setCodec(QTextCodec::codecForName("eucJP"));
@@ -83,7 +95,7 @@ bool dictFileDeinflect::loadDictionary(const QString &file, const QString &name)
 	{
 		if(text.at(0) != '#')
 		{
-			long number = text.left(2).trimmed().toULong();
+			unsigned long number = text.left(2).trimmed().toULong();
 			QString name = text.right(text.length() - 2).trimmed();
 			names[number] = name;
 		}
@@ -102,7 +114,7 @@ bool dictFileDeinflect::loadDictionary(const QString &file, const QString &name)
 			conj.replace = (things.at(1));
 			conj.label = names.find(things.last().toULong()).value();
 
-			list.append(conj);
+			conjugationList->append(conj);
 		}
 	}
 
@@ -114,26 +126,32 @@ bool dictFileDeinflect::loadDictionary(const QString &file, const QString &name)
 }
 
 
-EntryList *dictFileDeinflect::doSearch(const dictQuery &query)
+EntryList *dictFileDeinflect::doSearch(const DictQuery &query)
 {
-	if(dictionaryName.isEmpty())
+	if (conjugationList == NULL)
 		return NULL;
 
-	QStringList ret;
-	foreach(const Conjugation &it, list)
+	QString text = query.getWord();
+	if(text.isEmpty())
+		text = query.getPronunciation();
+	if(text.isEmpty())
+		return NULL;
+
+	EntryList *ret = new EntryList;
+	int index = 0;
+	foreach(const Conjugation &it, *conjugationList)
 	{
 		if(text.endsWith(it.ending)) {
-			name.append((it.label)); // Add to our list of explanations
+			QString replacement = text;
+			replacement.truncate(text.length()-it.ending.length());
+			replacement += it.replace;
+			entryDeinflect *foo = new entryDeinflect(replacement,it.label,index++,QString("Deinflect"));
+			ret->append(foo);
 
-			//kdDebug() << "match ending: " << (*it).ending << "; replace: " << (*it).replace << "; name: " << names[(*it).num] << endl;
-
-			QString tmp(text);
-			tmp.truncate(text.length() - (it).ending.length());
-			tmp = tmp + (it).replace;
-			ret.append(tmp);
+			if(ret->count() >= 3)
+				return ret;
 		}
 	}
-
 	return ret;
 }
 

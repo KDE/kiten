@@ -40,6 +40,7 @@ class KStatusBar;
 class KSystemTrayIcon;
 class KToggleAction;
 class KListAction;
+class KProcess;
 class ResultView;
 class QDockWidget;
 class EntryListView;
@@ -82,7 +83,7 @@ private slots:
 	void configureGlobalKeys();
 	void newToolBarConfig();
 	void updateConfiguration();
-	void loadDictConfig(const QString&); 
+	void loadDictConfig(const QString&);
 
 		//Other
 	void print();
@@ -116,6 +117,7 @@ private:
 	KAction *irAction;
 	KAction *backAction;
 	KAction *forwardAction;
+	KProcess *radselect_proc;
 
 	//TODO: this should probably be a standardaction
 	QAction *globalShortcutsAction;

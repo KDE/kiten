@@ -89,8 +89,8 @@ public:
 	/** Set the query for this list.  */
 	void setQuery(const DictQuery&);
 
-	int scrollValue() { return storedScrollValue; }
-	void setScrollValue(int val) { storedScrollValue = val; }
+	int scrollValue() const;
+	void setScrollValue(int val);
 
 protected:
 	/** The query that this list was generated from.

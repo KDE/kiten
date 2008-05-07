@@ -17,7 +17,7 @@
 		dictionaries. If you use a custom kcfg dialog instead of the standard
 		one, be sure to provide the variables that you need.
 		?>
-		<default>edict,kanjidic</default>
+		<default>edict,kanjidic,deinflect</default>
 	 </entry>
   </group>
   <group name="dicts_edict">
@@ -45,6 +45,20 @@
     <entry key="__displayFields" name="kanjidic__displayFields" type="StringList">
 		<label>Set of fields to display for this dictionary type</label>
 		<default>Word/Kanji,Reading,Meaning</default>
+    </entry>
+  </group>
+
+  <group name="dicts_deinflect">
+    <entry key="__NAMES" name="deinflect__NAMES" type="StringList">
+      <label>Deinflect Dictionary Files</label>
+    </entry>
+    <entry key="__useGlobal" name="deinflect__useGlobal" type="Bool">
+      <label>Use preinstalled kanjidic</label>
+      <default>true</default>
+    </entry>
+    <entry key="__displayFields" name="deinflect__displayFields" type="StringList">
+		<label>Set of fields to display for this dictionary type</label>
+		<default>Deinflection</default>
     </entry>
   </group>
 

@@ -70,8 +70,9 @@
 #include "searchStringInput.h"
 
 kiten::kiten(QWidget *parent, const char *name)
-	: KXmlGuiWindow(parent)
+	: KXmlGuiWindow(parent), radselect_proc(new KProcess(this))
 {
+	radselect_proc->setProgram(KStandardDirs::findExe("kitenradselect"));
 	setStandardToolBarMenuEnabled(true);
 	setObjectName(QLatin1String(name)); /* Set up the config */
 
@@ -132,9 +133,12 @@ kiten::kiten(QWidget *parent, const char *name)
 /** destructor to clean up the little bits */
 kiten::~kiten()
 {
+	if(radselect_proc->state() != QProcess::NotRunning)
+		radselect_proc->kill();
 	delete optionDialog;
 	optionDialog = 0;
 }
+
 
 void kiten::setupActions() {
 
@@ -405,9 +409,8 @@ void kiten::searchOnTheSpot()
 */
 
 void kiten::radicalSearch() {
-	KProcess *local_proc = new KProcess;
-	local_proc->setProgram(KStandardDirs::findExe("kitenradselect"));
-	local_proc->start();
+	radselect_proc->start(); //Radselect is a KUniqueApplication, so we don't need to worry about opening
+	                         //more than one copy
 }
 
 

@@ -39,7 +39,6 @@ ConfigSortingPage::ConfigSortingPage(QWidget *parent,KitenConfigSkeleton *iconfi
 			dictionary_order,SLOT(setEnabled(bool)));
 	dictionary_order->setEnabled(m_config->dictionary_enable()=="true");
 
-	
 	m_fields.append("Word/Kanji");
 	m_fields.append("Meaning");
 	m_fields.append("Reading");

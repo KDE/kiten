@@ -33,7 +33,7 @@ QString EntryKanjidic::toHTML() const
 	QString result="<div class=\"KanjidicBrief\">";
 
 	foreach(const QString &field, QSTRINGLISTCHECK(dictFileKanjidic::displayFields)) {
-		kDebug() << "Display: "<<field;
+		//kDebug() << "Display: "<<field;
 		if(field == "--NewLine--")			result += "<br>";
 		else if(field == "Word/Kanji")	result += HTMLWord()+' ';
 		else if(field == "Meaning")		result += HTMLMeanings()+' ';
@@ -72,7 +72,7 @@ QString EntryKanjidic::HTMLWord() const {
 }
 
 QString EntryKanjidic::HTMLExtendedInfo(const QString &field) const {
-	kDebug() << field;
+	//kDebug() << field;
 	return "<span class=\"ExtendedInfo\">" + field + ": "+ExtendedInfo[field]+"</span>";
 }
 

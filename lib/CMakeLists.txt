@@ -8,8 +8,9 @@ set(edict_SRCS
 set(kanjidic_SRCS
 		dictKanjidic/dictFileKanjidic.cpp
 		dictKanjidic/entryKanjidic.cpp)
-set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS})
-
+set(deinflect_SRCS
+		dictDeinflect/dictFileDeinflect.cpp)
+set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS} ${deinflect_SRCS})
 
 set(kiten_LIB_SRCS
 		DictQuery.cpp
@@ -21,6 +22,7 @@ set(kiten_LIB_SRCS
 		kromajiedit.cpp
 		${dictionary_SRCS}
 		)
+
 kde4_add_library(kiten SHARED ${kiten_LIB_SRCS})
 target_link_libraries(kiten ${KDE4_KDEUI_LIBS} )
 set_target_properties(kiten PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )

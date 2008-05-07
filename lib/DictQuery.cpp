@@ -59,7 +59,7 @@ DictQuery *DictQuery::clone() const {
 }
 
 DictQuery::operator QString() const {
-	kDebug() << "DictQuery toString operator called!";
+	//kDebug() << "DictQuery toString operator called!";
 	return toString();
 }
 
@@ -239,8 +239,8 @@ DictQuery &DictQuery::operator=(const QString &str) {
 					kWarning() << "DictQuery: String parsing error";
 			}
 		}
-	kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronunciation()<<"] :"<<
-		result.getMeaning()<<endl;
+	//kDebug() << "Query: ("<<result.getWord() << ") ["<<result.getPronunciation()<<"] :"<<
+	//	result.getMeaning()<<endl;
 	this->operator=(result);
 	return *this;
 }

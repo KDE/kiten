@@ -21,27 +21,32 @@
 #ifndef KITEN_ENTRYDEINFLECT_H
 #define KITEN_ENTRYDEINFLECT_H
 
-#include "entry.h"
-
-class QString;
+#include "Entry.h"
+#include <QtCore/QString>
+#include "kdebug.h"
 
 class /* NO_EXPORT */ entryDeinflect : public Entry {
 
 	public:
-		entryDeinflect(const QString &original, const QString &correction);
+		entryDeinflect(const QString &correction, const QString &type, int index, const QString &dictName)
+			: Entry(dictName),m_correction(correction),m_type(type),m_index(index) {}
+		entryDeinflect(const entryDeinflect &old) : Entry(old), m_correction(old.m_correction),
+			m_type(old.m_type), m_index(old.m_index) {}
 		entryDeinflect *clone() const { return new entryDeinflect(*this); }
 
-		virtual QString toHTML() const;
+		virtual QString toHTML() const {
+			return QString("<div class=\"Deinflect\">Possible de-conjugation ") +
+				makeLink(m_correction) + QString(" as ") + m_type;
+		}
 
-		virtual bool loadEntry(const QString &);
-		virtual QString dumpEntry() const;
+		virtual bool loadEntry(const QString &) {return true;}
+		virtual QString dumpEntry() const {return QString();}
+		virtual bool matchesQuery(const DictQuery&) const {return true;}
 
-		virtual inline QString HTMLWord() const;
-		virtual inline QString Common() const;
-	protected:
-		virtual inline QString kanjiLinkify(const QString &) const;
-
-		bool common;
+	private:
+		QString m_correction;
+		QString m_type;
+		int m_index;
 };
 
 #endif

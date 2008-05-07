@@ -1,11 +1,13 @@
 ---------------------------TODO List---------------------------
 Cat By  Description
 By 4.1:
+B+  4.1 Global shortcut keys are busted http://bugs.kde.org/show_bug.cgi?id=132476
+B+  4.1 Fix sorting, currently does not sort properly by Word/Kanji,Readings or Meanings
 B+  4.1 Display Field Preferences
 B   4.1 Fix "Search in Results"
-F+  4.1 Connect Radselect to kiten (IN PROGRESS-joe)
+F+  4.1 Connect Radselect to kiten (Done on Linux, needs work on FreeBSD-joe)
 F   4.1 Sort by "Exact Match"
-F-  4.1 Deinflection Dictionary
+F-  4.1 Fix Deinflection Dictionary
 R+  4.1 Profile the linear vs indexed EDICT back-ends
 R   4.1 Update Help Files (RECURRENT)
 R   4.1 Set Default Visible Widgets
@@ -14,9 +16,11 @@ R   4.1 D-ptr-ize libkiten
 R   4.1 Correct radselect license (requires consult with various authors)
 R   4.1 Be EBN-clean and dashboard-clean (RECURRENT)
 By 4.2:
-B   4.2 Make radselect hilight colors noticeable (use current theme)
+B   4.2 Investigate crash with kinput2, long ago... http://bugs.kde.org/show_bug.cgi?id=115579
 B   4.2 Investigate http://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
-F+  4.2 GHNS support (including dictionary "updates")
+B   4.2 Make radselect hilight colors noticeable (use current theme)
+F+  4.2 GHNS support (including dictionary "updates") http://bugs.kde.org/show_bug.cgi?id=110541
+F-  4.2 Search Beginning/Search End options?
 R+  4.2 Trim data/edict down to "common entries only" to help distros/svn users
 R   4.2 DBUS Interface + Documentation
 Unscheduled:
@@ -33,14 +37,19 @@ F+   -  Handle JMDict files
 F+   -  Handle fpwing files
 F+   -  "Quick-Select" widget to adjust which dictionaries a given query will use
 F+   -  Export to various types of flashcard programs (Learn mode replacement)
+F    -  Widget to select field types to search by ("strokes:","grade:",etc)
 F    -  New Icons (radselect launch, filter rare, match beginning/exact/any)
 F    -  Add "drawn kanji" support somewhere (kanjidic synthetic output field?)
+F    -  Add sub-program to support mouse/tablet drawn kanji for lookup
 F    -  Search by word type
+F    -  Opening radselect while looking at a 1 kanji search displays radicals
 F-   -  Add popup menus to Forward/Back history buttons
 F-   -  Nicely format output fields (word type in particular)
 F-   -  Links directly from things like word type to Help File
 F-   -  Verify Dicitionary format (to some extent) in "add dictionary" selector
 F-   -  Support search ranges(G:1-3) and selections (G:1,3,5) in Extended field searches
+F-   -  Seperate Project: Screensaver to display random entries http://bugs.kde.org/show_bug.cgi?id=63296
+F-   -  Can we omit/seperate name readings? http://bugs.kde.org/show_bug.cgi?id=46511
 C    -  Move display to an MVC system
 C    -  Preferences Framework
 ?    -  Look carefully at EDICT2 format... note the multiple kanji/kana given
@@ -64,6 +73,16 @@ MVC: Primary advantages of moving to a model-view system are that we would be ab
 Preferences Framework:
 	At the moment, the lib and app preference files need to be exactly in sync, or a crash will occur.
 	We probably need to make our own layer on top of the general preferences code.
+	Connections:
+		Select Dictionary File:
+			Currently handled entirely between app and .kcfg (lib is just a server here)
+		Select Display Fields:
+			List of widgets is returned from DictionaryManager, plugged into a KTabWidget
+			by the app. Requires app to include space in .kcfg if supporting a dict type.
+			Display Field includes things like "--NewLine--"
+		Sort Order:
+			DictionaryManager is asked for a complete <long name> -> <short abbreviation>
+			QMap. Uses the keys from this.
 
 Multi-search;
 	This capability would allow you to select, for example, all words that contain any of a list of kanji.
