@@ -145,7 +145,7 @@ EntryList *dictFileDeinflect::doSearch(const DictQuery &query)
 			QString replacement = text;
 			replacement.truncate(text.length()-it.ending.length());
 			replacement += it.replace;
-			entryDeinflect *foo = new entryDeinflect(replacement,it.label,index++,QString("Deinflect"));
+			entryDeinflect *foo = new entryDeinflect(replacement,it.label,index++,it.ending);
 			ret->append(foo);
 
 			if(ret->count() >= 3)

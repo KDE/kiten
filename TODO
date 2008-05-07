@@ -3,11 +3,8 @@ Cat By  Description
 By 4.1:
 B+  4.1 Global shortcut keys are busted http://bugs.kde.org/show_bug.cgi?id=132476
 B+  4.1 Fix sorting, currently does not sort properly by Word/Kanji,Readings or Meanings
-B+  4.1 Display Field Preferences
-B   4.1 Fix "Search in Results"
-F+  4.1 Connect Radselect to kiten (Done on Linux, needs work on FreeBSD-joe)
+B+  4.1 Display Field Preferences are not updated until you restart kiten
 F   4.1 Sort by "Exact Match"
-F-  4.1 Fix Deinflection Dictionary
 R+  4.1 Profile the linear vs indexed EDICT back-ends
 R   4.1 Update Help Files (RECURRENT)
 R   4.1 Set Default Visible Widgets
@@ -20,6 +17,7 @@ B   4.2 Investigate crash with kinput2, long ago... http://bugs.kde.org/show_bug
 B   4.2 Investigate http://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
 B   4.2 Make radselect hilight colors noticeable (use current theme)
 F+  4.2 GHNS support (including dictionary "updates") http://bugs.kde.org/show_bug.cgi?id=110541
+F   4.2 Do a new Deinflection dictionary or system (the current one can't even handle kuru/suru)
 F-  4.2 Search Beginning/Search End options?
 R+  4.2 Trim data/edict down to "common entries only" to help distros/svn users
 R   4.2 DBUS Interface + Documentation
