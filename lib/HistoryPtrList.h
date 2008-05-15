@@ -21,17 +21,12 @@
 #ifndef KITEN_HISTORYPTRLIST_H
 #define KITEN_HISTORYPTRLIST_H
 
-#include <QtCore/QList>
-
+#include <QtCore/QStringList>
 #include "libkitenexport.h"
 
-class QStringList;
 class EntryList;
 
-class KITEN_EXPORT HistoryPtrList : protected QList<EntryList*> {
-	private:
-		int m_index;
-		static const int s_max_size = 20;
+class KITEN_EXPORT HistoryPtrList {
 	public:
 		/** Construct a HistoryPtrList, this should be done early on */
 		HistoryPtrList();
@@ -63,6 +58,9 @@ class KITEN_EXPORT HistoryPtrList : protected QList<EntryList*> {
 		void setCurrent(int i);
 		/** Return the total number of items in the list */
 		int count();
+	private:
+		class Private;
+		Private *d;
 };
 
 #endif

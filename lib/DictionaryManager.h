@@ -21,7 +21,6 @@
 
 #include "libkitenexport.h"
 
-#include <QtCore/QHash>
 #include <QtCore/QMap>
 #include <QtCore/QPair>
 
@@ -112,8 +111,8 @@ class KITEN_EXPORT DictionaryManager {
 	void loadSettings(const KConfig&);
 
 	private:
-	/** List of dictionaries, indexed by name */
-	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
+		class Private;
+		Private *d;
 };
 
 #endif

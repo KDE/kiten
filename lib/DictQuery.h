@@ -298,31 +298,8 @@ public:
 	static stringTypeEnum charTypeCheck(const QChar &);
 
 private:
-	/** Stores the (english or otherwise non-japanese) meaning */
-	QString m_meaning;
-	/** Stores the pronunciation in kana */
-	QString m_pronunciation;
-	/** The main word, this usually contains kanji */
-	QString m_word;
-	/** Any amount of extended attributes, grade leve, heisig/henshall/etc index numbers, whatever you want */
-	QHash<QString,QString> m_extendedAttributes;
-	/** The order that various attributes, meanings, and pronunciations were entered, so we can
-	 * regenerate the list for the user if they need them again */
-	QStringList m_entryOrder;
-	/** A list of dictionaries to limit the search to, and empty list implies "all loaded dictionaries" */
-	QStringList m_targetDictionaries;
-	/** What MatchType is this set to */
-	MatchType m_matchType;
-
-	/** Marker in the m_entryOrder for the location of the pronunciation element */
-	static const QString pronunciationMarker;
-	/** Marker in the m_entryOrder for the location of the translated meaning element */
-	static const QString meaningMarker;
-	/** Marker in the m_entryOrder for the location of the word (kanji) element */
-	static const QString wordMarker;
-
-	/** This function needs to be called by all constructors, just to setup default values */
-	void init();
+	class Private;
+	Private *d;
 };
 
 //Currently... KDE doesn't seem to want to use exceptions

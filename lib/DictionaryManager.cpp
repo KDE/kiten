@@ -65,12 +65,17 @@ QStringList DictionaryManager::listDictFileTypes() {
 	return list;
 }
 
+struct DictionaryManager::Private {
+	/** List of dictionaries, indexed by name */
+	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
+};
+
 /* Given a named Dict file/name/type... create and add the object if it
   seems to work properly on creation. */
 bool DictionaryManager::addDictionary(const QString &file, const QString &name,
 		const QString &type) {
 
-	if(dictManagers.contains(name)) //This name already exists in the list!
+	if(d->dictManagers.contains(name)) //This name already exists in the list!
 		return false;
 
 	dictFile *newDict = makeDictFile(type);
@@ -84,17 +89,17 @@ bool DictionaryManager::addDictionary(const QString &file, const QString &name,
 	}
 
 	kDebug() << "Dictionary Loaded : " << newDict->getName();
-	dictManagers.insert(name,newDict);
+	d->dictManagers.insert(name,newDict);
 	return true;
 }
 
 /* The constructor. Set autodelete on our dictionary list */
-DictionaryManager::DictionaryManager() {
+DictionaryManager::DictionaryManager() : d(new Private) {
 }
 
 /* Delete everything in our hash */
 DictionaryManager::~DictionaryManager() {
-	QMutableHashIterator<QString, dictFile*> it(dictManagers);
+	QMutableHashIterator<QString, dictFile*> it(d->dictManagers);
 	while(it.hasNext()) {
 		it.next();
 		delete it.value();
@@ -106,7 +111,7 @@ DictionaryManager::~DictionaryManager() {
   (it should close files, deallocate memory, etc).
   @param name the name of the dictionary, as given in the addDictionary method */
 bool DictionaryManager::removeDictionary(const QString &name) {
-	dictFile *file = dictManagers.take(name);
+	dictFile *file = d->dictManagers.take(name);
 	delete file;
 	return true;
 }
@@ -116,7 +121,7 @@ bool DictionaryManager::removeDictionary(const QString &name) {
   to do with the actual dictionary name... */
 QStringList DictionaryManager::listDictionaries() const {
 	QStringList ret;
-	foreach(dictFile *it, dictManagers)
+	foreach(dictFile *it, d->dictManagers)
 		ret.append(it->getName());
 	return ret;
 }
@@ -125,17 +130,17 @@ QStringList DictionaryManager::listDictionaries() const {
   returns a pair of empty QStrings if you specify an invalid name
   @param name the name of the dictionary, as given in the addDictionary method */
 QPair<QString, QString> DictionaryManager::listDictionaryInfo(const QString &name) const {
-	if(!dictManagers.contains(name)) //This name not in list!
-		return qMakePair(QString(),QString()); //KDE4 CHANGE
-	return qMakePair(dictManagers[name]->getName(),dictManagers[name]->getFile());
+	if(!d->dictManagers.contains(name)) //This name not in list!
+		return qMakePair(QString(),QString());
+	return qMakePair(d->dictManagers[name]->getName(),d->dictManagers[name]->getFile());
 }
 
 /* Return a list of the names of each dictionary of a given type.
  * @param type the type of the dictionary we want a list of */
 QStringList DictionaryManager::listDictionariesOfType(const QString &type) const {
 	QStringList ret;
-	QHash<QString, dictFile*>::const_iterator it = dictManagers.begin();
-	while(it != dictManagers.end()) {
+	QHash<QString, dictFile*>::const_iterator it = d->dictManagers.begin();
+	while(it != d->dictManagers.end()) {
 		if(it.value()->getType() == type)
 			ret.append(it.key());
 		++it;
@@ -154,7 +159,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	//Specifies the dictionary list, one in which it does not
 	QStringList dictsFromQuery = query.getDictionaries();
 	if(dictsFromQuery.isEmpty()) { //None specified, search all
-		foreach( dictFile *it, dictManagers) {
+		foreach( dictFile *it, d->dictManagers) {
 			EntryList *temp=it->doSearch(query);
 			if(temp)
 			   ret->appendList(temp);
@@ -162,7 +167,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 		}
 	} else {
 		foreach( const QString &target, dictsFromQuery) {
-			dictFile *newestFound = dictManagers.find(target).value();
+			dictFile *newestFound = d->dictManagers.find(target).value();
 			if(newestFound != 0) {
 				EntryList *temp = newestFound->doSearch(query);
 				if(temp)

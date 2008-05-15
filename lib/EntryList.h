@@ -86,20 +86,15 @@ public:
 	/** Get the query that generated this list, note that if you have appended EntryLists from
 	 * two different queries, the resulting DictQuery from this is undefined */
 	DictQuery getQuery() const;
-	/** Set the query for this list.  */
+	/** Set the query for this list.  See getQuery() for a potential problem with this*/
 	void setQuery(const DictQuery&);
 
 	int scrollValue() const;
 	void setScrollValue(int val);
 
-protected:
-	/** The query that this list was generated from.
-	 * Note that if this list was the result of a merge (using operator+=) of two or more EntryList objects,
-	 * the value of this is undefined */
-	DictQuery query;
-	bool m_sorted;
-	bool m_sortedByDictionary;
-	int storedScrollValue;
+private:
+	class Private;
+	Private *d;
 };
 
 #endif

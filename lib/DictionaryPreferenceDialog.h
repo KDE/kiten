@@ -62,7 +62,7 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget {
 		/** When the user edits something on this preference page, this signal should be emitted */
 		void widgetChanged();
 
-	private:
+	protected:
 		/** A place to store the name, passed in the constructor */
 		QString m_name;
 };

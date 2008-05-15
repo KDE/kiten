@@ -31,27 +31,48 @@ TODO: Add features to limit the number of hits on a per-search basis.
 
 #include <kdebug.h>
 
+struct DictQuery::Private {
+	Private() : m_matchType(DictQuery::matchExact) {}
+	/** Stores the (english or otherwise non-japanese) meaning */
+	QString m_meaning;
+	/** Stores the pronunciation in kana */
+	QString m_pronunciation;
+	/** The main word, this usually contains kanji */
+	QString m_word;
+	/** Any amount of extended attributes, grade leve, heisig/henshall/etc index numbers, whatever you want */
+	QHash<QString,QString> m_extendedAttributes;
+	/** The order that various attributes, meanings, and pronunciations were entered, so we can
+	 * regenerate the list for the user if they need them again */
+	QStringList m_entryOrder;
+	/** A list of dictionaries to limit the search to, and empty list implies "all loaded dictionaries" */
+	QStringList m_targetDictionaries;
+	/** What MatchType is this set to */
+	MatchType m_matchType;
+
+	/** Marker in the m_entryOrder for the location of the pronunciation element */
+	static const QString pronunciationMarker;
+	/** Marker in the m_entryOrder for the location of the translated meaning element */
+	static const QString meaningMarker;
+	/** Marker in the m_entryOrder for the location of the word (kanji) element */
+	static const QString wordMarker;
+};
+const QString DictQuery::Private::pronunciationMarker("__@\\p");
+const QString DictQuery::Private::meaningMarker("__@\\m");
+const QString DictQuery::Private::wordMarker("_@\\w");
+
 /*****************************************************************************
 *	Constructors, Destructors, Initilizers, and
 *	Global Status Indicators.
 *****************************************************************************/
 DictQuery::DictQuery()
-{
-	init();
-}
+{ }
 
 DictQuery::DictQuery(const QString& str) {
-	init();
 	this->operator=((QString)str);
 }
 
 DictQuery::DictQuery(const DictQuery& orig) {
-	init();
 	this->operator=((DictQuery&)orig);
-}
-
-void DictQuery::init() {
-	m_matchType=matchExact;
 }
 
 DictQuery *DictQuery::clone() const {
@@ -69,50 +90,50 @@ DictQuery::~DictQuery()
 
 bool DictQuery::isEmpty() const {
 //We're only empty if the two strings are empty too
-	return m_extendedAttributes.isEmpty() && m_meaning.isEmpty()
-		&& m_pronunciation.isEmpty() && m_word.isEmpty();
+	return d->m_extendedAttributes.isEmpty() && d->m_meaning.isEmpty()
+		&& d->m_pronunciation.isEmpty() && d->m_word.isEmpty();
 }
 void DictQuery::clear() {
-	m_extendedAttributes.clear();
-	m_meaning="";
-	m_pronunciation="";
-	m_word="";
-	m_entryOrder.clear();
+	d->m_extendedAttributes.clear();
+	d->m_meaning="";
+	d->m_pronunciation="";
+	d->m_word="";
+	d->m_entryOrder.clear();
 }
 
 /*****************************************************************************
 *	Methods that involve multiple instances of the class
 *	(comparison, copy etc)
 *****************************************************************************/
-DictQuery &DictQuery::operator=(const DictQuery &d) {
-	if ( &d == this ) return *this;
+DictQuery &DictQuery::operator=(const DictQuery &old) {
+	if ( &old == this ) return *this;
 	clear();
-	m_matchType = d.m_matchType;
-	m_extendedAttributes = d.m_extendedAttributes;
-	m_meaning=d.m_meaning;
-	m_pronunciation=d.m_pronunciation;
-	m_word = d.m_word;
-	m_entryOrder = d.m_entryOrder;
+	d->m_matchType = old.d->m_matchType;
+	d->m_extendedAttributes = old.d->m_extendedAttributes;
+	d->m_meaning=old.d->m_meaning;
+	d->m_pronunciation=old.d->m_pronunciation;
+	d->m_word = old.d->m_word;
+	d->m_entryOrder = old.d->m_entryOrder;
 	return *this;
 }
 
-DictQuery &DictQuery::operator+=(const DictQuery &d) {
-	foreach(const QString &item, d.m_entryOrder) {
-		if(item == meaningMarker) {
-			if(m_entryOrder.removeAll(meaningMarker) > 0 )
-				setMeaning(getMeaning() + mainDelimiter + d.getMeaning());
+DictQuery &DictQuery::operator+=(const DictQuery &old) {
+	foreach(const QString &item, old.d->m_entryOrder) {
+		if(item == d->meaningMarker) {
+			if(d->m_entryOrder.removeAll(d->meaningMarker) > 0 )
+				setMeaning(getMeaning() + mainDelimiter + old.getMeaning());
 			else
-				setMeaning(d.getMeaning());
-		} else if(item == pronunciationMarker) {
-			if(m_entryOrder.removeAll(pronunciationMarker)>0)
-				setPronunciation(getPronunciation() + mainDelimiter + d.getPronunciation() );
+				setMeaning(old.getMeaning());
+		} else if(item == d->pronunciationMarker) {
+			if(d->m_entryOrder.removeAll(d->pronunciationMarker)>0)
+				setPronunciation(getPronunciation() + mainDelimiter + old.getPronunciation() );
 			else
-				setPronunciation(d.getPronunciation());
-		} else if(item == wordMarker) {
-			m_entryOrder.removeAll(wordMarker);
-			setWord( d.getWord() ); //Only one of these allowed
+				setPronunciation(old.getPronunciation());
+		} else if(item == d->wordMarker) {
+			d->m_entryOrder.removeAll(d->wordMarker);
+			setWord( old.getWord() ); //Only one of these allowed
 		} else {
-			setProperty(item,d.getProperty(item));
+			setProperty(item,old.getProperty(item));
 		}
 	}
 	return *this;
@@ -125,12 +146,12 @@ DictQuery operator+(const DictQuery &a, const DictQuery &b) {
 }
 
 bool operator==(const DictQuery &other, const DictQuery &query ) {
-	if( (other.m_pronunciation != query.m_pronunciation)
-		|| (other.m_meaning != query.m_meaning)
-		|| (other.m_word != query.m_word)
-		|| (other.m_entryOrder != query.m_entryOrder)
-		|| (other.m_extendedAttributes != query.m_extendedAttributes)
-		|| (other.m_matchType != query.m_matchType)
+	if( (other.d->m_pronunciation != query.d->m_pronunciation)
+		|| (other.d->m_meaning != query.d->m_meaning)
+		|| (other.d->m_word != query.d->m_word)
+		|| (other.d->m_entryOrder != query.d->m_entryOrder)
+		|| (other.d->m_extendedAttributes != query.d->m_extendedAttributes)
+		|| (other.d->m_matchType != query.d->m_matchType)
 	  )
 		return false;
 
@@ -141,36 +162,36 @@ bool operator!=(const DictQuery &other, const DictQuery &query ) {
 }
 
 bool operator<(const DictQuery &A, const DictQuery &B) {
-	QHash<QString,QString>::const_iterator it = A.m_extendedAttributes.begin();
-	QHash<QString,QString>::const_iterator it_end = A.m_extendedAttributes.end();
+	QHash<QString,QString>::const_iterator it = A.d->m_extendedAttributes.begin();
+	QHash<QString,QString>::const_iterator it_end = A.d->m_extendedAttributes.end();
 	for(;it != it_end; ++it) {
-		QString B_version = B.m_extendedAttributes.value(it.key());
-		if(A.m_extendedAttributes[it.key()] != B_version) {
+		QString B_version = B.d->m_extendedAttributes.value(it.key());
+		if(A.d->m_extendedAttributes[it.key()] != B_version) {
 			if(!B_version.contains(",") && !B_version.contains("-"))
 				return false;
 			//TODO: check for multi-values or ranges in DictQuery operator<
 		}
 	}
 
-	if(!A.m_pronunciation.isEmpty()) {
-		QStringList aList = A.m_pronunciation.split(DictQuery::mainDelimiter);
-		QStringList bList = B.m_pronunciation.split(DictQuery::mainDelimiter);
+	if(!A.d->m_pronunciation.isEmpty()) {
+		QStringList aList = A.d->m_pronunciation.split(DictQuery::mainDelimiter);
+		QStringList bList = B.d->m_pronunciation.split(DictQuery::mainDelimiter);
 		foreach( const QString &str, aList )
 			if(bList.contains(str)==0)
 				return false;
 	}
 
-	if(!A.m_meaning.isEmpty()) {
-		QStringList aList = A.m_meaning.split(DictQuery::mainDelimiter);
-		QStringList bList = B.m_meaning.split(DictQuery::mainDelimiter);
+	if(!A.d->m_meaning.isEmpty()) {
+		QStringList aList = A.d->m_meaning.split(DictQuery::mainDelimiter);
+		QStringList bList = B.d->m_meaning.split(DictQuery::mainDelimiter);
 		foreach( const QString &str, aList )
 			if(bList.contains(str)==0)
 				return false;
 	}
 
 	//Assume only one entry for word
-	if(!A.m_word.isEmpty())
-		if(A.m_word != B.m_word)
+	if(!A.d->m_word.isEmpty())
+		if(A.d->m_word != B.d->m_word)
 			return false;
 
 	return true;
@@ -185,15 +206,15 @@ const QString DictQuery::toString() const {
 		return QString();
 
 	QString reply;
-	foreach( const QString &it, m_entryOrder ) {
-		if(it == pronunciationMarker)
-			reply += m_pronunciation+mainDelimiter;
-		else if(it == meaningMarker)
-			reply += m_meaning+mainDelimiter;
-		else if(it == wordMarker)
-			reply += m_word+mainDelimiter;
+	foreach( const QString &it, d->m_entryOrder ) {
+		if(it == d->pronunciationMarker)
+			reply += d->m_pronunciation+mainDelimiter;
+		else if(it == d->meaningMarker)
+			reply += d->m_meaning+mainDelimiter;
+		else if(it == d->wordMarker)
+			reply += d->m_word+mainDelimiter;
 		else
-			reply += it + propertySeperator + m_extendedAttributes.value(it)
+			reply += it + propertySeperator + d->m_extendedAttributes.value(it)
 				+ mainDelimiter;
 	}
 	reply.truncate(reply.length()-mainDelimiter.length());
@@ -214,13 +235,13 @@ DictQuery &DictQuery::operator=(const QString &str) {
 				//replace or throw an error with duplicates?
 			} else switch(stringTypeCheck(it)) {
 				case DictQuery::strTypeLatin :
-					if(result.m_entryOrder.removeAll(meaningMarker) > 0 )
+					if(result.d->m_entryOrder.removeAll(d->meaningMarker) > 0 )
 						result.setMeaning(result.getMeaning() + mainDelimiter + it);
 					else
 						result.setMeaning(it);
 					break;
 				case DictQuery::strTypeKana :
-					if(result.m_entryOrder.removeAll(pronunciationMarker)>0)
+					if(result.d->m_entryOrder.removeAll(d->pronunciationMarker)>0)
 						result.setPronunciation(result.getPronunciation()
 																		 + mainDelimiter + it );
 					else
@@ -228,7 +249,7 @@ DictQuery &DictQuery::operator=(const QString &str) {
 					break;
 
 				case DictQuery::strTypeKanji :
-					result.m_entryOrder.removeAll(wordMarker);
+					result.d->m_entryOrder.removeAll(d->wordMarker);
 					result.setWord( it ); //Only one of these allowed
 					break;
 
@@ -294,47 +315,47 @@ QString DictQuery::getProperty(const QString &key) const {
 }
 
 const QList<QString> DictQuery::listPropertyKeys() const {
-	return m_extendedAttributes.keys();
+	return d->m_extendedAttributes.keys();
 }
 const QString DictQuery::operator[] (const QString &key) const {
-	return m_extendedAttributes.value(key);
+	return d->m_extendedAttributes.value(key);
 }
 QString DictQuery::operator[] (const QString &key) {
-	return m_extendedAttributes[key];
+	return d->m_extendedAttributes[key];
 }
 
 bool DictQuery::hasProperty(const QString &key) const {
-	return m_entryOrder.contains(key)>0;
+	return d->m_entryOrder.contains(key)>0;
 }
 
 //TODO: Add i18n handling and alternate versions of property names
 //TODO: further break down the barrier between different types
 bool DictQuery::setProperty(const QString& key,const QString& value) {
-	if(key==pronunciationMarker || key==meaningMarker ||
+	if(key==d->pronunciationMarker || key==d->meaningMarker ||
 		key.isEmpty() || value.isEmpty())
 		return false;
-	if ( ! m_extendedAttributes.contains( key ) )
-		m_entryOrder.append(key);
-	m_extendedAttributes.insert(key,value);
+	if ( ! d->m_extendedAttributes.contains( key ) )
+		d->m_entryOrder.append(key);
+	d->m_extendedAttributes.insert(key,value);
 	return true;
 }
 
 bool DictQuery::removeProperty(const QString &key) {
-	if(m_extendedAttributes.contains(key))
-		return m_entryOrder.removeAll(key);
+	if(d->m_extendedAttributes.contains(key))
+		return d->m_entryOrder.removeAll(key);
 	return false;
 }
 
 QString DictQuery::takeProperty ( const QString & key ) {
-	m_entryOrder.removeAll(key);
-	return m_extendedAttributes.take(key);
+	d->m_entryOrder.removeAll(key);
+	return d->m_extendedAttributes.take(key);
 }
 
 /*****************************************************************************
 *	Meaning and Pronunciation Accessors and Mutators
 ****************************************************************************/
 QString DictQuery::getMeaning() const {
-	return m_meaning;
+	return d->m_meaning;
 }
 
 bool DictQuery::setMeaning(const QString &newMeaning) {
@@ -344,14 +365,14 @@ bool DictQuery::setMeaning(const QString &newMeaning) {
 #else
 		return false;
 #endif
-	m_meaning=newMeaning;
-	if(!m_entryOrder.contains(meaningMarker))
-		m_entryOrder.append(meaningMarker);
+	d->m_meaning=newMeaning;
+	if(!d->m_entryOrder.contains(d->meaningMarker))
+		d->m_entryOrder.append(d->meaningMarker);
 	return true;
 }
 
 QString DictQuery::getPronunciation() const {
-	return m_pronunciation;
+	return d->m_pronunciation;
 }
 
 bool DictQuery::setPronunciation(const QString &newPro) {
@@ -361,14 +382,14 @@ bool DictQuery::setPronunciation(const QString &newPro) {
 #else
 		return false;
 #endif
-	m_pronunciation=newPro;
-	if(!m_entryOrder.contains(pronunciationMarker))
-		m_entryOrder.append(pronunciationMarker);
+	d->m_pronunciation=newPro;
+	if(!d->m_entryOrder.contains(d->pronunciationMarker))
+		d->m_entryOrder.append(d->pronunciationMarker);
 	return true;
 }
 
 QString DictQuery::getWord() const{
-	return m_word;
+	return d->m_word;
 }
 
 bool DictQuery::setWord(const QString &newWord) {
@@ -378,31 +399,31 @@ bool DictQuery::setWord(const QString &newWord) {
 #else
 		return false;
 #endif
-	m_word=newWord;
-	if(!m_entryOrder.contains(wordMarker))
-		m_entryOrder.append(wordMarker);
+	d->m_word=newWord;
+	if(!d->m_entryOrder.contains(d->wordMarker))
+		d->m_entryOrder.append(d->wordMarker);
 	return true;
 }
 /*************************************************************
   Handlers for getting and setting dictionary types
   *************************************************************/
 QStringList DictQuery::getDictionaries() const {
-	return m_targetDictionaries;
+	return d->m_targetDictionaries;
 }
 
 void DictQuery::setDictionaries(const QStringList &newDictionaries) {
-	m_targetDictionaries = newDictionaries;
+	d->m_targetDictionaries = newDictionaries;
 }
 
 /**************************************************************
   Match Type Accessors and Mutators
   ************************************************************/
 DictQuery::MatchType DictQuery::getMatchType() const {
-	return m_matchType;
+	return d->m_matchType;
 }
 
 void DictQuery::setMatchType(MatchType newType) {
-	m_matchType = newType;
+	d->m_matchType = newType;
 }
 
 /**************************************************************
@@ -457,8 +478,5 @@ DictQuery    &DictQuery::operator+=(const char *str) {
 /**************************************************************
 *	Set our constants declared in the class
 **************************************************************/
-const QString DictQuery::pronunciationMarker("__@\\p");
-const QString DictQuery::meaningMarker("__@\\m");
-const QString DictQuery::wordMarker("_@\\w");
 const QString DictQuery::mainDelimiter(" ");
 const QString DictQuery::propertySeperator(":");

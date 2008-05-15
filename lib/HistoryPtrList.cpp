@@ -23,14 +23,20 @@
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 
+struct HistoryPtrList::Private {
+		Private() : m_index(-1) {}
+		static const int s_max_size = 20;
+		int m_index;
+		QList<EntryList*> m_list;
+};
 
-HistoryPtrList::HistoryPtrList():m_index(-1) {
+HistoryPtrList::HistoryPtrList():d(new Private) {
 }
 
 HistoryPtrList::~HistoryPtrList() {
-	for(int i=size()-1; i>=0; i--) {
-		this->at(i)->deleteAll();
-		delete this->at(i);
+	for(int i=d->m_list.size()-1; i>=0; i--) {
+		d->m_list.at(i)->deleteAll();
+		delete d->m_list.at(i);
 	}
 }
 
@@ -39,34 +45,34 @@ HistoryPtrList::addItem(EntryList *newItem) {
 	if(!newItem) return;
 	//If we're currently looking at something prior to the end of the list
 	//Remove everything in the list up to this point.
-	int currentPosition = m_index+1;
+	int currentPosition = d->m_index+1;
 	EntryList *temp;
 	while(currentPosition < count()) {
-		temp = this->takeLast();
+		temp = d->m_list.takeLast();
 		temp->deleteAll();
 		delete temp;
 	}
 
 	//Now... check to make sure our history isn't 'fat'
-	while(count() >= s_max_size) {
-		 temp = this->takeFirst();
+	while(count() >= d->s_max_size) {
+		 temp = d->m_list.takeFirst();
 		 temp->deleteAll();
 		 delete temp;
 	}
-	m_index = count()-1; //Since we have trimmed down to the current position
+	d->m_index = count()-1; //Since we have trimmed down to the current position
 
 	//One other odd case... if this query is a repeat of the last query
 	//replace the current one with the new one
-	if(size() > 0) {
+	if(d->m_list.size() > 0) {
 		if(current()->getQuery() == newItem->getQuery()) {
-			temp = this->takeLast();
+			temp = d->m_list.takeLast();
 			temp->deleteAll();
 			delete temp;
 		}
 	}
 	//Now add the item
-	append(newItem);
-	m_index = count()-1;
+	d->m_list.append(newItem);
+	d->m_index = count()-1;
 }
 
 //Get a StringList of the History Items
@@ -74,7 +80,7 @@ QStringList
 HistoryPtrList::toStringList() {
 	QStringList result;
 
-	foreach(EntryList *p, (QList<EntryList*>)(*this))
+	foreach(const EntryList *p, d->m_list)
 		result.append(p->getQuery().toString());
 
 	return result;
@@ -84,8 +90,8 @@ QStringList
 HistoryPtrList::toStringListPrev() {
 	QStringList result;
 
-	for(int i=0; i<m_index; i++)
-		result.append(this->at(i)->getQuery().toString());
+	for(int i=0; i<d->m_index; i++)
+		result.append(d->m_list.at(i)->getQuery().toString());
 
 	return result;
 }
@@ -94,47 +100,47 @@ QStringList
 HistoryPtrList::toStringListNext() {
 	HistoryPtrList localCopy(*this);
 
-	int currentPosition = m_index + 1;
+	int currentPosition = d->m_index + 1;
 	while(currentPosition--)
-		localCopy.removeFirst();
+		localCopy.d->m_list.removeFirst();
 
 	return localCopy.toStringList();
 }
 
 void
 HistoryPtrList::next(int distance) {
-	if(distance + m_index > count() - 1)
-		m_index = count() - 1;
+	if(distance + d->m_index > count() - 1)
+		d->m_index = count() - 1;
 	else
-		m_index += distance;
+		d->m_index += distance;
 }
 
 void
 HistoryPtrList::prev(int distance) {
-	if(m_index - distance < 0)
-		m_index = 0;
+	if(d->m_index - distance < 0)
+		d->m_index = 0;
 	else
-		m_index -= distance;
+		d->m_index -= distance;
 }
 
 EntryList*
 HistoryPtrList::current() {
-	if(m_index == -1) return NULL;
-	return at(m_index);
+	if(d->m_index == -1) return NULL;
+	return d->m_list.at(d->m_index);
 }
 
 void
 HistoryPtrList::setCurrent(int i) {
 	if(i<count() && i>=0)
-		m_index=i;
+		d->m_index=i;
 }
 
 int
 HistoryPtrList::index() {
-	return m_index;
+	return d->m_index;
 }
 
 int
 HistoryPtrList::count() {
-	return QList<EntryList*>::size();
+	return d->m_list.size();
 }

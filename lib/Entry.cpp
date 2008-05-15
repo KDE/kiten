@@ -151,10 +151,11 @@ inline QString Entry::HTMLWord() const
 /* Prepares Readings for output as HTML */
 inline QString Entry::HTMLReadings() const
 {
-	QStringList copy = Readings;
-	for(QStringList::iterator it = copy.begin(); it != copy.end();++it) //KDE4 CHANGE
-		*it = makeLink(*it);
-	return "<span class=\"Readings\">"+copy.join(outputListDelimiter)+"</span>";
+	QStringList list;
+	foreach(const QString &it, Readings) {
+		list += makeLink(it);
+	}
+	return "<span class=\"Readings\">"+list.join(outputListDelimiter)+"</span>";
 }
 
 /* Prepares Meanings for output as HTML */

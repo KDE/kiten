@@ -32,31 +32,39 @@
 #include "DictQuery.h"
 #include "Entry.h"
 
-#include <iostream>
-#include <cassert>
 #include <sys/mman.h>
-#include <stdio.h>
 
+struct EntryList::Private {
+	Private() : m_storedScrollValue(0), m_sorted(false), m_sortedByDictionary(false) { }
+	Private(const Private &old) : m_storedScrollValue(old.m_storedScrollValue),
+		m_sorted(old.m_sorted), m_sortedByDictionary(old.m_sortedByDictionary),
+		query(old.query) {}
 
-EntryList::EntryList() : QList<Entry*>(), m_sorted(false), m_sortedByDictionary(false),  storedScrollValue(0)  {
+	int m_storedScrollValue;
+	bool m_sorted;
+	bool m_sortedByDictionary;
+	DictQuery query;
+};
+
+EntryList::EntryList() : QList<Entry*>(), d(new Private) {
 }
 
-EntryList::EntryList(const EntryList &old) :
-	QList<Entry*> (old), m_sorted(false), m_sortedByDictionary(false) , storedScrollValue(0)
-
+EntryList::EntryList(const EntryList &old) : QList<Entry*> (old), d(new Private(*(old.d)))
 {
 }
+
 EntryList::~EntryList() {
+	delete d;
 //	kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
 }
 
-int EntryList::scrollValue() const { return storedScrollValue; }
-void EntryList::setScrollValue(int val) { storedScrollValue = val; }
+int EntryList::scrollValue() const { return d->m_storedScrollValue; }
+void EntryList::setScrollValue(int val) { d->m_storedScrollValue = val; }
 void
 EntryList::deleteAll() {
 	while(!this->isEmpty())
 		delete this->takeFirst();
-	m_sorted = false;
+	d->m_sorted = false;
 }
 
 /* Returns the EntryList as HTML */
@@ -73,7 +81,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const {
 	for (unsigned int i = 0; i < max; ++i)
 	{
 		Entry *it = at(i);
-		if(m_sortedByDictionary) {
+		if(d->m_sortedByDictionary) {
 			const QString &newDictionary = it->getDictName();
 			if(lastDictionary != newDictionary) {
 				lastDictionary = newDictionary;
@@ -153,15 +161,15 @@ void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder) {
 	sorter.sort_order = &sortOrder;
 
 	qStableSort(this->begin(),this->end(),sorter);
-	m_sorted = true;
-	m_sortedByDictionary = dictionaryOrder.size() > 0;
+	d->m_sorted = true;
+	d->m_sortedByDictionary = dictionaryOrder.size() > 0;
 }
 
 const EntryList& EntryList::operator+=(const EntryList &other) {
 	foreach(Entry *it, other)
 			this->append(it);
 	if(other.size() > 0)
-		m_sorted = false;
+		d->m_sorted = false;
 	return *this;
 }
 
@@ -169,18 +177,18 @@ void EntryList::appendList(const EntryList *other) {
 	foreach(Entry *it, *other)
 		append(it);
 	if(other->size() > 0)
-		m_sorted = false;
+		d->m_sorted = false;
 }
 
 /**This method retrieves an earlier saved query in the EntryList,
   this should be the query that generated the list. */
 DictQuery EntryList::getQuery() const {
-	return query;
+	return d->query;
 }
 
 /**This allows us to save a query in the EntryList for later
   retrieval */
 void EntryList::setQuery(const DictQuery &newQuery) {
-	query = newQuery;
+	d->query = newQuery;
 }
 

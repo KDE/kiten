@@ -10,7 +10,7 @@ R   4.1 Update Help Files (RECURRENT)
 R   4.1 Set Default Visible Widgets
 R   4.1 Doublecheck README, AUTHORS, etc (RECURRENT)
 R   4.1 D-ptr-ize libkiten
-R   4.1 Correct radselect license (requires consult with various authors)
+R   4.1 Correct radselect license (requires consult with various authors(?))
 R   4.1 Be EBN-clean and dashboard-clean (RECURRENT)
 By 4.2:
 B   4.2 Investigate crash with kinput2, long ago... http://bugs.kde.org/show_bug.cgi?id=115579
