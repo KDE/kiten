@@ -64,14 +64,14 @@ const QString DictQuery::Private::wordMarker("_@\\w");
 *	Constructors, Destructors, Initilizers, and
 *	Global Status Indicators.
 *****************************************************************************/
-DictQuery::DictQuery()
+DictQuery::DictQuery() : d(new Private)
 { }
 
-DictQuery::DictQuery(const QString& str) {
+DictQuery::DictQuery(const QString& str) : d(new Private) {
 	this->operator=((QString)str);
 }
 
-DictQuery::DictQuery(const DictQuery& orig) {
+DictQuery::DictQuery(const DictQuery& orig) : d(new Private) {
 	this->operator=((DictQuery&)orig);
 }
 

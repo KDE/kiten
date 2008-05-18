@@ -36,9 +36,9 @@ EntryListView::EntryListView(QWidget *)
 }
 
 
-void EntryListModel::setEntryList( const EntryList &list)
+void EntryListModel::setEntryList( const EntryList &ilist)
 {
-	this->list = list;
+	this->list = ilist;
 	emit layoutChanged();
 }
 

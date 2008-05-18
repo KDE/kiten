@@ -299,7 +299,7 @@ public:
 
 private:
 	class Private;
-	Private *d;
+	Private * const d;
 };
 
 //Currently... KDE doesn't seem to want to use exceptions

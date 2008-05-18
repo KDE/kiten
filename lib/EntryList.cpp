@@ -173,6 +173,12 @@ const EntryList& EntryList::operator+=(const EntryList &other) {
 	return *this;
 }
 
+const EntryList& EntryList::operator=(const EntryList &other) {
+	QList<Entry*>::operator=(other);
+	*d = *(other.d);
+	return *this;
+}
+
 void EntryList::appendList(const EntryList *other) {
 	foreach(Entry *it, *other)
 		append(it);

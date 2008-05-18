@@ -47,7 +47,7 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget {
 		/** Basic destructor. */
 		virtual ~DictionaryPreferenceDialog();
 		/** Get the dictionary type name associated with this dialog */
-		const QString &name() const;
+		QString name() const;
 	public Q_SLOTS:
 		/** Connect the signal of your preferenes dialog to this updateWidgets slot, to handle reading
 		  preference settings cleanly. You can also call this slot directly from your own updateWidgets slot */

@@ -60,7 +60,7 @@ class KITEN_EXPORT HistoryPtrList {
 		int count();
 	private:
 		class Private;
-		Private *d;
+		Private * const d;
 };
 
 #endif

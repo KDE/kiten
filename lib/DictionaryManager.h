@@ -112,7 +112,7 @@ class KITEN_EXPORT DictionaryManager {
 
 	private:
 		class Private;
-		Private *d;
+		Private * const d;
 };
 
 #endif

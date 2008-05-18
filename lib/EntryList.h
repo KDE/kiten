@@ -81,6 +81,8 @@ public:
 
 	/** Append another EntryList onto this one */
 	const EntryList& operator+=(const EntryList &);
+	/** Copy an entry list */
+	const EntryList& operator=(const EntryList &);
 	/** Append another EntryList onto this one */
 	void appendList(const EntryList *);
 	/** Get the query that generated this list, note that if you have appended EntryLists from
@@ -94,7 +96,7 @@ public:
 
 private:
 	class Private;
-	Private *d;
+	Private * const d;
 };
 
 #endif

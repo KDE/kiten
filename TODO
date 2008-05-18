@@ -4,6 +4,7 @@ By 4.1:
 B+  4.1 Global shortcut keys are busted http://bugs.kde.org/show_bug.cgi?id=132476
 B+  4.1 Fix sorting, currently does not sort properly by Word/Kanji,Readings or Meanings
 B+  4.1 Display Field Preferences are not updated until you restart kiten
+B   4.1 Either implement or remove the "Case sensitive searches" option in Prefs:Searching
 F   4.1 Sort by "Exact Match"
 R+  4.1 Profile the linear vs indexed EDICT back-ends
 R   4.1 Update Help Files (RECURRENT)
@@ -22,7 +23,6 @@ F-  4.2 Search Beginning/Search End options?
 R+  4.2 Trim data/edict down to "common entries only" to help distros/svn users
 R   4.2 DBUS Interface + Documentation
 Unscheduled:
-B+   -  Match type occasionally mysteriously reverts to "Match Exact"
 B    -  Handle searches that don't include Word, Reading or Meaning in a sane way
 B-   -  Can't search for kanji readings
 B-   -  Searching is duplicated from input box, atm
@@ -92,7 +92,8 @@ Sequential Lists
 	The Layered method is either very time intensive, or very memory intensive
 		pick one and try implementing. Provided we limit the lists to containing
 		only the resultant kanji, even the memory intensive version will only be a
-		few (~20) megs for fairly large lists.
+		few (~20) megs for fairly large lists. Even on modern hardware, a perl implementation
+		with ~40 kanji on each list takes about 10-15 seconds to run.
 	Split into a separate app.  This is the optimal time for a complete rewrite
 		"inspired by learn mode".
 

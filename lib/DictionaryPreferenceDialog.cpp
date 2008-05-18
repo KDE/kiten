@@ -28,7 +28,7 @@ DictionaryPreferenceDialog::DictionaryPreferenceDialog(QWidget *parent, const QS
 DictionaryPreferenceDialog::~DictionaryPreferenceDialog() {
 }
 
-const QString &DictionaryPreferenceDialog::name() const {
+QString DictionaryPreferenceDialog::name() const {
 	return m_name;
 }
 
