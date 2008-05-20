@@ -32,29 +32,30 @@
 QStringList *dictFileKanjidic::displayFields = NULL;
 
 dictFileKanjidic::dictFileKanjidic() : dictFileEdict(){
-	dictionaryType = "kanjidic";		//Override the default type
-	searchableAttributes.insert("bushu","B");
-	searchableAttributes.insert("classical","C");
-	searchableAttributes.insert("henshall","E");
-	searchableAttributes.insert("frequency","F");
-	searchableAttributes.insert("grade","G");
-	searchableAttributes.insert("halpern","H");
-	searchableAttributes.insert("spahn","I");
-	searchableAttributes.insert("hadamitzky","I");
-	searchableAttributes.insert("gakken","K");
-	searchableAttributes.insert("heisig","L");
-	searchableAttributes.insert("morohashi","M");
-	searchableAttributes.insert("nelson","N");
-	searchableAttributes.insert("oneill","O");
-	searchableAttributes.insert("skip","P");
-	searchableAttributes.insert("4cc","Q");
-	searchableAttributes.insert("stroke","S");
-	searchableAttributes.insert("strokes","S");
-	searchableAttributes.insert("unicode","U");
-	searchableAttributes.insert("haig","V");
-	searchableAttributes.insert("korean","W");
-	searchableAttributes.insert("pinyin","Y");
-	searchableAttributes.insert("other","D");
+	m_dictionaryType = "kanjidic";		//Override the default type
+	m_searchableAttributes.clear();
+	m_searchableAttributes.insert("bushu","B");
+	m_searchableAttributes.insert("classical","C");
+	m_searchableAttributes.insert("henshall","E");
+	m_searchableAttributes.insert("frequency","F");
+	m_searchableAttributes.insert("grade","G");
+	m_searchableAttributes.insert("halpern","H");
+	m_searchableAttributes.insert("spahn","I");
+	m_searchableAttributes.insert("hadamitzky","I");
+	m_searchableAttributes.insert("gakken","K");
+	m_searchableAttributes.insert("heisig","L");
+	m_searchableAttributes.insert("morohashi","M");
+	m_searchableAttributes.insert("nelson","N");
+	m_searchableAttributes.insert("oneill","O");
+	m_searchableAttributes.insert("skip","P");
+	m_searchableAttributes.insert("4cc","Q");
+	m_searchableAttributes.insert("stroke","S");
+	m_searchableAttributes.insert("strokes","S");
+	m_searchableAttributes.insert("unicode","U");
+	m_searchableAttributes.insert("haig","V");
+	m_searchableAttributes.insert("korean","W");
+	m_searchableAttributes.insert("pinyin","Y");
+	m_searchableAttributes.insert("other","D");
 }
 
 /** Scan a potential file for the correct format, remembering to skip comment
@@ -81,7 +82,7 @@ bool dictFileKanjidic::validQuery(const DictQuery &query) {
 
 	//Now check if we have any properties specified that we don't understand
 	QStringList propertiesWeHandle =
-		searchableAttributes.values()+searchableAttributes.keys();
+		m_searchableAttributes.values()+m_searchableAttributes.keys();
 	propertiesWeHandle += "common";	//We map this to be (has a G value)
 
 	QStringList properties = query.listPropertyKeys();

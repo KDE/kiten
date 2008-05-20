@@ -120,7 +120,7 @@ bool dictFileDeinflect::loadDictionary(const QString &file, const QString &name)
 
 	f.close();
 
-	dictionaryName = name;
+	m_dictionaryName = name;
 
 	return true;
 }

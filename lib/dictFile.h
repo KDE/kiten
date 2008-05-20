@@ -50,7 +50,7 @@ private:
 public:
 	/** Use this constructor for your subclasses. Dictionary subclasses MUST specify their type
 	 * at creation */
-	dictFile(QString dictionaryTypeName) : dictionaryType(dictionaryTypeName) {}
+	dictFile(QString dictionaryTypeName) : m_dictionaryType(dictionaryTypeName) {}
 	/** Destructor */
 	virtual ~dictFile() {}
 	/** This method allows the user to test if a dictionary is the proper type for this format.
@@ -99,40 +99,39 @@ public:
 	virtual void loadSettings(KConfigSkeleton*) {}
 
 	/** Returns the name of the dictionary */
-	virtual QString getName() const {return dictionaryName;}
+	virtual QString getName() const {return m_dictionaryName;}
 	/** Returns the type of files this dictFile object deals with */
-	virtual QString getType() const {return dictionaryType;}
+	virtual QString getType() const {return m_dictionaryType;}
 	/** Returns the file that this is working with, usually used in the preferences display */
-	virtual QString getFile() const {return dictionaryFile;}
+	virtual QString getFile() const {return m_dictionaryFile;}
 	/** Fetch a list of searchable attributes and their codes */
 	virtual const QMap<QString,QString> &getSearchableAttributes() const
-													{return searchableAttributes;}
+													{return m_searchableAttributes;}
 protected:
 	/** Name is the 'primary key' of the list of dictionaries. You will want to
 	 * place this into your Entry objects to identify where they came from
 	 * (fairly important) */
-	QString dictionaryName;
+	QString m_dictionaryName;
 
 	/** This is mostly a placeholder, but your class will get asked what file
 	 * it is using, so either be sure to put something here, or override
 	 * getFile() and respond with something that will be sensical in a
 	 * dictionary selection dialog box */
-	QString dictionaryFile;
+	QString m_dictionaryFile;
 
 	/** This MUST BE SET IN THE CONSTRUCTOR. The dictionary class occasionally
 	 * uses this value and it's important for it to be set at anytime after the
 	 * constructor is called. It also must be unique to the dictionary type. If
 	 * relevant, specify dictionary versions here. */
-	QString dictionaryType;
-	/** This is not currently used, but it will be used to allow the users a list
-	 * of possible search types (probably through a drop down menu) at some point
-	 * in the future. You may also find it useful in your dictFile implementation
+	QString m_dictionaryType;
+	/** This allows the programming user to see a list
+	 * of possible search types (probably through a drop down menu).
+	 *  You may also find it useful in your dictFile implementation
 	 * to translate from extended attribute keys into the simpler one or two letter
 	 * code keys. These should take the format of:
-	 *  (grade => G), (strokes => S), (stroke => S)
-	 * for a simple example appropriate to kanji. Note the lower case keys and that
-	 * duplicate references are acceptable. */
-	QMap<QString,QString> searchableAttributes;
+	 *  (Kanji Grade => G), (Strokes => S), (Heisig Number => H)
+	 * for a simple example appropriate to kanji. */
+	QMap<QString,QString> m_searchableAttributes;
 };
 
 #endif

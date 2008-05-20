@@ -28,13 +28,6 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QCheckBox" name="kcfg_caseSensitive" >
-       <property name="text" >
-        <string>Case sensitive searches (non-Japanese languages)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QCheckBox" name="kcfg_initialSearch" >
        <property name="text" >
         <string>Search for "jiten" on startup</string>

@@ -79,11 +79,11 @@
 	  </entry>
 	  <entry key="dictionary_sortlist" type="StringList">
 		  <label>What order do we sort the dictionaries in?</label>
-		  <default>kanjidic,edict</default>
+		  <default>kanjidic,edict,deinflect</default>
 	  </entry>
 	  <entry key="field_sortlist" type="StringList">
 		  <label>What order do we sort the fields in?</label>
-		  <default>Word/Kanji,Reading,Meaning,strokes</default>
+		  <default>common</default>
 	  </entry>
   </group>
   <group name="Font">

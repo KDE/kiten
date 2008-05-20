@@ -53,13 +53,14 @@ searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	actionSearchSection->addAction(i18n("Match Anywhere"));
 
 	actionSelectWordType = parent->actionCollection()->add<KSelectAction>("search_wordType");
+/* Not quite working yet
 	actionSelectWordType->setText(i18n("Word Type"));
 	actionSelectWordType->addAction(i18n("Any"));
 	actionSelectWordType->addAction(i18n("Verb"));
 	actionSelectWordType->addAction(i18n("Noun"));
 	actionSelectWordType->addAction(i18n("Adjective"));
 	actionSelectWordType->addAction(i18n("Adverb"));
-
+*/
 	actionTextInput = new KHistoryComboBox(parent);
 	actionTextInput->setDuplicatesEnabled(false);
 	actionTextInput->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);

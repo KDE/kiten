@@ -88,9 +88,6 @@ class KITEN_EXPORT DictionaryManager {
 				only out of the second parameter
 	  @param list the list of results to search for the above query in. */
 	EntryList *doSearchInList(const DictQuery &query, const EntryList *list) const;
-	/** Static method, used to create the polymorphic dictFile object. Do not use externally.
-			If you are adding a new dictionary type, see the instructions in the code. */
-	static dictFile *makeDictFile(const QString&);
 	/** Get a list of all supported dictionary types. Useful for preference code */
 	static QStringList listDictFileTypes();
 	/** Given a config and parent widget, return a mapping from dictionary types to preference dialogs.
@@ -101,9 +98,10 @@ class KITEN_EXPORT DictionaryManager {
 	static QMap<QString,DictionaryPreferenceDialog*>
 		generatePreferenceDialogs(KConfigSkeleton *config, QWidget *parent=NULL);
 	/** Compiles a list of all fields beyond the basic three (word/pronunciation/meaning) that all dictionary
-	  types support. This can be used to generate a preference dialog, or provide more direct references */
+	  types support. This can be used to generate a preference dialog, or provide more direct references.
+	  The return value is "full name of the field" => "abbreviation useable in search string" */
 	static QMap<QString,QString> generateExtendedFieldsList();
-	/** Trigger loading preferences from a given KConfigSkeleton config object for a dictionary of type dict 
+	/** Trigger loading preferences from a given KConfigSkeleton config object for a dictionary of type dict
 	 * @param dict the dictionary type to load settings for
 	 * @param config the config skeleton object */
 	void loadDictSettings(const QString &dict, KConfigSkeleton* config);
@@ -111,6 +109,9 @@ class KITEN_EXPORT DictionaryManager {
 	void loadSettings(const KConfig&);
 
 	private:
+		/** Static method, used to create the polymorphic dictFile object. Do not use externally.
+				If you are adding a new dictionary type, see the instructions in the code. */
+		static dictFile *makeDictFile(const QString&);
 		class Private;
 		Private * const d;
 };

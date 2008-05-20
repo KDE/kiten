@@ -2,17 +2,10 @@
 Cat By  Description
 By 4.1:
 B+  4.1 Global shortcut keys are busted http://bugs.kde.org/show_bug.cgi?id=132476
-B+  4.1 Fix sorting, currently does not sort properly by Word/Kanji,Readings or Meanings
 B+  4.1 Display Field Preferences are not updated until you restart kiten
-B   4.1 Either implement or remove the "Case sensitive searches" option in Prefs:Searching
 F   4.1 Sort by "Exact Match"
 R+  4.1 Profile the linear vs indexed EDICT back-ends
 R   4.1 Update Help Files (RECURRENT)
-R   4.1 Set Default Visible Widgets
-R   4.1 Doublecheck README, AUTHORS, etc (RECURRENT)
-R   4.1 D-ptr-ize libkiten
-R   4.1 Correct radselect license (requires consult with various authors(?))
-R   4.1 Be EBN-clean and dashboard-clean (RECURRENT)
 By 4.2:
 B   4.2 Investigate crash with kinput2, long ago... http://bugs.kde.org/show_bug.cgi?id=115579
 B   4.2 Investigate http://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
@@ -21,7 +14,10 @@ F+  4.2 GHNS support (including dictionary "updates") http://bugs.kde.org/show_b
 F   4.2 Do a new Deinflection dictionary or system (the current one can't even handle kuru/suru)
 F-  4.2 Search Beginning/Search End options?
 R+  4.2 Trim data/edict down to "common entries only" to help distros/svn users
+R   4.2 Correct radselect license/move some of radselect into libkiten
 R   4.2 DBUS Interface + Documentation
+R   4.2 Doublecheck README, AUTHORS, etc (RECURRENT)
+R   4.2 Be EBN-clean and dashboard-clean (RECURRENT)
 Unscheduled:
 B    -  Handle searches that don't include Word, Reading or Meaning in a sane way
 B-   -  Can't search for kanji readings
@@ -50,6 +46,7 @@ F-   -  Seperate Project: Screensaver to display random entries http://bugs.kde.
 F-   -  Can we omit/seperate name readings? http://bugs.kde.org/show_bug.cgi?id=46511
 C    -  Move display to an MVC system
 C    -  Preferences Framework
+?    -  Case sensitive non-japanese searches?
 ?    -  Look carefully at EDICT2 format... note the multiple kanji/kana given
 ?    -  Input Filters?
 ?    -  Search within results? (F3/"/")

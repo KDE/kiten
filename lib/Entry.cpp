@@ -259,6 +259,7 @@ bool Entry::listMatch(const QStringList &list, const QStringList &test, DictQuer
 	return true;
 }
 
+
 /* This version of sort only sorts dictionaries...
 	This is a replacement for a operator< function... so we return true if
 	"this" should show up first on the list. */
@@ -273,16 +274,26 @@ bool Entry::sort(const Entry &that, const QStringList &dictOrder,
 		}
 	} else {
 		foreach(const QString &field, fields) {
-			//Only sort by this field if the values differ, otherwise move to the next field
-			const QString thisOne = this->getExtendedInfoItem(field);
-			const QString thatOne = that.getExtendedInfoItem(field);
-			if(thisOne != thatOne) {
-				//If the second item does not have this field, sort this one first
-				if(thatOne.isEmpty()) return true;
-				//If we don't have this field, sort "this" to second
-				if(thisOne.isEmpty()) return false;
-				//Otherwise, send it to a virtual function (to allow dictionaries to override sorting)
-				return this->sortByField(that,field);
+			if(field == QString("Word/Kanji"))
+				return this->getWord() < that.getWord();
+			else if(field == QString("Meaning"))
+				return listMatch(that.getMeaningsList(),this->getMeaningsList(),DictQuery::matchExact) &&
+					(that.getMeaningsList().count() != this->getMeaningsList().count());
+			else if(field == QString("Reading"))
+				return listMatch(that.getReadingsList(),this->getReadingsList(),DictQuery::matchExact) &&
+					(that.getReadingsList().count() != this->getReadingsList().count());
+			else {
+				const QString thisOne = this->getExtendedInfoItem(field);
+				const QString thatOne = that.getExtendedInfoItem(field);
+				//Only sort by this field if the values differ, otherwise move to the next field
+				if(thisOne != thatOne) {
+					//If the second item does not have this field, sort this one first
+					if(thatOne.isEmpty()) return true;
+					//If we don't have this field, sort "this" to second
+					if(thisOne.isEmpty()) return false;
+					//Otherwise, send it to a virtual function (to allow dictionaries to override sorting)
+					return this->sortByField(that,field);
+				}
 			}
 		}
 	}

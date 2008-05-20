@@ -46,6 +46,7 @@
   dictionaryType member variable to identify this as an edict-type database handler */
 dictFileEdict::dictFileEdict() : dictFile("edict")
 {
+	m_searchableAttributes.insert("common","common");
 }
 
 QStringList *dictFileEdict::displayFields = NULL;
@@ -106,8 +107,8 @@ bool dictFileEdict::loadDictionary(const QString &fileName, const QString &dictN
 	if(m_file.valid()) return false; //Already loaded
 
 	if(m_file.loadFile(fileName)) {
-		dictionaryName = dictName;
-		dictionaryFile = fileName;
+		m_dictionaryName = dictName;
+		m_dictionaryFile = fileName;
 		return true;
 	}
 	return false;
