@@ -5,7 +5,6 @@ B+  4.1 Global shortcut keys are busted http://bugs.kde.org/show_bug.cgi?id=1324
 B+  4.1 Display Field Preferences are not updated until you restart kiten
 F   4.1 Sort by "Exact Match"
 R+  4.1 Profile the linear vs indexed EDICT back-ends
-R   4.1 Update Help Files (RECURRENT)
 By 4.2:
 B   4.2 Investigate crash with kinput2, long ago... http://bugs.kde.org/show_bug.cgi?id=115579
 B   4.2 Investigate http://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
@@ -18,6 +17,7 @@ R   4.2 Correct radselect license/move some of radselect into libkiten
 R   4.2 DBUS Interface + Documentation
 R   4.2 Doublecheck README, AUTHORS, etc (RECURRENT)
 R   4.2 Be EBN-clean and dashboard-clean (RECURRENT)
+R   4.2 Update Help Files (RECURRENT)
 Unscheduled:
 B    -  Handle searches that don't include Word, Reading or Meaning in a sane way
 B-   -  Can't search for kanji readings
