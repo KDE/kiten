@@ -20,7 +20,7 @@ add_subdirectory( lib )
 set(kitengen_SRCS xjdxgen.c)
 kde4_add_executable(kitengen ${kitengen_SRCS})
 target_link_libraries(kitengen ${QT_QTCORE_LIBRARY})
-install( TARGETS kitengen DESTINATION ${BIN_INSTALL_DIR} )
+install( TARGETS kitengen ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ## Install our datafiles
 install( FILES data/edict data/kanjidic data/radkfile data/vconj data/romkana.cnv DESTINATION ${DATA_INSTALL_DIR}/kiten)

@@ -17,7 +17,7 @@ kde4_add_app_icon(radselect_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/h
 kde4_add_executable(radselect_bin ${radselect_bin_SRCS})
 set_target_properties(radselect_bin PROPERTIES OUTPUT_NAME kitenradselect)
 target_link_libraries(radselect_bin ${KDE4_KDEUI_LIBS} kiten)
-install( TARGETS radselect_bin DESTINATION ${BIN_INSTALL_DIR} )
+install( TARGETS radselect_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
 install( FILES radselectui.rc DESTINATION ${DATA_INSTALL_DIR}/kitenradselect )
