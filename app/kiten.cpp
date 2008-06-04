@@ -340,11 +340,50 @@ void kiten::searchAndDisplay(const DictQuery &query)
 		requested dictionaries */
 	EntryList *results = dictionaryManager.doSearch(query);
 
+	/* if there are no results */
+	if (results->size() == 0) //TODO: check here if the user actually prefers this
+	{
+		//create a modifiable copy of the original query
+		DictQuery newQuery(query);
+
+		bool tryAgain = false;
+		
+		do {
+			
+			//by default we don't try again
+			tryAgain = false;
+			
+			//but if the matchtype is changed we try again
+			if (newQuery.getMatchType() == DictQuery::matchExact)
+			{
+				newQuery.setMatchType(DictQuery::matchBeginning);
+				tryAgain = true;
+			} else if (newQuery.getMatchType() == DictQuery::matchBeginning)
+			{
+				newQuery.setMatchType(DictQuery::matchAnywhere);
+				tryAgain = true;
+			}
+
+
+			//try another search
+			if (tryAgain)
+			{
+				delete results;
+				results = dictionaryManager.doSearch(newQuery);
+
+				//results means all is ok; dont try again
+				if (results->size() > 0)
+					tryAgain = false;
+			}
+
+		} while (tryAgain);
+	}
+
 	/* synchronize the history (and store this pointer there) */
 	addHistory(results);
 
 	/* Add the current search to our drop down list */
-	inputManager->setSearchQuery(query);
+	inputManager->setSearchQuery(results->getQuery());
 
 	/* suppose it's about time to show the users the results. */
 	displayResults(results);
