@@ -78,6 +78,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const {
 	QString temp;
 	QString &lastDictionary = temp;
 	const QString fromDictionary = i18n("From Dictionary:");
+	QString query(getQuery());
 	for (unsigned int i = 0; i < max; ++i)
 	{
 		Entry *it = at(i);
@@ -96,6 +97,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const {
 			break;
 
 	}
+	result.replace(query, "<query>" + query + "</query>");
 	return result;
 }
 

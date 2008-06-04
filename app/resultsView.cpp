@@ -187,6 +187,7 @@ QString ResultView::generateCSS()
 			"a:hover {color: %6 } "
 			"a:active {color: %6}"
 			".Entry:hover { background-color: %10 }"
+			"query { text-decoration: underline; }"
 		   )
 		.arg(scheme.foreground().color().name())
 		.arg(scheme.foreground(KColorScheme::InactiveText).color().name())
