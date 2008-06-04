@@ -64,6 +64,7 @@ searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	actionTextInput = new KHistoryComboBox(parent);
 	actionTextInput->setDuplicatesEnabled(false);
 	actionTextInput->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	actionTextInput->setFont(KitenConfigSkeleton::self()->font());
 
 	actionFocusInput = parent->actionCollection()->addAction("focusinputfield", this, SLOT(focusInput()));
 	actionFocusInput->setShortcut(QString("Ctrl+L"));
