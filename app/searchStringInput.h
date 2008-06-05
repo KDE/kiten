@@ -37,6 +37,7 @@ class searchStringInput : public QObject {
 		explicit searchStringInput(kiten *parent);
 
 		void setDefaultsFromConfig();
+		void updateFontFromConfig();
 
 		DictQuery getSearchQuery() const;
 		void setSearchQuery(const DictQuery &query);

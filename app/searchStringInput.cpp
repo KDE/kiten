@@ -64,7 +64,7 @@ searchStringInput::searchStringInput(kiten *iParent) : QObject(iParent) {
 	actionTextInput = new KHistoryComboBox(parent);
 	actionTextInput->setDuplicatesEnabled(false);
 	actionTextInput->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	actionTextInput->setFont(KitenConfigSkeleton::self()->font());
+	updateFontFromConfig();
 
 	actionFocusInput = parent->actionCollection()->addAction("focusinputfield", this, SLOT(focusInput()));
 	actionFocusInput->setShortcut(QString("Ctrl+L"));
@@ -90,6 +90,11 @@ void searchStringInput::setDefaultsFromConfig() {
 	actionFilterRare->setChecked(config->common_only());
 	actionSearchSection->setCurrentItem(config->search_precision());
 	actionSelectWordType->setCurrentItem(config->search_limit_to_wordtype());
+}
+
+void searchStringInput::updateFontFromConfig()
+{
+	actionTextInput->setFont(KitenConfigSkeleton::self()->font());
 }
 
 DictQuery searchStringInput::getSearchQuery() const {

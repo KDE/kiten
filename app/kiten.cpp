@@ -531,6 +531,8 @@ void kiten::updateConfiguration()
 	//Update the HTML/CSS for our fonts
 	displayHistoryItem();
 
+	inputManager->updateFontFromConfig();
+
 	/*: TODO: have a look at this as well
 	detachedView->updateFont();
 
