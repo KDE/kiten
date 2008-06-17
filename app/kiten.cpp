@@ -191,9 +191,11 @@ void kiten::setupActions() {
 	(void) KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
 	//TODO: this should probably be a standardaction
+	/*
 	globalShortcutsAction = actionCollection()->addAction("options_configure_global_keybinding");
         globalShortcutsAction->setText(i18n("Configure &Global Shortcuts..."));
 	connect(globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()));
+	*/
 
 	globalSearchAction = actionCollection()->add<KToggleAction>("search_on_the_spot");
         globalSearchAction->setText(i18n("On The Spo&t Search"));

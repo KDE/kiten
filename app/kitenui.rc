@@ -15,15 +15,14 @@
 		<text>S&amp;earch</text>
 		<Action name="search" />
 		<Action name="search_in_results" />
-		<Action name="search_filterRare" />
 		<Action name="search_searchType" />
+		<Action name="search_filterRare" />
 		<Action name="search_radical" />
 		<Action name="search_deinflect" append="save_merge" />
 		<Action name="radselect" />
 	</Menu>
 	<Menu name="settings">
 		<Action name="autosearch_toggle" append="save_merge" />
-		<Action name="options_configure_global_keybinding" append="configure_merge"/>
 	</Menu>
 </MenuBar>
 
