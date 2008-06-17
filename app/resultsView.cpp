@@ -180,6 +180,7 @@ QString ResultView::generateCSS()
 	return QString(
 			".Word { font-size: %9px }"
 			".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
+			//"div.Entry {display: inline; }"
 			".DictionaryHeader { color: %2; border-bottom: solid %3 }"
 			"a{ text-decoration: none; }"
 			"a:link { color: %4; }"
@@ -187,7 +188,7 @@ QString ResultView::generateCSS()
 			"a:hover {color: %6 } "
 			"a:active {color: %6}"
 			".Entry:hover { background-color: %10 }"
-			"query { text-decoration: underline; }"
+			"query { color: %6 }"
 		   )
 		.arg(scheme.foreground().color().name())
 		.arg(scheme.foreground(KColorScheme::InactiveText).color().name())
