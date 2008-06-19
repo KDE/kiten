@@ -86,6 +86,7 @@ DictQuery::operator QString() const {
 
 DictQuery::~DictQuery()
 {
+    delete d;
 }
 
 bool DictQuery::isEmpty() const {

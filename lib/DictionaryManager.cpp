@@ -105,6 +105,7 @@ DictionaryManager::~DictionaryManager() {
 		delete it.value();
 		it.remove();
 	}
+        delete d;
 }
 
 /* Remove a dictionary from the list, and delete the dictionary object
