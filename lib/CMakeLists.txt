@@ -38,5 +38,5 @@ install( FILES
 		HistoryPtrList.h
 		kromajiedit.h
 		libkitenexport.h
-	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten
+	   DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten COMPONENT Devel
 		)
