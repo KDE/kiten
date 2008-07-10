@@ -58,7 +58,7 @@ bool linearEDICTFile::loadFile(const QString& filename)
 	QString lastLine;
 	while (!fileStream.atEnd()) {
 		lastLine = fileStream.readLine();
-		edict << lastLine;
+		if (lastLine[0] != '#') edict << lastLine;
 	}
 
 	file.close();
