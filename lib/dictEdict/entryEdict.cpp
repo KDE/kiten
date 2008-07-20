@@ -24,7 +24,8 @@
 
 #include <klocalizedstring.h>
 
-struct EDICT_formatting {
+class EDICT_formatting {
+public:
 	EDICT_formatting();
 	QString nounType,verbType,adjectiveType,adverbType,ichidanType,godanType,particleType;
 	QMultiHash<QString, QString> partOfSpeechCategories;

@@ -34,7 +34,8 @@
 
 #include <sys/mman.h>
 
-struct EntryList::Private {
+class EntryList::Private {
+public:
 	Private() : m_storedScrollValue(0), m_sorted(false), m_sortedByDictionary(false) { }
 	Private(const Private &old) : m_storedScrollValue(old.m_storedScrollValue),
 		m_sorted(old.m_sorted), m_sortedByDictionary(old.m_sortedByDictionary),

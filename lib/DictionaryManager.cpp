@@ -65,7 +65,8 @@ QStringList DictionaryManager::listDictFileTypes() {
 	return list;
 }
 
-struct DictionaryManager::Private {
+class DictionaryManager::Private {
+public:
 	/** List of dictionaries, indexed by name */
 	QHash<QString,dictFile*> dictManagers;	//List is indexed by dictionary names.
 };

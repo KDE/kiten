@@ -31,7 +31,8 @@ TODO: Add features to limit the number of hits on a per-search basis.
 
 #include <kdebug.h>
 
-struct DictQuery::Private {
+class DictQuery::Private {
+public:
 	Private() : m_matchType(DictQuery::matchExact) {}
 	/** Stores the (english or otherwise non-japanese) meaning */
 	QString m_meaning;

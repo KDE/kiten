@@ -23,7 +23,8 @@
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 
-struct HistoryPtrList::Private {
+class HistoryPtrList::Private {
+public:
 		Private() : m_index(-1) {}
 		static const int s_max_size = 20;
 		int m_index;
