@@ -259,7 +259,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				/* any of those 2 signals a reading is to ensue. */
 				LOADSTRING(curString)
 				originalReadings.append(curString);
-				curString = curString.remove("-").remove(".");
+				curString = curString.remove('-').remove('.');
 				Readings.append(curString);
 				break;
 			default:
@@ -272,7 +272,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 				{
 					LOADSTRING(curString)
 					originalReadings.append(curString);
-					curString = curString.remove("-").remove(".");
+					curString = curString.remove('-').remove('.');
 					Readings.append(curString);
 					break;
 				}
