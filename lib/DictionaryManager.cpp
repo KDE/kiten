@@ -99,13 +99,15 @@ DictionaryManager::DictionaryManager() : d(new Private) {
 
 /* Delete everything in our hash */
 DictionaryManager::~DictionaryManager() {
-	QMutableHashIterator<QString, dictFile*> it(d->dictManagers);
-	while(it.hasNext()) {
-		it.next();
-		delete it.value();
-		it.remove();
-	}
-        delete d;
+	{
+		QMutableHashIterator<QString, dictFile*> it(d->dictManagers);
+		while(it.hasNext()) {
+			it.next();
+			delete it.value();
+			it.remove();
+		}
+	} // only delete d when the hashiterator has gone out of scope
+	delete d;
 }
 
 /* Remove a dictionary from the list, and delete the dictionary object
