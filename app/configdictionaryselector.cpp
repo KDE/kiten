@@ -43,7 +43,6 @@ ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName
 	__useGlobal->setObjectName(QString("kcfg_"+dictName+"__useGlobal"));
 }
 
-
 void ConfigDictionarySelector::updateWidgets()
 //Read from preferences to the active list
 {
@@ -63,7 +62,7 @@ void ConfigDictionarySelector::updateWidgets()
 	config->readConfig();
 	fileList->clear();
 	foreach(const QString &it, names) {
-		QStringList newRow = QStringList(it);
+		QStringList newRow(it);
 		newRow << config->findItem(dictName+'_'+it)->property().toString();
 		(void) new QTreeWidgetItem(fileList, newRow);
 	}
@@ -73,20 +72,21 @@ void ConfigDictionarySelector::updateSettings()
 {
 	QStringList names;
 
-	config->setCurrentGroup("dicts_"+dictName);
+	KConfigGroup group = config->config()->group("dicts_"+dictName.toLower());
 
 	for(int i=0; i<fileList->topLevelItemCount(); i++) {
 		QTreeWidgetItem *it = fileList->topLevelItem(i);
-		names.append(it->text(0));
+		QString dictionaryName = it->text(0);
+		QString dictionaryPath = it->text(1);
+		names.append(dictionaryName);
 
-		QString name = dictName + '_' + it->text(0);
-		KConfigSkeletonItem* item = config->findItem(name);
-		if (!item)
+		if (!group.hasKey(dictionaryName))
 		{
-			item = new KConfigSkeleton::ItemString(dictName, it->text(0),*new QString());
-			config->addItem(item, name);
+			KConfigSkeletonItem *item = new KConfigSkeleton::ItemPath(group.name(),
+					dictionaryName,*new QString());
+			config->addItem(item, dictionaryName);
 		}
-		item->setProperty(it->text(1));
+		group.writeEntry(dictionaryName,dictionaryPath);
 	}
 
 	//This feels distinctly hackish to me... :(

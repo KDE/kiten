@@ -89,9 +89,10 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
 	foreach( const QString &dict, config->dictionary_list() ) {
 		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
 		if(newTab) {
-			connect(newTab, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
+			connect(newTab, SIGNAL(widgetChanged()), this, SIGNAL(widgetModified()));
 			connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
-			connect(this, SIGNAL(SIG_updateWidgetsDefault()), newTab, SLOT(updateWidgetsDefault()));
+			connect(this, SIGNAL(SIG_updateWidgetsDefault()),
+					newTab, SLOT(updateWidgetsDefault()));
 			connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
 			tabWidget->addTab(newTab, dict);
 		}
@@ -123,7 +124,7 @@ QWidget *ConfigureDialog::makeSortingPage
 	(QWidget *parent, KitenConfigSkeleton *config) {
 	ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
 
-	connect(newPage, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
+	connect(newPage, SIGNAL(widgetChanged()), this, SIGNAL(widgetModified()));
 	connect(this, SIGNAL(SIG_updateWidgets()), newPage, SLOT(updateWidgets()));
 	connect(this, SIGNAL(SIG_updateWidgetsDefault()), newPage, SLOT(updateWidgetsDefault()));
 	connect(this, SIGNAL(SIG_updateSettings()), newPage, SLOT(updateSettings()));

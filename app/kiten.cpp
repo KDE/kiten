@@ -467,7 +467,7 @@ void kiten::slotConfigure()
 	//ConfigureDialog didn't find an instance of this dialog, so lets create it :
 	optionDialog = new ConfigureDialog(this, config);
 	connect(optionDialog, SIGNAL(hidden()),this,SLOT(slotConfigureHide()));
-	connect(optionDialog, SIGNAL(settingsChanged()), this, SLOT(updateConfiguration()));
+	connect(optionDialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(updateConfiguration()));
 
 	optionDialog->show();
 }
@@ -551,9 +551,11 @@ void kiten::loadDictConfig(const QString &dictType)
 	KStandardDirs *dirs = KGlobal::dirs();
 	KConfigGroup group = config->config()->group("dicts_"+dictType.toLower());
 
+	//A list of QPair's Name->Path
 	QList< QPair<QString,QString> > dictionariesToLoad;
 
-	if(group.readEntry("__useGlobal", true)) //If we need to load the global
+	//If we need to load the global
+	if(group.readEntry("__useGlobal", true))
 		dictionariesToLoad.append( qMakePair(dictType,
 				dirs->findResource("data", QString("kiten/")+dictType.toLower())));
 
