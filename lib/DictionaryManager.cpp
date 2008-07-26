@@ -39,6 +39,26 @@ IMPORTANT: To add a dictionary type, add the header file here and add it to the
 #include "dictKanjidic/dictFileKanjidic.h"
 #include "dictDeinflect/dictFileDeinflect.h"
 
+#if 0
+class debug_entry : public Entry {
+	public:
+	debug_entry(QString word) :
+		Entry(QString("libkiten"),word,QStringList(),QStringList()),
+  		count(counter++)	{
+		}
+	virtual Entry * clone() const { return new debug_entry(*this); }
+	virtual bool loadEntry(const QString &) { return false; }
+	virtual QString dumpEntry() const { return ""; }
+	virtual bool sort(const debug_entry &that, const QStringList &dicts,
+			const QStringList &fields) {
+		return this->count < that.count;
+	}
+	int count;
+	static int counter;
+};
+int debug_entry::counter = 0;
+#endif
+
 /** IMPORTANT: To add a dictionary type, you have to manually add the creation
 	step here, the next method, and \#include your header file above. If you have
 	fully implemented the interface in DictionaryManager.h, It should simply work.*/
@@ -100,13 +120,15 @@ DictionaryManager::DictionaryManager() : d(new Private) {
 
 /* Delete everything in our hash */
 DictionaryManager::~DictionaryManager() {
-	QMutableHashIterator<QString, dictFile*> it(d->dictManagers);
-	while(it.hasNext()) {
-		it.next();
-		delete it.value();
-		it.remove();
+	{
+		QMutableHashIterator<QString, dictFile*> it(d->dictManagers);
+		while(it.hasNext()) {
+			it.next();
+			delete it.value();
+			it.remove();
+		}
 	}
-        delete d;
+   delete d;
 }
 
 /* Remove a dictionary from the list, and delete the dictionary object
@@ -156,6 +178,15 @@ QStringList DictionaryManager::listDictionariesOfType(const QString &type) const
   @param query the query, see DictQuery documentation */
 EntryList *DictionaryManager::doSearch(const DictQuery &query) const {
 	EntryList *ret=new EntryList();
+#if 0
+	if(query.getMeaning() == "(libkiten)") {
+			ret->append(new debug_entry("Summary of libkiten data"));
+			foreach(const QString &dict, listDictionaries()) {
+				ret->append(new debug_entry(dict));
+			}
+			return ret;
+	}
+#endif
 
 	//There are two basic modes.... one in which the query
 	//Specifies the dictionary list, one in which it does not

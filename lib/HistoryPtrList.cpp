@@ -39,6 +39,7 @@ HistoryPtrList::~HistoryPtrList() {
 		d->m_list.at(i)->deleteAll();
 		delete d->m_list.at(i);
 	}
+	delete d;
 }
 
 void
