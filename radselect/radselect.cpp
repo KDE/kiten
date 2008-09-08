@@ -72,7 +72,10 @@ radselect::radselect() :
             this,   SLOT(changeStatusbar(const QString&)));
 
 	 if(!QDBusConnection::sessionBus().isConnected())
+         {
 		 kDebug() << "Session Bus not found!!";
+                 dbusInterface =0;
+         }
 	 else
 		dbusInterface = new QDBusInterface("org.kde.kiten", "/", "",
 				QDBusConnection::sessionBus());
@@ -148,7 +151,7 @@ void radselect::sendSearch(const QStringList& kanji) {
 
 	changeStatusbar(m_currentQuery);
 
-	if(dbusInterface->isValid()) {
+	if(dbusInterface && dbusInterface->isValid()) {
 		QDBusMessage reply = dbusInterface->call(
 				QLatin1String("searchTextAndRaise"),
 				m_currentQuery.toString());
