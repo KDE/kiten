@@ -86,7 +86,7 @@ bool dictFileKanjidic::validQuery(const DictQuery &query) {
 	propertiesWeHandle += "common";	//We map this to be (has a G value)
 
 	QStringList properties = query.listPropertyKeys();
-	for(QStringList::Iterator it=properties.begin(); it != properties.end(); ++it)
+	for(QStringList::const_iterator it=properties.begin(); it != properties.end(); ++it)
 		if(!propertiesWeHandle.contains(*it))
 			return false;
 
