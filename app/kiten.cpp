@@ -373,7 +373,7 @@ void kiten::searchAndDisplay(const DictQuery &query)
 				delete results;
 				results = dictionaryManager.doSearch(newQuery);
 
-				//results means all is ok; dont try again
+				//results means all is ok; don't try again
 				if (results->size() > 0)
 					tryAgain = false;
 			}
