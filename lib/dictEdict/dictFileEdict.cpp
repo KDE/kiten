@@ -130,7 +130,7 @@ EntryList *dictFileEdict::doSearch(const DictQuery &i_query) {
 	if(firstChoice.length() == 0) {
 		firstChoice = query.getPronunciation();
 		if(firstChoice.length() == 0) {
-			firstChoice = query.getMeaning().split(" ").first().toLower();
+			firstChoice = query.getMeaning().split(' ').first().toLower();
 			if(firstChoice.length() == 0) {
 				//The nastiest situation... we have to assemble a search string
 				//from the first property

@@ -157,7 +157,7 @@ bool EntryEDICT::loadEntry(const QString &entryLine)
 	for (int i = firstWord.indexOf("("); i != -1; i = firstWord.indexOf("(", i + 1))
 	{
 		QString parantheses = firstWord.mid(i + 1, firstWord.indexOf(")", i) - i - 1);
-		stringTypes += parantheses.split(",");
+		stringTypes += parantheses.split(',');
 	}
 	foreach(const QString &str, stringTypes) {
 		if(format().partsOfSpeech.contains(str))

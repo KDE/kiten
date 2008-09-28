@@ -204,7 +204,7 @@ bool Entry::matchesQuery(const DictQuery &query) const {
 	}
 
 	if(!query.getMeaning().isEmpty())
-		if(!listMatch(Meanings.join(" ").toLower().split(" "),
+		if(!listMatch(Meanings.join(" ").toLower().split(' '),
 					query.getMeaning().toLower().split(DictQuery::mainDelimiter),
 						query.getMatchType()) )
 			return false;
