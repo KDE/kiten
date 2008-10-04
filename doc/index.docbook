@@ -77,7 +77,7 @@ English and Japanese words. You can also add other dictionaries to
 
 <para>To look up words in either language, type them in to the
 text-edit (much like &konqueror;'s location bar) and press either
-<keycap>Enter</keycap> or the <guilabel>Search</guilabel> button on
+&Enter; or the <guilabel>Search</guilabel> button on
 the toolbar (again, much like &konqueror;). &kiten; will then look up
 the word.</para>
 
@@ -124,10 +124,10 @@ searches.</para>
 <para>To search for the beginning of a word, instead of pressing the
 <guilabel>Search</guilabel> button on the toolbar or pressing
 <keycap>Return</keycap> on the text-entry in the toolbar, choose
-using the <menuchoice><guimenu>Search</guimenu><guimenuitem>Match Type
-</guimenuitem></menuchoice>. Similarly, choose
-<menuchoice><guimenu>Search</guimenu><guimenuitem>Match
-Type</guimenuitem></menuchoice> to search for your text anywhere
+using the <menuchoice><guimenu>Search</guimenu><guisubmenu>Match Type
+</guisubmenu><guimenuitem>Match Beginning</guimenuitem></menuchoice>. Similarly, choose
+<menuchoice><guimenu>Search</guimenu><guisubmenu>Match
+Type</guisubmenu><guimenuitem>Match Anywhere</guimenuitem></menuchoice> to search for your text anywhere
 in a word. These search modes work for searches of both
 languages.</para>
 
