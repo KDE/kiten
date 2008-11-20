@@ -163,8 +163,8 @@ QPair<QString, QString> DictionaryManager::listDictionaryInfo(const QString &nam
  * @param type the type of the dictionary we want a list of */
 QStringList DictionaryManager::listDictionariesOfType(const QString &type) const {
 	QStringList ret;
-	QHash<QString, dictFile*>::const_iterator it = d->dictManagers.begin();
-	while(it != d->dictManagers.end()) {
+	QHash<QString, dictFile*>::const_iterator it = d->dictManagers.constBegin();
+	while(it != d->dictManagers.constEnd()) {
 		if(it.value()->getType() == type)
 			ret.append(it.key());
 		++it;

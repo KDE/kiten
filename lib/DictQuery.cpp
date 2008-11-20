@@ -164,8 +164,8 @@ bool operator!=(const DictQuery &other, const DictQuery &query ) {
 }
 
 bool operator<(const DictQuery &A, const DictQuery &B) {
-	QHash<QString,QString>::const_iterator it = A.d->m_extendedAttributes.begin();
-	QHash<QString,QString>::const_iterator it_end = A.d->m_extendedAttributes.end();
+	QHash<QString,QString>::const_iterator it = A.d->m_extendedAttributes.constBegin();
+	QHash<QString,QString>::const_iterator it_end = A.d->m_extendedAttributes.constEnd();
 	for(;it != it_end; ++it) {
 		QString B_version = B.d->m_extendedAttributes.value(it.key());
 		if(A.d->m_extendedAttributes[it.key()] != B_version) {
