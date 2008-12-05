@@ -99,7 +99,6 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 //	QString strjis = raw.mid(2, 4);
 
 	/* variables for the loop */
-	unsigned int i;
 	QChar ichar;
 	QString curString;
 
@@ -122,7 +121,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 		data.  This loop is used because the kanjidic format allows the data
 		to be in any order until the end of the line.  The format was designed
 		such that the data can be identified by the first byte. */
-	for (i = 7; i < length - 1; i++)
+	for (unsigned int i = 7; i < length - 1; i++)
 	{
 		ichar = entryLine.at(i);
 
