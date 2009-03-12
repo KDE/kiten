@@ -202,7 +202,7 @@ void kiten::setupActions() {
 	KAction *temp = qobject_cast<KAction*>( globalSearchAction );
 	KShortcut shrt("Ctrl+Alt+S");
 	//globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
-	connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
+	//connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
 	backAction = KStandardAction::back(this, SLOT(back()), actionCollection());
 	forwardAction = KStandardAction::forward(this, SLOT(forward()), actionCollection());
