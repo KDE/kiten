@@ -88,6 +88,7 @@ radselect::radselect() :
 
 radselect::~radselect()
 {
+        delete dbusInterface;
 }
 
 void radselect::loadSearchString(const QString &searchString) {
