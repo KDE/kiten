@@ -1,7 +1,6 @@
 <ui version="4.0" stdsetdef="1" >
   <author>Joseph Kerian (C) 2006</author>
   <comment>License is GPL</comment>
-  <exportmacro></exportmacro>
   <class>configSorting</class>
   <widget class="QWidget" name="configSorting" >
     <property name="geometry" >
@@ -52,7 +51,6 @@
       </item>
     </layout>
   </widget>
-  <layoutdefault spacing="6" margin="11" />
     <includes>
     <include location="local" >kactionselector.h</include>
     <include location="local" >kactionselector.h</include>
