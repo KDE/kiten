@@ -29,8 +29,8 @@ class /* NO_EXPORT */ entryDeinflect : public Entry {
 
 	public:
 		entryDeinflect(const QString &correction, const QString &type, int index, const QString &matchedEnding)
-			: Entry(QString("Deinflect")),m_correction(correction),m_type(type),m_index(index),
-			m_matchedEnding(matchedEnding) {}
+			: Entry(QString("Deinflect")),m_matchedEnding(matchedEnding),m_correction(correction),m_type(type),
+			m_index(index) {}
 		entryDeinflect(const entryDeinflect &old) : Entry(old), m_correction(old.m_correction),
 			m_type(old.m_type), m_index(old.m_index) {}
 		entryDeinflect *clone() const { return new entryDeinflect(*this); }
