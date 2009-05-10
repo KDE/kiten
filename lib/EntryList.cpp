@@ -98,7 +98,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const {
 			break;
 
 	}
-	result.replace(query, "<query>" + query + "</query>");
+	//result.replace(query, "<query>" + query + "</query>");
 	return result;
 }
 
