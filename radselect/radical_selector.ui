@@ -109,7 +109,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="strokes_low" >
+      <widget class="KIntSpinBox" name="strokes_low" >
        <property name="sizePolicy" >
         <sizepolicy>
          <hsizetype>5</hsizetype>
@@ -131,7 +131,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="strokes_high" >
+      <widget class="KIntSpinBox" name="strokes_high" >
        <property name="sizePolicy" >
         <sizepolicy>
          <hsizetype>5</hsizetype>
@@ -196,6 +196,11 @@
   </layout>
  </widget>
   <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
   <customwidget>
    <class>QScrollArea</class>
    <extends>QFrame</extends>
