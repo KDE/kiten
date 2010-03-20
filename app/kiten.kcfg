@@ -106,7 +106,7 @@
       <default>false</default>
 	</entry>
 	<entry key="search_precision" type="Int">
-		<label>The users last type of search, 0=Exact, 1=Match Start, 2=Match Anywhere</label>
+		<label>The user's last type of search, 0=Exact, 1=Match Start, 2=Match Anywhere</label>
 		<default>2</default>
 	</entry>
 	<entry key="search_limit_to_wordtype" type="Int">
