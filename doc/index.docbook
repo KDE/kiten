@@ -24,8 +24,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-10-08</date>
-<releaseinfo>1.1</releaseinfo>
+<date>2010-07-15</date>
+<releaseinfo>1.2 (&kde; 4.5)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -104,10 +104,10 @@ Out Rare</guimenuitem></menuchoice>.</para>
 <note><para>Not all dictionary files support filtering rare entries -
 most dictionaries, excluding the two provided by default in &kiten; do
 not.</para></note>
-
+<!-- not in kde4
 <para>If you have not enabled filtering rare entries, common entries
 will be labeled <guilabel>Common</guilabel> in the result view.</para>
-
+-->
 </sect2>
 
 </sect1>
@@ -120,7 +120,8 @@ searches.</para>
 
 <sect2> 
 <title>Beginning/Anywhere Searches</title>
-
+<para>Beside a search with <guilabel>Exact Match</guilabel> &kiten; has
+two additional search modes</para>
 <para>To search for the beginning of a word, instead of pressing the
 <guilabel>Search</guilabel> button on the toolbar or pressing
 <keycap>Return</keycap> on the text-entry in the toolbar, choose
@@ -195,14 +196,14 @@ with a combination of radicals and a certain stroke count. Choose
 Selector</guimenuitem></menuchoice> to open the radical search
 dialog.</para>
 
-<para>To choose the radicals you want to be in your Kanji, select them
-from the middle listbox. To display possible radicals to select from
-this listbox with a certain number of strokes, choose this number of
-strokes from the spinbox just above the listbox. The radicals you
-choose will appear in the listbox to the right.</para>
+<para>To choose the radicals you want to be in your Kanji, select one 
+them from the buttons at the bottom of the window. To display possible radicals to select from
+this buttons with a certain number of strokes, choose this number of
+strokes from the spinboxes just above the buttons. The radicals you
+choose will appear in the listbox at the top.</para>
 
 <para>To choose how many strokes your Kanji should have, just enter the
-	values into the spin boxes below the results area.</para>
+values into the spin boxes below the results area.</para>
 
 <para>To perform the lookup, press the button that matches the kanji you
 wanted to look up.</para>
@@ -221,7 +222,7 @@ box as "G:4" (G: is the Kanjidic tag for grade).</para>
 <title>Stroke Search</title>
 
 <para>To get a list of all Kanji with a certain number of strokes,
-	enter that number in the text-entry in the toolbar as "S:4".</para>
+enter that number in the text-entry in the toolbar as "S:4".</para>
 
 </sect1>
 
@@ -235,16 +236,16 @@ in both modes in &kiten;'s main window.</para>
 
 <sect1 id="history"> 
 <title>The History</title>
-
-<para>&kiten; keeps track of all of your queries in a list. You can
-see your last 20 results by looking under
-<menuchoice><guimenu>Go</guimenu><guimenuitem>History</guimenuitem></menuchoice>. To
-go forward one in the history, choose
+<!-- changed in kde4-->
+<para>&kiten; keeps track of all of your queries in the input field. You can
+see your last results by clicking on the check mark at the right of the input field.
+To go forward one in the history, choose
 <menuchoice><guimenu>Go</guimenu><guimenuitem>Forward</guimenuitem></menuchoice>. To
 go backward one in the history, choose
 <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>.</para>
 
 </sect1>
+<!-- how to do that in kde4 ?
 <sect1 id="global-keys"> 
 <title>Global Shortcuts</title>
 
@@ -258,16 +259,16 @@ global word search and a global Kanji search like in other &kde;
 shortcut configuration panels.</para>
 
 </sect1>
-
+-->
 <sect1 id="fonts"> 
 <title>Fonts</title>
 
-<para>You can choose the font that &kiten; uses in its result view and
-while printing. Go to the &kiten; configuration dialog, which can be
+<para>You can choose the font that &kiten; uses in its result view. 
+Go to the &kiten; configuration dialog, which can be
 opened by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
 Kiten...</guimenuitem></menuchoice>. Select the
-<guilabel>Font</guilabel> section of the dialog and select the font in
+<guilabel>Font</guilabel> page of the dialog and select the font in
 the font-chooser.</para>
 
 <note><para>&Qt; 's font-substitution system makes it so a
