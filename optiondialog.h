@@ -42,7 +42,7 @@ class ConfigureDialog : public KConfigDialog
 {
 	Q_OBJECT
 public:
-	ConfigureDialog(QWidget *parent=0, const char *name=0);
+	ConfigureDialog(TQWidget *parent=0, const char *name=0);
 	~ConfigureDialog();
 signals:
 	void settingsUpdated();

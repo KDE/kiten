@@ -46,11 +46,11 @@ public:
         }
 	bool isLocal;
 	KTempFile *tempFile;
-	QFile *file;
+	TQFile *file;
 	KURL url;
-	QString error;
-	QTextStream *textStream;
-	QDataStream *dataStream;
+	TQString error;
+	TQTextStream *textStream;
+	TQDataStream *dataStream;
 };
 
 KSaver::KSaver(const KURL &_target)
@@ -61,7 +61,7 @@ KSaver::KSaver(const KURL &_target)
 	if(d->url.protocol() == "file")
 	{
 		d->isLocal = true;
-		d->file = new QFile(d->url.path());
+		d->file = new TQFile(d->url.path());
 	}
 	else
 	{
@@ -127,22 +127,22 @@ bool KSaver::close(void)
 	}
 }
 
-QString KSaver::error(void)
+TQString KSaver::error(void)
 {
 	return d->error;
 }
 
-QFile &KSaver::file(void)
+TQFile &KSaver::file(void)
 {
 	if(d->isLocal && d->file)
 		return *d->file;
 	else if(!d->isLocal && d->tempFile)
 		return *d->tempFile->file();
 	else
-		return *static_cast<QFile *>(0);
+		return *static_cast<TQFile *>(0);
 }
 
-QTextStream &KSaver::textStream()
+TQTextStream &KSaver::textStream()
 {
 	if(d->textStream)
 	{
@@ -150,7 +150,7 @@ QTextStream &KSaver::textStream()
 	}
 	else if(d->isLocal && d->file)
 	{
-		d->textStream = new QTextStream(d->file);
+		d->textStream = new TQTextStream(d->file);
 		return *d->textStream;
 	}
 	else if(!d->isLocal && d->tempFile)
@@ -160,11 +160,11 @@ QTextStream &KSaver::textStream()
 	}
 	else
 	{
-		return *static_cast<QTextStream *>(0);
+		return *static_cast<TQTextStream *>(0);
 	}
 }
 
-QDataStream &KSaver::dataStream()
+TQDataStream &KSaver::dataStream()
 {
 	if(d->dataStream)
 	{
@@ -172,7 +172,7 @@ QDataStream &KSaver::dataStream()
 	}
 	else if(d->isLocal && d->file)
 	{
-		d->dataStream = new QDataStream(d->file);
+		d->dataStream = new TQDataStream(d->file);
 		return *d->dataStream;
 	}
 	else if(!d->isLocal && d->tempFile)
@@ -182,6 +182,6 @@ QDataStream &KSaver::dataStream()
 	}
 	else
 	{
-		return *static_cast<QDataStream *>(0);
+		return *static_cast<TQDataStream *>(0);
 	}
 }

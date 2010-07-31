@@ -21,8 +21,8 @@
 #ifndef KROMAJIEDIT_H
 #define KROMAJIEDIT_H
 
-#include <qmap.h>
-#include <qcstring.h>
+#include <tqmap.h>
+#include <tqcstring.h>
 
 #include <klineedit.h>
 
@@ -35,21 +35,21 @@ class KRomajiEdit : public KLineEdit
 	Q_OBJECT
 	
 	public:
-	KRomajiEdit(QWidget *parent, const char *name);
+	KRomajiEdit(TQWidget *parent, const char *name);
 	~KRomajiEdit();
 
 	public slots:
 	void setKana(int);
 
 	protected:
-	void keyPressEvent(QKeyEvent *e);
-	QPopupMenu *createPopupMenu();
+	void keyPressEvent(TQKeyEvent *e);
+	TQPopupMenu *createPopupMenu();
 	
 	private:
-	QMap<QString, QString> hiragana;
-	QMap<QString, QString> katakana;
+	TQMap<TQString, TQString> hiragana;
+	TQMap<TQString, TQString> katakana;
 
-	QCString kana;
+	TQCString kana;
 };
 
 #endif

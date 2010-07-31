@@ -22,9 +22,9 @@
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <qtextcodec.h>
+#include <tqfile.h>
+#include <tqregexp.h>
+#include <tqtextcodec.h>
 #include "deinf.h"
 
 Deinf::Index::Index()
@@ -38,14 +38,14 @@ void Deinf::Index::load()
 		return;
 
 	KStandardDirs *dirs = KGlobal::dirs();
-	QString vconj = dirs->findResource("data", "kiten/vconj");
+	TQString vconj = dirs->findResource("data", "kiten/vconj");
 	if (vconj.isNull())
 	{
 		KMessageBox::error(0, i18n("Verb deinflection information not found, so verb deinflection cannot be used."));
 		return;
 	}
 
-	QFile f(vconj);
+	TQFile f(vconj);
 
 	if (!f.open(IO_ReadOnly))
 	{
@@ -53,24 +53,24 @@ void Deinf::Index::load()
 		return;
 	}
 
-	QTextStream t(&f);
-	t.setCodec(QTextCodec::codecForName("eucJP"));
+	TQTextStream t(&f);
+	t.setCodec(TQTextCodec::codecForName("eucJP"));
 
-	for(QString text = t.readLine(); !t.eof() && text.at(0) != '$'; text = t.readLine())
+	for(TQString text = t.readLine(); !t.eof() && text.at(0) != '$'; text = t.readLine())
 	{
 		if(text.at(0) != '#')
 		{
 			unsigned int number = text.left(2).stripWhiteSpace().toUInt();
-			QString name = text.right(text.length() - 2).stripWhiteSpace();
+			TQString name = text.right(text.length() - 2).stripWhiteSpace();
 
 			names[number] = name;
 		}
 	}
-	for(QString text = t.readLine(); !text.isEmpty(); text = t.readLine())
+	for(TQString text = t.readLine(); !text.isEmpty(); text = t.readLine())
 	{
 		if(text.at(0) != '#')
 		{
-			QStringList things(QStringList::split(QChar('\t'), text));
+			TQStringList things(TQStringList::split(TQChar('\t'), text));
 
 			Conjugation conj;
 			conj.ending = things.first();
@@ -87,24 +87,24 @@ void Deinf::Index::load()
 
 namespace
 {
-QStringList possibleConjugations(const QString &text)
+TQStringList possibleConjugations(const TQString &text)
 {
-	QStringList endings;
+	TQStringList endings;
 	for (unsigned i = 0; i < text.length(); ++i)
 		endings.append(text.right(i));
 	return endings;
 }
 }
 
-QStringList Deinf::Index::deinflect(const QString &text, QStringList &name)
+TQStringList Deinf::Index::deinflect(const TQString &text, TQStringList &name)
 {
 	load();
-	QStringList endings = possibleConjugations(text);
-	QStringList ret;
+	TQStringList endings = possibleConjugations(text);
+	TQStringList ret;
 
-	for (QValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
+	for (TQValueListIterator <Conjugation> it = list.begin(); it != list.end(); ++it)
 	{
-		QStringList matches(endings.grep(QRegExp(QString("^") + (*it).ending)));
+		TQStringList matches(endings.grep(TQRegExp(TQString("^") + (*it).ending)));
 
 		if (matches.size() > 0) // a match
 		{
@@ -112,8 +112,8 @@ QStringList Deinf::Index::deinflect(const QString &text, QStringList &name)
 
 			//kdDebug() << "match ending: " << (*it).ending << "; replace: " << (*it).replace << "; name: " << names[(*it).num] << endl;
 
-			QString tmp(text);
-			tmp.replace(QRegExp((*it).ending + "*", false, true), (*it).replace);
+			TQString tmp(text);
+			tmp.replace(TQRegExp((*it).ending + "*", false, true), (*it).replace);
 			ret.append(tmp);
 		}
 	}

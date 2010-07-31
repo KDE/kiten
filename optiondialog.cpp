@@ -21,34 +21,34 @@
 
 #include <kdebug.h>
 #include <kapplication.h>
-#include <qvgroupbox.h>
+#include <tqvgroupbox.h>
 #include <kfontdialog.h>
-#include <qtextcodec.h>
+#include <tqtextcodec.h>
 #include <klocale.h>
-#include <qcombobox.h>
+#include <tqcombobox.h>
 #include <kfiledialog.h>
 #include <kstandarddirs.h>
 #include <kurllabel.h>
 #include <krun.h>
 
-#include <qlayout.h>
-#include <qcheckbox.h>
-#include <qpushbutton.h>
+#include <tqlayout.h>
+#include <tqcheckbox.h>
+#include <tqpushbutton.h>
 
 #include "optiondialog.h"
 #include "configfont.h"
 #include "configlearn.h"
 #include "configsearching.h"
 
-ConfigureDialog::ConfigureDialog(QWidget *parent, const char *name) : KConfigDialog(parent, name, Config::self())
+ConfigureDialog::ConfigureDialog(TQWidget *parent, const char *name) : KConfigDialog(parent, name, Config::self())
 {
 	configDic = new ConfigDictionaries(0, "dictionaries_page");
-	connect(configDic, SIGNAL(widgetChanged()), this, SLOT(updateButtons()));
+	connect(configDic, TQT_SIGNAL(widgetChanged()), this, TQT_SLOT(updateButtons()));
 	addPage(configDic, i18n("Dictionaries"), "contents");
 	addPage(new ConfigSearching(0, "searching_page"), i18n("Searching"), "find");
 	addPage(new ConfigLearn(0, "learn_page"), i18n("Learn"), "pencil");
 	ConfigFont* configFont = new ConfigFont(0, "font_page");
-	configFont->kcfg_font->setSampleText(i18n("Result View Font")+QString::fromUtf8(" - いろはにほへと 漢字"));
+	configFont->kcfg_font->setSampleText(i18n("Result View Font")+TQString::fromUtf8(" - いろはにほへと 漢字"));
 	addPage(configFont, i18n("Font"), "fonts");
 }
 

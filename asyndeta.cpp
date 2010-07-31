@@ -23,7 +23,7 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-#include <qfile.h>
+#include <tqfile.h>
 
 #include "asyndeta.h"
 #include "dict.h"
@@ -62,23 +62,23 @@ void Asyndeta::readKitenConfiguration()
 	KStandardDirs *dirs = KGlobal::dirs();
 	KConfig config(dirs->findResource("config", "kitenrc"));
 
-	QString globaledict = dirs->findResource("data", "kiten/edict");
-	QString globalkanjidic = dirs->findResource("data", "kiten/kanjidic");
+	TQString globaledict = dirs->findResource("data", "kiten/edict");
+	TQString globalkanjidic = dirs->findResource("data", "kiten/kanjidic");
 
 	config.setGroup("edict");
 
 	bool edictUseGlobal = config.readBoolEntry("__useGlobal", true);
 
-	QStringList DictNameList = config.readListEntry("__NAMES");
-	QStringList DictList;
+	TQStringList DictNameList = config.readListEntry("__NAMES");
+	TQStringList DictList;
 
-	QStringList::Iterator it;
+	TQStringList::Iterator it;
 
 	for (it = DictNameList.begin(); it != DictNameList.end(); ++it)
 		DictList.append(config.readEntry(*it));
 
-	QString personalDict(personalDictionaryLocation());
-	if (QFile::exists(personalDict))
+	TQString personalDict(personalDictionaryLocation());
+	if (TQFile::exists(personalDict))
 	{
 		DictList.prepend(personalDict);
 		DictNameList.prepend(i18n("Personal"));
@@ -111,7 +111,7 @@ void Asyndeta::readKitenConfiguration()
 	index->setKanjiDictList(DictList, DictNameList);
 }
 
-QString Asyndeta::personalDictionaryLocation()
+TQString Asyndeta::personalDictionaryLocation()
 {
 	return KGlobal::dirs()->saveLocation("data", "kiten/dictionaries/", true).append("personal");
 }

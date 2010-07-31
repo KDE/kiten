@@ -29,19 +29,19 @@
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
 
-#include <qbuttongroup.h>
-#include <qcheckbox.h>
-#include <qfile.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qspinbox.h>
-#include <qtextcodec.h>
-#include <qtooltip.h>
+#include <tqbuttongroup.h>
+#include <tqcheckbox.h>
+#include <tqfile.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
+#include <tqspinbox.h>
+#include <tqtextcodec.h>
+#include <tqtooltip.h>
 
 #include "kitenconfig.h"
 #include "rad.h"
 
-Rad::Rad() : QObject()
+Rad::Rad() : TQObject()
 {
 	loaded = false;
 }
@@ -52,28 +52,28 @@ void Rad::load()
 		return;
 
 	KStandardDirs *dirs = KGlobal::dirs();
-	QString radkfile = dirs->findResource("data", "kiten/radkfile");
+	TQString radkfile = dirs->findResource("data", "kiten/radkfile");
 	if (radkfile.isNull())
 	{
 		KMessageBox::error(0, i18n("Kanji radical information file not installed, so radical searching cannot be used."));
 		return;
 	}
 
-	QFile f(radkfile);
+	TQFile f(radkfile);
 
 	if (!f.open(IO_ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Kanji radical information could not be loaded, so radical searching cannot be used."));
 	}
 
-	QTextStream t(&f);
-	t.setCodec(QTextCodec::codecForName("eucJP"));
+	TQTextStream t(&f);
+	t.setCodec(TQTextCodec::codecForName("eucJP"));
 	Radical cur;
 	while (!t.eof())
 	{
-		QString s = t.readLine();
+		TQString s = t.readLine();
 
-		QChar first = s.at(0);
+		TQChar first = s.at(0);
 		if (first == '#') // comment!
 		{
 			// nothing
@@ -86,7 +86,7 @@ void Rad::load()
 
 			//first entry is trim(last 4 chars).. <rad><space><strokes>
 			unsigned int strokes = s.right(2).toUInt();
-			QString radical = QString(s.at(2));
+			TQString radical = TQString(s.at(2));
 			cur = Radical(radical, strokes);
 		}
 		else // continuation
@@ -104,13 +104,13 @@ void Rad::load()
 	loaded = true;
 }
 
-QStringList Rad::radByStrokes(unsigned int strokes)
+TQStringList Rad::radByStrokes(unsigned int strokes)
 {
 	load();
 
-	QStringList ret;
+	TQStringList ret;
 	bool hadOne = false;
-	QValueListIterator<Radical> it = list.begin();
+	TQValueListIterator<Radical> it = list.begin();
 
 	do
 	{
@@ -129,49 +129,49 @@ QStringList Rad::radByStrokes(unsigned int strokes)
 	return ret;
 }
 
-QStringList Rad::kanjiByRad(const QString &text)
+TQStringList Rad::kanjiByRad(const TQString &text)
 {
 	//kdDebug() << "kanjiByRad, text is " << text << endl;
 	load();
-	QStringList ret;
+	TQStringList ret;
 
-	QValueListIterator<Radical> it;
+	TQValueListIterator<Radical> it;
 	for (it = list.begin(); it != list.end() && (*it).radical() != text; ++it)
 	{
 		//kdDebug() << "kanjiByRad, looping, radical is " << (*it).radical() << endl;
 	}
 
-	QString kanji = (*it).kanji();
+	TQString kanji = (*it).kanji();
 	for (unsigned i = 0; i < kanji.length(); ++i)
 	{
 		//kdDebug() << "kanjiByRad, i is " << i << endl;
-		ret.append(QString(kanji.at(i)));
+		ret.append(TQString(kanji.at(i)));
 	}
 
 	return ret;
 }
 
-QStringList Rad::kanjiByRad(const QStringList &list)
+TQStringList Rad::kanjiByRad(const TQStringList &list)
 {
 	//kdDebug() << "kanjiByRad (list version)\n";
 
-	QStringList ret;
-	QValueList<QStringList> lists;
+	TQStringList ret;
+	TQValueList<TQStringList> lists;
 
-	for (QStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
+	for (TQStringList::ConstIterator it = list.begin(); it != list.end(); ++it)
 	{
 		//kdDebug() << "loading radical " << *it << endl;
 		lists.append(kanjiByRad(*it));
 	}
 
-	QStringList first = lists.first();
+	TQStringList first = lists.first();
 	lists.pop_front();
 
-	for (QStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
+	for (TQStringList::Iterator kit = first.begin(); kit != first.end(); ++kit)
 	{
 		//kdDebug() << "kit is " << *kit << endl;
-		QValueList<bool> outcomes;
-		for (QValueList<QStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
+		TQValueList<bool> outcomes;
+		for (TQValueList<TQStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
 		{
 			//kdDebug() << "looping through lists\n";
 			outcomes.append((*it).contains(*kit) > 0);
@@ -192,21 +192,21 @@ QStringList Rad::kanjiByRad(const QStringList &list)
 	return ret;
 }
 
-Radical Rad::radByKanji(const QString &text)
+Radical Rad::radByKanji(const TQString &text)
 {
 	load();
-	QString ret;
+	TQString ret;
 
-	QValueListIterator<Radical> it;
+	TQValueListIterator<Radical> it;
 	for (it = list.end(); it != list.begin() && (*it).kanji().find(text) == -1; --it);
 
 	return (*it);
 }
 
-unsigned int Rad::strokesByRad(const QString &text)
+unsigned int Rad::strokesByRad(const TQString &text)
 {
 	load();
-	QValueListIterator<Radical> it;
+	TQValueListIterator<Radical> it;
 	for(it = list.begin(); it != list.end() && (*it).radical() != text; ++it);
 
 	return (*it).strokes();
@@ -218,15 +218,15 @@ Rad::~Rad()
 
 ///////////////////////////////////////////////
 
-RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(parent, name)
+RadWidget::RadWidget(Rad *_rad, TQWidget *parent, const char *name) : TQWidget(parent, name)
 {
 	hotlistNum = 3;
 
 	rad = _rad;
-	QHBoxLayout *hlayout = new QHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
-	QVBoxLayout *vlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	TQHBoxLayout *hlayout = new TQHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+	TQVBoxLayout *vlayout = new TQVBoxLayout(hlayout, KDialog::spacingHint());
 
-	hotlistGroup = new QButtonGroup(1, Horizontal, i18n("Hotlist"), this);
+	hotlistGroup = new TQButtonGroup(1, Horizontal, i18n("Hotlist"), this);
 	//hotlistGroup->setRadioButtonExclusive(true);
 	vlayout->addWidget(hotlistGroup);
 
@@ -244,56 +244,56 @@ RadWidget::RadWidget(Rad *_rad, QWidget *parent, const char *name) : QWidget(par
 
 		hotlistGroup->insert(new KPushButton(*hotlist.at(i), hotlistGroup), i);
 	}
-	connect(hotlistGroup, SIGNAL(clicked(int)), SLOT(hotlistClicked(int)));
+	connect(hotlistGroup, TQT_SIGNAL(clicked(int)), TQT_SLOT(hotlistClicked(int)));
 
-	QVBoxLayout *layout = new QVBoxLayout(vlayout, KDialog::spacingHint());
+	TQVBoxLayout *layout = new TQVBoxLayout(vlayout, KDialog::spacingHint());
 
-	totalStrokes = new QCheckBox(i18n("Search by total strokes"), this);
-	connect(totalStrokes, SIGNAL(clicked()), this, SLOT(totalClicked()));
+	totalStrokes = new TQCheckBox(i18n("Search by total strokes"), this);
+	connect(totalStrokes, TQT_SIGNAL(clicked()), this, TQT_SLOT(totalClicked()));
 	layout->addWidget(totalStrokes);
 
-	QHBoxLayout *strokesLayout = new QHBoxLayout(layout, KDialog::spacingHint());
-	totalSpin = new QSpinBox(1, 30, 1, this);
+	TQHBoxLayout *strokesLayout = new TQHBoxLayout(layout, KDialog::spacingHint());
+	totalSpin = new TQSpinBox(1, 30, 1, this);
 	strokesLayout->addWidget(totalSpin);
 	strokesLayout->addStretch();
-	totalErrLabel = new QLabel(i18n("+/-"), this);
+	totalErrLabel = new TQLabel(i18n("+/-"), this);
 	strokesLayout->addWidget(totalErrLabel);
-	totalErrSpin = new QSpinBox(0, 15, 1, this);
+	totalErrSpin = new TQSpinBox(0, 15, 1, this);
 	strokesLayout->addWidget(totalErrSpin);
 
 	ok = new KPushButton(i18n("&Look Up"), this);
 	ok->setEnabled(false);
-	connect(ok, SIGNAL(clicked()), SLOT(apply()));
+	connect(ok, TQT_SIGNAL(clicked()), TQT_SLOT(apply()));
 	layout->addWidget(ok);
 	cancel = new KPushButton( KStdGuiItem::cancel(), this );
 
-	connect(cancel, SIGNAL(clicked()), SLOT(close()));
+	connect(cancel, TQT_SIGNAL(clicked()), TQT_SLOT(close()));
 	layout->addWidget(cancel);
 
-	QVBoxLayout *middlevLayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	TQVBoxLayout *middlevLayout = new TQVBoxLayout(hlayout, KDialog::spacingHint());
 
-	strokesSpin = new QSpinBox(1, 17, 1, this);
-	QToolTip::add(strokesSpin, i18n("Show radicals having this number of strokes"));
+	strokesSpin = new TQSpinBox(1, 17, 1, this);
+	TQToolTip::add(strokesSpin, i18n("Show radicals having this number of strokes"));
 	middlevLayout->addWidget(strokesSpin);
 
 	List = new KListBox(this);
 	middlevLayout->addWidget(List);
-	connect(List, SIGNAL(executed(QListBoxItem *)), this, SLOT(executed(QListBoxItem *)));
-	connect(strokesSpin, SIGNAL(valueChanged(int)), this, SLOT(updateList(int)));
+	connect(List, TQT_SIGNAL(executed(TQListBoxItem *)), this, TQT_SLOT(executed(TQListBoxItem *)));
+	connect(strokesSpin, TQT_SIGNAL(valueChanged(int)), this, TQT_SLOT(updateList(int)));
 
-	QVBoxLayout *rightvlayout = new QVBoxLayout(hlayout, KDialog::spacingHint());
+	TQVBoxLayout *rightvlayout = new TQVBoxLayout(hlayout, KDialog::spacingHint());
 	selectedList = new KListBox(this);
 	rightvlayout->addWidget(selectedList);
-	connect(selectedList, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
+	connect(selectedList, TQT_SIGNAL(selectionChanged()), this, TQT_SLOT(selectionChanged()));
 
 	remove = new KPushButton(i18n("&Remove"), this);
 	rightvlayout->addWidget(remove);
-	connect(remove, SIGNAL(clicked()), this, SLOT(removeSelected()));
+	connect(remove, TQT_SIGNAL(clicked()), this, TQT_SLOT(removeSelected()));
 	remove->setEnabled(false);
 
 	clear = new KPushButton(KStdGuiItem::clear(), this);
 	rightvlayout->addWidget(clear);
-	connect(clear, SIGNAL(clicked()), this, SLOT(clearSelected()));
+	connect(clear, TQT_SIGNAL(clicked()), this, TQT_SLOT(clearSelected()));
 	clear->setEnabled(false);
 
 	setCaption(kapp->makeStdCaption(i18n("Radical Selector")));
@@ -322,7 +322,7 @@ void RadWidget::hotlistClicked(int num)
 	addToSelected(*hotlist.at(num));
 }
 
-void RadWidget::executed(QListBoxItem *item)
+void RadWidget::executed(TQListBoxItem *item)
 {
 	addToSelected(item->text());
 }
@@ -353,12 +353,12 @@ void RadWidget::numChanged()
 	clear->setEnabled(selectedList->count() > 0);
 }
 
-void RadWidget::addRadical(const QString &radical)
+void RadWidget::addRadical(const TQString &radical)
 {
 	addToSelected(radical);
 }
 
-void RadWidget::addToSelected(const QString &text)
+void RadWidget::addToSelected(const TQString &text)
 {
 	if (!text.isNull() && !selected.contains(text))
 	{
@@ -396,7 +396,7 @@ void RadWidget::apply()
 	config->setTotalStrokesErrorMargin(totalErrSpin->value());
 	config->setSearchByTotal(totalStrokes->isChecked());
 
-	for (QStringList::Iterator it = selected.begin(); it != selected.end(); ++it)
+	for (TQStringList::Iterator it = selected.begin(); it != selected.end(); ++it)
 	{
 		if (hotlist.find(*it) == hotlist.end())
 		{
@@ -421,13 +421,13 @@ void RadWidget::totalClicked()
 
 //////////////////////////////////////////////
 
-Radical::Radical(QString text, unsigned int strokes)
+Radical::Radical(TQString text, unsigned int strokes)
 {
 	_Radical = text;
 	Strokes = strokes;
 }
 
-void Radical::addKanji(const QString &text)
+void Radical::addKanji(const TQString &text)
 {
 	Kanji.append(text);
 }

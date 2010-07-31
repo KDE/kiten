@@ -22,7 +22,7 @@
 #ifndef LEARN_H
 #define LEARN_H
 
-#include <qlistview.h>
+#include <tqlistview.h>
 
 #include <kurl.h>
 
@@ -39,8 +39,8 @@ class QTabWidget;
 class LearnItem : public QListViewItem
 {
 public:
-	LearnItem(QListView *parent, QString label1, QString label2 = QString::null, QString label3 = QString::null, QString label4 = QString::null, QString label5 = QString::null, QString label6 = QString::null, QString label7 = QString::null, QString label8 = QString::null);
-	int compare(QListViewItem *item, int col, bool ascending) const;
+	LearnItem(TQListView *parent, TQString label1, TQString label2 = TQString::null, TQString label3 = TQString::null, TQString label4 = TQString::null, TQString label5 = TQString::null, TQString label6 = TQString::null, TQString label7 = TQString::null, TQString label8 = TQString::null);
+	int compare(TQListViewItem *item, int col, bool ascending) const;
 };
 
 class Learn : public KMainWindow
@@ -48,7 +48,7 @@ class Learn : public KMainWindow
 	Q_OBJECT
 	
 	public:
-	Learn(Dict::Index *, QWidget *parent = 0, const char *name = 0);
+	Learn(Dict::Index *, TQWidget *parent = 0, const char *name = 0);
 	~Learn();
 
 	bool closeWindow();
@@ -57,11 +57,11 @@ class Learn : public KMainWindow
 
 	signals:
 	void destroyed(Learn *);
-	void linkClicked(const QString &);
+	void linkClicked(const TQString &);
 	void configureLearn();
 
 	public slots:
-	void showKanji(QListViewItem *);
+	void showKanji(TQListViewItem *);
 	void updateQuizConfiguration();
 
 	protected:
@@ -81,7 +81,7 @@ class Learn : public KMainWindow
 	void add(Dict::Entry, bool noEmit = false);
 	void del();
 	void cheat();
-	void tabChanged(QWidget *);
+	void tabChanged(TQWidget *);
 	void itemSelectionChanged();
 	void save();
 	void saveAs();
@@ -107,13 +107,13 @@ class Learn : public KMainWindow
 	KURL filename;
 	bool warnClose();
 
-	QTabWidget *Tabs;
-	QSplitter *listTop;
-	QWidget *quizTop;
+	TQTabWidget *Tabs;
+	TQSplitter *listTop;
+	TQWidget *quizTop;
 
 	ResultView *View;
-	QValueList<Dict::Entry> list;
-	QValueListIterator<Dict::Entry> current;
+	TQValueList<Dict::Entry> list;
+	TQValueListIterator<Dict::Entry> current;
 
 	Dict::Index *index;
 
@@ -127,23 +127,23 @@ class Learn : public KMainWindow
 	// Quiz, an app to itself in a tabwidget :)
 
 	static const int numberOfAnswers;
-	QButtonGroup *answers;
-	QPushButton *qKanji;
+	TQButtonGroup *answers;
+	TQPushButton *qKanji;
 
-	QListViewItem *prevItem;
-	QListViewItem *curItem;
+	TQListViewItem *prevItem;
+	TQListViewItem *curItem;
 	// if noEmit == true, don't emit dirty
-	void addItem(QListViewItem *, bool noEmit = false);
+	void addItem(TQListViewItem *, bool noEmit = false);
 
 	void qupdate();
 
 	int seikai;
 	bool nogood;
-	QString shortenString(const QString &);
+	TQString shortenString(const TQString &);
 
 	// Creates a random meaning not on the lists and adds the meaning
 	// to the list.
-	QString randomMeaning(QStringList &oldMeanings);
+	TQString randomMeaning(TQStringList &oldMeanings);
 
 	KAction *forwardAct;
 	KAction *printAct;

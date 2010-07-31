@@ -24,9 +24,9 @@
 #include <kprocess.h>
 #include <kstandarddirs.h>
 
-#include <qfileinfo.h> 
-#include <qregexp.h>
-#include <qtextcodec.h>
+#include <tqfileinfo.h> 
+#include <tqregexp.h>
+#include <tqtextcodec.h>
 
 #include "dict.h"
 
@@ -37,9 +37,9 @@
 
 namespace
 {
-void msgerr(const QString &msg, const QString &dict = QString::null)
+void msgerr(const TQString &msg, const TQString &dict = TQString::null)
 {
-	QString output = msg;
+	TQString output = msg;
 	if (!dict.isNull())
 		output = msg.arg(dict);
 	KMessageBox::error(0, output);
@@ -48,7 +48,7 @@ void msgerr(const QString &msg, const QString &dict = QString::null)
 
 using namespace Dict;
 
-TextType Dict::textType(const QString &text)
+TextType Dict::textType(const TQString &text)
 {
 	ushort first = text.at(0).unicode();
 	
@@ -65,11 +65,11 @@ TextType Dict::textType(const QString &text)
 		return Text_Kanji;
 }
 
-File::File(QString path, QString n)
+File::File(TQString path, TQString n)
 	: myName(n)
 	, dictFile(path)
 	, dictPtr((const unsigned char *)MAP_FAILED)
-	, indexFile(KGlobal::dirs()->saveLocation("data", "kiten/xjdx/", true) + QFileInfo(path).baseName() + ".xjdx")
+	, indexFile(KGlobal::dirs()->saveLocation("data", "kiten/xjdx/", true) + TQFileInfo(path).baseName() + ".xjdx")
 	, indexPtr((const uint32_t *)MAP_FAILED)
 	, valid(false)
 {
@@ -86,7 +86,7 @@ File::File(QString path, QString n)
 		// remade
 
 		int dictionaryLength;
-		QFile dictionary(path);
+		TQFile dictionary(path);
 		dictionaryLength = dictionary.size();
 		dictionaryLength++;
 		//kdDebug() << "dictionaryLength = " << dictionaryLength << endl;
@@ -150,7 +150,7 @@ File::~File(void)
 	indexFile.close();
 }
 
-QString File::name(void)
+TQString File::name(void)
 {
 	return myName;
 }
@@ -190,7 +190,7 @@ unsigned char File::lookup(unsigned i, int offset)
 	return dictPtr[pos];
 }
 
-QCString File::lookup(unsigned i)
+TQCString File::lookup(unsigned i)
 {
 	uint32_t start = indexPtr[i] - 1;
 	uint32_t pos = start;
@@ -199,7 +199,7 @@ QCString File::lookup(unsigned i)
 	while(pos <= size && dictPtr[pos] != 0 && dictPtr[pos] != 0x0a)
 		++pos;
 	// put the word in the QCString
-	QCString retval((const char *)(dictPtr + start), pos - start);
+	TQCString retval((const char *)(dictPtr + start), pos - start);
 	// tack on a null
 	char null = 0;
 	retval.append(&null);
@@ -209,7 +209,7 @@ QCString File::lookup(unsigned i)
 
 // And last, Index itself is the API presented to the rest of Kiten
 Index::Index()
-	: QObject()
+	: TQObject()
 {
 	dictFiles.setAutoDelete(true);
 	kanjiDictFiles.setAutoDelete(true);
@@ -219,17 +219,17 @@ Index::~Index()
 {
 }
 
-void Index::setDictList(const QStringList &list, const QStringList &names)
+void Index::setDictList(const TQStringList &list, const TQStringList &names)
 {
 	loadDictList(dictFiles, list, names);
 }
 
-void Index::setKanjiDictList(const QStringList &list, const QStringList &names)
+void Index::setKanjiDictList(const TQStringList &list, const TQStringList &names)
 {
 	loadDictList(kanjiDictFiles, list, names);
 }
 
-void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, const QStringList &dictNameList)
+void Index::loadDictList(TQPtrList<File> &fileList, const TQStringList &dictList, const TQStringList &dictNameList)
 {
 	fileList.clear();
 
@@ -240,8 +240,8 @@ void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, 
 		return;
 	}
 
-	QStringList::ConstIterator it;
-	QStringList::ConstIterator dictIt;
+	TQStringList::ConstIterator it;
+	TQStringList::ConstIterator dictIt;
 	for (it = dictList.begin(), dictIt = dictNameList.begin(); it != dictList.end(); ++it, ++dictIt)
 	{
 		File *f = new File(*it, *dictIt);
@@ -253,13 +253,13 @@ void Index::loadDictList(QPtrList<File> &fileList, const QStringList &dictList, 
 	}
 }
 
-QStringList Index::doSearch(File &file, const QString &text)
+TQStringList Index::doSearch(File &file, const TQString &text)
 {
 	// Do a binary search to find an entry that matches text
-	QTextCodec &codec = *QTextCodec::codecForName("eucJP");
-	QCString eucString = codec.fromUnicode(text);
+	TQTextCodec &codec = *TQTextCodec::codecForName("eucJP");
+	TQCString eucString = codec.fromUnicode(text);
 
-	QString prevResult;
+	TQString prevResult;
 
 	Array<const uint32_t> index = file.index();
 	Array<const unsigned char> dict = file.dict();
@@ -279,7 +279,7 @@ QStringList Index::doSearch(File &file, const QString &text)
 			lo = cur + 1;
 	}
 	while(hi >= lo && comp != 0 && !(hi == 0 && lo == 0));
-	QStringList results;
+	TQStringList results;
 	// A match?
 	if (comp == 0)
 	{
@@ -296,7 +296,7 @@ QStringList Index::doSearch(File &file, const QString &text)
 			int i = 0;
 			while(file.lookup(cur, i - 1) != 0x0a) --i;
 
-			QByteArray bytes(0);
+			TQByteArray bytes(0);
 			while(file.lookup(cur, i) != 0x0a) // get to end of our line
 			{
 				const char eucchar = file.lookup(cur, i);
@@ -305,7 +305,7 @@ QStringList Index::doSearch(File &file, const QString &text)
 				++i;
 			}
 
-			QString result = codec.toUnicode(bytes) + QString("\n");
+			TQString result = codec.toUnicode(bytes) + TQString("\n");
 			if (prevResult != result)
 			{
 				results.append(result);
@@ -320,7 +320,7 @@ QStringList Index::doSearch(File &file, const QString &text)
 	return results;
 }
 
-SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common)
+SearchResult Index::scanResults(TQRegExp regexp, TQStringList results, bool common)
 {
 	unsigned int num = 0;
 	unsigned int fullNum = 0;
@@ -329,7 +329,7 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 	
 	//ret.results = results; //not here..
 	
-	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
+	for (TQStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
 	{
 		if ((*itr).left(5) == "DICT " || (*itr).left(8) == "HEADING ")
 		{
@@ -342,7 +342,7 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 		if (found >= 0)
 		{
 			++fullNum;
-			if ((*itr).find(QString("(P)")) >= 0 || !common)
+			if ((*itr).find(TQString("(P)")) >= 0 || !common)
 			{
 				// we append HERE, so we get the exact
 				// results we have in ret.list
@@ -360,12 +360,12 @@ SearchResult Index::scanResults(QRegExp regexp, QStringList results, bool common
 	return ret;
 }
 
-SearchResult Index::search(QRegExp regexp, const QString &text, bool common)
+SearchResult Index::search(TQRegExp regexp, const TQString &text, bool common)
 {
-	QStringList results;
-	for (QPtrListIterator<File> file(dictFiles); *file; ++file)
+	TQStringList results;
+	for (TQPtrListIterator<File> file(dictFiles); *file; ++file)
 	{
-		results.append(QString("DICT ") + (*file)->name());
+		results.append(TQString("DICT ") + (*file)->name());
 
 		results += doSearch(**file, text);
 	}
@@ -375,7 +375,7 @@ SearchResult Index::search(QRegExp regexp, const QString &text, bool common)
 	return res;
 }
 
-SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool common)
+SearchResult Index::scanKanjiResults(TQRegExp regexp, TQStringList results, bool common)
 {
 	unsigned int num = 0;
 	unsigned int fullNum = 0;
@@ -383,7 +383,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 	SearchResult ret;
 	ret.results = results;
 
-	for (QStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
+	for (TQStringList::Iterator itr = results.begin(); itr != results.end(); ++itr)
 	{
 		if ((*itr).left(5) == "DICT " || (*itr).left(8) == "HEADING ")
 		{
@@ -397,7 +397,7 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 		{
 			++fullNum;
 			// common entries have G[1-8] (jouyou)
-			QRegExp comregexp(jmyCount ? "G[1-9]" : "G[1-8]");
+			TQRegExp comregexp(jmyCount ? "G[1-9]" : "G[1-8]");
 			if ((*itr).find(comregexp) >= 0 || !common)
 			{
 				ret.list.append(kanjiParse(*itr));
@@ -412,12 +412,12 @@ SearchResult Index::scanKanjiResults(QRegExp regexp, QStringList results, bool c
 	return ret;
 }
 
-SearchResult Index::searchKanji(QRegExp regexp, const QString &text,  bool common)
+SearchResult Index::searchKanji(TQRegExp regexp, const TQString &text,  bool common)
 {
-	QStringList results;
-	for (QPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
+	TQStringList results;
+	for (TQPtrListIterator<File> file(kanjiDictFiles); *file; ++file)
 	{
-		results.append(QString("DICT ") + (*file)->name());
+		results.append(TQString("DICT ") + (*file)->name());
 
 		results += doSearch(**file, text);
 	}
@@ -427,7 +427,7 @@ SearchResult Index::searchKanji(QRegExp regexp, const QString &text,  bool commo
 	return res;
 }
 
-SearchResult Index::searchPrevious(QRegExp regexp, const QString &text, SearchResult list, bool common)
+SearchResult Index::searchPrevious(TQRegExp regexp, const TQString &text, SearchResult list, bool common)
 {
 	SearchResult res;
 
@@ -440,9 +440,9 @@ SearchResult Index::searchPrevious(QRegExp regexp, const QString &text, SearchRe
 	return res;
 }
 
-QRegExp Dict::Index::createRegExp(SearchType type, const QString &text, DictionaryType dictionaryType, bool caseSensitive)
+TQRegExp Dict::Index::createRegExp(SearchType type, const TQString &text, DictionaryType dictionaryType, bool caseSensitive)
 {
-	QString regExp;
+	TQString regExp;
 	switch (type)
 	{
 	case Search_Beginning:
@@ -487,10 +487,10 @@ QRegExp Dict::Index::createRegExp(SearchType type, const QString &text, Dictiona
 		regExp = "%1";
 	}
 
-	return QRegExp(regExp.arg(text), caseSensitive);
+	return TQRegExp(regExp.arg(text), caseSensitive);
 }
 
-int Index::stringCompare(File &file, int index, QCString str)
+int Index::stringCompare(File &file, int index, TQCString str)
 {
 	return eucStringCompare(file.lookup(index), str);
 }
@@ -530,7 +530,7 @@ bool Dict::isEUC(unsigned char c)
 	return (c & 0x80);
 }
 
-Entry Dict::parse(const QString &raw)
+Entry Dict::parse(const TQString &raw)
 {
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
@@ -538,17 +538,17 @@ Entry Dict::parse(const QString &raw)
 	if (raw.left(8) == "HEADING ")
 		return Entry(raw.right(length - 8), true);
 
-	QString reading;
-	QString kanji;
-	QStringList meanings;
-	QString curmeaning;
+	TQString reading;
+	TQString kanji;
+	TQStringList meanings;
+	TQString curmeaning;
 	bool firstmeaning = true;
-	QCString parsemode("kanji");
+	TQCString parsemode("kanji");
 
 	unsigned int i;
 	for (i = 0; i < length; i++)
 	{
-		QChar ichar(raw.at(i));
+		TQChar ichar(raw.at(i));
 
 		if (ichar == '[')
 		{
@@ -593,7 +593,7 @@ Entry Dict::parse(const QString &raw)
 	return (Entry(kanji, reading, meanings));
 }
 
-Entry Dict::kanjiParse(const QString &raw)
+Entry Dict::kanjiParse(const TQString &raw)
 {
 	unsigned int length = raw.length();
 	if (raw.left(5) == "DICT ")
@@ -601,26 +601,26 @@ Entry Dict::kanjiParse(const QString &raw)
 	if (raw.left(8) == "HEADING ")
 		return Entry(raw.right(length - 8), true);
 
-	QStringList readings;
-	QString kanji;
-	QStringList meanings;
-	QString curmeaning;
-	QString curreading;
+	TQStringList readings;
+	TQString kanji;
+	TQStringList meanings;
+	TQString curmeaning;
+	TQString curreading;
 
-	QString strfreq;
-	QString strgrade;
-	QString strstrokes;
-	QString strmiscount = "";
+	TQString strfreq;
+	TQString strgrade;
+	TQString strstrokes;
+	TQString strmiscount = "";
 
 	bool prevwasspace = true;
-	QChar detailname;
-	QCString parsemode("kanji");
+	TQChar detailname;
+	TQCString parsemode("kanji");
 
 	// if there are two S entries, second is common miscount
 	bool strokesset = false;
 
 	unsigned int i;
-	QChar ichar;
+	TQChar ichar;
 	for (i = 0; i < length; i++)
 	{
 		ichar = raw.at(i);
@@ -691,7 +691,7 @@ Entry Dict::kanjiParse(const QString &raw)
 		}
 		else if (parsemode == "misc" && prevwasspace)
 		{
-			if (QRegExp("[A-Za-z0-9]").search(QString(ichar)) >= 0)
+			if (TQRegExp("[A-Za-z0-9]").search(TQString(ichar)) >= 0)
 				   // is non-japanese?
 			{
 				detailname = ichar;
@@ -699,7 +699,7 @@ Entry Dict::kanjiParse(const QString &raw)
 			}
 			else
 			{
-				curreading = QString(ichar);
+				curreading = TQString(ichar);
 				parsemode = "reading";
 			}
 		}
@@ -708,10 +708,10 @@ Entry Dict::kanjiParse(const QString &raw)
 	return (Entry(kanji, readings, meanings, strgrade.toUInt(), strfreq.toUInt(), strstrokes.toUInt(), strmiscount.toUInt()));
 }
 
-QString Dict::prettyMeaning(QStringList Meanings)
+TQString Dict::prettyMeaning(TQStringList Meanings)
 {
-	QString meanings;
-	QStringList::Iterator it;
+	TQString meanings;
+	TQStringList::Iterator it;
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 		meanings.append((*it).stripWhiteSpace()).append("; ");
 
@@ -719,10 +719,10 @@ QString Dict::prettyMeaning(QStringList Meanings)
 	return meanings;
 }
 
-QString Dict::prettyKanjiReading(QStringList Readings)
+TQString Dict::prettyKanjiReading(TQStringList Readings)
 {
-	QStringList::Iterator it;
-	QString html;
+	TQStringList::Iterator it;
+	TQString html;
 
 	for (it = Readings.begin(); it != Readings.end(); ++it)
 	{
@@ -746,7 +746,7 @@ QString Dict::prettyKanjiReading(QStringList Readings)
 
 Dict::Entry Dict::firstEntry(Dict::SearchResult result)
 {
-	for (QValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
+	for (TQValueListIterator<Dict::Entry> it = result.list.begin(); it != result.list.end(); ++it)
 	{
 		if ((*it).dictName() == "__NOTSET" && (*it).header() == "__NOTSET")
 			return (*it);
@@ -755,22 +755,22 @@ Dict::Entry Dict::firstEntry(Dict::SearchResult result)
 	return Dict::Entry("__NOTHING");
 }
 
-QString Dict::firstEntryText(Dict::SearchResult result)
+TQString Dict::firstEntryText(Dict::SearchResult result)
 {
-	for (QStringList::Iterator it = result.results.begin(); it != result.results.end(); ++it)
+	for (TQStringList::Iterator it = result.results.begin(); it != result.results.end(); ++it)
 	{
 		if ((*it).left(5) != "DICT " && (*it).left(7) != "HEADER ")
 			return (*it);
 	}
 
-	return QString("NONE ");
+	return TQString("NONE ");
 }
 
 ///////////////////////////////////////////////////////////////
 
-Entry::Entry(const QString & kanji, const QString & reading, const QStringList &meanings)
-	: DictName(QString::fromLatin1("__NOTSET"))
-	, Header(QString::fromLatin1("__NOTSET"))
+Entry::Entry(const TQString & kanji, const TQString & reading, const TQStringList &meanings)
+	: DictName(TQString::fromLatin1("__NOTSET"))
+	, Header(TQString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)
 	, Kanji(kanji)
 	, KanaOnly(reading.isEmpty())
@@ -783,9 +783,9 @@ Entry::Entry(const QString & kanji, const QString & reading, const QStringList &
 {
 }
 
-Entry::Entry(const QString &kanji, QStringList &readings, QStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
-	: DictName(QString::fromLatin1("__NOTSET"))
-	, Header(QString::fromLatin1("__NOTSET"))
+Entry::Entry(const TQString &kanji, TQStringList &readings, TQStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
+	: DictName(TQString::fromLatin1("__NOTSET"))
+	, Header(TQString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)
 	, Kanji(kanji)
 	, KanaOnly(false)
@@ -798,27 +798,27 @@ Entry::Entry(const QString &kanji, QStringList &readings, QStringList &meanings,
 {
 }
 
-Entry::Entry(const QString &dictname)
+Entry::Entry(const TQString &dictname)
 	: KanaOnly(true)
 	, ExtendedKanjiInfo(false)
 {
 	DictName = dictname;
 }
 
-Entry::Entry(const QString &headername, bool)
-	: DictName(QString::fromLatin1("__NOTSET"))
+Entry::Entry(const TQString &headername, bool)
+	: DictName(TQString::fromLatin1("__NOTSET"))
 	, Header(headername)
 	, KanaOnly(true)
 	, ExtendedKanjiInfo(false)
 {
 }
 
-QString Entry::dictName()
+TQString Entry::dictName()
 {
 	return DictName;
 }
 
-QString Entry::header()
+TQString Entry::header()
 {
 	return Header;
 }
@@ -828,22 +828,22 @@ bool Entry::kanaOnly()
 	return KanaOnly;
 }
 
-QString Entry::kanji()
+TQString Entry::kanji()
 {
 	return Kanji;
 }
 
-QStringList Entry::readings()
+TQStringList Entry::readings()
 {
 	return Readings;
 }
 
-QString Entry::firstReading()
+TQString Entry::firstReading()
 {
 	return *Readings.at(0);
 }
 
-QStringList Entry::meanings()
+TQStringList Entry::meanings()
 {
 	return Meanings;
 }

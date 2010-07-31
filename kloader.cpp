@@ -43,12 +43,12 @@ public:
             delete dataStream;
         }
 	bool isLocal;
-	QString tempFile;
-	QFile *file;
+	TQString tempFile;
+	TQFile *file;
 	KURL url;
-	QString error;
-	QTextStream *textStream;
-	QDataStream *dataStream;
+	TQString error;
+	TQTextStream *textStream;
+	TQDataStream *dataStream;
 };
 
 KLoader::KLoader(const KURL &target)
@@ -59,7 +59,7 @@ KLoader::KLoader(const KURL &target)
 	if(d->url.protocol() == "file")
 	{
 		d->isLocal = true;
-		d->file = new QFile(d->url.path());
+		d->file = new TQFile(d->url.path());
 	}
 	else
 	{
@@ -91,7 +91,7 @@ bool KLoader::open(void)
 			return false;
 		}
 
-		d->file = new QFile(d->tempFile);
+		d->file = new TQFile(d->tempFile);
 		if(!d->file->open(IO_ReadOnly))
 		{
 			d->error = i18n("Could not read from %1.").arg(d->tempFile);
@@ -113,20 +113,20 @@ void KLoader::close(void)
 		KIO::NetAccess::removeTempFile(d->tempFile);
 }
 
-QString KLoader::error(void)
+TQString KLoader::error(void)
 {
 	return d->error;
 }
 
-QFile &KLoader::file(void)
+TQFile &KLoader::file(void)
 {
 	if(d->file)
 		return *d->file;
 	else
-		return *static_cast<QFile *>(0);
+		return *static_cast<TQFile *>(0);
 }
 
-QTextStream &KLoader::textStream()
+TQTextStream &KLoader::textStream()
 {
 	if(d->textStream)
 	{
@@ -134,16 +134,16 @@ QTextStream &KLoader::textStream()
 	}
 	else if(d->file)
 	{
-		d->textStream = new QTextStream(d->file);
+		d->textStream = new TQTextStream(d->file);
 		return *d->textStream;
 	}
 	else
 	{
-		return *static_cast<QTextStream *>(0);
+		return *static_cast<TQTextStream *>(0);
 	}
 }
 
-QDataStream &KLoader::dataStream()
+TQDataStream &KLoader::dataStream()
 {
 	if(d->dataStream)
 	{
@@ -151,11 +151,11 @@ QDataStream &KLoader::dataStream()
 	}
 	else if(d->file)
 	{
-		d->dataStream = new QDataStream(d->file);
+		d->dataStream = new TQDataStream(d->file);
 		return *d->dataStream;
 	}
 	else
 	{
-		return *static_cast<QDataStream *>(0);
+		return *static_cast<TQDataStream *>(0);
 	}
 }

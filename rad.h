@@ -22,7 +22,7 @@
 #ifndef RAD_H
 #define RAD_H
 
-#include <qstringlist.h>
+#include <tqstringlist.h>
 
 class Config;
 class QCheckBox;
@@ -36,18 +36,18 @@ class QButtonGroup;
 class KDE_EXPORT Radical
 {
 	public:
-	Radical(QString = QString::null, unsigned int = 0);
+	Radical(TQString = TQString::null, unsigned int = 0);
 
-	QString radical() { return _Radical; }
+	TQString radical() { return _Radical; }
 	unsigned int strokes() { return Strokes; }
-	QString kanji() { return Kanji; }
+	TQString kanji() { return Kanji; }
 
-	void addKanji(const QString &);
+	void addKanji(const TQString &);
 
 	private:
-	QString _Radical;
+	TQString _Radical;
 	unsigned int Strokes;
-	QString Kanji;
+	TQString Kanji;
 };
 
 class KDE_EXPORT Rad : public QObject
@@ -58,16 +58,16 @@ class KDE_EXPORT Rad : public QObject
 	Rad();
 	~Rad();
 
-	QStringList radByStrokes(unsigned int);
-	QStringList kanjiByRad(const QString &);
-	QStringList kanjiByRad(const QStringList &);
-	Radical radByKanji(const QString &);
-	unsigned int strokesByRad(const QString &);
+	TQStringList radByStrokes(unsigned int);
+	TQStringList kanjiByRad(const TQString &);
+	TQStringList kanjiByRad(const TQStringList &);
+	Radical radByKanji(const TQString &);
+	unsigned int strokesByRad(const TQString &);
 
 	private:
 	void load();
 
-	QValueList<Radical> list;
+	TQValueList<Radical> list;
 	bool loaded;
 };
 
@@ -76,15 +76,15 @@ class KDE_EXPORT RadWidget : public QWidget
 	Q_OBJECT
 
 	public:
-	RadWidget(Rad *, QWidget *parent = 0, const char *name = 0);
+	RadWidget(Rad *, TQWidget *parent = 0, const char *name = 0);
 	~RadWidget();
 
 	signals:
 	// if totalStrokes == 0, then don't search by total strokes
-	void set(const QStringList &radical, unsigned int totalStrokes, unsigned int totalStrokesErr);
+	void set(const TQStringList &radical, unsigned int totalStrokes, unsigned int totalStrokesErr);
 
 	public slots:
-	void addRadical(const QString &);
+	void addRadical(const TQString &);
 
 	private slots:
 	void updateList(int);
@@ -92,30 +92,30 @@ class KDE_EXPORT RadWidget : public QWidget
 	void totalClicked(void);
 	void selectionChanged();
 	void hotlistClicked(int);
-	void addToSelected(const QString &);
-	void executed(QListBoxItem *);
+	void addToSelected(const TQString &);
+	void executed(TQListBoxItem *);
 	void removeSelected();
 	void clearSelected();
 	
 	private:
-	QSpinBox *strokesSpin;
-	QSpinBox *totalSpin;
-	QSpinBox *totalErrSpin;
-	QLabel *totalErrLabel;
+	TQSpinBox *strokesSpin;
+	TQSpinBox *totalSpin;
+	TQSpinBox *totalErrSpin;
+	TQLabel *totalErrLabel;
 	KPushButton *ok;
 	KPushButton *cancel;
 	KPushButton *remove;
 	KPushButton *clear;
-	QButtonGroup *hotlistGroup;
-	QCheckBox *totalStrokes;
+	TQButtonGroup *hotlistGroup;
+	TQCheckBox *totalStrokes;
 	KListBox *List;
 	KListBox *selectedList;
-	QStringList selected;
+	TQStringList selected;
 
 	Rad *rad;
 
 	unsigned int hotlistNum;
-	QStringList hotlist;
+	TQStringList hotlist;
 
 	void numChanged();
 };

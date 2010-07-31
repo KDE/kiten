@@ -21,20 +21,20 @@
 #include <kdebug.h>
 #include <klistview.h>
 #include <kfiledialog.h>
-#include <qpushbutton.h>
-#include <qstringlist.h>
+#include <tqpushbutton.h>
+#include <tqstringlist.h>
 
 #include "configdictionaries.moc"
 
-ConfigDictionaries::ConfigDictionaries(QWidget *parent, const char* name, WFlags f) :
+ConfigDictionaries::ConfigDictionaries(TQWidget *parent, const char* name, WFlags f) :
 	ConfigDictionariesBase(parent, name, f)
 {
 	changed = false;
 	config = Config::self();
-	connect(delSelEdictButton, SIGNAL(clicked()), SLOT(slotDelSelEdict()));
-	connect(addEdictButton, SIGNAL(clicked()), SLOT(slotAddEdict()));
-	connect(delSelKanjidicButton, SIGNAL(clicked()), SLOT(slotDelSelKanjidic()));
-	connect(addKanjidicButton, SIGNAL(clicked()), SLOT(slotAddKanjidic()));
+	connect(delSelEdictButton, TQT_SIGNAL(clicked()), TQT_SLOT(slotDelSelEdict()));
+	connect(addEdictButton, TQT_SIGNAL(clicked()), TQT_SLOT(slotAddEdict()));
+	connect(delSelKanjidicButton, TQT_SIGNAL(clicked()), TQT_SLOT(slotDelSelKanjidic()));
+	connect(addKanjidicButton, TQT_SIGNAL(clicked()), TQT_SLOT(slotAddKanjidic()));
 }
 
 void ConfigDictionaries::updateWidgets()
@@ -74,10 +74,10 @@ void ConfigDictionaries::writeDictionaries()
 	changed = false;
 }
 
-void ConfigDictionaries::readDictionaryList(const QString& group)
+void ConfigDictionaries::readDictionaryList(const TQString& group)
 {
 	KListView* list;
-	QStringList names;
+	TQStringList names;
 	if (group == "edict")
 	{
 		list = edictList;
@@ -89,20 +89,20 @@ void ConfigDictionaries::readDictionaryList(const QString& group)
 		names = config->kanjidic__NAMES();
 	}
 
-	QStringList::Iterator it;
+	TQStringList::Iterator it;
 	for (it = names.begin(); it != names.end(); ++it)
 	{
-		QString name = group + "_" + *it;
+		TQString name = group + "_" + *it;
 		if (!config->findItem(name))
-			config->addItem(new KConfigSkeleton::ItemString(group, *it, *new QString()), name);
+			config->addItem(new KConfigSkeleton::ItemString(group, *it, *new TQString()), name);
 	}
 	config->readConfig();
 	list->clear();
 	for (it = names.begin(); it != names.end(); ++it)
-		(void) new QListViewItem(list, *it, config->findItem(group + "_" + *it)->property().asString());
+		(void) new TQListViewItem(list, *it, config->findItem(group + "_" + *it)->property().asString());
 }
 
-void ConfigDictionaries::writeDictionaryList(const QString& group)
+void ConfigDictionaries::writeDictionaryList(const TQString& group)
 {
 	KListView* list;
 	if (group == "edict")
@@ -110,17 +110,17 @@ void ConfigDictionaries::writeDictionaryList(const QString& group)
 	else //if (group == "kanjidic")
 		list = kanjidicList;
 	
-	QStringList names;
+	TQStringList names;
 
-	QListViewItemIterator it(list);
+	TQListViewItemIterator it(list);
 	for (; it.current(); ++it )
 	{
 		names.append(it.current()->text(0));
-		QString name = group + "_" + it.current()->text(0);
+		TQString name = group + "_" + it.current()->text(0);
 		KConfigSkeletonItem* item = config->findItem(name);
 		if (!item)
 		{
-			item = new KConfigSkeleton::ItemString(group, it.current()->text(0), *new QString());
+			item = new KConfigSkeleton::ItemString(group, it.current()->text(0), *new TQString());
 			config->addItem(item, name);
 		}
 		item->setProperty(it.current()->text(1));
@@ -140,18 +140,18 @@ void ConfigDictionaries::slotDelSelKanjidic() { delSel(kanjidicList); }
 
 void ConfigDictionaries::add(KListView* list)
 {
-	QListViewItem *item = list->firstChild();
-	QString filename = KFileDialog::getOpenFileName(item? QFileInfo(item->text(1)).dirPath(true).append("/") : QString::null);
-	QString name = QFileInfo(filename).fileName();
+	TQListViewItem *item = list->firstChild();
+	TQString filename = KFileDialog::getOpenFileName(item? TQFileInfo(item->text(1)).dirPath(true).append("/") : TQString::null);
+	TQString name = TQFileInfo(filename).fileName();
 
-	(void) new QListViewItem(list, name, filename);
+	(void) new TQListViewItem(list, name, filename);
 	changed = true;
 	emit widgetChanged();
 }
 
 void ConfigDictionaries::delSel(KListView* list)
 {
-	QListViewItem *file = list->selectedItem();
+	TQListViewItem *file = list->selectedItem();
 	if (!file)
 		return;
 

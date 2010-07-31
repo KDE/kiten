@@ -22,39 +22,39 @@
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <qfile.h>
-#include <qpopupmenu.h>
-#include <qtextcodec.h>
+#include <tqfile.h>
+#include <tqpopupmenu.h>
+#include <tqtextcodec.h>
 
 #include "kromajiedit.h"
 
-KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
+KRomajiEdit::KRomajiEdit(TQWidget *parent, const char *name)
 	: KLineEdit(parent, name)
 {
 	kana = "unset";
 
 	KStandardDirs *dirs = KGlobal::dirs();
-	QString romkana = dirs->findResource("data", "kiten/romkana.cnv");
+	TQString romkana = dirs->findResource("data", "kiten/romkana.cnv");
 	if (romkana.isNull())
 	{
 		KMessageBox::error(0, i18n("Romaji information file not installed, so Romaji conversion cannot be used."));
 		return;
 	}
 
-	QFile f(romkana);
+	TQFile f(romkana);
 	
 	if (!f.open(IO_ReadOnly))
 	{
 		KMessageBox::error(0, i18n("Romaji information could not be loaded, so Romaji conversion cannot be used."));
 	}
 
-	QTextStream t(&f);
-	t.setCodec(QTextCodec::codecForName("eucJP"));
+	TQTextStream t(&f);
+	t.setCodec(TQTextCodec::codecForName("eucJP"));
 	while (!t.eof())
 	{
-		QString s = t.readLine();
+		TQString s = t.readLine();
 
-		QChar first = s.at(0);
+		TQChar first = s.at(0);
 		if (first == '#') // comment!
 		{
 			// nothing
@@ -68,9 +68,9 @@ KRomajiEdit::KRomajiEdit(QWidget *parent, const char *name)
 		}
 		else // body
 		{
-			QStringList things(QStringList::split(QChar(' '), s));
-			QString thekana(things.first());
-			QString romaji(*things.at(1));
+			TQStringList things(TQStringList::split(TQChar(' '), s));
+			TQString thekana(things.first());
+			TQString romaji(*things.at(1));
 
 			if (kana == "hiragana")
 				hiragana[romaji] = thekana;
@@ -104,10 +104,10 @@ void KRomajiEdit::setKana(int _kana)
 }
 
 // TODO allow editing not only at end
-void KRomajiEdit::keyPressEvent(QKeyEvent *e)
+void KRomajiEdit::keyPressEvent(TQKeyEvent *e)
 {
 	bool shift = e->state() & ShiftButton;
-	QString ji = e->text();
+	TQString ji = e->text();
 
 	if (shift && e->key() == Key_Space) // switch hiragana/english
 	{
@@ -133,22 +133,22 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 
 	//kdDebug() << "--------------------\n";
 
-	QString curEng;
-	QString curKana;
-	QString _text = text();
+	TQString curEng;
+	TQString curKana;
+	TQString _text = text();
 
 	int i;
 	unsigned int len = _text.length();
 	//kdDebug() << "length = " << len << endl;
 	for (i = len - 1; i >= 0; i--)
 	{
-		QChar at = _text.at(i);
+		TQChar at = _text.at(i);
 
-		//kdDebug() << "at = " << QString(at) << endl;
+		//kdDebug() << "at = " << TQString(at) << endl;
 
 		if (at.row() == 0 && at != '.')
 		{
-			//kdDebug() << "prepending " << QString(at) << endl;
+			//kdDebug() << "prepending " << TQString(at) << endl;
 			curEng.prepend(at);
 		}
 		else
@@ -163,7 +163,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	ji = ji.lower();
 	//kdDebug() << "ji = " << ji << endl;
 
-	QString replace;
+	TQString replace;
 
 	//kdDebug () << "kana is " << kana << endl;
 	if (kana == "hiragana")
@@ -186,7 +186,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	else
 	{
 		//kdDebug() << "replace is empty\n";
-		QString farRight(ji.right(ji.length() - 1));
+		TQString farRight(ji.right(ji.length() - 1));
 		//kdDebug() << "ji = " << ji << endl;
 		//kdDebug() << "farRight = " << farRight << endl;
 
@@ -204,7 +204,7 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 		}
 
 		// test for hanging n
-		QString newkana;
+		TQString newkana;
 		if (kana == "hiragana")
 		{
 			newkana = hiragana[farRight];
@@ -253,9 +253,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
 	KLineEdit::keyPressEvent(e); // don't think we'll get here :)
 }
 
-QPopupMenu *KRomajiEdit::createPopupMenu()
+TQPopupMenu *KRomajiEdit::createPopupMenu()
 {
-    QPopupMenu *popup = KLineEdit::createPopupMenu();
+    TQPopupMenu *popup = KLineEdit::createPopupMenu();
     popup->insertSeparator();
     popup->insertItem(i18n("English"), 0);
     popup->insertItem(i18n("Kana"), 1);
@@ -265,7 +265,7 @@ QPopupMenu *KRomajiEdit::createPopupMenu()
     else if (kana == "hiragana")
 		popup->setItemChecked(1, true);
 
-    connect(popup, SIGNAL(activated(int)), SLOT(setKana(int)));
+    connect(popup, TQT_SIGNAL(activated(int)), TQT_SLOT(setKana(int)));
 
     emit aboutToShowContextMenu(popup);
     return popup;

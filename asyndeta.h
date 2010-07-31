@@ -42,7 +42,7 @@ public:
 	// and set the index to use them
 	void readKitenConfiguration();
 
-	static QString personalDictionaryLocation();
+	static TQString personalDictionaryLocation();
 
 protected:
 	static int refCount;

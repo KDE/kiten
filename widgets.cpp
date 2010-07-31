@@ -29,12 +29,12 @@
 #include <kprocess.h>
 #include <kstandarddirs.h>
 #include <kstatusbar.h>
-#include <qfileinfo.h>
-#include <qpaintdevicemetrics.h>
-#include <qpainter.h>
-#include <qregexp.h>
-#include <qsimplerichtext.h>
-#include <qtextcodec.h>
+#include <tqfileinfo.h>
+#include <tqpaintdevicemetrics.h>
+#include <tqpainter.h>
+#include <tqregexp.h>
+#include <tqsimplerichtext.h>
+#include <tqtextcodec.h>
 
 #include <cassert>
 
@@ -43,7 +43,7 @@
 #include "kromajiedit.h"
 #include "widgets.h"
 
-ResultView::ResultView(bool showLinks, QWidget *parent, const char *name)
+ResultView::ResultView(bool showLinks, TQWidget *parent, const char *name)
 	: KTextBrowser(parent, name)
 {
 	setReadOnly(true);
@@ -68,14 +68,14 @@ void ResultView::addResult(Dict::Entry result, bool common)
 		return;
 	}
 
-	QString html;
+	TQString html;
 	if (result.kanaOnly())
-		html = QString("<p><font size=\"+2\">%1</font>  ").arg(result.firstReading());
+		html = TQString("<p><font size=\"+2\">%1</font>  ").arg(result.firstReading());
 	else
-		html = QString("<p><font size=\"+2\">%1</font>: %2  ").arg(putchars(result.kanji())).arg(result.firstReading());
+		html = TQString("<p><font size=\"+2\">%1</font>: %2  ").arg(putchars(result.kanji())).arg(result.firstReading());
 
-	QStringList::Iterator it;
-	QStringList Meanings = result.meanings();
+	TQStringList::Iterator it;
+	TQStringList Meanings = result.meanings();
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 	{
 		if ((*it).find("(P)") >= 0)
@@ -84,7 +84,7 @@ void ResultView::addResult(Dict::Entry result, bool common)
 				continue;
 			else
 			{
-				html += QString("<strong>") + i18n("Common") + QString("</strong>   ");
+				html += TQString("<strong>") + i18n("Common") + TQString("</strong>   ");
 			}
 		}
 		else
@@ -112,8 +112,8 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 		return;
 	}
 
-	QString html;
-	html = QString("<p><font size=\"+3\">%1</font>: %2  ").arg(putchars(result.kanji()));
+	TQString html;
+	html = TQString("<p><font size=\"+3\">%1</font>: %2  ").arg(putchars(result.kanji()));
 
 	unsigned int freq = result.freq();
 	if (freq == 0) // does it have a frequency?
@@ -125,8 +125,8 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 
 	html += "<br />";
 
-	QStringList::Iterator it;
-	QStringList Readings = result.readings();
+	TQStringList::Iterator it;
+	TQStringList Readings = result.readings();
 	for (it = Readings.begin(); it != Readings.end(); ++it)
 	{
 		if ((*it) == "T1")
@@ -158,7 +158,7 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 
 	html += "<br />";
 
-	QStringList Meanings = result.meanings();
+	TQStringList Meanings = result.meanings();
 	for (it = Meanings.begin(); it != Meanings.end(); ++it)
 	{
 		html += (*it);
@@ -189,30 +189,30 @@ void ResultView::addKanjiResult(Dict::Entry result, bool common, Radical rad)
 		html.append(i18n(" Common Miscount: %1.").arg(result.miscount()));
 
 	if (!!rad.radical())
-		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(QString("<a href=\"__radical:%1\">%2</a>").arg(rad.radical()).arg(rad.radical())).arg(rad.strokes()));
+		html.append(i18n(" Largest radical: %1, with %2 strokes.").arg(TQString("<a href=\"__radical:%1\">%2</a>").arg(rad.radical()).arg(rad.radical())).arg(rad.strokes()));
 
 	html += "</p>";
 
 	append(html);
 }
 
-void ResultView::addHeader(const QString &header, unsigned int degree)
+void ResultView::addHeader(const TQString &header, unsigned int degree)
 {
-	append(QString("<h%1>%2</h%3>").arg(degree).arg(header).arg(degree));
+	append(TQString("<h%1>%2</h%3>").arg(degree).arg(header).arg(degree));
 }
 
-QString ResultView::putchars(const QString &text)
+TQString ResultView::putchars(const TQString &text)
 {
 	if (!links)
 		return text;
 
 	unsigned int len = text.length();
-	QString ret;
+	TQString ret;
 
 	for (unsigned i = 0; i < len; i++)
 	{
-		if (Dict::textType(QString(text.at(i))) == Dict::Text_Kanji)
-			ret.append(QString("<a href=\"%1\">%1</a>").arg(text.at(i)).arg(text.at(i)));
+		if (Dict::textType(TQString(text.at(i))) == Dict::Text_Kanji)
+			ret.append(TQString("<a href=\"%1\">%1</a>").arg(text.at(i)).arg(text.at(i)));
 		else
 			ret.append(text.at(i));
 	}
@@ -220,7 +220,7 @@ QString ResultView::putchars(const QString &text)
 	return ret;
 }
 
-void ResultView::append(const QString &text)
+void ResultView::append(const TQString &text)
 {
 	printText.append(text);
 }
@@ -237,27 +237,27 @@ void ResultView::flush()
 	ensureCursorVisible();
 }
 
-void ResultView::print(QString title)
+void ResultView::print(TQString title)
 {
 	KPrinter printer;
 	printer.setFullPage(true);
 	if (printer.setup(this, i18n("Print Japanese Reference")))
 	{
-		QPainter p(&printer);
-		QPaintDeviceMetrics metrics(p.device());
+		TQPainter p(&printer);
+		TQPaintDeviceMetrics metrics(p.device());
 		int dpix = metrics.logicalDpiX();
 		int dpiy = metrics.logicalDpiY();
 		const int margin = 72; // pt
 	
-		QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2, metrics.height() - margin * dpiy / margin * 2);
+		TQRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2, metrics.height() - margin * dpiy / margin * 2);
 	
-		QSimpleRichText richText(title.isNull()? printText : i18n("<h1>Search for \"%1\"</h1>").arg(title) + printText, font(), context(), styleSheet(), mimeSourceFactory(), body.height(), Qt::black, false);
+		TQSimpleRichText richText(title.isNull()? printText : i18n("<h1>Search for \"%1\"</h1>").arg(title) + printText, font(), context(), styleSheet(), mimeSourceFactory(), body.height(), Qt::black, false);
 		richText.setWidth(&p, body.width());
-		QRect view(body);
+		TQRect view(body);
 		int page = 1;
 
-		QColorGroup goodColorGroup = QColorGroup(colorGroup());
-		goodColorGroup.setColor(QColorGroup::Link, Qt::black);
+		TQColorGroup goodColorGroup = TQColorGroup(colorGroup());
+		goodColorGroup.setColor(TQColorGroup::Link, Qt::black);
 
 		do
 		{
@@ -265,10 +265,10 @@ void ResultView::print(QString title)
 			view.moveBy(0, body.height());
 			p.translate(0, -body.height());
 
-			QFont myFont(font());
+			TQFont myFont(font());
 			myFont.setPointSize(9);
 			p.setFont(myFont);
-			QString footer(QString("%1 - Kiten").arg(QString::number(page)));
+			TQString footer(TQString("%1 - Kiten").arg(TQString::number(page)));
 			p.drawText(view.right() - p.fontMetrics().width(footer), view.bottom() + p.fontMetrics().ascent() + 5, footer);
 
 
@@ -292,7 +292,7 @@ void ResultView::updateFont()
 /////////////////////////////////////////////////////
 // nice EDICT dictionary editor
 
-eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
+eEdit::eEdit(const TQString &_filename, TQWidget *parent, const char *name)
 	: KMainWindow(parent, name)
 	, filename(_filename)
 {
@@ -310,18 +310,18 @@ eEdit::eEdit(const QString &_filename, QWidget *parent, const char *name)
 	List->setRenameable(3);
 
 	List->setAllColumnsShowFocus(true);
-	List->setColumnWidthMode(0, QListView::Maximum);
-	List->setColumnWidthMode(1, QListView::Maximum);
-	List->setColumnWidthMode(2, QListView::Maximum);
-	List->setColumnWidthMode(3, QListView::Maximum);
+	List->setColumnWidthMode(0, TQListView::Maximum);
+	List->setColumnWidthMode(1, TQListView::Maximum);
+	List->setColumnWidthMode(2, TQListView::Maximum);
+	List->setColumnWidthMode(3, TQListView::Maximum);
 	List->setMultiSelection(true);
 	List->setDragEnabled(true);
 
-	saveAct = KStdAction::save(this, SLOT(save()), actionCollection());
-	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, SLOT(del()), actionCollection(), "del");
-	(void) new KAction(i18n("&Disable Dictionary"), 0, this, SLOT(disable()), actionCollection(), "disable");
-	addAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, SLOT(add()), actionCollection(), "add");
-	(void) KStdAction::close(this, SLOT(close()), actionCollection());
+	saveAct = KStdAction::save(this, TQT_SLOT(save()), actionCollection());
+	removeAct = new KAction(i18n("&Delete"), "edit_remove", CTRL + Key_X, this, TQT_SLOT(del()), actionCollection(), "del");
+	(void) new KAction(i18n("&Disable Dictionary"), 0, this, TQT_SLOT(disable()), actionCollection(), "disable");
+	addAct = new KAction(i18n("&Add"), "edit_add", CTRL + Key_A, this, TQT_SLOT(add()), actionCollection(), "add");
+	(void) KStdAction::close(this, TQT_SLOT(close()), actionCollection());
 
 	createGUI("eeditui.rc");
 	//closeAction->plug(toolBar());
@@ -341,14 +341,14 @@ void eEdit::add()
 		new KListViewItem(List);
 }
 
-void eEdit::openFile(const QString &file)
+void eEdit::openFile(const TQString &file)
 {
-	QFile f(file);
+	TQFile f(file);
 	if (!f.open(IO_ReadOnly))
 		return;
 
-	QTextStream t(&f);
-	QString s;
+	TQTextStream t(&f);
+	TQString s;
 
 	while (!t.eof())
 	{ 
@@ -356,42 +356,42 @@ void eEdit::openFile(const QString &file)
 		if (s.left(1) == "#" || s.isEmpty())
 			continue;
 		Dict::Entry entry = Dict::parse(s);
-		QString meanings = Dict::prettyMeaning(entry.meanings());
-		bool common = meanings.find(QString("(P)")) >= 0;
-		meanings.replace(QRegExp("; "), "/");
-		meanings.replace(QRegExp("/\\(P\\)"), "");
-		new QListViewItem(List, entry.kanji(), Dict::prettyKanjiReading(entry.readings()), meanings, common? i18n("yes") : i18n("no"));
+		TQString meanings = Dict::prettyMeaning(entry.meanings());
+		bool common = meanings.find(TQString("(P)")) >= 0;
+		meanings.replace(TQRegExp("; "), "/");
+		meanings.replace(TQRegExp("/\\(P\\)"), "");
+		new TQListViewItem(List, entry.kanji(), Dict::prettyKanjiReading(entry.readings()), meanings, common? i18n("yes") : i18n("no"));
 	}
 }
 
 void eEdit::save()
 {
-	QFile f(filename);
+	TQFile f(filename);
 	if (!f.open(IO_WriteOnly))
 		return;
-	QTextStream t(&f);
+	TQTextStream t(&f);
 
 	t << "# Generated by Kiten's EDICT editor" << endl << "# http://katzbrown.com/kiten" << endl << endl;
 	
-	QListViewItemIterator it(List);
+	TQListViewItemIterator it(List);
 	for (; it.current(); ++it)
 	{
-		QString kanji = it.current()->text(0);
-		QString reading = it.current()->text(1);
-		QString text = kanji.isEmpty()? reading : kanji;
+		TQString kanji = it.current()->text(0);
+		TQString reading = it.current()->text(1);
+		TQString text = kanji.isEmpty()? reading : kanji;
 
-		QString meanings = it.current()->text(2);
+		TQString meanings = it.current()->text(2);
 		if (meanings.right(1) != "/")
 			meanings.append("/");
 		if (meanings.left(1) != "/")
 			meanings.prepend("/");
 
-		QString commonString = it.current()->text(3).lower();
+		TQString commonString = it.current()->text(3).lower();
 		bool common = (commonString == "true" || commonString == "yes" || commonString == "1" || commonString == "common");
 
 		text.append(" ");
 		if (!kanji.isEmpty())
-			text.append(QString("[%1] ").arg(reading));
+			text.append(TQString("[%1] ").arg(reading));
 		text.append(meanings);
 
 		if (common)
@@ -404,7 +404,7 @@ void eEdit::save()
 
 	// find the index generator executable
 	KProcess proc;
-	proc << KStandardDirs::findExe("kitengen") << filename << KGlobal::dirs()->saveLocation("data", "kiten/xjdx/", true) + QFileInfo(filename).baseName() + ".xjdx";
+	proc << KStandardDirs::findExe("kitengen") << filename << KGlobal::dirs()->saveLocation("data", "kiten/xjdx/", true) + TQFileInfo(filename).baseName() + ".xjdx";
 	// TODO: put up a status dialog and event loop instead of blocking
 	proc.start(KProcess::Block, KProcess::NoCommunication);
 	
@@ -414,20 +414,20 @@ void eEdit::save()
 
 void eEdit::disable()
 {
-	int result = KMessageBox::warningYesNo(this, i18n("Disabling your personal dictionary will delete its contents.\n\n(You can however always create your dictionary again.)"), QString::null, i18n("Disable"), KStdGuiItem::cancel(), "DisableAsk", true);
+	int result = KMessageBox::warningYesNo(this, i18n("Disabling your personal dictionary will delete its contents.\n\n(You can however always create your dictionary again.)"), TQString::null, i18n("Disable"), KStdGuiItem::cancel(), "DisableAsk", true);
 	if (result == KMessageBox::No)
 		return;
 
-	QFile::remove(filename);
+	TQFile::remove(filename);
 	delete this;
 }
 
 void eEdit::del()
 {
-	QPtrList<QListViewItem> selected = List->selectedItems();
+	TQPtrList<TQListViewItem> selected = List->selectedItems();
 	assert(selected.count());
 
-	for(QPtrListIterator<QListViewItem> i(selected); *i; ++i)
+	for(TQPtrListIterator<TQListViewItem> i(selected); *i; ++i)
 		delete *i;
 
 	isMod = true;
@@ -436,7 +436,7 @@ void eEdit::del()
 /////////////////////////////////////////////////////
 // sorta taken from konqy
 
-EditAction::EditAction(const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name)
+EditAction::EditAction(const TQString& text, int accel, const TQObject *receiver, const char *member, TQObject* parent, const char* name)
     : KAction(text, accel, parent, name)
 {
 	m_receiver = receiver;
@@ -447,7 +447,7 @@ EditAction::~EditAction()
 {
 }
 
-int EditAction::plug( QWidget *w, int index )
+int EditAction::plug( TQWidget *w, int index )
 {
 	//  if ( !w->inherits( "KToolBar" ) )
 	//    return -1;
@@ -458,11 +458,11 @@ int EditAction::plug( QWidget *w, int index )
 
 	KRomajiEdit *comboBox = new KRomajiEdit(toolBar, "search edit");
 	toolBar->insertWidget( id, 70, comboBox, index );
-	connect( comboBox, SIGNAL( returnPressed()), m_receiver, m_member );
+	connect( comboBox, TQT_SIGNAL( returnPressed()), m_receiver, m_member );
 
 	addContainer(toolBar, id);
 
-	connect( toolBar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+	connect( toolBar, TQT_SIGNAL( destroyed() ), this, TQT_SLOT( slotDestroyed() ) );
 
 	toolBar->setItemAutoSized( id, true );
 
@@ -470,12 +470,12 @@ int EditAction::plug( QWidget *w, int index )
 
 	emit plugged();
 
-	//QWhatsThis::add( comboBox, whatsThis() );
+	//TQWhatsThis::add( comboBox, whatsThis() );
 
 	return containerCount() - 1;
 }
 
-void EditAction::unplug( QWidget *w )
+void EditAction::unplug( TQWidget *w )
 {
 //  if ( !w->inherits( "KToolBar" ) )
 //    return;
@@ -496,17 +496,17 @@ void EditAction::clear()
 	m_combo->setFocus();
 }
 
-void EditAction::insert(const QString &text)
+void EditAction::insert(const TQString &text)
 {
 	m_combo->insert(text);
 }
 
-void EditAction::setText(const QString &text)
+void EditAction::setText(const TQString &text)
 {
 	m_combo->setText(text);
 }
 
-QGuardedPtr<KLineEdit> EditAction::editor()
+TQGuardedPtr<KLineEdit> EditAction::editor()
 {
 	return m_combo;
 }

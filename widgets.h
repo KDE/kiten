@@ -21,7 +21,7 @@
 #ifndef KITEN_WIDGETS_H
 #define KITEN_WIDGETS_H
 
-#include <qguardedptr.h>
+#include <tqguardedptr.h>
 
 #include <kaction.h>
 #include <klineedit.h>
@@ -39,16 +39,16 @@ class KDE_EXPORT ResultView : public KTextBrowser
 	Q_OBJECT
 	
 	public:
-	ResultView(bool showLinks, QWidget *parent = 0, const char *name = 0);
+	ResultView(bool showLinks, TQWidget *parent = 0, const char *name = 0);
 
 	void addResult(Dict::Entry result, bool common = false);
 	void addKanjiResult(Dict::Entry, bool common = false, Radical = Radical());
 
-	void addHeader(const QString &, unsigned int degree = 3);
+	void addHeader(const TQString &, unsigned int degree = 3);
 
 	public slots:
-	void print(QString = QString::null);
-	void append(const QString &);
+	void print(TQString = TQString::null);
+	void append(const TQString &);
 	void flush();
 	void clear();
 	void setBasicMode(bool yes) { basicMode = yes; }
@@ -56,8 +56,8 @@ class KDE_EXPORT ResultView : public KTextBrowser
 	void updateFont();
 
 	private:
-	QString putchars(const QString &);
-	QString printText;
+	TQString putchars(const TQString &);
+	TQString printText;
 
 	bool links;
 	bool basicMode;
@@ -68,7 +68,7 @@ class KDE_EXPORT eEdit : public KMainWindow
 	Q_OBJECT
 	
 	public:
-	eEdit(const QString &, QWidget *parent = 0, const char *name = 0);
+	eEdit(const TQString &, TQWidget *parent = 0, const char *name = 0);
 	~eEdit();
 
 	private slots:
@@ -76,11 +76,11 @@ class KDE_EXPORT eEdit : public KMainWindow
 	void save();
 	void del();
 	void disable();
-	void openFile(const QString &);
+	void openFile(const TQString &);
 
 	private:
 	KListView *List;
-	QString filename;
+	TQString filename;
 	KStatusBar *StatusBar;
 	KAction *addAct;
 	KAction *removeAct;
@@ -92,20 +92,20 @@ class KDE_EXPORT EditAction : public KAction
 {
 	Q_OBJECT
 	public:
-	EditAction( const QString& text, int accel, const QObject *receiver, const char *member, QObject* parent, const char* name );
+	EditAction( const TQString& text, int accel, const TQObject *receiver, const char *member, TQObject* parent, const char* name );
 	virtual ~EditAction();
 
-	virtual int plug( QWidget *w, int index = -1 );
+	virtual int plug( TQWidget *w, int index = -1 );
 
-	virtual void unplug( QWidget *w );
+	virtual void unplug( TQWidget *w );
 
-	QString text() { return m_combo->text(); }
-	void setText(const QString &text);
+	TQString text() { return m_combo->text(); }
+	void setText(const TQString &text);
 
-	QGuardedPtr<KLineEdit> editor();
+	TQGuardedPtr<KLineEdit> editor();
 
 	public slots:
-	void insert(const QString &);
+	void insert(const TQString &);
 
 	// also sets focus to the lineedit widget
 	void clear();
@@ -114,8 +114,8 @@ class KDE_EXPORT EditAction : public KAction
 	void plugged();
 
 private:
-    QGuardedPtr<KLineEdit> m_combo;
-    const QObject *m_receiver;
+    TQGuardedPtr<KLineEdit> m_combo;
+    const TQObject *m_receiver;
     const char *m_member;
 };
 

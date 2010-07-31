@@ -23,7 +23,7 @@
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kmainwindow.h>
-#include <qsqlpropertymap.h>
+#include <tqsqlpropertymap.h>
 
 #include "kiten.h"
 
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
 	KApplication a;
 //	a.installKDEPropertyMap();
-//	QSqlPropertyMap *map = QSqlPropertyMap::defaultMap();
+//	TQSqlPropertyMap *map = TQSqlPropertyMap::defaultMap();
 //	map->insert("MyStringList", "value");
 
 	TopLevel *t = new TopLevel();

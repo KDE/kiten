@@ -24,7 +24,7 @@
 #ifndef KSAVER_H
 #define KSAVER_H
 
-#include <qfile.h>
+#include <tqfile.h>
 
 /**
  * KSaver provides a way to save files in the most efficient way for
@@ -35,7 +35,7 @@ class KSaver
 public:
 	/**
 	 * The constructor takes the url and decides the best way to save,
-	 * which will mean using something like KIO::NetAccess or QFile.
+	 * which will mean using something like KIO::NetAccess or TQFile.
 	 */
 	KSaver(const KURL &_target);
 
@@ -62,29 +62,29 @@ public:
 	 * If open or close returns false, there was an error, and error
 	 * returns what the error was, when available.
 	 */
-	QString error(void);
+	TQString error(void);
 
 	/**
-	 * file returns a QFile open for writing, which may be for a temporary
+	 * file returns a TQFile open for writing, which may be for a temporary
 	 * file on the local filesystem.
 	 *
 	 * If this is called before the file is opened, you will crash.
 	 */
-	QFile &file(void);
+	TQFile &file(void);
 
 	/**
 	 * You can use this to write out your data.
 	 *
 	 * If this is called before the file is opened, you will crash.
 	 */
-	QTextStream &textStream(void);
+	TQTextStream &textStream(void);
 
 	/**
 	 * You can use this to write out your data.
 	 *
 	 * If this is called before the file is opened, you will crash.
 	 */
-	QDataStream &dataStream(void);
+	TQDataStream &dataStream(void);
 private:
 	class KSaverPrivate;
 	KSaverPrivate *d;

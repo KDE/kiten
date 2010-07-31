@@ -43,7 +43,7 @@ class KDE_EXPORT TopLevel : public KMainWindow
 	Q_OBJECT
 
 public:
-	TopLevel(QWidget *parent = 0, const char *name = 0);
+	TopLevel(TQWidget *parent = 0, const char *name = 0);
     ~TopLevel();
 
 signals:
@@ -56,7 +56,7 @@ protected:
 
 private slots:
 	void search(bool inResults = false);
-	void ressearch(const QString&);
+	void ressearch(const TQString&);
 	void searchBeginning();
 	void searchAnywhere();
 	void resultSearch();
@@ -79,7 +79,7 @@ private slots:
 	void toggleCom();
 	void addToList();
 	RadWidget *radicalSearch();
-	void radSearch(const QStringList &, unsigned int, unsigned int);
+	void radSearch(const TQStringList &, unsigned int, unsigned int);
 
 	void print();
 
@@ -111,21 +111,21 @@ private:
 
 	KGlobalAccel *Accel;
 
-	void doSearch(const QString &text, QRegExp regexp);
-	void doSearchInResults(const QString &text, QRegExp regexp);
+	void doSearch(const TQString &text, TQRegExp regexp);
+	void doSearchInResults(const TQString &text, TQRegExp regexp);
 	void handleSearchResult(Dict::SearchResult);
-	QString filteredClipboardText();
-	QString clipBoardText();
+	TQString filteredClipboardText();
+	TQString clipBoardText();
 
 	ConfigureDialog *optionDialog;
 	Config* config;
 	void setResults(unsigned int, unsigned int);
 
-	QPtrList<Learn> learnList;
+	TQPtrList<Learn> learnList;
 
-	QRegExp searchItems();
-	QRegExp readingSearchItems(bool);
-	QRegExp kanjiSearchItems(bool = false);
+	TQRegExp searchItems();
+	TQRegExp readingSearchItems(bool);
+	TQRegExp kanjiSearchItems(bool = false);
 
 	EditAction *Edit;
 
@@ -134,13 +134,13 @@ private:
 
 	Dict::Entry toAddKanji;
 
-	QValueList<Dict::SearchResult> resultHistory;
-	QValueListIterator<Dict::SearchResult> currentResult;
+	TQValueList<Dict::SearchResult> resultHistory;
+	TQValueListIterator<Dict::SearchResult> currentResult;
 	int currentResultIndex;
 	void addHistory(Dict::SearchResult);
 	void enableHistoryButtons();
 
-	QString personalDict;
+	TQString personalDict;
 };
 
 #endif

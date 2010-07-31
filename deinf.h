@@ -21,16 +21,16 @@
 #ifndef DEFINF_H
 #define DEFINF_H
 
-#include <qmap.h>
-#include <qstringlist.h>
+#include <tqmap.h>
+#include <tqstringlist.h>
 
 namespace Deinf
 {
 
 struct Conjugation
 {
-	QString ending;
-	QString replace;
+	TQString ending;
+	TQString replace;
 	unsigned int num;
 };
 
@@ -39,12 +39,12 @@ class KDE_EXPORT Index
 	public:
 	Index();
 
-	QStringList deinflect(const QString &, QStringList &);
+	TQStringList deinflect(const TQString &, TQStringList &);
 
 	private:
 	void load();
-	QMap<unsigned int, QString> names;
-	QValueList<Conjugation> list;
+	TQMap<unsigned int, TQString> names;
+	TQValueList<Conjugation> list;
 	bool loaded;
 };
 
