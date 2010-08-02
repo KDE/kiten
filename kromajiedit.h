@@ -26,9 +26,9 @@
 
 #include <klineedit.h>
 
-class QKeyEvent;
-class QWidget;
-class QPopupMenu;
+class TQKeyEvent;
+class TQWidget;
+class TQPopupMenu;
 
 class KRomajiEdit : public KLineEdit
 {

@@ -25,13 +25,13 @@
 #include <tqstringlist.h>
 
 class Config;
-class QCheckBox;
-class QLabel;
-class QListBoxItem;
-class QSpinBox;
+class TQCheckBox;
+class TQLabel;
+class TQListBoxItem;
+class TQSpinBox;
 class KPushButton;
 class KListBox;
-class QButtonGroup;
+class TQButtonGroup;
 
 class KDE_EXPORT Radical
 {

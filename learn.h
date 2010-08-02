@@ -30,10 +30,10 @@
 
 class KAction;
 class KPushButton;
-class QButtonGroup;
-class QListViewItem;
-class QSplitter;
-class QTabWidget;
+class TQButtonGroup;
+class TQListViewItem;
+class TQSplitter;
+class TQTabWidget;
 
 // Item that sorts all columns numerically
 class LearnItem : public QListViewItem

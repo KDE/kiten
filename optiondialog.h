@@ -23,12 +23,12 @@
 #define OPTIONDIALOG_H
 
 class KListView;
-class QString;
+class TQString;
 class KFontChooser;
-class QLabel;
-class QPushButton;
-class QComboBox;
-class QCheckBox;
+class TQLabel;
+class TQPushButton;
+class TQComboBox;
+class TQCheckBox;
 class DictList;
 
 #include <kconfigdialog.h>
