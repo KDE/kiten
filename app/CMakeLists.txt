@@ -31,6 +31,6 @@ target_link_libraries(kiten_bin ${KDE4_KHTML_LIBS} kiten)
 install( TARGETS kiten_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############ install files #############
-install( FILES kiten.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( PROGRAMS kiten.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES kiten.kcfg DESTINATION ${KCFG_INSTALL_DIR} )
 install( FILES kitenui.rc DESTINATION ${DATA_INSTALL_DIR}/kiten )
