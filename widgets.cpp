@@ -256,7 +256,7 @@ void ResultView::print(TQString title)
 		TQRect view(body);
 		int page = 1;
 
-		TQColorGroup goodColorGroup = TQColorGroup(colorGroup());
+		TQColorGroup goodColorGroup = TQColorGroup(tqcolorGroup());
 		goodColorGroup.setColor(TQColorGroup::Link, Qt::black);
 
 		do
@@ -358,8 +358,8 @@ void eEdit::openFile(const TQString &file)
 		Dict::Entry entry = Dict::parse(s);
 		TQString meanings = Dict::prettyMeaning(entry.meanings());
 		bool common = meanings.find(TQString("(P)")) >= 0;
-		meanings.replace(TQRegExp("; "), "/");
-		meanings.replace(TQRegExp("/\\(P\\)"), "");
+		meanings.tqreplace(TQRegExp("; "), "/");
+		meanings.tqreplace(TQRegExp("/\\(P\\)"), "");
 		new TQListViewItem(List, entry.kanji(), Dict::prettyKanjiReading(entry.readings()), meanings, common? i18n("yes") : i18n("no"));
 	}
 }
@@ -482,7 +482,7 @@ void EditAction::unplug( TQWidget *w )
 
 	KToolBar *toolBar = (KToolBar *)w;
 
-	int idx = findContainer( w );
+	int idx = tqfindContainer( w );
 
 	toolBar->removeItem( itemId( idx ) );
 

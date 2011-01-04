@@ -257,7 +257,7 @@ void TopLevel::handleSearchResult(Dict::SearchResult results)
 
 			addAction->setEnabled(true);
 
-			_ResultView->append(TQString("<p>%1</p>").arg(i18n("HTML Entity: %1").arg(TQString("&amp;#x%1;").arg(TQString::number(toAddKanji.kanji().at(0).unicode(), 16))))); // show html entity
+			_ResultView->append(TQString("<p>%1</p>").arg(i18n("HTML Entity: %1").arg(TQString("&amp;#x%1;").arg(TQString::number(toAddKanji.kanji().at(0).tqunicode(), 16))))); // show html entity
 
 			// now show some compounds in which this kanji appears
 			TQString kanji = toAddKanji.kanji();
@@ -396,7 +396,7 @@ void TopLevel::search(bool inResults)
 				TQStringList::Iterator nit = names.begin();
 				for (TQStringList::Iterator it = res.begin(); it != res.end(); ++it, ++nit)
 				{
-					if (done.contains(*it) > 0)
+					if (done.tqcontains(*it) > 0)
 						continue;
 
 					//kdDebug() << "currently on deinflection " << *it << endl;
@@ -711,8 +711,8 @@ TQRegExp TopLevel::searchItems()
 	if (text.isEmpty())
 		return TQRegExp(); //empty
 
-	unsigned int contains = text.contains(TQRegExp("[A-Za-z0-9_:]"));
-	if (Config::wholeWord() && contains == text.length())
+	unsigned int tqcontains = text.tqcontains(TQRegExp("[A-Za-z0-9_:]"));
+	if (Config::wholeWord() && tqcontains == text.length())
 		regexp = "\\W%1\\W";
 	else
 		regexp = "%1";

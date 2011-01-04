@@ -4,7 +4,7 @@
     <property name="name">
         <cstring>ConfigLearn</cstring>
     </property>
-    <property name="geometry">
+    <property name="tqgeometry">
         <rect>
             <x>0</x>
             <y>0</y>
@@ -21,7 +21,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout12</cstring>
+                <cstring>tqlayout12</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -45,7 +45,7 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>20</width>
                             <height>40</height>
@@ -65,7 +65,7 @@
                         </property>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>layout13</cstring>
+                                <cstring>tqlayout13</cstring>
                             </property>
                             <vbox>
                                 <property name="name">
@@ -141,7 +141,7 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>20</width>
                             <height>40</height>
@@ -157,5 +157,5 @@
     <tabstop>kcfg_QuizOn</tabstop>
     <tabstop>kcfg_GuessOn</tabstop>
 </tabstops>
-<layoutdefaults spacing="6" margin="11"/>
+<tqlayoutdefaults spacing="6" margin="11"/>
 </UI>

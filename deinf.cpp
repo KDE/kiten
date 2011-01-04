@@ -74,7 +74,7 @@ void Deinf::Index::load()
 
 			Conjugation conj;
 			conj.ending = things.first();
-			conj.replace = (*things.at(1));
+			conj.tqreplace = (*things.at(1));
 			conj.num = things.last().toUInt();
 
 			list.append(conj);
@@ -110,10 +110,10 @@ TQStringList Deinf::Index::deinflect(const TQString &text, TQStringList &name)
 		{
 			name.append(names[(*it).num]);
 
-			//kdDebug() << "match ending: " << (*it).ending << "; replace: " << (*it).replace << "; name: " << names[(*it).num] << endl;
+			//kdDebug() << "match ending: " << (*it).ending << "; tqreplace: " << (*it).tqreplace << "; name: " << names[(*it).num] << endl;
 
 			TQString tmp(text);
-			tmp.replace(TQRegExp((*it).ending + "*", false, true), (*it).replace);
+			tmp.tqreplace(TQRegExp((*it).ending + "*", false, true), (*it).tqreplace);
 			ret.append(tmp);
 		}
 	}

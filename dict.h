@@ -89,7 +89,7 @@ public:
 	int dictLength(void);
 	int indexLength(void);
 
-	// replacement for exceptions thrown in the constructor
+	// tqreplacement for exceptions thrown in the constructor
 	bool isValid(void);
 
 	unsigned char lookup(unsigned i, int offset);
