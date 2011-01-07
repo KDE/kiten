@@ -4,7 +4,7 @@
     <property name="name">
         <cstring>ConfigFont</cstring>
     </property>
-    <property name="tqgeometry">
+    <property name="geometry">
         <rect>
             <x>0</x>
             <y>0</y>
@@ -26,7 +26,7 @@
         </widget>
     </hbox>
 </widget>
-<tqlayoutdefaults spacing="6" margin="11"/>
+<layoutdefaults spacing="6" margin="11"/>
 <includehints>
     <includehint>kfontdialog.h</includehint>
 </includehints>

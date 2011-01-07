@@ -50,7 +50,7 @@ using namespace Dict;
 
 TextType Dict::textType(const TQString &text)
 {
-	ushort first = text.at(0).tqunicode();
+	ushort first = text.at(0).unicode();
 	
 	if (first < 0x3000)
 		return Text_Latin;
@@ -769,8 +769,8 @@ TQString Dict::firstEntryText(Dict::SearchResult result)
 ///////////////////////////////////////////////////////////////
 
 Entry::Entry(const TQString & kanji, const TQString & reading, const TQStringList &meanings)
-	: DictName(TQString::tqfromLatin1("__NOTSET"))
-	, Header(TQString::tqfromLatin1("__NOTSET"))
+	: DictName(TQString::fromLatin1("__NOTSET"))
+	, Header(TQString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)
 	, Kanji(kanji)
 	, KanaOnly(reading.isEmpty())
@@ -784,8 +784,8 @@ Entry::Entry(const TQString & kanji, const TQString & reading, const TQStringLis
 }
 
 Entry::Entry(const TQString &kanji, TQStringList &readings, TQStringList &meanings, unsigned int grade, unsigned int freq, unsigned int strokes, unsigned int miscount)
-	: DictName(TQString::tqfromLatin1("__NOTSET"))
-	, Header(TQString::tqfromLatin1("__NOTSET"))
+	: DictName(TQString::fromLatin1("__NOTSET"))
+	, Header(TQString::fromLatin1("__NOTSET"))
 	, Meanings(meanings)
 	, Kanji(kanji)
 	, KanaOnly(false)
@@ -806,7 +806,7 @@ Entry::Entry(const TQString &dictname)
 }
 
 Entry::Entry(const TQString &headername, bool)
-	: DictName(TQString::tqfromLatin1("__NOTSET"))
+	: DictName(TQString::fromLatin1("__NOTSET"))
 	, Header(headername)
 	, KanaOnly(true)
 	, ExtendedKanjiInfo(false)

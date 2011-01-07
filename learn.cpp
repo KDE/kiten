@@ -138,12 +138,12 @@ Learn::Learn(Dict::Index *parentDict, TQWidget *parent, const char *name)
 	TQVBoxLayout *quizLayout = new TQVBoxLayout(quizTop, KDialog::marginHint(), KDialog::spacingHint());
 
 	quizLayout->addStretch();
-	TQHBoxLayout *htqlayout = new TQHBoxLayout(quizLayout);
+	TQHBoxLayout *hlayout = new TQHBoxLayout(quizLayout);
 	qKanji = new TQPushButton(quizTop);
 	connect(qKanji, TQT_SIGNAL(clicked()), this, TQT_SLOT(qKanjiClicked()));
-	htqlayout->addStretch();
-	htqlayout->addWidget(qKanji);
-	htqlayout->addStretch();
+	hlayout->addStretch();
+	hlayout->addWidget(qKanji);
+	hlayout->addStretch();
 	quizLayout->addStretch();
 
 	answers = new TQButtonGroup(1, Horizontal, quizTop);
@@ -473,8 +473,8 @@ void Learn::add(Dict::Entry toAdd, bool noEmit)
 {
 	// Remove peripheral readings: This is a study mode, not a reference mode
 	TQRegExp inNames (",\\s*[A-Za-z ]+:.*");
-	TQString readings = Dict::prettyKanjiReading(toAdd.readings()).tqreplace(inNames, "");
-	TQString meanings = shortenString(Dict::prettyMeaning(toAdd.meanings()).tqreplace(inNames, ""));
+	TQString readings = Dict::prettyKanjiReading(toAdd.readings()).replace(inNames, "");
+	TQString meanings = shortenString(Dict::prettyMeaning(toAdd.meanings()).replace(inNames, ""));
 	TQString kanji = toAdd.kanji();
 
 	// here's a dirty rotten cheat (well, not really)
@@ -730,7 +730,7 @@ TQString Learn::randomMeaning(TQStringList &oldMeanings)
 		}
 		//kdDebug() << "curMeaning: " << curItem->text(guessOn) << endl;
 	}
-	while (oldMeanings.tqcontains(meaning) || meaning == curItem->text(guessOn));
+	while (oldMeanings.contains(meaning) || meaning == curItem->text(guessOn));
 
 	oldMeanings.append(meaning);
 	meaning = shortenString(meaning);

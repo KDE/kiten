@@ -30,7 +30,7 @@ namespace Deinf
 struct Conjugation
 {
 	TQString ending;
-	TQString tqreplace;
+	TQString replace;
 	unsigned int num;
 };
 

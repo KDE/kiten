@@ -163,21 +163,21 @@ void KRomajiEdit::keyPressEvent(TQKeyEvent *e)
 	ji = ji.lower();
 	//kdDebug() << "ji = " << ji << endl;
 
-	TQString tqreplace;
+	TQString replace;
 
 	//kdDebug () << "kana is " << kana << endl;
 	if (kana == "hiragana")
-		tqreplace = hiragana[ji];
+		replace = hiragana[ji];
 	else if (kana == "katakana")
-		tqreplace = katakana[ji];
+		replace = katakana[ji];
 
-	//kdDebug() << "tqreplace = " << tqreplace << endl;
+	//kdDebug() << "replace = " << replace << endl;
 
-	if (!!tqreplace) // if (tqreplace has something in it)
+	if (!!replace) // if (replace has something in it)
 	{
-		//kdDebug() << "tqreplace isn't empty\n";
+		//kdDebug() << "replace isn't empty\n";
 
-		setText(curKana + tqreplace);
+		setText(curKana + replace);
 
 		if (kana == "katakana")
 			kana = "hiragana";
@@ -185,7 +185,7 @@ void KRomajiEdit::keyPressEvent(TQKeyEvent *e)
 	}
 	else
 	{
-		//kdDebug() << "tqreplace is empty\n";
+		//kdDebug() << "replace is empty\n";
 		TQString farRight(ji.right(ji.length() - 1));
 		//kdDebug() << "ji = " << ji << endl;
 		//kdDebug() << "farRight = " << farRight << endl;

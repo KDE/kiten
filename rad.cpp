@@ -174,11 +174,11 @@ TQStringList Rad::kanjiByRad(const TQStringList &list)
 		for (TQValueList<TQStringList>::Iterator it = lists.begin(); it != lists.end(); ++it)
 		{
 			//kdDebug() << "looping through lists\n";
-			outcomes.append((*it).tqcontains(*kit) > 0);
+			outcomes.append((*it).contains(*kit) > 0);
 		}
 
-		const bool tqcontainsBool = false;
-		if ((outcomes.tqcontains(tqcontainsBool) < 1))
+		const bool containsBool = false;
+		if ((outcomes.contains(containsBool) < 1))
 		{
 			//kdDebug() << "appending " << *kit << endl;
 			ret.append(*kit);
@@ -223,12 +223,12 @@ RadWidget::RadWidget(Rad *_rad, TQWidget *parent, const char *name) : TQWidget(p
 	hotlistNum = 3;
 
 	rad = _rad;
-	TQHBoxLayout *htqlayout = new TQHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
-	TQVBoxLayout *vtqlayout = new TQVBoxLayout(htqlayout, KDialog::spacingHint());
+	TQHBoxLayout *hlayout = new TQHBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+	TQVBoxLayout *vlayout = new TQVBoxLayout(hlayout, KDialog::spacingHint());
 
 	hotlistGroup = new TQButtonGroup(1, Horizontal, i18n("Hotlist"), this);
 	//hotlistGroup->setRadioButtonExclusive(true);
-	vtqlayout->addWidget(hotlistGroup);
+	vlayout->addWidget(hotlistGroup);
 
 	Config* config = Config::self();
 
@@ -246,13 +246,13 @@ RadWidget::RadWidget(Rad *_rad, TQWidget *parent, const char *name) : TQWidget(p
 	}
 	connect(hotlistGroup, TQT_SIGNAL(clicked(int)), TQT_SLOT(hotlistClicked(int)));
 
-	TQVBoxLayout *tqlayout = new TQVBoxLayout(vtqlayout, KDialog::spacingHint());
+	TQVBoxLayout *layout = new TQVBoxLayout(vlayout, KDialog::spacingHint());
 
 	totalStrokes = new TQCheckBox(i18n("Search by total strokes"), this);
 	connect(totalStrokes, TQT_SIGNAL(clicked()), this, TQT_SLOT(totalClicked()));
-	tqlayout->addWidget(totalStrokes);
+	layout->addWidget(totalStrokes);
 
-	TQHBoxLayout *strokesLayout = new TQHBoxLayout(tqlayout, KDialog::spacingHint());
+	TQHBoxLayout *strokesLayout = new TQHBoxLayout(layout, KDialog::spacingHint());
 	totalSpin = new TQSpinBox(1, 30, 1, this);
 	strokesLayout->addWidget(totalSpin);
 	strokesLayout->addStretch();
@@ -264,13 +264,13 @@ RadWidget::RadWidget(Rad *_rad, TQWidget *parent, const char *name) : TQWidget(p
 	ok = new KPushButton(i18n("&Look Up"), this);
 	ok->setEnabled(false);
 	connect(ok, TQT_SIGNAL(clicked()), TQT_SLOT(apply()));
-	tqlayout->addWidget(ok);
+	layout->addWidget(ok);
 	cancel = new KPushButton( KStdGuiItem::cancel(), this );
 
 	connect(cancel, TQT_SIGNAL(clicked()), TQT_SLOT(close()));
-	tqlayout->addWidget(cancel);
+	layout->addWidget(cancel);
 
-	TQVBoxLayout *middlevLayout = new TQVBoxLayout(htqlayout, KDialog::spacingHint());
+	TQVBoxLayout *middlevLayout = new TQVBoxLayout(hlayout, KDialog::spacingHint());
 
 	strokesSpin = new TQSpinBox(1, 17, 1, this);
 	TQToolTip::add(strokesSpin, i18n("Show radicals having this number of strokes"));
@@ -281,18 +281,18 @@ RadWidget::RadWidget(Rad *_rad, TQWidget *parent, const char *name) : TQWidget(p
 	connect(List, TQT_SIGNAL(executed(TQListBoxItem *)), this, TQT_SLOT(executed(TQListBoxItem *)));
 	connect(strokesSpin, TQT_SIGNAL(valueChanged(int)), this, TQT_SLOT(updateList(int)));
 
-	TQVBoxLayout *rightvtqlayout = new TQVBoxLayout(htqlayout, KDialog::spacingHint());
+	TQVBoxLayout *rightvlayout = new TQVBoxLayout(hlayout, KDialog::spacingHint());
 	selectedList = new KListBox(this);
-	rightvtqlayout->addWidget(selectedList);
+	rightvlayout->addWidget(selectedList);
 	connect(selectedList, TQT_SIGNAL(selectionChanged()), this, TQT_SLOT(selectionChanged()));
 
 	remove = new KPushButton(i18n("&Remove"), this);
-	rightvtqlayout->addWidget(remove);
+	rightvlayout->addWidget(remove);
 	connect(remove, TQT_SIGNAL(clicked()), this, TQT_SLOT(removeSelected()));
 	remove->setEnabled(false);
 
 	clear = new KPushButton(KStdGuiItem::clear(), this);
-	rightvtqlayout->addWidget(clear);
+	rightvlayout->addWidget(clear);
 	connect(clear, TQT_SIGNAL(clicked()), this, TQT_SLOT(clearSelected()));
 	clear->setEnabled(false);
 
@@ -360,7 +360,7 @@ void RadWidget::addRadical(const TQString &radical)
 
 void RadWidget::addToSelected(const TQString &text)
 {
-	if (!text.isNull() && !selected.tqcontains(text))
+	if (!text.isNull() && !selected.contains(text))
 	{
 		selectedList->insertItem(text);
 		selected.append(text);
