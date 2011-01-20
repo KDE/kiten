@@ -85,6 +85,9 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	//Connect our clear button
    connect( clear_button, SIGNAL( clicked() ), this, SLOT(clearSearch()));
 
+    // copy text from copied_line (QLineEdit) to clipboard
+    connect(copy_button, SIGNAL(clicked()), this, SLOT(toClipboard()));
+
 	loadSettings();
 }
 
@@ -116,6 +119,18 @@ radselectView::kanjiClicked(QListWidgetItem *item) {
 
 void
 radselectView::kanjiDoubleClicked(QListWidgetItem *item) {
+    QString str = copied_line->text();
+    int pos = copied_line->cursorPosition();
+    str.insert(pos, item->text());
+    copied_line->setText(str);
+    copied_line->setCursorPosition(pos + 1);
+}
+
+void
+radselectView::toClipboard() {
+    QClipboard *cb = QApplication::clipboard();
+    cb->setText(copied_line->text(), QClipboard::Clipboard);
+    cb->setText(copied_line->text(), QClipboard::Selection);
 }
 
 void

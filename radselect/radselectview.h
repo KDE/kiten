@@ -58,6 +58,7 @@ private slots:
 	void kanjiClicked(QListWidgetItem *);	//Result is clicked
 	void kanjiDoubleClicked(QListWidgetItem *); //Result is double-clicked
 	void listPossibleKanji(const QList<Kanji>&); //Sets the list of visible Kanji
+	void toClipboard(); // copy text from lineedit to clipboard
 
 private:
 	radicalFile	*radicalInfo;
