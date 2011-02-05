@@ -1,6 +1,14 @@
 #Name the project
 project(kiten)
 
+# Check for cmake, same as minimum for KDE 4.0.0
+cmake_minimum_required( VERSION 2.4.5 )
+
+# Check for KDE 4
+find_package( KDE4 REQUIRED )
+include( KDE4Defaults )
+include_directories( ${KDE4_INCLUDES} )
+
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
