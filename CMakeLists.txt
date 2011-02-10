@@ -9,11 +9,6 @@ find_package( KDE4 REQUIRED )
 include( KDE4Defaults )
 include_directories( ${KDE4_INCLUDES} )
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
-
-include_directories (${CMAKE_SOURCE_DIR} ${KDE4_INCLUDES} ${QT4_INCLUDES})
-
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
