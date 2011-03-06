@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _RADICALFILE_H_
-#define _RADICALFILE_H_
+#ifndef RADICALFILE_H
+#define RADICALFILE_H
 
 #include <QtCore/QString>
 #include <QtCore/QHash>

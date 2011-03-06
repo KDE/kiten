@@ -61,8 +61,8 @@ radselectView::radselectView(QWidget *parent) : QWidget(parent)
 	radical_box->setWidgetResizable(true);
 
 	//Configure the stroke selectors
-	strokes_low->setSpecialValueText(i18n("Min"));
-	strokes_high->setSpecialValueText(i18n("Max"));
+	strokes_low->setSpecialValueText(i18nc("Minimum number of strokes for a kanji","Min"));
+	strokes_high->setSpecialValueText(i18nc("Maximum number of strokes for a kanji","Max"));
 
    //== Now we connect all our signals ==
 	//Connect our radical grid to our adding method
@@ -105,7 +105,7 @@ radselectView::loadSettings() {
 
 void
 radselectView::kanjiClicked(QListWidgetItem *item) {
-	QString allText = i18nc("@item:inlist all matches should be found", "(ALL");
+	QString allText = i18nc("@item:inlist all matches should be found", "(ALL)");
 	QString finalText;
 	if(item->text() == allText) {
 		foreach(QListWidgetItem *listItem,

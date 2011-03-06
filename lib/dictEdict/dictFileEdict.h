@@ -19,8 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef KITEN_DICTFILEEDICT_H_
-#define KITEN_DICTFILEEDICT_H_
+#ifndef KITEN_DICTFILEEDICT_H
+#define KITEN_DICTFILEEDICT_H
 
 #include <config-kiten.h>
 

@@ -17,11 +17,11 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _RADSELECTVIEW_H_
-#define _RADSELECTVIEW_H_
+#ifndef RADSELECTVIEW_H
+#define RADSELECTVIEW_H
 
 //generated from the uic from radical_selector.ui (defines Ui::radical_selector)
-#include "ui_radical_selector.h" 
+#include "ui_radical_selector.h"
 
 #include <QtGui/QWidget>
 #include <QtCore/QList>

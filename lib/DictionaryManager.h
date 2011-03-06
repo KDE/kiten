@@ -16,8 +16,8 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef KITEN_DICTIONARYMANAGER_H_
-#define KITEN_DICTIONARYMANAGER_H_
+#ifndef KITEN_DICTIONARYMANAGER_H
+#define KITEN_DICTIONARYMANAGER_H
 
 #include "libkitenexport.h"
 

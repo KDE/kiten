@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _RADICALBUTTON_H_
-#define _RADICALBUTTON_H_
+#ifndef RADICALBUTTON_H
+#define RADICALBUTTON_H
 
 #include <QtCore/QString>
 #include <QtGui/QPushButton>

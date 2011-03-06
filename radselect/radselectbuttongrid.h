@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _RADSELECTBUTTONGRID_H_
-#define _RADSELECTBUTTONGRID_H_
+#ifndef RADSELECTBUTTONGRID_H
+#define RADSELECTBUTTONGRID_H
 
 #include <QtCore/QString>
 #include <QtCore/QSet>

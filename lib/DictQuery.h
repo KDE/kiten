@@ -307,8 +307,7 @@ private:
 class invalidQueryException {
 	public:
 		invalidQueryException(QString x) {val=x;}
-		invalidQueryException(QString m="Invalid Query String",QString x)
-	{val=x;msg=m;}
+		invalidQueryException(QString m="Invalid Query String",QString x) {val=x;msg=m;}
 		QString value() {return val;}
 		QString message() {return msg;}
 	protected:

@@ -20,8 +20,8 @@
  USA
 **/
 
-#ifndef _ENTRYLISTVIEW_H_
-#define _ENTRYLISTVIEW_H_
+#ifndef ENTRYLISTVIEW_H
+#define ENTRYLISTVIEW_H
 
 #include <QTableView>
 #include <QModelIndex>

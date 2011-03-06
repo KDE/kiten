@@ -17,8 +17,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef _RADSELECT_H_
-#define _RADSELECT_H_
+#ifndef RADSELECT_H
+#define RADSELECT_H
 
 //QT and kdelibs
 #include <kxmlguiwindow.h>
