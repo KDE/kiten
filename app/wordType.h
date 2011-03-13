@@ -1,8 +1,8 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-           (C) 2006  Joseph Kerian <jkerian@gmail.com>
-			  (C) 2006  Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,13 +30,10 @@
 
 class /* NO_EXPORT */ WordType : public KComboBox
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
-		WordType(QWidget *parent);
-
-
-	private:
+  public:
+    WordType( QWidget *parent );
 };
 
 #endif

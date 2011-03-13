@@ -1,9 +1,9 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-		(C) 2005 Paul Temple <paul.temple@gmx.net>
-		(C) 2006 Joseph Kerian <jkerian@gmail.com>
-		(C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,96 +30,100 @@
 #define WORDRATIO 0.2
 #define READINGRATIO 0.2
 
-EntryListView::EntryListView(QWidget *)
+EntryListView::EntryListView( QWidget* )
 {
-	horizontalHeader()->setStretchLastSection(true);
+  horizontalHeader()->setStretchLastSection( true );
 }
 
-
-void EntryListModel::setEntryList( const EntryList &ilist)
+void EntryListModel::setEntryList( const EntryList &ilist )
 {
-	this->list = ilist;
-	emit layoutChanged();
+  this->list = ilist;
+  emit layoutChanged();
 }
 
-void EntryListView::resizeEvent(QResizeEvent *event)
+void EntryListView::resizeEvent( QResizeEvent *event )
 {
-	QHeaderView *header = horizontalHeader();
-	header->resizeSection(0, float(width()) * WORDRATIO);
-	header->resizeSection(1, float(width()) * READINGRATIO);
+  QHeaderView *header = horizontalHeader();
+  header->resizeSection( 0, float( width() ) * WORDRATIO );
+  header->resizeSection( 1, float( width() ) * READINGRATIO );
 }
 
-EntryListModel::EntryListModel(const EntryList &list)
-	: list(list)
+EntryListModel::EntryListModel( const EntryList &list )
+: list(list)
 {
 
 }
 
 Qt::ItemFlags EntryListModel::flags ( const QModelIndex & index ) const
 {
-	return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+  return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
 bool EntryListModel::setData ( const QModelIndex & index, const QVariant & value, int role )
 {
-	if (role == Qt::EditRole)
-	{
-		const QString& separator = list[index.row()]->outputListDelimiter;
-		switch (index.column())
-		{
-			case 0:
-				list[index.row()]->Word = value.toString();
-				break;
-			case 1:
-				list[index.row()]->Readings = value.toString().split(separator);
-				break;
-			case 2:
-				list[index.row()]->Meanings = value.toString().split(separator);
-				break;
+  if ( role == Qt::EditRole )
+  {
+    const QString& separator = list[ index.row() ]->outputListDelimiter;
 
-		}
-	}
-	return false;
+    switch ( index.column() )
+    {
+      case 0:
+        list[ index.row() ]->Word = value.toString();
+        break;
+      case 1:
+        list[ index.row() ]->Readings = value.toString().split( separator );
+        break;
+      case 2:
+        list[ index.row() ]->Meanings = value.toString().split( separator );
+        break;
+    }
+  }
+
+  return false;
 }
 
 void EntryListView::setEmptyModel( void )
 {
-	//TODO: implement me
+  //TODO: implement me
 }
 
 int EntryListModel::rowCount( const QModelIndex & parent ) const
 {
-	return list.size();
+  return list.size();
 }
 
 int EntryListModel::columnCount( const QModelIndex & parent ) const
 {
-	return 3;
+  return 3;
 }
 
 QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
 {
-	//kDebug() << "Retrieving data at line" << index.row();
-	switch (role)
-	{
-		/* DisplayRole and EditRole have the same output */
-		case Qt::DisplayRole:
-		case Qt::EditRole:
-			switch (index.column())
-			{
-				case 0:
-					return list.at(index.row())->getWord();
-					break;
-				case 1:
-					return list.at(index.row())->getReadings();
-					break;
-				case 2:
-					return list.at(index.row())->getMeanings();
-					break;
-			}
-			break;
-	}
-	return QVariant();
+  //kDebug() << "Retrieving data at line" << index.row();
+  switch (role)
+  {
+    /* DisplayRole and EditRole have the same output */
+    case Qt::DisplayRole:
+    case Qt::EditRole:
+    {
+      switch ( index.column() )
+      {
+        case 0:
+          return list.at( index.row() )->getWord();
+          break;
+        case 1:
+          return list.at( index.row() )->getReadings();
+          break;
+        case 2:
+          return list.at( index.row() )->getMeanings();
+          break;
+      }
+
+      break;
+    }
+  }
+
+  return QVariant();
 }
 
 

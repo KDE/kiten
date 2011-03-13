@@ -1,8 +1,8 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
- 		(C) 2006 Joseph Kerian <jkerian@gmail.com>
-		(C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -33,42 +33,36 @@ class EntryListModel;
 
 class EntryListView : public QTableView
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
+  public:
+    EntryListView(QWidget *parent = NULL);
 
-		EntryListView(QWidget *parent = NULL);
+  public slots:
+    void setEmptyModel( void );
 
-	public slots:
-		void setEmptyModel( void );
-
-	protected:
-		virtual void resizeEvent(QResizeEvent *event);
-
-	private:
-
+  protected:
+    virtual void resizeEvent(QResizeEvent *event);
 };
 
 class EntryListModel : public QAbstractTableModel
 {
+  Q_OBJECT
 
-	Q_OBJECT
+  public:
+    EntryListModel( const EntryList &list );
 
-	public:
-		EntryListModel(const EntryList &list);
+    void setEntryList( const EntryList &list );
+    EntryList entryList() const { return list; }
 
-		void setEntryList( const EntryList &list );
-		EntryList entryList() const { return list; }
+    int rowCount( const QModelIndex & parent = QModelIndex() ) const;
+    int columnCount( const QModelIndex & parent = QModelIndex() ) const;
+    QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags ( const QModelIndex & index ) const;
+    bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
 
-		int rowCount(const QModelIndex & parent = QModelIndex()) const;
-		int columnCount(const QModelIndex & parent = QModelIndex()) const;
-		QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-		Qt::ItemFlags flags ( const QModelIndex & index ) const;
-		bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-
-	private:
-		EntryList list;
-
+  private:
+    EntryList list;
 };
 
-#endif /* ifndef _ENTRYLISTVIEW_H_ */
+#endif /* ifndef ENTRYLISTVIEW_H */

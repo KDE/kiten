@@ -1,8 +1,8 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-	        (C) 2005 Paul Temple <paul.temple@gmx.net>
-			  (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -49,108 +49,133 @@
 #include "DictionaryManager.h"
 
 
-ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config )
-	: KConfigDialog(parent, "Settings", config)
+ConfigureDialog::ConfigureDialog( QWidget *parent, KitenConfigSkeleton *config )
+: KConfigDialog( parent, "Settings", config )
 {
-	//TODO: Figure out why these pages are unmanaged... is this needed?
-	addPage(makeDictionaryFileSelectionPage(NULL,config),i18n("Dictionaries"),"help-contents");
+  //TODO: Figure out why these pages are unmanaged... is this needed?
+  addPage(  makeDictionaryFileSelectionPage( NULL, config )
+          , i18n( "Dictionaries" )
+          , "help-contents" );
 
-	QWidget *widget;
-	widget = new QWidget();
-	Ui::ConfigSearching cs;
-	cs.setupUi(widget);
-	addPage(widget, i18n("Searching"), "edit-find");
+  QWidget *widget;
+  widget = new QWidget();
+  Ui::ConfigSearching cs;
+  cs.setupUi( widget );
+  addPage( widget, i18n( "Searching" ), "edit-find" );
 
-	widget = new QWidget();
-	Ui::ConfigLearn cl; cl.setupUi(widget);
-	addPage(widget, i18n("Learn"), "draw-freehand");
+  widget = new QWidget();
+  Ui::ConfigLearn cl; cl.setupUi( widget );
+  addPage( widget, i18n( "Learn" ), "draw-freehand" );
 
-	widget = new QWidget();
-	Ui::ConfigFont cf;
-	cf.setupUi(widget);
-	addPage(widget, i18n("Font"), "preferences-desktop-font");
+  widget = new QWidget();
+  Ui::ConfigFont cf;
+  cf.setupUi( widget );
+  addPage( widget, i18n( "Font" ), "preferences-desktop-font" );
 
-	addPage(makeDictionaryPreferencesPage(NULL,config),i18nc("@title:group the settings for the dictionary display", "Display"),"format-indent-more");
+  addPage(  makeDictionaryPreferencesPage( NULL, config )
+          , i18nc( "@title:group the settings for the dictionary display", "Display" )
+          , "format-indent-more" );
+  addPage(  makeSortingPage( NULL, config )
+          , i18n( "Results Sorting" )
+          , "format-indent-more" );
 
-	addPage(makeSortingPage(NULL,config),i18n("Results Sorting"), "format-indent-more");
-        setHelp(QString(),"kiten");
-	connect(this,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(settingsChanged()));
+  setHelp( QString(),"kiten" );
+
+  connect( this, SIGNAL( settingsChanged( const QString& ) ),
+           this, SIGNAL( settingsChanged() ) );
 }
 
 ConfigureDialog::~ConfigureDialog()
 {
 }
 
-QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent,
-		KitenConfigSkeleton *config) {
+QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(  QWidget *parent
+                                                          , KitenConfigSkeleton *config )
+{
+  KTabWidget *tabWidget = new KTabWidget( parent );
 
-	KTabWidget *tabWidget = new KTabWidget(parent);
+  foreach( const QString &dict, config->dictionary_list() )
+  {
+    QWidget *newTab = new ConfigDictionarySelector( dict, tabWidget, config );
+    if( newTab )
+    {
+      connect( newTab, SIGNAL( widgetChanged() ),
+                 this, SIGNAL( widgetModified() ) );
+      connect(   this, SIGNAL( SIG_updateWidgets() ),
+               newTab,   SLOT( updateWidgets() ) );
+      connect(   this, SIGNAL( SIG_updateWidgetsDefault() ),
+               newTab,   SLOT( updateWidgetsDefault() ) );
+      connect(   this, SIGNAL( SIG_updateSettings() ),
+               newTab,   SLOT( updateSettings() ) );
+      tabWidget->addTab( newTab, dict );
+    }
+  }
 
-	foreach( const QString &dict, config->dictionary_list() ) {
-		QWidget *newTab = new ConfigDictionarySelector(dict,tabWidget,config);
-		if(newTab) {
-			connect(newTab, SIGNAL(widgetChanged()), this, SIGNAL(widgetModified()));
-			connect(this, SIGNAL(SIG_updateWidgets()), newTab, SLOT(updateWidgets()));
-			connect(this, SIGNAL(SIG_updateWidgetsDefault()),
-					newTab, SLOT(updateWidgetsDefault()));
-			connect(this, SIGNAL(SIG_updateSettings()), newTab, SLOT(updateSettings()));
-			tabWidget->addTab(newTab, dict);
-		}
-	}
-
-	return tabWidget;
+  return tabWidget;
 }
 
-QWidget *ConfigureDialog::makeDictionaryPreferencesPage
-	(QWidget *parent, KitenConfigSkeleton *config) {
+QWidget *ConfigureDialog::makeDictionaryPreferencesPage(  QWidget *parent
+                                                        , KitenConfigSkeleton *config )
+{
 
-	QStringList dictTypes = DictionaryManager::listDictFileTypes();
+  QStringList dictTypes = DictionaryManager::listDictFileTypes();
 
-	KTabWidget *tabWidget = new KTabWidget(parent);
+  KTabWidget *tabWidget = new KTabWidget( parent );
 
-	QMap<QString,DictionaryPreferenceDialog*> dialogList =
-			DictionaryManager::generatePreferenceDialogs(config,parent);
-	foreach( DictionaryPreferenceDialog *dialog, dialogList ) {
-		connect(this, SIGNAL(SIG_updateWidgets()), dialog, SLOT(updateWidgets()));
-		connect(this, SIGNAL(SIG_updateWidgetsDefault()), dialog, SLOT(updateWidgetsDefault()));
-		connect(this, SIGNAL(SIG_updateSettings()), dialog, SLOT(updateSettings()));
+  QMap<QString,DictionaryPreferenceDialog*> dialogList =
+                  DictionaryManager::generatePreferenceDialogs( config, parent );
 
-		tabWidget->addTab(dialog,dialog->name());
-	}
-	return tabWidget;
+  foreach( DictionaryPreferenceDialog *dialog, dialogList )
+  {
+    connect(   this, SIGNAL( SIG_updateWidgets() ),
+             dialog,   SLOT( updateWidgets() ) );
+    connect(   this, SIGNAL( SIG_updateWidgetsDefault() ),
+             dialog,   SLOT( updateWidgetsDefault() ) );
+    connect(   this, SIGNAL( SIG_updateSettings() ),
+             dialog,   SLOT( updateSettings() ) );
+
+    tabWidget->addTab( dialog,dialog->name() );
+  }
+
+  return tabWidget;
 }
 
-QWidget *ConfigureDialog::makeSortingPage
-	(QWidget *parent, KitenConfigSkeleton *config) {
-	ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
+QWidget *ConfigureDialog::makeSortingPage( QWidget *parent, KitenConfigSkeleton *config )
+{
+  ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
 
-	connect(newPage, SIGNAL(widgetChanged()), this, SIGNAL(widgetModified()));
-	connect(this, SIGNAL(SIG_updateWidgets()), newPage, SLOT(updateWidgets()));
-	connect(this, SIGNAL(SIG_updateWidgetsDefault()), newPage, SLOT(updateWidgetsDefault()));
-	connect(this, SIGNAL(SIG_updateSettings()), newPage, SLOT(updateSettings()));
+  connect( newPage, SIGNAL( widgetChanged() ),
+              this, SIGNAL( widgetModified() ) );
 
-	return newPage;
+  connect(    this, SIGNAL( SIG_updateWidgets() ),
+           newPage,   SLOT( updateWidgets() ) );
+  connect(    this, SIGNAL( SIG_updateWidgetsDefault() ),
+           newPage,   SLOT( updateWidgetsDefault() ) );
+  connect(    this, SIGNAL( SIG_updateSettings() ),
+           newPage,   SLOT( updateSettings() ) );
+
+  return newPage;
 }
 
 void ConfigureDialog::updateWidgets()
 {
-	emit SIG_updateWidgets();
+  emit SIG_updateWidgets();
 }
 
 void ConfigureDialog::updateWidgetsDefault()
 {
-	emit SIG_updateWidgetsDefault();
+  emit SIG_updateWidgetsDefault();
 }
 
 void ConfigureDialog::updateSettings()
 {
-	emit SIG_updateSettings();
+  emit SIG_updateSettings();
 }
 
 bool ConfigureDialog::isDefault()
 {
-	 return false;
-	 //Always show the defaults button.... perhaps make a workaround later
+  return false;
+  //Always show the defaults button.... perhaps make a workaround later
 }
 
 #include "configuredialog.moc"

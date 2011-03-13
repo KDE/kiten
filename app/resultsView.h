@@ -1,8 +1,8 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
- 		(C) 2006 Joseph Kerian <jkerian@gmail.com>
-		(C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -39,45 +39,46 @@ class KActionCollection;
 
 class ResultView : public KHTMLPart
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
-		explicit ResultView(QWidget *parent = 0, const char *name = 0);
+  public:
+    explicit ResultView( QWidget *parent = 0, const char *name = 0 );
 
-		void addResult(Entry *result, bool common = false);
-		void addKanjiResult(Entry*, bool common = false);
-		void setLaterScrollValue(int scrollValue);
+    void addResult( Entry *result, bool common = false );
+    void addKanjiResult( Entry*, bool common = false );
+    void setLaterScrollValue( int scrollValue );
 
-	public slots:
-		void print(const QString&);
-		void append(const QString &);
-		void flush();
-		void clear();
-		void setContents(const QString &);
-		void setBasicMode(bool yes) { basicMode = yes; }
+  public slots:
+    void print( const QString& );
+    void append( const QString& );
+    void flush();
+    void clear();
+    void setContents( const QString& );
+    void setBasicMode( bool yes) { basicMode = yes; }
 
-	signals:
-		void urlClicked( const QString& );
-		void entrySpecifiedForExport(int index);
+  signals:
+    void urlClicked( const QString& );
+    void entrySpecifiedForExport( int index );
 
-	protected:
-		virtual bool urlSelected(const QString &url, int button, int state, const QString &_target,
-		    const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
-		    const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments());
+  protected:
+    virtual bool urlSelected( const QString &url, int button, int state
+            , const QString &_target
+            , const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments()
+            , const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments() );
 
-		QString deLinkify(DOM::Node);
-		QString generateCSS();
+    QString deLinkify( DOM::Node );
+    QString generateCSS();
 
-	private slots:
-		void doScroll();
+  private slots:
+    void doScroll();
 
-	private:
-		QString printText;
-		bool basicMode;
-		QAction *addToExportListAction;
-		KActionCollection *popupActions;
-		KActionMenu *popupMenu;
-		int scrollValue;
+  private:
+    QString printText;
+    bool basicMode;
+    QAction *addToExportListAction;
+    KActionCollection *popupActions;
+    KActionMenu *popupMenu;
+    int scrollValue;
 };
 
 #endif

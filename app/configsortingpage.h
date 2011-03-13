@@ -1,6 +1,6 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright  (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,23 +30,25 @@ class QString;
 
 class ConfigSortingPage : public QWidget, public Ui::configSorting
 {
-	Q_OBJECT
-public:
-	explicit ConfigSortingPage(QWidget *parent = 0, KitenConfigSkeleton *iconfig=NULL, Qt::WFlags f = 0);
+  Q_OBJECT
 
-public slots:
-	void updateWidgets();
-	void updateWidgetsDefault();
-	void updateSettings();
-	bool hasChanged();
-	bool isDefault();
+  public:
+    explicit ConfigSortingPage( QWidget *parent = 0, KitenConfigSkeleton *iconfig = NULL, Qt::WFlags f = 0 );
 
-signals:
-	void widgetChanged();
-private:
-	KitenConfigSkeleton *m_config;
-	QStringList m_dictNames;
-	QStringList m_fields;
+  public slots:
+    void updateWidgets();
+    void updateWidgetsDefault();
+    void updateSettings();
+    bool hasChanged();
+    bool isDefault();
+
+  signals:
+    void widgetChanged();
+
+  private:
+    KitenConfigSkeleton *m_config;
+    QStringList m_dictNames;
+    QStringList m_fields;
 };
 
 #endif

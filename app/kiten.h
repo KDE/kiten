@@ -1,9 +1,9 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-	       (C) 2005 Paul Temple <paul.temple@gmx.net>
-			 (C) 2006 Joseph Kerian <jkerian@gmail.com>
-			 (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -45,100 +45,101 @@ class ResultView;
 class QDockWidget;
 class EntryListView;
 
-class kiten : public KXmlGuiWindow {
-	Q_OBJECT
+class kiten : public KXmlGuiWindow
+{
+  Q_OBJECT
 
-	// The following will be available via dbus.
-public slots:
-	void searchTextAndRaise(const QString&);
-	void addExportListEntry(int index);
+  // The following will be available via dbus.
+  public slots:
+    void searchTextAndRaise( const QString& );
+    void addExportListEntry( int index );
 
-		//Constructors and other setup/takedown related methods
-public:
-	explicit kiten(QWidget *parent = 0, const char *name = 0);
+  //Constructors and other setup/takedown related methods
+  public:
+    explicit kiten( QWidget *parent = 0, const char *name = 0 );
     ~kiten();
-protected:
-	void setupActions();
-	void setupExportListDock();
-	virtual bool queryClose(); //overridden from KXmlGuiWindow (called@shutdown)
-private slots:
-	void finishInit();
-	void focusResultView();
+  protected:
+    void setupActions();
+    void setupExportListDock();
+    virtual bool queryClose(); //overridden from KXmlGuiWindow (called@shutdown)
 
-		//Searching related methods
-	void searchFromEdit();
-	void searchText(const QString&);
-	void searchClipboard();
-	void searchAndDisplay(const DictQuery&);
-	void searchInResults();
-	void displayResults(EntryList *);
-	void radicalSearch();
-	//void searchOnTheSpot();
+  private slots:
+    void finishInit();
+    void focusResultView();
 
-		//Configuration related slots
-	void slotConfigure();
-	void slotConfigureHide();
-	void slotConfigureDestroy();
-	void configureToolBars();
-	void configureGlobalKeys();
-	void newToolBarConfig();
-	void updateConfiguration();
-	void loadDictConfig(const QString&);
+    //Searching related methods
+    void searchFromEdit();
+    void searchText( const QString& );
+    void searchClipboard();
+    void searchAndDisplay( const DictQuery& );
+    void searchInResults();
+    void displayResults( EntryList* );
+    void radicalSearch();
+    //void searchOnTheSpot();
 
-		//Other
-	void print();
+    //Configuration related slots
+    void slotConfigure();
+    void slotConfigureHide();
+    void slotConfigureDestroy();
+    void configureToolBars();
+    void configureGlobalKeys();
+    void newToolBarConfig();
+    void updateConfiguration();
+    void loadDictConfig( const QString& );
 
-		//History related methods
-	void back();
-	void forward();
-	void goInHistory(int);
-	void displayHistoryItem();
-	void addHistory(EntryList*);
-	void enableHistoryButtons();
-	void setCurrentScrollValue(int value);
+    //Other
+    void print();
 
-//	void createEEdit();
-//	void kanjiDictChange();
-//	void slotLearnConfigure();
-//signals:
-//	void saveLists();
-//	void add(Entry*);
+    //History related methods
+    void back();
+    void forward();
+    void goInHistory( int );
+    void displayHistoryItem();
+    void addHistory( EntryList* );
+    void enableHistoryButtons();
+    void setCurrentScrollValue( int value );
+
+  //	void createEEdit();
+  //	void kanjiDictChange();
+  //	void slotLearnConfigure();
+  //signals:
+  //	void saveLists();
+  //	void add( Entry* );
 
 
-private:
-	KStatusBar *StatusBar;
-	DictionaryManager dictionaryManager;
+  private:
+    KStatusBar *StatusBar;
+    DictionaryManager dictionaryManager;
 
-	searchStringInput *inputManager;
-	ResultView *mainView;
+    searchStringInput *inputManager;
+    ResultView *mainView;
 
-	KToggleAction *autoSearchToggle;
-	KListAction *historyAction;
-	KAction *irAction;
-	KAction *backAction;
-	KAction *forwardAction;
-	KProcess *radselect_proc;
+    KToggleAction *autoSearchToggle;
+    KListAction *historyAction;
+    KAction *irAction;
+    KAction *backAction;
+    KAction *forwardAction;
+    KProcess *radselect_proc;
 
-	//TODO: this should probably be a standardaction
-	QAction *globalShortcutsAction;
+    //TODO: this should probably be a standardaction
+    QAction *globalShortcutsAction;
 
-	//ResultView *detachedView;
-	KAction *globalSearchAction;
+    //ResultView *detachedView;
+    KAction *globalSearchAction;
 
-	KSystemTrayIcon *sysTrayIcon;
+    KSystemTrayIcon *sysTrayIcon;
 
-	//Export list related:
-	QDockWidget *exportListDock;
-	QWidget *exportListDockContents;
-	EntryListView *exportList;
+    //Export list related:
+    QDockWidget *exportListDock;
+    QWidget *exportListDockContents;
+    EntryListView *exportList;
 
-	KGlobalAccel *Accel;
-	ConfigureDialog *optionDialog;
-	KitenConfigSkeleton* config;
+    KGlobalAccel *Accel;
+    ConfigureDialog *optionDialog;
+    KitenConfigSkeleton* config;
 
-	HistoryPtrList historyList;
-	QString personalDict;
-
+    HistoryPtrList historyList;
+    QString personalDict;
 };
 
 #endif

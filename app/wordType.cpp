@@ -19,18 +19,20 @@
 **/
 
 #include "wordType.h"
+
 #include <kcombobox.h>
 #include "Entry.h"
 
 #include <kdebug.h>
-WordType::WordType(QWidget *parent)
-	: KComboBox(parent)
+
+WordType::WordType( QWidget *parent )
+: KComboBox( parent )
 {
-	//TODO: i18n needed
-	addItem("<No type specified>");
-	addItem("Noun");
-	addItem("Verb");
-//	addItems(Entry::WordTypesPretty()->uniqueKeys());
+  //TODO: i18n needed
+  addItem( "<No type specified>" );
+  addItem( "Noun" );
+  addItem( "Verb" );
+//   addItems( Entry::WordTypesPretty()->uniqueKeys() );
 }
 
 #include "wordType.moc"

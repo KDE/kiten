@@ -30,34 +30,35 @@ class WordType;
 class KHistoryComboBox;
 class kiten;
 
-class searchStringInput : public QObject {
-	Q_OBJECT
+class searchStringInput : public QObject
+{
+  Q_OBJECT
 
-	public:
-		explicit searchStringInput(kiten *parent);
+  public:
+    explicit searchStringInput( kiten *parent );
 
-		void setDefaultsFromConfig();
-		void updateFontFromConfig();
+    void setDefaultsFromConfig();
+    void updateFontFromConfig();
 
-		DictQuery getSearchQuery() const;
-		void setSearchQuery(const DictQuery &query);
-	public slots:
-		void test();
+    DictQuery getSearchQuery() const;
+    void setSearchQuery( const DictQuery &query );
+  public slots:
+    void test();
 
-	signals:
-		void search();
+  signals:
+    void search();
 
-	private slots:
-		void focusInput();
+  private slots:
+    void focusInput();
 
-	private:
-		KToggleAction *actionDeinflect;
-		KToggleAction *actionFilterRare;
-		KSelectAction *actionSearchSection;	//Search exact/anywhere/beginning
-		KSelectAction *actionSelectWordType;
-		KHistoryComboBox *actionTextInput;
-		KAction *actionFocusInput;
-		kiten *parent;
+  private:
+    KToggleAction *actionDeinflect;
+    KToggleAction *actionFilterRare;
+    KSelectAction *actionSearchSection;	//Search exact/anywhere/beginning
+    KSelectAction *actionSelectWordType;
+    KHistoryComboBox *actionTextInput;
+    KAction *actionFocusInput;
+    kiten *parent;
 };
 
 #endif

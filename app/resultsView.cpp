@@ -1,9 +1,9 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-		(C) 2005 Paul Temple <paul.temple@gmx.net>
-		(C) 2006 Joseph Kerian <jkerian@gmail.com>
-		(C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -36,182 +36,192 @@
 #include <kactioncollection.h>
 #include <kcolorscheme.h>
 
-ResultView::ResultView(QWidget *parent, const char *name)
-	: KHTMLPart(parent, parent),
-	scrollValue(0)
+ResultView::ResultView( QWidget *parent, const char *name )
+: KHTMLPart( parent, parent )
+, scrollValue( 0 )
 {
-
-	////////setReadOnly(true);
-	/* TODO: configurably underlined links */
+  ////////setReadOnly(true);
+  /* TODO: configurably underlined links */
 //	setLinkUnderline(false); //KDE4 CHANGE
-	////////basicMode = false;
+  ////////basicMode = false;
 
-	// don't let ktextbrowser internally handle link clicks
-	////////setNotifyClick(true);
-	connect(view(), SIGNAL(finishedLayout()),
-			this, SLOT(doScroll())
-		   );
+  // don't let ktextbrowser internally handle link clicks
+  ////////setNotifyClick(true);
+  connect( view(), SIGNAL( finishedLayout() ),
+             this,   SLOT( doScroll() ) );
 }
 
-/** As the name implies, it appends @p text to the printText */
-inline void ResultView::append(const QString &text)
+/**
+ * As the name implies, it appends @param text to the printText
+ */
+inline void ResultView::append( const QString &text )
 {
-	printText.append(text);
+  printText.append(text);
 }
 
-/** This clears the printText */
+/**
+ * This clears the printText
+ */
 void ResultView::clear()
 {
-	printText = "";
+  printText = "";
 }
 
-/** Flushes the printText to screen */
+/**
+ * Flushes the printText to screen
+ */
 void ResultView::flush()
 {
-	begin();
-	setUserStyleSheet(generateCSS());
-	write(printText);
-	end();
-//KDE4 CHANGE	setCursorPosition(0, 0);
-	////////ensureCursorVisible();
+  begin();
+  setUserStyleSheet( generateCSS() );
+  write( printText );
+  end();
+//KDE4 CHANGE	setCursorPosition( 0, 0 );
+  ////////ensureCursorVisible();
 }
 
-/** Non-buffered write of contents to screen */
-void ResultView::setContents(const QString &text)
+/**
+ * Non-buffered write of contents to screen
+ */
+void ResultView::setContents( const QString &text )
 {
+  begin();
+  setUserStyleSheet( generateCSS() );
+  write( text );
+  end();
 
-	begin();
-	setUserStyleSheet(generateCSS());
-	write(text);
-	end();
-
-	kDebug() << "Set CSS to " << generateCSS(); 
-//KDE4 CHANGE	setCursorPosition(0,0);
-	////////ensureCursorVisible();
+  kDebug() << "Set CSS to " << generateCSS();
+//KDE4 CHANGE	setCursorPosition( 0,0 );
+  ////////ensureCursorVisible();
 }
 
-/** Prints the contents of the resultview to a printer with @p title as the
-  title. */
-void ResultView::print(const QString &title)
+/**
+ * Prints the contents of the resultview to a
+ * printer with @param title as the title.
+ */
+void ResultView::print( const QString &title )
 {
-	/* KDE4 CHANGE
-	KPrinter printer;
-	printer.setFullPage(true);
-	if (printer.setup(this, i18n("Print Japanese Reference")))
-	{
-		QPainter p(&printer);
-		//Q3PaintDeviceMetrics metrics(p.device());
-		int dpix = metrics.logicalDpiX();
-		int dpiy = metrics.logicalDpiY();
-		const int margin = 72; // pt
+  /* KDE4 CHANGE
+  KPrinter printer;
+  printer.setFullPage(true);
+  if (printer.setup(this, i18n("Print Japanese Reference")))
+  {
+    QPainter p(&printer);
+    //Q3PaintDeviceMetrics metrics(p.device());
+    int dpix = metrics.logicalDpiX();
+    int dpiy = metrics.logicalDpiY();
+    const int margin = 72; // pt
 
-		QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2,
-				metrics.height() - margin * dpiy / margin * 2);
+    QRect body(dpix, dpiy, metrics.width() - margin * dpix / margin * 2,
+                    metrics.height() - margin * dpiy / margin * 2);
 
-		//Q3SimpleRichText richText(title.isNull()?
-				printText :
-				i18n("<h1>Search for \"%1\"</h1>",title) + printText,
-				font(), context(), styleSheet(), mimeSourceFactory(),
-				body.height(), Qt::black, false);
-		richText.setWidth(&p, body.width());
-		QRect view(body);
-		int page = 1;
+    //Q3SimpleRichText richText(title.isNull()?
+                    printText :
+                    i18n("<h1>Search for \"%1\"</h1>",title) + printText,
+                    font(), context(), styleSheet(), mimeSourceFactory(),
+                    body.height(), Qt::black, false);
+    richText.setWidth(&p, body.width());
+    QRect view(body);
+    int page = 1;
 
-		QColorGroup goodColorGroup = QColorGroup(colorGroup());
-		goodColorGroup.setColor(QColorGroup::Link, Qt::black);
+    QColorGroup goodColorGroup = QColorGroup(colorGroup());
+    goodColorGroup.setColor(QColorGroup::Link, Qt::black);
 
-		do
-		{
-			richText.draw(&p, body.left(), body.top(), view, goodColorGroup);
-			view.moveBy(0, body.height());
-			p.translate(0, -body.height());
+    do
+    {
+      richText.draw(&p, body.left(), body.top(), view, goodColorGroup);
+      view.moveBy(0, body.height());
+      p.translate(0, -body.height());
 
-			QFont myFont(font());
-			myFont.setPointSize(9);
-			p.setFont(myFont);
-			QString footer(QString("%1 - Kiten").arg(QString::number(page)));
-			p.drawText(view.right() - p.fontMetrics().width(footer),
-					view.bottom() + p.fontMetrics().ascent() + 5, footer);
+      QFont myFont(font());
+      myFont.setPointSize(9);
+      p.setFont(myFont);
+      QString footer(QString("%1 - Kiten").arg(QString::number(page)));
+      p.drawText(view.right() - p.fontMetrics().width(footer),
+                      view.bottom() + p.fontMetrics().ascent() + 5, footer);
 
-			if (view.top() >= richText.height())
-				break;
+      if (view.top() >= richText.height())
+        break;
 
-			printer.newPage();
-			page++;
+      printer.newPage();
+      page++;
 
-			qApp->processEvents();
-		}
-		while (true);
+      qApp->processEvents();
     }
+    while (true);
+}
 */
 }
 
-bool ResultView::urlSelected(const QString & 	url,
-		int 	button,
-		int 	state,
-		const QString & 	_target,
-		const KParts::OpenUrlArguments& 	args,
-		const KParts::BrowserArguments& 	browserArgs )
+bool ResultView::urlSelected( const QString &url,
+                        int button,
+                        int state,
+                        const QString &_target,
+                        const KParts::OpenUrlArguments& args,
+                        const KParts::BrowserArguments& browserArgs )
 {
-	//kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
-	emit urlClicked(url);
-	return KHTMLPart::urlSelected(url, button, state, _target, args, browserArgs);
+  //kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
+  emit urlClicked( url );
+  return KHTMLPart::urlSelected( url, button, state, _target, args, browserArgs );
 }
 
-QString ResultView::deLinkify(DOM::Node node)
+QString ResultView::deLinkify( DOM::Node node )
 {
-	//TODO: make this function more flexible (ie, accept non-link-content as
-	//well.)
-	QString word;
-	for (int i = 0; i < node.childNodes().length(); ++i)
-	{
-		if (node.childNodes().item(i).nodeName() != "a") return QString();
-		if (!node.childNodes().item(i).hasChildNodes()) return QString();
-		word += node.childNodes().item(i).childNodes().item(0).nodeValue().string();
-	}
-	return word;
+  //TODO: make this function more flexible (ie, accept non-link-content as
+  //well.)
+  QString word;
+  for ( int i = 0; i < node.childNodes().length(); ++i )
+  {
+    if ( node.childNodes().item(i).nodeName() != "a" )
+    {
+      return QString();
+    }
+    if ( ! node.childNodes().item(i).hasChildNodes() )
+    {
+      return QString();
+    }
+
+    word += node.childNodes().item(i).childNodes().item( 0 ).nodeValue().string();
+  }
+  return word;
 }
 
 QString ResultView::generateCSS()
 {
-	KColorScheme scheme(QPalette::Active);
-	QFont font = KitenConfigSkeleton::self()->font();
+  KColorScheme scheme( QPalette::Active );
+  QFont font = KitenConfigSkeleton::self()->font();
 
-	return QString(
-			".Word { font-size: %9px }"
-			".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
-			//"div.Entry {display: inline; }"
-			".DictionaryHeader { color: %2; border-bottom: solid %3 }"
-			"a{ text-decoration: none; }"
-			"a:link { color: %4; }"
-			"a:visited {color: %5} "
-			"a:hover {color: %6 } "
-			"a:active {color: %6}"
-			".Entry:hover { background-color: %10 }"
-			"query { color: %6 }"
-		   )
-		.arg(scheme.foreground().color().name())
-		.arg(scheme.foreground(KColorScheme::InactiveText).color().name())
-		.arg(scheme.shade(KColorScheme::MidlightShade).name())
-		.arg(scheme.foreground(KColorScheme::LinkText).color().name())
-		.arg(scheme.foreground(KColorScheme::VisitedText).color().name())
-		.arg(scheme.foreground(KColorScheme::ActiveText).color().name())
-		.arg(font.family())
-		.arg(font.pointSize()) // the text size
-		.arg(font.pointSize() + 10) // a larger size for kanji
-		.arg(scheme.background(KColorScheme::AlternateBackground).color().name())
-		;
-
+  return QString( ".Word { font-size: %9px }"
+                  ".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
+                  //"div.Entry {display: inline; }"
+                  ".DictionaryHeader { color: %2; border-bottom: solid %3 }"
+                  "a{ text-decoration: none; }"
+                  "a:link { color: %4; }"
+                  "a:visited {color: %5} "
+                  "a:hover {color: %6 } "
+                  "a:active {color: %6}"
+                  ".Entry:hover { background-color: %10 }"
+                  "query { color: %6 }" )
+          .arg( scheme.foreground().color().name() )
+          .arg( scheme.foreground (KColorScheme::InactiveText ).color().name() )
+          .arg( scheme.shade( KColorScheme::MidlightShade ).name() )
+          .arg( scheme.foreground( KColorScheme::LinkText ).color().name() )
+          .arg( scheme.foreground( KColorScheme::VisitedText ).color().name() )
+          .arg( scheme.foreground( KColorScheme::ActiveText ).color().name() )
+          .arg( font.family() )
+          .arg( font.pointSize() ) // the text size
+          .arg( font.pointSize() + 10 ) // a larger size for kanji
+          .arg( scheme.background( KColorScheme::AlternateBackground ).color().name() );
 }
 
-void ResultView::setLaterScrollValue(int scrollValue)
+void ResultView::setLaterScrollValue( int scrollValue )
 {
-	this->scrollValue = scrollValue;
+  this->scrollValue = scrollValue;
 }
 
 void ResultView::doScroll()
 {
-	view()->verticalScrollBar()->setValue(scrollValue);
+  view()->verticalScrollBar()->setValue(scrollValue);
 }
 
 #include "resultsView.moc"

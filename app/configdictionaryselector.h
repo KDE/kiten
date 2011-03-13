@@ -1,8 +1,8 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
  Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
-           (C) 2006 Joseph Kerian <jkerian@gmail.com>
-			  (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -33,25 +33,27 @@ class QWidget;
 
 class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 {
-	Q_OBJECT
-public:
-	explicit ConfigDictionarySelector(const QString &dictionaryName, QWidget *parent = 0, KConfigSkeleton *iconfig=NULL, Qt::WFlags f = 0);
+  Q_OBJECT
 
-public slots:	
-	void updateWidgets();
-	void updateWidgetsDefault();
-	void updateSettings();
-	bool hasChanged();
-	bool isDefault();
+  public:
+    explicit ConfigDictionarySelector( const QString &dictionaryName, QWidget *parent = 0, KConfigSkeleton *iconfig = NULL, Qt::WFlags f = 0 );
 
-	void addDictSLOT();
-	void deleteDictSLOT();
+  public slots:
+    void updateWidgets();
+    void updateWidgetsDefault();
+    void updateSettings();
+    bool hasChanged();
+    bool isDefault();
 
-signals:
-	void widgetChanged();
-private:
-	QString dictName;
-	KConfigSkeleton *config;
+    void addDictSLOT();
+    void deleteDictSLOT();
+
+  signals:
+    void widgetChanged();
+
+  private:
+    QString dictName;
+    KConfigSkeleton *config;
 };
 
 #endif

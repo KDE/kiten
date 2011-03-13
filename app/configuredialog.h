@@ -1,8 +1,8 @@
 /**
  This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001  Jason Katz-Brown <jason@katzbrown.com>
-           (C) 2005 Paul Temple <paul.temple@gmx.net>
-			  (C) 2006 Joseph Kerian <jkerian@gmail.com>
+ Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
+ Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
+ Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,26 +30,28 @@ class KitenConfigSkeleton;
 
 class ConfigureDialog : public KConfigDialog
 {
-	Q_OBJECT
-public:
-	explicit ConfigureDialog(QWidget *parent=0, KitenConfigSkeleton *config=NULL);
-	virtual ~ConfigureDialog();
-signals:
-	void SIG_updateWidgets();
-	void SIG_updateWidgetsDefault();
-	void SIG_updateSettings();
-	void settingsChanged();
+  Q_OBJECT
 
-private slots:
-	void updateWidgets();
-	void updateWidgetsDefault();
-	void updateSettings();
+  public:
+    explicit ConfigureDialog( QWidget *parent = 0, KitenConfigSkeleton *config = NULL );
+    virtual ~ConfigureDialog();
 
-private:
-	QWidget *makeDictionaryPreferencesPage(QWidget *, KitenConfigSkeleton*);
-	QWidget *makeDictionaryFileSelectionPage(QWidget *, KitenConfigSkeleton*);
-	QWidget *makeSortingPage(QWidget *, KitenConfigSkeleton*);
-	bool isDefault();
+  signals:
+    void SIG_updateWidgets();
+    void SIG_updateWidgetsDefault();
+    void SIG_updateSettings();
+    void settingsChanged();
+
+  private slots:
+    void updateWidgets();
+    void updateWidgetsDefault();
+    void updateSettings();
+
+  private:
+    QWidget *makeDictionaryPreferencesPage( QWidget *, KitenConfigSkeleton* );
+    QWidget *makeDictionaryFileSelectionPage( QWidget *, KitenConfigSkeleton* );
+    QWidget *makeSortingPage( QWidget *, KitenConfigSkeleton* );
+    bool isDefault();
 };
 
 #endif
