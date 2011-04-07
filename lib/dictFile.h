@@ -57,7 +57,7 @@ class /* NO_EXPORT */ dictFile
      * Use this constructor for your subclasses. Dictionary subclasses MUST specify their type
      * at creation.
      */
-    dictFile(QString dictionaryTypeName) : m_dictionaryType( dictionaryTypeName ) {}
+    dictFile(const QString& dictionaryTypeName) : m_dictionaryType( dictionaryTypeName ) {}
     /**
      * Destructor
      */
