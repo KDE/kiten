@@ -259,8 +259,7 @@ QStringList* dictFileEdict::loadListType(  KConfigSkeletonItem *item
 
   if( ! listFromItem.isEmpty() )
   {
-    if( list != NULL )
-      delete list;
+    delete list;
 
     list = new QStringList();
     foreach( const QString &it, listFromItem )
