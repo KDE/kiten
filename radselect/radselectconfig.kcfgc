@@ -1,4 +1,4 @@
 File=radselectconfig.kcfg
-ClassName=radselectConfigSkeleton
+ClassName=RadSelectConfigSkeleton
 Singleton=true
 Mutators=true

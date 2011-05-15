@@ -1,45 +1,45 @@
-/**
- This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
- Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
- Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
+/*****************************************************************************
+ * This file is part of Kiten, a KDE Japanese Reference Tool...              *
+ * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
+ * Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>                      *
+ * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify      *
+ * it under the terms of the GNU General Public License as published by      *
+ * the Free Software Foundation; either version 2 of the License, or         *
+ * (at your option) any later version.                                       *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU General Public License for more details.                              *
+ *                                                                           *
+ * You should have received a copy of the GNU General Public License         *
+ * along with this program; if not, write to the Free Software               *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 *
+ * USA                                                                       *
+ *****************************************************************************/
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
+#include <KAboutData>
+#include <KCmdLineArgs>
+#include <KUniqueApplication>
+#include <KXmlGuiWindow>
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
- USA
-**/
-
-#include <kcmdlineargs.h>
-#include <kaboutdata.h>
-#include <kxmlguiwindow.h>
-#include <kuniqueapplication.h>
-
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 
 #include "kiten.h"
 
-void noMessageOutput( QtMsgType, const char * )
+void noMessageOutput( QtMsgType, const char* )
 {
 }
 
-int main(int argc, char *argv[])
+int main( int argc, char *argv[] )
 {
 //   qInstallMsgHandler(noMessageOutput);	//Disable Qt Errors from showing
 
   // Copyright and author information
   KAboutData aboutData( "kiten", 0, ki18n("Kiten"), "1.2", ki18n("Japanese Reference Tool"),
-                  KAboutData::License_GPL, ki18n("(c) 2001-2004, Jason Katz-Brown"),
+                  KAboutData::License_GPL_V2, ki18n("(c) 2001-2004, Jason Katz-Brown"),
                   KLocalizedString(), "http://edu.kde.org/kiten" );
 
   aboutData.addAuthor( ki18n("Jason Katz-Brown"), ki18n("Original author"), "jason@katzbrown.com" );
@@ -55,9 +55,9 @@ int main(int argc, char *argv[])
   KCmdLineOptions options;
   KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
-  KUniqueApplication a;
+  KUniqueApplication app;
 
-  kiten *t = new kiten();
+  Kiten *kiten = new Kiten();
 
   //Register the DBUS name or die
   if ( ! QDBusConnection::sessionBus().registerService( "org.kde.kiten" ) )
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     exit( 1 );
   }
 
-  t->show();
-  QDBusConnection::sessionBus().registerObject( "/", t, QDBusConnection::ExportAllSlots );
-  return a.exec();
+  kiten->show();
+  QDBusConnection::sessionBus().registerObject( "/", kiten, QDBusConnection::ExportAllSlots );
+  return app.exec();
 }

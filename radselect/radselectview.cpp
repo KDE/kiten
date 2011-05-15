@@ -1,54 +1,54 @@
+/*****************************************************************************
+ * This file is part of Kiten, a KDE Japanese Reference Tool                 *
+ * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or             *
+ * modify it under the terms of the GNU Library General Public               *
+ * License as published by the Free Software Foundation; either              *
+ * version 2 of the License, or (at your option) any later version.          *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public License *
+ * along with this library; see the file COPYING.LIB.  If not, write to      *
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,      *
+ * Boston, MA 02110-1301, USA.                                               *
+ *****************************************************************************/
+
 /*
- This file is part of kiten, a KDE Japanese Reference Tool
- Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
-
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Library General Public
- License as published by the Free Software Foundation; either
- version 2 of the License, or (at your option) any later version.
-
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Library General Public License for more details.
-
- You should have received a copy of the GNU Library General Public License
- along with this library; see the file COPYING.LIB.  If not, write to
- the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
- Boston, MA 02110-1301, USA.
-*/
-
-/*
-*    Future Plans:
-*	Build a proper exception handling framework
-*/
+ *    Future Plans:
+ *	Build a proper exception handling framework
+ */
 
 #include "radselectview.h"
-#include "radselectbuttongrid.h"
+
 #include "radicalfile.h"
+#include "buttongrid.h"
 #include "radselectconfig.h"
 
-#include <QtCore/QString>
-#include <QtCore/QList>
-#include <QtCore/QStringList>
-#include <QtCore/QTimer>
+#include <KStandardDirs>
+#include <KMessageBox>
+#include <KDebug>
 
-#include <QtGui/QWidget>
-#include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
-#include <QtGui/QPushButton>
-#include <QtGui/QClipboard>
-#include <QtGui/QApplication>
+#include <QApplication>
+#include <QClipboard>
+#include <QList>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QPushButton>
+#include <QString>
+#include <QStringList>
+#include <QTimer>
+#include <QWidget>
 
-#include "kstandarddirs.h"
-#include "kmessagebox.h"
-#include "kdebug.h"
-
-radselectView::radselectView( QWidget *parent )
+RadSelectView::RadSelectView( QWidget *parent )
 : QWidget( parent )
 {
   setupUi( this );	//Setup the ui from the .ui file
-  radicalInfo = 0L;
+  m_radicalInfo = 0L;
   //Load the radical information
   KStandardDirs *dirs = KGlobal::dirs();
   QString radkfilename = dirs->findResource( "data", "kiten/radkfile" );
@@ -58,11 +58,11 @@ radselectView::radselectView( QWidget *parent )
   }
   else
   {
-    radicalInfo = new radicalFile( radkfilename );
+    m_radicalInfo = new RadicalFile( radkfilename );
   }
 
   //Configure the scrolling area
-  m_buttongrid = new radselectButtonGrid( radical_box, radicalInfo );
+  m_buttongrid = new ButtonGrid( radical_box, m_radicalInfo );
   radical_box->setWidget( m_buttongrid );
   radical_box->setWidgetResizable( true );
 
@@ -99,19 +99,25 @@ radselectView::radselectView( QWidget *parent )
   loadSettings();
 }
 
-radselectView::~radselectView()
+RadSelectView::~RadSelectView()
 {
-  delete radicalInfo;
+  delete m_radicalInfo;
 }
 
-void radselectView::loadSettings()
+void RadSelectView::changedSearch()
 {
-  //TODO: Add preferences for what to do on single/double click
-  //Suggested options: Lookup in Kiten, Add to Search Bar, Copy to Clipboard
-  m_buttongrid->setFont( radselectConfigSkeleton::self()->font() );
+  emit searchModified();
 }
 
-void radselectView::kanjiClicked( QListWidgetItem *item )
+void RadSelectView::clearSearch()
+{
+  m_buttongrid->clearSelections();
+  selected_radicals->clear();
+  strokes_low->setValue( 0 );
+  strokes_high->setValue( 0 );
+}
+
+void RadSelectView::kanjiClicked( QListWidgetItem *item )
 {
   QString allText = i18nc( "@item:inlist all matches should be found", "(ALL)" );
   QString finalText;
@@ -134,7 +140,7 @@ void radselectView::kanjiClicked( QListWidgetItem *item )
   QApplication::clipboard()->setText( finalText, QClipboard::Selection );
 }
 
-void radselectView::kanjiDoubleClicked( QListWidgetItem *item )
+void RadSelectView::kanjiDoubleClicked( QListWidgetItem *item )
 {
   QString str = copied_line->text();
   int pos = copied_line->cursorPosition();
@@ -143,14 +149,7 @@ void radselectView::kanjiDoubleClicked( QListWidgetItem *item )
   copied_line->setCursorPosition( pos + 1 );
 }
 
-void radselectView::toClipboard()
-{
-  QClipboard *cb = QApplication::clipboard();
-  cb->setText( copied_line->text(), QClipboard::Clipboard );
-  cb->setText( copied_line->text(), QClipboard::Selection );
-}
-
-void radselectView::listPossibleKanji( const QList<Kanji>& list )
+void RadSelectView::listPossibleKanji( const QList<Kanji>& list )
 {
   int low  = strokes_low->value();
   int high = strokes_high->value();
@@ -194,33 +193,27 @@ void radselectView::listPossibleKanji( const QList<Kanji>& list )
   emit searchModified();
 }
 
-void radselectView::loadRadicals(   const QString &iRadicals
-                                  , int strokeMin
-                                  , int strokeMax )
+void RadSelectView::loadKanji( QString &kanji )
+{
+  //TODO: loadKanji method
+}
+
+void RadSelectView::loadRadicals(  const QString &radicals
+                                 , int strokeMin
+                                 , int strokeMax )
 {
   //TODO: loadRadicals method
   emit searchModified();
 }
 
-void radselectView::loadKanji( QString &iKanji )
+void RadSelectView::loadSettings()
 {
-  //TODO: loadKanji method
+  //TODO: Add preferences for what to do on single/double click
+  //Suggested options: Lookup in Kiten, Add to Search Bar, Copy to Clipboard
+  m_buttongrid->setFont( RadSelectConfigSkeleton::self()->font() );
 }
 
-void radselectView::clearSearch()
-{
-  m_buttongrid->clearSelections();
-  selected_radicals->clear();
-  strokes_low->setValue( 0 );
-  strokes_high->setValue( 0 );
-}
-
-void radselectView::changedSearch()
-{
-  emit searchModified();
-}
-
-void radselectView::strokeLimitChanged( int newvalue )
+void RadSelectView::strokeLimitChanged( int newvalue )
 {
   int low  = strokes_low->value();
   int high = strokes_high->value();
@@ -239,6 +232,13 @@ void radselectView::strokeLimitChanged( int newvalue )
   //This will force reevaluation of the list if it's needed
   QList<Kanji> newList = m_possibleKanji;
   listPossibleKanji( newList );
+}
+
+void RadSelectView::toClipboard()
+{
+  QClipboard *cb = QApplication::clipboard();
+  cb->setText( copied_line->text(), QClipboard::Clipboard );
+  cb->setText( copied_line->text(), QClipboard::Selection );
 }
 
 #include "radselectview.moc"

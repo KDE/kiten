@@ -20,7 +20,7 @@ more types.
 (c)2006-2008 Joseph Kerian <jkerian@gmail.com> : Rewriting effort for KDE 4
 
 @maintainers
-Joseph Kerian <jkerian@gmail.com> is the current maintainer.
+Daniel E. Moctezuma <democtezuma@gmail.com> is the current maintainer.
 
 @licenses
 This library is distributed under the lgpl: @lgpl<br>
@@ -56,7 +56,7 @@ Below is a brief summary of the various components of libkiten
 	<dt>HistoryPtrList</dt>
 	<dd>A useful utility class if you want to keep a history of results. Contains a list of EntryLists. Automatically handles maximum history size, and truncation/tracking current item</dd>
 
-	<dt>dictFile</dt>
+	<dt>DictFile</dt>
 	<dd>An abstract base class, used internally for managing dictionary types</dd>
 
 	<dt>kromajiedit</dt>
@@ -95,6 +95,6 @@ Adding New Dictionary Types
 </b></p>
 
 Adding a new dictionary type is relatively simple.
-Look over the documentation of the dictFile abstract class. You may also need to subclass from Entry, if your dictionary requires special logic or strangely formatted fields. If you have no particular preferences to set (or want to put off that work until later), your dictFile descendent can return NULL, when asked for a preference dialog.
+Look over the documentation of the DictFile abstract class. You may also need to subclass from Entry, if your dictionary requires special logic or strangely formatted fields. If you have no particular preferences to set (or want to put off that work until later), your DictFile descendent can return NULL, when asked for a preference dialog.
 
 */

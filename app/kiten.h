@@ -1,63 +1,67 @@
-/**
- This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>
- Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
- Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
- Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
- USA
-**/
+/*****************************************************************************
+ * This file is part of Kiten, a KDE Japanese Reference Tool...              *
+ * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
+ * Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>                      *
+ * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify      *
+ * it under the terms of the GNU General Public License as published by      *
+ * the Free Software Foundation; either version 2 of the License, or         *
+ * (at your option) any later version.                                       *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU General Public License for more details.                              *
+ *                                                                           *
+ * You should have received a copy of the GNU General Public License         *
+ * along with this program; if not, write to the Free Software               *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 *
+ * USA                                                                       *
+ *****************************************************************************/
 
 #ifndef KITEN_H
 #define KITEN_H
 
-#include "DictQuery.h"
-#include "Entry.h"
-#include "DictionaryManager.h"
-#include "HistoryPtrList.h"
+#include <KXmlGuiWindow>
 
-#include <kxmlguiwindow.h>
+#include "dictquery.h"
+#include "dictionarymanager.h"
+#include "entry.h"
+#include "historyptrlist.h"
 
 class KAction;
-class KitenConfigSkeleton;
-class ConfigureDialog; class KitenEdit;
-class searchStringInput;
 class KGlobalAccel;
+class KListAction;
+class KProcess;
 class KStatusBar;
 class KSystemTrayIcon;
 class KToggleAction;
-class KListAction;
-class KProcess;
-class ResultView;
-class QDockWidget;
-class EntryListView;
+class KitenConfigSkeleton;
+class KitenEdit;
 
-class kiten : public KXmlGuiWindow
+class QDockWidget;
+
+class ConfigureDialog;
+class EntryListView;
+class ResultsView;
+class SearchStringInput;
+
+class Kiten : public KXmlGuiWindow
 {
   Q_OBJECT
 
-  // The following will be available via dbus.
-  public slots:
-    void searchTextAndRaise( const QString& );
-    void addExportListEntry( int index );
-
   //Constructors and other setup/takedown related methods
   public:
-    explicit kiten( QWidget *parent = 0, const char *name = 0 );
-    ~kiten();
+    explicit Kiten( QWidget *parent = 0, const char *name = 0 );
+            ~Kiten();
+
+  // The following will be available via dbus.
+  public slots:
+    void searchTextAndRaise( const QString &str );
+    void addExportListEntry( int index );
+
   protected:
     void setupActions();
     void setupExportListDock();
@@ -65,7 +69,7 @@ class kiten : public KXmlGuiWindow
 
   private slots:
     void finishInit();
-    void focusResultView();
+    void focusResultsView();
 
     //Searching related methods
     void searchFromEdit();
@@ -108,38 +112,38 @@ class kiten : public KXmlGuiWindow
 
 
   private:
-    KStatusBar *StatusBar;
-    DictionaryManager dictionaryManager;
+    KStatusBar          *_statusBar;
+    DictionaryManager    _dictionaryManager;
 
-    searchStringInput *inputManager;
-    ResultView *mainView;
+    SearchStringInput   *_inputManager;
+    ResultsView         *_mainView;
 
-    KToggleAction *autoSearchToggle;
-    KListAction *historyAction;
-    KAction *irAction;
-    KAction *backAction;
-    KAction *forwardAction;
-    KProcess *radselect_proc;
+    KToggleAction       *_autoSearchToggle;
+    KListAction         *_historyAction;
+    KAction             *_irAction;
+    KAction             *_backAction;
+    KAction             *_forwardAction;
+    KProcess            *_radselect_proc;
 
     //TODO: this should probably be a standardaction
-    QAction *globalShortcutsAction;
+    QAction             *_globalShortcutsAction;
 
-    //ResultView *detachedView;
-    KAction *globalSearchAction;
+    //ResultsView *detachedView;
+    KAction             *_globalSearchAction;
 
-    KSystemTrayIcon *sysTrayIcon;
+    KSystemTrayIcon     *_sysTrayIcon;
 
     //Export list related:
-    QDockWidget *exportListDock;
-    QWidget *exportListDockContents;
-    EntryListView *exportList;
+    QDockWidget         *_exportListDock;
+    QWidget             *_exportListDockContents;
+    EntryListView       *_exportList;
 
-    KGlobalAccel *Accel;
-    ConfigureDialog *optionDialog;
-    KitenConfigSkeleton* config;
+    KGlobalAccel        *_accel;
+    ConfigureDialog     *_optionDialog;
+    KitenConfigSkeleton *_config;
 
-    HistoryPtrList historyList;
-    QString personalDict;
+    HistoryPtrList       _historyList;
+    QString              _personalDict;
 };
 
 #endif

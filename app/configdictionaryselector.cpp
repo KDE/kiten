@@ -1,46 +1,44 @@
-/**
- This file is part of Kiten, a KDE Japanese Reference Tool...
- Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>
- Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>
- Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
- USA
-**/
+/*****************************************************************************
+ * This file is part of Kiten, a KDE Japanese Reference Tool...              *
+ * Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>                      *
+ * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify      *
+ * it under the terms of the GNU General Public License as published by      *
+ * the Free Software Foundation; either version 2 of the License, or         *
+ * (at your option) any later version.                                       *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful,           *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU General Public License for more details.                              *
+ *                                                                           *
+ * You should have received a copy of the GNU General Public License         *
+ * along with this program; if not, write to the Free Software               *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 *
+ * USA                                                                       *
+ *****************************************************************************/
 
 #include "configdictionaryselector.h"
 
-#include <QtCore/QStringList>
+#include <KConfigSkeleton>
+#include <KDebug>
+#include <KFileDialog>
 
-#include <QtGui/QTableWidget>
-
-#include <kdebug.h>
-#include <kfiledialog.h>
-#include <kconfigskeleton.h>
-
+#include <QStringList>
+#include <QTableWidget>
 
 ConfigDictionarySelector::ConfigDictionarySelector( const QString &dictionaryName,
-  QWidget *parent, KConfigSkeleton *iconfig,Qt::WFlags f )
+  QWidget *parent, KConfigSkeleton *config,Qt::WFlags f )
 {
   setupUi( this );
-  dictName = dictionaryName;
-  config = iconfig;
+  _dictName = dictionaryName;
+  _config = config;
 
-  connect( addButton, SIGNAL( clicked() ), this, SLOT( addDictSLOT() ) );
-  connect( delButton, SIGNAL( clicked() ), this, SLOT( deleteDictSLOT() ) );
-  __useGlobal->setObjectName( QString( "kcfg_" + dictName + "__useGlobal" ) );
+  connect( addButton, SIGNAL( clicked() ), this, SLOT( addDictSlot() ) );
+  connect( delButton, SIGNAL( clicked() ), this, SLOT( deleteDictSlot() ) );
+  __useGlobal->setObjectName( QString( "kcfg_" + _dictName + "__useGlobal" ) );
 }
 
 //Read from preferences to the active list
@@ -48,8 +46,8 @@ void ConfigDictionarySelector::updateWidgets()
 {
   QStringList names;
 
-  config->setCurrentGroup( "dicts_" + dictName );
-  KConfigSkeletonItem *item = config->findItem( dictName + "__NAMES" );
+  _config->setCurrentGroup( "dicts_" + _dictName );
+  KConfigSkeletonItem *item = _config->findItem( _dictName + "__NAMES" );
   if( item != NULL )
   {
     names = item->property().toStringList();
@@ -57,21 +55,21 @@ void ConfigDictionarySelector::updateWidgets()
 
   foreach( const QString &it, names )
   {
-    QString name = dictName + '_' + it;
-    if ( ! config->findItem( name ) )
+    QString name = _dictName + '_' + it;
+    if ( ! _config->findItem( name ) )
     {
-      config->addItem( new KConfigSkeleton::ItemString( dictName, it, *new QString() ), name );
+      _config->addItem( new KConfigSkeleton::ItemString( _dictName, it, *new QString() ), name );
       //Don't touch the *new QString()... that's a reference for a reason... stupid KDE
     }
   }
 
-  config->readConfig();
+  _config->readConfig();
   fileList->clear();
 
   foreach( const QString &it, names )
   {
     QStringList newRow( it );
-    newRow << config->findItem( dictName + '_' + it )->property().toString();
+    newRow << _config->findItem( _dictName + '_' + it )->property().toString();
     (void) new QTreeWidgetItem( fileList, newRow );
   }
 }
@@ -80,7 +78,7 @@ void ConfigDictionarySelector::updateSettings()
 {
   QStringList names;
 
-  KConfigGroup group = config->config()->group( "dicts_" + dictName.toLower() );
+  KConfigGroup group = _config->config()->group( "dicts_" + _dictName.toLower() );
 
   for( int i = 0; i < fileList->topLevelItemCount(); i++ )
   {
@@ -93,14 +91,14 @@ void ConfigDictionarySelector::updateSettings()
     {
       KConfigSkeletonItem *item = new KConfigSkeleton::ItemPath( group.name()
                                                 , dictionaryName, *new QString() );
-      config->addItem( item, dictionaryName );
+      _config->addItem( item, dictionaryName );
     }
     group.writeEntry( dictionaryName, dictionaryPath );
   }
 
   //This feels distinctly hackish to me... :(
-  config->findItem( dictName + "__NAMES" )->setProperty( names );
-  config->writeConfig();
+  _config->findItem( _dictName + "__NAMES" )->setProperty( names );
+  _config->writeConfig();
 }
 
 void ConfigDictionarySelector::updateWidgetsDefault()
@@ -121,7 +119,7 @@ bool ConfigDictionarySelector::hasChanged()
   return false;
 }
 
-void ConfigDictionarySelector::addDictSLOT()
+void ConfigDictionarySelector::addDictSlot()
 {
   QTreeWidgetItem *item = fileList->topLevelItem( 0 );
 
@@ -139,7 +137,7 @@ void ConfigDictionarySelector::addDictSLOT()
   emit widgetChanged();
 }
 
-void ConfigDictionarySelector::deleteDictSLOT()
+void ConfigDictionarySelector::deleteDictSlot()
 {
   foreach( QTreeWidgetItem *file, fileList->selectedItems() )
   {

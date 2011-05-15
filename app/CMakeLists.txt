@@ -1,20 +1,21 @@
 ############## kiten binary #############
 set(kiten_bin_SRCS
-	main.cpp
-	kiten.cpp
-	searchStringInput.cpp
-	resultsView.cpp
-	configuredialog.cpp
-	configdictionaryselector.cpp
-	configsortingpage.cpp
-	entryListView.cpp
-	wordType.cpp
-	)
+    configdictionaryselector.cpp
+    configsortingpage.cpp
+    configuredialog.cpp
+    entrylistmodel.cpp
+    entrylistview.cpp
+    kiten.cpp
+    main.cpp
+    resultsview.cpp
+    searchstringinput.cpp
+    wordtype.cpp
+   )
 kde4_add_ui_files(kiten_bin_SRCS
-	configsearching.ui
-	configlearn.ui
-	configfont.ui
 	configdictselect.ui
+	configfont.ui
+	configlearn.ui
+	configsearching.ui
 	configsorting.ui
 	)
 kde4_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
