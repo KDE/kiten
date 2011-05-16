@@ -31,9 +31,9 @@ EntryDeinflect::EntryDeinflect(  const QString &correction
                                , const QString &matchedEnding )
 : Entry( QString( "Deinflect" ) )
 , m_correction( correction )
+, m_matchedEnding( matchedEnding )
 , m_type( type )
 , m_index( index )
-, m_matchedEnding( matchedEnding )
 {
 }
 
