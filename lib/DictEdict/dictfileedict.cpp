@@ -42,6 +42,11 @@
 #include "../entrylist.h"
 #include "dictfilefieldselector.h"
 
+#include "entryedict.h"
+
+#include "DictDeinflect/dictfiledeinflect.h"
+#include "DictDeinflect/entrydeinflect.h"
+
 QStringList *DictFileEdict::displayFields = NULL;
 
 /**
@@ -52,6 +57,8 @@ DictFileEdict::DictFileEdict()
 : DictFile( "edict" )
 {
   m_searchableAttributes.insert( "common", "common" );
+
+  m_deinflect = new DictFileDeinflect();
 }
 
 /**
@@ -60,6 +67,7 @@ DictFileEdict::DictFileEdict()
  */
 DictFileEdict::~DictFileEdict()
 {
+  delete m_deinflect;
 }
 
 QMap<QString,QString> DictFileEdict::displayOptions() const
@@ -131,6 +139,84 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     {
       results->append( result );
     }
+  }
+
+  // At this point we should have some preliminary results
+  // and if there were no matches, it probably means the user
+  // input was a verb, so we have to deinflect it.
+  if( results->count() == 0 )
+  {
+    EntryList *verbs = new EntryList();
+
+    QStringList edictTypesList;
+    edictTypesList.append( EdictFormatting::Adjectives   );
+    edictTypesList.append( EdictFormatting::GodanVerbs   );
+    edictTypesList.append( EdictFormatting::IchidanVerbs );
+    edictTypesList.append( EdictFormatting::Verbs        );
+
+    QString edictTypes = edictTypesList.join( "," );
+
+    foreach( const QString &it, preliminaryResults )
+    {
+      Entry *entry = makeEntry( it );
+      QStringListIterator i( entry->getTypesList() );
+      bool matched = false;
+      while( i.hasNext() && ! matched )
+      {
+        if( edictTypes.contains( i.next() ) )
+        {
+          verbs->append( entry );
+          matched = true;
+        }
+      }
+    }
+
+    QList<DictFileDeinflect::Conjugation> *conjugationList = m_deinflect->conjugationList;
+
+    if ( conjugationList == NULL )
+    {
+      return NULL;
+    }
+
+    EntryList *ret = new EntryList();
+    EntryList::EntryIterator it( *verbs );
+    while( it.hasNext() )
+    {
+      Entry *entry = it.next();
+
+      QString text = query.getWord();
+      if( text.isEmpty() )
+      {
+        text = query.getPronunciation();
+
+        if( text.isEmpty() )
+        {
+          return NULL;
+        }
+      }
+
+      QString word = entry->getWord();
+      int index = 0;
+      foreach( const DictFileDeinflect::Conjugation &conj, *conjugationList )
+      {
+        if(    text.endsWith( conj.ending )
+            && word.endsWith( conj.replace )
+            && text.startsWith( word.left( word.length() - conj.replace.length() ) ) )
+        {
+          QString replacement = text;
+          replacement.truncate( text.length() - conj.ending.length() );
+          replacement += conj.replace;
+
+          if( word == replacement )
+          {
+            ret->append( entry );
+            break;
+          }
+        }
+      }
+    }
+
+    return ret;
   }
 
   return results;

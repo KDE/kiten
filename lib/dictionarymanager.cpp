@@ -153,6 +153,7 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
     // None specified, search all
     foreach( DictFile *it, d->dictManagers )
     {
+      kDebug() << "Searching in " << it->getName() << "dictionary." << endl;
       EntryList *temp = it->doSearch( query );
       if( temp )
       {
@@ -274,6 +275,7 @@ QStringList DictionaryManager::listDictFileTypes()
   list.append( "edict" );
   list.append( "kanjidic" );
   list.append( "deinflect" );
+  
   //Add your dictionary type here!
 
   return list;
@@ -354,6 +356,7 @@ DictFile *DictionaryManager::makeDictFile( const QString &type )
   {
     return new DictFileDeinflect();
   }
+
   //Add new dictionary types here!!!
 
   return NULL;

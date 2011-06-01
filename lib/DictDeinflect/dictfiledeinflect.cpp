@@ -24,6 +24,8 @@
 
 #include "../entrylist.h"
 #include "entrydeinflect.h"
+#include "../DictEdict/dictfileedict.h"
+#include "../DictEdict/entryedict.h"
 
 #include <KDebug>
 #include <KLocale>
@@ -53,6 +55,7 @@ DictFileDeinflect::DictFileDeinflect()
 
 EntryList* DictFileDeinflect::doSearch( const DictQuery &query )
 {
+  return NULL;
   if ( conjugationList == NULL )
     return NULL;
 
@@ -78,14 +81,32 @@ EntryList* DictFileDeinflect::doSearch( const DictQuery &query )
       EntryDeinflect *foo = new EntryDeinflect( replacement, it.label, index++, it.ending );
       ret->append( foo );
 
-      if( ret->count() >= 3 )
-      {
-        return ret;
-      }
+      //if( ret->count() >= 3 )
+      //{
+        //return ret;
+      //}
     }
   }
 
+  // Check if the entry was a verb, if so, find the tense the user gave us
+  // and return the verb in dictionary form.
+  //QVector<QString> edictResults = DictFileEdict::getSearchResults();
+  //EntryList *results = new EntryList;
+  //kDebug() << endl << endl;
+  //foreach( const QString result, edictResults )
+  //{
+    //if( result.contains( "v5" ) )
+    //{
+        //EntryDeinflect *entry = new EntryDeinflect( result );
+        //kDebug() << result << endl;
+        //results->append( entry );
+     //}
+   //}
+
+   //kDebug() << endl;
+
   return ret;
+  //return results;
 }
 
 QStringList DictFileDeinflect::listDictDisplayOptions( QStringList orig ) const

@@ -26,12 +26,38 @@
 
 #include <QHash>
 #include <QList>
+#include <QSet>
 
-class EdictFormatting;
-class QString;
+/*class EdictFormatting;*/
+
+#ifndef KITEN_EDICTFORMATTING
+#define KITEN_EDICTFORMATTING
+
+namespace EdictFormatting
+{
+  extern QStringList Nouns;
+  extern QStringList Verbs;
+  extern QStringList Adjectives;
+  extern QStringList Adverbs;
+  extern QStringList IchidanVerbs;
+  extern QStringList GodanVerbs;
+  extern QStringList Particles;
+  
+  extern QMultiHash<QString, QString> PartOfSpeechCategories;
+
+  extern QSet<QString> PartsOfSpeech;
+  extern QSet<QString> MiscMarkings;
+  extern QSet<QString> FieldOfApplication;
+}
+
+/*#include "entryedict.cpp"*/
+
+#endif
 
 class /* NO_EXPORT */ EntryEdict : public Entry
 {
+  friend class DictFileEdict;
+
   public:
 //     EntryEdict( const EntryEdict &x ) : Entry( x ) {} //No special members to copy in this one
                     EntryEdict( const QString &dict );
@@ -56,8 +82,8 @@ class /* NO_EXPORT */ EntryEdict : public Entry
      * This "private static class" provides various pieces of information
      * about the EDICT format that we need to parse it properly.
      */
-    static const EdictFormatting &format();
-    static EdictFormatting *m_format;
+    /*static const EdictFormatting &format();*/
+    /*static EdictFormatting *m_format;*/
 };
 
 #endif

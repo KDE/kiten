@@ -32,6 +32,8 @@ class QString;
 
 class /* NO_EXPORT */ DictFileDeinflect: public DictFile
 {
+  friend class DictFileEdict;
+
   public:
                 DictFileDeinflect();
 

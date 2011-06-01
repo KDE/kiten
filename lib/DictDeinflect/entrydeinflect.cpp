@@ -67,7 +67,7 @@ bool EntryDeinflect::matchesQuery( const DictQuery &query ) const
 
 QString EntryDeinflect::toHTML() const
 {
-      return QString( "<div class=\"Deinflect\">" )
-              + i18n( "Possible de-conjugation %1 as %2", makeLink( m_correction ), m_type )
-              + "</div>";
+  return QString( "<div class=\"Deinflect\">" )
+    + i18n( "Possible de-conjugation %1 as %2", makeLink( m_correction ), m_type )
+    + "</div>";
 }

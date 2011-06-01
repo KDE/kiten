@@ -28,30 +28,6 @@
 
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
-class EdictFormatting
-{
-  public:
-    EdictFormatting();
-
-    QString nounType;
-    QString verbType;
-    QString adjectiveType;
-    QString adverbType;
-    QString ichidanType;
-    QString godanType;
-    QString particleType;
-
-    QMultiHash<QString, QString> partOfSpeechCategories;
-
-    QSet<QString> partsOfSpeech;
-    QSet<QString> miscMarkings;
-    QSet<QString> fieldOfApplication;
-};
-
-
-
-EdictFormatting *EntryEdict::m_format = NULL;
-
 EntryEdict::EntryEdict( const QString &dict )
 : Entry( dict )
 {
@@ -88,16 +64,6 @@ QString EntryEdict::dumpEntry() const
   return Word
          + (  (Readings.count() == 0 ) ? " " : " [" + Readings.first() + "] " )
          + '/' + Meanings.join( "/" ) + '/';
-}
-
-const EdictFormatting &EntryEdict::format()
-{
-  if( EntryEdict::m_format == NULL )
-  {
-    EntryEdict::m_format = new EdictFormatting;
-  }
-
-  return *EntryEdict::m_format;
 }
 
 QString EntryEdict::HTMLWord() const
@@ -171,7 +137,8 @@ bool EntryEdict::loadEntry( const QString &entryLine )
 
   /* set Meanings to be all of the meanings in the definition */
   QString remainingLine = entryLine.mid( endOfKanjiAndKanaSection );
-  remainingLine = remainingLine.left( remainingLine.lastIndexOf( '/' ) );	//Trim to last '/'
+  //Trim to last '/'
+  remainingLine = remainingLine.left( remainingLine.lastIndexOf( '/' ) );
   Meanings = remainingLine.split( '/', QString::SkipEmptyParts );
   if( Meanings.last() == "(P)" )
   {
@@ -192,17 +159,19 @@ bool EntryEdict::loadEntry( const QString &entryLine )
     stringTypes += parantheses.split( ',' );
   }
 
+  Types = stringTypes;
+
   foreach( const QString &str, stringTypes )
   {
-    if( format().partsOfSpeech.contains( str ) )
+    if( EdictFormatting::PartsOfSpeech.contains( str ) )
     {
       m_typeList += str;
     }
-    else if(format().fieldOfApplication.contains( str ) )
+    else if( EdictFormatting::FieldOfApplication.contains( str ) )
     {
       ExtendedInfo[ "field" ] = str;
     }
-    else if( format().miscMarkings.contains( str ) )
+    else if( EdictFormatting::MiscMarkings.contains( str ) )
     {
       m_miscMarkings += str;
     }
@@ -241,8 +210,10 @@ QString EntryEdict::toHTML() const
   return result;
 }
 
-/* TYPES RELATED FUNCTIONS */
+#ifdef KITEN_EDICTFORMATTING
 
+namespace EdictFormatting
+{
 /**
  * The basic idea of this function is to provide a mapping from possible entry types to
  * possible things the user could enter. Then our code for the matching entry can simply
@@ -271,102 +242,157 @@ QString EntryEdict::toHTML() const
  * Also note that the basic edict dictionary does not separate ikeiyoushi out from the
  * category "adj", so further breakdown of the "adjective" type would be misleading.
  */
-EdictFormatting::EdictFormatting()
-{
-  nounType      = QString( i18nc( "This must be a single word", "Noun" ) );
-  verbType      = QString( i18nc( "This must be a single word", "Verb" ) );
-  adjectiveType = QString( i18nc( "This must be a single word", "Adjective" ) );
-  adverbType    = QString( i18nc( "This must be a single word", "Adverb" ) );
-  particleType  = QString( i18nc( "This must be a single word", "Particle" ) );
-  ichidanType   = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated(except possibly in far-eastern languages), this must be a single word", "Ichidan" ) );
-  godanType     = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Godan" ) );
 
-  //Nouns
-  partOfSpeechCategories.insert( nounType, "n" );
-  partOfSpeechCategories.insert( nounType, "n-adv" );
-  partOfSpeechCategories.insert( nounType, "n-pref" );
-  partOfSpeechCategories.insert( nounType, "n-suf" );
-  partOfSpeechCategories.insert( nounType, "n-t" );
-  partOfSpeechCategories.insert( nounType, "adv_n" );
+  // Forward declarations of our functions to be used.
+  QMultiHash<QString, QString> createPartOfSpeechCategories();
+  QSet<QString> createPartsOfSpeech();
+  QSet<QString> createMiscMarkings();
+  QSet<QString> createFieldOfApplication();
+ 
+  // Private variables.
+  QString noun      = QString( i18nc( "This must be a single word", "Noun" ) );
+  QString verb      = QString( i18nc( "This must be a single word", "Verb" ) );
+  QString adjective = QString( i18nc( "This must be a single word", "Adjective" ) );
+  QString adverb    = QString( i18nc( "This must be a single word", "Adverb" ) );
+  QString particle  = QString( i18nc( "This must be a single word", "Particle" ) );
+  QString ichidanVerb   = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated(except possibly in far-eastern languages), this must be a single word", "Ichidan" ) );
+  QString godanVerb     = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Godan" ) );
 
-  //Ichidan Verbs
-  partOfSpeechCategories.insert( verbType,    "v1" );
-  partOfSpeechCategories.insert( ichidanType, "v1" );
 
-  //Godan Verbs
-  partOfSpeechCategories.insert( verbType,  "v5" );
-  partOfSpeechCategories.insert( verbType,  "v5aru" );
-  partOfSpeechCategories.insert( verbType,  "v5b" );
-  partOfSpeechCategories.insert( verbType,  "v5g" );
-  partOfSpeechCategories.insert( verbType,  "v5k" );
-  partOfSpeechCategories.insert( verbType,  "v5k_s" );
-  partOfSpeechCategories.insert( verbType,  "v5m" );
-  partOfSpeechCategories.insert( verbType,  "v5n" );
-  partOfSpeechCategories.insert( verbType,  "v5r" );
-  partOfSpeechCategories.insert( verbType,  "v5r_i" );
-  partOfSpeechCategories.insert( verbType,  "v5s" );
-  partOfSpeechCategories.insert( verbType,  "v5t" );
-  partOfSpeechCategories.insert( verbType,  "v5u" );
-  partOfSpeechCategories.insert( verbType,  "v5u_s" );
-  partOfSpeechCategories.insert( verbType,  "v5uru" );
-  partOfSpeechCategories.insert( godanType, "v5" );
-  partOfSpeechCategories.insert( godanType, "v5aru" );
-  partOfSpeechCategories.insert( godanType, "v5b" );
-  partOfSpeechCategories.insert( godanType, "v5g" );
-  partOfSpeechCategories.insert( godanType, "v5k" );
-  partOfSpeechCategories.insert( godanType, "v5k_s" );
-  partOfSpeechCategories.insert( godanType, "v5m" );
-  partOfSpeechCategories.insert( godanType, "v5n" );
-  partOfSpeechCategories.insert( godanType, "v5r" );
-  partOfSpeechCategories.insert( godanType, "v5r_i" );
-  partOfSpeechCategories.insert( godanType, "v5s" );
-  partOfSpeechCategories.insert( godanType, "v5t" );
-  partOfSpeechCategories.insert( godanType, "v5u" );
-  partOfSpeechCategories.insert( godanType, "v5u_s" );
-  partOfSpeechCategories.insert( godanType, "v5uru" );
 
-  //Other Verbs
-  partOfSpeechCategories.insert( verbType, "iv" );
-  partOfSpeechCategories.insert( verbType, "vi" );
-  partOfSpeechCategories.insert( verbType, "vk" );
-  partOfSpeechCategories.insert( verbType, "vs" );
-  partOfSpeechCategories.insert( verbType, "vs_i" );
-  partOfSpeechCategories.insert( verbType, "vs_s" );
-  partOfSpeechCategories.insert( verbType, "vt" );
-  partOfSpeechCategories.insert( verbType, "vz" );
+  // Define our public variables.
+  QMultiHash<QString, QString> PartOfSpeechCategories = createPartOfSpeechCategories();
+  QSet<QString> PartsOfSpeech      = createPartsOfSpeech();
+  QSet<QString> MiscMarkings       = createMiscMarkings();
+  QSet<QString> FieldOfApplication = createFieldOfApplication();
 
-  //Adjectives
-  partOfSpeechCategories.insert( adjectiveType, "adj" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_na" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_no" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_pn" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_t" );
+  // PartOfSpeechCategories needs to has some values before this line.
+  QStringList Nouns = PartOfSpeechCategories.values( noun );
+  QStringList Verbs = PartOfSpeechCategories.values( verb );  
+  QStringList Adjectives = PartOfSpeechCategories.values( adjective ); 
+  QStringList Adverbs = PartOfSpeechCategories.values( adverb );
+  QStringList IchidanVerbs = PartOfSpeechCategories.values( ichidanVerb );
+  QStringList GodanVerbs = PartOfSpeechCategories.values( godanVerb );
+  QStringList Particles = PartOfSpeechCategories.values( particle );
 
-  //Adverbs
-  partOfSpeechCategories.insert( adverbType, "adv" );
-  partOfSpeechCategories.insert( adverbType, "adv_n" );
-  partOfSpeechCategories.insert( adverbType, "adv_to" );
 
-  //Particle
-  partOfSpeechCategories.insert( particleType, "prt" );
 
-  partsOfSpeech << "n"     << "n-adv"  << "n-pref" << "n-suf"  << "n-t"  << "adv_n"
-                << "v1"    << "v1"     << "v5"     << "v5aru"  << "v5b"  << "v5g"  << "v5k"   << "v5k_s"
-                << "v5m"   << "v5n"    <<"v5r"     << "v5r_i"  << "v5s"  << "v5t"  << "v5u"   << "v5u_s"
-                << "v5uru" << "v5"     <<"v5aru"   << "v5b"    << "v5g"  << "v5k"  << "v5k_s" << "v5m"
-                << "v5n"   << "v5r"    <<"v5r_i"   << "v5s"    << "v5t"  << "v5u"  << "v5u_s" << "v5uru"
-                << "iv"    << "vi"     <<"vk"      << "vs"     << "vs_i" << "vs_s" << "vt"    << "vz"
-                << "adj"   << "adj_na" <<"adj_no"  << "adj_pn" << "adj_t"
-                << "adv"   << "adv_n"  <<"adv_to"
-                << "prt";
+  QMultiHash<QString, QString> createPartOfSpeechCategories()
+  { 
+    QMultiHash<QString, QString> categories;
 
-  //Field of Application terms
-  fieldOfApplication << "Buddh" << "MA"   << "comp" << "food" << "geom"
-                     << "ling"  << "math" << "mil"  << "physics";
+    //Nouns
+    categories.insert( noun, "n" );
+    categories.insert( noun, "n-adv" );
+    categories.insert( noun, "n-pref" );
+    categories.insert( noun, "n-suf" );
+    categories.insert( noun, "n-t" );
+    categories.insert( noun, "adv_n" );
 
-  //Miscellaneous Markings (in EDICT terms)
-  miscMarkings << "X"    << "abbr" << "arch" << "ateji"   << "chn"   << "col" << "derog"
-               << "eK"   << "ek"   << "fam"  << "fem"     << "gikun" << "hon" << "hum" << "iK"   << "id"
-               << "io"   << "m-sl" << "male" << "male-sl" << "ng"    << "oK"  << "obs" << "obsc" << "ok"
-               << "poet" << "pol"  << "rare" << "sens"    << "sl"    << "uK"  << "uk"  << "vulg";
+    //Ichidan Verbs
+    categories.insert( verb,    "v1" );
+    categories.insert( ichidanVerb, "v1" );
+
+    //Godan Verbs
+    categories.insert( verb,  "v5" );
+    categories.insert( verb,  "v5aru" );
+    categories.insert( verb,  "v5b" );
+    categories.insert( verb,  "v5g" );
+    categories.insert( verb,  "v5k" );
+    categories.insert( verb,  "v5k_s" );
+    categories.insert( verb,  "v5m" );
+    categories.insert( verb,  "v5n" );
+    categories.insert( verb,  "v5r" );
+    categories.insert( verb,  "v5r_i" );
+    categories.insert( verb,  "v5s" );
+    categories.insert( verb,  "v5t" );
+    categories.insert( verb,  "v5u" );
+    categories.insert( verb,  "v5u_s" );
+    categories.insert( verb,  "v5uru" );
+    categories.insert( godanVerb, "v5" );
+    categories.insert( godanVerb, "v5aru" );
+    categories.insert( godanVerb, "v5b" );
+    categories.insert( godanVerb, "v5g" );
+    categories.insert( godanVerb, "v5k" );
+    categories.insert( godanVerb, "v5k_s" );
+    categories.insert( godanVerb, "v5m" );
+    categories.insert( godanVerb, "v5n" );
+    categories.insert( godanVerb, "v5r" );
+    categories.insert( godanVerb, "v5r_i" );
+    categories.insert( godanVerb, "v5s" );
+    categories.insert( godanVerb, "v5t" );
+    categories.insert( godanVerb, "v5u" );
+    categories.insert( godanVerb, "v5u_s" );
+    categories.insert( godanVerb, "v5uru" );
+
+    //Other Verbs
+    categories.insert( verb, "iv" );
+    categories.insert( verb, "vi" );
+    categories.insert( verb, "vk" );
+    categories.insert( verb, "vs" );
+    categories.insert( verb, "vs_i" );
+    categories.insert( verb, "vs_s" );
+    categories.insert( verb, "vt" );
+    categories.insert( verb, "vz" );
+
+    //Adjectives
+    categories.insert( adjective, "adj" );
+    categories.insert( adjective, "adj_na" );
+    categories.insert( adjective, "adj_no" );
+    categories.insert( adjective, "adj_pn" );
+    categories.insert( adjective, "adj_t" );
+
+    //Adverbs
+    categories.insert( adverb, "adv" );
+    categories.insert( adverb, "adv_n" );
+    categories.insert( adverb, "adv_to" );
+
+    //Particle
+    categories.insert( particle, "prt" );
+
+    return categories;
+  }
+
+  QSet<QString> createPartsOfSpeech()
+  {
+    QSet<QString> category;
+
+    category << "n"     << "n-adv"  << "n-pref" << "n-suf"  << "n-t"  << "adv_n"
+             << "v1"    << "v1"     << "v5"     << "v5aru"  << "v5b"  << "v5g"  << "v5k"   << "v5k_s"
+             << "v5m"   << "v5n"    << "v5r"    << "v5r_i"  << "v5s"  << "v5t"  << "v5u"   << "v5u_s"
+             << "v5uru" << "v5"     << "v5aru"  << "v5b"    << "v5g"  << "v5k"  << "v5k_s" << "v5m"
+             << "v5n"   << "v5r"    << "v5r_i"  << "v5s"    << "v5t"  << "v5u"  << "v5u_s" << "v5uru"
+             << "iv"    << "vi"     << "vk"     << "vs"     << "vs_i" << "vs_s" << "vt"    << "vz"
+             << "adj"   << "adj_na" << "adj_no" << "adj_pn" << "adj_t"
+             << "adv"   << "adv_n"  << "adv_to"
+             << "prt";
+
+    return category;
+  }
+
+  QSet<QString> createFieldOfApplication()
+  {
+    QSet<QString> category;
+
+    //Field of Application terms
+    category << "Buddh" << "MA"   << "comp" << "food" << "geom"
+             << "ling"  << "math" << "mil"  << "physics";
+
+    return category;
+  }
+
+  QSet<QString> createMiscMarkings()
+  {
+    QSet<QString> category;
+
+    //Miscellaneous Markings (in EDICT terms)
+    category << "X"    << "abbr" << "arch" << "ateji"   << "chn"   << "col" << "derog"
+             << "eK"   << "ek"   << "fam"  << "fem"     << "gikun" << "hon" << "hum" << "iK"   << "id"
+             << "io"   << "m-sl" << "male" << "male-sl" << "ng"    << "oK"  << "obs" << "obsc" << "ok"
+             << "poet" << "pol"  << "rare" << "sens"    << "sl"    << "uK"  << "uk"  << "vulg";
+
+    return category;
+  }
 }
+
+#endif

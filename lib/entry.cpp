@@ -136,6 +136,22 @@ QStringList Entry::getReadingsList() const
 /**
  * Simple accessor
  */
+QString Entry::getTypes() const
+{
+  return Types.join( outputListDelimiter );
+}
+
+/**
+ * Simple accessor
+ */
+QStringList Entry::getTypesList() const
+{
+  return Types;
+}
+
+/**
+ * Simple accessor
+ */
 const QHash<QString,QString> &Entry::getExtendedInfo() const
 {
   return ExtendedInfo;

@@ -34,6 +34,7 @@
 
 #include <sys/types.h>
 
+class DictFileDeinflect;
 class DictQuery;
 class DictionaryPreferenceDialog;
 class KConfigSkeleton;
@@ -41,8 +42,6 @@ class KConfigSkeletonItem;
 class QByteArray;
 class QString;
 class QStringList;
-
-#include "entryedict.h"
 
 class /* NO_EXPORT */ DictFileEdict : public DictFile
 {
@@ -73,6 +72,9 @@ class /* NO_EXPORT */ DictFileEdict : public DictFile
     LinearEdictFile     m_file;
 
     static QStringList *displayFields;
+
+  private:
+    DictFileDeinflect *m_deinflect;
 };
 
 #endif
