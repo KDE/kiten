@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -34,7 +35,7 @@
 
 #include <sys/types.h>
 
-class DictFileDeinflect;
+class Deinflection;
 class DictQuery;
 class DictionaryPreferenceDialog;
 class KConfigSkeleton;
@@ -69,12 +70,12 @@ class /* NO_EXPORT */ DictFileEdict : public DictFile
     //This is a blatant abuse of protected methods to make the kanji subclass easy
     virtual Entry                *makeEntry( QString x );
 
-    LinearEdictFile     m_file;
+    LinearEdictFile     m_edictFile;
 
     static QStringList *displayFields;
 
   private:
-    DictFileDeinflect *m_deinflect;
+    Deinflection *m_deinflection;
 };
 
 #endif

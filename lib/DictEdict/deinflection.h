@@ -1,7 +1,9 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
+ * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -19,31 +21,40 @@
  * Boston, MA 02110-1301, USA.                                               *
  *****************************************************************************/
 
-#ifndef KITEN_ENTRYDEINFLECT_H
-#define KITEN_ENTRYDEINFLECT_H
+#ifndef KITEN_DEINFLECTION_H
+#define KITEN_DEINFLECTION_H
 
-#include "../entry.h"
+#include <QStringList>
 
-class /* NO_EXPORT */ EntryDeinflect : public Entry
+#include "../dictfile.h"
+
+class DictQuery;
+class EntryList;
+class QString;
+
+class Deinflection
 {
   public:
-                    EntryDeinflect (  const QString &correction
-                                    , const QString &type
-                                    , int index
-                                    , const QString &matchedEnding );
-                    EntryDeinflect( const EntryDeinflect &old );
+                Deinflection( const QString name );
 
-    EntryDeinflect *clone() const;
-    virtual QString dumpEntry() const;
-    virtual bool    loadEntry( const QString &entry );
-    virtual bool    matchesQuery( const DictQuery &query ) const;
-    virtual QString toHTML() const;
+    EntryList  *search( const DictQuery &query, const QVector<QString> &preliminaryResults );
+    bool        load();
+    Entry      *makeEntry( QString x ); 
 
   private:
-    QString m_correction;
-    QString m_matchedEnding;
-    QString m_type;
-    int     m_index;
+    struct Conjugation
+    {
+      //The ending we are replacing
+      QString ending;
+      //The replacement (dictionary form) ending
+      QString replace;
+      //What this type of replacement is called
+      QString label;
+    };
+
+    static QList<Conjugation> *conjugationList;
+
+    const QString              m_dictionaryName;
 };
 
 #endif

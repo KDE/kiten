@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -41,11 +42,8 @@
 #include "../entry.h"      //Entry and EntryList classes
 #include "../entrylist.h"
 #include "dictfilefieldselector.h"
-
 #include "entryedict.h"
-
-#include "DictDeinflect/dictfiledeinflect.h"
-#include "DictDeinflect/entrydeinflect.h"
+#include "deinflection.h"
 
 QStringList *DictFileEdict::displayFields = NULL;
 
@@ -58,7 +56,7 @@ DictFileEdict::DictFileEdict()
 {
   m_searchableAttributes.insert( "common", "common" );
 
-  m_deinflect = new DictFileDeinflect();
+  m_deinflection = new Deinflection( "edict" );
 }
 
 /**
@@ -67,7 +65,7 @@ DictFileEdict::DictFileEdict()
  */
 DictFileEdict::~DictFileEdict()
 {
-  delete m_deinflect;
+  delete m_deinflection;
 }
 
 QMap<QString,QString> DictFileEdict::displayOptions() const
@@ -86,7 +84,7 @@ QMap<QString,QString> DictFileEdict::displayOptions() const
  */
 EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
 {
-  if( i_query.isEmpty() || ! m_file.valid() )	//No query or dict, no results.
+  if( i_query.isEmpty() || ! m_edictFile.valid() )	//No query or dict, no results.
   {
     return new EntryList();
   }
@@ -123,7 +121,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     firstChoice = firstChoice.at( 0 );
   }
 
-  QVector<QString> preliminaryResults = m_file.findMatches( firstChoice );
+  QVector<QString> preliminaryResults = m_edictFile.findMatches( firstChoice );
 
   if( preliminaryResults.size() == 0 )	//If there were no matches... return an empty list
   {
@@ -143,80 +141,10 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
 
   // At this point we should have some preliminary results
   // and if there were no matches, it probably means the user
-  // input was a verb, so we have to deinflect it.
+  // input was a verb or adjective, so we have to deinflect it.
   if( results->count() == 0 )
   {
-    EntryList *verbs = new EntryList();
-
-    QStringList edictTypesList;
-    edictTypesList.append( EdictFormatting::Adjectives   );
-    edictTypesList.append( EdictFormatting::GodanVerbs   );
-    edictTypesList.append( EdictFormatting::IchidanVerbs );
-    edictTypesList.append( EdictFormatting::Verbs        );
-
-    QString edictTypes = edictTypesList.join( "," );
-
-    foreach( const QString &it, preliminaryResults )
-    {
-      Entry *entry = makeEntry( it );
-      QStringListIterator i( entry->getTypesList() );
-      bool matched = false;
-      while( i.hasNext() && ! matched )
-      {
-        if( edictTypes.contains( i.next() ) )
-        {
-          verbs->append( entry );
-          matched = true;
-        }
-      }
-    }
-
-    QList<DictFileDeinflect::Conjugation> *conjugationList = m_deinflect->conjugationList;
-
-    if ( conjugationList == NULL )
-    {
-      return NULL;
-    }
-
-    EntryList *ret = new EntryList();
-    EntryList::EntryIterator it( *verbs );
-    while( it.hasNext() )
-    {
-      Entry *entry = it.next();
-
-      QString text = query.getWord();
-      if( text.isEmpty() )
-      {
-        text = query.getPronunciation();
-
-        if( text.isEmpty() )
-        {
-          return NULL;
-        }
-      }
-
-      QString word = entry->getWord();
-      int index = 0;
-      foreach( const DictFileDeinflect::Conjugation &conj, *conjugationList )
-      {
-        if(    text.endsWith( conj.ending )
-            && word.endsWith( conj.replace )
-            && text.startsWith( word.left( word.length() - conj.replace.length() ) ) )
-        {
-          QString replacement = text;
-          replacement.truncate( text.length() - conj.ending.length() );
-          replacement += conj.replace;
-
-          if( word == replacement )
-          {
-            ret->append( entry );
-            break;
-          }
-        }
-      }
-    }
-
-    return ret;
+    return m_deinflection->search( query, preliminaryResults );
   }
 
   return results;
@@ -237,15 +165,18 @@ QStringList DictFileEdict::listDictDisplayOptions( QStringList x ) const
  */
 bool DictFileEdict::loadDictionary( const QString &fileName, const QString &dictName )
 {
-  if( m_file.valid() )
+  if( m_edictFile.valid() )
   {
     return false; //Already loaded
   }
 
-  if( m_file.loadFile( fileName ) )
+  if( m_edictFile.loadFile( fileName ) )
   {
     m_dictionaryName = dictName;
     m_dictionaryFile = fileName;
+
+    m_deinflection->load();
+
     return true;
   }
 

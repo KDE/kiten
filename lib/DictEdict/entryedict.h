@@ -2,6 +2,7 @@
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com             *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -28,8 +29,6 @@
 #include <QList>
 #include <QSet>
 
-/*class EdictFormatting;*/
-
 #ifndef KITEN_EDICTFORMATTING
 #define KITEN_EDICTFORMATTING
 
@@ -49,8 +48,6 @@ namespace EdictFormatting
   extern QSet<QString> MiscMarkings;
   extern QSet<QString> FieldOfApplication;
 }
-
-/*#include "entryedict.cpp"*/
 
 #endif
 
@@ -77,13 +74,6 @@ class /* NO_EXPORT */ EntryEdict : public Entry
     //Field of Application goes into the hash
     QList<QString> m_typeList;
     QList<QString> m_miscMarkings;
-
-    /**
-     * This "private static class" provides various pieces of information
-     * about the EDICT format that we need to parse it properly.
-     */
-    /*static const EdictFormatting &format();*/
-    /*static EdictFormatting *m_format;*/
 };
 
 #endif

@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -20,12 +21,12 @@
  * Boston, MA 02110-1301, USA.                                               *
  *****************************************************************************/
 
-#include "dictfiledeinflect.h"
+#include "deinflection.h"
 
 #include "../entrylist.h"
-#include "entrydeinflect.h"
-#include "../DictEdict/dictfileedict.h"
-#include "../DictEdict/entryedict.h"
+#include "dictfileedict.h"
+#include "../dictquery.h"
+#include "entryedict.h"
 
 #include <KDebug>
 #include <KLocale>
@@ -39,6 +40,7 @@
 #include <QString>
 #include <QTextCodec>
 #include <QTextStream>
+#include <QVector>
 
 //This is a very primative form of information hiding
 //But C++ can get stupid with static QT objects...
@@ -46,75 +48,86 @@
 //TODO: Fix this for thread safety/functionality (I'm presuming it's broken atm)
 
 //Declare our constants
-QList<DictFileDeinflect::Conjugation> *DictFileDeinflect::conjugationList = NULL;
+QList<Deinflection::Conjugation> *Deinflection::conjugationList = NULL;
 
-DictFileDeinflect::DictFileDeinflect()
-: DictFile( "Deinflect" )
+Deinflection::Deinflection( const QString name )
+: m_dictionaryName( name )
 {
 }
 
-EntryList* DictFileDeinflect::doSearch( const DictQuery &query )
+EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> &preliminaryResults )
 {
-  return NULL;
-  if ( conjugationList == NULL )
-    return NULL;
+  EntryList *verbs = new EntryList();
 
-  QString text = query.getWord();
-  if( text.isEmpty() )
-  {
-    text = query.getPronunciation();
-  }
-  if( text.isEmpty() )
-  {
-    return NULL;
-  }
+  QStringList edictTypesList;
+  edictTypesList.append( EdictFormatting::Adjectives   );
+  edictTypesList.append( EdictFormatting::GodanVerbs   );
+  edictTypesList.append( EdictFormatting::IchidanVerbs );
+  edictTypesList.append( EdictFormatting::Verbs        );
 
-  EntryList *ret = new EntryList;
-  int index = 0;
-  foreach( const Conjugation &it, *conjugationList )
+  QString edictTypes = edictTypesList.join( "," );
+
+  foreach( const QString &it, preliminaryResults )
   {
-    if( text.endsWith( it.ending ) )
+    Entry *entry = makeEntry( it );
+    QStringListIterator i( entry->getTypesList() );
+    bool matched = false;
+    while( i.hasNext() && ! matched )
     {
-      QString replacement = text;
-      replacement.truncate( text.length() - it.ending.length() );
-      replacement += it.replace;
-      EntryDeinflect *foo = new EntryDeinflect( replacement, it.label, index++, it.ending );
-      ret->append( foo );
-
-      //if( ret->count() >= 3 )
-      //{
-        //return ret;
-      //}
+      if( edictTypes.contains( i.next() ) )
+      {
+        verbs->append( entry );
+        matched = true;
+      }
     }
   }
 
-  // Check if the entry was a verb, if so, find the tense the user gave us
-  // and return the verb in dictionary form.
-  //QVector<QString> edictResults = DictFileEdict::getSearchResults();
-  //EntryList *results = new EntryList;
-  //kDebug() << endl << endl;
-  //foreach( const QString result, edictResults )
-  //{
-    //if( result.contains( "v5" ) )
-    //{
-        //EntryDeinflect *entry = new EntryDeinflect( result );
-        //kDebug() << result << endl;
-        //results->append( entry );
-     //}
-   //}
+  if ( conjugationList == NULL )
+  {
+    return NULL;
+  }
 
-   //kDebug() << endl;
+  EntryList *ret = new EntryList();
+  EntryList::EntryIterator it( *verbs );
+  while( it.hasNext() )
+  {
+    Entry *entry = it.next();
+
+    QString text = query.getWord();
+    if( text.isEmpty() )
+    {
+      text = query.getPronunciation();
+
+      if( text.isEmpty() )
+      {
+        return NULL;
+      }
+    }
+
+    QString word = entry->getWord();
+    foreach( const Deinflection::Conjugation &conj, *conjugationList )
+    {
+      if(    text.endsWith( conj.ending )
+          && word.endsWith( conj.replace )
+          && text.startsWith( word.left( word.length() - conj.replace.length() ) ) )
+      {
+        QString replacement = text;
+        replacement.truncate( text.length() - conj.ending.length() );
+        replacement += conj.replace;
+
+        if( word == replacement )
+        {
+          ret->append( entry );
+          break;
+        }
+      }
+    }
+  }
 
   return ret;
-  //return results;
 }
 
-QStringList DictFileDeinflect::listDictDisplayOptions( QStringList orig ) const
-{
-  return QStringList( "Deinflection" );
-}
-
-bool DictFileDeinflect::loadDictionary( const QString &file, const QString &name )
+bool Deinflection::load()
 {
   if ( conjugationList != NULL )
     return true;
@@ -122,21 +135,14 @@ bool DictFileDeinflect::loadDictionary( const QString &file, const QString &name
   conjugationList = new QList<Conjugation>;
 
   QString vconj;
-  if( file.isEmpty() )
-  {
-    KStandardDirs *dirs = KGlobal::dirs();
-    vconj = dirs->findResource( "data", "kiten/vconj" );
+  KStandardDirs *dirs = KGlobal::dirs();
+  vconj = dirs->findResource( "data", "kiten/vconj" );
 
-    //Find the file
-    if ( vconj.isEmpty() )
-    {
-      KMessageBox::error( 0, i18n( "Verb deinflection information not found, so verb deinflection cannot be used." ) );
-      return false;
-    }
-  }
-  else
+  //Find the file
+  if ( vconj.isEmpty() )
   {
-    vconj = file;
+    KMessageBox::error( 0, i18n( "Verb deinflection information not found, so verb deinflection cannot be used." ) );
+    return false;
   }
 
   QHash<unsigned long,QString> names;
@@ -184,17 +190,10 @@ bool DictFileDeinflect::loadDictionary( const QString &file, const QString &name
 
   f.close();
 
-  m_dictionaryName = name;
-
   return true;
 }
 
-bool DictFileDeinflect::validDictionaryFile( const QString &filename )
+inline Entry* Deinflection::makeEntry( QString x )
 {
-  return false;
-}
-
-bool DictFileDeinflect::validQuery( const DictQuery &query )
-{
-  return true;
+  return new EntryEdict( m_dictionaryName, x );
 }
