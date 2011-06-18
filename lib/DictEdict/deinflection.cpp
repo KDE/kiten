@@ -158,7 +158,7 @@ bool Deinflection::load()
   t.setCodec( QTextCodec::codecForName( "eucJP" ) );
 
   //The file starts out with a number -> name list of the conjugation types
-  //In the format "#[#].\tNAME\n"
+  //In the format "#[#]  NAME\n"
   //The next section beginning is flagged with a $ at the beginning of the line
   for( QString text = t.readLine(); ! t.atEnd() && text.at( 0 ) != '$';
             text = t.readLine() )
@@ -172,17 +172,22 @@ bool Deinflection::load()
   }
 
   //Now for the actual conjugation data
-  //Format is "ENDING_TO_REPLACE\tREPLACEMENT\tNUMBER_FROM_LIST_ABOVE\n"
-  for( QString text = t.readLine(); ! text.isEmpty(); text = t.readLine() )
+  //Format is "NUMBER_FROM_LIST_ABOVE  ENDING_TO_REPLACE\n"
+  QString replacement = QString();
+  for( QString text = t.readLine(); ! t.atEnd(); text = t.readLine() )
   {
-    if( text.at(0) != '#' ) //We still have these comments everywhere
+    if( text.at( 0 ) == '$' )
     {
-      QStringList things( text.split( QChar( '\t' ) ) );
+      replacement = text.right( 1 ).trimmed();
+    }
+    else if( text.at( 0 ) != '#' && ! text.trimmed().isEmpty() )
+    {
+      unsigned long labelIndex = text.section( ' ', 0, 1 ).trimmed().toULong();
 
       Conjugation conj;
-      conj.ending = things.first();
-      conj.replace = ( things.at( 1 ) );
-      conj.label = names.find( things.last().toULong() ).value();
+      conj.label   = names.value( labelIndex );
+      conj.ending  = text.section( ' ', 2 ).trimmed();
+      conj.replace = replacement;
 
       conjugationList->append( conj );
     }
