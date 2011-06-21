@@ -140,6 +140,12 @@ bool EntryEdict::loadEntry( const QString &entryLine )
   //Trim to last '/'
   remainingLine = remainingLine.left( remainingLine.lastIndexOf( '/' ) );
   Meanings = remainingLine.split( '/', QString::SkipEmptyParts );
+
+  if( Meanings.size() == 0 )
+  {
+    return false;
+  }
+
   if( Meanings.last() == "(P)" )
   {
     ExtendedInfo[ QString( "common" ) ] = "1";
