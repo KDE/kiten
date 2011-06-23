@@ -45,6 +45,7 @@
 #include "entryedict.h"
 #include "deinflection.h"
 
+QString     *DictFileEdict::deinflectionLabel = NULL;
 QStringList *DictFileEdict::displayFields = NULL;
 
 /**
@@ -53,6 +54,7 @@ QStringList *DictFileEdict::displayFields = NULL;
  */
 DictFileEdict::DictFileEdict()
 : DictFile( "edict" )
+, m_hasDeinflection( false )
 {
   m_searchableAttributes.insert( "common", "common" );
 
@@ -144,7 +146,18 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
   // input was a verb or adjective, so we have to deinflect it.
   if( results->count() == 0 )
   {
-    return m_deinflection->search( query, preliminaryResults );
+    results = m_deinflection->search( query, preliminaryResults );
+    QString *label = m_deinflection->getDeinflectionLabel();
+    if( ! label->isEmpty() && ! m_hasDeinflection )
+    {
+      deinflectionLabel = label;
+      m_hasDeinflection = true;
+    }
+  }
+  else
+  {
+    deinflectionLabel = NULL;
+    m_hasDeinflection = false;
   }
 
   return results;

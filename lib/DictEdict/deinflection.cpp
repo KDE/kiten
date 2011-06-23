@@ -52,11 +52,19 @@ QList<Deinflection::Conjugation> *Deinflection::conjugationList = NULL;
 
 Deinflection::Deinflection( const QString name )
 : m_dictionaryName( name )
+, m_deinflectionLabel( QString() )
 {
+}
+
+QString* Deinflection::getDeinflectionLabel()
+{
+  return &m_deinflectionLabel;
 }
 
 EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> &preliminaryResults )
 {
+  m_deinflectionLabel = QString();
+
   EntryList *verbs = new EntryList();
 
   QStringList edictTypesList;
@@ -117,6 +125,11 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
 
         if( word == replacement )
         {
+          if( m_deinflectionLabel.isEmpty() )
+          {
+            m_deinflectionLabel = conj.label;
+          }
+
           ret->append( entry );
           break;
         }

@@ -37,6 +37,7 @@ class Deinflection
   public:
                 Deinflection( const QString name );
 
+    QString    *getDeinflectionLabel();
     EntryList  *search( const DictQuery &query, const QVector<QString> &preliminaryResults );
     bool        load();
     Entry      *makeEntry( QString x ); 
@@ -54,6 +55,7 @@ class Deinflection
 
     static QList<Conjugation> *conjugationList;
 
+    QString                    m_deinflectionLabel;
     const QString              m_dictionaryName;
 };
 

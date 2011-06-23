@@ -62,6 +62,8 @@ class /* NO_EXPORT */ DictFileEdict : public DictFile
     virtual bool                        validDictionaryFile( const QString &filename );
     bool                                validQuery( const DictQuery &query );
 
+    static QString                     *deinflectionLabel;
+
   protected:
     virtual QMap<QString,QString> displayOptions() const;
     QStringList                  *loadListType(  KConfigSkeletonItem *item
@@ -76,6 +78,7 @@ class /* NO_EXPORT */ DictFileEdict : public DictFile
 
   private:
     Deinflection *m_deinflection;
+    bool          m_hasDeinflection;
 };
 
 #endif

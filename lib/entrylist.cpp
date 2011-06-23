@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -32,6 +33,8 @@
 #include <QTextCodec>
 
 #include <sys/mman.h>
+
+#include "DictEdict/dictfileedict.h"
 
 class EntryList::Private
 {
@@ -120,12 +123,24 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
   QString &lastDictionary = temp;
   const QString fromDictionary = i18n( "From Dictionary:" );
   QString query( getQuery() );
+  bool firstTime = true;
   for ( unsigned int i = 0; i < max; ++i )
   {
     Entry *it = at( i );
     if( d->sortedByDictionary )
     {
       const QString &newDictionary = it->getDictName();
+      if( firstTime && newDictionary == "edict"
+          && DictFileEdict::deinflectionLabel )
+      {
+        const QString &label = *DictFileEdict::deinflectionLabel;
+        const QString &message = i18nc( "%1 is a verb/adjective tense", "You entered a verb/adjective in %1 form", label );
+
+        result += "<div style=\"font-style:italic\">" + message + "</div>";
+
+        firstTime = false;
+      }
+
       if( lastDictionary != newDictionary )
       {
         lastDictionary = newDictionary;
