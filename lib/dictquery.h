@@ -285,6 +285,7 @@ public:
   {
     matchExact,
     matchBeginning,
+    matchEnding,
     matchAnywhere
   };
   /**

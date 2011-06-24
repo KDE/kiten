@@ -52,6 +52,7 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   _actionSearchSection->setText( i18n( "Match Type" ) );
   _actionSearchSection->addAction( i18n( "Exact Match" ) );
   _actionSearchSection->addAction( i18n( "Match Beginning" ) );
+  _actionSearchSection->addAction( i18n( "Match Ending" ) );
   _actionSearchSection->addAction( i18n( "Match Anywhere" ) );
 
   _actionSelectWordType = _parent->actionCollection()->add<KSelectAction>( "search_wordType" );
@@ -109,9 +110,10 @@ DictQuery SearchStringInput::getSearchQuery() const
     result.setProperty( "common", "1" );
   }
 
-  DictQuery::MatchType options[3] = {   DictQuery::matchExact
-                                      , DictQuery::matchBeginning
-                                      , DictQuery::matchAnywhere };
+  DictQuery::MatchType options[ 4 ] = {   DictQuery::matchExact
+                                        , DictQuery::matchBeginning
+                                        , DictQuery::matchEnding
+                                        , DictQuery::matchAnywhere };
   result.setMatchType( options[ _actionSearchSection->currentItem() ] );
 
   return result;
@@ -138,8 +140,11 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
     case DictQuery::matchBeginning:
       _actionSearchSection->setCurrentItem( 1 );
       break;
-    case DictQuery::matchAnywhere:
+    case DictQuery::matchEnding:
       _actionSearchSection->setCurrentItem( 2 );
+      break;
+    case DictQuery::matchAnywhere:
+      _actionSearchSection->setCurrentItem( 3 );
       break;
   }
 

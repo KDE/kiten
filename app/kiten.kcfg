@@ -106,8 +106,8 @@
       <default>false</default>
 	</entry>
 	<entry key="search_precision" type="Int">
-		<label>The user's last type of search, 0=Exact, 1=Match Start, 2=Match Anywhere</label>
-		<default>2</default>
+		<label>The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match Anywhere</label>
+		<default>3</default>
 	</entry>
 	<entry key="search_limit_to_wordtype" type="Int">
 		<label>Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb</label>
