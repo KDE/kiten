@@ -119,14 +119,6 @@ class KITEN_EXPORT Entry
     /**
      * Simple accessor
      */
-    QString getTypes() const;
-    /**
-     * Simple accessor
-     */
-    QStringList getTypesList() const;
-    /**
-     * Simple accessor
-     */
     const QHash<QString,QString> &getExtendedInfo() const;
     /**
      * Simple accessor
@@ -205,11 +197,6 @@ class KITEN_EXPORT Entry
      */
     QStringList Readings;
     /**
-     * The types that match this entry (i.e. n, adj, adv). If you override the accessors
-     * above, this has no use.
-     */
-    QStringList Types;
-    /**
      * A hash of extended information. You may find it useful to store all sorts of details here
      */
     QHash<QString,QString> ExtendedInfo;
@@ -244,10 +231,6 @@ class KITEN_EXPORT Entry
      * Return and HTML version of a meaning list
      */
     virtual QString HTMLMeanings() const;
-    /**
-     * Return and HTML version of a type list
-     */
-    //virtual QString HTMLTypes() const;
 
     /**
      * Handy Utility functions for matching to lists and identifying char types

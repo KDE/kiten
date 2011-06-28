@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -35,7 +36,8 @@ TODO: Add features to limit the number of hits on a per-search basis.
 class DictQuery::Private
 {
   public:
-    Private() : matchType( DictQuery::matchExact ) {}
+    Private() : matchType( DictQuery::matchExact )
+              , matchWordType( DictQuery::Any ) { }
 
     /** Stores the (english or otherwise non-japanese) meaning */
     QString meaning;
@@ -52,6 +54,8 @@ class DictQuery::Private
     QStringList targetDictionaries;
     /** What MatchType is this set to */
     MatchType matchType;
+    /** What MatchWordType is this set to */
+    MatchWordType matchWordType;
 
     /** Marker in the m_entryOrder for the location of the pronunciation element */
     static const QString pronunciationMarker;
@@ -130,6 +134,7 @@ DictQuery &DictQuery::operator=( const DictQuery &old )
 
   clear();
   d->matchType          = old.d->matchType;
+  d->matchWordType      = old.d->matchWordType;
   d->extendedAttributes = old.d->extendedAttributes;
   d->meaning            = old.d->meaning;
   d->pronunciation      = old.d->pronunciation;
@@ -192,7 +197,8 @@ bool operator==( const DictQuery &a, const DictQuery &b )
      || ( a.d->word               != b.d->word )
      || ( a.d->entryOrder         != b.d->entryOrder )
      || ( a.d->extendedAttributes != b.d->extendedAttributes )
-     || ( a.d->matchType          != b.d->matchType ) )
+     || ( a.d->matchType          != b.d->matchType )
+     || ( a.d->matchWordType      != b.d->matchWordType ) )
   {
     return false;
   }
@@ -588,6 +594,16 @@ DictQuery::MatchType DictQuery::getMatchType() const
 void DictQuery::setMatchType( MatchType newType )
 {
   d->matchType = newType;
+}
+
+DictQuery::MatchWordType DictQuery::getMatchWordType() const
+{
+  return d->matchWordType;
+}
+
+void DictQuery::setMatchWordType( MatchWordType newType )
+{
+  d->matchWordType = newType;
 }
 
 /**************************************************************

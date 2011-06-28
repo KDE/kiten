@@ -16,6 +16,7 @@
 		<Action name="search" />
 		<Action name="search_in_results" />
 		<Action name="search_searchType" />
+    <Action name="search_wordType" />
 		<Action name="search_filterRare" />
 		<Action name="search_radical" />
 		<Action name="search_deinflect" append="save_merge" />
@@ -36,6 +37,7 @@
 	<Action name="search_filterRare" />
 	<Action name="radselect" />
 	<Action name="search_searchType" />
+  <Action name="search_wordType" />
 </ToolBar>
 
 <ToolBar name="extraToolbar" newline="true" hidden="true">

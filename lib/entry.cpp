@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -131,22 +132,6 @@ QString Entry::getReadings() const
 QStringList Entry::getReadingsList() const
 {
   return Readings;
-}
-
-/**
- * Simple accessor
- */
-QString Entry::getTypes() const
-{
-  return Types.join( outputListDelimiter );
-}
-
-/**
- * Simple accessor
- */
-QStringList Entry::getTypesList() const
-{
-  return Types;
 }
 
 /**

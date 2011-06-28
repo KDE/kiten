@@ -29,6 +29,7 @@
 #include "../dictfile.h"
 
 class DictQuery;
+class EntryEdict;
 class EntryList;
 class QString;
 
@@ -40,7 +41,6 @@ class Deinflection
     QString    *getDeinflectionLabel();
     EntryList  *search( const DictQuery &query, const QVector<QString> &preliminaryResults );
     bool        load();
-    Entry      *makeEntry( QString x ); 
 
   private:
     struct Conjugation
@@ -52,6 +52,8 @@ class Deinflection
       //What this type of replacement is called
       QString label;
     };
+
+    EntryEdict *makeEntry( QString entry );
 
     static QList<Conjugation> *conjugationList;
 

@@ -135,7 +135,8 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
   {
 //     kDebug() << "result: " << it << endl;
     Entry *result = makeEntry( it );
-    if( result->matchesQuery( query ) )
+    EntryEdict *resultEdict = makeEntryEdict( it );
+    if( result->matchesQuery( query ) && resultEdict->matchesWordType( query ) )
     {
       results->append( result );
     }
@@ -236,9 +237,14 @@ void DictFileEdict::loadSettings( KConfigSkeleton *config )
   this->displayFields = loadListType( item, this->displayFields, long2short );
 }
 
-inline Entry* DictFileEdict::makeEntry( QString x )
+inline Entry* DictFileEdict::makeEntry( QString entry )
 {
-  return new EntryEdict( getName(), x );
+  return new EntryEdict( getName(), entry );
+}
+
+inline EntryEdict* DictFileEdict::makeEntryEdict( QString entry )
+{
+  return new EntryEdict( getName(), entry );
 }
 
 DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *config, QWidget *parent )

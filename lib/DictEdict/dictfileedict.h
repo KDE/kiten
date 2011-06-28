@@ -38,6 +38,7 @@
 class Deinflection;
 class DictQuery;
 class DictionaryPreferenceDialog;
+class EntryEdict;
 class KConfigSkeleton;
 class KConfigSkeletonItem;
 class QByteArray;
@@ -70,7 +71,8 @@ class /* NO_EXPORT */ DictFileEdict : public DictFile
                                                , QStringList *list
                                                , const QMap<QString,QString> &long2short );
     //This is a blatant abuse of protected methods to make the kanji subclass easy
-    virtual Entry                *makeEntry( QString x );
+    virtual Entry                *makeEntry( QString entry );
+    virtual EntryEdict           *makeEntryEdict( QString entry );
 
     LinearEdictFile     m_edictFile;
 

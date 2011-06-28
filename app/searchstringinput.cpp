@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool...              *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify      *
  * it under the terms of the GNU General Public License as published by      *
@@ -46,7 +47,7 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   _actionDeinflect->setText( i18n( "Deinflect Verbs/Adjectives" ) );
 
   _actionFilterRare = _parent->actionCollection()->add<KToggleAction>( "search_filterRare" );
-  _actionFilterRare->setText (i18n( "&Filter Out Rare" ) );
+  _actionFilterRare->setText( i18n( "&Filter Out Rare" ) );
 
   _actionSearchSection = _parent->actionCollection()->add<KSelectAction>( "search_searchType" );
   _actionSearchSection->setText( i18n( "Match Type" ) );
@@ -56,14 +57,13 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   _actionSearchSection->addAction( i18n( "Match Anywhere" ) );
 
   _actionSelectWordType = _parent->actionCollection()->add<KSelectAction>( "search_wordType" );
-/* Not quite working yet
-  actionSelectWordType->setText(i18n("Word Type"));
-  actionSelectWordType->addAction(i18n("Any"));
-  actionSelectWordType->addAction(i18n("Verb"));
-  actionSelectWordType->addAction(i18n("Noun"));
-  actionSelectWordType->addAction(i18n("Adjective"));
-  actionSelectWordType->addAction(i18n("Adverb"));
-*/
+  _actionSelectWordType->setText( i18n( "Word Type" ) );
+  _actionSelectWordType->addAction( i18n( "Any" ) );
+  _actionSelectWordType->addAction( i18n( "Verb" ) );
+  _actionSelectWordType->addAction( i18n( "Noun" ) );
+  _actionSelectWordType->addAction( i18n( "Adjective" ) );
+  _actionSelectWordType->addAction( i18n( "Adverb" ) );
+
   _actionTextInput = new KHistoryComboBox( _parent );
   _actionTextInput->setDuplicatesEnabled( false );
   _actionTextInput->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
@@ -100,11 +100,6 @@ DictQuery SearchStringInput::getSearchQuery() const
 {
   DictQuery result( _actionTextInput->currentText() );
 
-  if( _actionSelectWordType->currentItem() )
-  {
-    result.setProperty( "type", _actionSelectWordType->currentText() );
-  }
-
   if( _actionFilterRare->isChecked() )
   {
     result.setProperty( "common", "1" );
@@ -114,7 +109,13 @@ DictQuery SearchStringInput::getSearchQuery() const
                                         , DictQuery::matchBeginning
                                         , DictQuery::matchEnding
                                         , DictQuery::matchAnywhere };
+  DictQuery::MatchWordType type[ 5 ] = {   DictQuery::Any
+                                         , DictQuery::Verb
+                                         , DictQuery::Noun
+                                         , DictQuery::Adjective
+                                         , DictQuery::Adverb };
   result.setMatchType( options[ _actionSearchSection->currentItem() ] );
+  result.setMatchWordType( type[ _actionSelectWordType->currentItem() ] );
 
   return result;
 }
@@ -145,6 +146,25 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
       break;
     case DictQuery::matchAnywhere:
       _actionSearchSection->setCurrentItem( 3 );
+      break;
+  }
+
+  switch( query.getMatchWordType() )
+  {
+    case DictQuery::Any:
+      _actionSelectWordType->setCurrentItem( 0 );
+      break;
+    case DictQuery::Verb:
+      _actionSelectWordType->setCurrentItem( 1 );
+      break;
+    case DictQuery::Noun:
+      _actionSelectWordType->setCurrentItem( 2 );
+      break;
+    case DictQuery::Adjective:
+      _actionSelectWordType->setCurrentItem( 3 );
+      break;
+    case DictQuery::Adverb:
+      _actionSelectWordType->setCurrentItem( 4 );
       break;
   }
 
