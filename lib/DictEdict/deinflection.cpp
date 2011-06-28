@@ -189,11 +189,11 @@ bool Deinflection::load()
   QString replacement = QString();
   for( QString text = t.readLine(); ! t.atEnd(); text = t.readLine() )
   {
-    if( text.at( 0 ) == '$' )
+    if( !text.isEmpty() && text.at( 0 ) == '$' )
     {
       replacement = text.right( 1 ).trimmed();
     }
-    else if( text.at( 0 ) != '#' && ! text.trimmed().isEmpty() )
+    else if( ! text.trimmed().isEmpty() && text.at( 0 ) != '#' )
     {
       unsigned long labelIndex = text.section( ' ', 0, 1 ).trimmed().toULong();
 
