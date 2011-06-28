@@ -308,7 +308,10 @@ public:
     Verb,
     Noun,
     Adjective,
-    Adverb
+    Adverb,
+    Prefix,
+    Suffix,
+    Expression
   };
   /**
    * Get which word type is currently set on the DictQuery.

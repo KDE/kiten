@@ -63,6 +63,9 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   _actionSelectWordType->addAction( i18n( "Noun" ) );
   _actionSelectWordType->addAction( i18n( "Adjective" ) );
   _actionSelectWordType->addAction( i18n( "Adverb" ) );
+  _actionSelectWordType->addAction( i18n( "Prefix" ) );
+  _actionSelectWordType->addAction( i18n( "Suffix" ) );
+  _actionSelectWordType->addAction( i18n( "Expression" ) );
 
   _actionTextInput = new KHistoryComboBox( _parent );
   _actionTextInput->setDuplicatesEnabled( false );
@@ -109,11 +112,14 @@ DictQuery SearchStringInput::getSearchQuery() const
                                         , DictQuery::matchBeginning
                                         , DictQuery::matchEnding
                                         , DictQuery::matchAnywhere };
-  DictQuery::MatchWordType type[ 5 ] = {   DictQuery::Any
+  DictQuery::MatchWordType type[ 8 ] = {   DictQuery::Any
                                          , DictQuery::Verb
                                          , DictQuery::Noun
                                          , DictQuery::Adjective
-                                         , DictQuery::Adverb };
+                                         , DictQuery::Adverb
+                                         , DictQuery::Prefix
+                                         , DictQuery::Suffix
+                                         , DictQuery::Expression };
   result.setMatchType( options[ _actionSearchSection->currentItem() ] );
   result.setMatchWordType( type[ _actionSelectWordType->currentItem() ] );
 
@@ -165,6 +171,15 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
       break;
     case DictQuery::Adverb:
       _actionSelectWordType->setCurrentItem( 4 );
+      break;
+    case DictQuery::Prefix:
+      _actionSelectWordType->setCurrentItem( 5 );
+      break;
+    case DictQuery::Suffix:
+      _actionSelectWordType->setCurrentItem( 6 );
+      break;
+    case DictQuery::Expression:
+      _actionSelectWordType->setCurrentItem( 7 );
       break;
   }
 

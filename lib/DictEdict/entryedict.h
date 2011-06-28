@@ -41,7 +41,10 @@ namespace EdictFormatting
   extern QStringList IchidanVerbs;
   extern QStringList GodanVerbs;
   extern QStringList FukisokuVerbs;
-  extern QStringList Particles;
+  extern QStringList Expressions;
+  extern QStringList Prefix;
+  extern QStringList Suffix;
+  extern QString     Particle;
   
   extern QMultiHash<QString, QString> PartOfSpeechCategories;
 
@@ -73,11 +76,14 @@ class /* NO_EXPORT */ EntryEdict : public Entry
 
     bool            isAdjective() const;
     bool            isAdverb() const;
+    bool            isExpression() const;
     bool            isFukisokuVerb() const;
     bool            isGodanVerb() const;
     bool            isIchidanVerb() const;
     bool            isNoun() const;
     bool            isParticle() const;
+    bool            isPrefix() const;
+    bool            isSuffix() const;
     bool            isVerb() const;
 
     bool            matchesWordType( const DictQuery &query ) const;

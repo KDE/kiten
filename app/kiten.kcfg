@@ -110,7 +110,7 @@
 		<default>3</default>
 	</entry>
 	<entry key="search_limit_to_wordtype" type="Int">
-		<label>The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, 4=Adverb</label>
+		<label>The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, 4=Adverb, 5=Prefix, 6=Suffix, 7=Expression</label>
 		<default>0</default>
 	</entry>
 	 <entry key="autosearch" type="Bool">

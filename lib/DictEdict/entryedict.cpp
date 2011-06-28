@@ -103,6 +103,19 @@ bool EntryEdict::isAdverb() const
   return false;
 }
 
+bool EntryEdict::isExpression() const
+{
+  foreach( const QString &type, EdictFormatting::Expressions )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 bool EntryEdict::isFukisokuVerb() const
 {
   foreach( const QString &type, EdictFormatting::FukisokuVerbs )
@@ -157,7 +170,25 @@ bool EntryEdict::isNoun() const
 
 bool EntryEdict::isParticle() const
 {
-  foreach( const QString &type, EdictFormatting::Particles )
+  return m_types.contains( EdictFormatting::Particle );
+}
+
+bool EntryEdict::isPrefix() const
+{
+  foreach( const QString &type, EdictFormatting::Prefix )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isSuffix() const
+{
+  foreach( const QString &type, EdictFormatting::Suffix )
   {
     if( m_types.contains( type ) )
     {
@@ -315,6 +346,21 @@ bool EntryEdict::matchesWordType( const DictQuery &query ) const
     {
       return true;
     }
+    if( query.getMatchWordType() == DictQuery::Expression
+        && isExpression() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Prefix
+        && isPrefix() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Suffix
+        && isSuffix() )
+    {
+      return true;
+    }
     if( query.getMatchWordType() == DictQuery::Any )
     {
       return true;
@@ -392,7 +438,11 @@ namespace EdictFormatting
   QSet<QString> createPartsOfSpeech();
   QSet<QString> createMiscMarkings();
   QSet<QString> createFieldOfApplication();
+  QStringList   createNounsList();
   QStringList   createVerbsList();
+  QStringList   createExpressionsList();
+  QStringList   createPrefixesList();
+  QStringList   createSuffixesList();
  
   // Private variables.
   QString noun      = QString( i18nc( "This must be a single word", "Noun" ) );
@@ -403,7 +453,12 @@ namespace EdictFormatting
   QString ichidanVerb   = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated (except possibly in far-eastern languages), this must be a single word", "Ichidan" ) );
   QString godanVerb     = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Godan" ) );
   QString fukisokuVerb  = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Fukisoku" ) );
-
+  QString expression = QString( i18n( "Expression" ) );
+  QString idiomaticExpression = QString( i18n( "Idiomatic expression" ) );
+  QString prefix = QString( i18n( "Prefix" ) );
+  QString suffix = QString( i18n( "Suffix" ) );
+  QString nounPrefix = QString( i18n( "Noun (used as a prefix)" ) );
+  QString nounSuffix = QString( i18n( "Noun (used as a suffix)" ) );
 
 
   // Define our public variables.
@@ -413,16 +468,28 @@ namespace EdictFormatting
   QSet<QString> FieldOfApplication = createFieldOfApplication();
 
   // PartOfSpeechCategories needs to has some values before this line.
-  QStringList Nouns = PartOfSpeechCategories.values( noun );
-  QStringList Adjectives = PartOfSpeechCategories.values( adjective ); 
-  QStringList Adverbs = PartOfSpeechCategories.values( adverb );
-  QStringList IchidanVerbs = PartOfSpeechCategories.values( ichidanVerb );
-  QStringList GodanVerbs = PartOfSpeechCategories.values( godanVerb );
+  QStringList Nouns         = createNounsList();
+  QStringList Adjectives    = PartOfSpeechCategories.values( adjective );
+  QStringList Adverbs       = PartOfSpeechCategories.values( adverb );
+  QStringList IchidanVerbs  = PartOfSpeechCategories.values( ichidanVerb );
+  QStringList GodanVerbs    = PartOfSpeechCategories.values( godanVerb );
   QStringList FukisokuVerbs = PartOfSpeechCategories.values( fukisokuVerb );
-  QStringList Verbs = createVerbsList();
-  QStringList Particles = PartOfSpeechCategories.values( particle );
+  QStringList Verbs         = createVerbsList();
+  QStringList Expressions   = createExpressionsList();
+  QStringList Prefix        = createPrefixesList();
+  QStringList Suffix        = createSuffixesList();
+  QString     Particle      = PartOfSpeechCategories.value( particle );
 
 
+
+  QStringList createNounsList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( noun ) );
+    list.append( PartOfSpeechCategories.values( nounPrefix ) );
+    list.append( PartOfSpeechCategories.values( nounSuffix ) );
+    return list;
+  }
 
   QStringList createVerbsList()
   {
@@ -434,6 +501,30 @@ namespace EdictFormatting
     return list;
   }
 
+  QStringList createExpressionsList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( expression ) );
+    list.append( PartOfSpeechCategories.values( idiomaticExpression ) );
+    return list;
+  }
+
+  QStringList createPrefixesList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( prefix ) );
+    list.append( PartOfSpeechCategories.values( nounPrefix ) );
+    return list;
+  }
+
+  QStringList createSuffixesList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( suffix ) );
+    list.append( PartOfSpeechCategories.values( nounSuffix ) );
+    return list;
+  }
+
   QMultiHash<QString, QString> createPartOfSpeechCategories()
   { 
     QMultiHash<QString, QString> categories;
@@ -441,10 +532,14 @@ namespace EdictFormatting
     //Nouns
     categories.insert( noun, "n" );
     categories.insert( noun, "n-adv" );
-    categories.insert( noun, "n-pref" );
-    categories.insert( noun, "n-suf" );
     categories.insert( noun, "n-t" );
     categories.insert( noun, "adv-n" );
+
+    //Noun (used as a prefix)
+    categories.insert( nounPrefix, "n-pref" );
+
+    //Noun (used as a suffix)
+    categories.insert( nounSuffix, "n-suf" );
 
     //Ichidan Verbs
     categories.insert( ichidanVerb, "v1" );
@@ -491,7 +586,6 @@ namespace EdictFormatting
     categories.insert( adjective, "adj" );
     categories.insert( adjective, "aux-adj" );
 
-
     //Adverbs
     categories.insert( adverb, "adv" );
     categories.insert( adverb, "adv-n" );
@@ -499,6 +593,18 @@ namespace EdictFormatting
 
     //Particle
     categories.insert( particle, "prt" );
+
+    //Expression
+    categories.insert( expression, "exp" );
+
+    //Idiomatic expression
+    categories.insert( idiomaticExpression, "id" );
+
+    //Prefix
+    categories.insert( prefix, "pref" );
+
+    //Suffix
+    categories.insert( suffix, "suf" );
 
     return categories;
   }
