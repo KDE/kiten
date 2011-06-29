@@ -19,7 +19,6 @@
     <Action name="search_wordType" />
 		<Action name="search_filterRare" />
 		<Action name="search_radical" />
-		<Action name="search_deinflect" append="save_merge" />
 		<Action name="radselect" />
 	</Menu>
 	<Menu name="settings">

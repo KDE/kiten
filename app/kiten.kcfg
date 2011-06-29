@@ -17,7 +17,7 @@
 		dictionaries. If you use a custom kcfg dialog instead of the standard
 		one, be sure to provide the variables that you need.
 		?>
-		<default>edict,kanjidic,deinflect</default>
+		<default>edict,kanjidic</default>
 	 </entry>
   </group>
   <group name="dicts_edict">
@@ -48,20 +48,6 @@
     </entry>
   </group>
 
-  <group name="dicts_deinflect">
-    <entry key="__NAMES" name="deinflect__NAMES" type="StringList">
-      <label>Deinflect Dictionary Files</label>
-    </entry>
-    <entry key="__useGlobal" name="deinflect__useGlobal" type="Bool">
-      <label>Use preinstalled kanjidic</label>
-      <default>true</default>
-    </entry>
-    <entry key="__displayFields" name="deinflect__displayFields" type="StringList">
-		<label>Set of fields to display for this dictionary type</label>
-		<default>Deinflection</default>
-    </entry>
-  </group>
-
   <group name="Searching Options">
     <entry key="initialSearch" type="Bool">
       <label>Do we search for "jiten" on startup</label>
@@ -79,7 +65,7 @@
 	  </entry>
 	  <entry key="dictionary_sortlist" type="StringList">
 		  <label>What order do we sort the dictionaries in?</label>
-		  <default>kanjidic,edict,deinflect</default>
+		  <default>kanjidic,edict</default>
 	  </entry>
 	  <entry key="field_sortlist" type="StringList">
 		  <label>What order do we sort the fields in?</label>
@@ -116,10 +102,6 @@
 	 <entry key="autosearch" type="Bool">
 		 <label>Automatically search for clipboard entries?</label>
       <default>false</default>
-    </entry>
-	 <entry key="deinf" type="Bool">
-		 <label>Enable the Deinflection checker?</label>
-      <default>true</default>
     </entry>
   </group>
 </kcfg>

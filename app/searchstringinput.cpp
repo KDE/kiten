@@ -43,9 +43,6 @@ SearchStringInput::SearchStringInput( Kiten *parent )
 : QObject( parent )
 {
   _parent = parent;
-  _actionDeinflect = _parent->actionCollection()->add<KToggleAction>( "search_deinflect" );
-  _actionDeinflect->setText( i18n( "Deinflect Verbs/Adjectives" ) );
-
   _actionFilterRare = _parent->actionCollection()->add<KToggleAction>( "search_filterRare" );
   _actionFilterRare->setText( i18n( "&Filter Out Rare" ) );
 
@@ -80,12 +77,12 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   actionsearchbox->setText( i18n( "Search Bar" ) );
   actionsearchbox->setDefaultWidget( _actionTextInput );
 
-  if( ! _actionDeinflect || ! _actionFilterRare
-    || ! _actionSearchSection || ! _actionSelectWordType || ! actionsearchbox )
+  if( ! _actionFilterRare || ! _actionSearchSection
+      || ! _actionSelectWordType || ! actionsearchbox )
   {
-    kError() << "Error creating user interface elements:"
-             << !_actionDeinflect << !_actionFilterRare << !_actionSearchSection
-             << !_actionSelectWordType << !actionsearchbox;
+    kError() << "Error creating user interface elements: "
+             << ! _actionFilterRare << ! _actionSearchSection
+             << ! _actionSelectWordType << ! actionsearchbox;
   }
 
   //connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
