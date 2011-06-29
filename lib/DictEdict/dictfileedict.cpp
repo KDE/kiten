@@ -161,6 +161,39 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     m_hasDeinflection = false;
   }
 
+  EntryList *exact     = new EntryList();
+  EntryList *beginning = new EntryList();
+  EntryList *ending    = new EntryList();
+  EntryList *anywhere  = new EntryList();
+  EntryList::EntryIterator it( *results );
+  while( it.hasNext() )
+  {
+    Entry *entry = it.next();
+
+    if( entry->getWord() == query.getWord() )
+    {
+      exact->append( entry );
+    }
+    else if( entry->getWord().startsWith( query.getWord() ) )
+    {
+      beginning->append( entry );
+    }
+    else if( entry->getWord().endsWith( query.getWord() ) )
+    {
+      ending->append( entry );
+    }
+    else
+    {
+      anywhere->append( entry );
+    }
+  }
+
+  results = new EntryList();
+  results->appendList( exact );
+  results->appendList( beginning );
+  results->appendList( ending );
+  results->appendList( anywhere );
+
   return results;
 }
 
