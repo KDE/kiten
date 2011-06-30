@@ -68,16 +68,14 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
   EntryList *verbs = new EntryList();
 
   QStringList edictTypesList;
-  edictTypesList.append( EdictFormatting::Adjectives   );
-  edictTypesList.append( EdictFormatting::GodanVerbs   );
-  edictTypesList.append( EdictFormatting::IchidanVerbs );
-  edictTypesList.append( EdictFormatting::Verbs        );
+  edictTypesList.append( EdictFormatting::Adjectives );
+  edictTypesList.append( EdictFormatting::Verbs      );
 
   QString edictTypes = edictTypesList.join( "," );
 
   foreach( const QString &it, preliminaryResults )
   {
-    Entry *entry = makeEntry( it );
+    EntryEdict *entry = makeEntry( it );
     QStringListIterator i( entry->getTypesList() );
     bool matched = false;
     while( i.hasNext() && ! matched )
@@ -189,7 +187,7 @@ bool Deinflection::load()
   QString replacement = QString();
   for( QString text = t.readLine(); ! t.atEnd(); text = t.readLine() )
   {
-    if( !text.isEmpty() && text.at( 0 ) == '$' )
+    if( ! text.isEmpty() && text.at( 0 ) == '$' )
     {
       replacement = text.right( 1 ).trimmed();
     }
@@ -211,7 +209,7 @@ bool Deinflection::load()
   return true;
 }
 
-inline Entry* Deinflection::makeEntry( QString x )
+inline EntryEdict* Deinflection::makeEntry( QString entry )
 {
-  return new EntryEdict( m_dictionaryName, x );
+  return new EntryEdict( m_dictionaryName, entry );
 }

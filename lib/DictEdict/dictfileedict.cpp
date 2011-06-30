@@ -135,7 +135,8 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
   {
 //     kDebug() << "result: " << it << endl;
     Entry *result = makeEntry( it );
-    if( result->matchesQuery( query ) )
+    EntryEdict *resultEdict = makeEntryEdict( it );
+    if( result->matchesQuery( query ) && resultEdict->matchesWordType( query ) )
     {
       results->append( result );
     }
@@ -144,7 +145,10 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
   // At this point we should have some preliminary results
   // and if there were no matches, it probably means the user
   // input was a verb or adjective, so we have to deinflect it.
-  if( results->count() == 0 )
+  bool isAnyQuery       = query.getMatchWordType() == DictQuery::Any;
+  bool isVerbQuery      = query.getMatchWordType() == DictQuery::Verb;
+  bool isAdjectiveQuery = query.getMatchWordType() == DictQuery::Adjective;
+  if( results->count() == 0 && ( isAnyQuery || isVerbQuery || isAdjectiveQuery ) )
   {
     results = m_deinflection->search( query, preliminaryResults );
     QString *label = m_deinflection->getDeinflectionLabel();
@@ -159,6 +163,39 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     deinflectionLabel = NULL;
     m_hasDeinflection = false;
   }
+
+  EntryList *exact     = new EntryList();
+  EntryList *beginning = new EntryList();
+  EntryList *ending    = new EntryList();
+  EntryList *anywhere  = new EntryList();
+  EntryList::EntryIterator it( *results );
+  while( it.hasNext() )
+  {
+    Entry *entry = it.next();
+
+    if( entry->getWord() == query.getWord() )
+    {
+      exact->append( entry );
+    }
+    else if( entry->getWord().startsWith( query.getWord() ) )
+    {
+      beginning->append( entry );
+    }
+    else if( entry->getWord().endsWith( query.getWord() ) )
+    {
+      ending->append( entry );
+    }
+    else
+    {
+      anywhere->append( entry );
+    }
+  }
+
+  results = new EntryList();
+  results->appendList( exact );
+  results->appendList( beginning );
+  results->appendList( ending );
+  results->appendList( anywhere );
 
   return results;
 }
@@ -236,9 +273,14 @@ void DictFileEdict::loadSettings( KConfigSkeleton *config )
   this->displayFields = loadListType( item, this->displayFields, long2short );
 }
 
-inline Entry* DictFileEdict::makeEntry( QString x )
+inline Entry* DictFileEdict::makeEntry( QString entry )
 {
-  return new EntryEdict( getName(), x );
+  return new EntryEdict( getName(), entry );
+}
+
+inline EntryEdict* DictFileEdict::makeEntryEdict( QString entry )
+{
+  return new EntryEdict( getName(), entry );
 }
 
 DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *config, QWidget *parent )

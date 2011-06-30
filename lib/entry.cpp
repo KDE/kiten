@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -136,22 +137,6 @@ QStringList Entry::getReadingsList() const
 /**
  * Simple accessor
  */
-QString Entry::getTypes() const
-{
-  return Types.join( outputListDelimiter );
-}
-
-/**
- * Simple accessor
- */
-QStringList Entry::getTypesList() const
-{
-  return Types;
-}
-
-/**
- * Simple accessor
- */
 const QHash<QString,QString> &Entry::getExtendedInfo() const
 {
   return ExtendedInfo;
@@ -253,6 +238,25 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
       }
     }
   }
+  else if( type == DictQuery::matchEnding )
+  {
+    foreach( const QString &it, test )
+    {
+      bool found = false;
+      foreach( const QString &it2, list )
+      {
+        if( it2.endsWith( it ) )
+        {
+          found = true;
+          break;
+        }
+      }
+      if( ! found )
+      {
+        return false;
+      }
+    }
+  }
   else
   {
     foreach( const QString &it, test )
@@ -300,6 +304,11 @@ bool Entry::matchesQuery( const DictQuery &query ) const
     {
       return false;
     }
+    if( query.getMatchType() == DictQuery::matchEnding
+      && ! this->getWord().endsWith( query.getWord() ) )
+    {
+      return false;
+    }
     if( query.getMatchType() == DictQuery::matchAnywhere
       && ! this->getWord().contains(query.getWord() ) )
     {
@@ -332,6 +341,11 @@ bool Entry::matchesQuery( const DictQuery &query ) const
           return false;
         }
         break;
+      case DictQuery::matchEnding:
+        if ( ! getWord().endsWith( query.getPronunciation() ) )
+        {
+          return false;
+        }
       case DictQuery::matchAnywhere:
         if ( ! getWord().contains( query.getPronunciation() ) )
         {

@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -285,16 +286,41 @@ public:
   {
     matchExact,
     matchBeginning,
+    matchEnding,
     matchAnywhere
   };
   /**
-   * Get which match type is currently set on the DictQuery
+   * Get which match type is currently set on the DictQuery.
    */
   MatchType getMatchType() const;
   /**
    * Set a match type. If this is not called, the default is matchExact.
    */
   void setMatchType( MatchType );
+
+  /**
+   * This enum is used to define the type of matching this query is supposed
+   * to do.
+   */
+  enum MatchWordType
+  {
+    Any,
+    Verb,
+    Noun,
+    Adjective,
+    Adverb,
+    Prefix,
+    Suffix,
+    Expression
+  };
+  /**
+   * Get which word type is currently set on the DictQuery.
+   */
+  MatchWordType getMatchWordType() const;
+  /**
+   * Set a word type. If this is not called, the default value is 'Any'.
+   */
+  void setMatchWordType( MatchWordType );
 
   /**
    * This enum is used as the return type for the two utility functions,

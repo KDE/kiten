@@ -40,7 +40,11 @@ namespace EdictFormatting
   extern QStringList Adverbs;
   extern QStringList IchidanVerbs;
   extern QStringList GodanVerbs;
-  extern QStringList Particles;
+  extern QStringList FukisokuVerbs;
+  extern QStringList Expressions;
+  extern QStringList Prefix;
+  extern QStringList Suffix;
+  extern QString     Particle;
   
   extern QMultiHash<QString, QString> PartOfSpeechCategories;
 
@@ -61,6 +65,29 @@ class /* NO_EXPORT */ EntryEdict : public Entry
                     EntryEdict( const QString &dict, const QString &entry );
 
     Entry          *clone() const;
+    /**
+     * Simple accessor.
+     */
+    QString         getTypes() const;
+    /**
+     * Simple accessor.
+     */
+    QStringList     getTypesList() const;
+
+    bool            isAdjective() const;
+    bool            isAdverb() const;
+    bool            isExpression() const;
+    bool            isFukisokuVerb() const;
+    bool            isGodanVerb() const;
+    bool            isIchidanVerb() const;
+    bool            isNoun() const;
+    bool            isParticle() const;
+    bool            isPrefix() const;
+    bool            isSuffix() const;
+    bool            isVerb() const;
+
+    bool            matchesWordType( const DictQuery &query ) const;
+
     virtual QString common() const;
     virtual QString dumpEntry() const;
     virtual QString HTMLWord() const;
@@ -71,8 +98,12 @@ class /* NO_EXPORT */ EntryEdict : public Entry
     virtual QString kanjiLinkify( const QString &inString ) const;
 
   private:
+    /**
+     * Types that match this entry (i.e. n, adj, adv).
+     */
+    QStringList    m_types;
+
     //Field of Application goes into the hash
-    QList<QString> m_typeList;
     QList<QString> m_miscMarkings;
 };
 
