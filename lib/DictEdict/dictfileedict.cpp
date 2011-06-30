@@ -145,7 +145,10 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
   // At this point we should have some preliminary results
   // and if there were no matches, it probably means the user
   // input was a verb or adjective, so we have to deinflect it.
-  if( results->count() == 0 )
+  bool isAnyQuery       = query.getMatchWordType() == DictQuery::Any;
+  bool isVerbQuery      = query.getMatchWordType() == DictQuery::Verb;
+  bool isAdjectiveQuery = query.getMatchWordType() == DictQuery::Adjective;
+  if( results->count() == 0 && ( isAnyQuery || isVerbQuery || isAdjectiveQuery ) )
   {
     results = m_deinflection->search( query, preliminaryResults );
     QString *label = m_deinflection->getDeinflectionLabel();
