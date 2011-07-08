@@ -356,6 +356,11 @@ DictFile *DictionaryManager::makeDictFile( const QString &type )
   return NULL;
 }
 
+void DictionaryManager::removeAllDictionaries()
+{
+  d->dictManagers.clear();
+}
+
 /**
  * Remove a dictionary from the list, and delete the dictionary object
  * (it should close files, deallocate memory, etc).

@@ -44,6 +44,7 @@ class KitenEdit;
 class QDockWidget;
 
 class ConfigureDialog;
+class DictionaryUpdateManager;
 class EntryListView;
 class ResultsView;
 class SearchStringInput;
@@ -56,6 +57,8 @@ class Kiten : public KXmlGuiWindow
   public:
     explicit Kiten( QWidget *parent = 0, const char *name = 0 );
             ~Kiten();
+
+    KitenConfigSkeleton *getConfig();
 
   // The following will be available via dbus.
   public slots:
@@ -89,6 +92,7 @@ class Kiten : public KXmlGuiWindow
     void configureGlobalKeys();
     void newToolBarConfig();
     void updateConfiguration();
+    void loadDictionaries();
     void loadDictConfig( const QString& );
 
     //Other
@@ -114,7 +118,7 @@ class Kiten : public KXmlGuiWindow
   private:
     KStatusBar          *_statusBar;
     DictionaryManager    _dictionaryManager;
-
+    DictionaryUpdateManager *_dictionaryUpdateManager;
     SearchStringInput   *_inputManager;
     ResultsView         *_mainView;
 

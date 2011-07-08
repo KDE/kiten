@@ -22,6 +22,7 @@
 		<Action name="radselect" />
 	</Menu>
 	<Menu name="settings">
+    <Action name="update_dictionaries" />
 		<Action name="autosearch_toggle" append="save_merge" />
 	</Menu>
 </MenuBar>

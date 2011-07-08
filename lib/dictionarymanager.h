@@ -76,6 +76,10 @@ class KITEN_EXPORT DictionaryManager
      */
     bool addDictionary( const QString &file, const QString &name, const QString &type );
     /**
+     * Removes all previously loaded dictionaries (if any).
+     */
+    void removeAllDictionaries();
+    /**
      * Close a dictionary by name
      *
      * @param name the name of the dictionary file, as given in addDictionary

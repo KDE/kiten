@@ -60,6 +60,7 @@
 #include <QTimer>
 
 #include "configuredialog.h"
+#include "dictionaryupdatemanager.h"
 #include "dictquery.h"
 #include "entrylist.h"
 #include "entrylistmodel.h"
@@ -108,6 +109,9 @@ Kiten::Kiten( QWidget *parent, const char *name )
   setCentralWidget( _mainView->widget() );
 
   setupActions();
+  // Be sure to create this manager before creating the GUI
+  // as it needs to add a KAction to it.
+  _dictionaryUpdateManager = new DictionaryUpdateManager( this );
 
   createGUI();
 
@@ -134,6 +138,8 @@ Kiten::Kiten( QWidget *parent, const char *name )
 
   connect( _mainView->view()->verticalScrollBar(), SIGNAL( valueChanged( int ) ),
                                             this,   SLOT( setCurrentScrollValue( int ) ) );
+  connect( _dictionaryUpdateManager, SIGNAL( updateFinished() ),
+                               this,   SLOT( loadDictionaries() ) );
 
   /* See below for what else needs to be done */
   QTimer::singleShot( 10, this, SLOT( finishInit() ) );
@@ -151,6 +157,10 @@ Kiten::~Kiten()
   delete _optionDialog;
 }
 
+KitenConfigSkeleton* Kiten::getConfig()
+{
+  return _config;
+}
 
 void Kiten::setupActions()
 {
@@ -603,6 +613,27 @@ void Kiten::configureGlobalKeys()
  */
 void Kiten::updateConfiguration()
 {
+  loadDictionaries();
+
+  //Update the HTML/CSS for our fonts
+  displayHistoryItem();
+
+  _inputManager->updateFontFromConfig();
+
+  /*: TODO: have a look at this as well
+  detachedView->updateFont();
+  */
+}
+
+/**
+ * Loads the dictionaries, their settings and updates general
+ * options for the display manager.
+ */
+void Kiten::loadDictionaries()
+{
+  // Avoid duplicates (this makes it easy when we need to reload the dictionaries).
+  _dictionaryManager.removeAllDictionaries();
+
   //Load the dictionaries of each type that we can adjust in prefs
   foreach( const QString &it, _config->dictionary_list() )
   {
@@ -615,17 +646,9 @@ void Kiten::updateConfiguration()
     _dictionaryManager.loadDictSettings( it, _config );
   }
 
-  //Update the HTML/CSS for our fonts
-  displayHistoryItem();
-
-  _inputManager->updateFontFromConfig();
-
-  /*: TODO: have a look at this as well
-  detachedView->updateFont();
-  */
-
   //Update general options for the display manager (sorting by dict, etc)
   _dictionaryManager.loadSettings( *_config->config() );
+  kDebug() << "Dictionaries loaded!" << endl;
 }
 
 /**
@@ -643,9 +666,8 @@ void Kiten::loadDictConfig( const QString &dictType )
   //If we need to load the global
   if( group.readEntry( "__useGlobal", true ) )
   {
-    dictionariesToLoad.append( qMakePair( dictType,
-                               dirs->findResource(  "data"
-                                                  , QString( "kiten/" ) + dictType.toLower() ) ) );
+    QString dictionary = dirs->findResource( "data", QString( "kiten/" ) + dictType.toLower() );
+    dictionariesToLoad.append( qMakePair( dictType, dictionary ) );
   }
 
   QStringList dictNames = group.readEntry<QStringList>( "__NAMES", QStringList() );
