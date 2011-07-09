@@ -4,6 +4,7 @@
  * Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>                      *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify      *
  * it under the terms of the GNU General Public License as published by      *
@@ -138,6 +139,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
 
   connect( _mainView->view()->verticalScrollBar(), SIGNAL( valueChanged( int ) ),
                                             this,   SLOT( setCurrentScrollValue( int ) ) );
+  /* We need to know when to reload our dictionaries if the user updated them. */
   connect( _dictionaryUpdateManager, SIGNAL( updateFinished() ),
                                this,   SLOT( loadDictionaries() ) );
 

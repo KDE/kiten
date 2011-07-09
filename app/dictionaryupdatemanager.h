@@ -30,32 +30,97 @@ class KJob;
 class Kiten;
 class KitenConfigSkeleton;
 
+/**
+ * This class handles all the update feature for the
+ * EDICT and KANJIDIC dictionaries.
+ */
 class DictionaryUpdateManager : public QObject
 {
   Q_OBJECT
 
   public:
+    /**
+     * Constructor.
+     */
     explicit DictionaryUpdateManager( Kiten *parent );
 
   signals:
+    /**
+     * Emitted when all the updates for EDICT and KANJIDIC finished.
+     */
     void     updateFinished();
 
   private slots:
+    /**
+     * Downloads an information file containing:
+     *   Name of dictionary
+     *   Copyright information
+     *   Latest creation date
+     *   Number of entries in the dictionary
+     */
     void     checkForUpdates();
+    /**
+     * Compare the downloaded information file with our
+     * dictionaries and check whether or not we need to
+     * update, if so, this function triggers their download.
+     */
     void     checkInfoFile( KJob *job );
+    /**
+     * Install the downloaded dictionary.
+     */
     void     installDictionary( KJob *job );
+    /**
+     * Show the update results as a KMessageBox.
+     */
     void     showUpdateResults();
 
   private:
+    /**
+     * Check whether or not the update finished, if so,
+     * emit an updateFinished signal.
+     */
     void     checkIfUpdateFinished();
+    /**
+     * Return the creation date of a file.
+     * Files could be:
+     *   Information file
+     *   EDICT
+     *   KANJIDIC
+     */
     QDate    getFileDate( QFile &file );
+    /**
+     * Download a dictionary.
+     * Could be:
+     *   EDICT
+     *   KANJIDIC
+     */
     void     downloadDictionary( const QString &url );
 
+    /**
+     * We need it to add a KAction action to the main toolbar.
+     */
     Kiten                 *_parent;
+    /**
+     * Config file that we need to know the path to
+     * the installed dictionaries.
+     */
     KitenConfigSkeleton   *_config;
+    /**
+     * Update action.
+     */
     KAction               *_actionUpdate;
+    /**
+     * List of dictionaries already up to date.
+     */
     QStringList            _succeeded;
+    /**
+     * List of dictionaries that failed to be updated.
+     */
     QStringList            _failed;
+    /**
+     * Counter to know how many dictionaries we are trying to
+     * install (to be used inside the installDictionary private slot).
+     */
     int                    _counter;
 };
 

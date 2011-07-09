@@ -39,8 +39,11 @@
 #include <QTextCodec>
 #include <QTextStream>
 
+// URL to the information file.
 #define INFO_URL     "http://ftp.monash.edu.au/pub/nihongo/edicthdr.txt"
+// URL to the EDICT dictionary.
 #define EDICT_URL    "http://ftp.monash.edu.au/pub/nihongo/edict.gz"
+// URL to the KANJIDIC dictionary.
 #define KANJIDIC_URL "http://ftp.monash.edu.au/pub/nihongo/kanjidic.gz"
 
 DictionaryUpdateManager::DictionaryUpdateManager( Kiten *parent )
@@ -62,6 +65,8 @@ DictionaryUpdateManager::DictionaryUpdateManager( Kiten *parent )
 void DictionaryUpdateManager::checkForUpdates()
 {
   kDebug() << "Checking for EDICT & KANJIDIC updates." << endl;
+  // Download the information file we need to check
+  // whether or not an update to our dictionaries is necessary.
   KIO::StoredTransferJob *job = KIO::storedGet( KUrl( INFO_URL ) );
   connect(  job, SIGNAL( result( KJob* ) ),
            this,   SLOT( checkInfoFile( KJob* ) ) );
@@ -69,8 +74,11 @@ void DictionaryUpdateManager::checkForUpdates()
 
 void DictionaryUpdateManager::checkIfUpdateFinished()
 {
+  // Emit the updateFinished signal once we finished
+  // to update our installed dictionaries.
   if( _counter == _config->dictionary_list().size() )
   {
+    // Make sure to reset this variable to 0.
     _counter = 0;
     emit updateFinished();
   }
@@ -80,6 +88,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
 {
   KIO::StoredTransferJob *storedJob = static_cast<KIO::StoredTransferJob*>( job );
   QByteArray data( storedJob->data() );
+  // Check if we have valid data to work with.
   if( data.isNull() || data.isEmpty() )
   {
     KMessageBox::sorry( 0, i18n( "Update canceled.\nCould not read file." ) );
@@ -87,6 +96,8 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
     return;
   }
 
+  // We don't need to store this information file in our Hard Disk Drive,
+  // a temporary file is enough.
   QTemporaryFile tempFile;
   if( ! tempFile.open() )
   {
@@ -99,6 +110,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   tempFile.write( data );
   tempFile.close();
 
+  // Get the latest creation date for the EDICT dictionary on the server.
   QDate webFileDate = getFileDate( tempFile );
   if( ! webFileDate.isValid() )
   {
@@ -112,32 +124,42 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
     return;
   }
 
+  // At this point we have a valid creation date from the server.
+  // Now we can check our dictionaries.
+
+  // Connect to this signal to know when the update process is finished.
   connect( this, SIGNAL( updateFinished() ),
            this,   SLOT( showUpdateResults() ) );
 
+  // This variable help us to know if we need to download any file.
   bool updates = false;
+  // Iterate on each of our installed dictionaries.
   foreach( const QString &dict, _config->dictionary_list() )
   {
     QString filePath = KGlobal::dirs()->findResource( "data", QString( "kiten/" ) + dict.toLower() );
     QFile file( filePath );
     kDebug() << "Local dictionary path:" << file.fileName() << endl;
 
+    // Get the creation date for this dictionary.
     QDate localFileDate = getFileDate( file );
 
     if( ! localFileDate.isValid() )
     {
+      // Add it to our 'failed to udate' list.
       _failed.append( dict.toUpper() );
       kDebug() << "Failed (invalid date):" << dict.toUpper() << endl;
       continue;
     }
     else if( localFileDate == webFileDate )
     {
+      // Add it to our 'up to date' list.
       _succeeded.append( dict.toUpper() );
       kDebug() << "Success (up to date):" << dict.toUpper() << endl;
       continue;
     }
     else
     {
+      // Indicate we need to download something.
       updates = true;
 
       if( dict.toLower() == QString( "edict" ) )
@@ -151,6 +173,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
     }
   }
 
+  // Let Kiten know we finished and don't need to download anything else.
   if( ! updates )
   {
     emit updateFinished();
@@ -163,8 +186,8 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
 void DictionaryUpdateManager::downloadDictionary( const QString &url )
 {
   kDebug() << "Download started!" << endl;
+  // Download dictionary.
   KIO::StoredTransferJob *dictionaryJob = KIO::storedGet( KUrl( url ) );
-
   connect( dictionaryJob, SIGNAL( result( KJob* ) ),
                     this,   SLOT( installDictionary( KJob* ) ) );
 }
@@ -215,12 +238,16 @@ QDate DictionaryUpdateManager::getFileDate( QFile &file )
 
 void DictionaryUpdateManager::installDictionary( KJob *job )
 {
+  // Increase the number of dictionaries we try to install.
+  // This way we can know when we finished with our installed dictionaries.
   _counter++;
 
   KIO::StoredTransferJob *storedJob = static_cast<KIO::StoredTransferJob*>( job );
   QByteArray data( storedJob->data() );
   QString url( storedJob->url().prettyUrl() );
 
+  // What we actually downloaded was a GZIP file that we need to extract.
+  // As there is no need to keep this file, we make it a temporary file.
   QTemporaryFile compressedFile;
   if( ! compressedFile.open() )
   {
@@ -230,13 +257,14 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
     checkIfUpdateFinished();
     return;
   }
-
+  // Create the GZIP file from the downloaded data.
   compressedFile.write( data );
   compressedFile.close();
 
   kDebug() << "Dictionary download finished!" << endl;
   kDebug() << "Extracting dictionary..." << endl;
 
+  // Extract the GZIP file.
   QIODevice *device = KFilterDev::deviceForFile( compressedFile.fileName(), "application/x-gzip" );
   if( ! device->open( QIODevice::ReadOnly ) )
   {
@@ -248,8 +276,12 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
     return;
   }
 
+  // Check the first line's first character of the extracted file.
+  // EDICT starts with a '　', KANJIDIC starts with a '#'.
   QString fileName = device->readLine().startsWith( '#' ) ? QString( "kanjidic" ) : QString( "edict" );
+  // Reset the position where we are going to start reading the content.
   device->reset();
+  // Thanks to the above lines we can get the path to the correct file to be updated.
   QString dictPath = KGlobal::dirs()->locateLocal( "data"
                                                   , QString( "kiten/" ) + fileName
                                                   , true );
@@ -265,6 +297,7 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
     return;
   }
 
+  // Write the new dictionary file to disk.
   dictionary.write( device->readAll() );
   dictionary.close();
   device->close();
@@ -272,12 +305,14 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
   delete device;
   job->deleteLater();
 
+  // Check if we finished updating.
   checkIfUpdateFinished();
   kDebug() << "Successfully installed at:" << dictionary.fileName() << endl;
 }
 
 void DictionaryUpdateManager::showUpdateResults()
 {
+  // Avoid multiple calls to this slot.
   disconnect( this, SIGNAL( updateFinished() ),
               this,   SLOT( showUpdateResults() ) );
   
@@ -301,6 +336,7 @@ void DictionaryUpdateManager::showUpdateResults()
                                 , _failed.join( "\n" ) ) );
   }
 
+  // Avoid repetitions in our lists.
   _succeeded.clear();
   _failed.clear();
 }
