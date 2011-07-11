@@ -33,6 +33,8 @@ class KitenConfigSkeleton;
 /**
  * This class handles all the update feature for the
  * EDICT and KANJIDIC dictionaries.
+ *
+ * @author Daniel E. Moctezuma <democtezuma@gmail.com>
  */
 class DictionaryUpdateManager : public QObject
 {
@@ -41,6 +43,9 @@ class DictionaryUpdateManager : public QObject
   public:
     /**
      * Constructor.
+     *
+     * @param parent pointer to the Kiten instance. This helps us to add
+     *               KAction actions to the program.
      */
     explicit DictionaryUpdateManager( Kiten *parent );
 
@@ -63,10 +68,16 @@ class DictionaryUpdateManager : public QObject
      * Compare the downloaded information file with our
      * dictionaries and check whether or not we need to
      * update, if so, this function triggers their download.
+     *
+     * @param job the job that downloaded the information file.
+     *            This slot should be connected to the result() signal from KJob.
      */
     void     checkInfoFile( KJob *job );
     /**
      * Install the downloaded dictionary.
+     *
+     * @param job the job that downloaded a dictionary file.
+     *            This slot should be connected to the result() signal from KJob.
      */
     void     installDictionary( KJob *job );
     /**
@@ -86,6 +97,9 @@ class DictionaryUpdateManager : public QObject
      *   Information file
      *   EDICT
      *   KANJIDIC
+     *
+     * @param file file from which you want to get the creation date
+     * @return creation date of the given file
      */
     QDate    getFileDate( QFile &file );
     /**
@@ -93,6 +107,8 @@ class DictionaryUpdateManager : public QObject
      * Could be:
      *   EDICT
      *   KANJIDIC
+     *
+     * @param url url to the dictionary you want to download
      */
     void     downloadDictionary( const QString &url );
 
