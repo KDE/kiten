@@ -105,20 +105,8 @@ DictQuery SearchStringInput::getSearchQuery() const
     result.setProperty( "common", "1" );
   }
 
-  DictQuery::MatchType options[ 4 ] = {   DictQuery::matchExact
-                                        , DictQuery::matchBeginning
-                                        , DictQuery::matchEnding
-                                        , DictQuery::matchAnywhere };
-  DictQuery::MatchWordType type[ 8 ] = {   DictQuery::Any
-                                         , DictQuery::Verb
-                                         , DictQuery::Noun
-                                         , DictQuery::Adjective
-                                         , DictQuery::Adverb
-                                         , DictQuery::Prefix
-                                         , DictQuery::Suffix
-                                         , DictQuery::Expression };
-  result.setMatchType( options[ _actionSearchSection->currentItem() ] );
-  result.setMatchWordType( type[ _actionSelectWordType->currentItem() ] );
+  result.setMatchType( (DictQuery::MatchType)_actionSearchSection->currentItem() );
+  result.setMatchWordType( (DictQuery::MatchWordType)_actionSelectWordType->currentItem() );
 
   return result;
 }
@@ -136,49 +124,8 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
   kDebug() << "------------------------------Set Triggered";
   //First we set the various actions according to the query
   _actionFilterRare->setChecked( query.getProperty( "common" ) == "1" );
-  switch( query.getMatchType() )
-  {
-    case DictQuery::matchExact:
-      _actionSearchSection->setCurrentItem( 0 );
-      break;
-    case DictQuery::matchBeginning:
-      _actionSearchSection->setCurrentItem( 1 );
-      break;
-    case DictQuery::matchEnding:
-      _actionSearchSection->setCurrentItem( 2 );
-      break;
-    case DictQuery::matchAnywhere:
-      _actionSearchSection->setCurrentItem( 3 );
-      break;
-  }
-
-  switch( query.getMatchWordType() )
-  {
-    case DictQuery::Any:
-      _actionSelectWordType->setCurrentItem( 0 );
-      break;
-    case DictQuery::Verb:
-      _actionSelectWordType->setCurrentItem( 1 );
-      break;
-    case DictQuery::Noun:
-      _actionSelectWordType->setCurrentItem( 2 );
-      break;
-    case DictQuery::Adjective:
-      _actionSelectWordType->setCurrentItem( 3 );
-      break;
-    case DictQuery::Adverb:
-      _actionSelectWordType->setCurrentItem( 4 );
-      break;
-    case DictQuery::Prefix:
-      _actionSelectWordType->setCurrentItem( 5 );
-      break;
-    case DictQuery::Suffix:
-      _actionSelectWordType->setCurrentItem( 6 );
-      break;
-    case DictQuery::Expression:
-      _actionSelectWordType->setCurrentItem( 7 );
-      break;
-  }
+  _actionSearchSection->setCurrentItem( query.getMatchType() );
+  _actionSelectWordType->setCurrentItem( query.getMatchWordType() );
 
   //Secondly we remove aspects that are visible in the gui from the search string
   DictQuery copy( query );
