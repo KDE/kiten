@@ -171,7 +171,7 @@ bool DictFileKanjidic::loadDictionary( const QString &file, const QString &name 
 
   dictionary.close();
 
-  if( ! validDictionaryFile( name ) )
+  if( ! validDictionaryFile( file ) )
   {
     return false;
   }
@@ -234,12 +234,31 @@ bool DictFileKanjidic::validDictionaryFile( const QString &filename )
   {
     return false;
   }
-  //TODO: Some actual format checking of the kanjidic file
+
+  QTextStream fileStream( &file );
+  fileStream.setCodec( QTextCodec::codecForName( "eucJP" ) );
+
+  QRegExp format( "^\\S\\s+(\\S+\\s+)+(\\{(\\S+\\s?)+\\})+" );
+  m_validKanjidic = true;
+  while( ! fileStream.atEnd() )
+  {
+    QString currentLine = fileStream.readLine();
+
+    if( currentLine[ 0 ] == '#' )
+    {
+      continue;
+    }
+    else if( currentLine.contains( format ) )
+    {
+      continue;
+    }
+
+    m_validKanjidic = false;
+    break;
+  }
 
   file.close();
-  m_validKanjidic = true;
-
-  return true;
+  return m_validKanjidic;
 }
 
 /**
