@@ -173,44 +173,67 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           break;
         case 'B':
           /* the radical, or busyu, number */
+          break;
         case 'C':
           /* the classical radical number, usually doesn't differ from busyu number */
+          break;
         case 'E':
           /* Henshell's "A Guide To Remembering Japanese Characters" index number */
+          break;
         case 'F':
           /* frequency ranking */
+          break;
         case 'G':
           /* grade level Jouyou 1 - 6 or 8 for common use or 9 for Jinmeiyou */
+          if( ! ExtendedInfo.contains( "G" ) )
+          {
+            INCI
+            LOADSTRING( curString )
+            ExtendedInfo.insert( QString( ichar ), curString );
+          }
+          break;
         case 'H':
           /* number from Halpern's New Japanese-English Character Dictionary */
+          break;
         case 'K':
           /* Gakken Kanji Dictionary index */
+          break;
         case 'L':
           /* Heisig's "Remembering The Kanji" index */
+          break;
         case 'N':
           /* number from Nelson's Modern Reader's Japanese-English Character Dictionary */
+          break;
         case 'O':
           /* O'Neill's "Japanese Names" index number */
+          break;
         case 'P':
           /* SKIP code ... #-#-# format */
+          break;
         case 'Q':
           /* Four Corner codes, it seems, can be multiple though I'm tempted just to take the last one. */
+          break;
         case 'U':
           /* unicode which we are ignoring as it is found in another way */
+          break;
         case 'V':
           /* number from Haig's New Nelson Japanese-English Character Dictionary */
+          break;
         case 'W':
           /* korean reading */
+          break;
         case 'X':
           /* I don't entirely understand this field. */
+          break;
         case 'Y':
           /* Pinyin reading */
+          break;
         case 'Z':
           /* SKIP misclassifications */
 
           /* All of the above are of the format <Char><Data> where <Char> is
                   exactly 1 character. */
-          i++;
+          INCI
           LOADSTRING( curString );
           ExtendedInfo.insert( QString( ichar ), curString );
 
@@ -249,7 +272,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
         case 'S':
           /* stroke count: may be multiple.  In that case, first is actual, others common
                   miscounts */
-          i++;
+          INCI
           if( ! ExtendedInfo.contains( "S" ) )
           {
             LOADSTRING( curString )
@@ -291,6 +314,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           break;
         case 'T':
           /* a reading that is used in names for T1, radical names for T2 */
+          break;
         case '-':
           /* a reading that is only in postposition */
           /* any of those 2 signals a reading is to ensue. */
@@ -317,7 +341,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
              possibly a new field in kanjidic.  Let's treat it as the
              oh-so-common <char><data> type of entry.  It could be hotly
              debated what we should actually do about these. */
-          i++;
+          INCI
           LOADSTRING( curString );
           ExtendedInfo.insert( QString( ichar ), curString );
 
