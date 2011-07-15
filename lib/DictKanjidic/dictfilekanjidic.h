@@ -26,6 +26,8 @@
 
 #include "dictfile.h"
 
+#include "libkitenexport.h"
+
 #include <QStringList>
 
 class DictQuery;
@@ -34,7 +36,7 @@ class EntryList;
 class KConfigSkeleton;
 class KConfigSkeletonItem;
 
-class /* NO_EXPORT */  DictFileKanjidic : public DictFile
+class KITEN_EXPORT DictFileKanjidic : public DictFile
 {
   friend class EntryKanjidic;
 

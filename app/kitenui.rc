@@ -20,6 +20,7 @@
 		<Action name="search_filterRare" />
 		<Action name="search_radical" />
 		<Action name="radselect" />
+    <Action name="kanjibrowser" />
 	</Menu>
 	<Menu name="settings">
     <Action name="update_dictionaries" />
@@ -36,6 +37,7 @@
 	<Separator/>
 	<Action name="search_filterRare" />
 	<Action name="radselect" />
+  <Action name="kanjibrowser" />
 	<Action name="search_searchType" />
   <Action name="search_wordType" />
 </ToolBar>

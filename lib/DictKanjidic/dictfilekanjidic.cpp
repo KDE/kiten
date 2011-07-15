@@ -82,7 +82,7 @@ QMap<QString,QString> DictFileKanjidic::displayOptions() const
   list.insert( "Grade Level(G)",                       "G");
   list.insert( "Halpern's New J-E Char Dictionary(H)", "H");
   list.insert( "Spahn & Hadamitzky Reference(I)",      "I");
-  list.insert( "Gakken Kanji Dictionary Index(K)",     "L");
+  list.insert( "Gakken Kanji Dictionary Index(K)",     "K");
   list.insert( "Heisig's Index(L)",                    "L");
   list.insert( "Morohashi's Daikanwajiten(M)",         "M");
   list.insert( "Nelsons Modern Reader's J-E Index(N)", "N");
