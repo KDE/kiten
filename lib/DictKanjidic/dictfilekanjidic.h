@@ -53,6 +53,7 @@ class KITEN_EXPORT DictFileKanjidic : public DictFile
     QStringList          *loadListType(  KConfigSkeletonItem *item
                                        , QStringList *list
                                        , const QMap<QString,QString> &long2short );
+    void                  loadSettings();
     virtual void          loadSettings( KConfigSkeleton *item );
     bool                  validDictionaryFile( const QString &filename );
     bool                  validQuery( const DictQuery &query );

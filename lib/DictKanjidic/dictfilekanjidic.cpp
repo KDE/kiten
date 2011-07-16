@@ -210,6 +210,17 @@ QStringList* DictFileKanjidic::loadListType(  KConfigSkeletonItem *item
   return list;
 }
 
+void DictFileKanjidic::loadSettings()
+{
+  QMap<QString,QString> list = displayOptions();
+  list[ "Word/Kanji" ]  = "Word/Kanji";
+  list[ "Reading" ]     = "Reading";
+  list[ "Meaning" ]     = "Meaning";
+  list[ "--Newline--" ] = "--Newline--";
+
+  this->displayFields = new QStringList( list.values() );
+}
+
 void DictFileKanjidic::loadSettings( KConfigSkeleton *config )
 {
   QMap<QString,QString> list = displayOptions();
