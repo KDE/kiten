@@ -40,7 +40,6 @@ KanjiBrowser::KanjiBrowser()
   _view = new KanjiBrowserView( this->parentWidget() );
   loadKanji();
 
-  setAcceptDrops( true );
   setCentralWidget( _view );
   setObjectName( QLatin1String( "kanjibrowser" ) );
   setupGUI( Default, "kanjibrowserui.rc" );
@@ -63,6 +62,7 @@ void KanjiBrowser::loadKanji()
   QString dictionary = KGlobal::dirs()->findResource(   "data"
                                                       , "kiten/kanjidic" );
   _dictFileKanjidic = new DictFileKanjidic();
+  _dictFileKanjidic->loadSettings();
   _dictFileKanjidic->loadDictionary( dictionary, "kanjidic" );
 
   QRegExp gradeMatch( "^G\\d+" );
@@ -99,7 +99,7 @@ void KanjiBrowser::loadKanji()
   kDebug() << "Max. grade:" << gradeList.last() << endl;
   kDebug() << "Max. stroke count:" << strokeList.last() << endl;
 
-  _view->setupView( kanjiList, gradeList, strokeList );
+  _view->setupView( this, kanjiList, gradeList, strokeList );
 }
 
 #include "kanjibrowser.moc"

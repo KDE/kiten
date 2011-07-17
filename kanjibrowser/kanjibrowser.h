@@ -29,6 +29,8 @@ class KanjiBrowserView;
 
 class KanjiBrowser : public KXmlGuiWindow
 {
+  friend class KanjiBrowserView;
+
   Q_OBJECT
 
   public:

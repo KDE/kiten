@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -22,10 +22,16 @@
     <height>500</height>
    </size>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>700</width>
+    <height>500</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Kanji Browser</string>
   </property>
-  <widget class="QStackedWidget" name="stackedWidget">
+  <widget class="QStackedWidget" name="_stackedWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -54,6 +60,9 @@
          <font>
           <pointsize>24</pointsize>
          </font>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::NoDragDrop</enum>
         </property>
         <property name="viewMode">
          <enum>QListView::IconMode</enum>
@@ -98,6 +107,12 @@
        <width>641</width>
        <height>441</height>
       </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="overwriteMode">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>

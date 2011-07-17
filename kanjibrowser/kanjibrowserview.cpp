@@ -20,6 +20,15 @@
 
 #include "kanjibrowserview.h"
 
+#include "kanjibrowser.h"
+#include "DictKanjidic/dictfilekanjidic.h"
+#include "DictKanjidic/entrykanjidic.h"
+#include "dictquery.h"
+#include "entrylist.h"
+
+#include <KAction>
+#include <KActionCollection>
+#include <KConfigSkeleton>
 #include <KDebug>
 #include <KMessageBox>
 
@@ -80,6 +89,16 @@ void KanjiBrowserView::changeStrokeCount( const int strokes )
   reloadKanjiList();
 }
 
+void KanjiBrowserView::changeToInfoPage()
+{
+  _stackedWidget->setCurrentIndex( Info );
+}
+
+void KanjiBrowserView::changeToListPage()
+{
+  _stackedWidget->setCurrentIndex( List );
+}
+
 void KanjiBrowserView::reloadKanjiList()
 {
   _kanjiList->clear();
@@ -92,7 +111,8 @@ void KanjiBrowserView::reloadKanjiList()
   }
 }
 
-void KanjiBrowserView::setupView(   const QHash< QString, QPair<int, int> > &kanji
+void KanjiBrowserView::setupView(   KanjiBrowser *parent
+                                  , const QHash< QString, QPair<int, int> > &kanji
                                   , QList<int> &kanjiGrades
                                   , QList<int> &strokeCount )
 {
@@ -104,9 +124,16 @@ void KanjiBrowserView::setupView(   const QHash< QString, QPair<int, int> > &kan
     return;
   }
 
+  _parent = parent;
   _kanji = kanji;
   _gradeList = kanjiGrades;
   _strokesList = strokeCount;
+
+  KAction *goToKanjiList = _parent->actionCollection()->addAction( "kanji_list" );
+  goToKanjiList->setText( i18n( "Kanji &List" ) );
+
+  KAction *goToKanjiInfo = _parent->actionCollection()->addAction( "kanji_info" );
+  goToKanjiInfo->setText( i18n( "Kanji &Information" ) );
 
   _grades->addItem( i18n( "All Jouyou Kanji grades" ) );
   foreach( const int &grade, kanjiGrades )
@@ -139,11 +166,41 @@ void KanjiBrowserView::setupView(   const QHash< QString, QPair<int, int> > &kan
               this,   SLOT( changeGrade( int ) ) );
   connect( _strokes, SIGNAL( currentIndexChanged( int ) ),
                this,   SLOT( changeStrokeCount( int ) ) );
+  connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
+                 this,   SLOT( showKanjiInformation( QListWidgetItem* ) ) );
+  connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
+           goToKanjiInfo, SIGNAL( triggered() ) );
+  connect( goToKanjiList, SIGNAL( triggered() ),
+                    this,   SLOT( changeToListPage() ) );
+  connect( goToKanjiInfo, SIGNAL( triggered() ),
+                    this,   SLOT( changeToInfoPage() ) );
 
   _grades->setCurrentIndex( 1 );
   _strokes->setCurrentIndex( 1 );
   _strokes->setCurrentIndex( 0 );
+
   kDebug() << "Initial setup succeeded!" << endl;
+}
+
+void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
+{
+  Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
+  EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
+
+  QString text;
+  text.append( "<html><body>" );
+  text.append( "<p style=\"font-size:60px;\">"+ kanji->getWord() + "</p>" );
+  if( ! kanji->getOnyomiReadings().isEmpty() )
+  {
+    text.append( "<p style=\"font-size:30px;\">Onyomi: "+ kanji->getOnyomiReadings() + "</p>" );
+  }
+  if( ! kanji->getKunyomiReadings().isEmpty() )
+  {
+    text.append( "<p style=\"font-size:30px;\">Kunyomi: "+ kanji->getKunyomiReadings() + "</p>" );
+  }
+  text.append( "<p style=\"font-size:30px;\">Meanings: "+ kanji->getMeanings() + "</p>" );
+  text.append( "</body></html>" );
+  _kanjiInformation->setHtml( text );
 }
 
 #include "kanjibrowserview.moc"

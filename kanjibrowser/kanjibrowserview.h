@@ -23,6 +23,9 @@
 
 #include "ui_kanjibrowserview.h"
 
+class KAction;
+class KanjiBrowser;
+
 class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 {
   Q_OBJECT
@@ -31,17 +34,29 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
          KanjiBrowserView( QWidget *parent );
         ~KanjiBrowserView();
 
-    void setupView(   const QHash< QString, QPair<int, int> > &kanji
+    void setupView(   KanjiBrowser *parent
+                    , const QHash< QString, QPair<int, int> > &kanji
                     , QList<int> &kanjiGrades
                     , QList<int> &strokeCount );
 
   private slots:
     void changeGrade( const int grade );
+    void changeToInfoPage();
+    void changeToListPage();
     void changeStrokeCount( const int strokes );
+    void showKanjiInformation( QListWidgetItem *item );
 
   private:
     void reloadKanjiList();
 
+    enum Page
+    {
+      List,
+      Info
+    };
+
+    KanjiBrowser                     *_parent;
+    Page                              _currentPage;
     QHash< QString, QPair<int, int> > _kanji;
     QList<int>                        _gradeList;
     QList<int>                        _strokesList;
