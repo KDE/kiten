@@ -89,9 +89,19 @@ QString EntryKanjidic::getKunyomiReadings() const
   return KunyomiReadings.join( ", " );
 }
 
+QStringList EntryKanjidic::getKunyomiReadingsList() const
+{
+  return KunyomiReadings;
+}
+
 QString EntryKanjidic::getOnyomiReadings() const
 {
   return OnyomiReadings.join( ", " );
+}
+
+QStringList EntryKanjidic::getOnyomiReadingsList() const
+{
+  return OnyomiReadings;
 }
 
 QString EntryKanjidic::getStrokesCount() const

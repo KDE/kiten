@@ -42,7 +42,9 @@ class KITEN_EXPORT EntryKanjidic : public Entry
     virtual QString dumpEntry() const;
     QString         getKanjiGrade() const;
     QString         getKunyomiReadings() const;
+    QStringList     getKunyomiReadingsList() const;
     QString         getOnyomiReadings() const;
+    QStringList     getOnyomiReadingsList() const;
     QString         getStrokesCount() const;
     virtual bool    loadEntry( const QString &entryLine );
     virtual QString toHTML() const;
