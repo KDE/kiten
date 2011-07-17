@@ -79,6 +79,26 @@ bool EntryKanjidic::extendedItemCheck( const QString &key, const QString &value 
   return Entry::extendedItemCheck( key, value );
 }
 
+QString EntryKanjidic::getKanjiGrade() const
+{
+  return getExtendedInfoItem( "G" );
+}
+
+QString EntryKanjidic::getKunyomiReadings() const
+{
+  return KunyomiReadings.join( ", " );
+}
+
+QString EntryKanjidic::getOnyomiReadings() const
+{
+  return OnyomiReadings.join( ", " );
+}
+
+QString EntryKanjidic::getStrokesCount() const
+{
+  return getExtendedInfoItem( "S" );
+}
+
 QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 {
   //kDebug() << field;
@@ -237,7 +257,6 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           INCI
           LOADSTRING( curString );
           ExtendedInfo.insert( QString( ichar ), curString );
-
           break;
         case 'I':
           /* index codes for Spahn & Hadamitzky reference books we need the next
@@ -321,6 +340,18 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           /* any of those 2 signals a reading is to ensue. */
           LOADSTRING(curString)
           originalReadings.append(curString);
+
+          // If it is Hiragana (Kunyomi)
+          if( 0x3040 <=ichar.unicode() && ichar.unicode() <= 0x309F )
+          {
+            KunyomiReadings.append( curString );
+          }
+          // If it is Katakana (Onyomi)
+          else if( 0x30A0 <= ichar.unicode() && ichar.unicode() <= 0x30FF )
+          {
+            OnyomiReadings.append( curString );
+          }
+
           curString = curString.remove('-').remove('.');
           Readings.append(curString);
           break;
@@ -334,6 +365,18 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           {
             LOADSTRING( curString )
             originalReadings.append( curString );
+
+            // If it is Hiragana (Kunyomi)
+            if( 0x3040 <=ichar.unicode() && ichar.unicode() <= 0x309F )
+            {
+              KunyomiReadings.append( curString );
+            }
+            // If it is Katakana (Onyomi)
+            else if( 0x30A0 <= ichar.unicode() && ichar.unicode() <= 0x30FF )
+            {
+              OnyomiReadings.append( curString );
+            }
+
             curString = curString.remove( '-' ).remove( '.' );
             Readings.append( curString );
             break;

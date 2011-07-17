@@ -25,6 +25,8 @@
 
 #include "../entry.h"
 
+#include "libkitenexport.h"
+
 #include <QHash>
 #include <QList>
 #include <QSet>
@@ -55,7 +57,7 @@ namespace EdictFormatting
 
 #endif
 
-class /* NO_EXPORT */ EntryEdict : public Entry
+class KITEN_EXPORT EntryEdict : public Entry
 {
   friend class DictFileEdict;
 

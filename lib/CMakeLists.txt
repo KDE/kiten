@@ -40,7 +40,9 @@ install( FILES
 		)
 install(FILES
         DictEdict/dictfileedict.h
+        DictEdict/entryedict.h
         DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten/DictEdict COMPONENT Devel)
 install(FILES
         DictKanjidic/dictfilekanjidic.h
+        DictKanjidic/entrykanjidic.h
         DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten/DictKanjidic COMPONENT Devel)
