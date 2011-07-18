@@ -187,18 +187,61 @@ void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
   Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
   EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
 
+  QString width = QString::number( _kanjiInformation->width() );
+
   QString text;
-  text.append( "<html><body>" );
-  text.append( "<p style=\"font-size:60px;\">"+ kanji->getWord() + "</p>" );
-  if( ! kanji->getOnyomiReadings().isEmpty() )
+  text.append( "<html><style>" );
+  text.append( "p { font-size:30px; }" );
+  text.append( "</style><body><table width=\"" + width + "\">" );
+
+  // Put the kanji.
+  text.append( "<tr><td><p style=\"font-size:200px;\">" + kanji->getWord() + "</p></td>" );
+
+  // Now the kanji grades and number of strokes.
+  text.append( "<td><p><b>" + i18n( "Grade: " ) + "</b>"
+               + kanji->getKanjiGrade() + "</p></br>" );
+  text.append( "<p><b>" + i18n( "Strokes: " ) + "</b>"
+               + kanji->getStrokesCount() + "</p></td></tr></table>" );
+
+  // Onyomi readings.
+  if( ! kanji->getOnyomiReadingsList().isEmpty() )
   {
-    text.append( "<p style=\"font-size:30px;\">Onyomi: "+ kanji->getOnyomiReadings() + "</p>" );
+    text.append( "<p><b>Onyomi: </b>" + kanji->getOnyomiReadings() + "</p></br>" );
   }
-  if( ! kanji->getKunyomiReadings().isEmpty() )
+
+  // Kunyomi readings.
+  if( ! kanji->getKunyomiReadingsList().isEmpty() )
   {
-    text.append( "<p style=\"font-size:30px;\">Kunyomi: "+ kanji->getKunyomiReadings() + "</p>" );
+    text.append( "<p><b>Kunyomi: </b>" + kanji->getKunyomiReadings() + "</p></br>" );
   }
-  text.append( "<p style=\"font-size:30px;\">Meanings: "+ kanji->getMeanings() + "</p>" );
+
+  // Special readings used in names.
+  if( ! kanji->getInNamesReadingsList().isEmpty() )
+  {
+    text.append( "<p><b>" + i18n( "In names: " ) + "</b>"
+                 + kanji->getInNamesReadings() + "</p></br>" );
+  }
+
+  // Reading used as radical.
+  if( ! kanji->getAsRadicalReadingsList().isEmpty() )
+  {
+    text.append( "<p><b>" + i18n( "As radical: " ) + "</b>"
+                 + kanji->getAsRadicalReadings() + "</p></br>" );
+  }
+
+  // Meanings
+  text.append( "<p><b>" );
+  if( kanji->getMeaningsList().count() == 1 )
+  {
+    text.append( i18n( "Meaning: ") );
+  }
+  else
+  {
+    text.append( i18n( "Meanings: " ) );
+  }
+  text.append( "</b>" + kanji->getMeanings() + "</p>" );
+
+  // Close remaining tags and set the HTML text.
   text.append( "</body></html>" );
   _kanjiInformation->setHtml( text );
 }
