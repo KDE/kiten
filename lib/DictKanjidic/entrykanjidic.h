@@ -40,6 +40,10 @@ class KITEN_EXPORT EntryKanjidic : public Entry
 
     Entry          *clone() const;
     virtual QString dumpEntry() const;
+    QString         getAsRadicalReadings() const;
+    QStringList     getAsRadicalReadingsList() const;
+    QString         getInNamesReadings() const;
+    QStringList     getInNamesReadingsList() const;
     QString         getKanjiGrade() const;
     QString         getKunyomiReadings() const;
     QStringList     getKunyomiReadingsList() const;
@@ -56,9 +60,11 @@ class KITEN_EXPORT EntryKanjidic : public Entry
     virtual QString HTMLWord() const;
     virtual QString makeReadingLink( const QString &inReading ) const;
 
-    QStringList originalReadings;
+    QStringList AsRadicalReadings;
+    QStringList InNamesReadings;
     QStringList KunyomiReadings;
     QStringList OnyomiReadings;
+    QStringList originalReadings;
 };
 
 #endif

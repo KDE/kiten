@@ -79,6 +79,26 @@ bool EntryKanjidic::extendedItemCheck( const QString &key, const QString &value 
   return Entry::extendedItemCheck( key, value );
 }
 
+QString EntryKanjidic::getAsRadicalReadings() const
+{
+  return AsRadicalReadings.join( outputListDelimiter );
+}
+
+QStringList EntryKanjidic::getAsRadicalReadingsList() const
+{
+  return AsRadicalReadings;
+}
+
+QString EntryKanjidic::getInNamesReadings() const
+{
+  return InNamesReadings.join( outputListDelimiter );
+}
+
+QStringList EntryKanjidic::getInNamesReadingsList() const
+{
+  return InNamesReadings;
+}
+
 QString EntryKanjidic::getKanjiGrade() const
 {
   return getExtendedInfoItem( "G" );
@@ -86,7 +106,7 @@ QString EntryKanjidic::getKanjiGrade() const
 
 QString EntryKanjidic::getKunyomiReadings() const
 {
-  return KunyomiReadings.join( ", " );
+  return KunyomiReadings.join( outputListDelimiter );
 }
 
 QStringList EntryKanjidic::getKunyomiReadingsList() const
@@ -96,7 +116,7 @@ QStringList EntryKanjidic::getKunyomiReadingsList() const
 
 QString EntryKanjidic::getOnyomiReadings() const
 {
-  return OnyomiReadings.join( ", " );
+  return OnyomiReadings.join( outputListDelimiter );
 }
 
 QStringList EntryKanjidic::getOnyomiReadingsList() const
@@ -218,7 +238,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           /* grade level Jouyou 1 - 6 or 8 for common use or 9 for Jinmeiyou */
           if( ! ExtendedInfo.contains( "G" ) )
           {
-            INCI
+            i++;
             LOADSTRING( curString )
             ExtendedInfo.insert( QString( ichar ), curString );
           }
@@ -264,7 +284,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 
           /* All of the above are of the format <Char><Data> where <Char> is
                   exactly 1 character. */
-          INCI
+          i++;
           LOADSTRING( curString );
           ExtendedInfo.insert( QString( ichar ), curString );
           break;
@@ -302,7 +322,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
         case 'S':
           /* stroke count: may be multiple.  In that case, first is actual, others common
                   miscounts */
-          INCI
+          i++;
           if( ! ExtendedInfo.contains( "S" ) )
           {
             LOADSTRING( curString )
@@ -342,9 +362,50 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 //           kDebug() << "Meaning's curString: '" << curString << "'";
           Meanings.append( curString );
           break;
-        case 'T':
-          /* a reading that is used in names for T1, radical names for T2 */
-          break;
+        case 'T': /* a reading that is used in names for T1, radical names for T2 */
+        {
+          i++;
+          LOADSTRING( curString )
+          // Get the type number (1 for T1, 2 for T2).
+          int type = curString.toInt();
+          bool finished = false;
+          while( ! finished )
+          {
+            // Skip all whitespaces.
+            INCI
+            while( ichar == ' ' )
+            {
+              INCI
+            }
+            // Check if the current character is Kana.
+            if( 0x3040 <= ichar.unicode() && ichar.unicode() <= 0x30FF )
+            {
+              // Reset our variable and load it with
+              // all available kana until we find a whitespace.
+              curString = "";
+              LOADSTRING( curString );
+              switch( type )
+              {
+                case 1: // Special reading used in names.
+                  InNamesReadings.append( curString );
+                  break;
+                case 2: // Reading as radical.
+                  AsRadicalReadings.append( curString );
+                  break;
+              }
+            }
+            else
+            {
+              // There are not more kana characters,
+              // so we finish this loop for now.
+              finished = true;
+            }
+          }
+          // Now 'i' points to a '{' character. We decrease its value
+          // so in the next loop we can reach the "case '{'" section.
+          i--;
+        }
+        break;
         case '-':
           /* a reading that is only in postposition */
           /* any of those 2 signals a reading is to ensue. */
@@ -352,7 +413,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           originalReadings.append(curString);
 
           // If it is Hiragana (Kunyomi)
-          if( 0x3040 <=ichar.unicode() && ichar.unicode() <= 0x309F )
+          if( 0x3040 <= ichar.unicode() && ichar.unicode() <= 0x309F )
           {
             KunyomiReadings.append( curString );
           }
@@ -395,7 +456,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
              possibly a new field in kanjidic.  Let's treat it as the
              oh-so-common <char><data> type of entry.  It could be hotly
              debated what we should actually do about these. */
-          INCI
+          i++;
           LOADSTRING( curString );
           ExtendedInfo.insert( QString( ichar ), curString );
 
