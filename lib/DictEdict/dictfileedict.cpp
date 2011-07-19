@@ -84,14 +84,13 @@ QMap<QString,QString> DictFileEdict::displayOptions() const
  * binary search on the dictionary for that item. Take all results and filter
  * them using the rest of the query with the validate method.
  */
-EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
+EntryList *DictFileEdict::doSearch( const DictQuery &query )
 {
-  if( i_query.isEmpty() || ! m_edictFile.valid() )	//No query or dict, no results.
+  if( query.isEmpty() || ! m_edictFile.valid() )	//No query or dict, no results.
   {
     return new EntryList();
   }
 
-  DictQuery query( i_query );
   kDebug()<< "Search from : " << getName();
 
   QString firstChoice = query.getWord();

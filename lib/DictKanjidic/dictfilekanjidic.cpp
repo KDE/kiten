@@ -108,10 +108,34 @@ EntryList* DictFileKanjidic::doSearch( const DictQuery &query )
   }
 
   kDebug() << "Search from:" << getName() << endl;
+  QString searchQuery = query.getWord();
+  if( searchQuery.length() == 0 )
+  {
+    searchQuery = query.getPronunciation();
+    if( searchQuery.length() == 0 )
+    {
+      searchQuery = query.getMeaning().split( ' ' ).first().toLower();
+      if( searchQuery.length() == 0 )
+      {
+        QList<QString> keys = query.listPropertyKeys();
+        if( keys.size() == 0 )
+        {
+          return new EntryList();
+        }
+        searchQuery = keys[ 0 ];
+        searchQuery = searchQuery + query.getProperty( searchQuery );
+      }
+    }
+  }
+  else
+  {
+    searchQuery = searchQuery.at( 0 );
+  }
+
   EntryList *results = new EntryList();
   foreach( const QString &line, m_kanjidic )
   {
-    if( line.startsWith( query.getWord() ) )
+    if( line.contains( searchQuery ) )
     {
       results->append( makeEntry( line ) );
     }
