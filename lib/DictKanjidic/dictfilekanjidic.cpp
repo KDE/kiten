@@ -127,10 +127,6 @@ EntryList* DictFileKanjidic::doSearch( const DictQuery &query )
       }
     }
   }
-  else
-  {
-    searchQuery = searchQuery.at( 0 );
-  }
 
   EntryList *results = new EntryList();
   foreach( const QString &line, m_kanjidic )
