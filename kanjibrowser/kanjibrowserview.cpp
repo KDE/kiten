@@ -101,14 +101,19 @@ void KanjiBrowserView::changeToListPage()
 
 void KanjiBrowserView::reloadKanjiList()
 {
-  _kanjiList->clear();
-  foreach( const int grade, _currentGradeList )
+  QStringList list;
+  foreach( const int strokes, _currentStrokesList )
   {
-    foreach( const int strokes, _currentStrokesList )
+    foreach( const int grade, _currentGradeList )
     {
-      _kanjiList->addItems( _kanji.keys( qMakePair( grade, strokes ) ) );
+      list.append( _kanji.keys( qMakePair( grade, strokes ) ) );
     }
   }
+
+  _kanjiList->clear();
+  _kanjiList->addItems( list );
+
+  statusBarChanged( QString::number( _kanjiList->count() ) );
 }
 
 void KanjiBrowserView::setupView(   KanjiBrowser *parent
@@ -198,8 +203,11 @@ void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
   text.append( "<tr><td><p style=\"font-size:200px;\">" + kanji->getWord() + "</p></td>" );
 
   // Now the kanji grades and number of strokes.
-  text.append( "<td><p><b>" + i18n( "Grade: " ) + "</b>"
-               + kanji->getKanjiGrade() + "</p></br>" );
+  if( ! kanji->getKanjiGrade().isEmpty() )
+  {
+    text.append( "<td><p><b>" + i18n( "Grade: " ) + "</b>"
+                 + kanji->getKanjiGrade() + "</p></br>" );
+  }
   text.append( "<p><b>" + i18n( "Strokes: " ) + "</b>"
                + kanji->getStrokesCount() + "</p></td></tr></table>" );
 

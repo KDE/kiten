@@ -39,6 +39,9 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
                     , QList<int> &kanjiGrades
                     , QList<int> &strokeCount );
 
+  signals:
+    void statusBarChanged( const QString &text );
+
   private slots:
     void changeGrade( const int grade );
     void changeToInfoPage();
@@ -56,7 +59,6 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     };
 
     KanjiBrowser                     *_parent;
-    Page                              _currentPage;
     QHash< QString, QPair<int, int> > _kanji;
     QList<int>                        _gradeList;
     QList<int>                        _strokesList;

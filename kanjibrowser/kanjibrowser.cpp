@@ -24,10 +24,11 @@
 #include "kanjibrowserview.h"
 #include "DictKanjidic/dictfilekanjidic.h"
 
-#include <KApplication>
 #include <KActionCollection>
+#include <KApplication>
 #include <KStandardAction>
 #include <KStandardDirs>
+#include <KStatusBar>
 
 KanjiBrowser::KanjiBrowser()
 : KXmlGuiWindow()
@@ -35,19 +36,29 @@ KanjiBrowser::KanjiBrowser()
   _config = KanjiBrowserConfigSkeleton::self();
   _config->readConfig();
 
+  statusBar()->show();
+
   KStandardAction::quit( kapp, SLOT( quit() ), actionCollection() );
 
   _view = new KanjiBrowserView( this->parentWidget() );
+  connect( _view, SIGNAL( statusBarChanged( const QString&) ),
+            this,   SLOT( changeStatusBar( const QString& ) ) );
   loadKanji();
 
   setCentralWidget( _view );
   setObjectName( QLatin1String( "kanjibrowser" ) );
+
   setupGUI( Default, "kanjibrowserui.rc" );
 }
 
 KanjiBrowser::~KanjiBrowser()
 {
 
+}
+
+void KanjiBrowser::changeStatusBar( const QString &text )
+{
+  statusBar()->showMessage( text );
 }
 
 void KanjiBrowser::loadKanji()
