@@ -200,7 +200,8 @@ void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
   text.append( "</style><body><table width=\"" + width + "\">" );
 
   // Put the kanji.
-  text.append( "<tr><td><p style=\"font-size:200px;\">" + kanji->getWord() + "</p></td>" );
+  text.append( "<tr><td><p style=\"font-family:KanjiStrokeOrders;font-size:200px;\">"
+               + kanji->getWord() + "</p></td>" );
 
   // Now the kanji grades and number of strokes.
   if( ! kanji->getKanjiGrade().isEmpty() )
