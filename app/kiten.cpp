@@ -147,8 +147,8 @@ Kiten::~Kiten()
     _radselect_proc->kill();
   }
 
-  _optionDialog = 0;
   delete _optionDialog;
+  _optionDialog = 0;
 }
 
 

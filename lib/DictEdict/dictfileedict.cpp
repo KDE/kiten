@@ -131,6 +131,10 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     {
       results->append( result );
     }
+    else
+    {
+      delete result;
+    }
   }
 
   return results;
@@ -206,7 +210,7 @@ void DictFileEdict::loadSettings( KConfigSkeleton *config )
   this->displayFields = loadListType( item, this->displayFields, long2short );
 }
 
-inline Entry* DictFileEdict::makeEntry( QString x )
+inline Entry* DictFileEdict::makeEntry( const QString &x )
 {
   return new EntryEdict( getName(), x );
 }
