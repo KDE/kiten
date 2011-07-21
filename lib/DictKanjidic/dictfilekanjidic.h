@@ -45,7 +45,7 @@ class /* NO_EXPORT */  DictFileKanjidic : public DictFileEdict
     bool                  validQuery( const DictQuery &query );
 
   protected:
-    virtual inline Entry *makeEntry( QString x );
+    virtual inline Entry *makeEntry( const QString &x );
 
     static QStringList *displayFields;
 };
