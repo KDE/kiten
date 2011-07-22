@@ -39,6 +39,7 @@ class KanjiBrowser : public KXmlGuiWindow
 
   private slots:
     void changeStatusBar( const QString &text );
+    void showPreferences();
 
   private:
     void loadKanji();

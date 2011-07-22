@@ -7,6 +7,9 @@
   <kcfgfile name="kitenkanjibrowserrc"/>
 
   <group name="Options">
-    <entry key="font" type="Font"></entry>
+    <entry key="kanjiListFont" type="Font"></entry>
+    <entry key="kanjiSize" type="Double"></entry>
+    <entry key="kanaFont" type="Font"></entry>
+    <entry key="labelFont" type="Font"></entry>
   </group>
 </kcfg>

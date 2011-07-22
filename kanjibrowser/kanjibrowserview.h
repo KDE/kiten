@@ -42,6 +42,9 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
   signals:
     void statusBarChanged( const QString &text );
 
+  public slots:
+    void loadSettings();
+
   private slots:
     void changeGrade( const int grade );
     void changeToInfoPage();
@@ -50,6 +53,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     void showKanjiInformation( QListWidgetItem *item );
 
   private:
+    QString convertToCSS( const QFont &font );
     void reloadKanjiList();
 
     enum Page
@@ -64,6 +68,9 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     QList<int>                        _strokesList;
     QList<int>                        _currentGradeList;
     QList<int>                        _currentStrokesList;
+    QVariant                          _kanjiSize;
+    QFont                             _kanaFont;
+    QFont                             _labelFont;
 };
 
 #endif

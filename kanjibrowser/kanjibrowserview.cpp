@@ -21,6 +21,7 @@
 #include "kanjibrowserview.h"
 
 #include "kanjibrowser.h"
+#include "kanjibrowserconfig.h"
 #include "DictKanjidic/dictfilekanjidic.h"
 #include "DictKanjidic/entrykanjidic.h"
 #include "dictquery.h"
@@ -36,6 +37,7 @@ KanjiBrowserView::KanjiBrowserView( QWidget *parent )
 : QWidget( parent )
 {
   setupUi( this );
+  loadSettings();
 }
 
 KanjiBrowserView::~KanjiBrowserView()
@@ -97,6 +99,58 @@ void KanjiBrowserView::changeToInfoPage()
 void KanjiBrowserView::changeToListPage()
 {
   _stackedWidget->setCurrentIndex( List );
+}
+
+QString KanjiBrowserView::convertToCSS( const QFont &font )
+{
+  QString weight;
+  switch( font.weight() )
+  {
+    case QFont::Light:
+      weight = "lighter";
+      break;
+    case QFont::Normal:
+      weight = "normal";
+      break;
+    case QFont::Bold:
+      weight = "bold";
+      break;
+  }
+
+  QString style;
+  switch( font.style() )
+  {
+    case QFont::StyleNormal:
+      style = "normal";
+      break;
+    case QFont::StyleItalic:
+      style = "italic";
+      break;
+    case QFont::StyleOblique:
+      style = "oblique";
+      break;
+  }
+
+  return QString( "font-family:\"%1\";"
+                  "font-size:%2px;"
+                  "font-weight:%3;"
+                  "font-style:%4;" ).arg( font.family() )
+                                    .arg( font.pointSizeF() )
+                                    .arg( weight )
+                                    .arg( style );
+}
+
+void KanjiBrowserView::loadSettings()
+{
+  _kanjiList->setFont( KanjiBrowserConfigSkeleton::self()->kanjiListFont() );
+  _kanjiSize = KanjiBrowserConfigSkeleton::self()->kanjiSize();
+  _kanaFont  = KanjiBrowserConfigSkeleton::self()->kanaFont();
+  _labelFont = KanjiBrowserConfigSkeleton::self()->labelFont();
+
+  if( ! _kanjiList->currentItem() == 0 )
+  {
+    showKanjiInformation( _kanjiList->currentItem() );
+  }
 }
 
 void KanjiBrowserView::reloadKanjiList()
@@ -193,53 +247,70 @@ void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
   EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
 
   QString width = QString::number( _kanjiInformation->width() );
+  QFont kanjiFont( "KanjiStrokeOrders" );
+  kanjiFont.setPointSizeF( _kanjiSize.toReal() );
 
   QString text;
-  text.append( "<html><style>" );
-  text.append( "p { font-size:30px; }" );
-  text.append( "</style><body><table width=\"" + width + "\">" );
+  text.append( "<html><body><style>" );
+  text.append( QString( ".kanji { %1 }" ).arg( convertToCSS( kanjiFont ) ) );
+  text.append( QString( ".label { %1 }" ).arg( convertToCSS( _labelFont ) ) );
+  text.append( QString( ".kana  { %1 }" ).arg( convertToCSS( _kanaFont ) ) );
+  text.append( "</style><table width=\"" + width + "\">" );
 
   // Put the kanji.
-  text.append( "<tr><td><p style=\"font-family:KanjiStrokeOrders;font-size:200px;\">"
-               + kanji->getWord() + "</p></td>" );
+  text.append( QString( "<tr><td><p class=\"kanji\">%1</p></td>" )
+                        .arg( kanji->getWord() ) );
 
   // Now the kanji grades and number of strokes.
+  text.append( "<td>" );
   if( ! kanji->getKanjiGrade().isEmpty() )
   {
-    text.append( "<td><p><b>" + i18n( "Grade: " ) + "</b>"
-                 + kanji->getKanjiGrade() + "</p></br>" );
+    text.append( QString( "<p class=\"label\">%1 %2</p></br>" )
+                          .arg( i18n( "Grade:" ) )
+                          .arg( kanji->getKanjiGrade() ) );
   }
-  text.append( "<p><b>" + i18n( "Strokes: " ) + "</b>"
-               + kanji->getStrokesCount() + "</p></td></tr></table>" );
+  text.append( QString( "<p class=\"label\">%1 %2</p></td></tr></table>" )
+                        .arg( i18n( "Strokes:" ) )
+                        .arg( kanji->getStrokesCount() ) );
 
   // Onyomi readings.
   if( ! kanji->getOnyomiReadingsList().isEmpty() )
   {
-    text.append( "<p><b>Onyomi: </b>" + kanji->getOnyomiReadings() + "</p></br>" );
+    text.append( QString( "<p class=\"label\">%1"
+                          "<span class=\"kana\">%2</span></p></br>" )
+                          .arg( i18n( "Onyomi: " ) )
+                          .arg( kanji->getOnyomiReadings() ) );
   }
 
   // Kunyomi readings.
   if( ! kanji->getKunyomiReadingsList().isEmpty() )
   {
-    text.append( "<p><b>Kunyomi: </b>" + kanji->getKunyomiReadings() + "</p></br>" );
+    text.append( QString( "<p class=\"label\">%1"
+                          "<span class=\"kana\">%2</span></p></br>" )
+                          .arg( i18n( "Kunyomi: " ) )
+                          .arg( kanji->getKunyomiReadings() ) );
   }
 
   // Special readings used in names.
   if( ! kanji->getInNamesReadingsList().isEmpty() )
   {
-    text.append( "<p><b>" + i18n( "In names: " ) + "</b>"
-                 + kanji->getInNamesReadings() + "</p></br>" );
+    text.append( QString( "<p class=\"label\">%1"
+                          "<span class=\"kana\">%2</span></p></br>" )
+                          .arg( i18n( "In names: " ) )
+                          .arg( kanji->getInNamesReadings() ) );
   }
 
   // Reading used as radical.
   if( ! kanji->getAsRadicalReadingsList().isEmpty() )
   {
-    text.append( "<p><b>" + i18n( "As radical: " ) + "</b>"
-                 + kanji->getAsRadicalReadings() + "</p></br>" );
+    text.append( QString( "<p class=\"label\">%1"
+                          "<span class=\"kana\">%2</span></p></br>" )
+                          .arg( i18n( "As radical: " ) )
+                          .arg( kanji->getAsRadicalReadings() ) );
   }
 
   // Meanings
-  text.append( "<p><b>" );
+  text.append( "<p class=\"label\">" );
   if( kanji->getMeaningsList().count() == 1 )
   {
     text.append( i18n( "Meaning: ") );
@@ -248,7 +319,8 @@ void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
   {
     text.append( i18n( "Meanings: " ) );
   }
-  text.append( "</b>" + kanji->getMeanings() + "</p>" );
+  text.append( QString( "<span class=\"kana\">%1</span></p>" )
+                        .arg( kanji->getMeanings() ) );
 
   // Close remaining tags and set the HTML text.
   text.append( "</body></html>" );

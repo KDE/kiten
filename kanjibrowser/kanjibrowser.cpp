@@ -20,12 +20,15 @@
 
 #include "kanjibrowser.h"
 
+#include "ui_preferences.h"
+
 #include "kanjibrowserconfig.h"
 #include "kanjibrowserview.h"
 #include "DictKanjidic/dictfilekanjidic.h"
 
 #include <KActionCollection>
 #include <KApplication>
+#include <KConfigDialog>
 #include <KStandardAction>
 #include <KStandardDirs>
 #include <KStatusBar>
@@ -39,6 +42,7 @@ KanjiBrowser::KanjiBrowser()
   statusBar()->show();
 
   KStandardAction::quit( kapp, SLOT( quit() ), actionCollection() );
+  KStandardAction::preferences( this, SLOT( showPreferences() ), actionCollection() );
 
   _view = new KanjiBrowserView( this->parentWidget() );
   connect( _view, SIGNAL( statusBarChanged( const QString&) ),
@@ -111,6 +115,24 @@ void KanjiBrowser::loadKanji()
   kDebug() << "Max. stroke count:" << strokeList.last() << endl;
 
   _view->setupView( this, kanjiList, gradeList, strokeList );
+}
+
+void KanjiBrowser::showPreferences()
+{
+  if( KConfigDialog::showDialog( "settings" ) )
+  {
+    return;
+  }
+
+  QWidget *preferences = new QWidget();
+  Ui::preferences layout;
+  layout.setupUi( preferences );
+
+  KConfigDialog *dialog = new KConfigDialog( this, "settings", KanjiBrowserConfigSkeleton::self() );
+  dialog->addPage( preferences, i18n( "Settings" ), "help-contents" );
+  connect( dialog, SIGNAL( settingsChanged( const QString& ) ),
+            _view,   SLOT( loadSettings() ) );
+  dialog->show();
 }
 
 #include "kanjibrowser.moc"

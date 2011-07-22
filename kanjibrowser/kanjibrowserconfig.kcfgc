@@ -1,4 +1,4 @@
-File=kanjibrowser.kcfg
+File=kanjibrowserconfig.kcfg
 ClassName=KanjiBrowserConfigSkeleton
 Singleton=true
 Mutators=true

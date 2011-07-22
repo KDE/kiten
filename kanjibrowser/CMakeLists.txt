@@ -6,7 +6,7 @@ set(kanjibrowser_bin_SRCS
     main.cpp
    )
 
-kde4_add_ui_files(kanjibrowser_bin_SRCS kanjibrowserview.ui)
+kde4_add_ui_files(kanjibrowser_bin_SRCS kanjibrowserview.ui preferences.ui)
 kde4_add_kcfg_files(kanjibrowser_bin_SRCS kanjibrowserconfig.kcfgc)
 
 kde4_add_app_icon(kanjibrowser_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
