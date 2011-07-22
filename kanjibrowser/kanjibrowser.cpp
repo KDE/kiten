@@ -35,6 +35,7 @@
 
 KanjiBrowser::KanjiBrowser()
 : KXmlGuiWindow()
+, _dictFileKanjidic( 0 )
 {
   _config = KanjiBrowserConfigSkeleton::self();
   _config->readConfig();
