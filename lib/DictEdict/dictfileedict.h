@@ -72,7 +72,6 @@ class /* NO_EXPORT */ DictFileEdict : public DictFile
                                                , const QMap<QString,QString> &long2short );
     //This is a blatant abuse of protected methods to make the kanji subclass easy
     virtual Entry                *makeEntry( QString entry );
-    virtual EntryEdict           *makeEntryEdict( QString entry );
 
     LinearEdictFile     m_edictFile;
 
