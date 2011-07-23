@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>751</width>
-    <height>269</height>
+    <width>700</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,14 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
+       <layout class="QFormLayout" name="formLayout">
+        <property name="labelAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="formAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <item row="0" column="0">
          <widget class="QLabel" name="_kanjiListFontLabel">
           <property name="toolTip">
            <string>The font for the main kanji/kana entry in list view</string>
@@ -33,9 +39,12 @@
           <property name="text">
            <string>Kanji font:</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+          </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1">
          <widget class="KFontRequester" name="kcfg_kanjiListFont">
           <property name="toolTip">
            <string/>
@@ -70,15 +79,27 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
+       <layout class="QFormLayout" name="formLayout_2">
+        <property name="labelAlignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="formAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
          <widget class="QLabel" name="_kanjiSizeLabel">
           <property name="text">
            <string>Kanji size:</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1">
          <widget class="QDoubleSpinBox" name="kcfg_kanjiSize">
           <property name="maximum">
            <double>999.990000000000009</double>
@@ -91,15 +112,18 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
+       <layout class="QFormLayout" name="formLayout_3">
+        <property name="formAlignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+        <item row="0" column="0">
          <widget class="QLabel" name="_kanaFontLabel">
           <property name="text">
            <string>Kana font:</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1">
          <widget class="KFontRequester" name="kcfg_kanaFont">
           <property name="sampleText">
            <string>かな</string>
@@ -118,15 +142,18 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
+       <layout class="QFormLayout" name="formLayout_4">
+        <property name="formAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <item row="0" column="0">
          <widget class="QLabel" name="_labelFontLabel">
           <property name="text">
            <string>Label font:</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1">
          <widget class="KFontRequester" name="kcfg_labelFont">
           <property name="font">
            <font>
