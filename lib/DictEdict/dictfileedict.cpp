@@ -299,14 +299,9 @@ DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *c
 bool DictFileEdict::validDictionaryFile( const QString &filename )
 {
   QFile file( filename );
-  int totalLineCounter = 0;
   bool returnFlag = true;
 
-  if( ! file.exists() )	//The easy test... does it exist?
-  {
-    return false;
-  }
-  if( ! file.open( QIODevice::ReadOnly ) ) //And can we read it?
+  if( ! file.exists() || ! file.open( QIODevice::ReadOnly ) )
   {
     return false;
   }
@@ -320,7 +315,6 @@ bool DictFileEdict::validDictionaryFile( const QString &filename )
   while( ! fileStream.atEnd() )
   {
     QString line = fileStream.readLine();
-    totalLineCounter++;
 
     if( line.left( 4 ) == commentMarker )
     {
