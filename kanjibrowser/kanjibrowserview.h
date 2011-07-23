@@ -25,6 +25,7 @@
 
 class KAction;
 class KanjiBrowser;
+class QListWidgetItem;
 
 class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 {
@@ -34,28 +35,63 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
          KanjiBrowserView( QWidget *parent );
         ~KanjiBrowserView();
 
+    /**
+     * Initial setup.
+     */
     void setupView(   KanjiBrowser *parent
                     , const QHash< QString, QPair<int, int> > &kanji
                     , QList<int> &kanjiGrades
                     , QList<int> &strokeCount );
 
   signals:
+    /**
+     * Emited when the status bar changed.
+     */
     void statusBarChanged( const QString &text );
 
   public slots:
+    /**
+     * Load the font settings.
+     */
     void loadSettings();
 
   private slots:
+    /**
+     * Called when the user changed the grade
+     * of a kanji to be shown in the ComboBox.
+     */
     void changeGrade( const int grade );
+    /**
+     * Change StackedWidget to "Kanji Information" page.
+     */
     void changeToInfoPage();
+    /**
+     * Change StackedWidget to "Kanji List" page.
+     */
     void changeToListPage();
+    /**
+     * Called when the user changed the strokes
+     * of a kanji to be shown in the ComboBox.
+     */
     void changeStrokeCount( const int strokes );
+    /**
+     * Shows the kanji information of a QListWidgetItem from the kanji list.
+     */
     void showKanjiInformation( QListWidgetItem *item );
 
   private:
+    /**
+     * QFont to CSS font style convertion.
+     */
     QString convertToCSS( const QFont &font );
+    /**
+     * Reload the KListWidget items.
+     */
     void reloadKanjiList();
 
+    /**
+     * Enumerations of our possible states in QStackedWidget.
+     */
     enum Page
     {
       List,
@@ -64,6 +100,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 
     KanjiBrowser                     *_parent;
     KAction                          *_goToKanjiInfo;
+    QListWidgetItem                  *_currentKanji;
     QHash< QString, QPair<int, int> > _kanji;
     QList<int>                        _gradeList;
     QList<int>                        _strokesList;

@@ -37,17 +37,20 @@ KanjiBrowser::KanjiBrowser()
 : KXmlGuiWindow()
 , _dictFileKanjidic( 0 )
 {
+  // Read the configuration file.
   _config = KanjiBrowserConfigSkeleton::self();
   _config->readConfig();
 
   statusBar()->show();
 
+  // Add some actions.
   KStandardAction::quit( kapp, SLOT( quit() ), actionCollection() );
   KStandardAction::preferences( this, SLOT( showPreferences() ), actionCollection() );
 
   _view = new KanjiBrowserView( this->parentWidget() );
   connect( _view, SIGNAL( statusBarChanged( const QString&) ),
             this,   SLOT( changeStatusBar( const QString& ) ) );
+  // Load the necessary information and setup the view.
   loadKanji();
 
   setCentralWidget( _view );
@@ -81,6 +84,11 @@ void KanjiBrowser::loadKanji()
   _dictFileKanjidic->loadSettings();
   _dictFileKanjidic->loadDictionary( dictionary, "kanjidic" );
 
+  // Parse the contents of KANJIDIC that we need to create the view.
+  // We need:
+  //  - Kanji
+  //  - Grade
+  //  - Number of strokes
   QRegExp gradeMatch( "^G\\d+" );
   QRegExp strokeMatch( "^S\\d+" );
   QList<int> gradeList;
@@ -88,33 +96,43 @@ void KanjiBrowser::loadKanji()
   QHash< QString, QPair<int, int> > kanjiList;
   foreach( const QString &line, _dictFileKanjidic->dumpDictionary() )
   {
+    // All the kanji without grade will have Grade 0, making easy to
+    // manage that information in KanjiBrowserView.
     int grade   = 0;
     int strokes = 0;
     QStringList gradeSection = line.split( " ", QString::SkipEmptyParts )
                                    .filter( gradeMatch );
     QStringList strokesSection = line.split( " ", QString::SkipEmptyParts )
                                      .filter( strokeMatch );
+
+    // There are some kanji without grade (example: those not in Jouyou list).
     if( ! gradeSection.isEmpty() )
     {
+      // In KANJIDIC the grade/stroke section is: G# (for grade)
+      //                                          S# (for strokes)
+      // where # can be one or more digits.
+      // We remove the first character and convert the remaining ones to int.
       grade = gradeSection.first().remove( 0, 1 ).toInt();
       gradeList << grade;
     }
-    if( ! strokesSection.isEmpty() )
-    {
-      strokes = strokesSection.first().remove( 0, 1 ).toInt();
-      strokeList << strokes;
-    }
 
+    strokes = strokesSection.first().remove( 0, 1 ).toInt();
+    strokeList << strokes;
+
+    // Insert the extracted information into our QHash.
     kanjiList.insert( line[ 0 ], qMakePair( grade, strokes ) );
   }
 
+  // This convertion from QList to QSet to QList, is to remove duplicated items.
   gradeList  = gradeList.toSet().toList();
   strokeList = strokeList.toSet().toList();
+  // Sort them.
   qSort( gradeList );
   qSort( strokeList );
   kDebug() << "Max. grade:" << gradeList.last() << endl;
   kDebug() << "Max. stroke count:" << strokeList.last() << endl;
 
+  // Finaly setup the view.
   _view->setupView( this, kanjiList, gradeList, strokeList );
 }
 

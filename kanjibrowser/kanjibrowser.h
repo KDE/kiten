@@ -38,17 +38,27 @@ class KanjiBrowser : public KXmlGuiWindow
         ~KanjiBrowser();
 
   private slots:
+    /**
+     * Change/update the status bar.
+     */
     void changeStatusBar( const QString &text );
+    /**
+     * Show a font preferences dialog.
+     */
     void showPreferences();
 
   private:
+    /**
+     * Load KANJIDIC dictionary and parse the necessary information and
+     * calls KanjiBrowserView::setupView() member function to finish the setup.
+     * This should be called only once at initial setup of KanjiBrowser or to
+     * reload the dictionary in case of updates.
+     */
     void loadKanji();
 
     KanjiBrowserConfigSkeleton *_config;
     KanjiBrowserView           *_view;
     DictFileKanjidic           *_dictFileKanjidic;
-    QStringList                 _kanjiList;
-    int                         _maxStrokeCount;
 };
 
 #endif

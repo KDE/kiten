@@ -35,6 +35,7 @@
 
 KanjiBrowserView::KanjiBrowserView( QWidget *parent )
 : QWidget( parent )
+, _currentKanji( 0 )
 {
   setupUi( this );
   loadSettings();
@@ -49,26 +50,45 @@ void KanjiBrowserView::changeGrade( const int grade )
 {
   _currentGradeList.clear();
 
+  // Indexex of items in the ComboBox:
+  //   All Jouyou Kanji Grades: 0
+  //   Grade 1: 1
+  //   Grade 2: 2
+  //   .
+  //   .
+  //   .
+  //   Not in Jouyou list: ComboBox->count() - 1
+
+  // If grade is 0, it means we need to show
+  // all the kanji in Jouyou list.
   if( grade == 0 )
   {
+    // Add the all the grades found in our list.
     foreach( const int grd, _gradeList )
     {
       _currentGradeList << grd;
     }
   }
+  // Here the user selected "Not in Jouyou list".
   else if( grade == ( _grades->count() - 1 ) )
   {
+    // Only show the kanji with grade 0 (not in Jouyou).
     _currentGradeList << 0;
   }
+  // It seems KANJIDIC doesn't have a G7 (grade 7) kanji.
+  // If the user selects G8 or above, we need to add 1 to the grade
+  // because the index (from the ComboBox) and the grade will be different.
   else if( grade >= 7 )
   {
     _currentGradeList << ( grade + 1 );
   }
+  // Show the kanji with the selected grade.
   else
   {
     _currentGradeList << grade;
   }
 
+  // Reload our KListWidget widget.
   reloadKanjiList();
 }
 
@@ -76,18 +96,31 @@ void KanjiBrowserView::changeStrokeCount( const int strokes )
 {
   _currentStrokesList.clear();
 
+  // Indexes of items in the ComboBox:
+  //   No stroke limit: 0
+  //   1 stroke: 1
+  //   2 strokes: 2
+  //   .
+  //   .
+  //   .
+
+  // If strokes is 0, it means we don't need
+  // to filter any kanji by stroke number.
   if( strokes == 0 )
   {
+    // Add all the strokes found to our the list.
     foreach( const int stroke, _strokesList )
     {
       _currentStrokesList << stroke;
     }
   }
+  // Show the kanji with the selected number of strokes.
   else
   {
     _currentStrokesList << strokes;
   }
 
+  // Reload our KListWidget widget.
   reloadKanjiList();
 }
 
@@ -147,14 +180,18 @@ void KanjiBrowserView::loadSettings()
   _kanaFont  = KanjiBrowserConfigSkeleton::self()->kanaFont();
   _labelFont = KanjiBrowserConfigSkeleton::self()->labelFont();
 
-  if( ! _kanjiList->currentItem() == 0 )
+  // Reload the Kanji Information page with the new font changes.
+  if( ! _currentKanji == 0 )
   {
-    showKanjiInformation( _kanjiList->currentItem() );
+    showKanjiInformation( _currentKanji );
   }
 }
 
 void KanjiBrowserView::reloadKanjiList()
 {
+  // Grade and strokes lists have the information of
+  // which kanji we are going to filter.
+  // We just iterate on them to actually do the filtering.
   QStringList list;
   foreach( const int strokes, _currentStrokesList )
   {
@@ -167,6 +204,7 @@ void KanjiBrowserView::reloadKanjiList()
   _kanjiList->clear();
   _kanjiList->addItems( list );
 
+  // Update our status bar with the number of kanji filtered.
   statusBarChanged( QString::number( _kanjiList->count() ) );
 }
 
@@ -197,6 +235,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _grades->addItem( i18n( "All Jouyou Kanji grades" ) );
   foreach( const int &grade, kanjiGrades )
   {
+    // Grades 9 and above are considered Jinmeiyou.
     if( grade >= 9 )
     {
       _grades->addItem( i18n( "Grade %1 (Jinmeiyou)", grade ) );
@@ -211,14 +250,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _strokes->addItem( i18n( "No stroke limit" ) );
   foreach( const int &stroke, strokeCount )
   {
-    if( stroke == 1 )
-    {
-      _strokes->addItem( i18n( "%1 stroke", stroke ) );
-    }
-    else
-    {
-      _strokes->addItem( i18n( "%1 strokes", stroke ) );
-    }
+    _strokes->addItem( i18np( "%1 stroke", "%1 strokes", stroke ) );
   }
 
   connect( _grades, SIGNAL( currentIndexChanged( int ) ),
@@ -234,7 +266,11 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   connect( _goToKanjiInfo, SIGNAL( triggered() ),
                      this,   SLOT( changeToInfoPage() ) );
 
+  // Set the current grade (Grade 1).
   _grades->setCurrentIndex( 1 );
+  // Set the current number of strokes (No stroke limit).
+  // NOTE: we change from 1 stroke to No stroke limit
+  // to let the ComboBox notice the change and do the filter.
   _strokes->setCurrentIndex( 1 );
   _strokes->setCurrentIndex( 0 );
 
@@ -244,11 +280,14 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
 void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
 {
   _goToKanjiInfo->setText( i18n( "About %1", item->text() ) );
+  _currentKanji = item;
 
   Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
   EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
 
   QString width = QString::number( _kanjiInformation->width() );
+  // This font is shipped with Kiten and should not be changed as it shows
+  // the stroke order of a kanji.
   QFont kanjiFont( "KanjiStrokeOrders" );
   kanjiFont.setPointSizeF( _kanjiSize.toReal() );
 
