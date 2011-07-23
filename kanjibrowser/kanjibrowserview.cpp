@@ -59,9 +59,7 @@ void KanjiBrowserView::changeGrade( const int grade )
   //   .
   //   Not in Jouyou list: ComboBox->count() - 1
 
-  // If grade is 0, it means we need to show
-  // all the kanji in Jouyou list.
-  if( grade == 0 )
+  if( grade == AllJouyouGrades )
   {
     // Add the all the grades found in our list.
     foreach( const int grd, _gradeList )
@@ -78,7 +76,7 @@ void KanjiBrowserView::changeGrade( const int grade )
   // It seems KANJIDIC doesn't have a G7 (grade 7) kanji.
   // If the user selects G8 or above, we need to add 1 to the grade
   // because the index (from the ComboBox) and the grade will be different.
-  else if( grade >= 7 )
+  else if( grade >= Grade7 )
   {
     _currentGradeList << ( grade + 1 );
   }
@@ -104,9 +102,8 @@ void KanjiBrowserView::changeStrokeCount( const int strokes )
   //   .
   //   .
 
-  // If strokes is 0, it means we don't need
-  // to filter any kanji by stroke number.
-  if( strokes == 0 )
+  // We don't need to filter any kanji by stroke number.
+  if( strokes == NoStrokeLimit )
   {
     // Add all the strokes found to our the list.
     foreach( const int stroke, _strokesList )
@@ -236,7 +233,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   foreach( const int &grade, kanjiGrades )
   {
     // Grades 9 and above are considered Jinmeiyou.
-    if( grade >= 9 )
+    if( grade >= Jinmeiyou )
     {
       _grades->addItem( i18n( "Grade %1 (Jinmeiyou)", grade ) );
     }
@@ -269,10 +266,10 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   // Set the current grade (Grade 1).
   _grades->setCurrentIndex( 1 );
   // Set the current number of strokes (No stroke limit).
-  // NOTE: we change from 1 stroke to No stroke limit
+  // NOTE: we change from '1 stroke' to 'No stroke limit'
   // to let the ComboBox notice the change and do the filter.
   _strokes->setCurrentIndex( 1 );
-  _strokes->setCurrentIndex( 0 );
+  _strokes->setCurrentIndex( NoStrokeLimit );
 
   kDebug() << "Initial setup succeeded!" << endl;
 }

@@ -98,6 +98,18 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
       Info
     };
 
+    enum Grade
+    {
+      AllJouyouGrades = 0,
+      Grade7          = 7,
+      Jinmeiyou       = 9
+    };
+
+    enum StrokesCount
+    {
+      NoStrokeLimit
+    };
+
     KanjiBrowser                     *_parent;
     KAction                          *_goToKanjiInfo;
     QListWidgetItem                  *_currentKanji;
