@@ -191,8 +191,8 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   KAction *goToKanjiList = _parent->actionCollection()->addAction( "kanji_list" );
   goToKanjiList->setText( i18n( "Kanji &List" ) );
 
-  KAction *goToKanjiInfo = _parent->actionCollection()->addAction( "kanji_info" );
-  goToKanjiInfo->setText( i18n( "Kanji &Information" ) );
+  _goToKanjiInfo = _parent->actionCollection()->addAction( "kanji_info" );
+  _goToKanjiInfo->setText( i18n( "Kanji &Information" ) );
 
   _grades->addItem( i18n( "All Jouyou Kanji grades" ) );
   foreach( const int &grade, kanjiGrades )
@@ -228,11 +228,11 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
                  this,   SLOT( showKanjiInformation( QListWidgetItem* ) ) );
   connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
-           goToKanjiInfo, SIGNAL( triggered() ) );
+           _goToKanjiInfo, SIGNAL( triggered() ) );
   connect( goToKanjiList, SIGNAL( triggered() ),
                     this,   SLOT( changeToListPage() ) );
-  connect( goToKanjiInfo, SIGNAL( triggered() ),
-                    this,   SLOT( changeToInfoPage() ) );
+  connect( _goToKanjiInfo, SIGNAL( triggered() ),
+                     this,   SLOT( changeToInfoPage() ) );
 
   _grades->setCurrentIndex( 1 );
   _strokes->setCurrentIndex( 1 );
@@ -243,6 +243,8 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
 
 void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
 {
+  _goToKanjiInfo->setText( i18n( "About %1", item->text() ) );
+
   Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
   EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
 

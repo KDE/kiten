@@ -63,6 +63,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     };
 
     KanjiBrowser                     *_parent;
+    KAction                          *_goToKanjiInfo;
     QHash< QString, QPair<int, int> > _kanji;
     QList<int>                        _gradeList;
     QList<int>                        _strokesList;
