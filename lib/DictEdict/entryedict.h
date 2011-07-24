@@ -23,7 +23,7 @@
 #ifndef KITEN_ENTRYEDICT_H
 #define KITEN_ENTRYEDICT_H
 
-#include "../entry.h"
+#include "entry.h"
 
 #include <QHash>
 #include <QList>

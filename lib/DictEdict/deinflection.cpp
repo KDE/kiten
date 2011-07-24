@@ -23,10 +23,10 @@
 
 #include "deinflection.h"
 
-#include "../entrylist.h"
 #include "dictfileedict.h"
-#include "../dictquery.h"
+#include "dictquery.h"
 #include "entryedict.h"
+#include "entrylist.h"
 
 #include <KDebug>
 #include <KLocale>

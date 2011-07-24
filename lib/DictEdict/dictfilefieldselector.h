@@ -23,14 +23,14 @@
 #ifndef KITEN_DICTFILEPREFERENCEDIALOG_H
 #define KITEN_DICTFILEPREFERENCEDIALOG_H
 
-class QString;
-class QStringList;
-
 #include "dictionarypreferencedialog.h"
+
 #include <QWidget>
 
 class KActionSelector;
 class KConfigSkeleton;
+class QString;
+class QStringList;
 
 //This is the default one used by edict and kanjidic
 class DictFileFieldSelector : public DictionaryPreferenceDialog

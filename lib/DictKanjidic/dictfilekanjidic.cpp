@@ -22,8 +22,7 @@
 
 #include "dictfilekanjidic.h"
 
-#include "../dictquery.h"  //DictQuery classs
-#include "../entry.h"      //Entry and EntryList classes
+#include "dictquery.h"
 #include "entrykanjidic.h"
 
 #include <KConfigSkeleton>

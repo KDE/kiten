@@ -23,7 +23,7 @@
 #ifndef KITEN_ENTRYKANJIDIC_H
 #define KITEN_ENTRYKANJIDIC_H
 
-#include "../entry.h"
+#include "entry.h"
 
 #include <QStringList>
 

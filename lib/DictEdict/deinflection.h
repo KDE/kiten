@@ -26,7 +26,7 @@
 
 #include <QStringList>
 
-#include "../dictfile.h"
+#include "dictfile.h"
 
 class DictQuery;
 class EntryEdict;

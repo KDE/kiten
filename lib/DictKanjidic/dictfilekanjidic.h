@@ -23,7 +23,7 @@
 #ifndef KITEN_DICTFILEKANJIDIC_H
 #define KITEN_DICTFILEKANJIDIC_H
 
-#include "../DictEdict/dictfileedict.h" //DictFileEdict definition
+#include "DictEdict/dictfileedict.h"
 #include "entrykanjidic.h"
 
 class DictQuery;

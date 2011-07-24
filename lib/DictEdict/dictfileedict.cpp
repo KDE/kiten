@@ -38,12 +38,11 @@
 #include <QTextStream>
 #include <QVector>
 
-#include "../dictquery.h"  //DictQuery class
-#include "../entry.h"      //Entry and EntryList classes
-#include "../entrylist.h"
-#include "dictfilefieldselector.h"
-#include "entryedict.h"
 #include "deinflection.h"
+#include "dictfilefieldselector.h"
+#include "dictquery.h"
+#include "entryedict.h"
+#include "entrylist.h"
 
 QString     *DictFileEdict::deinflectionLabel = NULL;
 QStringList *DictFileEdict::displayFields = NULL;
