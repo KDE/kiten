@@ -76,8 +76,10 @@
 Kiten::Kiten( QWidget *parent, const char *name )
 : KXmlGuiWindow( parent )
 , _radselect_proc( new KProcess( this ) )
+, _kanjibrowser_proc( new KProcess( this ) )
 {
   _radselect_proc->setProgram( KStandardDirs::findExe( "kitenradselect" ) );
+  _kanjibrowser_proc->setProgram( KStandardDirs::findExe( "kitenkanjibrowser" ) );
   setStandardToolBarMenuEnabled( true );
   setObjectName( QLatin1String( name ) );
 
@@ -155,6 +157,10 @@ Kiten::~Kiten()
   {
     _radselect_proc->kill();
   }
+  if( _kanjibrowser_proc->state() != QProcess::NotRunning )
+  {
+    _kanjibrowser_proc->kill();
+  }
 
   _optionDialog = 0;
   delete _optionDialog;
@@ -192,6 +198,12 @@ void Kiten::setupActions()
   radselect->setShortcut( Qt::CTRL+Qt::Key_R );
   connect( radselect, SIGNAL( triggered() ),
                 this,   SLOT( radicalSearch() ) );
+
+  KAction *kanjibrowser = actionCollection()->addAction( "kanjibrowser" );
+  kanjibrowser->setText( i18n( "Kanji Browser" ) );
+  kanjibrowser->setShortcut( Qt::CTRL+Qt::Key_K );
+  connect( kanjibrowser, SIGNAL( triggered() ),
+                   this,   SLOT( kanjiBrowserSearch() ) );
 
   /* Setup the Search Actions and our custom Edit Box */
   _inputManager = new SearchStringInput( this );
@@ -537,6 +549,12 @@ void Kiten::radicalSearch()
   _radselect_proc->start();
 }
 
+void Kiten::kanjiBrowserSearch()
+{
+  // KanjiBrowser is a KUniqueApplication, so we don't
+  // need to worry about opening more than one copy
+  _kanjibrowser_proc->start();
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // PREFERENCES RELATED METHODS

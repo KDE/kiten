@@ -28,6 +28,7 @@
 
 #include "dictfile.h"
 #include "indexededictfile.h"
+#include "libkitenexport.h"
 #include "linearedictfile.h"
 
 #include <QFile>
@@ -45,7 +46,7 @@ class QByteArray;
 class QString;
 class QStringList;
 
-class /* NO_EXPORT */ DictFileEdict : public DictFile
+class KITEN_EXPORT DictFileEdict : public DictFile
 {
   friend class EntryEdict;
 

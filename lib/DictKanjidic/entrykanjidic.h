@@ -25,11 +25,13 @@
 
 #include "entry.h"
 
+#include "libkitenexport.h"
+
 #include <QStringList>
 
 class QString;
 
-class /* NO_EXPORT */ EntryKanjidic : public Entry
+class KITEN_EXPORT EntryKanjidic : public Entry
 {
   public:
                     EntryKanjidic( const EntryKanjidic &dict );
@@ -38,8 +40,18 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry
 
     Entry          *clone() const;
     virtual QString dumpEntry() const;
-    virtual QString toHTML() const;
+    QString         getAsRadicalReadings() const;
+    QStringList     getAsRadicalReadingsList() const;
+    QString         getInNamesReadings() const;
+    QStringList     getInNamesReadingsList() const;
+    QString         getKanjiGrade() const;
+    QString         getKunyomiReadings() const;
+    QStringList     getKunyomiReadingsList() const;
+    QString         getOnyomiReadings() const;
+    QStringList     getOnyomiReadingsList() const;
+    QString         getStrokesCount() const;
     virtual bool    loadEntry( const QString &entryLine );
+    virtual QString toHTML() const;
 
   protected:
     virtual bool    extendedItemCheck( const QString &key, const QString &value ) const;
@@ -48,6 +60,10 @@ class /* NO_EXPORT */ EntryKanjidic : public Entry
     virtual QString HTMLWord() const;
     virtual QString makeReadingLink( const QString &inReading ) const;
 
+    QStringList AsRadicalReadings;
+    QStringList InNamesReadings;
+    QStringList KunyomiReadings;
+    QStringList OnyomiReadings;
     QStringList originalReadings;
 };
 

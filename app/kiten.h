@@ -83,6 +83,7 @@ class Kiten : public KXmlGuiWindow
     void searchInResults();
     void displayResults( EntryList* );
     void radicalSearch();
+    void kanjiBrowserSearch();
     //void searchOnTheSpot();
 
     //Configuration related slots
@@ -129,6 +130,7 @@ class Kiten : public KXmlGuiWindow
     KAction                 *_backAction;
     KAction                 *_forwardAction;
     KProcess                *_radselect_proc;
+    KProcess                *_kanjibrowser_proc;
 
     //TODO: this should probably be a standardaction
     QAction                 *_globalShortcutsAction;
