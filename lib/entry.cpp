@@ -157,7 +157,7 @@ QString Entry::getExtendedInfoItem( const QString &x ) const
  */
 inline QString Entry::HTMLMeanings() const
 {
-  return "<span class=\"Meanings\">" + Meanings.join(outputListDelimiter)
+  return "<span class=\"Meanings\">" + Meanings.join( outputListDelimiter )
           + "</span>";
 }
 
@@ -209,7 +209,7 @@ bool Entry::isKanji( const QChar &character ) const
  */
 bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQuery::MatchType type ) const
 {
-  if( type == DictQuery::matchExact )
+  if( type == DictQuery::Exact )
   {
     foreach( const QString &it, test )
     {
@@ -219,7 +219,7 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
       }
     }
   }
-  else if( type == DictQuery::matchBeginning )
+  else if( type == DictQuery::Beginning )
   {
     foreach( const QString &it, test )
     {
@@ -238,7 +238,7 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
       }
     }
   }
-  else if( type == DictQuery::matchEnding )
+  else if( type == DictQuery::Ending )
   {
     foreach( const QString &it, test )
     {
@@ -294,23 +294,23 @@ bool Entry::matchesQuery( const DictQuery &query ) const
 {
   if( ! query.getWord().isEmpty() )
   {
-    if( query.getMatchType() == DictQuery::matchExact
+    if( query.getMatchType() == DictQuery::Exact
       && this->getWord() != query.getWord() )
     {
       return false;
     }
-    if( query.getMatchType() == DictQuery::matchBeginning
-      && ! this->getWord().startsWith(query.getWord() ) )
+    if( query.getMatchType() == DictQuery::Beginning
+      && ! this->getWord().startsWith( query.getWord() ) )
     {
       return false;
     }
-    if( query.getMatchType() == DictQuery::matchEnding
+    if( query.getMatchType() == DictQuery::Ending
       && ! this->getWord().endsWith( query.getWord() ) )
     {
       return false;
     }
-    if( query.getMatchType() == DictQuery::matchAnywhere
-      && ! this->getWord().contains(query.getWord() ) )
+    if( query.getMatchType() == DictQuery::Anywhere
+      && ! this->getWord().contains( query.getWord() ) )
     {
       return false;
     }
@@ -329,24 +329,24 @@ bool Entry::matchesQuery( const DictQuery &query ) const
   {
     switch ( query.getMatchType() )
     {
-      case DictQuery::matchExact:
+      case DictQuery::Exact:
         if ( getWord() != query.getPronunciation() )
         {
           return false;
         }
         break;
-      case DictQuery::matchBeginning:
+      case DictQuery::Beginning:
         if ( ! getWord().startsWith( query.getPronunciation() ) )
         {
           return false;
         }
         break;
-      case DictQuery::matchEnding:
+      case DictQuery::Ending:
         if ( ! getWord().endsWith( query.getPronunciation() ) )
         {
           return false;
         }
-      case DictQuery::matchAnywhere:
+      case DictQuery::Anywhere:
         if ( ! getWord().contains( query.getPronunciation() ) )
         {
           return false;
@@ -440,12 +440,12 @@ bool Entry::sort( const Entry &that, const QStringList &dictOrder, const QString
       }
       else if( field == QString( "Meaning" ) )
       {
-        return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::matchExact )
+        return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::Exact )
                && ( that.getMeaningsList().count() != this->getMeaningsList().count() );
       }
       else if( field == QString( "Reading" ) )
       {
-        return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::matchExact )
+        return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::Exact )
                && ( that.getReadingsList().count() != this->getReadingsList().count() );
       }
       else

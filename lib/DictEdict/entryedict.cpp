@@ -400,12 +400,12 @@ QString EntryEdict::toHTML() const
   return result;
 }
 
+
+
 #ifdef KITEN_EDICTFORMATTING
 
-namespace EdictFormatting
-{
 /**
- * The basic idea of this function is to provide a mapping from possible entry types to
+ * The basic idea of this is to provide a mapping from possible entry types to
  * possible things the user could enter. Then our code for the matching entry can simply
  * use this mapping to determine if a given entry could be understood to match the user's input.
  *
@@ -429,20 +429,19 @@ namespace EdictFormatting
  *
  * Note that our File Parser will also expand to general cases, if not included already:
  * For Example: v5aru -> v5aru,v5 (so that a search for "godan" will find it)
- * Also note that the basic edict dictionary does not separate ikeiyoushi out from the
- * category "adj", so further breakdown of the "adjective" type would be misleading.
  */
-
+namespace EdictFormatting
+{
   // Forward declarations of our functions to be used.
   QMultiHash<QString, QString> createPartOfSpeechCategories();
-  QSet<QString> createPartsOfSpeech();
-  QSet<QString> createMiscMarkings();
-  QSet<QString> createFieldOfApplication();
-  QStringList   createNounsList();
-  QStringList   createVerbsList();
-  QStringList   createExpressionsList();
-  QStringList   createPrefixesList();
-  QStringList   createSuffixesList();
+  QSet<QString>                createPartsOfSpeech();
+  QSet<QString>                createMiscMarkings();
+  QSet<QString>                createFieldOfApplication();
+  QStringList                  createNounsList();
+  QStringList                  createVerbsList();
+  QStringList                  createExpressionsList();
+  QStringList                  createPrefixesList();
+  QStringList                  createSuffixesList();
  
   // Private variables.
   QString noun      = QString( i18nc( "This must be a single word", "Noun" ) );
@@ -529,23 +528,23 @@ namespace EdictFormatting
   { 
     QMultiHash<QString, QString> categories;
 
-    //Nouns
+    // Nouns
     categories.insert( noun, "n" );
     categories.insert( noun, "n-adv" );
     categories.insert( noun, "n-t" );
     categories.insert( noun, "adv-n" );
 
-    //Noun (used as a prefix)
+    // Noun (used as a prefix)
     categories.insert( nounPrefix, "n-pref" );
 
-    //Noun (used as a suffix)
+    // Noun (used as a suffix)
     categories.insert( nounSuffix, "n-suf" );
 
-    //Ichidan Verbs
+    // Ichidan Verbs
     categories.insert( ichidanVerb, "v1" );
     categories.insert( ichidanVerb, "vz" );
 
-    //Godan Verbs
+    // Godan Verbs
     categories.insert( godanVerb, "v5" );
     categories.insert( godanVerb, "v5aru" );
     categories.insert( godanVerb, "v5b" );
@@ -563,20 +562,20 @@ namespace EdictFormatting
     categories.insert( godanVerb, "v5uru" );
     categories.insert( godanVerb, "v5z" );
 
-    //Fukisoku verbs
+    // Fukisoku verbs
     categories.insert( fukisokuVerb, "iv" );
     categories.insert( fukisokuVerb, "vk" );
     categories.insert( fukisokuVerb, "vn" );
     categories.insert( fukisokuVerb, "vs-i" );
     categories.insert( fukisokuVerb, "vs-s" );
 
-    //Other Verbs
+    // Other Verbs
     categories.insert( verb, "vi" );
     categories.insert( verb, "vs" );
     categories.insert( verb, "vt" );
     categories.insert( verb, "aux-v" );
 
-    //Adjectives
+    // Adjectives
     categories.insert( adjective, "adj-i" );
     categories.insert( adjective, "adj-na" );
     categories.insert( adjective, "adj-no" );
@@ -586,24 +585,24 @@ namespace EdictFormatting
     categories.insert( adjective, "adj" );
     categories.insert( adjective, "aux-adj" );
 
-    //Adverbs
+    // Adverbs
     categories.insert( adverb, "adv" );
     categories.insert( adverb, "adv-n" );
     categories.insert( adverb, "adv-to" );
 
-    //Particle
+    // Particle
     categories.insert( particle, "prt" );
 
-    //Expression
+    // Expression
     categories.insert( expression, "exp" );
 
-    //Idiomatic expression
+    // Idiomatic expression
     categories.insert( idiomaticExpression, "id" );
 
-    //Prefix
+    // Prefix
     categories.insert( prefix, "pref" );
 
-    //Suffix
+    // Suffix
     categories.insert( suffix, "suf" );
 
     return categories;
@@ -630,7 +629,7 @@ namespace EdictFormatting
   {
     QSet<QString> category;
 
-    //Field of Application terms
+    // Field of Application terms
     category << "Buddh" << "MA"   << "comp" << "food" << "geom"
              << "ling"  << "math" << "mil"  << "physics";
 
@@ -641,7 +640,7 @@ namespace EdictFormatting
   {
     QSet<QString> category;
 
-    //Miscellaneous Markings (in EDICT terms)
+    // Miscellaneous Markings (in EDICT terms)
     category << "X"    << "abbr" << "arch" << "ateji"   << "chn"   << "col" << "derog"
              << "eK"   << "ek"   << "fam"  << "fem"     << "gikun" << "hon" << "hum" << "iK"   << "id"
              << "io"   << "m-sl" << "male" << "male-sl" << "ng"    << "oK"  << "obs" << "obsc" << "ok"

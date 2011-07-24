@@ -87,7 +87,7 @@ SearchStringInput::SearchStringInput( Kiten *parent )
 
   //connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
   connect( _actionTextInput, SIGNAL( activated( const QString& ) ),
-                      this,   SLOT( test() ) );
+                       this,   SLOT( test() ) );
 }
 
 void SearchStringInput::focusInput()
@@ -132,10 +132,10 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
   foreach( KToolBar *bar, _parent->toolBars() )
   {
     if( bar->widgetForAction(_actionFilterRare) != NULL )
-        copy.removeProperty("common");
+      copy.removeProperty("common");
 
     if( bar->widgetForAction(_actionSelectWordType) != NULL )
-        copy.removeProperty("type");
+      copy.removeProperty("type");
   }
 
   _actionTextInput->setCurrentItem( copy.toString(), true );

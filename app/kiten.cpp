@@ -79,8 +79,9 @@ Kiten::Kiten( QWidget *parent, const char *name )
 {
   _radselect_proc->setProgram( KStandardDirs::findExe( "kitenradselect" ) );
   setStandardToolBarMenuEnabled( true );
-  setObjectName( QLatin1String( name ) ); /* Set up the config */
+  setObjectName( QLatin1String( name ) );
 
+  /* Set up the config */
   _config = KitenConfigSkeleton::self();
   _config->readConfig();
 
@@ -284,10 +285,10 @@ void Kiten::addExportListEntry( int index )
   model->setEntryList( list );
 }
 
-// This is the latter part of the initialisation
+// This is the latter part of the initialization
 void Kiten::finishInit()
 {
-  _statusBar->showMessage( i18n( "Initialising Dictionaries" ) );
+  _statusBar->showMessage( i18n( "Initializing Dictionaries" ) );
 
   // if it's the application's first time starting,
   // the app group won't exist and we show demo
@@ -420,13 +421,14 @@ void Kiten::searchAndDisplay( const DictQuery &query )
       tryAgain = false;
 
       //but if the matchtype is changed we try again
-      if ( newQuery.getMatchType() == DictQuery::matchExact )
+      if ( newQuery.getMatchType() == DictQuery::Exact )
       {
-        newQuery.setMatchType( DictQuery::matchBeginning );
+        newQuery.setMatchType( DictQuery::Beginning );
         tryAgain = true;
-      } else if ( newQuery.getMatchType() == DictQuery::matchBeginning )
+      }
+      else if ( newQuery.getMatchType() == DictQuery::Beginning )
       {
-        newQuery.setMatchType( DictQuery::matchAnywhere );
+        newQuery.setMatchType( DictQuery::Anywhere );
         tryAgain = true;
       }
 
@@ -500,7 +502,7 @@ void Kiten::displayResults( EntryList *results )
     QStringList fieldSort = _config->field_sortlist();
     if( _config->dictionary_enable() == "true" )
     {
-            dictSort = _config->dictionary_sortlist();
+      dictSort = _config->dictionary_sortlist();
     }
     results->sort( fieldSort, dictSort );
     _mainView->setContents( results->toHTML() );

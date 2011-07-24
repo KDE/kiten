@@ -124,7 +124,7 @@ QString ResultsView::generateCSS()
                   ".Entry:hover { background-color: %10 }"
                   "query { color: %6 }" )
           .arg( scheme.foreground().color().name() )
-          .arg( scheme.foreground (KColorScheme::InactiveText ).color().name() )
+          .arg( scheme.foreground( KColorScheme::InactiveText ).color().name() )
           .arg( scheme.shade( KColorScheme::MidlightShade ).name() )
           .arg( scheme.foreground( KColorScheme::LinkText ).color().name() )
           .arg( scheme.foreground( KColorScheme::VisitedText ).color().name() )

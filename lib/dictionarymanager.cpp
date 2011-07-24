@@ -132,7 +132,7 @@ bool DictionaryManager::addDictionary( const QString &file, const QString &name
  */
 EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
 {
-  EntryList *ret=new EntryList();
+  EntryList *ret = new EntryList();
   #if 0
   if( query.getMeaning() == "(libkiten)" )
   {
@@ -146,7 +146,7 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
   #endif
 
   // There are two basic modes.... one in which the query
-  // Specifies the dictionary list, one in which it does not
+  // specifies the dictionary list, one in which it does not
   QStringList dictsFromQuery = query.getDictionaries();
   if( dictsFromQuery.isEmpty() )
   {
@@ -196,7 +196,7 @@ EntryList *DictionaryManager::doSearchInList( const DictQuery &query, const Entr
 
   foreach( Entry* it, *list )
   {
-    if(it->matchesQuery( query ) )
+    if( it->matchesQuery( query ) )
     {
       Entry *x = it->clone();
       ret->append( x );

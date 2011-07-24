@@ -117,38 +117,38 @@ class Kiten : public KXmlGuiWindow
 
 
   private:
-    KStatusBar          *_statusBar;
-    DictionaryManager    _dictionaryManager;
+    KStatusBar              *_statusBar;
+    DictionaryManager        _dictionaryManager;
     DictionaryUpdateManager *_dictionaryUpdateManager;
-    SearchStringInput   *_inputManager;
-    ResultsView         *_mainView;
+    SearchStringInput       *_inputManager;
+    ResultsView             *_mainView;
 
-    KToggleAction       *_autoSearchToggle;
-    KListAction         *_historyAction;
-    KAction             *_irAction;
-    KAction             *_backAction;
-    KAction             *_forwardAction;
-    KProcess            *_radselect_proc;
+    KToggleAction           *_autoSearchToggle;
+    KListAction             *_historyAction;
+    KAction                 *_irAction;
+    KAction                 *_backAction;
+    KAction                 *_forwardAction;
+    KProcess                *_radselect_proc;
 
     //TODO: this should probably be a standardaction
-    QAction             *_globalShortcutsAction;
+    QAction                 *_globalShortcutsAction;
 
     //ResultsView *detachedView;
-    KAction             *_globalSearchAction;
+    KAction                 *_globalSearchAction;
 
-    KSystemTrayIcon     *_sysTrayIcon;
+    KSystemTrayIcon         *_sysTrayIcon;
 
     //Export list related:
-    QDockWidget         *_exportListDock;
-    QWidget             *_exportListDockContents;
-    EntryListView       *_exportList;
+    QDockWidget             *_exportListDock;
+    QWidget                 *_exportListDockContents;
+    EntryListView           *_exportList;
 
-    KGlobalAccel        *_accel;
-    ConfigureDialog     *_optionDialog;
-    KitenConfigSkeleton *_config;
+    KGlobalAccel            *_accel;
+    ConfigureDialog         *_optionDialog;
+    KitenConfigSkeleton     *_config;
 
-    HistoryPtrList       _historyList;
-    QString              _personalDict;
+    HistoryPtrList           _historyList;
+    QString                  _personalDict;
 };
 
 #endif

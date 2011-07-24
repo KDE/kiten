@@ -36,7 +36,7 @@ TODO: Add features to limit the number of hits on a per-search basis.
 class DictQuery::Private
 {
   public:
-    Private() : matchType( DictQuery::matchExact )
+    Private() : matchType( DictQuery::Exact )
               , matchWordType( DictQuery::Any ) { }
 
     /** Stores the (english or otherwise non-japanese) meaning */
@@ -325,7 +325,7 @@ DictQuery &DictQuery::operator=( const QString &str )
       {
         switch( stringTypeCheck( it ) )
         {
-          case DictQuery::strTypeLatin :
+          case DictQuery::Latin:
             if( result.d->entryOrder.removeAll( d->meaningMarker ) > 0 )
             {
               result.setMeaning( result.getMeaning() + mainDelimiter + it );
@@ -336,7 +336,7 @@ DictQuery &DictQuery::operator=( const QString &str )
             }
             break;
 
-          case DictQuery::strTypeKana :
+          case DictQuery::Kana:
             if( result.d->entryOrder.removeAll( d->pronunciationMarker ) > 0 )
             {
               result.setPronunciation( result.getPronunciation() + mainDelimiter + it );
@@ -347,17 +347,18 @@ DictQuery &DictQuery::operator=( const QString &str )
             }
             break;
 
-          case DictQuery::strTypeKanji :
+          case DictQuery::Kanji:
             result.d->entryOrder.removeAll( d->wordMarker );
             result.setWord( it ); //Only one of these allowed
             break;
 
-          case DictQuery::mixed :
-            kWarning() <<"DictQuery: String parsing error - mixed type";
+          case DictQuery::Mixed:
+            kWarning() << "DictQuery: String parsing error - mixed type";
             break;
 
-          case DictQuery::stringParseError :
+          case DictQuery::ParseError:
             kWarning() << "DictQuery: String parsing error";
+            break;
         }
       }
     }
@@ -372,30 +373,30 @@ DictQuery &DictQuery::operator=( const QString &str )
  * Private utility method for the above... confirms that an entire string
  * is either completely japanese or completely english
  */
-DictQuery::stringTypeEnum DictQuery::stringTypeCheck( const QString &in )
+DictQuery::StringTypeEnum DictQuery::stringTypeCheck( const QString &in )
 {
-  stringTypeEnum firstType;
+  StringTypeEnum firstType;
   //Split into individual characters
   if( in.size() <= 0 )
   {
-    return DictQuery::stringParseError;
+    return DictQuery::ParseError;
   }
 
   firstType = charTypeCheck( in.at( 0 ) );
   for( int i = 1; i < in.size(); i++ )
   {
-    stringTypeEnum newType = charTypeCheck( in.at( i ) );
+    StringTypeEnum newType = charTypeCheck( in.at( i ) );
     if( newType != firstType )
     {
-      if( firstType == strTypeKana && newType == strTypeKanji )
+      if( firstType == Kana && newType == Kanji )
       {
-        firstType = strTypeKanji;
+        firstType = Kanji;
       }
-      else if( firstType == strTypeKanji && newType == strTypeKana )
+      else if( firstType == Kanji && newType == Kana )
         ; //That's okay
       else
       {
-        return DictQuery::mixed;
+        return DictQuery::Mixed;
       }
     }
   }
@@ -408,11 +409,11 @@ DictQuery::stringTypeEnum DictQuery::stringTypeCheck( const QString &in )
  * Just checks and returns the type of the first character in the string
  * that is passed to it.
  */
-DictQuery::stringTypeEnum DictQuery::charTypeCheck( const QChar &ch )
+DictQuery::StringTypeEnum DictQuery::charTypeCheck( const QChar &ch )
 {
   if( ch.toLatin1() )
   {
-    return strTypeLatin;
+    return Latin;
   }
   //The unicode character boundaries are:
   // 3040 - 309F Hiragana
@@ -420,10 +421,10 @@ DictQuery::stringTypeEnum DictQuery::charTypeCheck( const QChar &ch )
   // 31F0 - 31FF Katakana phonetic expressions (wtf?)
   if( 0x3040 <= ch.unicode() && ch.unicode() <= 0x30FF /*|| ch.unicode() & 0x31F0*/ )
   {
-    return strTypeKana;
+    return Kana;
   }
 
-  return strTypeKanji;
+  return Kanji;
 }
 
 /*****************************************************************************
@@ -470,7 +471,7 @@ bool DictQuery::setProperty( const QString& key, const QString& value )
     d->entryOrder.append( key );
   }
 
-  d->extendedAttributes.insert(key,value);
+  d->extendedAttributes.insert( key, value );
   return true;
 }
 
