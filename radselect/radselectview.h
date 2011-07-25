@@ -28,10 +28,10 @@
 #include <QSet>
 #include <QWidget>
 
+class ButtonGrid;
 class QListWidgetItem;
 class QString;
 class QStringList;
-class ButtonGrid;
 
 #include "radicalfile.h"	//For Kanji/radicalFile definitions
 
@@ -72,9 +72,9 @@ class RadSelectView : public QWidget, public Ui::radical_selector
     void toClipboard();
 
   private:
-    RadicalFile	        *m_radicalInfo;
-    ButtonGrid *m_buttongrid;
-    QList<Kanji>         m_possibleKanji;
+    RadicalFile  *m_radicalInfo;
+    ButtonGrid   *m_buttongrid;
+    QList<Kanji>  m_possibleKanji;
 };
 
 #endif

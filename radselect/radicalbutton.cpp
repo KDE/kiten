@@ -71,8 +71,8 @@ void RadicalButton::mousePressEvent( QMouseEvent *e )
   QPushButton::mousePressEvent( e );
   if( e->button() == Qt::RightButton )
   {
-    setStatus( kRelated );
-    emit userClicked( text(), kRelated );
+    setStatus( Related );
+    emit userClicked( text(), Related );
   }
 }
 
@@ -83,20 +83,20 @@ void RadicalButton::mouseReleaseEvent( QMouseEvent *e )
   {
     switch( m_status )
     {
-      case kSelected:
-        setStatus( kNormal );
-        emit userClicked( text(), kNormal );
+      case Selected:
+        setStatus( Normal );
+        emit userClicked( text(), Normal );
         break;
       default:
-        setStatus( kSelected );
-        emit userClicked( text(), kSelected );
+        setStatus( Selected );
+        emit userClicked( text(), Selected );
     }
   }
 }
 
 void RadicalButton::resetButton()
 {
-  setStatus( kNormal );
+  setStatus( Normal );
 }
 
 void RadicalButton::setStatus( RadicalButton::ButtonStatus newStatus )
@@ -115,18 +115,18 @@ void RadicalButton::setStatus( RadicalButton::ButtonStatus newStatus )
        disabled  = false;
   switch( newStatus )
   {
-    case kNormal:
+    case Normal:
       break;
-    case kSelected:
+    case Selected:
       checked = true;
       break;
-    case kNotAppropriate:
+    case NotAppropriate:
       disabled = true;
       break;
-    case kRelated:
+    case Related:
       italic = true;
       break;
-    case kHidden:
+    case Hidden:
       hidden = true;
   }
 
