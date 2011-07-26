@@ -23,6 +23,7 @@
 
 #include "ui_kanjibrowserview.h"
 
+class EntryKanjidic;
 class KAction;
 class KanjiBrowser;
 class QListWidgetItem;
@@ -75,9 +76,9 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      */
     void changeStrokeCount( const int strokes );
     /**
-     * Shows the kanji information of a QListWidgetItem from the kanji list.
+     * Search for an item (kanji) in KANJIDIC.
      */
-    void showKanjiInformation( QListWidgetItem *item );
+    void searchKanji( QListWidgetItem *item );
 
   private:
     /**
@@ -88,6 +89,10 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      * Reload the KListWidget items.
      */
     void reloadKanjiList();
+    /**
+     * Shows the information of a kanji as HTML in a QTextBrowser.
+     */
+    void showKanjiInformation( const EntryKanjidic *kanji );
 
     /**
      * Enumerations of our possible states in QStackedWidget.
@@ -112,7 +117,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 
     KanjiBrowser                     *_parent;
     KAction                          *_goToKanjiInfo;
-    QListWidgetItem                  *_currentKanji;
+    EntryKanjidic                    *_currentKanji;
     QHash< QString, QPair<int, int> > _kanji;
     QList<int>                        _gradeList;
     QList<int>                        _strokesList;

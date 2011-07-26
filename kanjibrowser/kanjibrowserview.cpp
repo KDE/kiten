@@ -20,12 +20,12 @@
 
 #include "kanjibrowserview.h"
 
-#include "kanjibrowser.h"
-#include "kanjibrowserconfig.h"
 #include "DictKanjidic/dictfilekanjidic.h"
 #include "DictKanjidic/entrykanjidic.h"
 #include "dictquery.h"
 #include "entrylist.h"
+#include "kanjibrowser.h"
+#include "kanjibrowserconfig.h"
 
 #include <KAction>
 #include <KActionCollection>
@@ -255,7 +255,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   connect( _strokes, SIGNAL( currentIndexChanged( int ) ),
                this,   SLOT( changeStrokeCount( int ) ) );
   connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
-                 this,   SLOT( showKanjiInformation( QListWidgetItem* ) ) );
+                 this,   SLOT( searchKanji( QListWidgetItem* ) ) );
   connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
            _goToKanjiInfo, SIGNAL( triggered() ) );
   connect( goToKanjiList, SIGNAL( triggered() ),
@@ -274,15 +274,25 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   kDebug() << "Initial setup succeeded!" << endl;
 }
 
-void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
+void KanjiBrowserView::searchKanji( QListWidgetItem *item )
 {
+  if(   _currentKanji != NULL
+      && item->text() == _currentKanji->getWord() )
+  {
+    return;
+  }
+
   _goToKanjiInfo->setText( i18n( "About %1", item->text() ) );
-  _currentKanji = item;
 
   Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
   EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
+  _currentKanji = kanji;
 
-  QString width = QString::number( _kanjiInformation->width() );
+  showKanjiInformation( kanji );
+}
+
+void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
+{
   // This font is shipped with Kiten and should not be changed as it shows
   // the stroke order of a kanji.
   QFont kanjiFont( "KanjiStrokeOrders" );
@@ -293,10 +303,10 @@ void KanjiBrowserView::showKanjiInformation( QListWidgetItem *item )
   text.append( QString( ".kanji { %1 }" ).arg( convertToCSS( kanjiFont ) ) );
   text.append( QString( ".label { %1 }" ).arg( convertToCSS( _labelFont ) ) );
   text.append( QString( ".kana  { %1 }" ).arg( convertToCSS( _kanaFont ) ) );
-  text.append( "</style><table width=\"" + width + "\">" );
+  text.append( "</style>" );
 
   // Put the kanji.
-  text.append( QString( "<tr><td><p class=\"kanji\">%1</p></td>" )
+  text.append( QString( "<table><tr><td><p class=\"kanji\">%1</p></td>" )
                         .arg( kanji->getWord() ) );
 
   // Now the kanji grades and number of strokes.
