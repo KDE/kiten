@@ -205,6 +205,23 @@ void KanjiBrowserView::reloadKanjiList()
   statusBarChanged( i18n( "%1 kanji found", _kanjiList->count() ) );
 }
 
+void KanjiBrowserView::searchKanji( QListWidgetItem *item )
+{
+  if(   _currentKanji != NULL
+      && item->text() == _currentKanji->getWord() )
+  {
+    return;
+  }
+
+  _goToKanjiInfo->setText( i18n( "About %1", item->text() ) );
+
+  Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
+  EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
+  _currentKanji = kanji;
+
+  showKanjiInformation( kanji );
+}
+
 void KanjiBrowserView::setupView(   KanjiBrowser *parent
                                   , const QHash< QString, QPair<int, int> > &kanji
                                   , QList<int> &kanjiGrades
@@ -272,23 +289,6 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _strokes->setCurrentIndex( NoStrokeLimit );
 
   kDebug() << "Initial setup succeeded!" << endl;
-}
-
-void KanjiBrowserView::searchKanji( QListWidgetItem *item )
-{
-  if(   _currentKanji != NULL
-      && item->text() == _currentKanji->getWord() )
-  {
-    return;
-  }
-
-  _goToKanjiInfo->setText( i18n( "About %1", item->text() ) );
-
-  Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
-  EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
-  _currentKanji = kanji;
-
-  showKanjiInformation( kanji );
 }
 
 void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
