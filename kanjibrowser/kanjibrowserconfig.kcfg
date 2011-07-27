@@ -4,12 +4,38 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 	<include>kfontrequester.h</include>
+  <include>kglobalsettings.h</include>
+  <include>qfont.h</include>
   <kcfgfile name="kitenkanjibrowserrc"/>
 
   <group name="Options">
-    <entry key="kanjiListFont" type="Font"></entry>
-    <entry key="kanjiSize" type="Double"></entry>
-    <entry key="kanaFont" type="Font"></entry>
-    <entry key="labelFont" type="Font"></entry>
+    <entry key="kanjiListFont" type="Font">
+      <code>
+        QFont kanjiListFnt = KGlobalSettings::generalFont();
+        kanjiListFnt.setPointSize( 24 );
+      </code>
+      <default>kanjiListFnt</default>
+    </entry>
+
+    <entry key="kanjiSize" type="Double">
+      <default>150</default>
+    </entry>
+
+    <entry key="kanaFont" type="Font">
+      <code>
+        QFont kanaFnt = KGlobalSettings::generalFont();
+        kanaFnt.setPointSize( 22 );
+      </code>
+      <default>kanaFnt</default>
+    </entry>
+
+    <entry key="labelFont" type="Font">
+      <code>
+        QFont labelFnt = KGlobalSettings::generalFont();
+        labelFnt.setPointSize( 22 );
+        labelFnt.setWeight( QFont::Bold );
+      </code>
+      <default>labelFnt</default>
+    </entry>
   </group>
 </kcfg>
