@@ -44,6 +44,7 @@ class ConfigureDialog : public KConfigDialog
     void updateSettingsSignal();
 
   private slots:
+    void updateConfiguration();
     void updateSettings();
     void updateWidgets();
     void updateWidgetsDefault();

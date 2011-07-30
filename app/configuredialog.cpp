@@ -79,8 +79,13 @@ ConfigureDialog::ConfigureDialog( QWidget *parent, KitenConfigSkeleton *config )
 
   setHelp( QString(),"kiten" );
 
-  connect( this, SIGNAL( settingsChanged( const QString& ) ),
-           this, SIGNAL( settingsChanged() ) );
+  connect( this, SIGNAL( widgetModified() ),
+           this,   SLOT( updateConfiguration() ) );
+}
+
+void ConfigureDialog::updateConfiguration()
+{
+  emit settingsChanged( QString() );
 }
 
 ConfigureDialog::~ConfigureDialog()
