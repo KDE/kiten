@@ -65,6 +65,7 @@ class KITEN_EXPORT DictFileEdict : public DictFile
     bool                                validQuery( const DictQuery &query );
 
     static QString                     *deinflectionLabel;
+    static QString                     *wordType;
 
   protected:
     virtual QMap<QString,QString> displayOptions() const;

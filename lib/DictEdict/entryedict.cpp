@@ -201,7 +201,15 @@ bool EntryEdict::isSuffix() const
 
 bool EntryEdict::isVerb() const
 {
-  return isFukisokuVerb() || isGodanVerb() || isIchidanVerb();
+  foreach( const QString &type, EdictFormatting::Verbs )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 QString EntryEdict::HTMLWord() const

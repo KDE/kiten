@@ -46,6 +46,7 @@
 
 QString     *DictFileEdict::deinflectionLabel = NULL;
 QStringList *DictFileEdict::displayFields = NULL;
+QString     *DictFileEdict::wordType = NULL;
 
 /**
  * Per instructions in the super-class, this constructor basically sets the
@@ -154,11 +155,13 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
     {
       deinflectionLabel = label;
       m_hasDeinflection = true;
+      wordType = m_deinflection->getWordType();
     }
   }
   else
   {
     deinflectionLabel = NULL;
+    wordType = NULL;
     m_hasDeinflection = false;
   }
 

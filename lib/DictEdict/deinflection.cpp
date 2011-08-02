@@ -53,6 +53,7 @@ QList<Deinflection::Conjugation> *Deinflection::conjugationList = NULL;
 Deinflection::Deinflection( const QString name )
 : m_dictionaryName( name )
 , m_deinflectionLabel( QString() )
+, m_wordType( QString() )
 {
 }
 
@@ -61,9 +62,15 @@ QString* Deinflection::getDeinflectionLabel()
   return &m_deinflectionLabel;
 }
 
+QString* Deinflection::getWordType()
+{
+  return &m_wordType;
+}
+
 EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> &preliminaryResults )
 {
   m_deinflectionLabel = QString();
+  m_wordType = QString();
 
   EntryList *verbs = new EntryList();
 
@@ -97,7 +104,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
   EntryList::EntryIterator it( *verbs );
   while( it.hasNext() )
   {
-    Entry *entry = it.next();
+    EntryEdict *entry = static_cast<EntryEdict*>( it.next() );
 
     QString text = query.getWord();
     if( text.isEmpty() )
@@ -126,6 +133,18 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
           if( m_deinflectionLabel.isEmpty() )
           {
             m_deinflectionLabel = conj.label;
+          }
+
+          if( m_wordType.isEmpty() )
+          {
+            if( entry->isVerb() )
+            {
+              m_wordType = i18n( "verb" );
+            }
+            else if( entry->isAdjective() )
+            {
+              m_wordType = i18n( "adjective" );
+            }
           }
 
           ret->append( entry );

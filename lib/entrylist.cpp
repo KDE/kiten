@@ -134,7 +134,13 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
           && DictFileEdict::deinflectionLabel )
       {
         const QString &label = *DictFileEdict::deinflectionLabel;
-        const QString &message = i18nc( "%1 is a verb/adjective tense", "You entered a verb/adjective in %1 form", label );
+        const QString &type  = *DictFileEdict::wordType;
+        const QString &message = i18nc( "%1 is a word type (verb or adjective)."
+                                        " %2 is a verb or adjective tense."
+                                        " Example: 'Entered verb in past tense'."
+                                      , "Entered %1 in %2 form"
+                                      , type
+                                      , label );
 
         result += "<div style=\"font-style:italic\">" + message + "</div>";
 
