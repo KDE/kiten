@@ -32,7 +32,7 @@ int main( int argc, char **argv )
 {
   KAboutData about(   "kitenkanjibrowser"
                     , "kiten"
-                    , ki18n( "kitenanjibrowser" )
+                    , ki18n( "kitenkanjibrowser" )
                     , version
                     , ki18n( description )
                     , KAboutData::License_GPL_V2
