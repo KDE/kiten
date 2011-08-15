@@ -69,6 +69,11 @@ QString* Deinflection::getWordType()
 
 EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> &preliminaryResults )
 {
+  if( conjugationList == NULL )
+  {
+    return NULL;
+  }
+
   m_deinflectionLabel = QString();
   m_wordType = QString();
 
@@ -93,11 +98,6 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
         matched = true;
       }
     }
-  }
-
-  if ( conjugationList == NULL )
-  {
-    return NULL;
   }
 
   EntryList *ret = new EntryList();
@@ -160,7 +160,9 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
 bool Deinflection::load()
 {
   if ( conjugationList != NULL )
+  {
     return true;
+  }
 
   conjugationList = new QList<Conjugation>;
 
