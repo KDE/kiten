@@ -133,7 +133,11 @@ EntryList* DictFileKanjidic::doSearch( const DictQuery &query )
   {
     if( line.contains( searchQuery ) )
     {
-      results->append( makeEntry( line ) );
+      Entry *entry = makeEntry( line );
+      if( entry->matchesQuery( query ) )
+      {
+        results->append( entry );
+      }
     }
   }
 
