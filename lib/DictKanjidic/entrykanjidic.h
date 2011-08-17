@@ -65,6 +65,9 @@ class KITEN_EXPORT EntryKanjidic : public Entry
     QStringList KunyomiReadings;
     QStringList OnyomiReadings;
     QStringList originalReadings;
+
+  private:
+    QString addReadings( const QStringList &list ) const;
 };
 
 #endif

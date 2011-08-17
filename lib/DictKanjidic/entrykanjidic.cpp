@@ -47,6 +47,17 @@ EntryKanjidic::EntryKanjidic( const QString &dict, const QString &entry )
   loadEntry( entry );
 }
 
+QString EntryKanjidic::addReadings( const QStringList &list ) const
+{
+  QString readings;
+  foreach( const QString &reading, list )
+  {
+    readings.append( makeReadingLink( reading ) + outputListDelimiter );
+  }
+
+  return readings;
+}
+
 Entry* EntryKanjidic::clone() const
 {
   return new EntryKanjidic( *this );
@@ -141,24 +152,20 @@ QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 QString EntryKanjidic::HTMLReadings() const
 {
   QString htmlReadings;
-  foreach( const QString &it, originalReadings )
+  htmlReadings += addReadings( originalReadings );
+
+  if( InNamesReadings.count() > 0 )
   {
-    if ( it == "T1" )
-    {
-      htmlReadings += i18n( "In names: " );
-    }
-    else
-    {
-      if ( it == "T2" )
-      {
-        htmlReadings += i18n( "As radical: " );
-      }
-      else
-      {
-        htmlReadings += makeReadingLink( it ) + outputListDelimiter;
-      }
-    }
+    htmlReadings += i18n( "In names: " );
+    htmlReadings += addReadings( InNamesReadings );
   }
+
+  if( AsRadicalReadings.count() > 0 )
+  {
+    htmlReadings += i18n( "As radical: " );
+    htmlReadings += addReadings( AsRadicalReadings );
+  }
+
   htmlReadings.truncate( htmlReadings.length() - outputListDelimiter.length() ); // get rid of last ,
 
   return "<span class=\"Readings\">" + htmlReadings + "</span>";
