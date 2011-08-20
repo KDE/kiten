@@ -45,18 +45,6 @@ Entry* EntryEdict::clone() const
   return new EntryEdict( *this );
 }
 
-QString EntryEdict::common() const
-{
-  if ( getExtendedInfoItem( QString( "common" ) ) == "1" )
-  {
-    return "<span>Common</span>";
-  }
-  else
-  {
-    return QString();
-  }
-}
-
 /**
  * Regenerate a QString like the one we got in loadEntry()
  */
@@ -101,6 +89,11 @@ bool EntryEdict::isAdverb() const
   }
 
   return false;
+}
+
+bool EntryEdict::isCommon() const
+{
+  return getExtendedInfoItem( QString( "common" ) ) == "1";
 }
 
 bool EntryEdict::isExpression() const
@@ -384,8 +377,7 @@ bool EntryEdict::matchesWordType( const DictQuery &query ) const
 QString EntryEdict::toHTML() const
 {
   QString result = "<div class=\"EDICT\">";
-  bool isCommon = ( getExtendedInfoItem( QString( "common" ) ) == "1" );
-  if( isCommon )
+  if( isCommon() )
   {
     result += "<div class=\"Common\">";
   }
@@ -396,10 +388,10 @@ QString EntryEdict::toHTML() const
     else if( field == "Word/Kanji" ) result += HTMLWord()+' ';
     else if( field == "Meaning" )		 result += HTMLMeanings()+' ';
     else if( field == "Reading" )		 result += HTMLReadings()+' ';
-    else if( field == "C" )			     result += common();
     else kDebug() << "Unknown field: " << field;
   }
-  if( isCommon )
+
+  if( isCommon() )
   {
     result += "</div>";
   }

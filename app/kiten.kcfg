@@ -87,10 +87,10 @@
   <group name="Learn">
   </group>
   <group name="app">
-	  <entry key="common_only" type="Bool">
-		<label>Limit search results to "common" entries only?</label>
-      <default>false</default>
-	</entry>
+    <entry key="filter_rare" type="Int">
+      <label>0=No filter, 1=Limit search results to "common" entries only, 2=Separate common and uncommon entries</label>
+      <default>0</default>
+    </entry>
 	<entry key="search_precision" type="Int">
 		<label>The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match Anywhere</label>
 		<default>3</default>

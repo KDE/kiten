@@ -73,7 +73,6 @@ DictFileEdict::~DictFileEdict()
 QMap<QString,QString> DictFileEdict::displayOptions() const
 {
   QMap<QString,QString> list;
-  list[ "Common(C)" ] = "C";
   list[ "Part of speech(type)" ] = "type";
   return list;
 }

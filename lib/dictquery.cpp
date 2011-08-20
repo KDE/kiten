@@ -37,7 +37,8 @@ class DictQuery::Private
 {
   public:
     Private() : matchType( DictQuery::Exact )
-              , matchWordType( DictQuery::Any ) { }
+              , matchWordType( DictQuery::Any )
+              , filterType( DictQuery::NoFilter ) { }
 
     /** Stores the (english or otherwise non-japanese) meaning */
     QString meaning;
@@ -56,6 +57,8 @@ class DictQuery::Private
     MatchType matchType;
     /** What MatchWordType is this set to */
     MatchWordType matchWordType;
+    /** What FilterType is this set to */
+    FilterType filterType;
 
     /** Marker in the m_entryOrder for the location of the pronunciation element */
     static const QString pronunciationMarker;
@@ -135,6 +138,7 @@ DictQuery &DictQuery::operator=( const DictQuery &old )
   clear();
   d->matchType          = old.d->matchType;
   d->matchWordType      = old.d->matchWordType;
+  d->filterType         = old.d->filterType;
   d->extendedAttributes = old.d->extendedAttributes;
   d->meaning            = old.d->meaning;
   d->pronunciation      = old.d->pronunciation;
@@ -198,7 +202,8 @@ bool operator==( const DictQuery &a, const DictQuery &b )
      || ( a.d->entryOrder         != b.d->entryOrder )
      || ( a.d->extendedAttributes != b.d->extendedAttributes )
      || ( a.d->matchType          != b.d->matchType )
-     || ( a.d->matchWordType      != b.d->matchWordType ) )
+     || ( a.d->matchWordType      != b.d->matchWordType )
+     || ( a.d->filterType         != b.d->filterType ) )
   {
     return false;
   }
@@ -587,6 +592,16 @@ void DictQuery::setDictionaries( const QStringList &newDictionaries )
 /**************************************************************
   Match Type Accessors and Mutators
   ************************************************************/
+DictQuery::FilterType DictQuery::getFilterType() const
+{
+  return d->filterType;
+}
+
+void DictQuery::setFilterType( FilterType newType )
+{
+  d->filterType = newType;
+}
+
 DictQuery::MatchType DictQuery::getMatchType() const
 {
   return d->matchType;

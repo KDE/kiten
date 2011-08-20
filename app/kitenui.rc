@@ -17,7 +17,7 @@
 		<Action name="search_in_results" />
 		<Action name="search_searchType" />
     <Action name="search_wordType" />
-		<Action name="search_filterRare" />
+		<Action name="filter_rare" />
 		<Action name="search_radical" />
 		<Action name="radselect" />
     <Action name="kanjibrowser" />
@@ -35,9 +35,9 @@
 	<Action name="go_back" />
 	<Action name="go_forward" />
 	<Separator/>
-	<Action name="search_filterRare" />
 	<Action name="radselect" />
   <Action name="kanjibrowser" />
+  <Action name="filter_rare" />
 	<Action name="search_searchType" />
   <Action name="search_wordType" />
 </ToolBar>

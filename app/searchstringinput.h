@@ -53,7 +53,7 @@ class SearchStringInput : public QObject
     void      focusInput();
 
   private:
-    KToggleAction    *_actionFilterRare;
+    KSelectAction    *_actionFilterRare;
     // Search exact/anywhere/beginning
     KSelectAction    *_actionSearchSection;
     KSelectAction    *_actionSelectWordType;

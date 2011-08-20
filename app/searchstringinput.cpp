@@ -43,8 +43,11 @@ SearchStringInput::SearchStringInput( Kiten *parent )
 : QObject( parent )
 {
   _parent = parent;
-  _actionFilterRare = _parent->actionCollection()->add<KToggleAction>( "search_filterRare" );
-  _actionFilterRare->setText( i18n( "&Filter Out Rare" ) );
+  _actionFilterRare = _parent->actionCollection()->add<KSelectAction>( "filter_rare" );
+  _actionFilterRare->setText( i18n( "Filter Type" ) );
+  _actionFilterRare->addAction( i18n( "No filter" ) );
+  _actionFilterRare->addAction( i18n( "Filter out rare" ) );
+  _actionFilterRare->addAction( i18n( "Common/Uncommon" ) );
 
   _actionSearchSection = _parent->actionCollection()->add<KSelectAction>( "search_searchType" );
   _actionSearchSection->setText( i18n( "Match Type" ) );
@@ -100,11 +103,12 @@ DictQuery SearchStringInput::getSearchQuery() const
 {
   DictQuery result( _actionTextInput->currentText() );
 
-  if( _actionFilterRare->isChecked() )
+  if( _actionFilterRare->currentItem() == DictQuery::Rare )
   {
     result.setProperty( "common", "1" );
   }
 
+  result.setFilterType( (DictQuery::FilterType)_actionFilterRare->currentItem() );
   result.setMatchType( (DictQuery::MatchType)_actionSearchSection->currentItem() );
   result.setMatchWordType( (DictQuery::MatchWordType)_actionSelectWordType->currentItem() );
 
@@ -114,7 +118,7 @@ DictQuery SearchStringInput::getSearchQuery() const
 void SearchStringInput::setDefaultsFromConfig()
 {
   KitenConfigSkeleton* config = KitenConfigSkeleton::self();
-  _actionFilterRare->setChecked( config->common_only() );
+  _actionFilterRare->setCurrentItem( config->filter_rare() );
   _actionSearchSection->setCurrentItem( config->search_precision() );
   _actionSelectWordType->setCurrentItem( config->search_limit_to_wordtype() );
 }
@@ -123,7 +127,7 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
 {
   kDebug() << "------------------------------Set Triggered";
   //First we set the various actions according to the query
-  _actionFilterRare->setChecked( query.getProperty( "common" ) == "1" );
+  _actionFilterRare->setCurrentItem( query.getFilterType() );
   _actionSearchSection->setCurrentItem( query.getMatchType() );
   _actionSelectWordType->setCurrentItem( query.getMatchWordType() );
 

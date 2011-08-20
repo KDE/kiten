@@ -35,6 +35,7 @@
 #include <sys/mman.h>
 
 #include "DictEdict/dictfileedict.h"
+#include "DictEdict/entryedict.h"
 
 class EntryList::Private
 {
@@ -123,14 +124,51 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
   QString &lastDictionary = temp;
   const QString fromDictionary = i18n( "From Dictionary:" );
   QString query( getQuery() );
-  bool firstTime = true;
+
+  EntryList *kanjidicResults = new EntryList();
+  EntryList *commonResults   = new EntryList();
+  EntryList *uncommonResults = new EntryList();
   for ( unsigned int i = 0; i < max; ++i )
   {
-    Entry *it = at( i );
+    Entry *entry = at( i );
+    if( entry->getDictName() == "edict" )
+    {
+      if( static_cast<EntryEdict*>( entry )->isCommon() )
+      {
+        commonResults->append( entry );
+      }
+      else
+      {
+        uncommonResults->append( entry );
+      }
+    }
+    else
+    {
+      kanjidicResults->append( entry );
+    }
+  }
+
+  EntryList *list = new EntryList();
+  list->appendList( kanjidicResults );
+  list->appendList( commonResults );
+  list->appendList( uncommonResults );
+  delete commonResults;
+  delete uncommonResults;
+  commonResults   = NULL;
+  uncommonResults = NULL;
+
+  EntryIterator it( *list );
+  unsigned int counter = 0;
+  bool firstTimeDeinflection  = true;
+  bool firstTimeCommon = true;
+  bool firstTimeUncommon = true;
+  while( it.hasNext() )
+  {
+    Entry *entry = it.next();
     if( d->sortedByDictionary )
     {
-      const QString &newDictionary = it->getDictName();
-      if( firstTime && newDictionary == "edict"
+      const QString &newDictionary = entry->getDictName();
+      if( firstTimeDeinflection && newDictionary == "edict"
           && DictFileEdict::deinflectionLabel )
       {
         const QString &label = *DictFileEdict::deinflectionLabel;
@@ -144,7 +182,7 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
 
         result += "<div style=\"font-style:italic\">" + message + "</div>";
 
-        firstTime = false;
+        firstTimeDeinflection = false;
       }
 
       if( lastDictionary != newDictionary )
@@ -153,17 +191,38 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
         result += "<div class=\"DictionaryHeader\">" + fromDictionary + " " + newDictionary + "</div>";
       }
     }
+
+    if( getQuery().getFilterType() == DictQuery::CommonUncommon )
+    {
+      if( entry->getDictName() == "edict" )
+      {
+        EntryEdict *entryEdict = static_cast<EntryEdict*>( entry );
+        if( entryEdict->isCommon() && firstTimeCommon )
+        {
+          result += QString( "<div class=\"CommonHeader\">%1</div>" ).arg( i18n( "Common" ) );
+          firstTimeCommon = false;
+        }
+        else if( ! entryEdict->isCommon() && firstTimeUncommon )
+        {
+          result += QString( "<div class=\"UncommonHeader\">%1</div>" ).arg( i18n( "Uncommon" ) );
+          firstTimeUncommon = false;
+        }
+      }
+    }
+
     if( length-- > 0 )
     {
       result += "<div class=\"Entry\" index=\""
-                + QString::number( i )
-                + "\" dict=\"" + it->getDictName()
-                + "\">" + it->toHTML() + "</div>";
+                + QString::number( counter )
+                + "\" dict=\"" + entry->getDictName()
+                + "\">" + entry->toHTML() + "</div>";
     }
     else
     {
       break;
     }
+
+    counter++;
   }
   //result.replace( query, "<query>" + query + "</query>" );
   return result;

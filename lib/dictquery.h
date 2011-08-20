@@ -322,6 +322,22 @@ public:
    */
   void setMatchWordType( MatchWordType );
 
+  enum FilterType
+  {
+    NoFilter,
+    Rare,
+    CommonUncommon
+  };
+  /**
+   * Get which filter is currently set on the DictQuery.
+   */
+  FilterType getFilterType() const;
+  /**
+   * Set whether or not the query should output results separated in
+   * common and uncommon sections.
+   */
+  void setFilterType( FilterType newType );
+
   /**
    * This enum is used as the return type for the two utility functions,
    * stringTypeCheck and charTypeCheck.

@@ -78,6 +78,7 @@ class KITEN_EXPORT EntryEdict : public Entry
 
     bool            isAdjective() const;
     bool            isAdverb() const;
+    bool            isCommon() const;
     bool            isExpression() const;
     bool            isFukisokuVerb() const;
     bool            isGodanVerb() const;
@@ -90,7 +91,6 @@ class KITEN_EXPORT EntryEdict : public Entry
 
     bool            matchesWordType( const DictQuery &query ) const;
 
-    virtual QString common() const;
     virtual QString dumpEntry() const;
     virtual QString HTMLWord() const;
     virtual bool    loadEntry( const QString &entryLine );
