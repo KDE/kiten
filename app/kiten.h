@@ -124,6 +124,7 @@ class Kiten : public KXmlGuiWindow
     SearchStringInput       *_inputManager;
     ResultsView             *_mainView;
 
+    DictQuery                _lastQuery;
     KToggleAction           *_autoSearchToggle;
     KListAction             *_historyAction;
     KAction                 *_irAction;

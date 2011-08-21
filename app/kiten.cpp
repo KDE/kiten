@@ -77,6 +77,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
 : KXmlGuiWindow( parent )
 , _radselect_proc( new KProcess( this ) )
 , _kanjibrowser_proc( new KProcess( this ) )
+, _lastQuery( DictQuery() )
 {
   _radselect_proc->setProgram( KStandardDirs::findExe( "kitenradselect" ) );
   _kanjibrowser_proc->setProgram( KStandardDirs::findExe( "kitenkanjibrowser" ) );
@@ -347,7 +348,11 @@ void Kiten::searchFromEdit()
 {
   kDebug() << "SEARCH FROM EDIT CALLED";
   DictQuery query = _inputManager->getSearchQuery();
-  searchAndDisplay( query );
+  if( query != _lastQuery )
+  {
+    _lastQuery = query;
+    searchAndDisplay( query );
+  }
 }
 
 /**
