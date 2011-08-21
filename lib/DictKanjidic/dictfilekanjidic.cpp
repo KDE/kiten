@@ -206,6 +206,17 @@ bool DictFileKanjidic::loadDictionary( const QString &file, const QString &name 
   return true;
 }
 
+QMap<QString,QString> DictFileKanjidic::loadDisplayOptions() const
+{
+  QMap<QString,QString> list = displayOptions();
+  list[ "Word/Kanji" ]  = "Word/Kanji";
+  list[ "Reading" ]     = "Reading";
+  list[ "Meaning" ]     = "Meaning";
+  list[ "--Newline--" ] = "--Newline--";
+
+  return list;
+}
+
 QStringList* DictFileKanjidic::loadListType(  KConfigSkeletonItem *item
                                             , QStringList *list
                                             , const QMap<QString,QString> &long2short )
@@ -236,25 +247,13 @@ QStringList* DictFileKanjidic::loadListType(  KConfigSkeletonItem *item
 
 void DictFileKanjidic::loadSettings()
 {
-  QMap<QString,QString> list = displayOptions();
-  list[ "Word/Kanji" ]  = "Word/Kanji";
-  list[ "Reading" ]     = "Reading";
-  list[ "Meaning" ]     = "Meaning";
-  list[ "--Newline--" ] = "--Newline--";
-
-  this->displayFields = new QStringList( list.values() );
+  this->displayFields = new QStringList( loadDisplayOptions().values() );
 }
 
 void DictFileKanjidic::loadSettings( KConfigSkeleton *config )
 {
-  QMap<QString,QString> list = displayOptions();
-  list[ "Word/Kanji" ]  = "Word/Kanji";
-  list[ "Reading" ]     = "Reading";
-  list[ "Meaning" ]     = "Meaning";
-  list[ "--Newline--" ] = "--Newline--";
-
   KConfigSkeletonItem *item = config->findItem( getType() + "__displayFields" );
-  this->displayFields = loadListType( item, this->displayFields, list );
+  this->displayFields = loadListType( item, this->displayFields, loadDisplayOptions() );
 }
 
 /**

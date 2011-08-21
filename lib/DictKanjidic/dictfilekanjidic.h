@@ -64,6 +64,8 @@ class KITEN_EXPORT DictFileKanjidic : public DictFile
     static QStringList *displayFields;
 
   private:
+    QMap<QString,QString> loadDisplayOptions() const;
+
     QStringList m_kanjidic;
     bool        m_validKanjidic;
 };
