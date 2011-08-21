@@ -152,8 +152,10 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
   list->appendList( kanjidicResults );
   list->appendList( commonResults );
   list->appendList( uncommonResults );
+  delete kanjidicResults;
   delete commonResults;
   delete uncommonResults;
+  kanjidicResults = NULL;
   commonResults   = NULL;
   uncommonResults = NULL;
 
