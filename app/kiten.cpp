@@ -647,6 +647,11 @@ void Kiten::updateConfiguration()
 
   _inputManager->updateFontFromConfig();
 
+  // Reset the content of the last query. This is because in case the user adds
+  // new dictionaries and wants to execute the same last search, the output
+  // will contain results of the new dictionary/dictionaries added.
+  _lastQuery = DictQuery();
+
   /*: TODO: have a look at this as well
   detachedView->updateFont();
   */
