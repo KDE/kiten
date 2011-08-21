@@ -77,7 +77,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
   m_deinflectionLabel = QString();
   m_wordType = QString();
 
-  EntryList *verbs = new EntryList();
+  EntryList *entries = new EntryList();
 
   QStringList edictTypesList;
   edictTypesList.append( EdictFormatting::Adjectives );
@@ -85,23 +85,23 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
 
   QString edictTypes = edictTypesList.join( "," );
 
-  foreach( const QString &it, preliminaryResults )
+  foreach( const QString &item, preliminaryResults )
   {
-    EntryEdict *entry = makeEntry( it );
-    QStringListIterator i( entry->getTypesList() );
+    EntryEdict *entry = makeEntry( item );
+    QStringListIterator it( entry->getTypesList() );
     bool matched = false;
-    while( i.hasNext() && ! matched )
+    while( it.hasNext() && ! matched )
     {
-      if( edictTypes.contains( i.next() ) )
+      if( edictTypes.contains( it.next() ) )
       {
-        verbs->append( entry );
+        entries->append( entry );
         matched = true;
       }
     }
   }
 
-  EntryList *ret = new EntryList();
-  EntryList::EntryIterator it( *verbs );
+  EntryList *results = new EntryList();
+  EntryList::EntryIterator it( *entries );
   while( it.hasNext() )
   {
     EntryEdict *entry = static_cast<EntryEdict*>( it.next() );
@@ -147,14 +147,14 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
             }
           }
 
-          ret->append( entry );
+          results->append( entry );
           break;
         }
       }
     }
   }
 
-  return ret;
+  return results;
 }
 
 bool Deinflection::load()
