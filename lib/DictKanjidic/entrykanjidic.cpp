@@ -77,7 +77,9 @@ QString EntryKanjidic::dumpEntry() const
     dumpExtendedInfo += ' ' + it.key() + it.value();
   }
 
-  return Word + ' ' + Readings.join( " " ) + dumpExtendedInfo;
+  return QString( "%1 %2%3" ).arg( Word )
+                             .arg( Readings.join( " " ) )
+                             .arg( dumpExtendedInfo );
 }
 
 bool EntryKanjidic::extendedItemCheck( const QString &key, const QString &value ) const
@@ -143,7 +145,9 @@ QString EntryKanjidic::getStrokesCount() const
 QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 {
   //kDebug() << field;
-  return "<span class=\"ExtendedInfo\">" + field + ": " + ExtendedInfo[ field ] + "</span>";
+  return QString( "<span class=\"ExtendedInfo\">%1: %2</span>" )
+             .arg( field )
+             .arg( ExtendedInfo[ field ] );
 }
 
 /**
@@ -168,12 +172,12 @@ QString EntryKanjidic::HTMLReadings() const
 
   htmlReadings.truncate( htmlReadings.length() - outputListDelimiter.length() ); // get rid of last ,
 
-  return "<span class=\"Readings\">" + htmlReadings + "</span>";
+  return QString( "<span class=\"Readings\">%1</span>" ).arg( htmlReadings );
 }
 
 QString EntryKanjidic::HTMLWord() const
 {
-  return "<span class=\"Word\">" + makeLink( Word ) + "</span>";
+  return QString( "<span class=\"Word\">%1</span>" ).arg( makeLink( Word ) );
 }
 
 /**
@@ -456,7 +460,8 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 QString EntryKanjidic::makeReadingLink( const QString &inReading ) const
 {
   QString reading = inReading;
-  return "<a href=\"" + reading.remove( "." ).remove( "-" ) + "\">" + inReading + "</a>";
+  return QString( "<a href=\"%1\">%2</a>" ).arg( reading.remove( "." ).remove( "-" ) )
+                                           .arg( inReading );
 }
 
 /**

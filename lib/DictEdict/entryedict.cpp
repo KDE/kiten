@@ -50,9 +50,11 @@ Entry* EntryEdict::clone() const
  */
 QString EntryEdict::dumpEntry() const
 {
-  return Word
-         + (  (Readings.count() == 0 ) ? " " : " [" + Readings.first() + "] " )
-         + '/' + Meanings.join( "/" ) + '/';
+  QString readings = QString( Readings.count() == 0 ? " " : " [" + Readings.first() + "] " );
+
+  return QString( "%1%2/%3/" ).arg( Word )
+                              .arg( readings )
+                              .arg( Meanings.join( "/" ) );
 }
 
 QString EntryEdict::getTypes() const
@@ -207,9 +209,8 @@ bool EntryEdict::isVerb() const
 
 QString EntryEdict::HTMLWord() const
 {
-  return "<span class=\"Word\">"
-         + ( Word.isEmpty() ? kanjiLinkify( Meanings.first() ) : kanjiLinkify( Word ) )
-         + "</span>";
+  return QString( "<span class=\"Word\">%1</span>" )
+             .arg( Word.isEmpty() ? kanjiLinkify( Meanings.first() ) : kanjiLinkify( Word ) );
 }
 
 /**

@@ -157,8 +157,8 @@ QString Entry::getExtendedInfoItem( const QString &x ) const
  */
 inline QString Entry::HTMLMeanings() const
 {
-  return "<span class=\"Meanings\">" + Meanings.join( outputListDelimiter )
-          + "</span>";
+  return QString( "<span class=\"Meanings\">%1</span>" )
+             .arg( Meanings.join( outputListDelimiter ) );
 }
 
 /* Prepares Readings for output as HTML */
@@ -170,7 +170,8 @@ inline QString Entry::HTMLReadings() const
     list += makeLink( it );
   }
 
-  return "<span class=\"Readings\">" + list.join( outputListDelimiter ) + "</span>";
+  return QString( "<span class=\"Readings\">%1</span>" )
+             .arg( list.join( outputListDelimiter ) );
 }
 
 /**
@@ -178,7 +179,7 @@ inline QString Entry::HTMLReadings() const
  */
 inline QString Entry::HTMLWord() const
 {
-  return "<span class=\"Word\">" + Word + "</span>";
+  return QString( "<span class=\"Word\">%1</span>" ).arg( Word );
 }
 
 void Entry::init()
@@ -287,7 +288,7 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
  */
 inline QString Entry::makeLink( const QString &entryString ) const
 {
-  return "<a href=\"" + entryString + "\">" + entryString + "</a>";
+  return QString( "<a href=\"%1\">%1</a>" ).arg( entryString );
 }
 
 bool Entry::matchesQuery( const DictQuery &query ) const
@@ -382,7 +383,10 @@ bool Entry::matchesQuery( const DictQuery &query ) const
  */
 QString Entry::toHTML() const
 {
-  return "<div class=\"Entry\">" + HTMLWord() + HTMLReadings() + HTMLMeanings() + "</div>";
+  return QString( "<div class=\"Entry\">%1%2%3</div>" )
+             .arg( HTMLWord() )
+             .arg( HTMLReadings() )
+             .arg( HTMLMeanings() );
 }
 
 inline QString Entry::toKVTML() const
@@ -394,9 +398,11 @@ inline QString Entry::toKVTML() const
    </e>
    */
   //TODO: en should not necessarily be the language here.
-  return "<e>\n<o l=\"en\">" + getMeanings() + "</o>\n"
-         "<t l=\"jp-kanji\">" + getWord() + "</t>\n"
-       + "<t l=\"jp-kana\">" + getReadings() + "</t></e>\n\n";
+  return QString( "<e>\n<o l=\"en\">%1</o>\n"
+                  "<t l=\"jp-kanji\">%2</t>\n"
+                  "<t l=\"jp-kana\">%3</t></e>\n\n" ).arg( getMeanings() )
+                                                     .arg( getWord() )
+                                                     .arg( getReadings() );
 }
 
 /**
@@ -406,7 +412,9 @@ inline QString Entry::toKVTML() const
  */
 QString Entry::toString() const
 {
-  return Word + " (" + getReadings() + ") " + getMeanings();
+  return QString( "%1 (%2) %3" ).arg( Word )
+                                .arg( getReadings() )
+                                .arg( getMeanings() );
 }
 
 /**

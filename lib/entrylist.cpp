@@ -180,7 +180,7 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
                                       , type
                                       , label );
 
-        result += "<div style=\"font-style:italic\">" + message + "</div>";
+        result += QString( "<div style=\"font-style:italic\">%1</div>" ).arg( message );
 
         firstTimeDeinflection = false;
       }
@@ -188,7 +188,9 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
       if( lastDictionary != newDictionary )
       {
         lastDictionary = newDictionary;
-        result += "<div class=\"DictionaryHeader\">" + fromDictionary + " " + newDictionary + "</div>";
+        result += QString( "<div class=\"DictionaryHeader\">%1 %2</div>" )
+                      .arg( fromDictionary )
+                      .arg( newDictionary );
       }
     }
 
@@ -212,10 +214,10 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
 
     if( length-- > 0 )
     {
-      result += "<div class=\"Entry\" index=\""
-                + QString::number( counter )
-                + "\" dict=\"" + entry->getDictName()
-                + "\">" + entry->toHTML() + "</div>";
+      result += QString( "<div class=\"Entry\" index=\"%1\" dict=\"%2\">%3</div>" )
+                    .arg( QString::number( counter ) )
+                    .arg( entry->getDictName() )
+                    .arg( entry->toHTML() );
     }
     else
     {
