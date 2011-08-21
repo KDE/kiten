@@ -46,7 +46,7 @@ class DictQuery::Private
     QString pronunciation;
     /** The main word, this usually contains kanji */
     QString word;
-    /** Any amount of extended attributes, grade leve, heisig/henshall/etc index numbers, whatever you want */
+    /** Any amount of extended attributes, grade level, heisig/henshall/etc index numbers, whatever you want */
     QHash<QString,QString> extendedAttributes;
     /** The order that various attributes, meanings, and pronunciations were entered, so we can
       * regenerate the list for the user if they need them again */
