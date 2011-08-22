@@ -10,3 +10,11 @@ Neil Stevens <neil@qualityassistant.com>
 
 Joseph Kerian <jkerian@gmail.com> and Eric Kjeldergaard <kjelderg@gmail.com>
 	Simplified more code, designed modular dictionary system, KDE4-ized
+
+Daniel E. Moctezuma <democtezuma@gmail.com>
+  Deinflection system improvements
+  Dictionary updates for EDICT and KANJIDIC
+  GUI Improvements
+  Kanji Browser
+  Bug fixes
+  Code polishing and simplification

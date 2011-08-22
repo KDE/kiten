@@ -39,7 +39,10 @@ int main( int argc, char *argv[] )
 
   // Copyright and author information
   KAboutData aboutData( "kiten", 0, ki18n("Kiten"), "1.2", ki18n("Japanese Reference Tool"),
-                  KAboutData::License_GPL_V2, ki18n("(c) 2001-2004, Jason Katz-Brown"),
+                  KAboutData::License_GPL_V2, ki18n("(c) 2001-2004, Jason Katz-Brown\n"
+                                                    "(c) 2006-2007, Eric Kjeldergaard\n"
+                                                    "(c) 2006-2008, Joseph Kerian\n"
+                                                    "(c) 2011, Daniel E. Moctezuma"),
                   KLocalizedString(), "http://edu.kde.org/kiten" );
 
   aboutData.addAuthor( ki18n("Jason Katz-Brown"), ki18n("Original author"), "jason@katzbrown.com" );
@@ -48,6 +51,8 @@ int main( int argc, char *argv[] )
   aboutData.addCredit( ki18n("David Vignoni"),    ki18n("svg icon"), "david80v@tin.it");
   aboutData.addCredit( ki18n("Paul Temple"),      ki18n("Porting to KConfig XT, bug fixing"), "paul.temple@gmx.net" );
   aboutData.addAuthor( ki18n("Joseph Kerian"),    ki18n("KDE4 rewrite"), "jkerian@gmail.com" );
+  aboutData.addAuthor( ki18n("Eric Kjeldergaard"), ki18n("KDE4 rewrite"), "kjelderg@gmail.com" );
+  aboutData.addAuthor( ki18n("Daniel E. Moctezuma"), ki18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"), "democtezuma@gmail.com" );
 
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
   KCmdLineArgs::init( argc, argv, &aboutData );
