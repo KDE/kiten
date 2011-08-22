@@ -42,6 +42,7 @@ class KITEN_EXPORT EntryKanjidic : public Entry
     virtual QString dumpEntry() const;
     QString         getAsRadicalReadings() const;
     QStringList     getAsRadicalReadingsList() const;
+    virtual QString getDictionaryType() const;
     QString         getInNamesReadings() const;
     QStringList     getInNamesReadingsList() const;
     QString         getKanjiGrade() const;

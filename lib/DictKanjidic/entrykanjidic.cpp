@@ -24,11 +24,11 @@
 #include "entrykanjidic.h"
 
 #include "dictfilekanjidic.h"
+#include "kitenmacros.h"
 
 #include <KLocale>
 #include <KDebug>
 
-/* DISPLAY FUNCTIONS */
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
 EntryKanjidic::EntryKanjidic( const EntryKanjidic &dict )
@@ -100,6 +100,11 @@ QString EntryKanjidic::getAsRadicalReadings() const
 QStringList EntryKanjidic::getAsRadicalReadingsList() const
 {
   return AsRadicalReadings;
+}
+
+QString EntryKanjidic::getDictionaryType() const
+{
+  return KANJIDIC;
 }
 
 QString EntryKanjidic::getInNamesReadings() const

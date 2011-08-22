@@ -23,6 +23,7 @@
 #include "entryedict.h"
 
 #include "dictfileedict.h"
+#include "kitenmacros.h"
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -55,6 +56,11 @@ QString EntryEdict::dumpEntry() const
   return QString( "%1%2/%3/" ).arg( Word )
                               .arg( readings )
                               .arg( Meanings.join( "/" ) );
+}
+
+QString EntryEdict::getDictionaryType() const
+{
+  return EDICT;
 }
 
 QString EntryEdict::getTypes() const
@@ -377,7 +383,7 @@ bool EntryEdict::matchesWordType( const DictQuery &query ) const
  */
 QString EntryEdict::toHTML() const
 {
-  QString result = "<div class=\"EDICT\">";
+  QString result = QString( "<div class=\"%1\">" ).arg( EDICT.toUpper() );
   if( isCommon() )
   {
     result += "<div class=\"Common\">";

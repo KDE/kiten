@@ -26,6 +26,7 @@
 #include "dictquery.h"
 #include "entrykanjidic.h"
 #include "entrylist.h"
+#include "kitenmacros.h"
 
 #include <KConfigSkeleton>
 #include <KDebug>
@@ -37,9 +38,9 @@
 QStringList *DictFileKanjidic::displayFields = NULL;
 
 DictFileKanjidic::DictFileKanjidic()
-: DictFile( "kanjidic" )
+: DictFile( KANJIDIC )
 {
-  m_dictionaryType = "kanjidic"; //Override the default type
+  m_dictionaryType = KANJIDIC;
   m_searchableAttributes.clear();
   m_searchableAttributes.insert( "bushu",      "B" );
   m_searchableAttributes.insert( "classical",  "C" );

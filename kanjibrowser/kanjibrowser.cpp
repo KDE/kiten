@@ -22,9 +22,10 @@
 
 #include "ui_preferences.h"
 
+#include "DictKanjidic/dictfilekanjidic.h"
 #include "kanjibrowserconfig.h"
 #include "kanjibrowserview.h"
-#include "DictKanjidic/dictfilekanjidic.h"
+#include "kitenmacros.h"
 
 #include <KActionCollection>
 #include <KApplication>
@@ -82,7 +83,7 @@ void KanjiBrowser::loadKanji()
                                                       , "kiten/kanjidic" );
   _dictFileKanjidic = new DictFileKanjidic();
   _dictFileKanjidic->loadSettings();
-  _dictFileKanjidic->loadDictionary( dictionary, "kanjidic" );
+  _dictFileKanjidic->loadDictionary( dictionary, KANJIDIC );
 
   // Parse the contents of KANJIDIC that we need to create the view.
   // We need:

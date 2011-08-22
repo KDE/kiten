@@ -43,6 +43,7 @@
 #include "dictquery.h"
 #include "entryedict.h"
 #include "entrylist.h"
+#include "kitenmacros.h"
 
 QString     *DictFileEdict::deinflectionLabel = NULL;
 QStringList *DictFileEdict::displayFields = NULL;
@@ -53,12 +54,12 @@ QString     *DictFileEdict::wordType = NULL;
  * dictionaryType member variable to identify this as an edict-type database handler.
  */
 DictFileEdict::DictFileEdict()
-: DictFile( "edict" )
+: DictFile( EDICT )
 , m_hasDeinflection( false )
+, m_deinflection( 0 )
 {
+  m_dictionaryType = EDICT;
   m_searchableAttributes.insert( "common", "common" );
-
-  m_deinflection = new Deinflection( "edict" );
 }
 
 /**
@@ -68,6 +69,7 @@ DictFileEdict::DictFileEdict()
 DictFileEdict::~DictFileEdict()
 {
   delete m_deinflection;
+  m_deinflection = 0;
 }
 
 QMap<QString,QString> DictFileEdict::displayOptions() const
@@ -148,6 +150,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
   bool isAdjectiveQuery = query.getMatchWordType() == DictQuery::Adjective;
   if( results->count() == 0 && ( isAnyQuery || isVerbQuery || isAdjectiveQuery ) )
   {
+    delete results;
     results = m_deinflection->search( query, preliminaryResults );
     QString *label = m_deinflection->getDeinflectionLabel();
     if( ! label->isEmpty() && ! m_hasDeinflection )
@@ -166,6 +169,27 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
 
   if( results )
   {
+    EntryList *common   = new EntryList();
+    EntryList *uncommon = new EntryList();
+    EntryList::EntryIterator i( *results );
+    while( i.hasNext() )
+    {
+      EntryEdict *entry = static_cast<EntryEdict*>( i.next() );
+      if( entry->isCommon() )
+      {
+        common->append( entry );
+      }
+      else
+      {
+        uncommon->append( entry );
+      }
+    }
+
+    delete results;
+    results = new EntryList();
+    results->appendList( common );
+    results->appendList( uncommon );
+
     EntryList *exact     = new EntryList();
     EntryList *beginning = new EntryList();
     EntryList *ending    = new EntryList();
@@ -193,6 +217,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
       }
     }
 
+    delete results;
     results = new EntryList();
     results->appendList( exact );
     results->appendList( beginning );
@@ -228,6 +253,7 @@ bool DictFileEdict::loadDictionary( const QString &fileName, const QString &dict
     m_dictionaryName = dictName;
     m_dictionaryFile = fileName;
 
+    m_deinflection = new Deinflection( m_dictionaryName );
     m_deinflection->load();
 
     return true;

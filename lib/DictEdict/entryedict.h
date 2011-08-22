@@ -92,6 +92,7 @@ class KITEN_EXPORT EntryEdict : public Entry
     bool            matchesWordType( const DictQuery &query ) const;
 
     virtual QString dumpEntry() const;
+    virtual QString getDictionaryType() const;
     virtual QString HTMLWord() const;
     virtual bool    loadEntry( const QString &entryLine );
     virtual QString toHTML() const;

@@ -21,8 +21,8 @@
 #include "dictionaryupdatemanager.h"
 
 #include "kiten.h"
-
 #include "kitenconfig.h"
+#include "kitenmacros.h"
 
 #include <KAction>
 #include <KActionCollection>
@@ -162,7 +162,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
       // Indicate we need to download something.
       updates = true;
 
-      if( dict.toLower() == QString( "edict" ) )
+      if( dict.toLower() == EDICT )
       {
         downloadDictionary( EDICT_URL );
       }
@@ -252,7 +252,7 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
   if( ! compressedFile.open() )
   {
     kDebug() << "Could not create the downloaded .gz file." << endl;
-    _failed.append( url.contains( "edict" ) ? QString( "EDICT" ) : QString( "KANJIDIC" ) );
+    _failed.append( url.contains( EDICT ) ? EDICT : KANJIDIC );
     job->deleteLater();
     checkIfUpdateFinished();
     return;
@@ -269,7 +269,7 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
   if( ! device->open( QIODevice::ReadOnly ) )
   {
     kDebug() << "Could not extract the dictionary file." << endl;
-    _failed.append( url.contains( "edict" ) ? QString( "EDICT" ) : QString( "KANJIDIC" ) );
+    _failed.append( url.contains( EDICT ) ? EDICT : KANJIDIC );
     delete device;
     job->deleteLater();
     checkIfUpdateFinished();

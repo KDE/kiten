@@ -26,6 +26,7 @@
 #include "dictquery.h"
 #include "entry.h"
 #include "entrylist.h"
+#include "kitenmacros.h"
 
 #include <KDebug>
 #include <KGlobal>
@@ -272,8 +273,8 @@ QStringList DictionaryManager::listDictionaries() const
 QStringList DictionaryManager::listDictFileTypes()
 {
   QStringList list;
-  list.append( "edict" );
-  list.append( "kanjidic" );
+  list.append( EDICT );
+  list.append( KANJIDIC );
   
   //Add your dictionary type here!
 
@@ -343,11 +344,11 @@ void DictionaryManager::loadSettings( const KConfig &config )
  */
 DictFile *DictionaryManager::makeDictFile( const QString &type )
 {
-  if( type == "edict" )
+  if( type == EDICT )
   {
     return new DictFileEdict();
   }
-  if( type == "kanjidic" )
+  if( type == KANJIDIC )
   {
     return new DictFileKanjidic();
   }
