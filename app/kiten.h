@@ -4,6 +4,7 @@
  * Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>                      *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify      *
  * it under the terms of the GNU General Public License as published by      *
@@ -44,6 +45,7 @@ class KitenEdit;
 class QDockWidget;
 
 class ConfigureDialog;
+class DictionaryUpdateManager;
 class EntryListView;
 class ResultsView;
 class SearchStringInput;
@@ -56,6 +58,8 @@ class Kiten : public KXmlGuiWindow
   public:
     explicit Kiten( QWidget *parent = 0, const char *name = 0 );
             ~Kiten();
+
+    KitenConfigSkeleton *getConfig();
 
   // The following will be available via dbus.
   public slots:
@@ -79,6 +83,7 @@ class Kiten : public KXmlGuiWindow
     void searchInResults();
     void displayResults( EntryList* );
     void radicalSearch();
+    void kanjiBrowserSearch();
     //void searchOnTheSpot();
 
     //Configuration related slots
@@ -89,6 +94,7 @@ class Kiten : public KXmlGuiWindow
     void configureGlobalKeys();
     void newToolBarConfig();
     void updateConfiguration();
+    void loadDictionaries();
     void loadDictConfig( const QString& );
 
     //Other
@@ -112,38 +118,40 @@ class Kiten : public KXmlGuiWindow
 
 
   private:
-    KStatusBar          *_statusBar;
-    DictionaryManager    _dictionaryManager;
+    KStatusBar              *_statusBar;
+    DictionaryManager        _dictionaryManager;
+    DictionaryUpdateManager *_dictionaryUpdateManager;
+    SearchStringInput       *_inputManager;
+    ResultsView             *_mainView;
 
-    SearchStringInput   *_inputManager;
-    ResultsView         *_mainView;
-
-    KToggleAction       *_autoSearchToggle;
-    KListAction         *_historyAction;
-    KAction             *_irAction;
-    KAction             *_backAction;
-    KAction             *_forwardAction;
-    KProcess            *_radselect_proc;
+    DictQuery                _lastQuery;
+    KToggleAction           *_autoSearchToggle;
+    KListAction             *_historyAction;
+    KAction                 *_irAction;
+    KAction                 *_backAction;
+    KAction                 *_forwardAction;
+    KProcess                *_radselect_proc;
+    KProcess                *_kanjibrowser_proc;
 
     //TODO: this should probably be a standardaction
-    QAction             *_globalShortcutsAction;
+    QAction                 *_globalShortcutsAction;
 
     //ResultsView *detachedView;
-    KAction             *_globalSearchAction;
+    KAction                 *_globalSearchAction;
 
-    KSystemTrayIcon     *_sysTrayIcon;
+    KSystemTrayIcon         *_sysTrayIcon;
 
     //Export list related:
-    QDockWidget         *_exportListDock;
-    QWidget             *_exportListDockContents;
-    EntryListView       *_exportList;
+    QDockWidget             *_exportListDock;
+    QWidget                 *_exportListDockContents;
+    EntryListView           *_exportList;
 
-    KGlobalAccel        *_accel;
-    ConfigureDialog     *_optionDialog;
-    KitenConfigSkeleton *_config;
+    KGlobalAccel            *_accel;
+    ConfigureDialog         *_optionDialog;
+    KitenConfigSkeleton     *_config;
 
-    HistoryPtrList       _historyList;
-    QString              _personalDict;
+    HistoryPtrList           _historyList;
+    QString                  _personalDict;
 };
 
 #endif

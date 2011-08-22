@@ -1,0 +1,20 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KitenKanjiBrowser" version="1">
+
+<MenuBar>
+	<Menu name="file">
+		<text>&amp;File</text>
+	</Menu>
+	<Menu name="settings">
+	</Menu>
+</MenuBar>
+
+<!-- Toolbars seem to be loaded in inverse order -->
+
+<ToolBar name="mainToolbar" fullWidth="true" newline="true">
+	<text>Main Toolbar</text>
+	<Action name="kanji_list" />
+	<Action name="kanji_info" />
+</ToolBar>
+
+</kpartgui>

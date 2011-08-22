@@ -42,11 +42,11 @@ class RadicalButton : public QPushButton
 
     typedef enum
     {
-      kNormal,         // Normal button
-      kSelected,       // This button has been selected: bold + underline
-      kNotAppropriate, // Due to other selected buttons: disabled
-      kRelated,        // Display only this radical and related ones: italics?
-      kHidden          // Not related (to above), so hide()
+      Normal,         /**< Normal button */
+      Selected,       /**< This button has been selected: bold + underline */
+      NotAppropriate, /**< Due to other selected buttons: disabled */
+      Related,        /**< Display only this radical and related ones: italics? */
+      Hidden          /**< Not related (to above), so hide() */
     } ButtonStatus;
 
   signals:

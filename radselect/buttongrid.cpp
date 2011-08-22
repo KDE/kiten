@@ -43,7 +43,7 @@
 
 ButtonGrid::ButtonGrid( QWidget *parent, RadicalFile *radicalInfo )
 : QWidget( parent )
-, CurrentMode( kSelection )
+, CurrentMode( Selection )
 , m_radicalInfo( radicalInfo )
 {
   if ( m_radicalInfo )
@@ -117,16 +117,16 @@ void ButtonGrid::clearSelections()
 void ButtonGrid::radicalClicked(  const QString &newrad
                                 , RadicalButton::ButtonStatus newStatus )
 {
-  if( newStatus == RadicalButton::kRelated )
+  if( newStatus == RadicalButton::Related )
   {
     ; //Do something fancy
   }
-  else if( newStatus == RadicalButton::kNormal
-    || newStatus == RadicalButton::kSelected )
+  else if( newStatus == RadicalButton::Normal
+    || newStatus == RadicalButton::Selected )
   {
-    CurrentMode = kSelection;
+    CurrentMode = Selection;
 
-    if( newStatus == RadicalButton::kNormal )
+    if( newStatus == RadicalButton::Normal )
     {
       m_selectedRadicals.remove( newrad );
       if( m_selectedRadicals.isEmpty() )
@@ -163,7 +163,7 @@ void ButtonGrid::updateButtons()
     QList<Kanji> blankList;
     foreach( RadicalButton *button, m_buttons )
     {
-      button->setStatus( RadicalButton::kNormal );
+      button->setStatus( RadicalButton::Normal );
     }
 
     emit possibleKanji( blankList );
@@ -180,10 +180,11 @@ void ButtonGrid::updateButtons()
 
   //Do the announcement of the selected radical list
   QStringList radicalList( m_selectedRadicals.toList() );
-  emit signalChangeStatusbar( i18n( "Selected Radicals: " ) + radicalList.join( ", " ) );
+  emit signalChangeStatusbar( i18n( "Selected Radicals: " )
+                              + radicalList.join( ", " ) );
 
   //Now figure out what our remaining radical possibilities are
-  QSet<QString> remainingRadicals = m_radicalInfo->radicalsInKanji(kanjiSet);
+  QSet<QString> remainingRadicals = m_radicalInfo->radicalsInKanji( kanjiSet );
   //Remove the already selected ones
   remainingRadicals -= m_selectedRadicals;
 
@@ -193,15 +194,15 @@ void ButtonGrid::updateButtons()
   {
     if( m_selectedRadicals.contains( i.key() ) )
     {
-      i.value()->setStatus( RadicalButton::kSelected );
+      i.value()->setStatus( RadicalButton::Selected );
     }
     else if( remainingRadicals.contains( i.key() ) )
     {
-      i.value()->setStatus( RadicalButton::kNormal );
+      i.value()->setStatus( RadicalButton::Normal );
     }
     else
     {
-      i.value()->setStatus( RadicalButton::kNotAppropriate );
+      i.value()->setStatus( RadicalButton::NotAppropriate );
     }
 
     ++i;

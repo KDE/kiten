@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool...              *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify      *
  * it under the terms of the GNU General Public License as published by      *
@@ -52,8 +53,7 @@ class SearchStringInput : public QObject
     void      focusInput();
 
   private:
-    KToggleAction    *_actionDeinflect;
-    KToggleAction    *_actionFilterRare;
+    KSelectAction    *_actionFilterRare;
     // Search exact/anywhere/beginning
     KSelectAction    *_actionSearchSection;
     KSelectAction    *_actionSelectWordType;

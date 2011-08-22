@@ -27,7 +27,7 @@
 
 RadicalFile::RadicalFile( QString &radkfile )
 {
-  loadRadicalFile(radkfile);
+  loadRadicalFile( radkfile );
 }
 
 QSet<Kanji> RadicalFile::kanjiContainingRadicals( QSet<QString> &radicallist ) const
@@ -42,15 +42,15 @@ QSet<Kanji> RadicalFile::kanjiContainingRadicals( QSet<QString> &radicallist ) c
   //Start out with our first set
   kanjiStringSet = m_radicals[ *radicallist.begin() ].getKanji();
   //Make a set intersection of these m_kanji
-  foreach( const QString &a_rad, radicallist )
+  foreach( const QString &rad, radicallist )
   {
-    kanjiStringSet &= m_radicals[ a_rad ].getKanji();
+    kanjiStringSet &= m_radicals[ rad ].getKanji();
   }
 
   //Convert our set of QString to a set of Kanji
-  foreach( const QString &akanji, kanjiStringSet )
+  foreach( const QString &kanji, kanjiStringSet )
   {
-    result += m_kanji[ akanji ];
+    result += m_kanji[ kanji ];
   }
 
   return result;
@@ -59,7 +59,7 @@ QSet<Kanji> RadicalFile::kanjiContainingRadicals( QSet<QString> &radicallist ) c
 bool RadicalFile::loadRadicalFile( QString &radkfile )
 {
   QFile f( radkfile );
-  if ( ! f.open(QIODevice::ReadOnly ) )
+  if ( ! f.open( QIODevice::ReadOnly ) )
   {
     return false;
   }
@@ -73,7 +73,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
   while ( ! t.atEnd() )
   {
     QString line = t.readLine();
-    if( line.length() == 0 || line.at(0) == '#' )
+    if( line.length() == 0 || line.at( 0 ) == '#' )
     {
       //Skip comment characters
       continue;
@@ -93,9 +93,9 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       // List of m_kanji, potentially
       QList<QString> m_kanjiList = line.trimmed().split( "", QString::SkipEmptyParts );
       newestRadical->addKanji( m_kanjiList.toSet() );
-      foreach( const QString &am_kanji, m_kanjiList )
+      foreach( const QString &kanji, m_kanjiList )
       {
-        krad[ am_kanji ] += *newestRadical;
+        krad[ kanji ] += *newestRadical;
       }
     }
   }
@@ -108,8 +108,9 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
   QHash<QString,QSet<QString> >::iterator it;
   for( it = krad.begin(); it != krad.end(); ++it )
   {
-    m_kanji.insert( it.key(), Kanji( it.key(), it.value() ) )
-                              ->calculateStrokes( m_radicals.values() );
+    m_kanji.insert(   it.key()
+                    , Kanji( it.key()
+                    , it.value() ) )->calculateStrokes( m_radicals.values() );
   }
   f.close();
   return true;
@@ -128,9 +129,9 @@ QMultiMap<int,Radical>* RadicalFile::mapRadicalsByStrokes() const
 QSet<QString> RadicalFile::radicalsInKanji( QSet<Kanji> &kanjilist ) const
 {
   QSet<QString> possibleRadicals;
-  foreach( const QString &akanji, kanjilist )
+  foreach( const QString &kanji, kanjilist )
   {
-    possibleRadicals |= m_kanji[ akanji ].getRadicals();
+    possibleRadicals |= m_kanji[ kanji ].getRadicals();
   }
 
   return possibleRadicals;

@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -23,15 +24,19 @@
 #ifndef KITEN_DICTFILEKANJIDIC_H
 #define KITEN_DICTFILEKANJIDIC_H
 
-#include "../DictEdict/dictfileedict.h" //DictFileEdict definition
-#include "entrykanjidic.h"
+#include "dictfile.h"
+
+#include "libkitenexport.h"
+
+#include <QStringList>
 
 class DictQuery;
 class Entry;
+class EntryList;
 class KConfigSkeleton;
-class QString;
+class KConfigSkeletonItem;
 
-class /* NO_EXPORT */  DictFileKanjidic : public DictFileEdict
+class KITEN_EXPORT DictFileKanjidic : public DictFile
 {
   friend class EntryKanjidic;
 
@@ -40,6 +45,15 @@ class /* NO_EXPORT */  DictFileKanjidic : public DictFileEdict
     virtual              ~DictFileKanjidic();
 
     QMap<QString,QString> displayOptions() const;
+    virtual EntryList    *doSearch( const DictQuery &query );
+    QStringList           dumpDictionary();
+    virtual QStringList   listDictDisplayOptions( QStringList list ) const;
+    bool                  loadDictionary(  const QString &file
+                                         , const QString &name );
+    QStringList          *loadListType(  KConfigSkeletonItem *item
+                                       , QStringList *list
+                                       , const QMap<QString,QString> &long2short );
+    void                  loadSettings();
     virtual void          loadSettings( KConfigSkeleton *item );
     bool                  validDictionaryFile( const QString &filename );
     bool                  validQuery( const DictQuery &query );
@@ -48,6 +62,12 @@ class /* NO_EXPORT */  DictFileKanjidic : public DictFileEdict
     virtual inline Entry *makeEntry( const QString &x );
 
     static QStringList *displayFields;
+
+  private:
+    QMap<QString,QString> loadDisplayOptions() const;
+
+    QStringList m_kanjidic;
+    bool        m_validKanjidic;
 };
 
 #endif

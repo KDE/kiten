@@ -9,6 +9,7 @@ set(kiten_bin_SRCS
     main.cpp
     resultsview.cpp
     searchstringinput.cpp
+    dictionaryupdatemanager.cpp
     wordtype.cpp
    )
 kde4_add_ui_files(kiten_bin_SRCS

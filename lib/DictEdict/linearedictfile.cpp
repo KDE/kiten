@@ -58,7 +58,7 @@ QVector<QString> LinearEdictFile::findMatches( const QString &searchString ) con
 
 bool LinearEdictFile::loadFile( const QString& filename )
 {
-  kDebug() << "Loading edict from " << filename << "\n";
+  kDebug() << "Loading edict from " << filename << endl;
 
   //if already loaded
   if ( ! m_edict.isEmpty() )

@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -23,11 +24,11 @@
 #include "entrykanjidic.h"
 
 #include "dictfilekanjidic.h"
+#include "kitenmacros.h"
 
 #include <KLocale>
 #include <KDebug>
 
-/* DISPLAY FUNCTIONS */
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
 EntryKanjidic::EntryKanjidic( const EntryKanjidic &dict )
@@ -44,6 +45,17 @@ EntryKanjidic::EntryKanjidic( const QString &dict, const QString &entry )
 : Entry( dict )
 {
   loadEntry( entry );
+}
+
+QString EntryKanjidic::addReadings( const QStringList &list ) const
+{
+  QString readings;
+  foreach( const QString &reading, list )
+  {
+    readings.append( makeReadingLink( reading ) + outputListDelimiter );
+  }
+
+  return readings;
 }
 
 Entry* EntryKanjidic::clone() const
@@ -65,7 +77,9 @@ QString EntryKanjidic::dumpEntry() const
     dumpExtendedInfo += ' ' + it.key() + it.value();
   }
 
-  return Word + ' ' + Readings.join( " " ) + dumpExtendedInfo;
+  return QString( "%1 %2%3" ).arg( Word )
+                             .arg( Readings.join( " " ) )
+                             .arg( dumpExtendedInfo );
 }
 
 bool EntryKanjidic::extendedItemCheck( const QString &key, const QString &value ) const
@@ -78,10 +92,67 @@ bool EntryKanjidic::extendedItemCheck( const QString &key, const QString &value 
   return Entry::extendedItemCheck( key, value );
 }
 
+QString EntryKanjidic::getAsRadicalReadings() const
+{
+  return AsRadicalReadings.join( outputListDelimiter );
+}
+
+QStringList EntryKanjidic::getAsRadicalReadingsList() const
+{
+  return AsRadicalReadings;
+}
+
+QString EntryKanjidic::getDictionaryType() const
+{
+  return KANJIDIC;
+}
+
+QString EntryKanjidic::getInNamesReadings() const
+{
+  return InNamesReadings.join( outputListDelimiter );
+}
+
+QStringList EntryKanjidic::getInNamesReadingsList() const
+{
+  return InNamesReadings;
+}
+
+QString EntryKanjidic::getKanjiGrade() const
+{
+  return getExtendedInfoItem( "G" );
+}
+
+QString EntryKanjidic::getKunyomiReadings() const
+{
+  return KunyomiReadings.join( outputListDelimiter );
+}
+
+QStringList EntryKanjidic::getKunyomiReadingsList() const
+{
+  return KunyomiReadings;
+}
+
+QString EntryKanjidic::getOnyomiReadings() const
+{
+  return OnyomiReadings.join( outputListDelimiter );
+}
+
+QStringList EntryKanjidic::getOnyomiReadingsList() const
+{
+  return OnyomiReadings;
+}
+
+QString EntryKanjidic::getStrokesCount() const
+{
+  return getExtendedInfoItem( "S" );
+}
+
 QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 {
   //kDebug() << field;
-  return "<span class=\"ExtendedInfo\">" + field + ": " + ExtendedInfo[ field ] + "</span>";
+  return QString( "<span class=\"ExtendedInfo\">%1: %2</span>" )
+             .arg( field )
+             .arg( ExtendedInfo[ field ] );
 }
 
 /**
@@ -90,32 +161,28 @@ QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 QString EntryKanjidic::HTMLReadings() const
 {
   QString htmlReadings;
-  foreach( const QString &it, originalReadings )
+  htmlReadings += addReadings( originalReadings );
+
+  if( InNamesReadings.count() > 0 )
   {
-    if ( it == "T1" )
-    {
-      htmlReadings += i18n( "In names: " );
-    }
-    else
-    {
-      if ( it == "T2" )
-      {
-        htmlReadings += i18n( "As radical: " );
-      }
-      else
-      {
-        htmlReadings += makeReadingLink( it ) + outputListDelimiter;
-      }
-    }
+    htmlReadings += i18n( "In names: " );
+    htmlReadings += addReadings( InNamesReadings );
   }
+
+  if( AsRadicalReadings.count() > 0 )
+  {
+    htmlReadings += i18n( "As radical: " );
+    htmlReadings += addReadings( AsRadicalReadings );
+  }
+
   htmlReadings.truncate( htmlReadings.length() - outputListDelimiter.length() ); // get rid of last ,
 
-  return "<span class=\"Readings\">" + htmlReadings + "</span>";
+  return QString( "<span class=\"Readings\">%1</span>" ).arg( htmlReadings );
 }
 
 QString EntryKanjidic::HTMLWord() const
 {
-  return "<span class=\"Word\">" + makeLink( Word ) + "</span>";
+  return QString( "<span class=\"Word\">%1</span>" ).arg( makeLink( Word ) );
 }
 
 /**
@@ -213,7 +280,6 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           i++;
           LOADSTRING( curString );
           ExtendedInfo.insert( QString( ichar ), curString );
-
           break;
         case 'I':
           /* index codes for Spahn & Hadamitzky reference books we need the next
@@ -289,13 +355,67 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 //           kDebug() << "Meaning's curString: '" << curString << "'";
           Meanings.append( curString );
           break;
-        case 'T':
-          /* a reading that is used in names for T1, radical names for T2 */
+        case 'T': /* a reading that is used in names for T1, radical names for T2 */
+        {
+          i++;
+          LOADSTRING( curString )
+          // Get the type number (1 for T1, 2 for T2).
+          int type = curString.toInt();
+          bool finished = false;
+          while( ! finished )
+          {
+            // Skip all whitespaces.
+            INCI
+            while( ichar == ' ' )
+            {
+              INCI
+            }
+            // Check if the current character is Kana.
+            if( 0x3040 <= ichar.unicode() && ichar.unicode() <= 0x30FF )
+            {
+              // Reset our variable and load it with
+              // all available kana until we find a whitespace.
+              curString = "";
+              LOADSTRING( curString );
+              switch( type )
+              {
+                case 1: // Special reading used in names.
+                  InNamesReadings.append( curString );
+                  break;
+                case 2: // Reading as radical.
+                  AsRadicalReadings.append( curString );
+                  break;
+              }
+            }
+            else
+            {
+              // There are not more kana characters,
+              // so we finish this loop for now.
+              finished = true;
+            }
+          }
+          // Now 'i' points to a '{' character. We decrease its value
+          // so in the next loop we can reach the "case '{'" section.
+          i--;
+        }
+        break;
         case '-':
           /* a reading that is only in postposition */
           /* any of those 2 signals a reading is to ensue. */
           LOADSTRING(curString)
           originalReadings.append(curString);
+
+          // If it is Hiragana (Kunyomi)
+          if( 0x3040 <= ichar.unicode() && ichar.unicode() <= 0x309F )
+          {
+            KunyomiReadings.append( curString );
+          }
+          // If it is Katakana (Onyomi)
+          else if( 0x30A0 <= ichar.unicode() && ichar.unicode() <= 0x30FF )
+          {
+            OnyomiReadings.append( curString );
+          }
+
           curString = curString.remove('-').remove('.');
           Readings.append(curString);
           break;
@@ -309,6 +429,18 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           {
             LOADSTRING( curString )
             originalReadings.append( curString );
+
+            // If it is Hiragana (Kunyomi)
+            if( 0x3040 <=ichar.unicode() && ichar.unicode() <= 0x309F )
+            {
+              KunyomiReadings.append( curString );
+            }
+            // If it is Katakana (Onyomi)
+            else if( 0x30A0 <= ichar.unicode() && ichar.unicode() <= 0x30FF )
+            {
+              OnyomiReadings.append( curString );
+            }
+
             curString = curString.remove( '-' ).remove( '.' );
             Readings.append( curString );
             break;
@@ -333,7 +465,8 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 QString EntryKanjidic::makeReadingLink( const QString &inReading ) const
 {
   QString reading = inReading;
-  return "<a href=\"" + reading.remove( "." ).remove( "-" ) + "\">" + inReading + "</a>";
+  return QString( "<a href=\"%1\">%2</a>" ).arg( reading.remove( "." ).remove( "-" ) )
+                                           .arg( inReading );
 }
 
 /**

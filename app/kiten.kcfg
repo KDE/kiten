@@ -3,22 +3,22 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
-	<include>kfontrequester.h</include>
+  <include>kfontrequester.h</include>
   <kcfgfile name="kitenrc"/>
   <group name="dict_config_types">
     <entry key="dictionary_list" name="dictionary_list" type="StringList">
-		<label>List of dictionary Types, used internally, do not touch</label>
-		<?If you are adding a dictionary type, add it to the list and add your
-		Section below... at the moment you are required to have
-		<dictname>__useGlobal and <dictname>__NAMES list if you list it in this
-		set... the program will crash otherwise.
-		  You must also provide the __displayFields information, although you
-		can provide this even if you do not allow the user to enter other
-		dictionaries. If you use a custom kcfg dialog instead of the standard
-		one, be sure to provide the variables that you need.
-		?>
-		<default>edict,kanjidic,deinflect</default>
-	 </entry>
+      <label>List of dictionary Types, used internally, do not touch</label>
+      <?If you are adding a dictionary type, add it to the list and add your
+      Section below... at the moment you are required to have
+      <dictname>__useGlobal and <dictname>__NAMES list if you list it in this
+      set... the program will crash otherwise.
+        You must also provide the __displayFields information, although you
+      can provide this even if you do not allow the user to enter other
+      dictionaries. If you use a custom kcfg dialog instead of the standard
+      one, be sure to provide the variables that you need.
+      ?>
+      <default>edict,kanjidic</default>
+    </entry>
   </group>
   <group name="dicts_edict">
     <entry key="__NAMES" name="edict__NAMES" type="StringList">
@@ -29,8 +29,8 @@
       <default>true</default>
     </entry>
     <entry key="__displayFields" name="edict__displayFields" type="StringList">
-		<label>Set of fields to display for this dictionary type</label>
-		<default>Word/Kanji,Reading,Meaning</default>
+      <label>Set of fields to display for this dictionary type</label>
+      <default>Word/Kanji,Reading,Meaning</default>
     </entry>
   </group>
 
@@ -43,22 +43,8 @@
       <default>true</default>
     </entry>
     <entry key="__displayFields" name="kanjidic__displayFields" type="StringList">
-		<label>Set of fields to display for this dictionary type</label>
-		<default>Word/Kanji,Reading,Meaning</default>
-    </entry>
-  </group>
-
-  <group name="dicts_deinflect">
-    <entry key="__NAMES" name="deinflect__NAMES" type="StringList">
-      <label>Deinflect Dictionary Files</label>
-    </entry>
-    <entry key="__useGlobal" name="deinflect__useGlobal" type="Bool">
-      <label>Use preinstalled kanjidic</label>
-      <default>true</default>
-    </entry>
-    <entry key="__displayFields" name="deinflect__displayFields" type="StringList">
-		<label>Set of fields to display for this dictionary type</label>
-		<default>Deinflection</default>
+      <label>Set of fields to display for this dictionary type</label>
+      <default>Word/Kanji,Reading,Meaning</default>
     </entry>
   </group>
 
@@ -73,53 +59,49 @@
     </entry>
   </group>
   <group name="Sorting">
-	  <entry key="dictionary_enable" type="String">
-		<label>Enable Sorting By Dictionary</label>
-		<default>true></default>
-	  </entry>
-	  <entry key="dictionary_sortlist" type="StringList">
-		  <label>What order do we sort the dictionaries in?</label>
-		  <default>kanjidic,edict,deinflect</default>
-	  </entry>
-	  <entry key="field_sortlist" type="StringList">
-		  <label>What order do we sort the fields in?</label>
-		  <default>common</default>
-	  </entry>
+    <entry key="dictionary_enable" type="String">
+      <label>Enable Sorting By Dictionary</label>
+      <default>true></default>
+    </entry>
+    <entry key="dictionary_sortlist" type="StringList">
+      <label>What order do we sort the dictionaries in?</label>
+      <default>kanjidic,edict</default>
+    </entry>
+    <entry key="field_sortlist" type="StringList">
+      <label>What order do we sort the fields in?</label>
+      <default>common</default>
+    </entry>
   </group>
   <group name="Font">
     <entry key="font" type="Font"></entry>
-	 <entry key="textSameSize" type="Bool">
+    <entry key="textSameSize" type="Bool">
       <default>false</default>
-	 </entry>
-	 <entry key="textKanjiBig" type="Bool">
+    </entry>
+    <entry key="textKanjiBig" type="Bool">
       <default>false</default>
-	 </entry>
-	 <entry key="textMainWordBig" type="Bool">
+    </entry>
+    <entry key="textMainWordBig" type="Bool">
       <default>true</default>
-	 </entry>
+    </entry>
   </group>
   <group name="Learn">
   </group>
   <group name="app">
-	  <entry key="common_only" type="Bool">
-		<label>Limit search results to "common" entries only?</label>
-      <default>false</default>
-	</entry>
-	<entry key="search_precision" type="Int">
-		<label>The user's last type of search, 0=Exact, 1=Match Start, 2=Match Anywhere</label>
-		<default>2</default>
-	</entry>
-	<entry key="search_limit_to_wordtype" type="Int">
-		<label>Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb</label>
-		<default>0</default>
-	</entry>
-	 <entry key="autosearch" type="Bool">
-		 <label>Automatically search for clipboard entries?</label>
-      <default>false</default>
+    <entry key="filter_rare" type="Int">
+      <label>0=No filter, 1=Limit search results to "common" entries only, 2=Separate common and uncommon entries</label>
+      <default>0</default>
     </entry>
-	 <entry key="deinf" type="Bool">
-		 <label>Enable the Deinflection checker?</label>
-      <default>true</default>
+    <entry key="search_precision" type="Int">
+      <label>The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match Anywhere</label>
+      <default>3</default>
+    </entry>
+    <entry key="search_limit_to_wordtype" type="Int">
+      <label>The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, 4=Adverb, 5=Prefix, 6=Suffix, 7=Expression</label>
+      <default>0</default>
+    </entry>
+    <entry key="autosearch" type="Bool">
+      <label>Automatically search for clipboard entries?</label>
+      <default>false</default>
     </entry>
   </group>
 </kcfg>

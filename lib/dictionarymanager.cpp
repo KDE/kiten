@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -25,6 +26,7 @@
 #include "dictquery.h"
 #include "entry.h"
 #include "entrylist.h"
+#include "kitenmacros.h"
 
 #include <KDebug>
 #include <KGlobal>
@@ -37,7 +39,6 @@
 /* Includes to handle various types of dictionaries
 IMPORTANT: To add a dictionary type, add the header file here and add it to the
  if statement under addDictionary() */
-#include "DictDeinflect/dictfiledeinflect.h"
 #include "DictEdict/dictfileedict.h"
 #include "DictKanjidic/dictfilekanjidic.h"
 
@@ -132,7 +133,7 @@ bool DictionaryManager::addDictionary( const QString &file, const QString &name
  */
 EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
 {
-  EntryList *ret=new EntryList();
+  EntryList *ret = new EntryList();
   #if 0
   if( query.getMeaning() == "(libkiten)" )
   {
@@ -146,13 +147,14 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
   #endif
 
   // There are two basic modes.... one in which the query
-  // Specifies the dictionary list, one in which it does not
+  // specifies the dictionary list, one in which it does not
   QStringList dictsFromQuery = query.getDictionaries();
   if( dictsFromQuery.isEmpty() )
   {
     // None specified, search all
     foreach( DictFile *it, d->dictManagers )
     {
+      kDebug() << "Searching in " << it->getName() << "dictionary." << endl;
       EntryList *temp = it->doSearch( query );
       if( temp )
       {
@@ -195,7 +197,7 @@ EntryList *DictionaryManager::doSearchInList( const DictQuery &query, const Entr
 
   foreach( Entry* it, *list )
   {
-    if(it->matchesQuery( query ) )
+    if( it->matchesQuery( query ) )
     {
       Entry *x = it->clone();
       ret->append( x );
@@ -271,9 +273,9 @@ QStringList DictionaryManager::listDictionaries() const
 QStringList DictionaryManager::listDictFileTypes()
 {
   QStringList list;
-  list.append( "edict" );
-  list.append( "kanjidic" );
-  list.append( "deinflect" );
+  list.append( EDICT );
+  list.append( KANJIDIC );
+  
   //Add your dictionary type here!
 
   return list;
@@ -342,21 +344,23 @@ void DictionaryManager::loadSettings( const KConfig &config )
  */
 DictFile *DictionaryManager::makeDictFile( const QString &type )
 {
-  if( type == "edict" )
+  if( type == EDICT )
   {
     return new DictFileEdict();
   }
-  if( type == "kanjidic" )
+  if( type == KANJIDIC )
   {
     return new DictFileKanjidic();
   }
-  if( type == "deinflect" )
-  {
-    return new DictFileDeinflect();
-  }
+
   //Add new dictionary types here!!!
 
   return NULL;
+}
+
+void DictionaryManager::removeAllDictionaries()
+{
+  d->dictManagers.clear();
 }
 
 /**

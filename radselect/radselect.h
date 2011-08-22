@@ -21,17 +21,16 @@
 #ifndef RADSELECT_H
 #define RADSELECT_H
 
-//QT and kdelibs
-#include <KXmlGuiWindow>
-class QDBusInterface;
-
-//From libkiten
-class RadSelectView;
 #include "dictquery.h"
 
+#include <KXmlGuiWindow>
+
+class QDBusInterface;
+class RadSelectView;
+
 /**
- * This class serves as the main window for radselect.  It handles the
- * menus, toolbars, and status bars.
+ * This class serves as the main window for radselect.
+ * It handles the menus, toolbars, and status bars.
  *
  * @short Main window class
  * @author Joseph Kerian <jkerian@gmail.com>
@@ -63,7 +62,7 @@ class RadSelect : public KXmlGuiWindow
     void saveProperties( KConfigGroup &config );
 
     /**
-     * This function is called when this app is restored.  The KConfig
+     * This function is called when this app is restored. The KConfig
      * object points to the session management config file that was saved
      * with @ref saveProperties
      */

@@ -40,10 +40,10 @@ class QWidget;
  * This is a virtual class that enforces the interface between the DictionaryManager
  * class and the DictionaryManager.handler files. IMPLEMENT in combination with an
  * Entry subclass (if needed) to add a new dictionary format. Also see the addDictionary
- * method in the dictionary class.
+ * method in the DictionaryManager class.
  *
  * This documentation is mostly for those who are adding a new type of dictionary to
- * kiten. This class is not exported outside of the library */
+ * kiten. This class is not exported outside of the library. */
 class /* NO_EXPORT */ DictFile
 {
   private:
@@ -169,10 +169,10 @@ class /* NO_EXPORT */ DictFile
     /**
      * This allows the programming user to see a list
      * of possible search types (probably through a drop down menu).
-     *  You may also find it useful in your dictFile implementation
+     * You may also find it useful in your dictFile implementation
      * to translate from extended attribute keys into the simpler one or two letter
      * code keys. These should take the format of:
-     *  (Kanji Grade => G), (Strokes => S), (Heisig Number => H)
+     * (Kanji Grade => G), (Strokes => S), (Heisig Number => H)
      * for a simple example appropriate to kanji.
      */
     QMap<QString,QString> m_searchableAttributes;

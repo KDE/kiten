@@ -54,7 +54,8 @@ class ButtonGrid : public QWidget
     /**
      * Triggered by a button press
      */
-    void radicalClicked( const QString &newrad, RadicalButton::ButtonStatus newStatus );
+    void radicalClicked(   const QString &newrad
+                         , RadicalButton::ButtonStatus newStatus );
     /**
      * Reset all buttons to the up and uncolored state
      */
@@ -70,8 +71,8 @@ class ButtonGrid : public QWidget
 
     enum
     {
-      kSelection,
-      kRelational
+      Selection,
+      Relational
     } CurrentMode;
 
     QString        m_relationalRadical;

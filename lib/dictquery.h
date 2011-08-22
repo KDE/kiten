@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -79,7 +80,7 @@ class QChar;
   *       &lt;O&gt;DictQuery::mainDelimiter&lt;QS&gt;|NULL
   * &lt;M&gt;  ::= kana&lt;M&gt;|kana
   * &lt;R&gt;  ::= character&lt;R&gt;|character
-  * &lt;O&gt;  ::= &lt;C&gt;DictQuery::propertySeperator&lt;D&gt;
+  * &lt;O&gt;  ::= &lt;C&gt;DictQuery::propertySeparator&lt;D&gt;
   * &lt;C&gt;  ::= character&lt;C&gt;|character
   * &lt;D&gt;  ::= character&lt;D&gt;|character
   *
@@ -283,12 +284,13 @@ public:
    */
   enum MatchType
   {
-    matchExact,
-    matchBeginning,
-    matchAnywhere
+    Exact,
+    Beginning,
+    Ending,
+    Anywhere
   };
   /**
-   * Get which match type is currently set on the DictQuery
+   * Get which match type is currently set on the DictQuery.
    */
   MatchType getMatchType() const;
   /**
@@ -297,16 +299,56 @@ public:
   void setMatchType( MatchType );
 
   /**
+   * This enum is used to define the type of matching this query is supposed
+   * to do.
+   */
+  enum MatchWordType
+  {
+    Any,
+    Verb,
+    Noun,
+    Adjective,
+    Adverb,
+    Prefix,
+    Suffix,
+    Expression
+  };
+  /**
+   * Get which word type is currently set on the DictQuery.
+   */
+  MatchWordType getMatchWordType() const;
+  /**
+   * Set a word type. If this is not called, the default value is 'Any'.
+   */
+  void setMatchWordType( MatchWordType );
+
+  enum FilterType
+  {
+    NoFilter,
+    Rare,
+    CommonUncommon
+  };
+  /**
+   * Get which filter is currently set on the DictQuery.
+   */
+  FilterType getFilterType() const;
+  /**
+   * Set whether or not the query should output results separated in
+   * common and uncommon sections.
+   */
+  void setFilterType( FilterType newType );
+
+  /**
    * This enum is used as the return type for the two utility functions,
    * stringTypeCheck and charTypeCheck.
    */
-  enum stringTypeEnum
+  enum StringTypeEnum
   {
-    strTypeKanji,
-    strTypeKana,
-    strTypeLatin,
-    mixed,
-    stringParseError
+    Kanji,
+    Kana,
+    Latin,
+    Mixed,
+    ParseError
   };
   /**
    * A simple utility routine to tell us what sort of string we have
@@ -315,13 +357,13 @@ public:
    * If the string contains both kanji and kana, the type returned is strTypeKanji
    * If the string contains any other combination, the return type is mixed.
    */
-  static stringTypeEnum stringTypeCheck( const QString &in );
+  static StringTypeEnum stringTypeCheck( const QString &in );
   /**
    * This utility does the same thing for QChar as stringTypeCheck does for QString. At the moment
    * the implementation is rather simple, and it assumes that anything that is not latin1 or kana is
    * a kanji.
    */
-  static stringTypeEnum charTypeCheck( const QChar &ch );
+  static StringTypeEnum charTypeCheck( const QChar &ch );
 
 private:
   class Private;

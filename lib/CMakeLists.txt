@@ -1,5 +1,6 @@
 ############# kitenlib #################
 set(edict_SRCS
+		DictEdict/deinflection.cpp
 		DictEdict/dictfileedict.cpp
 		DictEdict/entryedict.cpp
 		DictEdict/indexededictfile.cpp
@@ -8,10 +9,7 @@ set(edict_SRCS
 set(kanjidic_SRCS
 		DictKanjidic/dictfilekanjidic.cpp
 		DictKanjidic/entrykanjidic.cpp)
-set(deinflect_SRCS
-		DictDeinflect/dictfiledeinflect.cpp
-    DictDeinflect/entrydeinflect.cpp)
-set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS} ${deinflect_SRCS})
+set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS})
 
 set(kiten_LIB_SRCS
 		dictionarymanager.cpp
@@ -40,3 +38,11 @@ install( FILES
 		libkitenexport.h
 	  DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten COMPONENT Devel
 		)
+install(FILES
+        DictEdict/dictfileedict.h
+        DictEdict/entryedict.h
+        DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten/DictEdict COMPONENT Devel)
+install(FILES
+        DictKanjidic/dictfilekanjidic.h
+        DictKanjidic/entrykanjidic.h
+        DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten/DictKanjidic COMPONENT Devel)

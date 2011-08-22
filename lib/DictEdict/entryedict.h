@@ -2,6 +2,7 @@
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com             *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -22,24 +23,76 @@
 #ifndef KITEN_ENTRYEDICT_H
 #define KITEN_ENTRYEDICT_H
 
-#include "../entry.h"
+#include "entry.h"
+
+#include "libkitenexport.h"
 
 #include <QHash>
 #include <QList>
+#include <QSet>
 
-class EdictFormatting;
-class QString;
+#ifndef KITEN_EDICTFORMATTING
+#define KITEN_EDICTFORMATTING
 
-class /* NO_EXPORT */ EntryEdict : public Entry
+namespace EdictFormatting
 {
+  extern QStringList Nouns;
+  extern QStringList Verbs;
+  extern QStringList Adjectives;
+  extern QStringList Adverbs;
+  extern QStringList IchidanVerbs;
+  extern QStringList GodanVerbs;
+  extern QStringList FukisokuVerbs;
+  extern QStringList Expressions;
+  extern QStringList Prefix;
+  extern QStringList Suffix;
+  extern QString     Particle;
+  
+  extern QMultiHash<QString, QString> PartOfSpeechCategories;
+
+  extern QSet<QString> PartsOfSpeech;
+  extern QSet<QString> MiscMarkings;
+  extern QSet<QString> FieldOfApplication;
+}
+
+#endif
+
+class KITEN_EXPORT EntryEdict : public Entry
+{
+  friend class DictFileEdict;
+
   public:
 //     EntryEdict( const EntryEdict &x ) : Entry( x ) {} //No special members to copy in this one
                     EntryEdict( const QString &dict );
                     EntryEdict( const QString &dict, const QString &entry );
 
     Entry          *clone() const;
-    virtual QString common() const;
+    /**
+     * Simple accessor.
+     */
+    QString         getTypes() const;
+    /**
+     * Simple accessor.
+     */
+    QStringList     getTypesList() const;
+
+    bool            isAdjective() const;
+    bool            isAdverb() const;
+    bool            isCommon() const;
+    bool            isExpression() const;
+    bool            isFukisokuVerb() const;
+    bool            isGodanVerb() const;
+    bool            isIchidanVerb() const;
+    bool            isNoun() const;
+    bool            isParticle() const;
+    bool            isPrefix() const;
+    bool            isSuffix() const;
+    bool            isVerb() const;
+
+    bool            matchesWordType( const DictQuery &query ) const;
+
     virtual QString dumpEntry() const;
+    virtual QString getDictionaryType() const;
     virtual QString HTMLWord() const;
     virtual bool    loadEntry( const QString &entryLine );
     virtual QString toHTML() const;
@@ -48,16 +101,13 @@ class /* NO_EXPORT */ EntryEdict : public Entry
     virtual QString kanjiLinkify( const QString &inString ) const;
 
   private:
-    //Field of Application goes into the hash
-    QList<QString> m_typeList;
-    QList<QString> m_miscMarkings;
-
     /**
-     * This "private static class" provides various pieces of information
-     * about the EDICT format that we need to parse it properly.
+     * Types that match this entry (i.e. n, adj, adv).
      */
-    static const EdictFormatting &format();
-    static EdictFormatting *m_format;
+    QStringList    m_types;
+
+    //Field of Application goes into the hash
+    QList<QString> m_miscMarkings;
 };
 
 #endif

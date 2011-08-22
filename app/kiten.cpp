@@ -4,6 +4,7 @@
  * Copyright (C) 2005 Paul Temple <paul.temple@gmx.net>                      *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify      *
  * it under the terms of the GNU General Public License as published by      *
@@ -60,6 +61,7 @@
 #include <QTimer>
 
 #include "configuredialog.h"
+#include "dictionaryupdatemanager.h"
 #include "dictquery.h"
 #include "entrylist.h"
 #include "entrylistmodel.h"
@@ -74,11 +76,15 @@
 Kiten::Kiten( QWidget *parent, const char *name )
 : KXmlGuiWindow( parent )
 , _radselect_proc( new KProcess( this ) )
+, _kanjibrowser_proc( new KProcess( this ) )
+, _lastQuery( DictQuery() )
 {
   _radselect_proc->setProgram( KStandardDirs::findExe( "kitenradselect" ) );
+  _kanjibrowser_proc->setProgram( KStandardDirs::findExe( "kitenkanjibrowser" ) );
   setStandardToolBarMenuEnabled( true );
-  setObjectName( QLatin1String( name ) ); /* Set up the config */
+  setObjectName( QLatin1String( name ) );
 
+  /* Set up the config */
   _config = KitenConfigSkeleton::self();
   _config->readConfig();
 
@@ -108,6 +114,9 @@ Kiten::Kiten( QWidget *parent, const char *name )
   setCentralWidget( _mainView->widget() );
 
   setupActions();
+  // Be sure to create this manager before creating the GUI
+  // as it needs to add a KAction to it.
+  _dictionaryUpdateManager = new DictionaryUpdateManager( this );
 
   createGUI();
 
@@ -134,6 +143,9 @@ Kiten::Kiten( QWidget *parent, const char *name )
 
   connect( _mainView->view()->verticalScrollBar(), SIGNAL( valueChanged( int ) ),
                                             this,   SLOT( setCurrentScrollValue( int ) ) );
+  /* We need to know when to reload our dictionaries if the user updated them. */
+  connect( _dictionaryUpdateManager, SIGNAL( updateFinished() ),
+                               this,   SLOT( loadDictionaries() ) );
 
   /* See below for what else needs to be done */
   QTimer::singleShot( 10, this, SLOT( finishInit() ) );
@@ -146,11 +158,19 @@ Kiten::~Kiten()
   {
     _radselect_proc->kill();
   }
+  if( _kanjibrowser_proc->state() != QProcess::NotRunning )
+  {
+    _kanjibrowser_proc->kill();
+  }
 
   delete _optionDialog;
   _optionDialog = 0;
 }
 
+KitenConfigSkeleton* Kiten::getConfig()
+{
+  return _config;
+}
 
 void Kiten::setupActions()
 {
@@ -179,6 +199,12 @@ void Kiten::setupActions()
   radselect->setShortcut( Qt::CTRL+Qt::Key_R );
   connect( radselect, SIGNAL( triggered() ),
                 this,   SLOT( radicalSearch() ) );
+
+  KAction *kanjibrowser = actionCollection()->addAction( "kanjibrowser" );
+  kanjibrowser->setText( i18n( "Kanji Browser" ) );
+  kanjibrowser->setShortcut( Qt::CTRL+Qt::Key_K );
+  connect( kanjibrowser, SIGNAL( triggered() ),
+                   this,   SLOT( kanjiBrowserSearch() ) );
 
   /* Setup the Search Actions and our custom Edit Box */
   _inputManager = new SearchStringInput( this );
@@ -272,10 +298,10 @@ void Kiten::addExportListEntry( int index )
   model->setEntryList( list );
 }
 
-// This is the latter part of the initialisation
+// This is the latter part of the initialization
 void Kiten::finishInit()
 {
-  _statusBar->showMessage( i18n( "Initialising Dictionaries" ) );
+  _statusBar->showMessage( i18n( "Initializing Dictionaries" ) );
 
   // if it's the application's first time starting,
   // the app group won't exist and we show demo
@@ -322,7 +348,11 @@ void Kiten::searchFromEdit()
 {
   kDebug() << "SEARCH FROM EDIT CALLED";
   DictQuery query = _inputManager->getSearchQuery();
-  searchAndDisplay( query );
+  if( query != _lastQuery )
+  {
+    _lastQuery = query;
+    searchAndDisplay( query );
+  }
 }
 
 /**
@@ -408,13 +438,14 @@ void Kiten::searchAndDisplay( const DictQuery &query )
       tryAgain = false;
 
       //but if the matchtype is changed we try again
-      if ( newQuery.getMatchType() == DictQuery::matchExact )
+      if ( newQuery.getMatchType() == DictQuery::Exact )
       {
-        newQuery.setMatchType( DictQuery::matchBeginning );
+        newQuery.setMatchType( DictQuery::Beginning );
         tryAgain = true;
-      } else if ( newQuery.getMatchType() == DictQuery::matchBeginning )
+      }
+      else if ( newQuery.getMatchType() == DictQuery::Beginning )
       {
-        newQuery.setMatchType( DictQuery::matchAnywhere );
+        newQuery.setMatchType( DictQuery::Anywhere );
         tryAgain = true;
       }
 
@@ -488,7 +519,7 @@ void Kiten::displayResults( EntryList *results )
     QStringList fieldSort = _config->field_sortlist();
     if( _config->dictionary_enable() == "true" )
     {
-            dictSort = _config->dictionary_sortlist();
+      dictSort = _config->dictionary_sortlist();
     }
     results->sort( fieldSort, dictSort );
     _mainView->setContents( results->toHTML() );
@@ -523,6 +554,12 @@ void Kiten::radicalSearch()
   _radselect_proc->start();
 }
 
+void Kiten::kanjiBrowserSearch()
+{
+  // KanjiBrowser is a KUniqueApplication, so we don't
+  // need to worry about opening more than one copy
+  _kanjibrowser_proc->start();
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // PREFERENCES RELATED METHODS
@@ -603,6 +640,32 @@ void Kiten::configureGlobalKeys()
  */
 void Kiten::updateConfiguration()
 {
+  loadDictionaries();
+
+  //Update the HTML/CSS for our fonts
+  displayHistoryItem();
+
+  _inputManager->updateFontFromConfig();
+
+  // Reset the content of the last query. This is because in case the user adds
+  // new dictionaries and wants to execute the same last search, the output
+  // will contain results of the new dictionary/dictionaries added.
+  _lastQuery = DictQuery();
+
+  /*: TODO: have a look at this as well
+  detachedView->updateFont();
+  */
+}
+
+/**
+ * Loads the dictionaries, their settings and updates general
+ * options for the display manager.
+ */
+void Kiten::loadDictionaries()
+{
+  // Avoid duplicates (this makes it easy when we need to reload the dictionaries).
+  _dictionaryManager.removeAllDictionaries();
+
   //Load the dictionaries of each type that we can adjust in prefs
   foreach( const QString &it, _config->dictionary_list() )
   {
@@ -615,17 +678,9 @@ void Kiten::updateConfiguration()
     _dictionaryManager.loadDictSettings( it, _config );
   }
 
-  //Update the HTML/CSS for our fonts
-  displayHistoryItem();
-
-  _inputManager->updateFontFromConfig();
-
-  /*: TODO: have a look at this as well
-  detachedView->updateFont();
-  */
-
   //Update general options for the display manager (sorting by dict, etc)
   _dictionaryManager.loadSettings( *_config->config() );
+  kDebug() << "Dictionaries loaded!" << endl;
 }
 
 /**
@@ -643,9 +698,8 @@ void Kiten::loadDictConfig( const QString &dictType )
   //If we need to load the global
   if( group.readEntry( "__useGlobal", true ) )
   {
-    dictionariesToLoad.append( qMakePair( dictType,
-                               dirs->findResource(  "data"
-                                                  , QString( "kiten/" ) + dictType.toLower() ) ) );
+    QString dictionary = dirs->findResource( "data", QString( "kiten/" ) + dictType.toLower() );
+    dictionariesToLoad.append( qMakePair( dictType, dictionary ) );
   }
 
   QStringList dictNames = group.readEntry<QStringList>( "__NAMES", QStringList() );

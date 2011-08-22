@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -156,8 +157,8 @@ QString Entry::getExtendedInfoItem( const QString &x ) const
  */
 inline QString Entry::HTMLMeanings() const
 {
-  return "<span class=\"Meanings\">" + Meanings.join(outputListDelimiter)
-          + "</span>";
+  return QString( "<span class=\"Meanings\">%1</span>" )
+             .arg( Meanings.join( outputListDelimiter ) );
 }
 
 /* Prepares Readings for output as HTML */
@@ -169,7 +170,8 @@ inline QString Entry::HTMLReadings() const
     list += makeLink( it );
   }
 
-  return "<span class=\"Readings\">" + list.join( outputListDelimiter ) + "</span>";
+  return QString( "<span class=\"Readings\">%1</span>" )
+             .arg( list.join( outputListDelimiter ) );
 }
 
 /**
@@ -177,7 +179,7 @@ inline QString Entry::HTMLReadings() const
  */
 inline QString Entry::HTMLWord() const
 {
-  return "<span class=\"Word\">" + Word + "</span>";
+  return QString( "<span class=\"Word\">%1</span>" ).arg( Word );
 }
 
 void Entry::init()
@@ -208,7 +210,7 @@ bool Entry::isKanji( const QChar &character ) const
  */
 bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQuery::MatchType type ) const
 {
-  if( type == DictQuery::matchExact )
+  if( type == DictQuery::Exact )
   {
     foreach( const QString &it, test )
     {
@@ -218,7 +220,7 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
       }
     }
   }
-  else if( type == DictQuery::matchBeginning )
+  else if( type == DictQuery::Beginning )
   {
     foreach( const QString &it, test )
     {
@@ -226,6 +228,25 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
       foreach( const QString &it2, list )
       {
         if( it2.startsWith( it ) )
+        {
+          found = true;
+          break;
+        }
+      }
+      if( ! found )
+      {
+        return false;
+      }
+    }
+  }
+  else if( type == DictQuery::Ending )
+  {
+    foreach( const QString &it, test )
+    {
+      bool found = false;
+      foreach( const QString &it2, list )
+      {
+        if( it2.endsWith( it ) )
         {
           found = true;
           break;
@@ -267,25 +288,30 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
  */
 inline QString Entry::makeLink( const QString &entryString ) const
 {
-  return "<a href=\"" + entryString + "\">" + entryString + "</a>";
+  return QString( "<a href=\"%1\">%1</a>" ).arg( entryString );
 }
 
 bool Entry::matchesQuery( const DictQuery &query ) const
 {
   if( ! query.getWord().isEmpty() )
   {
-    if( query.getMatchType() == DictQuery::matchExact
+    if( query.getMatchType() == DictQuery::Exact
       && this->getWord() != query.getWord() )
     {
       return false;
     }
-    if( query.getMatchType() == DictQuery::matchBeginning
-      && ! this->getWord().startsWith(query.getWord() ) )
+    if( query.getMatchType() == DictQuery::Beginning
+      && ! this->getWord().startsWith( query.getWord() ) )
     {
       return false;
     }
-    if( query.getMatchType() == DictQuery::matchAnywhere
-      && ! this->getWord().contains(query.getWord() ) )
+    if( query.getMatchType() == DictQuery::Ending
+      && ! this->getWord().endsWith( query.getWord() ) )
+    {
+      return false;
+    }
+    if( query.getMatchType() == DictQuery::Anywhere
+      && ! this->getWord().contains( query.getWord() ) )
     {
       return false;
     }
@@ -304,19 +330,24 @@ bool Entry::matchesQuery( const DictQuery &query ) const
   {
     switch ( query.getMatchType() )
     {
-      case DictQuery::matchExact:
+      case DictQuery::Exact:
         if ( getWord() != query.getPronunciation() )
         {
           return false;
         }
         break;
-      case DictQuery::matchBeginning:
+      case DictQuery::Beginning:
         if ( ! getWord().startsWith( query.getPronunciation() ) )
         {
           return false;
         }
         break;
-      case DictQuery::matchAnywhere:
+      case DictQuery::Ending:
+        if ( ! getWord().endsWith( query.getPronunciation() ) )
+        {
+          return false;
+        }
+      case DictQuery::Anywhere:
         if ( ! getWord().contains( query.getPronunciation() ) )
         {
           return false;
@@ -352,7 +383,10 @@ bool Entry::matchesQuery( const DictQuery &query ) const
  */
 QString Entry::toHTML() const
 {
-  return "<div class=\"Entry\">" + HTMLWord() + HTMLReadings() + HTMLMeanings() + "</div>";
+  return QString( "<div class=\"Entry\">%1%2%3</div>" )
+             .arg( HTMLWord() )
+             .arg( HTMLReadings() )
+             .arg( HTMLMeanings() );
 }
 
 inline QString Entry::toKVTML() const
@@ -364,9 +398,11 @@ inline QString Entry::toKVTML() const
    </e>
    */
   //TODO: en should not necessarily be the language here.
-  return "<e>\n<o l=\"en\">" + getMeanings() + "</o>\n"
-         "<t l=\"jp-kanji\">" + getWord() + "</t>\n"
-       + "<t l=\"jp-kana\">" + getReadings() + "</t></e>\n\n";
+  return QString( "<e>\n<o l=\"en\">%1</o>\n"
+                  "<t l=\"jp-kanji\">%2</t>\n"
+                  "<t l=\"jp-kana\">%3</t></e>\n\n" ).arg( getMeanings() )
+                                                     .arg( getWord() )
+                                                     .arg( getReadings() );
 }
 
 /**
@@ -376,7 +412,9 @@ inline QString Entry::toKVTML() const
  */
 QString Entry::toString() const
 {
-  return Word + " (" + getReadings() + ") " + getMeanings();
+  return QString( "%1 (%2) %3" ).arg( Word )
+                                .arg( getReadings() )
+                                .arg( getMeanings() );
 }
 
 /**
@@ -410,12 +448,12 @@ bool Entry::sort( const Entry &that, const QStringList &dictOrder, const QString
       }
       else if( field == QString( "Meaning" ) )
       {
-        return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::matchExact )
+        return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::Exact )
                && ( that.getMeaningsList().count() != this->getMeaningsList().count() );
       }
       else if( field == QString( "Reading" ) )
       {
-        return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::matchExact )
+        return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::Exact )
                && ( that.getReadingsList().count() != this->getReadingsList().count() );
       }
       else

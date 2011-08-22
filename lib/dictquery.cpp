@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -35,7 +36,9 @@ TODO: Add features to limit the number of hits on a per-search basis.
 class DictQuery::Private
 {
   public:
-    Private() : matchType( DictQuery::matchExact ) {}
+    Private() : matchType( DictQuery::Exact )
+              , matchWordType( DictQuery::Any )
+              , filterType( DictQuery::NoFilter ) { }
 
     /** Stores the (english or otherwise non-japanese) meaning */
     QString meaning;
@@ -43,7 +46,7 @@ class DictQuery::Private
     QString pronunciation;
     /** The main word, this usually contains kanji */
     QString word;
-    /** Any amount of extended attributes, grade leve, heisig/henshall/etc index numbers, whatever you want */
+    /** Any amount of extended attributes, grade level, heisig/henshall/etc index numbers, whatever you want */
     QHash<QString,QString> extendedAttributes;
     /** The order that various attributes, meanings, and pronunciations were entered, so we can
       * regenerate the list for the user if they need them again */
@@ -52,6 +55,10 @@ class DictQuery::Private
     QStringList targetDictionaries;
     /** What MatchType is this set to */
     MatchType matchType;
+    /** What MatchWordType is this set to */
+    MatchWordType matchWordType;
+    /** What FilterType is this set to */
+    FilterType filterType;
 
     /** Marker in the m_entryOrder for the location of the pronunciation element */
     static const QString pronunciationMarker;
@@ -130,6 +137,8 @@ DictQuery &DictQuery::operator=( const DictQuery &old )
 
   clear();
   d->matchType          = old.d->matchType;
+  d->matchWordType      = old.d->matchWordType;
+  d->filterType         = old.d->filterType;
   d->extendedAttributes = old.d->extendedAttributes;
   d->meaning            = old.d->meaning;
   d->pronunciation      = old.d->pronunciation;
@@ -192,7 +201,9 @@ bool operator==( const DictQuery &a, const DictQuery &b )
      || ( a.d->word               != b.d->word )
      || ( a.d->entryOrder         != b.d->entryOrder )
      || ( a.d->extendedAttributes != b.d->extendedAttributes )
-     || ( a.d->matchType          != b.d->matchType ) )
+     || ( a.d->matchType          != b.d->matchType )
+     || ( a.d->matchWordType      != b.d->matchWordType )
+     || ( a.d->filterType         != b.d->filterType ) )
   {
     return false;
   }
@@ -319,7 +330,7 @@ DictQuery &DictQuery::operator=( const QString &str )
       {
         switch( stringTypeCheck( it ) )
         {
-          case DictQuery::strTypeLatin :
+          case DictQuery::Latin:
             if( result.d->entryOrder.removeAll( d->meaningMarker ) > 0 )
             {
               result.setMeaning( result.getMeaning() + mainDelimiter + it );
@@ -330,7 +341,7 @@ DictQuery &DictQuery::operator=( const QString &str )
             }
             break;
 
-          case DictQuery::strTypeKana :
+          case DictQuery::Kana:
             if( result.d->entryOrder.removeAll( d->pronunciationMarker ) > 0 )
             {
               result.setPronunciation( result.getPronunciation() + mainDelimiter + it );
@@ -341,17 +352,18 @@ DictQuery &DictQuery::operator=( const QString &str )
             }
             break;
 
-          case DictQuery::strTypeKanji :
+          case DictQuery::Kanji:
             result.d->entryOrder.removeAll( d->wordMarker );
             result.setWord( it ); //Only one of these allowed
             break;
 
-          case DictQuery::mixed :
-            kWarning() <<"DictQuery: String parsing error - mixed type";
+          case DictQuery::Mixed:
+            kWarning() << "DictQuery: String parsing error - mixed type";
             break;
 
-          case DictQuery::stringParseError :
+          case DictQuery::ParseError:
             kWarning() << "DictQuery: String parsing error";
+            break;
         }
       }
     }
@@ -366,30 +378,30 @@ DictQuery &DictQuery::operator=( const QString &str )
  * Private utility method for the above... confirms that an entire string
  * is either completely japanese or completely english
  */
-DictQuery::stringTypeEnum DictQuery::stringTypeCheck( const QString &in )
+DictQuery::StringTypeEnum DictQuery::stringTypeCheck( const QString &in )
 {
-  stringTypeEnum firstType;
+  StringTypeEnum firstType;
   //Split into individual characters
   if( in.size() <= 0 )
   {
-    return DictQuery::stringParseError;
+    return DictQuery::ParseError;
   }
 
   firstType = charTypeCheck( in.at( 0 ) );
   for( int i = 1; i < in.size(); i++ )
   {
-    stringTypeEnum newType = charTypeCheck( in.at( i ) );
+    StringTypeEnum newType = charTypeCheck( in.at( i ) );
     if( newType != firstType )
     {
-      if( firstType == strTypeKana && newType == strTypeKanji )
+      if( firstType == Kana && newType == Kanji )
       {
-        firstType = strTypeKanji;
+        firstType = Kanji;
       }
-      else if( firstType == strTypeKanji && newType == strTypeKana )
+      else if( firstType == Kanji && newType == Kana )
         ; //That's okay
       else
       {
-        return DictQuery::mixed;
+        return DictQuery::Mixed;
       }
     }
   }
@@ -402,11 +414,11 @@ DictQuery::stringTypeEnum DictQuery::stringTypeCheck( const QString &in )
  * Just checks and returns the type of the first character in the string
  * that is passed to it.
  */
-DictQuery::stringTypeEnum DictQuery::charTypeCheck( const QChar &ch )
+DictQuery::StringTypeEnum DictQuery::charTypeCheck( const QChar &ch )
 {
   if( ch.toLatin1() )
   {
-    return strTypeLatin;
+    return Latin;
   }
   //The unicode character boundaries are:
   // 3040 - 309F Hiragana
@@ -414,10 +426,10 @@ DictQuery::stringTypeEnum DictQuery::charTypeCheck( const QChar &ch )
   // 31F0 - 31FF Katakana phonetic expressions (wtf?)
   if( 0x3040 <= ch.unicode() && ch.unicode() <= 0x30FF /*|| ch.unicode() & 0x31F0*/ )
   {
-    return strTypeKana;
+    return Kana;
   }
 
-  return strTypeKanji;
+  return Kanji;
 }
 
 /*****************************************************************************
@@ -464,7 +476,7 @@ bool DictQuery::setProperty( const QString& key, const QString& value )
     d->entryOrder.append( key );
   }
 
-  d->extendedAttributes.insert(key,value);
+  d->extendedAttributes.insert( key, value );
   return true;
 }
 
@@ -580,6 +592,16 @@ void DictQuery::setDictionaries( const QStringList &newDictionaries )
 /**************************************************************
   Match Type Accessors and Mutators
   ************************************************************/
+DictQuery::FilterType DictQuery::getFilterType() const
+{
+  return d->filterType;
+}
+
+void DictQuery::setFilterType( FilterType newType )
+{
+  d->filterType = newType;
+}
+
 DictQuery::MatchType DictQuery::getMatchType() const
 {
   return d->matchType;
@@ -588,6 +610,16 @@ DictQuery::MatchType DictQuery::getMatchType() const
 void DictQuery::setMatchType( MatchType newType )
 {
   d->matchType = newType;
+}
+
+DictQuery::MatchWordType DictQuery::getMatchWordType() const
+{
+  return d->matchWordType;
+}
+
+void DictQuery::setMatchWordType( MatchWordType newType )
+{
+  d->matchWordType = newType;
 }
 
 /**************************************************************

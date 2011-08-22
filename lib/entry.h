@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -95,6 +96,10 @@ class KITEN_EXPORT Entry
      * Get the dictionary name that generated this Entry. I can't think of a reason to be changing this
      */
     const QString &getDictName() const;
+    /**
+     * Get the dictionary type (e.g. edict, kanjidic).
+     */
+    virtual QString getDictionaryType() const = 0;
     /**
      * Get the word from this Entry. If the entry is of type kanji/kana/meaning/etc, this will
      * return the kanji. If it is of kana/meaning/etc, it will return kana.

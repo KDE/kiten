@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -37,20 +38,27 @@
 #include <QTextStream>
 #include <QVector>
 
-#include "../dictquery.h"  //DictQuery class
-#include "../entry.h"      //Entry and EntryList classes
-#include "../entrylist.h"
+#include "deinflection.h"
 #include "dictfilefieldselector.h"
+#include "dictquery.h"
+#include "entryedict.h"
+#include "entrylist.h"
+#include "kitenmacros.h"
 
+QString     *DictFileEdict::deinflectionLabel = NULL;
 QStringList *DictFileEdict::displayFields = NULL;
+QString     *DictFileEdict::wordType = NULL;
 
 /**
  * Per instructions in the super-class, this constructor basically sets the
  * dictionaryType member variable to identify this as an edict-type database handler.
  */
 DictFileEdict::DictFileEdict()
-: DictFile( "edict" )
+: DictFile( EDICT )
+, m_hasDeinflection( false )
+, m_deinflection( 0 )
 {
+  m_dictionaryType = EDICT;
   m_searchableAttributes.insert( "common", "common" );
 }
 
@@ -60,12 +68,13 @@ DictFileEdict::DictFileEdict()
  */
 DictFileEdict::~DictFileEdict()
 {
+  delete m_deinflection;
+  m_deinflection = 0;
 }
 
 QMap<QString,QString> DictFileEdict::displayOptions() const
 {
   QMap<QString,QString> list;
-  list[ "Common(C)" ] = "C";
   list[ "Part of speech(type)" ] = "type";
   return list;
 }
@@ -76,14 +85,13 @@ QMap<QString,QString> DictFileEdict::displayOptions() const
  * binary search on the dictionary for that item. Take all results and filter
  * them using the rest of the query with the validate method.
  */
-EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
+EntryList *DictFileEdict::doSearch( const DictQuery &query )
 {
-  if( i_query.isEmpty() || ! m_file.valid() )	//No query or dict, no results.
+  if( query.isEmpty() || ! m_edictFile.valid() )	//No query or dict, no results.
   {
     return new EntryList();
   }
 
-  DictQuery query( i_query );
   kDebug()<< "Search from : " << getName();
 
   QString firstChoice = query.getWord();
@@ -115,7 +123,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     firstChoice = firstChoice.at( 0 );
   }
 
-  QVector<QString> preliminaryResults = m_file.findMatches( firstChoice );
+  QVector<QString> preliminaryResults = m_edictFile.findMatches( firstChoice );
 
   if( preliminaryResults.size() == 0 )	//If there were no matches... return an empty list
   {
@@ -127,7 +135,8 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
   {
 //     kDebug() << "result: " << it << endl;
     Entry *result = makeEntry( it );
-    if( result->matchesQuery( query ) )
+    EntryEdict *resultEdict = static_cast<EntryEdict*>( result );
+    if( result->matchesQuery( query ) && resultEdict->matchesWordType( query ) )
     {
       results->append( result );
     }
@@ -135,6 +144,89 @@ EntryList *DictFileEdict::doSearch( const DictQuery &i_query )
     {
       delete result;
     }
+  }
+
+  // At this point we should have some preliminary results
+  // and if there were no matches, it probably means the user
+  // input was a verb or adjective, so we have to deinflect it.
+  bool isAnyQuery       = query.getMatchWordType() == DictQuery::Any;
+  bool isVerbQuery      = query.getMatchWordType() == DictQuery::Verb;
+  bool isAdjectiveQuery = query.getMatchWordType() == DictQuery::Adjective;
+  if( results->count() == 0 && ( isAnyQuery || isVerbQuery || isAdjectiveQuery ) )
+  {
+    delete results;
+    results = m_deinflection->search( query, preliminaryResults );
+    QString *label = m_deinflection->getDeinflectionLabel();
+    if( ! label->isEmpty() && ! m_hasDeinflection )
+    {
+      deinflectionLabel = label;
+      m_hasDeinflection = true;
+      wordType = m_deinflection->getWordType();
+    }
+  }
+  else
+  {
+    deinflectionLabel = NULL;
+    wordType = NULL;
+    m_hasDeinflection = false;
+  }
+
+  if( results )
+  {
+    EntryList *common   = new EntryList();
+    EntryList *uncommon = new EntryList();
+    EntryList::EntryIterator i( *results );
+    while( i.hasNext() )
+    {
+      EntryEdict *entry = static_cast<EntryEdict*>( i.next() );
+      if( entry->isCommon() )
+      {
+        common->append( entry );
+      }
+      else
+      {
+        uncommon->append( entry );
+      }
+    }
+
+    delete results;
+    results = new EntryList();
+    results->appendList( common );
+    results->appendList( uncommon );
+
+    EntryList *exact     = new EntryList();
+    EntryList *beginning = new EntryList();
+    EntryList *ending    = new EntryList();
+    EntryList *anywhere  = new EntryList();
+    EntryList::EntryIterator it( *results );
+    while( it.hasNext() )
+    {
+      Entry *entry = it.next();
+
+      if( entry->getWord() == query.getWord() )
+      {
+        exact->append( entry );
+      }
+      else if( entry->getWord().startsWith( query.getWord() ) )
+      {
+        beginning->append( entry );
+      }
+      else if( entry->getWord().endsWith( query.getWord() ) )
+      {
+        ending->append( entry );
+      }
+      else
+      {
+        anywhere->append( entry );
+      }
+    }
+
+    delete results;
+    results = new EntryList();
+    results->appendList( exact );
+    results->appendList( beginning );
+    results->appendList( ending );
+    results->appendList( anywhere );
   }
 
   return results;
@@ -155,15 +247,19 @@ QStringList DictFileEdict::listDictDisplayOptions( QStringList x ) const
  */
 bool DictFileEdict::loadDictionary( const QString &fileName, const QString &dictName )
 {
-  if( m_file.valid() )
+  if( m_edictFile.valid() )
   {
     return false; //Already loaded
   }
 
-  if( m_file.loadFile( fileName ) )
+  if( m_edictFile.loadFile( fileName ) )
   {
     m_dictionaryName = dictName;
     m_dictionaryFile = fileName;
+
+    m_deinflection = new Deinflection( m_dictionaryName );
+    m_deinflection->load();
+
     return true;
   }
 
@@ -212,7 +308,7 @@ void DictFileEdict::loadSettings( KConfigSkeleton *config )
 
 inline Entry* DictFileEdict::makeEntry( const QString &x )
 {
-  return new EntryEdict( getName(), x );
+  return new EntryEdict( getName(), entry );
 }
 
 DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *config, QWidget *parent )
@@ -233,14 +329,9 @@ DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *c
 bool DictFileEdict::validDictionaryFile( const QString &filename )
 {
   QFile file( filename );
-  int totalLineCounter = 0;
   bool returnFlag = true;
 
-  if( ! file.exists() )	//The easy test... does it exist?
-  {
-    return false;
-  }
-  if( ! file.open( QIODevice::ReadOnly ) ) //And can we read it?
+  if( ! file.exists() || ! file.open( QIODevice::ReadOnly ) )
   {
     return false;
   }
@@ -254,7 +345,6 @@ bool DictFileEdict::validDictionaryFile( const QString &filename )
   while( ! fileStream.atEnd() )
   {
     QString line = fileStream.readLine();
-    totalLineCounter++;
 
     if( line.left( 4 ) == commentMarker )
     {

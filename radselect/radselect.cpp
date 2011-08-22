@@ -19,8 +19,9 @@
  *****************************************************************************/
 
 #include "radselect.h"
-#include "radselectview.h"
+
 #include "radselectconfig.h"
+#include "radselectview.h"
 
 #include "ui_radselectprefdialog.h"
 
@@ -73,19 +74,18 @@ RadSelect::RadSelect()
 
   if( ! QDBusConnection::sessionBus().isConnected() )
   {
-    kDebug() << "Session Bus not found!!";
-    m_dbusInterface =0;
+    kDebug() << "Session Bus not found!!" << endl;
+    m_dbusInterface = 0;
   }
   else
   {
-    m_dbusInterface = new QDBusInterface( "org.kde.kiten", "/", ""
-                                       , QDBusConnection::sessionBus() );
+    m_dbusInterface = new QDBusInterface(   "org.kde.kiten", "/", ""
+                                          , QDBusConnection::sessionBus() );
   }
 
   // connect the search signal from the m_view with our dcop routines
   connect( m_view, SIGNAL( kanjiSelected( const QStringList& ) ),
              this,   SLOT( sendSearch( const QStringList& ) ) );
-
 }
 
 RadSelect::~RadSelect()
@@ -138,7 +138,7 @@ void RadSelect::optionsPreferences()
   QWidget *preferences = new QWidget();
   Ui::radselectprefdialog layout;
   layout.setupUi( preferences );
-  dialog->addPage( preferences, i18n( "Settings" ),"help-contents" );
+  dialog->addPage( preferences, i18n( "Settings" ), "help-contents" );
   connect( dialog, SIGNAL( settingsChanged( const QString& ) ),
            m_view,   SLOT( loadSettings() ) );
   dialog->show();
@@ -176,7 +176,7 @@ void RadSelect::sendSearch( const QStringList& kanji )
   if( m_dbusInterface && m_dbusInterface->isValid() )
   {
     QDBusMessage reply = m_dbusInterface->call(  QLatin1String( "searchTextAndRaise" )
-                                             , m_currentQuery.toString() );
+                                               , m_currentQuery.toString() );
     if( reply.type() == QDBusMessage::ErrorMessage )
     {
       kDebug() << "QDBus Error: " << reply.signature() << "<eoe>";

@@ -1,6 +1,7 @@
 /*****************************************************************************
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -75,6 +76,10 @@ class KITEN_EXPORT DictionaryManager
      * @param type the known dictionary type of this file
      */
     bool addDictionary( const QString &file, const QString &name, const QString &type );
+    /**
+     * Removes all previously loaded dictionaries (if any).
+     */
+    void removeAllDictionaries();
     /**
      * Close a dictionary by name
      *

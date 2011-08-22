@@ -116,6 +116,8 @@ QString ResultsView::generateCSS()
                   ".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
                   //"div.Entry {display: inline; }"
                   ".DictionaryHeader { color: %2; border-bottom: solid %3 }"
+                  ".CommonHeader { color: %2; text-align:center }"
+                  ".UncommonHeader { color: %2; text-align:center }"
                   "a{ text-decoration: none; }"
                   "a:link { color: %4; }"
                   "a:visited {color: %5} "
@@ -124,7 +126,7 @@ QString ResultsView::generateCSS()
                   ".Entry:hover { background-color: %10 }"
                   "query { color: %6 }" )
           .arg( scheme.foreground().color().name() )
-          .arg( scheme.foreground (KColorScheme::InactiveText ).color().name() )
+          .arg( scheme.foreground( KColorScheme::InactiveText ).color().name() )
           .arg( scheme.shade( KColorScheme::MidlightShade ).name() )
           .arg( scheme.foreground( KColorScheme::LinkText ).color().name() )
           .arg( scheme.foreground( KColorScheme::VisitedText ).color().name() )

@@ -2,6 +2,7 @@
  * This file is part of Kiten, a KDE Japanese Reference Tool                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -22,35 +23,12 @@
 #include "entryedict.h"
 
 #include "dictfileedict.h"
+#include "kitenmacros.h"
 
 #include <KDebug>
 #include <KLocalizedString>
 
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
-
-class EdictFormatting
-{
-  public:
-    EdictFormatting();
-
-    QString nounType;
-    QString verbType;
-    QString adjectiveType;
-    QString adverbType;
-    QString ichidanType;
-    QString godanType;
-    QString particleType;
-
-    QMultiHash<QString, QString> partOfSpeechCategories;
-
-    QSet<QString> partsOfSpeech;
-    QSet<QString> miscMarkings;
-    QSet<QString> fieldOfApplication;
-};
-
-
-
-EdictFormatting *EntryEdict::m_format = NULL;
 
 EntryEdict::EntryEdict( const QString &dict )
 : Entry( dict )
@@ -68,43 +46,177 @@ Entry* EntryEdict::clone() const
   return new EntryEdict( *this );
 }
 
-QString EntryEdict::common() const
-{
-  if ( getExtendedInfoItem( QString( "common" ) ) == "1" )
-  {
-    return "<span>Common</span>";
-  }
-  else
-  {
-    return QString();
-  }
-}
-
 /**
  * Regenerate a QString like the one we got in loadEntry()
  */
 QString EntryEdict::dumpEntry() const
 {
-  return Word
-         + (  (Readings.count() == 0 ) ? " " : " [" + Readings.first() + "] " )
-         + '/' + Meanings.join( "/" ) + '/';
+  QString readings = QString( Readings.count() == 0 ? " " : " [" + Readings.first() + "] " );
+
+  return QString( "%1%2/%3/" ).arg( Word )
+                              .arg( readings )
+                              .arg( Meanings.join( "/" ) );
 }
 
-const EdictFormatting &EntryEdict::format()
+QString EntryEdict::getDictionaryType() const
 {
-  if( EntryEdict::m_format == NULL )
+  return EDICT;
+}
+
+QString EntryEdict::getTypes() const
+{
+  return m_types.join( outputListDelimiter );
+}
+
+QStringList EntryEdict::getTypesList() const
+{
+  return m_types;
+}
+
+bool EntryEdict::isAdjective() const
+{
+  foreach( const QString &type, EdictFormatting::Adjectives )
   {
-    EntryEdict::m_format = new EdictFormatting;
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
   }
 
-  return *EntryEdict::m_format;
+  return false;
+}
+
+bool EntryEdict::isAdverb() const
+{
+  foreach( const QString &type, EdictFormatting::Adverbs )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isCommon() const
+{
+  return getExtendedInfoItem( QString( "common" ) ) == "1";
+}
+
+bool EntryEdict::isExpression() const
+{
+  foreach( const QString &type, EdictFormatting::Expressions )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isFukisokuVerb() const
+{
+  foreach( const QString &type, EdictFormatting::FukisokuVerbs )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isGodanVerb() const
+{
+  foreach( const QString &type, EdictFormatting::GodanVerbs )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isIchidanVerb() const
+{
+  foreach( const QString &type, EdictFormatting::IchidanVerbs )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isNoun() const
+{
+  foreach( const QString &type, EdictFormatting::Nouns )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isParticle() const
+{
+  return m_types.contains( EdictFormatting::Particle );
+}
+
+bool EntryEdict::isPrefix() const
+{
+  foreach( const QString &type, EdictFormatting::Prefix )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isSuffix() const
+{
+  foreach( const QString &type, EdictFormatting::Suffix )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool EntryEdict::isVerb() const
+{
+  foreach( const QString &type, EdictFormatting::Verbs )
+  {
+    if( m_types.contains( type ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 QString EntryEdict::HTMLWord() const
 {
-  return "<span class=\"Word\">"
-         + ( Word.isEmpty() ? kanjiLinkify( Meanings.first() ) : kanjiLinkify( Word ) )
-         + "</span>";
+  return QString( "<span class=\"Word\">%1</span>" )
+             .arg( Word.isEmpty() ? kanjiLinkify( Meanings.first() ) : kanjiLinkify( Word ) );
 }
 
 /**
@@ -171,8 +283,15 @@ bool EntryEdict::loadEntry( const QString &entryLine )
 
   /* set Meanings to be all of the meanings in the definition */
   QString remainingLine = entryLine.mid( endOfKanjiAndKanaSection );
-  remainingLine = remainingLine.left( remainingLine.lastIndexOf( '/' ) );	//Trim to last '/'
+  //Trim to last '/'
+  remainingLine = remainingLine.left( remainingLine.lastIndexOf( '/' ) );
   Meanings = remainingLine.split( '/', QString::SkipEmptyParts );
+
+  if( Meanings.size() == 0 )
+  {
+    return false;
+  }
+
   if( Meanings.last() == "(P)" )
   {
     ExtendedInfo[ QString( "common" ) ] = "1";
@@ -194,15 +313,15 @@ bool EntryEdict::loadEntry( const QString &entryLine )
 
   foreach( const QString &str, stringTypes )
   {
-    if( format().partsOfSpeech.contains( str ) )
+    if( EdictFormatting::PartsOfSpeech.contains( str ) )
     {
-      m_typeList += str;
+      m_types += str;
     }
-    else if(format().fieldOfApplication.contains( str ) )
+    else if( EdictFormatting::FieldOfApplication.contains( str ) )
     {
       ExtendedInfo[ "field" ] = str;
     }
-    else if( format().miscMarkings.contains( str ) )
+    else if( EdictFormatting::MiscMarkings.contains( str ) )
     {
       m_miscMarkings += str;
     }
@@ -211,14 +330,61 @@ bool EntryEdict::loadEntry( const QString &entryLine )
   return true;
 }
 
+bool EntryEdict::matchesWordType( const DictQuery &query ) const
+{
+  if( ! query.isEmpty() )
+  {
+    if( query.getMatchWordType() == DictQuery::Verb
+        && isVerb() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Noun
+        && isNoun() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Adjective
+        && isAdjective() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Adverb
+        && isAdverb() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Expression
+        && isExpression() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Prefix
+        && isPrefix() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Suffix
+        && isSuffix() )
+    {
+      return true;
+    }
+    if( query.getMatchWordType() == DictQuery::Any )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 /**
  * Returns a HTML version of an Entry
  */
 QString EntryEdict::toHTML() const
 {
-  QString result = "<div class=\"EDICT\">";
-  bool isCommon = ( getExtendedInfoItem( QString( "common" ) ) == "1" );
-  if( isCommon )
+  QString result = QString( "<div class=\"%1\">" ).arg( EDICT.toUpper() );
+  if( isCommon() )
   {
     result += "<div class=\"Common\">";
   }
@@ -229,10 +395,10 @@ QString EntryEdict::toHTML() const
     else if( field == "Word/Kanji" ) result += HTMLWord()+' ';
     else if( field == "Meaning" )		 result += HTMLMeanings()+' ';
     else if( field == "Reading" )		 result += HTMLReadings()+' ';
-    else if( field == "C" )			     result += common();
     else kDebug() << "Unknown field: " << field;
   }
-  if( isCommon )
+
+  if( isCommon() )
   {
     result += "</div>";
   }
@@ -241,10 +407,12 @@ QString EntryEdict::toHTML() const
   return result;
 }
 
-/* TYPES RELATED FUNCTIONS */
+
+
+#ifdef KITEN_EDICTFORMATTING
 
 /**
- * The basic idea of this function is to provide a mapping from possible entry types to
+ * The basic idea of this is to provide a mapping from possible entry types to
  * possible things the user could enter. Then our code for the matching entry can simply
  * use this mapping to determine if a given entry could be understood to match the user's input.
  *
@@ -268,105 +436,225 @@ QString EntryEdict::toHTML() const
  *
  * Note that our File Parser will also expand to general cases, if not included already:
  * For Example: v5aru -> v5aru,v5 (so that a search for "godan" will find it)
- * Also note that the basic edict dictionary does not separate ikeiyoushi out from the
- * category "adj", so further breakdown of the "adjective" type would be misleading.
  */
-EdictFormatting::EdictFormatting()
+namespace EdictFormatting
 {
-  nounType      = QString( i18nc( "This must be a single word", "Noun" ) );
-  verbType      = QString( i18nc( "This must be a single word", "Verb" ) );
-  adjectiveType = QString( i18nc( "This must be a single word", "Adjective" ) );
-  adverbType    = QString( i18nc( "This must be a single word", "Adverb" ) );
-  particleType  = QString( i18nc( "This must be a single word", "Particle" ) );
-  ichidanType   = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated(except possibly in far-eastern languages), this must be a single word", "Ichidan" ) );
-  godanType     = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Godan" ) );
+  // Forward declarations of our functions to be used.
+  QMultiHash<QString, QString> createPartOfSpeechCategories();
+  QSet<QString>                createPartsOfSpeech();
+  QSet<QString>                createMiscMarkings();
+  QSet<QString>                createFieldOfApplication();
+  QStringList                  createNounsList();
+  QStringList                  createVerbsList();
+  QStringList                  createExpressionsList();
+  QStringList                  createPrefixesList();
+  QStringList                  createSuffixesList();
+ 
+  // Private variables.
+  QString noun      = QString( i18nc( "This must be a single word", "Noun" ) );
+  QString verb      = QString( i18nc( "This must be a single word", "Verb" ) );
+  QString adjective = QString( i18nc( "This must be a single word", "Adjective" ) );
+  QString adverb    = QString( i18nc( "This must be a single word", "Adverb" ) );
+  QString particle  = QString( i18nc( "This must be a single word", "Particle" ) );
+  QString ichidanVerb   = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated (except possibly in far-eastern languages), this must be a single word", "Ichidan" ) );
+  QString godanVerb     = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Godan" ) );
+  QString fukisokuVerb  = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Fukisoku" ) );
+  QString expression = QString( i18n( "Expression" ) );
+  QString idiomaticExpression = QString( i18n( "Idiomatic expression" ) );
+  QString prefix = QString( i18n( "Prefix" ) );
+  QString suffix = QString( i18n( "Suffix" ) );
+  QString nounPrefix = QString( i18n( "Noun (used as a prefix)" ) );
+  QString nounSuffix = QString( i18n( "Noun (used as a suffix)" ) );
 
-  //Nouns
-  partOfSpeechCategories.insert( nounType, "n" );
-  partOfSpeechCategories.insert( nounType, "n-adv" );
-  partOfSpeechCategories.insert( nounType, "n-pref" );
-  partOfSpeechCategories.insert( nounType, "n-suf" );
-  partOfSpeechCategories.insert( nounType, "n-t" );
-  partOfSpeechCategories.insert( nounType, "adv_n" );
 
-  //Ichidan Verbs
-  partOfSpeechCategories.insert( verbType,    "v1" );
-  partOfSpeechCategories.insert( ichidanType, "v1" );
+  // Define our public variables.
+  QMultiHash<QString, QString> PartOfSpeechCategories = createPartOfSpeechCategories();
+  QSet<QString> PartsOfSpeech      = createPartsOfSpeech();
+  QSet<QString> MiscMarkings       = createMiscMarkings();
+  QSet<QString> FieldOfApplication = createFieldOfApplication();
 
-  //Godan Verbs
-  partOfSpeechCategories.insert( verbType,  "v5" );
-  partOfSpeechCategories.insert( verbType,  "v5aru" );
-  partOfSpeechCategories.insert( verbType,  "v5b" );
-  partOfSpeechCategories.insert( verbType,  "v5g" );
-  partOfSpeechCategories.insert( verbType,  "v5k" );
-  partOfSpeechCategories.insert( verbType,  "v5k_s" );
-  partOfSpeechCategories.insert( verbType,  "v5m" );
-  partOfSpeechCategories.insert( verbType,  "v5n" );
-  partOfSpeechCategories.insert( verbType,  "v5r" );
-  partOfSpeechCategories.insert( verbType,  "v5r_i" );
-  partOfSpeechCategories.insert( verbType,  "v5s" );
-  partOfSpeechCategories.insert( verbType,  "v5t" );
-  partOfSpeechCategories.insert( verbType,  "v5u" );
-  partOfSpeechCategories.insert( verbType,  "v5u_s" );
-  partOfSpeechCategories.insert( verbType,  "v5uru" );
-  partOfSpeechCategories.insert( godanType, "v5" );
-  partOfSpeechCategories.insert( godanType, "v5aru" );
-  partOfSpeechCategories.insert( godanType, "v5b" );
-  partOfSpeechCategories.insert( godanType, "v5g" );
-  partOfSpeechCategories.insert( godanType, "v5k" );
-  partOfSpeechCategories.insert( godanType, "v5k_s" );
-  partOfSpeechCategories.insert( godanType, "v5m" );
-  partOfSpeechCategories.insert( godanType, "v5n" );
-  partOfSpeechCategories.insert( godanType, "v5r" );
-  partOfSpeechCategories.insert( godanType, "v5r_i" );
-  partOfSpeechCategories.insert( godanType, "v5s" );
-  partOfSpeechCategories.insert( godanType, "v5t" );
-  partOfSpeechCategories.insert( godanType, "v5u" );
-  partOfSpeechCategories.insert( godanType, "v5u_s" );
-  partOfSpeechCategories.insert( godanType, "v5uru" );
+  // PartOfSpeechCategories needs to has some values before this line.
+  QStringList Nouns         = createNounsList();
+  QStringList Adjectives    = PartOfSpeechCategories.values( adjective );
+  QStringList Adverbs       = PartOfSpeechCategories.values( adverb );
+  QStringList IchidanVerbs  = PartOfSpeechCategories.values( ichidanVerb );
+  QStringList GodanVerbs    = PartOfSpeechCategories.values( godanVerb );
+  QStringList FukisokuVerbs = PartOfSpeechCategories.values( fukisokuVerb );
+  QStringList Verbs         = createVerbsList();
+  QStringList Expressions   = createExpressionsList();
+  QStringList Prefix        = createPrefixesList();
+  QStringList Suffix        = createSuffixesList();
+  QString     Particle      = PartOfSpeechCategories.value( particle );
 
-  //Other Verbs
-  partOfSpeechCategories.insert( verbType, "iv" );
-  partOfSpeechCategories.insert( verbType, "vi" );
-  partOfSpeechCategories.insert( verbType, "vk" );
-  partOfSpeechCategories.insert( verbType, "vs" );
-  partOfSpeechCategories.insert( verbType, "vs_i" );
-  partOfSpeechCategories.insert( verbType, "vs_s" );
-  partOfSpeechCategories.insert( verbType, "vt" );
-  partOfSpeechCategories.insert( verbType, "vz" );
 
-  //Adjectives
-  partOfSpeechCategories.insert( adjectiveType, "adj" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_na" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_no" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_pn" );
-  partOfSpeechCategories.insert( adjectiveType, "adj_t" );
 
-  //Adverbs
-  partOfSpeechCategories.insert( adverbType, "adv" );
-  partOfSpeechCategories.insert( adverbType, "adv_n" );
-  partOfSpeechCategories.insert( adverbType, "adv_to" );
+  QStringList createNounsList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( noun ) );
+    list.append( PartOfSpeechCategories.values( nounPrefix ) );
+    list.append( PartOfSpeechCategories.values( nounSuffix ) );
+    return list;
+  }
 
-  //Particle
-  partOfSpeechCategories.insert( particleType, "prt" );
+  QStringList createVerbsList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( verb ) );
+    list.append( IchidanVerbs );
+    list.append( GodanVerbs );
+    list.append( FukisokuVerbs );
+    return list;
+  }
 
-  partsOfSpeech << "n"     << "n-adv"  << "n-pref" << "n-suf"  << "n-t"  << "adv_n"
-                << "v1"    << "v1"     << "v5"     << "v5aru"  << "v5b"  << "v5g"  << "v5k"   << "v5k_s"
-                << "v5m"   << "v5n"    <<"v5r"     << "v5r_i"  << "v5s"  << "v5t"  << "v5u"   << "v5u_s"
-                << "v5uru" << "v5"     <<"v5aru"   << "v5b"    << "v5g"  << "v5k"  << "v5k_s" << "v5m"
-                << "v5n"   << "v5r"    <<"v5r_i"   << "v5s"    << "v5t"  << "v5u"  << "v5u_s" << "v5uru"
-                << "iv"    << "vi"     <<"vk"      << "vs"     << "vs_i" << "vs_s" << "vt"    << "vz"
-                << "adj"   << "adj_na" <<"adj_no"  << "adj_pn" << "adj_t"
-                << "adv"   << "adv_n"  <<"adv_to"
-                << "prt";
+  QStringList createExpressionsList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( expression ) );
+    list.append( PartOfSpeechCategories.values( idiomaticExpression ) );
+    return list;
+  }
 
-  //Field of Application terms
-  fieldOfApplication << "Buddh" << "MA"   << "comp" << "food" << "geom"
-                     << "ling"  << "math" << "mil"  << "physics";
+  QStringList createPrefixesList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( prefix ) );
+    list.append( PartOfSpeechCategories.values( nounPrefix ) );
+    return list;
+  }
 
-  //Miscellaneous Markings (in EDICT terms)
-  miscMarkings << "X"    << "abbr" << "arch" << "ateji"   << "chn"   << "col" << "derog"
-               << "eK"   << "ek"   << "fam"  << "fem"     << "gikun" << "hon" << "hum" << "iK"   << "id"
-               << "io"   << "m-sl" << "male" << "male-sl" << "ng"    << "oK"  << "obs" << "obsc" << "ok"
-               << "poet" << "pol"  << "rare" << "sens"    << "sl"    << "uK"  << "uk"  << "vulg";
+  QStringList createSuffixesList()
+  {
+    QStringList list;
+    list.append( PartOfSpeechCategories.values( suffix ) );
+    list.append( PartOfSpeechCategories.values( nounSuffix ) );
+    return list;
+  }
+
+  QMultiHash<QString, QString> createPartOfSpeechCategories()
+  { 
+    QMultiHash<QString, QString> categories;
+
+    // Nouns
+    categories.insert( noun, "n" );
+    categories.insert( noun, "n-adv" );
+    categories.insert( noun, "n-t" );
+    categories.insert( noun, "adv-n" );
+
+    // Noun (used as a prefix)
+    categories.insert( nounPrefix, "n-pref" );
+
+    // Noun (used as a suffix)
+    categories.insert( nounSuffix, "n-suf" );
+
+    // Ichidan Verbs
+    categories.insert( ichidanVerb, "v1" );
+    categories.insert( ichidanVerb, "vz" );
+
+    // Godan Verbs
+    categories.insert( godanVerb, "v5" );
+    categories.insert( godanVerb, "v5aru" );
+    categories.insert( godanVerb, "v5b" );
+    categories.insert( godanVerb, "v5g" );
+    categories.insert( godanVerb, "v5k" );
+    categories.insert( godanVerb, "v5k-s" );
+    categories.insert( godanVerb, "v5m" );
+    categories.insert( godanVerb, "v5n" );
+    categories.insert( godanVerb, "v5r" );
+    categories.insert( godanVerb, "v5r-i" );
+    categories.insert( godanVerb, "v5s" );
+    categories.insert( godanVerb, "v5t" );
+    categories.insert( godanVerb, "v5u" );
+    categories.insert( godanVerb, "v5u-s" );
+    categories.insert( godanVerb, "v5uru" );
+    categories.insert( godanVerb, "v5z" );
+
+    // Fukisoku verbs
+    categories.insert( fukisokuVerb, "iv" );
+    categories.insert( fukisokuVerb, "vk" );
+    categories.insert( fukisokuVerb, "vn" );
+    categories.insert( fukisokuVerb, "vs-i" );
+    categories.insert( fukisokuVerb, "vs-s" );
+
+    // Other Verbs
+    categories.insert( verb, "vi" );
+    categories.insert( verb, "vs" );
+    categories.insert( verb, "vt" );
+    categories.insert( verb, "aux-v" );
+
+    // Adjectives
+    categories.insert( adjective, "adj-i" );
+    categories.insert( adjective, "adj-na" );
+    categories.insert( adjective, "adj-no" );
+    categories.insert( adjective, "adj-pn" );
+    categories.insert( adjective, "adj-t" );
+    categories.insert( adjective, "adj-f" );
+    categories.insert( adjective, "adj" );
+    categories.insert( adjective, "aux-adj" );
+
+    // Adverbs
+    categories.insert( adverb, "adv" );
+    categories.insert( adverb, "adv-n" );
+    categories.insert( adverb, "adv-to" );
+
+    // Particle
+    categories.insert( particle, "prt" );
+
+    // Expression
+    categories.insert( expression, "exp" );
+
+    // Idiomatic expression
+    categories.insert( idiomaticExpression, "id" );
+
+    // Prefix
+    categories.insert( prefix, "pref" );
+
+    // Suffix
+    categories.insert( suffix, "suf" );
+
+    return categories;
+  }
+
+  QSet<QString> createPartsOfSpeech()
+  {
+    QSet<QString> category;
+
+    category << "adj-i" << "adj-na" << "adj-no" << "adj-pn" << "adj-t" << "adj-f"
+             << "adj" << "adv" << "adv-n" << "adv-to" << "aux" << "aux-v"
+             << "aux-adj" << "conj" << "ctr" << "exp" << "id" << "int"
+             << "iv" << "n" << "n-adv" << "n-pref" << "n-suf" << "n-t"
+             << "num" << "pn" << "pref" << "prt" << "suf" << "v1"
+             << "v5" << "v5aru" << "v5b" << "v5g" << "v5k" << "v5k-s"
+             << "v5m" << "v5n" << "v5r" << "v5r-i" <<  "v5s" << "v5t"
+             << "v5u" << "v5u-s" << "v5uru" << "v5z" << "vz" << "vi"
+             << "vk" << "vn" << "vs" << "vs-i" << "vs-s" << "vt";
+
+    return category;
+  }
+
+  QSet<QString> createFieldOfApplication()
+  {
+    QSet<QString> category;
+
+    // Field of Application terms
+    category << "Buddh" << "MA"   << "comp" << "food" << "geom"
+             << "ling"  << "math" << "mil"  << "physics";
+
+    return category;
+  }
+
+  QSet<QString> createMiscMarkings()
+  {
+    QSet<QString> category;
+
+    // Miscellaneous Markings (in EDICT terms)
+    category << "X"    << "abbr" << "arch" << "ateji"   << "chn"   << "col" << "derog"
+             << "eK"   << "ek"   << "fam"  << "fem"     << "gikun" << "hon" << "hum" << "iK"   << "id"
+             << "io"   << "m-sl" << "male" << "male-sl" << "ng"    << "oK"  << "obs" << "obsc" << "ok"
+             << "poet" << "pol"  << "rare" << "sens"    << "sl"    << "uK"  << "uk"  << "vulg";
+
+    return category;
+  }
 }
+
+#endif

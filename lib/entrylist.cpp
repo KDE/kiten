@@ -3,6 +3,7 @@
  * Copyright (C) 2001 Jason Katz-Brown <jason@katzbrown.com>                 *
  * Copyright (C) 2006 Joseph Kerian <jkerian@gmail.com>                      *
  * Copyright (C) 2006 Eric Kjeldergaard <kjelderg@gmail.com>                 *
+ * Copyright (C) 2011 Daniel E. Moctezuma <democtezuma@gmail.com>            *
  *                                                                           *
  * This library is free software; you can redistribute it and/or             *
  * modify it under the terms of the GNU Library General Public               *
@@ -32,6 +33,10 @@
 #include <QTextCodec>
 
 #include <sys/mman.h>
+
+#include "DictEdict/dictfileedict.h"
+#include "DictEdict/entryedict.h"
+#include "kitenmacros.h"
 
 class EntryList::Private
 {
@@ -120,24 +125,68 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
   QString &lastDictionary = temp;
   const QString fromDictionary = i18n( "From Dictionary:" );
   QString query( getQuery() );
-  for ( unsigned int i = 0; i < max; ++i )
+
+  bool firstTimeDeinflection  = true;
+  bool firstTimeCommon = true;
+  bool firstTimeUncommon = true;
+  for( unsigned int i = 0; i < max; ++i )
   {
-    Entry *it = at( i );
+    Entry *entry = at( i );
     if( d->sortedByDictionary )
     {
-      const QString &newDictionary = it->getDictName();
+      const QString &newDictionary = entry->getDictName();
+      if( firstTimeDeinflection && newDictionary == EDICT
+          && DictFileEdict::deinflectionLabel )
+      {
+        const QString &label = *DictFileEdict::deinflectionLabel;
+        const QString &type  = *DictFileEdict::wordType;
+        const QString &message = i18nc( "%1 is a word type (verb or adjective)."
+                                        " %2 is a verb or adjective tense."
+                                        " Example: 'Entered verb in past tense'."
+                                      , "Entered %1 in %2 form"
+                                      , type
+                                      , label );
+
+        result += QString( "<div style=\"font-style:italic\">%1</div>" ).arg( message );
+
+        firstTimeDeinflection = false;
+      }
+
       if( lastDictionary != newDictionary )
       {
         lastDictionary = newDictionary;
-        result += "<div class=\"DictionaryHeader\">" + fromDictionary + " " + newDictionary + "</div>";
+        result += QString( "<div class=\"DictionaryHeader\">%1 %2</div>" )
+                      .arg( fromDictionary )
+                      .arg( newDictionary );
+        firstTimeCommon = true;
+        firstTimeUncommon = true;
       }
     }
+
+    if( getQuery().getFilterType() == DictQuery::CommonUncommon )
+    {
+      if( entry->getDictionaryType() == EDICT )
+      {
+        EntryEdict *entryEdict = static_cast<EntryEdict*>( entry );
+        if( entryEdict->isCommon() && firstTimeCommon )
+        {
+          result += QString( "<div class=\"CommonHeader\">%1</div>" ).arg( i18n( "Common" ) );
+          firstTimeCommon = false;
+        }
+        else if( ! entryEdict->isCommon() && firstTimeUncommon )
+        {
+          result += QString( "<div class=\"UncommonHeader\">%1</div>" ).arg( i18n( "Uncommon" ) );
+          firstTimeUncommon = false;
+        }
+      }
+    }
+
     if( length-- > 0 )
     {
-      result += "<div class=\"Entry\" index=\""
-                + QString::number( i )
-                + "\" dict=\"" + it->getDictName()
-                + "\">" + it->toHTML() + "</div>";
+      result += QString( "<div class=\"Entry\" index=\"%1\" dict=\"%2\">%3</div>" )
+                    .arg( QString::number( i ) )
+                    .arg( entry->getDictName() )
+                    .arg( entry->toHTML() );
     }
     else
     {
