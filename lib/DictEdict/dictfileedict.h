@@ -73,7 +73,7 @@ class KITEN_EXPORT DictFileEdict : public DictFile
                                                , QStringList *list
                                                , const QMap<QString,QString> &long2short );
     //This is a blatant abuse of protected methods to make the kanji subclass easy
-    virtual Entry                *makeEntry( const QString &x );
+    virtual Entry                *makeEntry( const QString &entry );
 
     LinearEdictFile     m_edictFile;
 

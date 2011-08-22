@@ -59,7 +59,7 @@ class KITEN_EXPORT DictFileKanjidic : public DictFile
     bool                  validQuery( const DictQuery &query );
 
   protected:
-    virtual inline Entry *makeEntry( const QString &x );
+    virtual inline Entry *makeEntry( const QString &entry );
 
     static QStringList *displayFields;
 

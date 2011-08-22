@@ -306,7 +306,7 @@ void DictFileEdict::loadSettings( KConfigSkeleton *config )
   this->displayFields = loadListType( item, this->displayFields, long2short );
 }
 
-inline Entry* DictFileEdict::makeEntry( const QString &x )
+inline Entry* DictFileEdict::makeEntry( const QString &entry )
 {
   return new EntryEdict( getName(), entry );
 }

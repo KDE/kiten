@@ -252,7 +252,7 @@ void DictFileKanjidic::loadSettings( KConfigSkeleton *config )
   this->displayFields = loadListType( item, this->displayFields, loadDisplayOptions() );
 }
 
-inline Entry* DictFileKanjidic::makeEntry( const QString &x )
+inline Entry* DictFileKanjidic::makeEntry( const QString &entry )
 {
   return new EntryKanjidic( getName(), entry );
 }
