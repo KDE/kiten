@@ -166,17 +166,18 @@ DictQuery &DictQuery::operator+=( const DictQuery &old )
     {
       if( d->entryOrder.removeAll( d->pronunciationMarker ) > 0 )
       {
-        setPronunciation(getPronunciation() + mainDelimiter + old.getPronunciation() );
+        setPronunciation( getPronunciation() + mainDelimiter + old.getPronunciation() );
       }
       else
       {
-        setPronunciation(old.getPronunciation());
+        setPronunciation( old.getPronunciation() );
       }
     }
     else if( item == d->wordMarker )
     {
       d->entryOrder.removeAll( d->wordMarker );
-      setWord( old.getWord() ); //Only one of these allowed
+      //Only one of these allowed
+      setWord( old.getWord() );
     }
     else
     {
@@ -314,7 +315,7 @@ DictQuery &DictQuery::operator=( const QString &str )
   DictQuery result;
   if( str.length() > 0 )
   {
-    foreach( const QString &it, parts)
+    foreach( const QString &it, parts )
     {
       if( it.contains( propertySeperator ) )
       {

@@ -2,54 +2,54 @@
 <kpartgui name="Kiten" version="13">
 
 <MenuBar>
-	<Menu name="file">
-		<text>&amp;File</text>
-		<Action name="file_learn" append="new_merge" />
-		<Action name="add" />
-	</Menu>
-	<Menu name="go">
-		<Action name="history" />
-		<ActionList name="historyList" />
-	</Menu>
-	<Menu name="search">
-		<text>S&amp;earch</text>
-		<Action name="search" />
-		<Action name="search_in_results" />
-		<Action name="search_searchType" />
+  <Menu name="file">
+    <text>&amp;File</text>
+    <Action name="file_learn" append="new_merge" />
+    <Action name="add" />
+  </Menu>
+  <Menu name="go">
+    <Action name="history" />
+    <ActionList name="historyList" />
+  </Menu>
+  <Menu name="search">
+    <text>S&amp;earch</text>
+    <Action name="search" />
+    <Action name="search_in_results" />
+    <Action name="search_searchType" />
     <Action name="search_wordType" />
-		<Action name="filter_rare" />
-		<Action name="search_radical" />
-		<Action name="radselect" />
+    <Action name="filter_rare" />
+    <Action name="search_radical" />
+    <Action name="radselect" />
     <Action name="kanjibrowser" />
-	</Menu>
-	<Menu name="settings">
+  </Menu>
+  <Menu name="settings">
     <Action name="update_dictionaries" />
-		<Action name="autosearch_toggle" append="save_merge" />
-	</Menu>
+    <Action name="autosearch_toggle" append="save_merge" />
+  </Menu>
 </MenuBar>
 
 <!-- Toolbars seem to be loaded in inverse order -->
 
 <ToolBar name="mainToolbar" fullWidth="true" newline="true">
-	<text>Main Toolbar</text>
-	<Action name="go_back" />
-	<Action name="go_forward" />
-	<Separator/>
-	<Action name="radselect" />
+  <text>Main Toolbar</text>
+  <Action name="go_back" />
+  <Action name="go_forward" />
+  <Separator/>
+  <Action name="radselect" />
   <Action name="kanjibrowser" />
   <Action name="filter_rare" />
-	<Action name="search_searchType" />
+  <Action name="search_searchType" />
   <Action name="search_wordType" />
 </ToolBar>
 
 <ToolBar name="extraToolbar" newline="true" hidden="true">
-	<text>Extra Toolbar</text>
+  <text>Extra Toolbar</text>
 </ToolBar>
 
 <ToolBar name="searchToolbar" fullWidth="true" newline="true">
-	<text>Search Toolbar</text>
-	<Action name="searchbox" />
-	<Action name="search" />
+  <text>Search Toolbar</text>
+  <Action name="searchbox" />
+  <Action name="search" />
 </ToolBar>
 
 </kpartgui>

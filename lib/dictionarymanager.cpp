@@ -101,7 +101,8 @@ DictionaryManager::~DictionaryManager()
  * Given a named Dict file/name/type... create and add the object if it
  * seems to work properly on creation.
  */
-bool DictionaryManager::addDictionary( const QString &file, const QString &name
+bool DictionaryManager::addDictionary( const QString &file
+                                     , const QString &name
                                      , const QString &type )
 {
   if( d->dictManagers.contains( name ) ) //This name already exists in the list!
@@ -110,9 +111,12 @@ bool DictionaryManager::addDictionary( const QString &file, const QString &name
   }
 
   DictFile *newDict = makeDictFile( type );
-  if( newDict == NULL ) return false;
+  if( newDict == NULL )
+  {
+    return false;
+  }
 
-  if(!newDict->loadDictionary( file, name ) )
+  if( ! newDict->loadDictionary( file, name ) )
   {
     kDebug() << "Dictionary load FAILED: " << newDict->getName();
     delete newDict;
@@ -348,7 +352,7 @@ DictFile *DictionaryManager::makeDictFile( const QString &type )
   {
     return new DictFileEdict();
   }
-  if( type == KANJIDIC )
+  else if( type == KANJIDIC )
   {
     return new DictFileKanjidic();
   }

@@ -175,8 +175,8 @@ QString EntryKanjidic::HTMLReadings() const
     htmlReadings += addReadings( AsRadicalReadings );
   }
 
-  htmlReadings.truncate( htmlReadings.length() - outputListDelimiter.length() ); // get rid of last ,
-
+  // get rid of last ,
+  htmlReadings.truncate( htmlReadings.length() - outputListDelimiter.length() );
   return QString( "<span class=\"Readings\">%1</span>" ).arg( htmlReadings );
 }
 
@@ -310,7 +310,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
             LOADSTRING( curString )
             /* page number in volume.page format */
           }
-          ExtendedInfo.insert('M' + QString(ichar), curString);
+          ExtendedInfo.insert( 'M' + QString( ichar ), curString );
           break;
         case 'S':
           /* stroke count: may be multiple.  In that case, first is actual, others common
@@ -402,8 +402,8 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
         case '-':
           /* a reading that is only in postposition */
           /* any of those 2 signals a reading is to ensue. */
-          LOADSTRING(curString)
-          originalReadings.append(curString);
+          LOADSTRING( curString )
+          originalReadings.append( curString );
 
           // If it is Hiragana (Kunyomi)
           if( 0x3040 <= ichar.unicode() && ichar.unicode() <= 0x309F )
@@ -416,8 +416,8 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
             OnyomiReadings.append( curString );
           }
 
-          curString = curString.remove('-').remove('.');
-          Readings.append(curString);
+          curString = curString.remove( '-' ).remove( '.' );
+          Readings.append( curString );
           break;
         default:
           /* either a character we don't address or a problem...we should ignore it */
@@ -480,9 +480,9 @@ QString EntryKanjidic::toHTML() const
   {
     //kDebug() << "Display: "<<field;
     if( field == "--NewLine--" )              result += "<br>";
-    else if( field == "Word/Kanji" )          result += HTMLWord()+' ';
-    else if( field == "Meaning" )             result += HTMLMeanings()+' ';
-    else if( field == "Reading" )             result += HTMLReadings()+' ';
+    else if( field == "Word/Kanji" )          result += HTMLWord() + ' ';
+    else if( field == "Meaning" )             result += HTMLMeanings() + ' ';
+    else if( field == "Reading" )             result += HTMLReadings() + ' ';
     else if( ExtendedInfo.contains( field ) ) result += HTMLExtendedInfo( field ) + ' ';
   }
 

@@ -296,7 +296,7 @@ public:
   /**
    * Set a match type. If this is not called, the default is matchExact.
    */
-  void setMatchType( MatchType );
+  void setMatchType( MatchType newType );
 
   /**
    * This enum is used to define the type of matching this query is supposed
@@ -320,7 +320,7 @@ public:
   /**
    * Set a word type. If this is not called, the default value is 'Any'.
    */
-  void setMatchWordType( MatchWordType );
+  void setMatchWordType( MatchWordType newType );
 
   enum FilterType
   {

@@ -135,10 +135,10 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
   DictQuery copy( query );
   foreach( KToolBar *bar, _parent->toolBars() )
   {
-    if( bar->widgetForAction(_actionFilterRare) != NULL )
-      copy.removeProperty("common");
+    if( bar->widgetForAction( _actionFilterRare ) != NULL )
+      copy.removeProperty( "common" );
 
-    if( bar->widgetForAction(_actionSelectWordType) != NULL )
+    if( bar->widgetForAction( _actionSelectWordType ) != NULL )
       copy.removeProperty("type");
   }
 
