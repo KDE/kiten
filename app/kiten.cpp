@@ -248,17 +248,18 @@ void Kiten::setupActions()
                                              , SLOT( configureToolBars() )
                                              , actionCollection() );
 
-  //TODO: this should probably be a standardaction
+  //TODO: this should probably be a standard action
   /*
   globalShortcutsAction = actionCollection()->addAction( "options_configure_global_keybinding" );
   globalShortcutsAction->setText( i18n( "Configure &Global Shortcuts..." ) );
   connect( globalShortcutsAction, SIGNAL( triggered() ), this, SLOT( configureGlobalKeys() ) );
   */
 
-  _globalSearchAction = actionCollection()->add<KToggleAction>( "search_on_the_spot" );
-  _globalSearchAction->setText( i18n( "On The Spo&t Search" ) );
-  KAction *temp = qobject_cast<KAction*>( _globalSearchAction );
-  KShortcut shrt( "Ctrl+Alt+S" );
+  //TODO: implement this
+  //_globalSearchAction = actionCollection()->add<KToggleAction>( "search_on_the_spot" );
+  //_globalSearchAction->setText( i18n( "On The Spo&t Search" ) );
+  //KAction *temp = qobject_cast<KAction*>( _globalSearchAction );
+  //KShortcut shrt( "Ctrl+Alt+S" );
   //globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
   //connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
