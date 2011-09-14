@@ -55,8 +55,8 @@ QString     *DictFileEdict::wordType = NULL;
  */
 DictFileEdict::DictFileEdict()
 : DictFile( EDICT )
-, m_hasDeinflection( false )
 , m_deinflection( 0 )
+, m_hasDeinflection( false )
 {
   m_dictionaryType = EDICT;
   m_searchableAttributes.insert( "common", "common" );

@@ -75,9 +75,9 @@
 
 Kiten::Kiten( QWidget *parent, const char *name )
 : KXmlGuiWindow( parent )
+, _lastQuery( DictQuery() )
 , _radselect_proc( new KProcess( this ) )
 , _kanjibrowser_proc( new KProcess( this ) )
-, _lastQuery( DictQuery() )
 {
   _radselect_proc->setProgram( KStandardDirs::findExe( "kitenradselect" ) );
   _kanjibrowser_proc->setProgram( KStandardDirs::findExe( "kitenkanjibrowser" ) );

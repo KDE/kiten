@@ -51,9 +51,9 @@
 QList<Deinflection::Conjugation> *Deinflection::conjugationList = NULL;
 
 Deinflection::Deinflection( const QString name )
-: m_dictionaryName( name )
-, m_deinflectionLabel( QString() )
+: m_deinflectionLabel( QString() )
 , m_wordType( QString() )
+, m_dictionaryName( name )
 {
 }
 
