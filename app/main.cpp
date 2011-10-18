@@ -38,7 +38,7 @@ int main( int argc, char *argv[] )
 //   qInstallMsgHandler(noMessageOutput);	//Disable Qt Errors from showing
 
   // Copyright and author information
-  KAboutData aboutData( "kiten", 0, ki18n("Kiten"), "1.2", ki18n("Japanese Reference Tool"),
+  KAboutData aboutData( "kiten", 0, ki18n("Kiten"), "1.3", ki18n("Japanese Reference Tool"),
                   KAboutData::License_GPL_V2, ki18n("(c) 2001-2004, Jason Katz-Brown\n"
                                                     "(c) 2006-2007, Eric Kjeldergaard\n"
                                                     "(c) 2006-2008, Joseph Kerian\n"

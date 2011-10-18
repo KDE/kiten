@@ -18,6 +18,7 @@ more types.
 (c)1998 Jim W. Breen <jwb@csse.monash.edu.au> : Creator of an index file format used in libkiten
 (c)2006-2007 Eric Kjeldergaard : Rewriting effort for KDE 4
 (c)2006-2008 Joseph Kerian <jkerian@gmail.com> : Rewriting effort for KDE 4
+(c)2011 Daniel E. Moctezuma <democtezuma@gmail.com> : Deinflection system improvements, bug fixes and code polishing
 
 @maintainers
 Daniel E. Moctezuma <democtezuma@gmail.com> is the current maintainer.
