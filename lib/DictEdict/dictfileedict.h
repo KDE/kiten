@@ -58,6 +58,7 @@ class KITEN_EXPORT DictFileEdict : public DictFile
     virtual QStringList                 listDictDisplayOptions( QStringList x ) const;
     bool                                loadDictionary(  const QString &file
                                                        , const QString &name );
+    void                                loadSettings();
     virtual void                        loadSettings( KConfigSkeleton *config );
     virtual DictionaryPreferenceDialog *preferencesWidget(  KConfigSkeleton *config
                                                           , QWidget *parent = NULL );
@@ -80,6 +81,8 @@ class KITEN_EXPORT DictFileEdict : public DictFile
     static QStringList *displayFields;
 
   private:
+    QMap<QString,QString> loadDisplayOptions() const;
+
     Deinflection *m_deinflection;
     bool          m_hasDeinflection;
 };

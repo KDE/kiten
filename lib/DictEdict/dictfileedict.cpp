@@ -266,6 +266,17 @@ bool DictFileEdict::loadDictionary( const QString &fileName, const QString &dict
   return false;
 }
 
+QMap<QString,QString> DictFileEdict::loadDisplayOptions() const
+{
+  QMap<QString,QString> list = displayOptions();
+  list[ "Word/Kanji" ]  = "Word/Kanji";
+  list[ "Reading" ]     = "Reading";
+  list[ "Meaning" ]     = "Meaning";
+  list[ "--Newline--" ] = "--Newline--";
+
+  return list;
+}
+
 QStringList* DictFileEdict::loadListType(  KConfigSkeletonItem *item
                                          , QStringList *list
                                          , const QMap<QString,QString> &long2short )
@@ -292,6 +303,11 @@ QStringList* DictFileEdict::loadListType(  KConfigSkeletonItem *item
   }
 
   return list;
+}
+
+void DictFileEdict::loadSettings()
+{
+  this->displayFields = new QStringList( loadDisplayOptions().values() );
 }
 
 void DictFileEdict::loadSettings( KConfigSkeleton *config )

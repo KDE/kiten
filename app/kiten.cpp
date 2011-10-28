@@ -237,7 +237,7 @@ void Kiten::setupActions()
 
 
   KAction *actionFocusResultsView;
-  actionFocusResultsView = actionCollection()->addAction(   "focusresultview"
+  actionFocusResultsView = actionCollection()->addAction(  "focusresultview"
                                                          , this
                                                          , SLOT( focusResultsView() ) );
   actionFocusResultsView->setShortcut( QString( "Escape" ) );
