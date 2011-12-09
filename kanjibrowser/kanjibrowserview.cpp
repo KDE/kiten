@@ -202,7 +202,7 @@ void KanjiBrowserView::reloadKanjiList()
   _kanjiList->addItems( list );
 
   // Update our status bar with the number of kanji filtered.
-  statusBarChanged( i18n( "%1 kanji found", _kanjiList->count() ) );
+  statusBarChanged( i18np( "%1 kanji found", "%1 kanji found", _kanjiList->count() ) );
 }
 
 void KanjiBrowserView::searchKanji( QListWidgetItem *item )
