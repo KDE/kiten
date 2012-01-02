@@ -66,9 +66,7 @@ unsigned char* readDictionary(const char* dictName,uint32_t *filesize);
 uint32_t buildIndex(unsigned char* dict, uint32_t dictLength);
 
 /*====function to Load Dictionary and load/create index table=======*/
-int  main(argc,argv)
-int argc;
-unsigned char **argv;
+int main(int argc, char **argv)
 {
 	const char *Dname;
 	const char *JDXname;
