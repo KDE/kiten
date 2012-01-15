@@ -26,7 +26,7 @@ kde4_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
 kde4_add_app_icon(kiten_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
 
 kde4_add_executable(kiten_bin ${kiten_bin_SRCS})
-set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten)
+set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten IMPORT_PREFIX bin_)
 
 target_link_libraries(kiten_bin ${KDE4_KHTML_LIBS} kiten)
 
