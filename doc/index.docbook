@@ -19,13 +19,18 @@
 <address>&Jason.Katz-Brown.mail;</address>
 </affiliation>
 </author>
+<author>
+<firstname>Daniel E.</firstname>
+<surname>Moctezuma</surname>
+<email>democtezuma@gmail.com</email>
+</author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-07-15</date>
-<releaseinfo>1.2 (&kde; 4.5)</releaseinfo>
+<date>2012-03-14</date>
+<releaseinfo>1.3 (&kde; 4.8)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -45,7 +50,7 @@
 <chapter id="introduction"> 
 <title>Introduction</title>
 
-<para>&kiten; is an application with multiple functions.  Firstly, it
+<para>&kiten; is a set of 3 tools with multiple functions. Firstly, it
 is a convenient English to Japanese and Japanese to English
 dictionary; secondly, it is a Kanji dictionary, with multiple ways to
 look up specific characters; thirdly, it is a tool to help you learn
@@ -56,7 +61,7 @@ Kanji.</para>
 <screenshot>
 <screeninfo>Here's a screenshot of &kiten;</screeninfo>
 <mediaobject>
-<imageobject><imagedata fileref="kiten1.png" format="PNG"/></imageobject>
+<imageobject><imagedata fileref="introduction.png" format="PNG"/></imageobject>
 <textobject><phrase>&kiten; screenshot</phrase></textobject>
 </mediaobject>
 </screenshot>
@@ -88,7 +93,7 @@ results view which takes up the majority of the &kiten; window.</para>
 <screenshot>
 <screeninfo>searching for an English translation</screeninfo>
 <mediaobject>
-<imageobject><imagedata fileref="kiten2.png" format="PNG"/></imageobject>
+<imageobject><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
 <textobject><phrase>&kiten; search screenshot</phrase></textobject>
 </mediaobject>
 </screenshot>
@@ -104,6 +109,32 @@ Out Rare</guimenuitem></menuchoice>.</para>
 <note><para>Not all dictionary files support filtering rare entries -
 most dictionaries, excluding the two provided by default in &kiten; do
 not.</para></note>
+
+<screenshot>
+<screeninfo>Screenshot using filtering of rare words</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; filtering search</phrase></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2>
+<title>Common/Uncommon words</title>
+<para>Another way to separate information is to filter common and uncommon words,
+this is useful when you wan't to focus on the common words and/or have interest
+on uncommon ones. The only difference between Filter Out Rare and Common/Uncommon
+options is that here you also get the Rare/Uncommon results.</para>
+
+<screenshot>
+<screeninfo>Screenshot for match common/uncommon</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; match common/uncommon</phrase></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
 <!-- not in kde4
 <para>If you have not enabled filtering rare entries, common entries
 will be labeled <guilabel>Common</guilabel> in the result view.</para>
@@ -119,18 +150,42 @@ will be labeled <guilabel>Common</guilabel> in the result view.</para>
 searches.</para>
 
 <sect2> 
-<title>Beginning/Anywhere Searches</title>
+<title>Beginning/Ending/Anywhere Searches</title>
 <para>Beside a search with <guilabel>Exact Match</guilabel> &kiten; has
-two additional search modes</para>
+three additional search modes</para>
 <para>To search for the beginning of a word, instead of pressing the
 <guilabel>Search</guilabel> button on the toolbar or pressing
 <keycap>Return</keycap> on the text-entry in the toolbar, choose
 using the <menuchoice><guimenu>Search</guimenu><guisubmenu>Match Type
-</guisubmenu><guimenuitem>Match Beginning</guimenuitem></menuchoice>. Similarly, choose
-<menuchoice><guimenu>Search</guimenu><guisubmenu>Match
-Type</guisubmenu><guimenuitem>Match Anywhere</guimenuitem></menuchoice> to search for your text anywhere
-in a word. These search modes work for searches of both
+</guisubmenu><guimenuitem>Match Beginning</guimenuitem></menuchoice>.
+Similarly, for ending or anywhere searches, choose <menuchoice><guimenu>Search</guimenu>
+<guisubmenu>Match Type</guisubmenu><guimenuitem>Match Anywhere</guimenuitem></menuchoice>
+to search for your text anywhere in a word. These search modes work for searches of both
 languages.</para>
+
+<screenshot>
+<screeninfo>Screenshot for match ending search</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; match ending search</phrase></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2>
+<title>Word type searches</title>
+<para>Kiten supports word type searches such as: verb, noun, adjective, adverb,
+prefix, suffix, expression or any type. This way you can filter your results
+more conveniently.</para>
+
+<screenshot>
+<screeninfo>Screenshot for match word type</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; match word type</phrase></textobject>
+</mediaobject>
+</screenshot>
 
 </sect2>
 
@@ -141,7 +196,16 @@ languages.</para>
 to search for new text in the results generated by a previous
 search. To do this, just choose
 <menuchoice><guimenu>Search</guimenu><guimenuitem>Search in
-Results</guimenuitem></menuchoice> to perform your search.</para>
+Results</guimenuitem></menuchoice> to perform your search. Similarly to
+beginning/ending/anywhere searches, this works for both languages too.</para>
+
+<screenshot>
+<screeninfo>Screenshot for search in results</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; search in results</phrase></textobject>
+</mediaobject>
+</screenshot>
 
 </sect2>
 
@@ -150,13 +214,21 @@ Results</guimenuitem></menuchoice> to perform your search.</para>
 <sect1 id="deinf"> 
 <title>Verb Deinflection</title>
 
-<para>&kiten; can deinflect verbs you search for. To enable this, make
-sure you have enabled the "builtin" dictionary for verb deinflection. &kiten;
-will then deinflect Japanese you search for that starts with a Kanji
-and ends with a Kana.</para>
-<para>
-The "Deinflect" option tries to unconjugate Japanese verbs. Deinflect only supports the common verb conjugations. If you search a lot of Japanese text you might consider using this option until you get used to handling Japanese verb forms.
+<para>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
 </para>
+
+<screenshot>
+<screeninfo>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; verb deinflection search</phrase></textobject>
+</mediaobject>
+</screenshot>
+
 </sect1>
 
 </chapter>
@@ -167,7 +239,7 @@ The "Deinflect" option tries to unconjugate Japanese verbs. Deinflect only suppo
 <para>&kiten; has features that makes finding the one kanji you want
 easy from over 14,000 in the default dictionary.</para>
 
-<note> <para>Clicking on any Kanji in the main result view will show
+<note><para>Clicking on any Kanji in the main result view will show
 details on that particular Kanji. This can sometimes be the fastest
 way to look up a kanji.</para></note>
 
@@ -180,10 +252,6 @@ Out Rare</guimenuitem></menuchoice> is checked.</para></tip>
 
 <para>You can search with English and Japanese search strings the
 exact same way you can with the normal dictionary.</para>
-
-<caution><para>When searching for Kana readings in the Kanji
-dictionary, you will have to put a period before the okurigana (the
-kana that are not part of the Kanji).</para></caution>
 
 </sect1>
 
@@ -207,6 +275,14 @@ values into the spin boxes below the results area.</para>
 
 <para>To perform the lookup, press the button that matches the kanji you
 wanted to look up.</para>
+ 
+<screenshot>
+<screeninfo>Screenshot for radical selector</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; radical selector</phrase></textobject>
+</mediaobject>
+</screenshot>
 
 </sect1>
 
@@ -214,7 +290,15 @@ wanted to look up.</para>
 <title>Grade Search</title>
 
 <para>To get a list of all Kanji in a certain grade, enter that into the search
-box as "G:4" (G: is the Kanjidic tag for grade).</para>
+box as "G:1" (G: is the Kanjidic tag for grade).</para>
+
+<screenshot>
+<screeninfo>Screenshot for kanji grade search</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; kanji grade search</phrase></textobject>
+</mediaobject>
+</screenshot>
 
 </sect1>
 
@@ -222,7 +306,50 @@ box as "G:4" (G: is the Kanjidic tag for grade).</para>
 <title>Stroke Search</title>
 
 <para>To get a list of all Kanji with a certain number of strokes,
-enter that number in the text-entry in the toolbar as "S:4".</para>
+enter that number in the text-entry in the toolbar as "S:2".</para>
+
+<screenshot>
+<screeninfo>Screenshot for kanji strokes search</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; kanji strokes search</phrase></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title>Kanji List</title>
+
+<para>This part of the Kanji Browser lets you visualize a list of kanji
+filtered by grade and number of strokes. By Clicking on a kanji you can
+get detailed information about it. Kanji Browser separates the list in
+Jouyou, Jinmeiyou and non-Jouyou kanji. All this kanji is available
+thanks to the KANJIDIC dictionary.</para>
+
+<screenshot>
+<screeninfo>Screenshot for kanji list</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; kanji list</phrase></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title>Kanji Information</title>
+
+<para>This part shows you detailed information about a kanji such as:
+kanji stroke order, number of strokes, readings and meanings.</para>
+
+<screenshot>
+<screeninfo>Screenshot for kanji information</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; kanji information</phrase></textobject>
+</mediaobject>
+</screenshot>
 
 </sect1>
 
@@ -277,6 +404,14 @@ if the font you specify doesn't include them. Thus, you can choose any
 font in the chooser and everything should still display
 fine.</para></note>
 
+<screenshot>
+<screeninfo>Screenshot for font</screeninfo>
+<mediaobject>
+<imageobject><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject><phrase>&kiten; font</phrase></textobject>
+</mediaobject>
+</screenshot>
+
 </sect1>
 
 </chapter>
@@ -289,10 +424,10 @@ fine.</para></note>
 <itemizedlist>
 <title>Developers</title>
 <listitem>
-<para>&Jason.Katz-Brown; &Jason.Katz-Brown.mail;</para>
+<para>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - Original author.</para>
 </listitem>
 <listitem>
-<para>&Neil.Stevens; &Neil.Stevens.mail;</para>
+<para>&Neil.Stevens; &Neil.Stevens.mail; - Code simplification, UI suggestions.</para>
 </listitem>
 <listitem>
 <para>Jim Breen <email>jwb@csse.monash.edu.au</email> - Wrote xjdic, of which &kiten; borrows code, and the xjdic index file generator. Also is main author of edict and kanjidic, which &kiten; essentially require.</para>
@@ -301,11 +436,23 @@ fine.</para></note>
   <para>Paul Temple <email>paul.temple@gmx.net</email> - Port to KConfig XT and bug fixing.</para>
 </listitem>
 <listitem>
-	<para>Joe Kerian <email>jkerian@gmail.com</email> - wrote kiten v4 </para>
+  <para>David Vignoni <email>david80v@tin.it</email> - SVG icon.</para>
+</listitem>
+<listitem>
+	<para>Joe Kerian <email>jkerian@gmail.com</email> - KDE4 rewrite.</para>
+</listitem>
+<listitem>
+  <para>Eric Kjeldergaard <email>kjelderg@gmail.com</email> - KDE4 rewrite.</para>
+</listitem>
+<listitem>
+  <para>Daniel E. Moctezuma <email>democtezuma@gmail.com</email> - Deinflection system improvements,
+  dictionary updates for EDICT and KANJIDIC, GUI improvements, Kanji Browser, bug fixes,
+  code polishing and simplification.</para>
 </listitem>
 </itemizedlist>
 
 <para>Documentation copyright 2002, &Jason.Katz-Brown;</para>
+<para>Documentation copyright 2012, Daniel E. Moctezuma</para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
