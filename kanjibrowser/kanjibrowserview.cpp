@@ -86,7 +86,7 @@ void KanjiBrowserView::changeGrade( const int grade )
     _currentGradeList << grade;
   }
 
-  // Reload our KListWidget widget.
+  // Reload our QListWidget widget.
   reloadKanjiList();
 }
 
@@ -117,7 +117,7 @@ void KanjiBrowserView::changeStrokeCount( const int strokes )
     _currentStrokesList << strokes;
   }
 
-  // Reload our KListWidget widget.
+  // Reload our QListWidget widget.
   reloadKanjiList();
 }
 
@@ -271,9 +271,9 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
               this,   SLOT( changeGrade( int ) ) );
   connect( _strokes, SIGNAL( currentIndexChanged( int ) ),
                this,   SLOT( changeStrokeCount( int ) ) );
-  connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
+  connect( _kanjiList, SIGNAL( itemClicked( QListWidgetItem* ) ),
                  this,   SLOT( searchKanji( QListWidgetItem* ) ) );
-  connect( _kanjiList, SIGNAL( executed( QListWidgetItem* ) ),
+  connect( _kanjiList, SIGNAL( itemClicked( QListWidgetItem* ) ),
            _goToKanjiInfo, SIGNAL( triggered() ) );
   connect( goToKanjiList, SIGNAL( triggered() ),
                     this,   SLOT( changeToListPage() ) );
