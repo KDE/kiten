@@ -47,7 +47,7 @@
 
 </bookinfo>
 
-<chapter id="introduction"> 
+<chapter id="introduction">
 <title>Introduction</title>
 
 <para>&kiten; is a set of 3 tools with multiple functions. Firstly, it
@@ -68,7 +68,7 @@ Kanji.</para>
 
 </chapter>
 
-<chapter id="dictionary"> 
+<chapter id="dictionary">
 <title>Using the Dictionary</title>
 
 <para>&kiten;'s most basic mode is as a dictionary for looking up both
@@ -77,7 +77,7 @@ English and Japanese words. You can also add other dictionaries to
 
 <para>&kiten; uses Jim Breen's Edict and Kanjidic as the default dictionaries. You can find more information at <ulink url="http://www.csse.monash.edu.au/~jwb/edict.html">the Edict web site</ulink> and <ulink url="http://www.csse.monash.edu.au/~jwb/kanjidic.html">the Kanjidic web site</ulink>.</para>
 
-<sect1 id="looking-up-words"> 
+<sect1 id="looking-up-words">
 <title>Looking Up Words</title>
 
 <para>To look up words in either language, type them in to the
@@ -98,7 +98,7 @@ results view which takes up the majority of the &kiten; window.</para>
 </mediaobject>
 </screenshot>
 
-<sect2> 
+<sect2 id="filtering">
 <title>Filtering</title>
 
 <para>Often times you will want to filter rare words from your
@@ -118,10 +118,12 @@ not.</para></note>
 </mediaobject>
 </screenshot>
 
-<sect2>
+</sect2>
+
+<sect2 id="common-uncommon-words">
 <title>Common/Uncommon words</title>
 <para>Another way to separate information is to filter common and uncommon words,
-this is useful when you wan't to focus on the common words and/or have interest
+this is useful when you want to focus on the common words and/or have interest
 on uncommon ones. The only difference between Filter Out Rare and Common/Uncommon
 options is that here you also get the Rare/Uncommon results.</para>
 
@@ -139,17 +141,15 @@ options is that here you also get the Rare/Uncommon results.</para>
 <para>If you have not enabled filtering rare entries, common entries
 will be labeled <guilabel>Common</guilabel> in the result view.</para>
 -->
-</sect2>
-
 </sect1>
 
-<sect1 id="advanced-searches"> 
+<sect1 id="advanced-searches">
 <title>Advanced Searches</title>
 
 <para>&kiten; supports more advanced searches than plain normal word
 searches.</para>
 
-<sect2> 
+<sect2 id="beginning-ending-anywhere-searches">
 <title>Beginning/Ending/Anywhere Searches</title>
 <para>Beside a search with <guilabel>Exact Match</guilabel> &kiten; has
 three additional search modes</para>
@@ -173,9 +173,9 @@ languages.</para>
 
 </sect2>
 
-<sect2>
+<sect2 id="word-type-searches">
 <title>Word type searches</title>
-<para>Kiten supports word type searches such as: verb, noun, adjective, adverb,
+<para>&kappname; supports word type searches such as: verb, noun, adjective, adverb,
 prefix, suffix, expression or any type. This way you can filter your results
 more conveniently.</para>
 
@@ -189,7 +189,7 @@ more conveniently.</para>
 
 </sect2>
 
-<sect2> 
+<sect2 id="searching-in-results">
 <title>Searching in Results</title>
 
 <para>&kiten; can also help you refine your searches by allowing you
@@ -211,7 +211,7 @@ beginning/ending/anywhere searches, this works for both languages too.</para>
 
 </sect1>
 
-<sect1 id="deinf"> 
+<sect1 id="deinf">
 <title>Verb Deinflection</title>
 
 <para>&kiten; can deinflect verbs you search for. The "Deinflect" option
@@ -233,7 +233,7 @@ until you get used to handling Japanese verb forms.
 
 </chapter>
 
-<chapter id="looking-up-kanji"> 
+<chapter id="looking-up-kanji">
 <title>Looking Up Kanji</title>
 
 <para>&kiten; has features that makes finding the one kanji you want
@@ -241,13 +241,13 @@ easy from over 14,000 in the default dictionary.</para>
 
 <note><para>Clicking on any Kanji in the main result view will show
 details on that particular Kanji. This can sometimes be the fastest
-way to look up a kanji.</para></note>
+way to look up a Kanji.</para></note>
 
 <tip><para>Kanji searches are also filtered according to whether
 <menuchoice><guimenu>Search</guimenu><guimenuitem>Filter
 Out Rare</guimenuitem></menuchoice> is checked.</para></tip>
 
-<sect1 id="regular-kanji-search"> 
+<sect1 id="regular-kanji-search">
 <title>Regular Searching</title>
 
 <para>You can search with English and Japanese search strings the
@@ -255,7 +255,7 @@ exact same way you can with the normal dictionary.</para>
 
 </sect1>
 
-<sect1 id="radical-search"> 
+<sect1 id="radical-search">
 <title>Radical Searching</title>
 
 <para>You can use &kiten;'s radical search dialog to search for Kanji
@@ -264,7 +264,7 @@ with a combination of radicals and a certain stroke count. Choose
 Selector</guimenuitem></menuchoice> to open the radical search
 dialog.</para>
 
-<para>To choose the radicals you want to be in your Kanji, select one 
+<para>To choose the radicals you want to be in your Kanji, select one
 them from the buttons at the bottom of the window. To display possible radicals to select from
 this buttons with a certain number of strokes, choose this number of
 strokes from the spinboxes just above the buttons. The radicals you
@@ -275,7 +275,7 @@ values into the spin boxes below the results area.</para>
 
 <para>To perform the lookup, press the button that matches the kanji you
 wanted to look up.</para>
- 
+
 <screenshot>
 <screeninfo>Screenshot for radical selector</screeninfo>
 <mediaobject>
@@ -286,7 +286,7 @@ wanted to look up.</para>
 
 </sect1>
 
-<sect1 id="grade-search"> 
+<sect1 id="grade-search">
 <title>Grade Search</title>
 
 <para>To get a list of all Kanji in a certain grade, enter that into the search
@@ -302,7 +302,7 @@ box as "G:1" (G: is the Kanjidic tag for grade).</para>
 
 </sect1>
 
-<sect1 id="stroke-search"> 
+<sect1 id="stroke-search">
 <title>Stroke Search</title>
 
 <para>To get a list of all Kanji with a certain number of strokes,
@@ -355,13 +355,13 @@ kanji stroke order, number of strokes, readings and meanings.</para>
 
 </chapter>
 
-<chapter id="misc"> 
+<chapter id="misc">
 <title>Miscellaneous</title>
 
 <para>This chapter describes miscellaneous features that can be used
 in both modes in &kiten;'s main window.</para>
 
-<sect1 id="history"> 
+<sect1 id="history">
 <title>The History</title>
 <!-- changed in kde4-->
 <para>&kiten; keeps track of all of your queries in the input field. You can
@@ -373,7 +373,7 @@ go backward one in the history, choose
 
 </sect1>
 <!-- how to do that in kde4 ?
-<sect1 id="global-keys"> 
+<sect1 id="global-keys">
 <title>Global Shortcuts</title>
 
 <para>You can set global &kiten; shortcuts that work everywhere on
@@ -387,10 +387,10 @@ shortcut configuration panels.</para>
 
 </sect1>
 -->
-<sect1 id="fonts"> 
+<sect1 id="fonts">
 <title>Fonts</title>
 
-<para>You can choose the font that &kiten; uses in its result view. 
+<para>You can choose the font that &kiten; uses in its result view.
 Go to the &kiten; configuration dialog, which can be
 opened by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
@@ -469,5 +469,5 @@ fine.</para></note>
 
 </appendix> -->
 
-&documentation.index; 
+&documentation.index;
 </book>
