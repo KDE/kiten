@@ -98,7 +98,7 @@ results view which takes up the majority of the &kiten; window.</para>
 </mediaobject>
 </screenshot>
 
-<sect2> 
+<sect2 id="filtering"> 
 <title>Filtering</title>
 
 <para>Often times you will want to filter rare words from your
@@ -118,7 +118,9 @@ not.</para></note>
 </mediaobject>
 </screenshot>
 
-<sect2>
+</sect2>
+
+<sect2 id="common-uncommon-words">
 <title>Common/Uncommon words</title>
 <para>Another way to separate information is to filter common and uncommon words,
 this is useful when you wan't to focus on the common words and/or have interest
@@ -139,8 +141,6 @@ options is that here you also get the Rare/Uncommon results.</para>
 <para>If you have not enabled filtering rare entries, common entries
 will be labeled <guilabel>Common</guilabel> in the result view.</para>
 -->
-</sect2>
-
 </sect1>
 
 <sect1 id="advanced-searches"> 
@@ -149,7 +149,7 @@ will be labeled <guilabel>Common</guilabel> in the result view.</para>
 <para>&kiten; supports more advanced searches than plain normal word
 searches.</para>
 
-<sect2> 
+<sect2 id="beginning-ending-anywhere-searches"> 
 <title>Beginning/Ending/Anywhere Searches</title>
 <para>Beside a search with <guilabel>Exact Match</guilabel> &kiten; has
 three additional search modes</para>
@@ -173,7 +173,7 @@ languages.</para>
 
 </sect2>
 
-<sect2>
+<sect2 id="word-type-searches">
 <title>Word type searches</title>
 <para>Kiten supports word type searches such as: verb, noun, adjective, adverb,
 prefix, suffix, expression or any type. This way you can filter your results
@@ -189,7 +189,7 @@ more conveniently.</para>
 
 </sect2>
 
-<sect2> 
+<sect2 id="searching-in-results"> 
 <title>Searching in Results</title>
 
 <para>&kiten; can also help you refine your searches by allowing you
