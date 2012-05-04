@@ -38,6 +38,10 @@
 <para>&kiten; is a Japanese reference/study tool for &kde;. </para>
 </abstract>
 
+<!--
+Info about kiten improvements for 4.8
+http://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
 
 <keywordset>
 <keyword>KDE</keyword>
@@ -159,8 +163,9 @@ three additional search modes</para>
 using the <menuchoice><guimenu>Search</guimenu><guisubmenu>Match Type
 </guisubmenu><guimenuitem>Match Beginning</guimenuitem></menuchoice>.
 Similarly, for ending or anywhere searches, choose <menuchoice><guimenu>Search</guimenu>
-<guisubmenu>Match Type</guisubmenu><guimenuitem>Match Anywhere</guimenuitem></menuchoice>
-to search for your text anywhere in a word. These search modes work for searches of both
+<guisubmenu>Match Type</guisubmenu></menuchoice> <guimenuitem>Match Anywhere</guimenuitem>
+or <guimenuitem>Match Ending</guimenuitem>
+to search for your text anywhere in or at the end of a word. These search modes work for searches of both
 languages.</para>
 
 <screenshot>
