@@ -22,4 +22,5 @@ target_link_libraries(radselect_bin ${KDE4_KDEUI_LIBS} kiten)
 install( TARGETS radselect_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
+install( PROGRAMS kitenradselect.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES radselectui.rc DESTINATION ${DATA_INSTALL_DIR}/kitenradselect )

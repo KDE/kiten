@@ -1,0 +1,8 @@
+[Desktop Entry]
+Exec=kitenkanjibrowser
+Name=Kanji Browser
+X-DocPath=kiten/index.html#kanji-list
+Terminal=false
+Type=Application
+Icon=kiten
+NoDisplay=True
