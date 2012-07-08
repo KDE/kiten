@@ -17,4 +17,5 @@ target_link_libraries(kanjibrowser_bin ${KDE4_KDEUI_LIBS} kiten)
 install( TARGETS kanjibrowser_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
+install( PROGRAMS kitenkanjibrowser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES kanjibrowserui.rc DESTINATION ${DATA_INSTALL_DIR}/kitenkanjibrowser )

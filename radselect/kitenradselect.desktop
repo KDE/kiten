@@ -1,0 +1,8 @@
+[Desktop Entry]
+Exec=kitenradselect
+Name=Radical Selector
+X-DocPath=kiten/index.html#radical-search
+Terminal=false
+Type=Application
+Icon=kiten
+NoDisplay=True
