@@ -1,6 +1,13 @@
 [Desktop Entry]
 Exec=kitenkanjibrowser
 Name=Kanji Browser
+Name[et]=Kanji sirvija
+Name[kk]=Кандзи ақтарғышы
+Name[nl]=Kanji-browser
+Name[pt]=Selector de Kanji
+Name[pt_BR]=Navegador do Kanji
+Name[uk]=Переглядач кандзі
+Name[x-test]=xxKanji Browserxx
 X-DocPath=kiten/index.html#kanji-list
 Terminal=false
 Type=Application
