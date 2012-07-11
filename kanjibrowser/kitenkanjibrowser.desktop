@@ -2,10 +2,12 @@
 Exec=kitenkanjibrowser
 Name=Kanji Browser
 Name[et]=Kanji sirvija
+Name[it]=Visualizzatore kanji
 Name[kk]=Кандзи ақтарғышы
 Name[nl]=Kanji-browser
 Name[pt]=Selector de Kanji
 Name[pt_BR]=Navegador do Kanji
+Name[sv]=Kanji-bläddrare
 Name[uk]=Переглядач кандзі
 Name[x-test]=xxKanji Browserxx
 X-DocPath=kiten/index.html#kanji-list
