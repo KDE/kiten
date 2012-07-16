@@ -2,6 +2,8 @@
 Exec=kitenkanjibrowser
 Name=Kanji Browser
 Name[da]=Kanji-browser
+Name[de]=Kanji-Browser
+Name[es]=Explorador Kanji
 Name[et]=Kanji sirvija
 Name[hu]=Kandzsi böngésző
 Name[it]=Visualizzatore kanji
@@ -13,6 +15,7 @@ Name[pt_BR]=Navegador do Kanji
 Name[sv]=Kanji-bläddrare
 Name[uk]=Переглядач кандзі
 Name[x-test]=xxKanji Browserxx
+Name[zh_TW]=漢字瀏覽器
 X-DocPath=kiten/index.html#kanji-list
 Terminal=false
 Type=Application
