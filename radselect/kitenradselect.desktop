@@ -1,6 +1,24 @@
 [Desktop Entry]
 Exec=kitenradselect
 Name=Radical Selector
+Name[ca]=Selector de radical
+Name[da]=Rod-vælger
+Name[de]=Stammformenauswahl
+Name[es]=Selector de radicales
+Name[et]=Radikaalide valija
+Name[fi]=Radikaalivalitsin
+Name[hu]=Gyökválasztó
+Name[it]=Selettore radicali
+Name[kk]=Түбірін таңдау
+Name[km]=កម្មវិធី​ជ្រើស​រ៉ាឌីកាល់
+Name[nl]=Basisvormselectie
+Name[pt]=Selector de Radicais
+Name[pt_BR]=Seletor de radicais
+Name[sl]=Izbirnik korena
+Name[sv]=Radikalväljare
+Name[uk]=Вибір радикалів
+Name[x-test]=xxRadical Selectorxx
+Name[zh_TW]=字根選擇器
 X-DocPath=kiten/index.html#radical-search
 Terminal=false
 Type=Application
