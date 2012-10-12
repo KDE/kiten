@@ -6,9 +6,9 @@
   <!ENTITY % English "INCLUDE">
 ]>
 
-<book lang="&language;">
+<book id="kiten" lang="&language;">
 
-<bookinfo>
+<book id="kiten"info>
 <title>The &kiten; Handbook</title>
 
 <authorgroup>
