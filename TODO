@@ -21,6 +21,7 @@ F+   -  Mouse-over kanji information in radselect
 F+   -  Greatly expand the radkfile, to include pronunciation, alternatives, etc
 F+   -  Multi-thread the app, so the interface doesn't wait for the results
 F+   -  Add a kana table (it would be good to have audio samples for pronunciation as well)
+F+   -  Handle searches of adjectives ending in -na (like deconjugation of verbs)
 F+   -  Handle JMDict files
 F+   -  Handle KANJIDIC2 files
 F+   -  Handle fpwing files
