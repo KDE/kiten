@@ -44,6 +44,7 @@ int main( int argc, char **argv )
                    , KLocalizedString()
                    , "democtezuma@gmail.com" );
   about.setOrganizationDomain( "kde.org" );
+  about.setProgramIconName( "kiten" );
 
   KCmdLineArgs::init( argc, argv, &about );
 

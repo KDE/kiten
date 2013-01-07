@@ -36,6 +36,7 @@ int main( int argc, char **argv )
                     ki18n("(C) 2005 Joseph Kerian"), KLocalizedString(), 0, "jkerian@gmail.com" );
   about.addAuthor( ki18n("Joseph Kerian"), KLocalizedString(), "jkerian@gmail.com" );
   about.setOrganizationDomain("kde.org"); //For DBus domain
+  about.setProgramIconName("kiten");
 
   KCmdLineArgs::init( argc, argv, &about );
 
