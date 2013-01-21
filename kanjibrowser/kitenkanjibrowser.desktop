@@ -31,3 +31,4 @@ Terminal=false
 Type=Application
 Icon=kiten
 NoDisplay=true
+Categories=Qt;KDE;Education;Languages;
