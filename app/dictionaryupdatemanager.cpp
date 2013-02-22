@@ -211,7 +211,7 @@ QDate DictionaryUpdateManager::getFileDate( QFile &file )
   // ###### entries
 
   // NOTE: the above last line only appears in the web status file for EDICT.
-  // That file has only 2 lines, one is the '?' simbols with the name of the
+  // That file has only 2 lines, one is the '?' symbols with the name of the
   // dictionary, copyright and creation date, the other one is the number
   // of entries in the EDICT dictionary.
   // (see INFO_URL macro).
