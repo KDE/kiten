@@ -193,6 +193,8 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
     results = new EntryList();
     results->appendList( common );
     results->appendList( uncommon );
+    delete common;
+    delete uncommon;
 
     EntryList *exact     = new EntryList();
     EntryList *beginning = new EntryList();
@@ -227,6 +229,10 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
     results->appendList( beginning );
     results->appendList( ending );
     results->appendList( anywhere );
+    delete exact;
+    delete beginning;
+    delete ending;
+    delete anywhere;
   }
 
   return results;

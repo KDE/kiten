@@ -62,7 +62,10 @@ KanjiBrowser::KanjiBrowser()
 
 KanjiBrowser::~KanjiBrowser()
 {
-
+  if( _dictFileKanjidic )
+  {
+    delete _dictFileKanjidic;
+  }
 }
 
 void KanjiBrowser::changeStatusBar( const QString &text )

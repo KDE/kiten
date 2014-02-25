@@ -98,6 +98,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
         matched = true;
       }
     }
+    if (! matched) delete entry;
   }
 
   EntryList *results = new EntryList();
@@ -113,6 +114,9 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
 
       if( text.isEmpty() )
       {
+        entries->deleteAll();
+        delete entries;
+        delete results;
         return NULL;
       }
     }
@@ -153,7 +157,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
       }
     }
   }
-
+  delete entries;
   return results;
 }
 

@@ -139,6 +139,7 @@ EntryList* DictFileKanjidic::doSearch( const DictQuery &query )
       {
         results->append( entry );
       }
+      else delete entry;
     }
   }
 

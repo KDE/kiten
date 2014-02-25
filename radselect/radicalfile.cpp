@@ -102,6 +102,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
   if( newestRadical != NULL )
   {
     m_radicals[ *newestRadical ] = *newestRadical;
+    delete newestRadical;
   }
 
   //Move contents of our krad QHash into our hash of m_kanji
