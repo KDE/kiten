@@ -5,17 +5,23 @@
   <project_license>GPL-2.0+</project_license>
   <name>Kiten</name>
   <name xml:lang="es">Kiten</name>
+  <name xml:lang="hu">Kiten</name>
   <name xml:lang="nl">Kiten</name>
   <name xml:lang="pl">Kiten</name>
   <name xml:lang="pt">Kiten</name>
+  <name xml:lang="pt-BR">Kiten</name>
+  <name xml:lang="sk">Kiten</name>
   <name xml:lang="sv">Kiten</name>
   <name xml:lang="uk">Kiten</name>
   <name xml:lang="x-test">xxKitenxx</name>
   <summary>Japanese Reference and Study Tool</summary>
   <summary xml:lang="es">Herramienta de estudio y de referencia del japonés</summary>
+  <summary xml:lang="hu">Segédprogram a japán nyelv tanulásához</summary>
   <summary xml:lang="nl">Hulpprogramma voor referentie/studie Japans</summary>
   <summary xml:lang="pl">Narzędzie do nauki języka japońskiego</summary>
   <summary xml:lang="pt">Ferramenta de Estudo e Referência de Japonês</summary>
+  <summary xml:lang="pt-BR">Ferramenta de estudo e referência em japonês</summary>
+  <summary xml:lang="sk">Japonská referencia a študijný nástroj</summary>
   <summary xml:lang="sv">Japanskt referens- och studieverktyg</summary>
   <summary xml:lang="uk">Програма для вивчення японської мови</summary>
   <summary xml:lang="x-test">xxJapanese Reference and Study Toolxx</summary>
@@ -25,6 +31,7 @@
     <p xml:lang="nl">Kiten is een hulpmiddel voor referenties naar Japans en om het te studeren. Het omvat een Engels naar Japans en Japans naar Engels woordenboek, evenals een Kanji woordenboek. Voor het Kanji woordenboek worden er meerdere manieren ondersteund om karakters op te zoeken.</p>
     <p xml:lang="pl">Kiten jest materiałem źródłowym i narzędziem do nauki japońskiego. Zapewnia słownik z angielskiego na japoński i na odwrót, a także słownik Kanji. W przypadku słownika Kanji istnieje wiele sposobów na wyszukiwanie znaków.</p>
     <p xml:lang="pt">O Kiten é uma ferramenta de estudo e de referência de Japonês. Oferece um dicionário de Inglês para Japonês e vice-versa, assim como um dicionário de Kanji. Para o dicionário de Kanji existem várias formas suportadas para pesquisar os caracteres.</p>
+    <p xml:lang="pt-BR">Kiten é uma ferramenta de estudo e referência de japonês. Oferece um dicionário de inglês para japonês e vice-versa, assim como um dicionário de Kanji. Para o dicionário de Kanji existem várias formas suportadas para pesquisa de caracteres.</p>
     <p xml:lang="sv">Kiten är ett japanskt referens- och studieverktyg. Den innehåller både en engelsk-japansk och japansk-engelsk ordlista, samt ett Kanji-lexikon. Flera sätt att slå upp tecken stöds för Kanji-lexikonet.</p>
     <p xml:lang="uk">Kiten — програма-словник і програма для вивчення японської мови. Вона може працювати у режимі англо-японського та японо-англійського словника та словника кандзі. Передбачено декілька способів пошуку символів у словнику кандзі.</p>
     <p xml:lang="x-test">xxKiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.xx</p>
