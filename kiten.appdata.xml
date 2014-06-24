@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kiten</name>
+  <name xml:lang="cs">Kiten</name>
   <name xml:lang="es">Kiten</name>
   <name xml:lang="fi">Kiten</name>
   <name xml:lang="hu">Kiten</name>
@@ -17,6 +18,7 @@
   <name xml:lang="uk">Kiten</name>
   <name xml:lang="x-test">xxKitenxx</name>
   <summary>Japanese Reference and Study Tool</summary>
+  <summary xml:lang="cs">Japonský referenční a výukový nástroj</summary>
   <summary xml:lang="es">Herramienta de estudio y de referencia del japonés</summary>
   <summary xml:lang="fi">Japanin opiskelutyökalu</summary>
   <summary xml:lang="hu">Segédprogram a japán nyelv tanulásához</summary>
