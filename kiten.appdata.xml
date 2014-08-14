@@ -23,6 +23,7 @@
   <name xml:lang="sv">Kiten</name>
   <name xml:lang="uk">Kiten</name>
   <name xml:lang="x-test">xxKitenxx</name>
+  <name xml:lang="zh-TW">語言_Kiten</name>
   <summary>Japanese Reference and Study Tool</summary>
   <summary xml:lang="ca">Eina de referència i estudi del japonès</summary>
   <summary xml:lang="cs">Japonský referenční a výukový nástroj</summary>
@@ -43,6 +44,7 @@
   <summary xml:lang="sv">Japanskt referens- och studieverktyg</summary>
   <summary xml:lang="uk">Програма для вивчення японської мови</summary>
   <summary xml:lang="x-test">xxJapanese Reference and Study Toolxx</summary>
+  <summary xml:lang="zh-TW">日語參考/學習工具</summary>
   <description>
     <p>Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
     <p xml:lang="ca">El Kiten és una eina de referència i estudi del japonès. Inclou un diccionari de l'anglès al japonès i del japonès a l'anglès, i també un diccionari Kanji. Pel diccionari Kanji, hi ha implementades múltiples maneres de cercar caràcters.</p>
@@ -61,6 +63,7 @@
     <p xml:lang="sv">Kiten är ett japanskt referens- och studieverktyg. Den innehåller både en engelsk-japansk och japansk-engelsk ordlista, samt ett Kanji-lexikon. Flera sätt att slå upp tecken stöds för Kanji-lexikonet.</p>
     <p xml:lang="uk">Kiten — програма-словник і програма для вивчення японської мови. Вона може працювати у режимі англо-японського та японо-англійського словника та словника кандзі. Передбачено декілька способів пошуку символів у словнику кандзі.</p>
     <p xml:lang="x-test">xxKiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.xx</p>
+    <p xml:lang="zh-TW">Kiten 是一套日語學習工具。它有一套英日、日英字典，以及漢字字典。漢字字典部份支援多種查詢方式。</p>
   </description>
   <url type="homepage">http://edu.kde.org/kiten/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kiten</url>
