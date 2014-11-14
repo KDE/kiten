@@ -21,7 +21,8 @@
 #ifndef KITEN_LIBKITENEXPORT_H
 #define KITEN_LIBKITENEXPORT_H
 
-#include <kdemacros.h>
+#define KDE_EXPORT __attribute__ ((visibility("default")))
+#define KDE_IMPORT __attribute__ ((visibility("default")))
 
 #if defined Q_OS_WIN
 # ifndef KITEN_EXPORT

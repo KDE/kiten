@@ -25,7 +25,7 @@
 #include <QFile>
 #include <QStringList>
 
-class KAction;
+class QAction;
 class KJob;
 class Kiten;
 class KitenConfigSkeleton;
@@ -45,7 +45,7 @@ class DictionaryUpdateManager : public QObject
      * Constructor.
      *
      * @param parent pointer to the Kiten instance. This helps us to add
-     *               KAction actions to the program.
+     *               QAction actions to the program.
      */
     explicit DictionaryUpdateManager( Kiten *parent );
 
@@ -113,7 +113,7 @@ class DictionaryUpdateManager : public QObject
     void     downloadDictionary( const QString &url );
 
     /**
-     * We need it to add a KAction action to the main toolbar.
+     * We need it to add a QAction action to the main toolbar.
      */
     Kiten                 *_parent;
     /**
@@ -124,7 +124,7 @@ class DictionaryUpdateManager : public QObject
     /**
      * Update action.
      */
-    KAction               *_actionUpdate;
+    QAction               *_actionUpdate;
     /**
      * List of dictionaries already up to date.
      */

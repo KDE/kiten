@@ -43,3 +43,4 @@ Type=Application
 Icon=kiten
 NoDisplay=true
 Categories=Qt;KDE;Education;Languages;
+X-DBUS-ServiceName=org.kde.kitenkanjibrowser

@@ -23,7 +23,6 @@
 #include "entry.h"
 
 #include <KComboBox>
-#include <KDebug>
 
 WordType::WordType( QWidget *parent )
 : KComboBox( parent )
@@ -35,4 +34,4 @@ WordType::WordType( QWidget *parent )
 //   addItems( Entry::WordTypesPretty()->uniqueKeys() );
 }
 
-#include "wordtype.moc"
+

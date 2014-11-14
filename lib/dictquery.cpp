@@ -28,7 +28,7 @@ TODO: Add features to limit the number of hits on a per-search basis.
 
 #include "dictquery.h"
 
-#include <KDebug>
+#include <QDebug>
 
 #include <QString>
 #include <QStringList>
@@ -359,11 +359,11 @@ DictQuery &DictQuery::operator=( const QString &str )
             break;
 
           case DictQuery::Mixed:
-            kWarning() << "DictQuery: String parsing error - mixed type";
+            qWarning() << "DictQuery: String parsing error - mixed type";
             break;
 
           case DictQuery::ParseError:
-            kWarning() << "DictQuery: String parsing error";
+            qWarning() << "DictQuery: String parsing error";
             break;
         }
       }

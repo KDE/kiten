@@ -24,19 +24,14 @@
 #include "kiten.h"
 #include "kitenconfig.h"
 
-#include <KAction>
 #include <KActionCollection>
-#include <KConfig>
-#include <KDebug>
-#include <kdeversion.h>
-#include <KEditToolBar>
 #include <KHistoryComboBox>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KSelectAction>
-#include <KToggleAction>
 #include <KToolBar>
 
-#include <QClipboard>
+#include <QAction>
+#include <QDebug>
 #include <QLineEdit>
 
 SearchStringInput::SearchStringInput( Kiten *parent )
@@ -72,25 +67,25 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   _actionTextInput->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
   updateFontFromConfig();
 
-  _actionFocusInput = _parent->actionCollection()->addAction( "focusinputfield", this, SLOT( focusInput() ) );
-  _actionFocusInput->setShortcut( QString( "Ctrl+L" ) );
+  _actionFocusInput = _parent->actionCollection()->addAction( "focusinputfield", this, SLOT(focusInput()) );
+  _actionFocusInput->setShortcut( Qt::CTRL+Qt::Key_L );
   _actionFocusInput->setText( i18n( "Focus input field" ) );
 
-  KAction *actionsearchbox = _parent->actionCollection()->addAction( "searchbox" );
+  QWidgetAction *actionsearchbox = new QWidgetAction(this);
   actionsearchbox->setText( i18n( "Search Bar" ) );
-  actionsearchbox->setDefaultWidget( _actionTextInput );
-
+  actionsearchbox->setDefaultWidget(_actionTextInput);
+  _parent->actionCollection()->addAction( "searchbox", actionsearchbox );
+  
   if( ! _actionFilterRare || ! _actionSearchSection
       || ! _actionSelectWordType || ! actionsearchbox )
   {
-    kError() << "Error creating user interface elements: "
+    qCritical() << "Error creating user interface elements: "
              << ! _actionFilterRare << ! _actionSearchSection
              << ! _actionSelectWordType << ! actionsearchbox;
   }
 
   //connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
-  connect( _actionTextInput, SIGNAL( activated( const QString& ) ),
-                       this,   SLOT( test() ) );
+  connect(_actionTextInput, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::activated), this, &SearchStringInput::test);
 }
 
 void SearchStringInput::focusInput()
@@ -125,7 +120,7 @@ void SearchStringInput::setDefaultsFromConfig()
 
 void SearchStringInput::setSearchQuery( const DictQuery &query )
 {
-  kDebug() << "------------------------------Set Triggered";
+  qDebug() << "------------------------------Set Triggered";
   //First we set the various actions according to the query
   _actionFilterRare->setCurrentItem( query.getFilterType() );
   _actionSearchSection->setCurrentItem( query.getMatchType() );
@@ -147,9 +142,9 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
 
 void SearchStringInput::test()
 {
-  kDebug() << "test1";
+  qDebug() << "test1";
   emit search();
-  kDebug() << "test2";
+  qDebug() << "test2";
 }
 
 void SearchStringInput::updateFontFromConfig()
@@ -157,4 +152,4 @@ void SearchStringInput::updateFontFromConfig()
   _actionTextInput->setFont( KitenConfigSkeleton::self()->font() );
 }
 
-#include "searchstringinput.moc"
+

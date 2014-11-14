@@ -25,24 +25,13 @@
 
 #include "ui_radselectprefdialog.h"
 
-#include <KAction>
 #include <KActionCollection>
-#include <KApplication>
 #include <KConfig>
 #include <KConfigDialog>
-#include <KEditToolBar>
-#include <KFileDialog>
-#include <KGlobal>
-#include <KHistoryComboBox>
-#include <KIO/NetAccess>
-#include <KIcon>
-#include <KIconLoader>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KStandardAction>
 #include <KStandardShortcut>
-#include <KStatusBar>
-#include <KToggleAction>
-#include <kdeversion.h>
+#include <QStatusBar>
 
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -57,9 +46,9 @@ RadSelect::RadSelect()
   setCentralWidget( m_view );  //This is the main widget
   setObjectName( QLatin1String( "radselect" ) );
 
-  KStandardAction::quit( kapp, SLOT( quit() ), actionCollection() );
-  KStandardAction::preferences( this, SLOT( optionsPreferences() ), actionCollection() );
-  KStandardAction::keyBindings( (const QObject*)guiFactory(), SLOT( configureShortcuts() ), actionCollection() );
+  KStandardAction::quit( this, SLOT(close()), actionCollection() );
+  KStandardAction::preferences( this, SLOT(optionsPreferences()), actionCollection() );
+  KStandardAction::keyBindings( (const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection() );
   statusBar()->show();
 
   // Apply the create the main window and ask the mainwindow to
@@ -69,12 +58,12 @@ RadSelect::RadSelect()
   setupGUI( Default, "radselectui.rc" );
 
   // allow the view to change the statusbar
-  connect( m_view, SIGNAL( signalChangeStatusbar( const QString& ) ),
-             this,   SLOT( changeStatusbar( const QString& ) ) );
+  connect( m_view, SIGNAL(signalChangeStatusbar(QString)),
+             this,   SLOT(changeStatusbar(QString)) );
 
   if( ! QDBusConnection::sessionBus().isConnected() )
   {
-    kDebug() << "Session Bus not found!!" << endl;
+    qDebug() << "Session Bus not found!!" << endl;
     m_dbusInterface = 0;
   }
   else
@@ -84,8 +73,8 @@ RadSelect::RadSelect()
   }
 
   // connect the search signal from the m_view with our dcop routines
-  connect( m_view, SIGNAL( kanjiSelected( const QStringList& ) ),
-             this,   SLOT( sendSearch( const QStringList& ) ) );
+  connect( m_view, SIGNAL(kanjiSelected(QStringList)),
+             this,   SLOT(sendSearch(QStringList)) );
 }
 
 RadSelect::~RadSelect()
@@ -109,7 +98,7 @@ void RadSelect::dragEnterEvent( QDragEnterEvent *event )
 
 void RadSelect::dropEvent( QDropEvent *event )
 {
-  QByteArray qba= event->encodedData( "text/plain" );
+  QByteArray qba = event->mimeData()->data("text/plain");
   if ( qba.size() > 0 )
   {
     loadSearchString( qba );
@@ -139,8 +128,8 @@ void RadSelect::optionsPreferences()
   Ui::radselectprefdialog layout;
   layout.setupUi( preferences );
   dialog->addPage( preferences, i18n( "Settings" ), "help-contents" );
-  connect( dialog, SIGNAL( settingsChanged( const QString& ) ),
-           m_view,   SLOT( loadSettings() ) );
+  connect( dialog, SIGNAL(settingsChanged(QString)),
+           m_view,   SLOT(loadSettings()) );
   dialog->show();
 }
 
@@ -179,9 +168,9 @@ void RadSelect::sendSearch( const QStringList& kanji )
                                                , m_currentQuery.toString() );
     if( reply.type() == QDBusMessage::ErrorMessage )
     {
-      kDebug() << "QDBus Error: " << reply.signature() << "<eoe>";
+      qDebug() << "QDBus Error: " << reply.signature() << "<eoe>";
     }
   }
 }
 
-#include "radselect.moc"
+

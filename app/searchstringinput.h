@@ -24,10 +24,9 @@
 
 #include "dictquery.h"
 
-class KAction;
+class QAction;
 class KHistoryComboBox;
 class KSelectAction;
-class KToggleAction;
 class Kiten;
 class WordType;
 
@@ -58,7 +57,7 @@ class SearchStringInput : public QObject
     KSelectAction    *_actionSearchSection;
     KSelectAction    *_actionSelectWordType;
     KHistoryComboBox *_actionTextInput;
-    KAction          *_actionFocusInput;
+    QAction          *_actionFocusInput;
     Kiten            *_parent;
 };
 

@@ -27,10 +27,10 @@
 #include "kanjibrowser.h"
 #include "kanjibrowserconfig.h"
 
-#include <KAction>
+#include <QAction>
+#include <QDebug>
 #include <KActionCollection>
-#include <KConfigSkeleton>
-#include <KDebug>
+#include <KLocalizedString>
 #include <KMessageBox>
 
 KanjiBrowserView::KanjiBrowserView( QWidget *parent )
@@ -229,8 +229,8 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
 {
   if( kanji.isEmpty() || kanjiGrades.isEmpty() || strokeCount.isEmpty() )
   {
-    kDebug() << "One or more of our lists are empty (kanji, grades, strokes)." << endl;
-    kDebug() << "Could not load the view properly." << endl;
+    qDebug() << "One or more of our lists are empty (kanji, grades, strokes)." << endl;
+    qDebug() << "Could not load the view properly." << endl;
     KMessageBox::error( this, i18n( "Could not load the necessary kanji information." ) );
     return;
   }
@@ -240,7 +240,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _gradeList = kanjiGrades;
   _strokesList = strokeCount;
 
-  KAction *goToKanjiList = _parent->actionCollection()->addAction( "kanji_list" );
+  QAction *goToKanjiList = _parent->actionCollection()->addAction( "kanji_list" );
   goToKanjiList->setText( i18n( "Kanji &List" ) );
 
   _goToKanjiInfo = _parent->actionCollection()->addAction( "kanji_info" );
@@ -267,18 +267,12 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
     _strokes->addItem( i18np( "%1 stroke", "%1 strokes", stroke ) );
   }
 
-  connect( _grades, SIGNAL( currentIndexChanged( int ) ),
-              this,   SLOT( changeGrade( int ) ) );
-  connect( _strokes, SIGNAL( currentIndexChanged( int ) ),
-               this,   SLOT( changeStrokeCount( int ) ) );
-  connect( _kanjiList, SIGNAL( itemClicked( QListWidgetItem* ) ),
-                 this,   SLOT( searchKanji( QListWidgetItem* ) ) );
-  connect( _kanjiList, SIGNAL( itemClicked( QListWidgetItem* ) ),
-           _goToKanjiInfo, SIGNAL( triggered() ) );
-  connect( goToKanjiList, SIGNAL( triggered() ),
-                    this,   SLOT( changeToListPage() ) );
-  connect( _goToKanjiInfo, SIGNAL( triggered() ),
-                     this,   SLOT( changeToInfoPage() ) );
+  connect(_grades, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeGrade);
+  connect(_strokes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeStrokeCount);
+  connect(_kanjiList, &QListWidget::itemClicked, this, &KanjiBrowserView::searchKanji);
+  connect(_kanjiList, &QListWidget::itemClicked, _goToKanjiInfo, &QAction::triggered);
+  connect(goToKanjiList, &QAction::triggered, this, &KanjiBrowserView::changeToListPage);
+  connect(_goToKanjiInfo, &QAction::triggered, this, &KanjiBrowserView::changeToInfoPage);
 
   // Set the current grade (Grade 1).
   _grades->setCurrentIndex( 1 );
@@ -288,7 +282,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _strokes->setCurrentIndex( 1 );
   _strokes->setCurrentIndex( NoStrokeLimit );
 
-  kDebug() << "Initial setup succeeded!" << endl;
+  qDebug() << "Initial setup succeeded!" << endl;
 }
 
 void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
@@ -375,4 +369,4 @@ void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
   _kanjiInformation->setHtml( text );
 }
 
-#include "kanjibrowserview.moc"
+

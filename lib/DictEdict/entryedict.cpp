@@ -25,7 +25,7 @@
 #include "dictfileedict.h"
 #include "kitenmacros.h"
 
-#include <KDebug>
+#include <QDebug>
 #include <KLocalizedString>
 
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
@@ -395,7 +395,7 @@ QString EntryEdict::toHTML() const
     else if( field == "Word/Kanji" ) result += HTMLWord()+' ';
     else if( field == "Meaning" )		 result += HTMLMeanings()+' ';
     else if( field == "Reading" )		 result += HTMLReadings()+' ';
-    else kDebug() << "Unknown field: " << field;
+    else qDebug() << "Unknown field: " << field;
   }
 
   if( isCommon() )

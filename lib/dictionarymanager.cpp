@@ -28,12 +28,10 @@
 #include "entrylist.h"
 #include "kitenmacros.h"
 
-#include <KDebug>
-#include <KGlobal>
 #include <KConfig>
 #include <KConfigSkeleton>
 
-#include <QFile>
+#include <QDebug>
 #include <QString>
 
 /* Includes to handle various types of dictionaries
@@ -118,12 +116,12 @@ bool DictionaryManager::addDictionary( const QString &file
 
   if( ! newDict->loadDictionary( file, name ) )
   {
-    kDebug() << "Dictionary load FAILED: " << newDict->getName();
+    qDebug() << "Dictionary load FAILED: " << newDict->getName();
     delete newDict;
     return false;
   }
 
-  kDebug() << "Dictionary Loaded : " << newDict->getName();
+  qDebug() << "Dictionary Loaded : " << newDict->getName();
   d->dictManagers.insert( name, newDict );
   return true;
 }
@@ -158,7 +156,7 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
     // None specified, search all
     foreach( DictFile *it, d->dictManagers )
     {
-      kDebug() << "Searching in " << it->getName() << "dictionary." << endl;
+      qDebug() << "Searching in " << it->getName() << "dictionary." << endl;
       EntryList *temp = it->doSearch( query );
       if( temp )
       {
@@ -185,8 +183,8 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
   }
 
   ret->setQuery( query ); //Store the query for later use.
-  kDebug() << "From query: '" << query.toString() << "' Found " << ret->count() << " results";
-  kDebug() << "Incoming match type: " << query.getMatchType() << " Outgoing: " << ret->getQuery().getMatchType();
+  qDebug() << "From query: '" << query.toString() << "' Found " << ret->count() << " results";
+  qDebug() << "Incoming match type: " << query.getMatchType() << " Outgoing: " << ret->getQuery().getMatchType();
   return ret;
 }
 

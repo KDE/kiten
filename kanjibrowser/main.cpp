@@ -18,11 +18,11 @@
  * Boston, MA 02110-1301, USA.                                               *
  *****************************************************************************/
 
-#include <KAboutData>
-#include <KCmdLineArgs>
-#include <KLocale>
-#include <KUniqueApplication>
+#include <QApplication>
 
+#include <KAboutData>
+#include <KLocalizedString>
+#include <Kdelibs4ConfigMigrator>
 #include "kanjibrowser.h"
 
 static const char description[] = I18N_NOOP( "Kiten's Kanji Browser, a KDE Japanese Reference Tool" );
@@ -30,25 +30,29 @@ static const char version[] = "1.0";
 
 int main( int argc, char **argv )
 {
-  KAboutData about(   "kitenkanjibrowser"
-                    , "kiten"
-                    , ki18n( "kitenkanjibrowser" )
-                    , version
-                    , ki18n( description )
-                    , KAboutData::License_GPL_V2
-                    , ki18n( "(C) 2011 Daniel E. Moctezuma" )
-                    , KLocalizedString()
-                    , "http://edu.kde.org/kiten"
+  Kdelibs4ConfigMigrator migrate(QLatin1String("kitenkanjibrowser"));
+  migrate.setConfigFiles(QStringList() << QLatin1String("kitenkanjibrowserrc"));
+  migrate.setUiFiles(QStringList() << QLatin1String("kanjibrowserui.rc"));
+  migrate.migrate();
+
+  KAboutData about( QStringLiteral("kitenkanjibrowser")
+                    , i18n( "kitenkanjibrowser" )
+                    , QStringLiteral("1.0")
+                    , i18n( description )
+                    , KAboutLicense::GPL_V2
+                    , i18n( "(C) 2011 Daniel E. Moctezuma" )
+                    , QString()
+                    , QStringLiteral("http://edu.kde.org/kiten")
                     , "democtezuma@gmail.com" );
-  about.addAuthor(   ki18n( "Daniel E. Moctezuma" )
-                   , KLocalizedString()
+  about.addAuthor(   i18n( "Daniel E. Moctezuma" )
+                   , QString()
                    , "democtezuma@gmail.com" );
   about.setOrganizationDomain( "kde.org" );
   about.setProgramIconName( "kiten" );
 
-  KCmdLineArgs::init( argc, argv, &about );
-
-  KUniqueApplication app;
+  QApplication app(argc, argv);
+  KAboutData::setApplicationData(about);
+  
   if( app.isSessionRestored() )
   {
     RESTORE( KanjiBrowser );

@@ -6,16 +6,21 @@ set(kanjibrowser_bin_SRCS
     main.cpp
    )
 
-kde4_add_ui_files(kanjibrowser_bin_SRCS kanjibrowserview.ui preferences.ui)
-kde4_add_kcfg_files(kanjibrowser_bin_SRCS kanjibrowserconfig.kcfgc)
+ki18n_wrap_ui(kanjibrowser_bin_SRCS kanjibrowserview.ui preferences.ui)
+kconfig_add_kcfg_files(kanjibrowser_bin_SRCS kanjibrowserconfig.kcfgc)
 
-kde4_add_app_icon(kanjibrowser_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
+# # kde4_add_app_icon(kanjibrowser_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
 
-kde4_add_executable(kanjibrowser_bin ${kanjibrowser_bin_SRCS})
+add_executable(kanjibrowser_bin ${kanjibrowser_bin_SRCS})
 set_target_properties(kanjibrowser_bin PROPERTIES OUTPUT_NAME kitenkanjibrowser)
-target_link_libraries(kanjibrowser_bin ${KDE4_KDEUI_LIBS} kiten)
+target_link_libraries(kanjibrowser_bin  
+    kiten
+    Qt5::Widgets
+    KF5::Completion
+    KF5::I18n
+    KF5::XmlGui)
 install( TARGETS kanjibrowser_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
-install( PROGRAMS kitenkanjibrowser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
-install( FILES kanjibrowserui.rc DESTINATION ${DATA_INSTALL_DIR}/kitenkanjibrowser )
+install( PROGRAMS org.kde.kitenkanjibrowser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( FILES kanjibrowserui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kitenkanjibrowser )

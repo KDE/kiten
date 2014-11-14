@@ -25,16 +25,10 @@
 
 #include "kitenconfig.h"
 
-#include <KActionCollection>
-#include <KActionMenu>
 #include <KColorScheme>
-#include <KConfig>
-#include <KLocale>
-#include <KMenu>
+#include <KHTMLView>
 
 /* Needed by ResultsView only */
-#include <QApplication>
-#include <QPainter>
 #include <QScrollBar>
 
 ResultsView::ResultsView( QWidget *parent, const char *name )
@@ -48,14 +42,14 @@ ResultsView::ResultsView( QWidget *parent, const char *name )
 
   // don't let ktextbrowser internally handle link clicks
   ////////setNotifyClick(true);
-  connect( view(), SIGNAL( finishedLayout() ),
-             this,   SLOT( doScroll() ) );
+  connect( view(), SIGNAL(finishedLayout()),
+             this,   SLOT(doScroll()) );
 }
 
 /**
  * As the name implies, it appends @param text to the printText
  */
-inline void ResultsView::append( const QString &text )
+void ResultsView::append( const QString &text )
 {
   _printText.append( text );
 }
@@ -210,7 +204,7 @@ void ResultsView::setContents( const QString &text )
   write( text );
   end();
 
-  kDebug() << "Set CSS to " << generateCSS();
+  qDebug() << "Set CSS to " << generateCSS();
 //KDE4 CHANGE	setCursorPosition( 0,0 );
   ////////ensureCursorVisible();
 }
@@ -227,9 +221,9 @@ bool ResultsView::urlSelected( const QString &url,
                         const KParts::OpenUrlArguments& args,
                         const KParts::BrowserArguments& browserArgs )
 {
-  //kDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
+  //qDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
   emit urlClicked( url );
   return KHTMLPart::urlSelected( url, button, state, _target, args, browserArgs );
 }
 
-#include "resultsview.moc"
+

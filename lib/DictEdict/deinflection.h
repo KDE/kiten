@@ -24,7 +24,6 @@
 #ifndef KITEN_DEINFLECTION_H
 #define KITEN_DEINFLECTION_H
 
-#include <QStringList>
 
 #include "dictfile.h"
 

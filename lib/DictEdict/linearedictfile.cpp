@@ -21,13 +21,9 @@
 
 #include "linearedictfile.h"
 
-#include <KApplication>
-#include <KDebug>
-#include <KGlobal>
-#include <KProcess>
-#include <KStandardDirs>
 
 #include <QFile>
+#include <QDebug>
 #include <QTextCodec>
 
 LinearEdictFile::LinearEdictFile()
@@ -58,7 +54,7 @@ QVector<QString> LinearEdictFile::findMatches( const QString &searchString ) con
 
 bool LinearEdictFile::loadFile( const QString& filename )
 {
-  kDebug() << "Loading edict from " << filename << endl;
+  qDebug() << "Loading edict from " << filename << endl;
 
   //if already loaded
   if ( ! m_edict.isEmpty() )

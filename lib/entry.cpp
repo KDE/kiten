@@ -24,14 +24,8 @@
 #include "entry.h"
 #include "dictquery.h"
 
-#include <KDebug>
-#include <KLocale>
-#include <KMessageBox>
-#include <KStandardDirs>
+#include <KLocalizedString>
 
-#include <QFileInfo>
-#include <QRegExp>
-#include <QTextCodec>
 
 #include <iostream>
 #include <cassert>

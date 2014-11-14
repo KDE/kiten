@@ -22,7 +22,6 @@
 
 #include <QCheckBox>
 #include <QListWidget>
-#include <QMap>
 #include <QStringList>
 
 #include "dictionarymanager.h"
@@ -31,7 +30,7 @@
 
 ConfigSortingPage::ConfigSortingPage(  QWidget *parent
                                      , KitenConfigSkeleton *config
-                                     ,Qt::WFlags f )
+                                     ,Qt::WindowFlags f )
 : QWidget( parent, f )
 , _config( config )
 {
@@ -39,8 +38,7 @@ ConfigSortingPage::ConfigSortingPage(  QWidget *parent
   _dictNames = DictionaryManager::listDictFileTypes();
 
   //Setup the relationship between the checkbox and the dictionary sortlist
-  connect( kcfg_dictionary_enable, SIGNAL( clicked( bool ) ),
-                 dictionary_order,   SLOT( setEnabled( bool ) ) );
+  connect(kcfg_dictionary_enable, &QCheckBox::clicked, dictionary_order, &KActionSelector::setEnabled);
   dictionary_order->setEnabled( _config->dictionary_enable() == "true" );
 
   _fields.append( "Word/Kanji" );
@@ -50,23 +48,15 @@ ConfigSortingPage::ConfigSortingPage(  QWidget *parent
   _fields += fieldListMap;
 
   //Make the connections to alert the main dialog when things change
-  connect( dictionary_order, SIGNAL( added( QListWidgetItem* ) ),
-                       this, SIGNAL( widgetChanged() ) );
-  connect( dictionary_order, SIGNAL( removed( QListWidgetItem* ) ),
-                       this, SIGNAL( widgetChanged() ) );
-  connect( dictionary_order, SIGNAL( movedUp( QListWidgetItem* ) ),
-                       this, SIGNAL( widgetChanged() ) );
-  connect( dictionary_order, SIGNAL( movedDown( QListWidgetItem* ) ),
-                       this, SIGNAL( widgetChanged() ) );
+  connect(dictionary_order, &KActionSelector::added, this, &ConfigSortingPage::widgetChanged);
+  connect(dictionary_order, &KActionSelector::removed, this, &ConfigSortingPage::widgetChanged);
+  connect(dictionary_order, &KActionSelector::movedUp, this, &ConfigSortingPage::widgetChanged);
+  connect(dictionary_order, &KActionSelector::movedDown, this, &ConfigSortingPage::widgetChanged);
 
-  connect( field_order, SIGNAL( added ( QListWidgetItem* ) ),
-                  this, SIGNAL( widgetChanged() ) );
-  connect( field_order, SIGNAL( removed( QListWidgetItem* ) ),
-                  this, SIGNAL( widgetChanged() ) );
-  connect( field_order, SIGNAL( movedUp( QListWidgetItem* ) ),
-                  this, SIGNAL( widgetChanged() ) );
-  connect( field_order, SIGNAL( movedDown( QListWidgetItem* ) ),
-                  this, SIGNAL( widgetChanged() ) );
+  connect(field_order, &KActionSelector::added, this, &ConfigSortingPage::widgetChanged);
+  connect(field_order, &KActionSelector::removed, this, &ConfigSortingPage::widgetChanged);
+  connect(field_order, &KActionSelector::movedUp, this, &ConfigSortingPage::widgetChanged);
+  connect(field_order, &KActionSelector::movedDown, this, &ConfigSortingPage::widgetChanged);
 }
 
 //Read from preferences and set widgets
@@ -131,4 +121,4 @@ bool ConfigSortingPage::hasChanged()
   return false;
 }
 
-#include "configsortingpage.moc"
+

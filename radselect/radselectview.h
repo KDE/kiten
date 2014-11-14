@@ -25,7 +25,6 @@
 #include "ui_radical_selector.h"
 
 #include <QList>
-#include <QSet>
 #include <QWidget>
 
 class ButtonGrid;

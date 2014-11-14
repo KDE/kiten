@@ -32,15 +32,14 @@
 #include "entry.h"
 #include "historyptrlist.h"
 
-class KAction;
+class QAction;
 class KGlobalAccel;
 class KListAction;
 class KProcess;
-class KStatusBar;
-class KSystemTrayIcon;
+class QStatusBar;
+class QSystemTrayIcon;
 class KToggleAction;
 class KitenConfigSkeleton;
-class KitenEdit;
 
 class QDockWidget;
 
@@ -118,7 +117,7 @@ class Kiten : public KXmlGuiWindow
 
 
   private:
-    KStatusBar              *_statusBar;
+    QStatusBar              *_statusBar;
     DictionaryManager        _dictionaryManager;
     DictionaryUpdateManager *_dictionaryUpdateManager;
     SearchStringInput       *_inputManager;
@@ -127,9 +126,9 @@ class Kiten : public KXmlGuiWindow
     DictQuery                _lastQuery;
     KToggleAction           *_autoSearchToggle;
     KListAction             *_historyAction;
-    KAction                 *_irAction;
-    KAction                 *_backAction;
-    KAction                 *_forwardAction;
+    QAction                 *_irAction;
+    QAction                 *_backAction;
+    QAction                 *_forwardAction;
     KProcess                *_radselect_proc;
     KProcess                *_kanjibrowser_proc;
 
@@ -137,9 +136,9 @@ class Kiten : public KXmlGuiWindow
     QAction                 *_globalShortcutsAction;
 
     //ResultsView *detachedView;
-    KAction                 *_globalSearchAction;
+    QAction                 *_globalSearchAction;
 
-    KSystemTrayIcon         *_sysTrayIcon;
+    QSystemTrayIcon         *_sysTrayIcon;
 
     //Export list related:
     QDockWidget             *_exportListDock;

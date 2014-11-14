@@ -28,15 +28,13 @@
 #include "entryedict.h"
 #include "entrylist.h"
 
-#include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KStandardDirs>
 
 #include <QFile>
 #include <QHash>
 #include <QList>
-#include <QRegExp>
+#include <QStandardPaths>
 #include <QString>
 #include <QTextCodec>
 #include <QTextStream>
@@ -170,10 +168,8 @@ bool Deinflection::load()
 
   conjugationList = new QList<Conjugation>;
 
-  QString vconj;
-  KStandardDirs *dirs = KGlobal::dirs();
-  vconj = dirs->findResource( "data", "kiten/vconj" );
-
+  QString vconj = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/vconj");
+  
   //Find the file
   if ( vconj.isEmpty() )
   {

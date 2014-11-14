@@ -10,17 +10,24 @@ set(radselect_bin_SRCS
     radselect.cpp
     radselectview.cpp
    )
-kde4_add_ui_files(radselect_bin_SRCS radical_selector.ui radselectprefdialog.ui)
-kde4_add_kcfg_files(radselect_bin_SRCS radselectconfig.kcfgc)
+ki18n_wrap_ui(radselect_bin_SRCS radical_selector.ui radselectprefdialog.ui)
+kconfig_add_kcfg_files(radselect_bin_SRCS radselectconfig.kcfgc)
 
 #kde4_add_app_icon(radselect_bin_SRCS "${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/*/apps/kiten.png")
-kde4_add_app_icon(radselect_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
+# # kde4_add_app_icon(radselect_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
 
-kde4_add_executable(radselect_bin ${radselect_bin_SRCS})
+add_executable(radselect_bin ${radselect_bin_SRCS})
 set_target_properties(radselect_bin PROPERTIES OUTPUT_NAME kitenradselect)
-target_link_libraries(radselect_bin ${KDE4_KDEUI_LIBS} kiten)
+target_link_libraries(radselect_bin 
+    kiten 
+    Qt5::Core 
+    Qt5::Widgets
+    KF5::ConfigWidgets 
+    KF5::CoreAddons 
+    KF5::I18n 
+    KF5::XmlGui)
 install( TARGETS radselect_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
 install( PROGRAMS kitenradselect.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
-install( FILES radselectui.rc DESTINATION ${DATA_INSTALL_DIR}/kitenradselect )
+install( FILES radselectui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kitenradselect )

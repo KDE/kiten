@@ -21,18 +21,15 @@
 
 #include "kromajiedit.h"
 
-#include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KStandardDirs>
 
 #include <QAction>
 #include <QApplication>
-#include <QByteArray>
 #include <QFile>
 #include <QKeyEvent>
-#include <QMap>
 #include <QMenu>
+#include <QStandardPaths>
 #include <QTextCodec>
 #include <QTextStream>
 
@@ -41,8 +38,7 @@ KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
 {
   m_kana = "unset";
 
-  KStandardDirs *dirs = KGlobal::dirs();
-  QString romkana = dirs->findResource( "data", "kiten/romkana.cnv" );
+  QString romkana = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/romkana.cnv");
   if ( romkana.isNull() )
   {
     KMessageBox::error( 0, i18n( "Romaji information file not installed, so Romaji conversion cannot be used." ) );
@@ -138,8 +134,8 @@ QMenu *KRomajiEdit::createPopupMenu()
     temp->setChecked( false );
   }
 
-  connect( group, SIGNAL( triggered( QAction* ) ),
-                    SLOT(   setKana( QAction* ) ) );
+  connect( group, SIGNAL(triggered(QAction*)),
+                    SLOT(setKana(QAction*)) );
 
   emit aboutToShowContextMenu( menu );
   return menu;
@@ -340,4 +336,4 @@ void KRomajiEdit::setKana( QAction *action )
   }
 }
 
-#include "kromajiedit.moc"
+

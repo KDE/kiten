@@ -23,10 +23,9 @@
 #include "configuredialog.h"
 
 #include <KConfigDialog>
-#include <KLocale>
-#include <KTabWidget>
+#include <KLocalizedString>
 
-#include <QLayout>
+#include <QTabWidget>
 #include <QString>
 #include <QStringList>
 #include <QWidget>
@@ -79,8 +78,8 @@ ConfigureDialog::ConfigureDialog( QWidget *parent, KitenConfigSkeleton *config )
 
   setHelp( QString(),"kiten" );
 
-  connect( this, SIGNAL( widgetModified() ),
-           this,   SLOT( updateConfiguration() ) );
+  connect( this, SIGNAL(widgetModified()),
+           this,   SLOT(updateConfiguration()) );
 }
 
 void ConfigureDialog::updateConfiguration()
@@ -95,21 +94,21 @@ ConfigureDialog::~ConfigureDialog()
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(  QWidget *parent
                                                           , KitenConfigSkeleton *config )
 {
-  KTabWidget *tabWidget = new KTabWidget( parent );
+  QTabWidget *tabWidget = new QTabWidget( parent );
 
   foreach( const QString &dict, config->dictionary_list() )
   {
     QWidget *newTab = new ConfigDictionarySelector( dict, tabWidget, config );
     if( newTab )
     {
-      connect( newTab, SIGNAL( widgetChanged() ),
-                 this, SIGNAL( widgetModified() ) );
-      connect(   this, SIGNAL( updateWidgetsSignal() ),
-               newTab,   SLOT( updateWidgets() ) );
-      connect(   this, SIGNAL( updateWidgetsDefaultSignal() ),
-               newTab,   SLOT( updateWidgetsDefault() ) );
-      connect(   this, SIGNAL( updateSettingsSignal() ),
-               newTab,   SLOT( updateSettings() ) );
+      connect( newTab, SIGNAL(widgetChanged()),
+                 this, SIGNAL(widgetModified()) );
+      connect(   this, SIGNAL(updateWidgetsSignal()),
+               newTab,   SLOT(updateWidgets()) );
+      connect(   this, SIGNAL(updateWidgetsDefaultSignal()),
+               newTab,   SLOT(updateWidgetsDefault()) );
+      connect(   this, SIGNAL(updateSettingsSignal()),
+               newTab,   SLOT(updateSettings()) );
       tabWidget->addTab( newTab, dict );
     }
   }
@@ -123,19 +122,19 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(  QWidget *parent
 
   QStringList dictTypes = DictionaryManager::listDictFileTypes();
 
-  KTabWidget *tabWidget = new KTabWidget( parent );
+  QTabWidget *tabWidget = new QTabWidget( parent );
 
   QMap<QString,DictionaryPreferenceDialog*> dialogList =
                   DictionaryManager::generatePreferenceDialogs( config, parent );
 
   foreach( DictionaryPreferenceDialog *dialog, dialogList )
   {
-    connect(   this, SIGNAL( updateWidgetsSignal() ),
-             dialog,   SLOT( updateWidgets() ) );
-    connect(   this, SIGNAL( updateWidgetsDefaultSignal() ),
-             dialog,   SLOT( updateWidgetsDefault() ) );
-    connect(   this, SIGNAL( updateSettingsSignal() ),
-             dialog,   SLOT( updateSettings() ) );
+    connect(   this, SIGNAL(updateWidgetsSignal()),
+             dialog,   SLOT(updateWidgets()) );
+    connect(   this, SIGNAL(updateWidgetsDefaultSignal()),
+             dialog,   SLOT(updateWidgetsDefault()) );
+    connect(   this, SIGNAL(updateSettingsSignal()),
+             dialog,   SLOT(updateSettings()) );
 
     tabWidget->addTab( dialog,dialog->name() );
   }
@@ -147,15 +146,15 @@ QWidget *ConfigureDialog::makeSortingPage( QWidget *parent, KitenConfigSkeleton 
 {
   ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
 
-  connect( newPage, SIGNAL( widgetChanged() ),
-              this, SIGNAL( widgetModified() ) );
+  connect( newPage, SIGNAL(widgetChanged()),
+              this, SIGNAL(widgetModified()) );
 
-  connect(    this, SIGNAL( updateWidgetsSignal() ),
-           newPage,   SLOT( updateWidgets() ) );
-  connect(    this, SIGNAL( updateWidgetsDefaultSignal() ),
-           newPage,   SLOT( updateWidgetsDefault() ) );
-  connect(    this, SIGNAL( updateSettingsSignal() ),
-           newPage,   SLOT( updateSettings() ) );
+  connect(    this, SIGNAL(updateWidgetsSignal()),
+           newPage,   SLOT(updateWidgets()) );
+  connect(    this, SIGNAL(updateWidgetsDefaultSignal()),
+           newPage,   SLOT(updateWidgetsDefault()) );
+  connect(    this, SIGNAL(updateSettingsSignal()),
+           newPage,   SLOT(updateSettings()) );
 
   return newPage;
 }
@@ -181,4 +180,4 @@ bool ConfigureDialog::isDefault()
   //Always show the defaults button.... perhaps make a workaround later
 }
 
-#include "configuredialog.moc"
+

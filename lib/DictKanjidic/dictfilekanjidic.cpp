@@ -29,9 +29,8 @@
 #include "kitenmacros.h"
 
 #include <KConfigSkeleton>
-#include <KDebug>
-#include <KGlobal>
 
+#include <QDebug>
 #include <QFile>
 #include <QTextCodec>
 
@@ -108,7 +107,7 @@ EntryList* DictFileKanjidic::doSearch( const DictQuery &query )
     return new EntryList();
   }
 
-  kDebug() << "Search from:" << getName() << endl;
+  qDebug() << "Search from:" << getName() << endl;
   QString searchQuery = query.getWord();
   if( searchQuery.length() == 0 )
   {
@@ -175,7 +174,7 @@ bool DictFileKanjidic::loadDictionary( const QString &file, const QString &name 
     return false;
   }
 
-  kDebug() << "Loading kanjidic from:" << file << endl;
+  qDebug() << "Loading kanjidic from:" << file << endl;
 
   QTextStream fileStream( &dictionary );
   fileStream.setCodec( QTextCodec::codecForName( "eucJP" ) );

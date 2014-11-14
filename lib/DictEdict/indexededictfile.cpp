@@ -21,14 +21,12 @@
 
 #include "indexededictfile.h"
 
-#include <KApplication>
-#include <KDebug>
-#include <KGlobal>
+#include <QApplication>
 #include <KProcess>
-#include <KStandardDirs>
 
 #include <QFile>
 #include <QFileInfo>
+#include <QStandardPaths>
 #include <QString>
 #include <QTextCodec>
 #include <QVector>
@@ -57,13 +55,13 @@ IndexedEdictFile::~IndexedEdictFile()
 bool IndexedEdictFile::buildIndex()
 {
   KProcess proc;
-  proc << KStandardDirs::findExe("kitengen") << m_dictFile.fileName() << m_indexFile.fileName();
+  proc << QStandardPaths::findExecutable("kitengen") << m_dictFile.fileName() << m_indexFile.fileName();
   proc.start();
   proc.waitForStarted();
 
   do
   {
-    KApplication::processEvents();
+    QApplication::processEvents();
   } while( proc.waitForFinished( 5000 ) ); //FIXME: This just cuts the index generator off after 5 sec
 
   //FIXME: Check for the result of this operation
@@ -309,8 +307,8 @@ bool IndexedEdictFile::loadFile( const QString &fileName )
   }
 
   m_dictPtr = static_cast<unsigned char*>( MAP_FAILED );
-  m_indexFile.setFileName( KGlobal::dirs()->saveLocation( "data", "kiten/xjdx/", true )
-                           + QFileInfo( fileName ).baseName() + ".xjdx" );
+  m_indexFile.setFileName( QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "kiten/xjdx/"
+                        + QFileInfo( fileName ).baseName() + ".xjdx" );
   m_indexPtr = static_cast<uint32_t*>( MAP_FAILED );
   if( ! m_indexFile.exists() )
   {

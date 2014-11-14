@@ -37,4 +37,4 @@ QString DictionaryPreferenceDialog::name() const
   return m_name;
 }
 
-#include "dictionarypreferencedialog.moc"
+

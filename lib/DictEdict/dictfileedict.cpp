@@ -23,15 +23,10 @@
 
 #include "dictfileedict.h"
 
-#include <KApplication>
 #include <KConfig>
 #include <KConfigSkeleton>
-#include <KDebug>
-#include <KGlobal>
-#include <KProcess>
-#include <KStandardDirs>
 
-#include <QByteArray>
+#include <QDebug>
 #include <QFile>
 #include <QString>
 #include <QTextCodec>
@@ -92,7 +87,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
     return new EntryList();
   }
 
-  kDebug()<< "Search from : " << getName();
+  qDebug()<< "Search from : " << getName();
 
   QString firstChoice = query.getWord();
   if( firstChoice.length() == 0 )
@@ -133,7 +128,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
   EntryList *results = new EntryList();
   foreach( const QString &it, preliminaryResults )
   {
-//     kDebug() << "result: " << it << endl;
+//     qDebug() << "result: " << it << endl;
     Entry *result = makeEntry( it );
     EntryEdict *resultEdict = static_cast<EntryEdict*>( result );
     if( result->matchesQuery( query ) && resultEdict->matchesWordType( query ) )

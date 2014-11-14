@@ -22,10 +22,8 @@
 
 #include <KActionSelector>
 #include <KConfigSkeleton>
-#include <KLocale>
+#include <KLocalizedString>
 
-#include <QFrame>
-#include <QLayout>
 #include <QListWidget>
 #include <QString>
 #include <QStringList>
@@ -56,14 +54,10 @@ DictFileFieldSelector::DictFileFieldSelector( KConfigSkeleton *config,
   m_completeList.append( "Meaning" );
 
   //Make connections
-  connect( m_listView, SIGNAL( added( QListWidgetItem* ) )
-             , this,   SLOT( settingChanged() ) );
-  connect( m_listView, SIGNAL( removed( QListWidgetItem* ) ),
-               this,   SLOT( settingChanged() ) );
-  connect( m_listView, SIGNAL( movedUp( QListWidgetItem* ) ),
-               this,   SLOT( settingChanged() ) );
-  connect( m_listView, SIGNAL( movedDown( QListWidgetItem* ) ),
-               this,   SLOT( settingChanged() ) );
+  connect(m_listView, &KActionSelector::added, this, &DictFileFieldSelector::settingChanged);
+  connect(m_listView, &KActionSelector::removed, this, &DictFileFieldSelector::settingChanged);
+  connect(m_listView, &KActionSelector::movedUp, this, &DictFileFieldSelector::settingChanged);
+  connect(m_listView, &KActionSelector::movedDown, this, &DictFileFieldSelector::settingChanged);
 
   m_config = config;
   updateWidgets();
@@ -99,7 +93,7 @@ void DictFileFieldSelector::readFromPrefs()
                                                           , itemName
                                                           , *new QStringList() )
                     , itemName );
-    m_config->readConfig();
+    m_config->load();
     selectedList = m_config->findItem( itemName )->property().toStringList();
   }
 
@@ -165,7 +159,7 @@ void DictFileFieldSelector::writeToPrefs()
   }
   item->setProperty( theList );
 
-  m_config->writeConfig();
+  m_config->save();
 }
 
-#include "dictfilefieldselector.moc"
+

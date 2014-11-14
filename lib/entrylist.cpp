@@ -23,14 +23,8 @@
 
 #include "entrylist.h"
 
-#include <KDebug>
-#include <KLocale>
-#include <KMessageBox>
-#include <KStandardDirs>
+#include <KLocalizedString>
 
-#include <QFileInfo>
-#include <QRegExp>
-#include <QTextCodec>
 
 #include <sys/mman.h>
 

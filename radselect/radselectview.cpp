@@ -29,9 +29,8 @@
 #include "buttongrid.h"
 #include "radselectconfig.h"
 
-#include <KStandardDirs>
 #include <KMessageBox>
-#include <KDebug>
+#include <KLocalizedString>
 
 #include <QApplication>
 #include <QClipboard>
@@ -40,8 +39,6 @@
 #include <QListWidgetItem>
 #include <QPushButton>
 #include <QString>
-#include <QStringList>
-#include <QTimer>
 #include <QWidget>
 
 RadSelectView::RadSelectView( QWidget *parent )
@@ -51,8 +48,7 @@ RadSelectView::RadSelectView( QWidget *parent )
   setupUi( this );
   m_radicalInfo = 0L;
   //Load the radical information
-  KStandardDirs *dirs = KGlobal::dirs();
-  QString radkfilename = dirs->findResource( "data", "kiten/radkfile" );
+  QString radkfilename = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/radkfile");
   if ( radkfilename.isNull() )
   {
     KMessageBox::error( 0, i18n( "Kanji radical information does not seem to "
@@ -75,29 +71,29 @@ RadSelectView::RadSelectView( QWidget *parent )
 
   //== Now we connect all our signals ==
   //Connect our radical grid to our adding method
-  connect( m_buttongrid, SIGNAL( possibleKanji( const QList<Kanji>& ) ),
-                   this,   SLOT( listPossibleKanji( const QList<Kanji>& ) ) );
+  connect( m_buttongrid, SIGNAL(possibleKanji(QList<Kanji>)),
+                   this,   SLOT(listPossibleKanji(QList<Kanji>)) );
   //Connect the results selection to our logic
-  connect( selected_radicals, SIGNAL( itemClicked( QListWidgetItem* ) ),
-                        this,   SLOT( kanjiClicked( QListWidgetItem* ) ) );
-  connect( selected_radicals, SIGNAL( itemDoubleClicked( QListWidgetItem* ) ),
-                        this,   SLOT( kanjiDoubleClicked( QListWidgetItem* ) ) );
+  connect( selected_radicals, SIGNAL(itemClicked(QListWidgetItem*)),
+                        this,   SLOT(kanjiClicked(QListWidgetItem*)) );
+  connect( selected_radicals, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+                        this,   SLOT(kanjiDoubleClicked(QListWidgetItem*)) );
   //Connect our stroke limit actions
-  connect( strokes_low, SIGNAL( valueChanged( int ) ),
-                  this,   SLOT( strokeLimitChanged( int ) ) );
-  connect( strokes_high, SIGNAL( valueChanged( int ) ),
-                   this,   SLOT( strokeLimitChanged( int ) ) );
+  connect( strokes_low, SIGNAL(valueChanged(int)),
+                  this,   SLOT(strokeLimitChanged(int)) );
+  connect( strokes_high, SIGNAL(valueChanged(int)),
+                   this,   SLOT(strokeLimitChanged(int)) );
   //Connect statusbar updates
-  connect( m_buttongrid, SIGNAL( signalChangeStatusbar( const QString& ) ),
-                   this, SIGNAL( signalChangeStatusbar( const QString& ) ) );
+  connect( m_buttongrid, SIGNAL(signalChangeStatusbar(QString)),
+                   this, SIGNAL(signalChangeStatusbar(QString)) );
 
   //Connect our clear button
-  connect( clear_button, SIGNAL( clicked() ),
-                   this,   SLOT( clearSearch() ) );
+  connect( clear_button, SIGNAL(clicked()),
+                   this,   SLOT(clearSearch()) );
 
   // copy text from copied_line (QLineEdit) to clipboard
-  connect( copy_button, SIGNAL( clicked() ),
-                  this,   SLOT( toClipboard() ) );
+  connect( copy_button, SIGNAL(clicked()),
+                  this,   SLOT(toClipboard()) );
 
   loadSettings();
 }
@@ -244,4 +240,4 @@ void RadSelectView::toClipboard()
   cb->setText( copied_line->text(), QClipboard::Selection );
 }
 
-#include "radselectview.moc"
+

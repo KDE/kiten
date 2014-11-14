@@ -31,7 +31,6 @@
 #include "libkitenexport.h"
 #include "linearedictfile.h"
 
-#include <QFile>
 #include <QMap>
 
 #include <sys/types.h>
@@ -42,7 +41,6 @@ class DictionaryPreferenceDialog;
 class EntryEdict;
 class KConfigSkeleton;
 class KConfigSkeletonItem;
-class QByteArray;
 class QString;
 class QStringList;
 

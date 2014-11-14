@@ -18,11 +18,11 @@
  * Boston, MA 02110-1301, USA.                                               *
  *****************************************************************************/
 
+#include <QApplication>
+#include <QCommandLineParser>
+
 #include <KAboutData>
-#include <KCmdLineArgs>
-#include <KLocale>
-#include <KUniqueApplication>
-#include <KMessageBox>
+#include <KLocalizedString>
 
 #include "radselect.h"
 
@@ -31,20 +31,23 @@ static const char version[] = "0.1";
 
 int main( int argc, char **argv )
 {
-  KAboutData about( "kitenradselect", "kiten", ki18n("kitenradselect"), version,
-                    ki18n(description), KAboutData::License_GPL,
-                    ki18n("(C) 2005 Joseph Kerian"), KLocalizedString(), 0, "jkerian@gmail.com" );
-  about.addAuthor( ki18n("Joseph Kerian"), KLocalizedString(), "jkerian@gmail.com" );
+  KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), QStringLiteral("0.1"),
+                    i18n(description), KAboutLicense::GPL,
+                    i18n("(C) 2005 Joseph Kerian"), QString(), QString(), "jkerian@gmail.com" );
+  about.addAuthor( i18n("Joseph Kerian"), QString(), "jkerian@gmail.com" );
   about.setOrganizationDomain("kde.org"); //For DBus domain
   about.setProgramIconName("kiten");
 
-  KCmdLineArgs::init( argc, argv, &about );
-
-  KCmdLineOptions options;
-  options.add( "+[Search_String]", ki18n( "Initial Search String from Kiten" ) );
-  KCmdLineArgs::addCmdLineOptions( options );
-
-  KUniqueApplication app;
+  QApplication app(argc, argv);
+  QCommandLineParser parser;
+  KAboutData::setApplicationData(about);
+  
+  parser.addVersionOption();
+  parser.addHelpOption();
+  about.setupCommandLine(&parser);
+  parser.addPositionalArgument("Search_String", i18n( "Initial Search String from Kiten" ));
+  parser.process(app);
+  about.processCommandLine(&parser);
 
   // see if we are starting with session management
   if ( app.isSessionRestored() )
@@ -54,17 +57,17 @@ int main( int argc, char **argv )
   else
   {
     // no session.. just start up normally
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
     RadSelect *widget = new RadSelect();
     widget->show();
 
-    if ( args->count() >=  1 )
+    if ( parser.positionalArguments().count() >=  1 )
     {
-      widget->loadSearchString( args->arg( 0 ) );
+      const QStringList args = parser.positionalArguments();
+      widget->loadSearchString( args.first() );
     }
 
-    args->clear();
+    
   }
 
   return app.exec();

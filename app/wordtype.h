@@ -23,7 +23,6 @@
 #ifndef WORDTYPE_H
 #define WORDTYPE_H
 
-#include <KAction>
 #include <KComboBox>
 
 #include <QWidget>

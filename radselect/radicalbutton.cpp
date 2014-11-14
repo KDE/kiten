@@ -20,9 +20,6 @@
 
 #include "radicalbutton.h"
 
-#include <KApplication>
-#include <KStyle>
-
 #include <QMouseEvent>
 #include <QPushButton>
 #include <QString>
@@ -145,4 +142,4 @@ QSize RadicalButton::sizeHint() const
   return minimumSizeHint();
 }
 
-#include "radicalbutton.moc"
+

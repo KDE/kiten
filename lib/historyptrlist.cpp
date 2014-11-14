@@ -24,7 +24,6 @@
 #include "entrylist.h"
 
 #include <QList>
-#include <QMutableListIterator>
 
 class HistoryPtrList::Private
 {

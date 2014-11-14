@@ -24,7 +24,7 @@
 #include "ui_kanjibrowserview.h"
 
 class EntryKanjidic;
-class KAction;
+class QAction;
 class KanjiBrowser;
 class QListWidgetItem;
 
@@ -44,7 +44,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     /**
      * Initial setup.
      *
-     * @param parent      parent to which we are going to add some KActions
+     * @param parent      parent to which we are going to add some QActions
      * @param kanji       hash containing kanji with its grades and number of strokes
      * @param kanjiGrades sorted list of grades found in KANJIDIC
      * @param strokeCount sorted list of strokes found in KANJIDIC
@@ -138,13 +138,13 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     };
 
     /**
-     * We need this as we are going to add some KActions to it.
+     * We need this as we are going to add some QActions to it.
      */
     KanjiBrowser                     *_parent;
     /**
      * We need to update this action's text from different functions.
      */
-    KAction                          *_goToKanjiInfo;
+    QAction                          *_goToKanjiInfo;
     /**
      * Keep track of the current kanji being displayed in the Kanji Information page.
      */

@@ -23,8 +23,6 @@
 
 #include "entrylistview.h"
 
-#include <KDebug>
-
 #include <QHeaderView>
 
 //These are the ratios for how much space the word and reading headers should
@@ -49,4 +47,4 @@ void EntryListView::setEmptyModel()
   //TODO: implement me
 }
 
-#include "entrylistview.moc"
+

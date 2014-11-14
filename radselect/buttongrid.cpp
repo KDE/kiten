@@ -31,13 +31,10 @@
 
 #include "radicalbutton.h"
 
-#include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
-#include <QFontMetrics>
 #include <QGridLayout>
 #include <QLabel>
-#include <QSize>
 #include <QString>
 #include <QWidget>
 
@@ -94,10 +91,10 @@ void ButtonGrid::buildRadicalButtons()
     RadicalButton *button = new RadicalButton( *it, this );
     grid->addWidget( button, row_index++, column_index );
     //Bind slots/signals for this button
-    connect( button, SIGNAL( userClicked( const QString&, RadicalButton::ButtonStatus ) ),
-               this,   SLOT( radicalClicked( const QString&, RadicalButton::ButtonStatus ) ) );
-    connect(   this, SIGNAL( clearButtonSelections() ),
-             button,   SLOT( resetButton() ) );
+    connect( button, SIGNAL(userClicked(QString,RadicalButton::ButtonStatus)),
+               this,   SLOT(radicalClicked(QString,RadicalButton::ButtonStatus)) );
+    connect(   this, SIGNAL(clearButtonSelections()),
+             button,   SLOT(resetButton()) );
 
     //Add this button to our list
     m_buttons.insert( *it, button );
@@ -209,4 +206,4 @@ void ButtonGrid::updateButtons()
   }
 }
 
-#include "buttongrid.moc"
+

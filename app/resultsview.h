@@ -23,14 +23,8 @@
 #ifndef RESULTSVIEW_H
 #define RESULTSVIEW_H
 
-#include <KAction>
+#include <QAction>
 #include <KHTMLPart>
-#include <KHTMLView>
-#include <KLineEdit>
-#include <KTextBrowser>
-#include <KXmlGuiWindow>
-
-#include <QPointer>
 
 #include "entry.h"
 

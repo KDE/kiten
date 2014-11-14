@@ -23,21 +23,19 @@
 #include "configdictionaryselector.h"
 
 #include <KConfigSkeleton>
-#include <KDebug>
-#include <KFileDialog>
 
+#include <QFileDialog>
 #include <QStringList>
-#include <QTableWidget>
 
 ConfigDictionarySelector::ConfigDictionarySelector( const QString &dictionaryName,
-  QWidget *parent, KConfigSkeleton *config,Qt::WFlags f )
+  QWidget *parent, KConfigSkeleton *config,Qt::WindowFlags f )
 {
   setupUi( this );
   _dictName = dictionaryName;
   _config = config;
 
-  connect( addButton, SIGNAL( clicked() ), this, SLOT( addDictSlot() ) );
-  connect( delButton, SIGNAL( clicked() ), this, SLOT( deleteDictSlot() ) );
+  connect(addButton, &QPushButton::clicked, this, &ConfigDictionarySelector::addDictSlot);
+  connect(delButton, &QPushButton::clicked, this, &ConfigDictionarySelector::deleteDictSlot);
   __useGlobal->setObjectName( QString( "kcfg_" + _dictName + "__useGlobal" ) );
 }
 
@@ -63,7 +61,7 @@ void ConfigDictionarySelector::updateWidgets()
     }
   }
 
-  _config->readConfig();
+  _config->load();
   fileList->clear();
 
   foreach( const QString &it, names )
@@ -98,7 +96,7 @@ void ConfigDictionarySelector::updateSettings()
 
   //This feels distinctly hackish to me... :(
   _config->findItem( _dictName + "__NAMES" )->setProperty( names );
-  _config->writeConfig();
+  _config->save();
 }
 
 void ConfigDictionarySelector::updateWidgetsDefault()
@@ -123,7 +121,7 @@ void ConfigDictionarySelector::addDictSlot()
 {
   QTreeWidgetItem *item = fileList->topLevelItem( 0 );
 
-  QString filename = KFileDialog::getOpenFileName(
+  QString filename = QFileDialog::getOpenFileName(0, QString(),
                   item ? QFileInfo( item->text( 1 ) ).absolutePath().append( "/" )
                   : QString() );
   QString name = QFileInfo( filename ).fileName();
@@ -154,4 +152,4 @@ void ConfigDictionarySelector::deleteDictSlot()
   }
 }
 
-#include "configdictionaryselector.moc"
+

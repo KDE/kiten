@@ -196,3 +196,4 @@ Terminal=false
 Type=Application
 Icon=kiten
 Categories=Qt;KDE;Education;Languages;
+X-DBUS-ServiceName=org.kde.kiten

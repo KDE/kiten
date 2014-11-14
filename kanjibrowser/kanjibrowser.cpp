@@ -27,12 +27,12 @@
 #include "kanjibrowserview.h"
 #include "kitenmacros.h"
 
+#include <QStatusBar>
+
 #include <KActionCollection>
-#include <KApplication>
 #include <KConfigDialog>
+#include <KLocalizedString>
 #include <KStandardAction>
-#include <KStandardDirs>
-#include <KStatusBar>
 
 KanjiBrowser::KanjiBrowser()
 : KXmlGuiWindow()
@@ -40,17 +40,16 @@ KanjiBrowser::KanjiBrowser()
 {
   // Read the configuration file.
   _config = KanjiBrowserConfigSkeleton::self();
-  _config->readConfig();
+  _config->load();
 
   statusBar()->show();
 
   // Add some actions.
-  KStandardAction::quit( kapp, SLOT( quit() ), actionCollection() );
-  KStandardAction::preferences( this, SLOT( showPreferences() ), actionCollection() );
+  KStandardAction::quit( this, SLOT(close()), actionCollection() );
+  KStandardAction::preferences( this, SLOT(showPreferences()), actionCollection() );
 
   _view = new KanjiBrowserView( this->parentWidget() );
-  connect( _view, SIGNAL( statusBarChanged( const QString&) ),
-            this,   SLOT( changeStatusBar( const QString& ) ) );
+  connect(_view, &KanjiBrowserView::statusBarChanged, this, &KanjiBrowser::changeStatusBar);
   // Load the necessary information and setup the view.
   loadKanji();
 
@@ -80,10 +79,9 @@ void KanjiBrowser::loadKanji()
     return;
   }
 
-  kDebug() << "Loading kanji..." << endl;
+  qDebug() << "Loading kanji..." << endl;
 
-  QString dictionary = KGlobal::dirs()->findResource(   "data"
-                                                      , "kiten/kanjidic" );
+  QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/kanjidic");
   _dictFileKanjidic = new DictFileKanjidic();
   _dictFileKanjidic->loadSettings();
   _dictFileKanjidic->loadDictionary( dictionary, KANJIDIC );
@@ -133,8 +131,8 @@ void KanjiBrowser::loadKanji()
   // Sort them.
   qSort( gradeList );
   qSort( strokeList );
-  kDebug() << "Max. grade:" << gradeList.last() << endl;
-  kDebug() << "Max. stroke count:" << strokeList.last() << endl;
+  qDebug() << "Max. grade:" << gradeList.last() << endl;
+  qDebug() << "Max. stroke count:" << strokeList.last() << endl;
 
   // Finaly setup the view.
   _view->setupView( this, kanjiList, gradeList, strokeList );
@@ -153,9 +151,8 @@ void KanjiBrowser::showPreferences()
 
   KConfigDialog *dialog = new KConfigDialog( this, "settings", KanjiBrowserConfigSkeleton::self() );
   dialog->addPage( preferences, i18n( "Settings" ), "help-contents" );
-  connect( dialog, SIGNAL( settingsChanged( const QString& ) ),
-            _view,   SLOT( loadSettings() ) );
+  connect(dialog, &KConfigDialog::settingsChanged, _view, &KanjiBrowserView::loadSettings);
   dialog->show();
 }
 
-#include "kanjibrowser.moc"
+

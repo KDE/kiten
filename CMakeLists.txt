@@ -2,13 +2,29 @@
 project(kiten)
 
 # Check for cmake, same as minimum for KDE 4.0.0
-cmake_minimum_required( VERSION 2.4.5 )
+cmake_minimum_required( VERSION 2.8.12 )
 
-# Check for KDE 4
-find_package( KDE4 REQUIRED )
+#ECM setup
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
+find_package(KF5 REQUIRED COMPONENTS 
+    Archive
+    Completion 
+    Config 
+    ConfigWidgets 
+    CoreAddons
+    DocTools 
+    I18n 
+    KHtml
+    XmlGui)
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
+include(ECMInstallIcons)
 include( CheckIncludeFiles )
-include( KDE4Defaults )
-include_directories( ${KDE4_INCLUDES} )
+include(ECMGenerateHeaders)
 
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/lib)
@@ -18,6 +34,9 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 check_include_files(stdint.h HAVE_STDINT_H)
 check_include_files(inttypes.h HAVE_INTTYPES_H)
 configure_file( config-kiten.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kiten.h )
+
+add_definitions(-DTRANSLATION_DOMAIN=\"kiten\")
+
 
 ## Build each subdir
 add_subdirectory( app )
@@ -30,7 +49,7 @@ add_subdirectory( radselect )
 
 ## Build kitengen, a small index generator used by the kiten app
 set(kitengen_SRCS xjdxgen.c)
-kde4_add_executable(kitengen ${kitengen_SRCS})
+add_executable(kitengen ${kitengen_SRCS})
 target_link_libraries(kitengen ${QT_QTCORE_LIBRARY})
 install( TARGETS kitengen ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install(FILES kiten.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)

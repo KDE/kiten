@@ -26,8 +26,8 @@
 #include "dictfilekanjidic.h"
 #include "kitenmacros.h"
 
-#include <KLocale>
-#include <KDebug>
+#include <KLocalizedString>
+#include <QDebug>
 
 #define QSTRINGLISTCHECK(x) (x==NULL?QStringList():*x)
 
@@ -149,7 +149,7 @@ QString EntryKanjidic::getStrokesCount() const
 
 QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 {
-  //kDebug() << field;
+  //qDebug() << field;
   return QString( "<span class=\"ExtendedInfo\">%1: %2</span>" )
              .arg( field )
              .arg( ExtendedInfo[ field ] );
@@ -220,7 +220,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
     else break; \
   }
 
-  //	kDebug() << "LOADSTRING: '" << stringToLoad << "'";
+  //	qDebug() << "LOADSTRING: '" << stringToLoad << "'";
 
   /* We can start looping at 8 because we have guarantees about the initial
      data.  This loop is used because the kanjidic format allows the data
@@ -231,7 +231,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
       ichar = entryLine.at( i );
 
       curString = "";
-      switch( ichar.toAscii() )
+      switch( ichar.unicode() )
       {
         case ' ':
           /* as far as I can tell, there is no real rule forcing only 1 space so
@@ -352,7 +352,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
             ichar = entryLine.at( i );
           }
           INCI
-//           kDebug() << "Meaning's curString: '" << curString << "'";
+//           qDebug() << "Meaning's curString: '" << curString << "'";
           Meanings.append( curString );
           break;
         case 'T': /* a reading that is used in names for T1, radical names for T2 */
@@ -421,7 +421,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           break;
         default:
           /* either a character we don't address or a problem...we should ignore it */
-// 	  kDebug() << "hit default in kanji parser.  Unicode: '" << ichar.unicode() << "'";
+// 	  qDebug() << "hit default in kanji parser.  Unicode: '" << ichar.unicode() << "'";
 
           /* This should detect unicode kana */
           // Hiragana 0x3040 - 0x309F, Katakana: 0x30A0 - 0x30FF
@@ -456,7 +456,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           break;
       }
   }
-//   kDebug() << "Parsed: '"<<Word<<"' ("<<Readings.join("^")<<") \""<<
+//   qDebug() << "Parsed: '"<<Word<<"' ("<<Readings.join("^")<<") \""<<
 //   Meanings.join("|")<<"\ and " <<ExtendedInfo.keys() << " from :"<<entryLine<<endl;
 
   return true;
@@ -478,7 +478,7 @@ QString EntryKanjidic::toHTML() const
 
   foreach( const QString &field, QSTRINGLISTCHECK( DictFileKanjidic::displayFields ) )
   {
-    //kDebug() << "Display: "<<field;
+    //qDebug() << "Display: "<<field;
     if( field == "--NewLine--" )              result += "<br>";
     else if( field == "Word/Kanji" )          result += HTMLWord() + ' ';
     else if( field == "Meaning" )             result += HTMLMeanings() + ' ';

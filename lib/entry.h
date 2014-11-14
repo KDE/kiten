@@ -25,7 +25,6 @@
 #define KITEN_ENTRY_H
 
 #include <QHash>
-#include <QList>
 #include <QStringList>
 
 #include "libkitenexport.h"

@@ -25,7 +25,7 @@
 
 #include "ui_configdictselect.h" //From the UI file
 
-#include <QWidget> //For the WFlags on the constructor
+#include <QWidget> //For the WindowFlags on the constructor
 
 class KConfigSkeleton;
 class QString;
@@ -39,7 +39,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
     explicit ConfigDictionarySelector(  const QString &dictionaryName
                                       , QWidget *parent = 0
                                       , KConfigSkeleton *iconfig = NULL
-                                      , Qt::WFlags f = 0 );
+                                      , Qt::WindowFlags f = 0 );
 
   public slots:
     void addDictSlot();
