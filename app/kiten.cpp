@@ -189,7 +189,7 @@ void Kiten::setupActions()
 
   QAction *kanjibrowser = actionCollection()->addAction( "kanjibrowser" );
   kanjibrowser->setText( i18n( "Kanji Browser" ) );
-  kanjibrowser->setShortcut( Qt::CTRL+Qt::Key_K );
+  actionCollection()->setDefaultShortcut(kanjibrowser, Qt::CTRL+Qt::Key_K );
   connect(kanjibrowser, &QAction::triggered, this, &Kiten::kanjiBrowserSearch);
 
   /* Setup the Search Actions and our custom Edit Box */
@@ -225,7 +225,7 @@ void Kiten::setupActions()
   actionFocusResultsView = actionCollection()->addAction(  "focusresultview"
                                                          , this
                                                          , SLOT(focusResultsView()) );
-  actionFocusResultsView->setShortcut( Qt::Key_Escape );
+  actionCollection()->setDefaultShortcut(actionFocusResultsView, Qt::Key_Escape );
   actionFocusResultsView->setText( i18n( "Focus result view" ) );
 
 
