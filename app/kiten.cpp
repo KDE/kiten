@@ -184,7 +184,7 @@ void Kiten::setupActions()
   QAction *radselect = actionCollection()->addAction( "radselect" );
   radselect->setText( i18n( "Radical Selector" ) );
 //	radselect->setIcon( "edit-find" );
-  radselect->setShortcut( Qt::CTRL+Qt::Key_R );
+  actionCollection()->setDefaultShortcut(radselect, Qt::CTRL+Qt::Key_R );
   connect(radselect, &QAction::triggered, this, &Kiten::radicalSearch);
 
   QAction *kanjibrowser = actionCollection()->addAction( "kanjibrowser" );
