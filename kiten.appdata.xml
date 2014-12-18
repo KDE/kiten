@@ -12,6 +12,7 @@
   <name xml:lang="es">Kiten</name>
   <name xml:lang="et">Kiten</name>
   <name xml:lang="fi">Kiten</name>
+  <name xml:lang="fr">Kiten</name>
   <name xml:lang="hu">Kiten</name>
   <name xml:lang="it">Kiten</name>
   <name xml:lang="nds">Kiten</name>
@@ -34,6 +35,7 @@
   <summary xml:lang="es">Herramienta de estudio y de referencia del japonés</summary>
   <summary xml:lang="et">Jaapani keele õpiprogramm</summary>
   <summary xml:lang="fi">Japanin opiskelutyökalu</summary>
+  <summary xml:lang="fr">Outil pour l'étude du japonais</summary>
   <summary xml:lang="hu">Segédprogram a japán nyelv tanulásához</summary>
   <summary xml:lang="it">Strumento di riferimento e di studio del giapponese</summary>
   <summary xml:lang="nds">Nakiek- un Lehrwarktüüch för Japaansch </summary>
@@ -55,6 +57,7 @@
     <p xml:lang="es">Kiten es una herramienta de estudio y de referencia del japonés. Contiene un diccionario inglés-japonés y otro japonés-inglés, así como un diccionario de kanjis. Dispone de diferentes formas de buscar caracteres en el diccionario de kanjis.</p>
     <p xml:lang="et">Kiten on jaapani keele õppimisele kaasaaitav rakendus. See pakub inglise-jaapani ja jaapani-inglise sõnaraamatut, samuti kanji sõnaraamatut. Viimase puhul saab märke mitmel viisil otsida.</p>
     <p xml:lang="fi">Kiten on japanin hakuteos- ja opiskelutyökalu. Siinä on englanti–japani–englanti-sanakirja ja kanji-sanakirja. Merkkejä voi hakea kanjisanakirjasta monin tavoin.</p>
+    <p xml:lang="fr">Kiten est un outil pour l'étude du japonais. Il comprend un dictionnaire anglais / japonais et japonais / anglais, ainsi qu'un dictionnaire de Kanji. Plusieurs façons de rechercher les caractères Kanji sont possibles.</p>
     <p xml:lang="it">Kiten è uno strumento di riferimento e di studio del giapponese. Include un dizionario inglese-giapponese e giapponese-inglese, e un dizionario dei Kanji. Ci sono diversi modi per cercare caratteri nel dizionario dei Kanji.</p>
     <p xml:lang="nds">Kiten is en Nakiek- un Lehrwarktüüch för Japaansch. Dat gifft en Engelsch-Japaansch- un en Japaansch-Engelsch-Wöörbook blang en Kanji-Wöörbook. För dat Kanji-Wöörbook laat sik Bookstaven op en Reeg verscheden Oorden nakieken.</p>
     <p xml:lang="nl">Kiten is een hulpmiddel voor referenties naar Japans en om het te studeren. Het omvat een Engels naar Japans en Japans naar Engels woordenboek, evenals een Kanji woordenboek. Voor het Kanji woordenboek worden er meerdere manieren ondersteund om karakters op te zoeken.</p>
