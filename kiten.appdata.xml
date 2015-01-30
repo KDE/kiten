@@ -26,6 +26,7 @@
   <name xml:lang="sv">Kiten</name>
   <name xml:lang="uk">Kiten</name>
   <name xml:lang="x-test">xxKitenxx</name>
+  <name xml:lang="zh-CN">Kiten</name>
   <name xml:lang="zh-TW">語言_Kiten</name>
   <summary>Japanese Reference and Study Tool</summary>
   <summary xml:lang="ca">Eina de referència i estudi del japonès</summary>
@@ -49,6 +50,7 @@
   <summary xml:lang="sv">Japanskt referens- och studieverktyg</summary>
   <summary xml:lang="uk">Програма для вивчення японської мови</summary>
   <summary xml:lang="x-test">xxJapanese Reference and Study Toolxx</summary>
+  <summary xml:lang="zh-CN">日语参考/学习工具</summary>
   <summary xml:lang="zh-TW">日語參考/學習工具</summary>
   <description>
     <p>Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
