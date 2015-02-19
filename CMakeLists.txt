@@ -56,3 +56,4 @@ install(FILES kiten.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
 
 ## Install our datafiles
 install( FILES data/edict data/kanjidic data/radkfile data/vconj data/romkana.cnv DESTINATION ${DATA_INSTALL_DIR}/kiten )
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
