@@ -34,7 +34,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 
   public:
         /**
-         * Constuctor.
+         * Constructor.
          *
          * @param parent parent QWidget
          */
@@ -56,7 +56,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 
   signals:
     /**
-     * Emited when the status bar changed.
+     * Emitted when the status bar changed.
      *
      * @param text new text to put in the status bar
      */
