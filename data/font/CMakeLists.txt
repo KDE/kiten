@@ -1,1 +1,1 @@
-INSTALL( FILES KanjiStrokeOrders.ttf DESTINATION ${CMAKE_INSTALL_PREFIX}/share/fonts/kanjistrokeorders )
+INSTALL( FILES KanjiStrokeOrders.ttf DESTINATION ${DATA_INSTALL_DIR}/fonts/kanjistrokeorders )
