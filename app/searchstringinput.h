@@ -22,6 +22,8 @@
 #ifndef SEARCHSTRINGINPUT_H
 #define SEARCHSTRINGINPUT_H
 
+#include <QObject>
+
 #include "dictquery.h"
 
 class QAction;
