@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kiten</name>
+  <name xml:lang="ast">Kiten</name>
   <name xml:lang="bs">Kiten</name>
   <name xml:lang="ca">Kiten</name>
   <name xml:lang="cs">Kiten</name>
@@ -32,6 +33,7 @@
   <name xml:lang="zh-CN">Kiten</name>
   <name xml:lang="zh-TW">語言_Kiten</name>
   <summary>Japanese Reference and Study Tool</summary>
+  <summary xml:lang="ast">Ferramienta de referencia y estudiu xaponesa</summary>
   <summary xml:lang="bs">Alat za učenje japanskog</summary>
   <summary xml:lang="ca">Eina de referència i estudi del japonès</summary>
   <summary xml:lang="cs">Japonský referenční a výukový nástroj</summary>
@@ -60,6 +62,7 @@
   <summary xml:lang="zh-TW">日語參考/學習工具</summary>
   <description>
     <p>Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
+    <p xml:lang="ast">Kiten ye una ferramienta d'estudiu y de referencia xaponesa. Tien como carauterístiques un diccionariu xaponés/inglés-inglés/xaponés, amás d'un diccionariu kanji. Pal diccionariu kanji hai múltiples formes sofitaes pa guetar caráuteres.</p>
     <p xml:lang="bs">Kiten je japanski referenca i studijski alat. Posjeduje rječnik engleskog na japanski i japanski na engleski rečnik, kao i Kanji rječnik. Za Kanji rječniku postoji više načina podržanih za pregled znakova.</p>
     <p xml:lang="ca">El Kiten és una eina de referència i estudi del japonès. Inclou un diccionari de l'anglès al japonès i del japonès a l'anglès, i també un diccionari Kanji. Pel diccionari Kanji, hi ha implementades múltiples maneres de cercar caràcters.</p>
     <p xml:lang="de">Kiten ist ein japanisches Referenz- und Studierwerkzeug. Es enthält ein Wörterbuch Englisch - Japanisch und Japanisch - Englisch und auch ein Kanji-Wörterbuch. Im Kanji-Wörterbuch gibt es mehrere Möglichkeiten, einzelne Buchstaben nachzuschlagen.</p>
