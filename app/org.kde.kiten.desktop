@@ -124,6 +124,7 @@ X-DBUS-StartupType=Unique
 Exec=kiten -qwindowtitle %c %i
 Name=Kiten
 Name[af]=Katjie
+Name[ast]=Kiten
 Name[be]=Kiten
 Name[bg]=Kiten
 Name[bn]=কিটেন
