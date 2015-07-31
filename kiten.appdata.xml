@@ -28,6 +28,7 @@
   <name xml:lang="sk">Kiten</name>
   <name xml:lang="sl">Kiten</name>
   <name xml:lang="sv">Kiten</name>
+  <name xml:lang="tr">Kiten</name>
   <name xml:lang="uk">Kiten</name>
   <name xml:lang="x-test">xxKitenxx</name>
   <name xml:lang="zh-CN">Kiten</name>
@@ -56,6 +57,7 @@
   <summary xml:lang="sk">Japonská referencia a študijný nástroj</summary>
   <summary xml:lang="sl">Orodje za učenje japonščine</summary>
   <summary xml:lang="sv">Japanskt referens- och studieverktyg</summary>
+  <summary xml:lang="tr">Japonca Başvuru ve Çalışma Aracı</summary>
   <summary xml:lang="uk">Програма для вивчення японської мови</summary>
   <summary xml:lang="x-test">xxJapanese Reference and Study Toolxx</summary>
   <summary xml:lang="zh-CN">日语参考/学习工具</summary>
@@ -81,6 +83,7 @@
     <p xml:lang="sk">Kiten je príručka Japončiny a študijný nástroj. Obsahuje anglicko-japonský a japonsko-anglický slovník, ako aj kandži slovník. Pre kandži slovník je viacero možnosti na hľadanie znakov.</p>
     <p xml:lang="sl">Kiten je orodje za učenje japonščine. Vsebuje angleško-japonski in japonsko-angleški slovar kot tudi slovar Kandži. Za slovar Kandži obstajajo številni načini kako poiskati znake.</p>
     <p xml:lang="sv">Kiten är ett japanskt referens- och studieverktyg. Den innehåller både en engelsk-japansk och japansk-engelsk ordlista, samt ett Kanji-lexikon. Flera sätt att slå upp tecken stöds för Kanji-lexikonet.</p>
+    <p xml:lang="tr">Kiten bir Japonca başvuru ve çalışma aracıdır. Kanji sözlüğünün yanı sıra İngilizceden Japoncaya ve tersine sözlükler içerir. Kanji sözlüğü için karakterlere bakmanın bir çok yolu vardır.</p>
     <p xml:lang="uk">Kiten — програма-словник і програма для вивчення японської мови. Вона може працювати у режимі англо-японського та японо-англійського словника та словника кандзі. Передбачено декілька способів пошуку символів у словнику кандзі.</p>
     <p xml:lang="x-test">xxKiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.xx</p>
     <p xml:lang="zh-TW">Kiten 是一套日語學習工具。它有一套英日、日英字典，以及漢字字典。漢字字典部份支援多種查詢方式。</p>
