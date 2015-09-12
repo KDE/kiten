@@ -29,5 +29,5 @@ target_link_libraries(radselect_bin
 install( TARGETS radselect_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
-install( PROGRAMS kitenradselect.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( PROGRAMS org.kde.kitenradselect.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES radselectui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kitenradselect )
