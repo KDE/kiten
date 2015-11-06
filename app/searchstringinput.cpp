@@ -137,7 +137,9 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
       copy.removeProperty("type");
   }
 
+  _actionTextInput->addToHistory(copy.toString()); // Update history and completion list
   _actionTextInput->setCurrentItem( copy.toString(), true );
+  _actionTextInput->reset(); // Call this manually when you call setCurrentItem
 }
 
 void SearchStringInput::test()
