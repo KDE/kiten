@@ -31,6 +31,7 @@ set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten IMPORT_PREFIX bin_)
 target_link_libraries(kiten_bin 
     KF5::Archive
     KF5::ConfigWidgets
+    KF5::Crash
     KF5::I18n
     KF5::KHtml
     kiten)

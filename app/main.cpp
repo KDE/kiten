@@ -22,6 +22,7 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
+#include <KCrash>
 #include <Kdelibs4ConfigMigrator>
 #include <QApplication>
 #include <QCommandLineParser>
@@ -61,6 +62,10 @@ int main( int argc, char *argv[] )
 
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
   QApplication app(argc, argv);
+
+  // TODO: for >=KF5.15 use KCrash::initialize();
+  KCrash::setCrashHandler(KCrash::defaultCrashHandler);
+
   QCommandLineParser parser;
   KAboutData::setApplicationData(aboutData);
 

@@ -15,6 +15,7 @@ find_package(KF5 REQUIRED COMPONENTS
     Config 
     ConfigWidgets 
     CoreAddons
+    Crash
     DocTools 
     I18n 
     KHtml
