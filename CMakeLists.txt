@@ -1,7 +1,6 @@
 #Name the project
 project(kiten)
 
-# Check for cmake, same as minimum for KDE 4.0.0
 cmake_minimum_required( VERSION 2.8.12 )
 
 #ECM setup
@@ -9,7 +8,7 @@ find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
-find_package(KF5 REQUIRED COMPONENTS 
+find_package(KF5 5.15 REQUIRED COMPONENTS
     Archive
     Completion 
     Config 
