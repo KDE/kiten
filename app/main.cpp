@@ -62,6 +62,7 @@ int main( int argc, char *argv[] )
 
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
   QApplication app(argc, argv);
+  app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
   KCrash::initialize();
 
