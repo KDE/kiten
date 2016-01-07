@@ -35,6 +35,8 @@ int main( int argc, char **argv )
   migrate.setUiFiles(QStringList() << QLatin1String("kanjibrowserui.rc"));
   migrate.migrate();
 
+  KLocalizedString::setApplicationDomain("kiten");
+
   KAboutData about( QStringLiteral("kitenkanjibrowser")
                     , i18n( "kitenkanjibrowser" )
                     , QStringLiteral("1.0")

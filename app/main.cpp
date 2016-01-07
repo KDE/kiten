@@ -44,6 +44,8 @@ int main( int argc, char *argv[] )
   migrate.setUiFiles(QStringList() << QLatin1String("kitenui.rc"));
   migrate.migrate();
 
+  KLocalizedString::setApplicationDomain("kiten");
+
   KAboutData aboutData( QStringLiteral("kiten"), i18n("Kiten"), QStringLiteral("1.3"), i18n("Japanese Reference Tool"),
                   KAboutLicense::GPL_V2, i18n("(c) 2001-2004, Jason Katz-Brown\n"
                                                     "(c) 2006-2007, Eric Kjeldergaard\n"

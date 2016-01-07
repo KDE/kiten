@@ -31,6 +31,8 @@ static const char version[] = "0.1";
 
 int main( int argc, char **argv )
 {
+  KLocalizedString::setApplicationDomain("kiten");
+
   KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), QStringLiteral("0.1"),
                     i18n(description), KAboutLicense::GPL,
                     i18n("(C) 2005 Joseph Kerian"), QString(), QString(), "jkerian@gmail.com" );
