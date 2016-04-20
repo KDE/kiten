@@ -20,7 +20,7 @@ find_package(KF5 5.15 REQUIRED COMPONENTS
     KHtml
     XmlGui)
 include(KDEInstallDirs)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(ECMInstallIcons)
 include( CheckIncludeFiles )
