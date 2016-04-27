@@ -32,6 +32,7 @@ static const char version[] = "0.1";
 int main( int argc, char **argv )
 {
   KLocalizedString::setApplicationDomain("kiten");
+  QApplication app(argc, argv);
 
   KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), QStringLiteral("0.1"),
                     i18n(description), KAboutLicense::GPL,
@@ -40,7 +41,6 @@ int main( int argc, char **argv )
   about.setOrganizationDomain("kde.org"); //For DBus domain
   about.setProgramIconName("kiten");
 
-  QApplication app(argc, argv);
   QCommandLineParser parser;
   KAboutData::setApplicationData(about);
   

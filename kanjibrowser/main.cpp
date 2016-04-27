@@ -36,6 +36,7 @@ int main( int argc, char **argv )
   migrate.migrate();
 
   KLocalizedString::setApplicationDomain("kiten");
+  QApplication app(argc, argv);
 
   KAboutData about( QStringLiteral("kitenkanjibrowser")
                     , i18n( "kitenkanjibrowser" )
@@ -52,7 +53,6 @@ int main( int argc, char **argv )
   about.setOrganizationDomain( "kde.org" );
   about.setProgramIconName( "kiten" );
 
-  QApplication app(argc, argv);
   KAboutData::setApplicationData(about);
   
   if( app.isSessionRestored() )

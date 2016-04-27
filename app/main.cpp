@@ -45,6 +45,7 @@ int main( int argc, char *argv[] )
   migrate.migrate();
 
   KLocalizedString::setApplicationDomain("kiten");
+  QApplication app(argc, argv);
 
   KAboutData aboutData( QStringLiteral("kiten"), i18n("Kiten"), QStringLiteral("1.3"), i18n("Japanese Reference Tool"),
                   KAboutLicense::GPL_V2, i18n("(c) 2001-2004, Jason Katz-Brown\n"
@@ -63,7 +64,6 @@ int main( int argc, char *argv[] )
   aboutData.addAuthor( i18n("Daniel E. Moctezuma"), i18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"), "democtezuma@gmail.com" );
 
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
-  QApplication app(argc, argv);
   app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
   KCrash::initialize();
