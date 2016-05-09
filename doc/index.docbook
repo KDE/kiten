@@ -1,7 +1,5 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY kappname "&kiten;">
-  <!ENTITY package "kdeedu">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
@@ -29,8 +27,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-03-14</date>
-<releaseinfo>1.3 (&kde; 4.8)</releaseinfo>
+<date>2016-05-07</date>
+<releaseinfo>1.3 (Applications 16.04)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -79,7 +77,7 @@ Kanji.</para>
 English and Japanese words. You can also add other dictionaries to
 &kiten;'s list.</para>
 
-<para>&kiten; uses Jim Breen's Edict and Kanjidic as the default dictionaries. You can find more information at <ulink url="http://www.csse.monash.edu.au/~jwb/edict.html">the Edict web site</ulink> and <ulink url="http://www.csse.monash.edu.au/~jwb/kanjidic.html">the Kanjidic web site</ulink>.</para>
+<para>&kiten; uses Jim Breen's Edict and Kanjidic as the default dictionaries. You can find more information at <ulink url="http://www.edrdg.org/jmdict/edict.html">the Edict web site</ulink> and <ulink url="http://www.csse.monash.edu.au/~jwb/kanjidic.html">the Kanjidic web site</ulink>.</para>
 
 <sect1 id="looking-up-words">
 <title>Looking Up Words</title>
@@ -91,7 +89,7 @@ the toolbar (again, much like &konqueror;). &kiten; will then look up
 the word.</para>
 
 <para>You can enter Kanji, Kana and English and get back results from
-&kiten;.  These results of your search will appear in the large
+&kiten;. These results of your search will appear in the large
 results view which takes up the majority of the &kiten; window.</para>
 
 <screenshot>
@@ -141,10 +139,6 @@ options is that here you also get the Rare/Uncommon results.</para>
 
 </sect2>
 
-<!-- not in kde4
-<para>If you have not enabled filtering rare entries, common entries
-will be labeled <guilabel>Common</guilabel> in the result view.</para>
--->
 </sect1>
 
 <sect1 id="advanced-searches">
@@ -180,7 +174,7 @@ languages.</para>
 
 <sect2 id="word-type-searches">
 <title>Word type searches</title>
-<para>&kappname; supports word type searches such as: verb, noun, adjective, adverb,
+<para>&kiten; supports word type searches such as: verb, noun, adjective, adverb,
 prefix, suffix, expression or any type. This way you can filter your results
 more conveniently.</para>
 
@@ -215,7 +209,7 @@ beginning/ending/anywhere searches, this works for both languages too.</para>
 </sect2>
 
 </sect1>
-
+<!--FIXME disabled in kf5
 <sect1 id="deinf">
 <title>Verb Deinflection</title>
 
@@ -235,7 +229,7 @@ until you get used to handling Japanese verb forms.
 </screenshot>
 
 </sect1>
-
+-->
 </chapter>
 
 <chapter id="looking-up-kanji">
@@ -311,7 +305,7 @@ box as "G:1" (G: is the Kanjidic tag for grade).</para>
 <title>Stroke Search</title>
 
 <para>To get a list of all Kanji with a certain number of strokes,
-enter that number in the text-entry in the toolbar as "S:2".</para>
+enter that number the search box as "S:2".</para>
 
 <screenshot>
 <screeninfo>Screenshot for kanji strokes search</screeninfo>
@@ -367,8 +361,8 @@ kanji stroke order, number of strokes, readings and meanings.</para>
 in both modes in &kiten;'s main window.</para>
 
 <sect1 id="history">
-<title>The History</title>
-<!-- changed in kde4-->
+<title>History</title>
+
 <para>&kiten; keeps track of all of your queries in the input field. You can
 see your last results by clicking on the check mark at the right of the input field.
 To go forward one in the history, choose
@@ -377,21 +371,7 @@ go backward one in the history, choose
 <menuchoice><guimenu>Go</guimenu><guimenuitem>Back</guimenuitem></menuchoice>.</para>
 
 </sect1>
-<!-- how to do that in kde4 ?
-<sect1 id="global-keys">
-<title>Global Shortcuts</title>
 
-<para>You can set global &kiten; shortcuts that work everywhere on
-your desktop. Go to the &kiten; configuration dialog, which can be
-opened by choosing
-<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
-Kiten...</guimenuitem></menuchoice>. Select the <guilabel>Global
-Keys</guilabel> section of the dialog. Here you can set the keys for a
-global word search and a global Kanji search like in other &kde;
-shortcut configuration panels.</para>
-
-</sect1>
--->
 <sect1 id="fonts">
 <title>Fonts</title>
 
@@ -465,14 +445,6 @@ fine.</para></note>
 &underGPL;
 
 </chapter>
-
-<!-- <appendix id="installation">
-<title>Installation</title>
-
-&install.intro.documentation;
-&install.compile.documentation;
-
-</appendix> -->
 
 &documentation.index;
 </book>
