@@ -41,11 +41,11 @@
   <Action name="search_searchType" />
   <Action name="search_wordType" />
 </ToolBar>
-
+<!--
 <ToolBar name="extraToolbar" newline="true" hidden="true">
   <text>Extra Toolbar</text>
 </ToolBar>
-
+-->
 <ToolBar name="searchToolbar" fullWidth="true" newline="true">
   <text>Search Toolbar</text>
   <Action name="searchbox" />
