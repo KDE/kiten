@@ -21,9 +21,8 @@ ki18n_wrap_ui(kiten_bin_SRCS
 	)
 kconfig_add_kcfg_files( kiten_bin_SRCS kitenconfig.kcfgc)
 
-#kde4_add_app_icon(kiten_bin_SRCS "${KDE4_ICON_DIR}/oxygen/*/apps/kiten.png")
-#kde4_add_app_icon(kiten_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/ox*-apps-kiten.png")
-# # kde4_add_app_icon(kiten_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/*-apps-kiten.png")
+ecm_add_app_icon(kiten_bin_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(kiten_bin ${kiten_bin_SRCS})
 set_target_properties(kiten_bin PROPERTIES OUTPUT_NAME kiten IMPORT_PREFIX bin_)

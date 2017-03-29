@@ -9,8 +9,6 @@ set(kanjibrowser_bin_SRCS
 ki18n_wrap_ui(kanjibrowser_bin_SRCS kanjibrowserview.ui preferences.ui)
 kconfig_add_kcfg_files(kanjibrowser_bin_SRCS kanjibrowserconfig.kcfgc)
 
-# # kde4_add_app_icon(kanjibrowser_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
-
 add_executable(kanjibrowser_bin ${kanjibrowser_bin_SRCS})
 set_target_properties(kanjibrowser_bin PROPERTIES OUTPUT_NAME kitenkanjibrowser)
 target_link_libraries(kanjibrowser_bin  

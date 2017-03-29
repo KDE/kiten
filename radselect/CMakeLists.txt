@@ -13,9 +13,6 @@ set(radselect_bin_SRCS
 ki18n_wrap_ui(radselect_bin_SRCS radical_selector.ui radselectprefdialog.ui)
 kconfig_add_kcfg_files(radselect_bin_SRCS radselectconfig.kcfgc)
 
-#kde4_add_app_icon(radselect_bin_SRCS "${CMAKE_INSTALL_PREFIX}/share/icons/oxygen/*/apps/kiten.png")
-# # kde4_add_app_icon(radselect_bin_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/hi*-apps-kiten.png")
-
 add_executable(radselect_bin ${radselect_bin_SRCS})
 set_target_properties(radselect_bin PROPERTIES OUTPUT_NAME kitenradselect)
 target_link_libraries(radselect_bin 
