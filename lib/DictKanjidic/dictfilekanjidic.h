@@ -45,18 +45,18 @@ class KITEN_EXPORT DictFileKanjidic : public DictFile
     virtual              ~DictFileKanjidic();
 
     QMap<QString,QString> displayOptions() const;
-    virtual EntryList    *doSearch( const DictQuery &query );
+    EntryList    *doSearch( const DictQuery &query ) Q_DECL_OVERRIDE;
     QStringList           dumpDictionary();
-    virtual QStringList   listDictDisplayOptions( QStringList list ) const;
+    QStringList   listDictDisplayOptions( QStringList list ) const Q_DECL_OVERRIDE;
     bool                  loadDictionary(  const QString &file
-                                         , const QString &name );
+                                         , const QString &name ) Q_DECL_OVERRIDE;
     QStringList          *loadListType(  KConfigSkeletonItem *item
                                        , QStringList *list
                                        , const QMap<QString,QString> &long2short );
     void                  loadSettings();
-    virtual void          loadSettings( KConfigSkeleton *item );
-    bool                  validDictionaryFile( const QString &filename );
-    bool                  validQuery( const DictQuery &query );
+    void          loadSettings( KConfigSkeleton *item ) Q_DECL_OVERRIDE;
+    bool                  validDictionaryFile( const QString &filename ) Q_DECL_OVERRIDE;
+    bool                  validQuery( const DictQuery &query ) Q_DECL_OVERRIDE;
 
   protected:
     virtual inline Entry *makeEntry( const QString &entry );

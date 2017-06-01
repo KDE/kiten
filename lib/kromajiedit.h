@@ -44,7 +44,7 @@ class /* NO_EXPORT */ KRomajiEdit : public KLineEdit
 
   protected:
     QMenu *createPopupMenu();
-    void   keyPressEvent( QKeyEvent *e );
+    void   keyPressEvent( QKeyEvent *e ) Q_DECL_OVERRIDE;
 
   private:
     QMap<QString, QString> m_hiragana;

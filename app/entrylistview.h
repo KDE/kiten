@@ -36,7 +36,7 @@ class EntryListView : public QTableView
     void setEmptyModel();
 
   protected:
-    virtual void resizeEvent( QResizeEvent *event );
+    void resizeEvent( QResizeEvent *event ) Q_DECL_OVERRIDE;
 };
 
 #endif

@@ -38,11 +38,11 @@ class KITEN_EXPORT EntryKanjidic : public Entry
                     EntryKanjidic( const QString &dict );
                     EntryKanjidic( const QString &dict, const QString &entry );
 
-    Entry          *clone() const;
-    virtual QString dumpEntry() const;
+    Entry          *clone() const Q_DECL_OVERRIDE;
+    QString dumpEntry() const Q_DECL_OVERRIDE;
     QString         getAsRadicalReadings() const;
     QStringList     getAsRadicalReadingsList() const;
-    virtual QString getDictionaryType() const;
+    QString getDictionaryType() const Q_DECL_OVERRIDE;
     QString         getInNamesReadings() const;
     QStringList     getInNamesReadingsList() const;
     QString         getKanjiGrade() const;
@@ -51,14 +51,14 @@ class KITEN_EXPORT EntryKanjidic : public Entry
     QString         getOnyomiReadings() const;
     QStringList     getOnyomiReadingsList() const;
     QString         getStrokesCount() const;
-    virtual bool    loadEntry( const QString &entryLine );
-    virtual QString toHTML() const;
+    bool    loadEntry( const QString &entryLine ) Q_DECL_OVERRIDE;
+    QString toHTML() const Q_DECL_OVERRIDE;
 
   protected:
-    virtual bool    extendedItemCheck( const QString &key, const QString &value ) const;
+    bool    extendedItemCheck( const QString &key, const QString &value ) const Q_DECL_OVERRIDE;
     virtual QString HTMLExtendedInfo( const QString &field ) const;
-    virtual QString HTMLReadings() const;
-    virtual QString HTMLWord() const;
+    QString HTMLReadings() const Q_DECL_OVERRIDE;
+    QString HTMLWord() const Q_DECL_OVERRIDE;
     virtual QString makeReadingLink( const QString &inReading ) const;
 
     QStringList AsRadicalReadings;

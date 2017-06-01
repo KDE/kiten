@@ -57,12 +57,12 @@ class ResultsView : public KHTMLPart
   protected:
     QString      deLinkify( DOM::Node );
     QString      generateCSS();
-    virtual bool urlSelected(  const QString &url
+    bool urlSelected(  const QString &url
                              , int button
                              , int state
                              , const QString &_target
                              , const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments()
-                             , const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments() );
+                             , const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments() ) Q_DECL_OVERRIDE;
 
   private slots:
     void doScroll();

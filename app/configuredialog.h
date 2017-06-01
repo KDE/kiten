@@ -45,12 +45,12 @@ class ConfigureDialog : public KConfigDialog
 
   private slots:
     void updateConfiguration();
-    void updateSettings();
-    void updateWidgets();
-    void updateWidgetsDefault();
+    void updateSettings() Q_DECL_OVERRIDE;
+    void updateWidgets() Q_DECL_OVERRIDE;
+    void updateWidgetsDefault() Q_DECL_OVERRIDE;
 
   private:
-    bool     isDefault();
+    bool     isDefault() Q_DECL_OVERRIDE;
     QWidget *makeDictionaryPreferencesPage( QWidget *, KitenConfigSkeleton* );
     QWidget *makeDictionaryFileSelectionPage( QWidget *, KitenConfigSkeleton* );
     QWidget *makeSortingPage( QWidget *, KitenConfigSkeleton* );

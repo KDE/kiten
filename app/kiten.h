@@ -68,7 +68,7 @@ class Kiten : public KXmlGuiWindow
   protected:
     void setupActions();
     void setupExportListDock();
-    virtual bool queryClose(); //overridden from KXmlGuiWindow (called@shutdown)
+    bool queryClose(); //overridden from KXmlGuiWindow (called@shutdown) Q_DECL_OVERRIDE
 
   private slots:
     void finishInit();

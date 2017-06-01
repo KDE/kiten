@@ -52,16 +52,16 @@ class KITEN_EXPORT DictFileEdict : public DictFile
                                         DictFileEdict();
     virtual                            ~DictFileEdict();
 
-    virtual EntryList                  *doSearch( const DictQuery &query );
-    virtual QStringList                 listDictDisplayOptions( QStringList x ) const;
+    EntryList                  *doSearch( const DictQuery &query ) Q_DECL_OVERRIDE;
+    QStringList                 listDictDisplayOptions( QStringList x ) const Q_DECL_OVERRIDE;
     bool                                loadDictionary(  const QString &file
-                                                       , const QString &name );
+                                                       , const QString &name ) Q_DECL_OVERRIDE;
     void                                loadSettings();
-    virtual void                        loadSettings( KConfigSkeleton *config );
-    virtual DictionaryPreferenceDialog *preferencesWidget(  KConfigSkeleton *config
-                                                          , QWidget *parent = NULL );
-    virtual bool                        validDictionaryFile( const QString &filename );
-    bool                                validQuery( const DictQuery &query );
+    void                        loadSettings( KConfigSkeleton *config ) Q_DECL_OVERRIDE;
+    DictionaryPreferenceDialog *preferencesWidget(  KConfigSkeleton *config
+                                                          , QWidget *parent = NULL ) Q_DECL_OVERRIDE;
+    bool                        validDictionaryFile( const QString &filename ) Q_DECL_OVERRIDE;
+    bool                                validQuery( const DictQuery &query ) Q_DECL_OVERRIDE;
 
     static QString                     *deinflectionLabel;
     static QString                     *wordType;
