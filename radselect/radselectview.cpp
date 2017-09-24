@@ -118,6 +118,7 @@ void RadSelectView::changedSearch()
 
 void RadSelectView::clearSearch()
 {
+  m_possibleKanji.clear();
   m_buttongrid->clearSelections();
   selected_radicals->clear();
   strokes_low->setValue( 0 );
