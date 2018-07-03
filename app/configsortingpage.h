@@ -35,7 +35,7 @@ class ConfigSortingPage : public QWidget, public Ui::configSorting
   public:
     explicit ConfigSortingPage(  QWidget *parent = 0
                                , KitenConfigSkeleton *config = NULL
-                               , Qt::WindowFlags f = 0 );
+                               , Qt::WindowFlags f = {} );
 
   public slots:
     bool hasChanged();

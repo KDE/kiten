@@ -39,7 +39,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
     explicit ConfigDictionarySelector(  const QString &dictionaryName
                                       , QWidget *parent = 0
                                       , KConfigSkeleton *iconfig = NULL
-                                      , Qt::WindowFlags f = 0 );
+                                      , Qt::WindowFlags f = {} );
 
   public slots:
     void addDictSlot();
