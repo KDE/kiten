@@ -178,7 +178,7 @@ void KanjiBrowserView::loadSettings()
   _labelFont = KanjiBrowserConfigSkeleton::self()->labelFont();
 
   // Reload the Kanji Information page with the new font changes.
-  if( ! _currentKanji == 0 )
+  if( _currentKanji != 0 )
   {
     showKanjiInformation( _currentKanji );
   }
