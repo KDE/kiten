@@ -35,8 +35,9 @@ int main( int argc, char **argv )
   migrate.setUiFiles(QStringList() << QLatin1String("kanjibrowserui.rc"));
   migrate.migrate();
 
-  KLocalizedString::setApplicationDomain("kiten");
   QApplication app(argc, argv);
+  app.setWindowIcon(QIcon::fromTheme(QLatin1String("kiten"), app.windowIcon()));
+  KLocalizedString::setApplicationDomain("kiten");
 
   KAboutData about( QStringLiteral("kitenkanjibrowser")
                     , i18n( "kitenkanjibrowser" )
@@ -51,7 +52,6 @@ int main( int argc, char **argv )
                    , QString()
                    , "democtezuma@gmail.com" );
   about.setOrganizationDomain( "kde.org" );
-  about.setProgramIconName( "kiten" );
 
   KAboutData::setApplicationData(about);
   
