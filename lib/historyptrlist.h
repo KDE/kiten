@@ -67,7 +67,7 @@ class KITEN_EXPORT HistoryPtrList
      */
     void prev( int distance = 1 );
     /**
-     * Return the current numerican 0-based location
+     * Return the current numerical 0-based location
      */
     int index();
     /**

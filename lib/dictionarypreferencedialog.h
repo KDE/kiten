@@ -63,17 +63,17 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget
 
   public Q_SLOTS:
     /**
-     * Connect the signal of your preferenes dialog to this updateWidgets slot, to handle reading
+     * Connect the signal of your preferences dialog to this updateWidgets slot, to handle reading
      * preference settings cleanly. You can also call this slot directly from your own updateWidgets slot.
      */
     virtual void updateWidgets() = 0;
     /**
-     * Connect the signal of your preferenes dialog to this updateWidgetsDefault slot, to handle setting
+     * Connect the signal of your preferences dialog to this updateWidgetsDefault slot, to handle setting
      * preference settings back to their default settings easily.
      */
     virtual void updateWidgetsDefault() = 0;
     /**
-     * Connect the signal of your preferenes dialog to this updateSettings slot, to handle saving
+     * Connect the signal of your preferences dialog to this updateSettings slot, to handle saving
      * user's preference information.
      */
     virtual void updateSettings() = 0;

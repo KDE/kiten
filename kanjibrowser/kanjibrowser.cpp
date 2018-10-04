@@ -102,9 +102,9 @@ void KanjiBrowser::loadKanji()
     // manage that information in KanjiBrowserView.
     int grade   = 0;
     int strokes = 0;
-    QStringList gradeSection = line.split( " ", QString::SkipEmptyParts )
+    QStringList gradeSection = line.split( ' ', QString::SkipEmptyParts )
                                    .filter( gradeMatch );
-    QStringList strokesSection = line.split( " ", QString::SkipEmptyParts )
+    QStringList strokesSection = line.split( ' ', QString::SkipEmptyParts )
                                      .filter( strokeMatch );
 
     // There are some kanji without grade (example: those not in Jouyou list).
@@ -125,7 +125,7 @@ void KanjiBrowser::loadKanji()
     kanjiList.insert( line[ 0 ], qMakePair( grade, strokes ) );
   }
 
-  // This convertion from QList to QSet to QList, is to remove duplicated items.
+  // This conversion from QList to QSet to QList, is to remove duplicated items.
   gradeList  = gradeList.toSet().toList();
   strokeList = strokeList.toSet().toList();
   // Sort them.
@@ -134,7 +134,7 @@ void KanjiBrowser::loadKanji()
   qDebug() << "Max. grade:" << gradeList.last() << endl;
   qDebug() << "Max. stroke count:" << strokeList.last() << endl;
 
-  // Finaly setup the view.
+  // Finally setup the view.
   _view->setupView( this, kanjiList, gradeList, strokeList );
 }
 

@@ -31,7 +31,7 @@ class Kanji : public QString
 {
   public:
                          Kanji();
-                         Kanji(  const QString &kanji
+    explicit             Kanji(  const QString &kanji
                                , const QSet<QString> &radicals );
 
     void                 addRadical( const QString &it );

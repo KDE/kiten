@@ -110,7 +110,7 @@ public:
     *
     * @param str the QString will be parsed as described below in operator=(const QString&)
     */
-  DictQuery( const QString& str );
+  explicit DictQuery( const QString& str );
   /**
    * Copy constructor
    *
@@ -145,7 +145,7 @@ public:
    */
   const QString toString() const;
   /**
-   * This is a convertion to a QString... useful in a surprising
+   * This is a conversion to a QString... useful in a surprising
    * number of cases.
    */
   operator QString() const;
@@ -266,7 +266,7 @@ public:
    */
   DictQuery &operator+=( const QString &old );
   /**
-   * Simple addition... similer to operator+=
+   * Simple addition... similar to operator+=
    */
   KITEN_EXPORT friend DictQuery operator+( const DictQuery &a, const DictQuery &b );
 #ifndef QT_NO_CAST_ASCII

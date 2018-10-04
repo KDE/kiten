@@ -134,7 +134,7 @@ class KITEN_EXPORT DictionaryManager
     /**
      * Compiles a list of all fields beyond the basic three (word/pronunciation/meaning) that all dictionary
      * types support. This can be used to generate a preference dialog, or provide more direct references.
-     * The return value is "full name of the field" => "abbreviation useable in search string"
+     * The return value is "full name of the field" => "abbreviation usable in search string"
      */
     static QMap<QString,QString> generateExtendedFieldsList();
     /**

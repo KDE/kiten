@@ -190,7 +190,7 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
 
 /**
  * For this case, we let polymorphism do most of the work. We assume that the user wants
- * to pare down the results, so we let the individual entry metching methods run over the
+ * to pare down the results, so we let the individual entry matching methods run over the
  * new query and accept (and copy) any of those that pass.
  */
 EntryList *DictionaryManager::doSearchInList( const DictQuery &query, const EntryList *list ) const

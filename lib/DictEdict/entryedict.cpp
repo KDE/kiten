@@ -307,8 +307,8 @@ bool EntryEdict::loadEntry( const QString &entryLine )
         i != -1;
         i = firstWord.indexOf( "(", i + 1 ) )
   {
-    QString parantheses = firstWord.mid( i + 1, firstWord.indexOf( ")", i ) - i - 1 );
-    stringTypes += parantheses.split( ',' );
+    QString parentheses = firstWord.mid( i + 1, firstWord.indexOf( ")", i ) - i - 1 );
+    stringTypes += parentheses.split( ',' );
   }
 
   foreach( const QString &str, stringTypes )

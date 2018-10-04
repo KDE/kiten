@@ -73,7 +73,7 @@ const QString DictQuery::Private::meaningMarker( "__@\\m" );
 const QString DictQuery::Private::wordMarker( "_@\\w" );
 
 /*****************************************************************************
-*	Constructors, Destructors, Initilizers, and
+*	Constructors, Destructors, Initializers, and
 *	Global Status Indicators.
 *****************************************************************************/
 DictQuery::DictQuery()

@@ -30,7 +30,7 @@ class EntryListView : public QTableView
   Q_OBJECT
 
   public:
-    EntryListView( QWidget *parent = NULL );
+    explicit EntryListView( QWidget *parent = NULL );
 
   public slots:
     void setEmptyModel();

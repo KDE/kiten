@@ -20,8 +20,8 @@
 
 //This is currently the only file in libkiten dict handlers to have moc code included...
 
-#ifndef KITEN_DICTFILEPREFERENCEDIALOG_H
-#define KITEN_DICTFILEPREFERENCEDIALOG_H
+#ifndef KITEN_DICTFILEFIELDSELECTOR_H
+#define KITEN_DICTFILEFIELDSELECTOR_H
 
 #include "dictionarypreferencedialog.h"
 

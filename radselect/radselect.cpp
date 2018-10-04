@@ -31,11 +31,14 @@
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <KStandardShortcut>
-#include <QStatusBar>
 
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusMessage>
 #include <QDragEnterEvent>
 #include <QDropEvent>
-#include <QtDBus>
+#include <QMimeData>
+#include <QStatusBar>
 
 RadSelect::RadSelect()
 : KXmlGuiWindow()
@@ -72,7 +75,7 @@ RadSelect::RadSelect()
                                           , QDBusConnection::sessionBus() );
   }
 
-  // connect the search signal from the m_view with our dcop routines
+  // connect the search signal from the m_view with our dbus routines
   connect( m_view, SIGNAL(kanjiSelected(QStringList)),
              this,   SLOT(sendSearch(QStringList)) );
 }

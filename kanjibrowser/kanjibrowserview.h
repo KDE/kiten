@@ -38,7 +38,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
          *
          * @param parent parent QWidget
          */
-         KanjiBrowserView( QWidget *parent );
+         explicit KanjiBrowserView( QWidget *parent );
         ~KanjiBrowserView();
 
     /**
@@ -100,7 +100,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 
   private:
     /**
-     * QFont to CSS font style convertion.
+     * QFont to CSS font style conversion.
      *
      * @param font font to be convert
      */

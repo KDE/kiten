@@ -39,7 +39,7 @@ class RadSelectView : public QWidget, public Ui::radical_selector
   Q_OBJECT
 
   public:
-             RadSelectView( QWidget *parent );
+    explicit RadSelectView( QWidget *parent );
     virtual ~RadSelectView();
 
     //Load pre-determined search parameters

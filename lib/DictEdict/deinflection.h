@@ -35,7 +35,7 @@ class QString;
 class Deinflection
 {
   public:
-                Deinflection( const QString name );
+    explicit    Deinflection( const QString name );
 
     QString    *getDeinflectionLabel();
     QString    *getWordType();

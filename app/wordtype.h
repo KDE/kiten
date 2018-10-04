@@ -32,7 +32,7 @@ class /* NO_EXPORT */ WordType : public KComboBox
   Q_OBJECT
 
   public:
-    WordType( QWidget *parent );
+    explicit WordType( QWidget *parent );
 };
 
 #endif

@@ -61,7 +61,7 @@
 #include "kitenconfig.h"
 #include "resultsview.h"
 #include "searchstringinput.h"
-/* Separting Learn */
+/* Separating Learn */
 //#include "learn.h"
 
 Kiten::Kiten( QWidget *parent, const char *name )
@@ -746,7 +746,7 @@ void Kiten::print()
 ******************************************************************************/
 
 /**
- * Given one Search Result, it addes it to the history list the logic in it
+ * Given one Search Result, it adds it to the history list the logic in it
  * exists to maintain the history list of a certain size.  Note that this method
  * does not display the EntryList it is given... so you can add something to the
  * history and display it separately.

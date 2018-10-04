@@ -35,7 +35,7 @@ class KITEN_EXPORT EntryKanjidic : public Entry
 {
   public:
                     EntryKanjidic( const EntryKanjidic &dict );
-                    EntryKanjidic( const QString &dict );
+    explicit        EntryKanjidic( const QString &dict );
                     EntryKanjidic( const QString &dict, const QString &entry );
 
     Entry          *clone() const Q_DECL_OVERRIDE;

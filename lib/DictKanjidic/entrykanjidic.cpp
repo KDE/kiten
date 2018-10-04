@@ -186,7 +186,7 @@ QString EntryKanjidic::HTMLWord() const
 }
 
 /**
- * Fill the fields of our Entry object apprpriate to the given
+ * Fill the fields of our Entry object appropriate to the given
  * entry line from Kanjidic.
  */
 /* TODO: Error checking */
@@ -465,7 +465,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 QString EntryKanjidic::makeReadingLink( const QString &inReading ) const
 {
   QString reading = inReading;
-  return QString( "<a href=\"%1\">%2</a>" ).arg( reading.remove( "." ).remove( "-" ) )
+  return QString( "<a href=\"%1\">%2</a>" ).arg( reading.remove( '.' ).remove( '-' ) )
                                            .arg( inReading );
 }
 

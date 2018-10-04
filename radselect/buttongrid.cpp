@@ -167,7 +167,7 @@ void ButtonGrid::updateButtons()
     return;
   }
 
-  //Figure out what our kanji possibilites are
+  //Figure out what our kanji possibilities are
   QSet<Kanji> kanjiSet = m_radicalInfo->kanjiContainingRadicals( m_selectedRadicals );
 
   //Convert to a list, sort, and tell the world!

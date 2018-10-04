@@ -401,7 +401,7 @@ inline QString Entry::toKVTML() const
 
 /**
  * This method should return the entry object in a simple QString format
- * Brief form should be useable in quick summaries, for example
+ * Brief form should be usable in quick summaries, for example
  * Verbose form might be used to save a complete list of entries to a file, for example.
  */
 QString Entry::toString() const

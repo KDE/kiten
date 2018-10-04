@@ -50,7 +50,7 @@ void KanjiBrowserView::changeGrade( const int grade )
 {
   _currentGradeList.clear();
 
-  // Indexex of items in the ComboBox:
+  // Indexes of items in the ComboBox:
   //   All Jouyou Kanji Grades: 0
   //   Grade 1: 1
   //   Grade 2: 2

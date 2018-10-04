@@ -107,7 +107,7 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
         }
         firstChoice = keys[ 0 ];
         firstChoice = firstChoice + query.getProperty( firstChoice );
-        //TODO: doSearch: some accomodation for searching for ranges and such of properties
+        //TODO: doSearch: some accommodation for searching for ranges and such of properties
       }
     }
   }

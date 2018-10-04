@@ -56,7 +56,7 @@ class /* NO_EXPORT */ DictFile
      * Use this constructor for your subclasses. Dictionary subclasses MUST specify their type
      * at creation.
      */
-    DictFile( const QString& dictionaryTypeName ) : m_dictionaryType( dictionaryTypeName ) {}
+    explicit DictFile( const QString& dictionaryTypeName ) : m_dictionaryType( dictionaryTypeName ) {}
     /**
      * Destructor
      */
@@ -72,7 +72,7 @@ class /* NO_EXPORT */ DictFile
      * Is this query relevant to this dictionary type? Usually this will return true,
      * unless the query specifies extended attributes that the dictionary does not provide.
      *
-     * @param query the query to examine for relevence to this dictionary type */
+     * @param query the query to examine for relevance to this dictionary type */
     virtual bool validQuery( const DictQuery &query ) = 0;
     /**
      * This actually conducts the search on the given query. This is usually most of the work
@@ -101,11 +101,11 @@ class /* NO_EXPORT */ DictFile
             { return loadDictionary( file, name ); }
     /**
      * Return a list of the fields that can be displayed, note the following
-     * should probably always be retured: --NewLine--, Word/Kanji, Meaning,
+     * should probably always be returned: --NewLine--, Word/Kanji, Meaning,
      * Reading.  This function is passed a list originally containing those
      * four items. This function is used to enumerate possible types the user
      * chooses to have displayed in the preferences dialog box.
-     * This will often be a very similer list to getSearchableAttributes(),
+     * This will often be a very similar list to getSearchableAttributes(),
      * but due to optional forms of spelling and other situations, it may
      * not be exactly the same. Note: The "Dictionary" option will be
      * appended to your list at the end.

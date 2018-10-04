@@ -57,7 +57,7 @@ class KITEN_EXPORT Entry
      */
     Entry( const Entry& );
     /**
-     * Constructor that includes the dictionary source. This does not need to be overridded by
+     * Constructor that includes the dictionary source. This does not need to be overridden by
      * subclasses, but you might find it to be convenient as the superclass constructor to call
      * from your constructors.
      * @param sourceDictionary the dictionary name (not fileName) that this entry originated with
@@ -162,7 +162,7 @@ class KITEN_EXPORT Entry
     virtual QString dumpEntry() const = 0;
 
     /**
-     * An overrideable sorting function, similer to operator< in most contexts
+     * An overrideable sorting function, similar to operator< in most contexts
      * The default version will sort by dictionary, then by fields
      *
      * @param that the second item we are comparing (this) with

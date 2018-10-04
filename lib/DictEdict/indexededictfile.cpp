@@ -110,7 +110,7 @@ int IndexedEdictFile::equalOrSubstring( const char *str1, const char *str2 ) con
     if( ( i % 2 ) == 0 )
     {
       //on the highbyte (of kana)
-      if( c2 == 0xA5 ) //Make katakana and hiragana equivelent
+      if( c2 == 0xA5 ) //Make katakana and hiragana equivalent
       {
         c2 = 0xA4;
       }
@@ -254,7 +254,7 @@ int IndexedEdictFile::findMatches( const char *str1, const char *str2 ) const
     if( ( i % 2 ) == 0 )
     {
       //on the highbyte (of kana)
-      if( c2 == 0xA5 ) //Make katakana and hiragana equivelent
+      if( c2 == 0xA5 ) //Make katakana and hiragana equivalent
       {
         c2 = 0xA4;
       }
@@ -372,7 +372,7 @@ bool IndexedEdictFile::loadmmaps()
 }
 
 /**
- * Similer to it's larger cousin below, this scans the dictionary at
+ * Similar to it's larger cousin below, this scans the dictionary at
  * a particular location and extracts the unsigned char at a particular
  * location within the file/memorymap, offset from the start of the
  * dictionary.
