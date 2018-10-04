@@ -19,6 +19,7 @@
  *****************************************************************************/
 
 #include <QApplication>
+#include <QIcon>
 #include <QCommandLineParser>
 
 #include <KAboutData>
@@ -31,15 +32,15 @@ static const char version[] = "0.1";
 
 int main( int argc, char **argv )
 {
-  KLocalizedString::setApplicationDomain("kiten");
   QApplication app(argc, argv);
-
+  app.setWindowIcon(QIcon::fromTheme(QLatin1String("kiten"), app.windowIcon()));
+  KLocalizedString::setApplicationDomain("kiten");
+  
   KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), QStringLiteral("0.1"),
                     i18n(description), KAboutLicense::GPL,
                     i18n("(C) 2005 Joseph Kerian"), QString(), QString(), "jkerian@gmail.com" );
   about.addAuthor( i18n("Joseph Kerian"), QString(), "jkerian@gmail.com" );
   about.setOrganizationDomain("kde.org"); //For DBus domain
-  about.setProgramIconName("kiten");
 
   QCommandLineParser parser;
   KAboutData::setApplicationData(about);

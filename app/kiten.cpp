@@ -115,7 +115,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
   _optionDialog = 0;
 
   /* Start the system tray icon. */
-  _sysTrayIcon = new QSystemTrayIcon( windowIcon(), this );
+  _sysTrayIcon = new QSystemTrayIcon( QIcon::fromTheme(QLatin1String("kiten")), this );
   _sysTrayIcon->show();
 
   /* Set things as they were (as told in the config) */
