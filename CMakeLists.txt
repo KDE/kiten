@@ -18,6 +18,7 @@ find_package(KF5 5.15 REQUIRED COMPONENTS
     DocTools 
     I18n 
     KHtml
+    Notifications
     XmlGui)
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)

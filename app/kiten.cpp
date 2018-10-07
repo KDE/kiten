@@ -34,6 +34,7 @@
 #include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KStandardGuiItem>
+#include <KStatusNotifierItem>
 #include <KToggleAction>
 #include <KXmlGuiWindow>
 
@@ -47,7 +48,6 @@
 #include <QScrollBar>
 #include <QStatusBar>
 #include <QStandardPaths>
-#include <QSystemTrayIcon>
 #include <QTimer>
 #include <QVBoxLayout>
 
@@ -115,8 +115,10 @@ Kiten::Kiten( QWidget *parent, const char *name )
   _optionDialog = 0;
 
   /* Start the system tray icon. */
-  _sysTrayIcon = new QSystemTrayIcon( QIcon::fromTheme(QLatin1String("kiten")), this );
-  _sysTrayIcon->show();
+  _sysTrayIcon = new KStatusNotifierItem(this);
+  _sysTrayIcon->setStandardActionsEnabled(true);
+  _sysTrayIcon->setAssociatedWidget(this);
+  _sysTrayIcon->setIconByName(QLatin1String("kiten"));
 
   /* Set things as they were (as told in the config) */
   _autoSearchToggle->setChecked( _config->autosearch() );

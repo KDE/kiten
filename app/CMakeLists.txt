@@ -33,6 +33,7 @@ target_link_libraries(kiten_bin
     KF5::Crash
     KF5::I18n
     KF5::KHtml
+    KF5::Notifications
     kiten)
 
 install( TARGETS kiten_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )

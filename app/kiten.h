@@ -37,7 +37,7 @@ class KGlobalAccel;
 class KListAction;
 class KProcess;
 class QStatusBar;
-class QSystemTrayIcon;
+class KStatusNotifierItem;
 class KToggleAction;
 class KitenConfigSkeleton;
 
@@ -138,7 +138,7 @@ class Kiten : public KXmlGuiWindow
     //ResultsView *detachedView;
     QAction                 *_globalSearchAction;
 
-    QSystemTrayIcon         *_sysTrayIcon;
+    KStatusNotifierItem     *_sysTrayIcon;
 
     //Export list related:
     QDockWidget             *_exportListDock;
