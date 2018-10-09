@@ -24,7 +24,7 @@
 
 #include <QStringList>
 
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
 class EntryList;
 

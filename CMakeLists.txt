@@ -24,13 +24,30 @@ include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(ECMInstallIcons)
-include( CheckIncludeFiles )
+include(CheckIncludeFiles)
 include(ECMGenerateHeaders)
 include(ECMAddAppIcon)
+include(ECMMarkNonGuiExecutable)
+include(GenerateExportHeader)
 
 ## Make it easy for radselect and kiten to find libkiten headers
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+## Find mman.h on Windows
+if(WIN32)
+    find_path(MMAN_INCLUDE_PATH NAMES sys/mman.h)
+    if(NOT MMAN_INCLUDE_PATH)
+        message(FATAL_ERROR "On Windows, you need to install mman-win32 headers.")
+    endif()
+    message(STATUS "Found mman-win32 include: ${MMAN_INCLUDE_PATH}")
+
+    find_library(MMAN_LIBRARY NAMES mman)
+    if(NOT MMAN_LIBRARY)
+        message(FATAL_ERROR "On Windows, you need to install mman-win32 library.")
+    endif()
+    message(STATUS "Found mman-win32 library: ${MMAN_LIBRARY}")
+endif(WIN32)
 
 ## Generate config.h
 check_include_files(stdint.h HAVE_STDINT_H)
@@ -52,6 +69,7 @@ add_subdirectory( radselect )
 ## Build kitengen, a small index generator used by the kiten app
 set(kitengen_SRCS xjdxgen.c)
 add_executable(kitengen ${kitengen_SRCS})
+ecm_mark_nongui_executable(kitengen)
 target_link_libraries(kitengen ${QT_QTCORE_LIBRARY})
 install( TARGETS kitengen ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install(FILES org.kde.kiten.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})

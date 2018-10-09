@@ -22,7 +22,7 @@
 #ifndef KITEN_DICTIONARYMANAGER_H
 #define KITEN_DICTIONARYMANAGER_H
 
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
 #include <QMap>
 #include <QPair>

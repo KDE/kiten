@@ -23,7 +23,7 @@
 
 #include <QWidget>
 
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
 /**
  * @short This abstract base class specifies the interface for dictionary

@@ -24,15 +24,23 @@ set(kiten_LIB_SRCS
 		${dictionary_SRCS})
 
 add_library(kiten SHARED ${kiten_LIB_SRCS})
-target_link_libraries(kiten 
-    Qt5::Core 
-    Qt5::Widgets
-    KF5::Completion
-    KF5::ConfigCore 
-    KF5::ConfigGui
-    KF5::CoreAddons
-    KF5::I18n
-    KF5::WidgetsAddons)
+generate_export_header(kiten)
+
+target_link_libraries(kiten
+		Qt5::Core
+		Qt5::Widgets
+		KF5::Completion
+		KF5::ConfigCore
+		KF5::ConfigGui
+		KF5::CoreAddons
+		KF5::I18n
+		KF5::WidgetsAddons)
+
+if(WIN32)
+	target_include_directories(kiten PRIVATE ${MMAN_INCLUDE_PATH})
+	target_link_libraries(kiten ${MMAN_LIBRARY})
+endif()
+
 set_target_properties(kiten PROPERTIES VERSION ${KITEN_LIB_VERSION} SOVERSION ${KITEN_LIB_SOVERSION})
 install( TARGETS kiten  ${INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -45,7 +53,6 @@ install( FILES
 		entrylist.h
 		historyptrlist.h
 		kromajiedit.h
-		libkitenexport.h
 	  DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten COMPONENT Devel
 		)
 install(FILES

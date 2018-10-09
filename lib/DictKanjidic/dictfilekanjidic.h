@@ -26,7 +26,7 @@
 
 #include "dictfile.h"
 
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
 #include <QStringList>
 

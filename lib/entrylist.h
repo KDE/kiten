@@ -29,7 +29,7 @@
 
 #include "dictquery.h"
 #include "entry.h"
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
 /**
  * EntryList is a simple container for Entry objects, and is-a QList<Entry*>

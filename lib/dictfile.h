@@ -21,7 +21,7 @@
 #ifndef KITEN_DICTFILE_H
 #define KITEN_DICTFILE_H
 
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
 #include <QMap>
 #include <QString>

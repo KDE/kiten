@@ -29,7 +29,7 @@
 
 class QChar;
 
-#include "libkitenexport.h"
+#include "kiten_export.h"
 
  /**
   * @short A class to allow users of libkiten to properly setup a database

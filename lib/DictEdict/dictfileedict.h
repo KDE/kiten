@@ -28,7 +28,7 @@
 
 #include "dictfile.h"
 #include "indexededictfile.h"
-#include "libkitenexport.h"
+#include "kiten_export.h"
 #include "linearedictfile.h"
 
 #include <QMap>
