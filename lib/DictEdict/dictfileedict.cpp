@@ -340,7 +340,7 @@ DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *c
  * characters. This is not a foolproof scan, but it should be checked before adding
  * a new dictionary.
  * Valid EDICT format is considered:
- * <kanji or kana>+ [<kana>] /latin characters & symbols/separated with slashes/
+ * \<kanji or kana\>+ [\<kana\>] /latin characters & symbols/separated with slashes/
  * Comment lines start with... something... not remembering now.
  */
 bool DictFileEdict::validDictionaryFile( const QString &filename )

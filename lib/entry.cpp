@@ -278,7 +278,7 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
 /**
  * New functions for Entry doing direct display.
  *
- * Creates a link for the given @param entryString.
+ * Creates a link for the given @p entryString.
  */
 inline QString Entry::makeLink( const QString &entryString ) const
 {
@@ -413,7 +413,7 @@ QString Entry::toString() const
 
 /**
  * This version of sort only sorts dictionaries...
- * This is a replacement for a operator< function... so we return true if
+ * This is a replacement for an operator\< function... so we return true if
  * "this" should show up first on the list.
  */
 bool Entry::sort( const Entry &that, const QStringList &dictOrder, const QStringList &fields ) const
