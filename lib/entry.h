@@ -166,14 +166,14 @@ class KITEN_EXPORT Entry
      * The default version will sort by dictionary, then by fields
      *
      * @param that the second item we are comparing (this) with
-     * @param dictionaryList the list of dictionaries (in order) to sort
+     * @param dictOrder the list of dictionaries (in order) to sort
      *			     If this list is empty, the entries will not be sorted in order
-     * @param fieldList the list of fields to sort in, uses special codes of
+     * @param fields the list of fields to sort in, uses special codes of
      *		        Reading, Meaning, Word/Kanji for those elements, all others by their
      *		        extended attribute keys.
      */
-    virtual bool sort( const Entry &that, const QStringList &dictionaryList,
-                       const QStringList &fieldList ) const;
+    virtual bool sort( const Entry &that, const QStringList &dictOrder,
+                       const QStringList &fields ) const;
     /**
      * Overrideable sorting mechanism for sorting by individual fields.
      * The sort routine checks if the given field is equal, before calling this virtual function
