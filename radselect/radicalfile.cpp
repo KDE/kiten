@@ -85,6 +85,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       {
         m_radicals.insert( *newestRadical, *newestRadical );
       }
+      delete newestRadical;
       newestRadical = new Radical(  QString( line.at( 2 ) )
                                   , line.right( 2 ).toUInt() );
     }

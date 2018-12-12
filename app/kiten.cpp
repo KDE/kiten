@@ -152,7 +152,7 @@ Kiten::~Kiten()
   {
     _kanjibrowser_proc->kill();
   }
-
+  _dictionaryManager.removeAllDictionaries();
   delete _optionDialog;
   _optionDialog = 0;
 }
