@@ -331,6 +331,7 @@ void DictionaryManager::loadDictSettings( const QString &dictName, KConfigSkelet
   {
     config->setCurrentGroup( "dicts_" + dictName.toLower() );
     dict->loadSettings( config );
+    delete dict;
   }
 }
 
@@ -362,6 +363,7 @@ DictFile *DictionaryManager::makeDictFile( const QString &type )
 
 void DictionaryManager::removeAllDictionaries()
 {
+  qDeleteAll(d->dictManagers);
   d->dictManagers.clear();
 }
 

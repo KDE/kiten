@@ -102,6 +102,7 @@ void ButtonGrid::buildRadicalButtons()
     last_column = column_index;
     ++it;
   }
+  delete radicalMap;
   setLayout( grid );
 }
 
