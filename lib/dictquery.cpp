@@ -68,9 +68,9 @@ class DictQuery::Private
     static const QString wordMarker;
 };
 
-const QString DictQuery::Private::pronunciationMarker( "__@\\p" );
-const QString DictQuery::Private::meaningMarker( "__@\\m" );
-const QString DictQuery::Private::wordMarker( "_@\\w" );
+const QString DictQuery::Private::pronunciationMarker( QStringLiteral("__@\\p") );
+const QString DictQuery::Private::meaningMarker( QStringLiteral("__@\\m") );
+const QString DictQuery::Private::wordMarker( QStringLiteral("_@\\w") );
 
 /*****************************************************************************
 *	Constructors, Destructors, Initializers, and
@@ -118,9 +118,9 @@ bool DictQuery::isEmpty() const
 void DictQuery::clear()
 {
   d->extendedAttributes.clear();
-  d->meaning = "";
-  d->pronunciation = "";
-  d->word = "";
+  d->meaning = QLatin1String("");
+  d->pronunciation = QLatin1String("");
+  d->word = QLatin1String("");
   d->entryOrder.clear();
 }
 
@@ -226,7 +226,7 @@ bool operator<( const DictQuery &a, const DictQuery &b )
     QString B_version = b.d->extendedAttributes.value( it.key() );
     if( a.d->extendedAttributes[ it.key() ] != B_version )
     {
-      if( ! B_version.contains( "," ) && ! B_version.contains( "-" ) )
+      if( ! B_version.contains( QLatin1String(",") ) && ! B_version.contains( QLatin1String("-") ) )
       {
         return false;
       }
@@ -675,5 +675,5 @@ DictQuery    &DictQuery::operator+=(const char *str) {
 /**************************************************************
 *	Set our constants declared in the class
 **************************************************************/
-const QString DictQuery::mainDelimiter( " " );
-const QString DictQuery::propertySeperator( ":" );
+const QString DictQuery::mainDelimiter( QStringLiteral(" ") );
+const QString DictQuery::propertySeperator( QStringLiteral(":") );

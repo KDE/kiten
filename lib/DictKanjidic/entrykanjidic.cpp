@@ -77,16 +77,16 @@ QString EntryKanjidic::dumpEntry() const
     dumpExtendedInfo += ' ' + it.key() + it.value();
   }
 
-  return QString( "%1 %2%3" ).arg( Word )
-                             .arg( Readings.join( " " ) )
+  return QStringLiteral( "%1 %2%3" ).arg( Word )
+                             .arg( Readings.join( QStringLiteral(" ") ) )
                              .arg( dumpExtendedInfo );
 }
 
 bool EntryKanjidic::extendedItemCheck( const QString &key, const QString &value ) const
 {
-  if( key == "common" )
+  if( key == QLatin1String("common") )
   {
-    return ! getExtendedInfoItem( "G" ).isEmpty();
+    return ! getExtendedInfoItem( QStringLiteral("G") ).isEmpty();
   }
 
   return Entry::extendedItemCheck( key, value );
@@ -119,7 +119,7 @@ QStringList EntryKanjidic::getInNamesReadingsList() const
 
 QString EntryKanjidic::getKanjiGrade() const
 {
-  return getExtendedInfoItem( "G" );
+  return getExtendedInfoItem( QStringLiteral("G") );
 }
 
 QString EntryKanjidic::getKunyomiReadings() const
@@ -144,13 +144,13 @@ QStringList EntryKanjidic::getOnyomiReadingsList() const
 
 QString EntryKanjidic::getStrokesCount() const
 {
-  return getExtendedInfoItem( "S" );
+  return getExtendedInfoItem( QStringLiteral("S") );
 }
 
 QString EntryKanjidic::HTMLExtendedInfo( const QString &field ) const
 {
   //qDebug() << field;
-  return QString( "<span class=\"ExtendedInfo\">%1: %2</span>" )
+  return QStringLiteral( "<span class=\"ExtendedInfo\">%1: %2</span>" )
              .arg( field )
              .arg( ExtendedInfo[ field ] );
 }
@@ -177,12 +177,12 @@ QString EntryKanjidic::HTMLReadings() const
 
   // get rid of last ,
   htmlReadings.truncate( htmlReadings.length() - outputListDelimiter.length() );
-  return QString( "<span class=\"Readings\">%1</span>" ).arg( htmlReadings );
+  return QStringLiteral( "<span class=\"Readings\">%1</span>" ).arg( htmlReadings );
 }
 
 QString EntryKanjidic::HTMLWord() const
 {
-  return QString( "<span class=\"Word\">%1</span>" ).arg( makeLink( Word ) );
+  return QStringLiteral( "<span class=\"Word\">%1</span>" ).arg( makeLink( Word ) );
 }
 
 /**
@@ -230,7 +230,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
   {
       ichar = entryLine.at( i );
 
-      curString = "";
+      curString = QLatin1String("");
       switch( ichar.unicode() )
       {
         case ' ':
@@ -316,7 +316,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           /* stroke count: may be multiple.  In that case, first is actual, others common
                   miscounts */
           i++;
-          if( ! ExtendedInfo.contains( "S" ) )
+          if( ! ExtendedInfo.contains( QStringLiteral("S") ) )
           {
             LOADSTRING( curString )
             ExtendedInfo.insert( QString( ichar ), curString );
@@ -375,7 +375,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
             {
               // Reset our variable and load it with
               // all available kana until we find a whitespace.
-              curString = "";
+              curString = QLatin1String("");
               LOADSTRING( curString );
               switch( type )
               {
@@ -465,7 +465,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
 QString EntryKanjidic::makeReadingLink( const QString &inReading ) const
 {
   QString reading = inReading;
-  return QString( "<a href=\"%1\">%2</a>" ).arg( reading.remove( '.' ).remove( '-' ) )
+  return QStringLiteral( "<a href=\"%1\">%2</a>" ).arg( reading.remove( '.' ).remove( '-' ) )
                                            .arg( inReading );
 }
 
@@ -474,18 +474,18 @@ QString EntryKanjidic::makeReadingLink( const QString &inReading ) const
  */
 QString EntryKanjidic::toHTML() const
 {
-  QString result = "<div class=\"KanjidicBrief\">";
+  QString result = QStringLiteral("<div class=\"KanjidicBrief\">");
 
   foreach( const QString &field, QSTRINGLISTCHECK( DictFileKanjidic::displayFields ) )
   {
     //qDebug() << "Display: "<<field;
-    if( field == "--NewLine--" )              result += "<br>";
-    else if( field == "Word/Kanji" )          result += HTMLWord() + ' ';
-    else if( field == "Meaning" )             result += HTMLMeanings() + ' ';
-    else if( field == "Reading" )             result += HTMLReadings() + ' ';
+    if( field == QLatin1String("--NewLine--") )              result += QLatin1String("<br>");
+    else if( field == QLatin1String("Word/Kanji") )          result += HTMLWord() + ' ';
+    else if( field == QLatin1String("Meaning") )             result += HTMLMeanings() + ' ';
+    else if( field == QLatin1String("Reading") )             result += HTMLReadings() + ' ';
     else if( ExtendedInfo.contains( field ) ) result += HTMLExtendedInfo( field ) + ' ';
   }
 
-  result += "</div>";
+  result += QLatin1String("</div>");
   return result;
 }

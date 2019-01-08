@@ -41,28 +41,28 @@ DictFileKanjidic::DictFileKanjidic()
 {
   m_dictionaryType = KANJIDIC;
   m_searchableAttributes.clear();
-  m_searchableAttributes.insert( "bushu",      "B" );
-  m_searchableAttributes.insert( "classical",  "C" );
-  m_searchableAttributes.insert( "henshall",   "E" );
-  m_searchableAttributes.insert( "frequency",  "F" );
-  m_searchableAttributes.insert( "grade",      "G" );
-  m_searchableAttributes.insert( "halpern",    "H" );
-  m_searchableAttributes.insert( "spahn",      "I" );
-  m_searchableAttributes.insert( "hadamitzky", "I" );
-  m_searchableAttributes.insert( "gakken",     "K" );
-  m_searchableAttributes.insert( "heisig",     "L" );
-  m_searchableAttributes.insert( "morohashi",  "M" );
-  m_searchableAttributes.insert( "nelson",     "N" );
-  m_searchableAttributes.insert( "oneill",     "O" );
-  m_searchableAttributes.insert( "skip",       "P" );
-  m_searchableAttributes.insert( "4cc",        "Q" );
-  m_searchableAttributes.insert( "stroke",     "S" );
-  m_searchableAttributes.insert( "strokes",    "S" );
-  m_searchableAttributes.insert( "unicode",    "U" );
-  m_searchableAttributes.insert( "haig",       "V" );
-  m_searchableAttributes.insert( "korean",     "W" );
-  m_searchableAttributes.insert( "pinyin",     "Y" );
-  m_searchableAttributes.insert( "other",      "D" );
+  m_searchableAttributes.insert( QStringLiteral("bushu"),      QStringLiteral("B") );
+  m_searchableAttributes.insert( QStringLiteral("classical"),  QStringLiteral("C") );
+  m_searchableAttributes.insert( QStringLiteral("henshall"),   QStringLiteral("E") );
+  m_searchableAttributes.insert( QStringLiteral("frequency"),  QStringLiteral("F") );
+  m_searchableAttributes.insert( QStringLiteral("grade"),      QStringLiteral("G") );
+  m_searchableAttributes.insert( QStringLiteral("halpern"),    QStringLiteral("H") );
+  m_searchableAttributes.insert( QStringLiteral("spahn"),      QStringLiteral("I") );
+  m_searchableAttributes.insert( QStringLiteral("hadamitzky"), QStringLiteral("I") );
+  m_searchableAttributes.insert( QStringLiteral("gakken"),     QStringLiteral("K") );
+  m_searchableAttributes.insert( QStringLiteral("heisig"),     QStringLiteral("L") );
+  m_searchableAttributes.insert( QStringLiteral("morohashi"),  QStringLiteral("M") );
+  m_searchableAttributes.insert( QStringLiteral("nelson"),     QStringLiteral("N") );
+  m_searchableAttributes.insert( QStringLiteral("oneill"),     QStringLiteral("O") );
+  m_searchableAttributes.insert( QStringLiteral("skip"),       QStringLiteral("P") );
+  m_searchableAttributes.insert( QStringLiteral("4cc"),        QStringLiteral("Q") );
+  m_searchableAttributes.insert( QStringLiteral("stroke"),     QStringLiteral("S") );
+  m_searchableAttributes.insert( QStringLiteral("strokes"),    QStringLiteral("S") );
+  m_searchableAttributes.insert( QStringLiteral("unicode"),    QStringLiteral("U") );
+  m_searchableAttributes.insert( QStringLiteral("haig"),       QStringLiteral("V") );
+  m_searchableAttributes.insert( QStringLiteral("korean"),     QStringLiteral("W") );
+  m_searchableAttributes.insert( QStringLiteral("pinyin"),     QStringLiteral("Y") );
+  m_searchableAttributes.insert( QStringLiteral("other"),      QStringLiteral("D") );
 }
 
 DictFileKanjidic::~DictFileKanjidic()
@@ -75,28 +75,28 @@ QMap<QString,QString> DictFileKanjidic::displayOptions() const
   // It will be useful for a few things to have the full list generated on it's own
   QMap<QString,QString> list;
   // TODO: Figure out how to internationalize these easily
-  list.insert( "Bushu Number(B)",                      "B");
-  list.insert( "Classical Radical Number(C)",          "C");
-  list.insert( "Henshall's Index Number(E)",           "E");
-  list.insert( "Frequency Ranking(F)",                 "F");
-  list.insert( "Grade Level(G)",                       "G");
-  list.insert( "Halpern's New J-E Char Dictionary(H)", "H");
-  list.insert( "Spahn & Hadamitzky Reference(I)",      "I");
-  list.insert( "Gakken Kanji Dictionary Index(K)",     "K");
-  list.insert( "Heisig's Index(L)",                    "L");
-  list.insert( "Morohashi's Daikanwajiten(M)",         "M");
-  list.insert( "Nelsons Modern Reader's J-E Index(N)", "N");
-  list.insert( "O'Neill's 'Japanese Names' Index(O)",  "O");
-  list.insert( "SKIP Code(P)",                         "P");
-  list.insert( "Four Corner codes(Q)",                 "Q");
-  list.insert( "Stroke Count(S)",                      "S");
-  list.insert( "Unicode Value(U)",                     "U");
-  list.insert( "Haig's New Nelson J-E Dict(V)",        "V");
-  list.insert( "Korean Reading(W)",                    "W");
-  list.insert( "kanjidic field: X",                    "X");
-  list.insert( "Pinyin Reading(Y)",                    "Y");
-  list.insert( "Common SKIP Misclassifications(Z)",    "Z");
-  list.insert( "Misc Dictionary Codes (D)",            "D");
+  list.insert( QStringLiteral("Bushu Number(B)"),                      QStringLiteral("B"));
+  list.insert( QStringLiteral("Classical Radical Number(C)"),          QStringLiteral("C"));
+  list.insert( QStringLiteral("Henshall's Index Number(E)"),           QStringLiteral("E"));
+  list.insert( QStringLiteral("Frequency Ranking(F)"),                 QStringLiteral("F"));
+  list.insert( QStringLiteral("Grade Level(G)"),                       QStringLiteral("G"));
+  list.insert( QStringLiteral("Halpern's New J-E Char Dictionary(H)"), QStringLiteral("H"));
+  list.insert( QStringLiteral("Spahn & Hadamitzky Reference(I)"),      QStringLiteral("I"));
+  list.insert( QStringLiteral("Gakken Kanji Dictionary Index(K)"),     QStringLiteral("K"));
+  list.insert( QStringLiteral("Heisig's Index(L)"),                    QStringLiteral("L"));
+  list.insert( QStringLiteral("Morohashi's Daikanwajiten(M)"),         QStringLiteral("M"));
+  list.insert( QStringLiteral("Nelsons Modern Reader's J-E Index(N)"), QStringLiteral("N"));
+  list.insert( QStringLiteral("O'Neill's 'Japanese Names' Index(O)"),  QStringLiteral("O"));
+  list.insert( QStringLiteral("SKIP Code(P)"),                         QStringLiteral("P"));
+  list.insert( QStringLiteral("Four Corner codes(Q)"),                 QStringLiteral("Q"));
+  list.insert( QStringLiteral("Stroke Count(S)"),                      QStringLiteral("S"));
+  list.insert( QStringLiteral("Unicode Value(U)"),                     QStringLiteral("U"));
+  list.insert( QStringLiteral("Haig's New Nelson J-E Dict(V)"),        QStringLiteral("V"));
+  list.insert( QStringLiteral("Korean Reading(W)"),                    QStringLiteral("W"));
+  list.insert( QStringLiteral("kanjidic field: X"),                    QStringLiteral("X"));
+  list.insert( QStringLiteral("Pinyin Reading(Y)"),                    QStringLiteral("Y"));
+  list.insert( QStringLiteral("Common SKIP Misclassifications(Z)"),    QStringLiteral("Z"));
+  list.insert( QStringLiteral("Misc Dictionary Codes (D)"),            QStringLiteral("D"));
   return list;
 }
 
@@ -205,10 +205,10 @@ bool DictFileKanjidic::loadDictionary( const QString &file, const QString &name 
 QMap<QString,QString> DictFileKanjidic::loadDisplayOptions() const
 {
   QMap<QString,QString> list = displayOptions();
-  list[ "Word/Kanji" ]  = "Word/Kanji";
-  list[ "Reading" ]     = "Reading";
-  list[ "Meaning" ]     = "Meaning";
-  list[ "--Newline--" ] = "--Newline--";
+  list[ QStringLiteral("Word/Kanji") ]  = QStringLiteral("Word/Kanji");
+  list[ QStringLiteral("Reading") ]     = QStringLiteral("Reading");
+  list[ QStringLiteral("Meaning") ]     = QStringLiteral("Meaning");
+  list[ QStringLiteral("--Newline--") ] = QStringLiteral("--Newline--");
 
   return list;
 }
@@ -309,7 +309,7 @@ bool DictFileKanjidic::validQuery( const DictQuery &query )
 
   //Now check if we have any properties specified that we don't understand
   QStringList propertiesWeHandle = m_searchableAttributes.values() + m_searchableAttributes.keys();
-  propertiesWeHandle += "common"; // We map this to be (has a G value)
+  propertiesWeHandle += QStringLiteral("common"); // We map this to be (has a G value)
 
   const QStringList properties = query.listPropertyKeys();
   for( QStringList::const_iterator it = properties.constBegin(); it != properties.constEnd(); ++it )

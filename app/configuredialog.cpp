@@ -47,39 +47,39 @@
 #include "dictionarymanager.h"
 
 ConfigureDialog::ConfigureDialog( QWidget *parent, KitenConfigSkeleton *config )
-: KConfigDialog( parent, "Settings", config )
+: KConfigDialog( parent, QStringLiteral("Settings"), config )
 {
   //TODO: Figure out why these pages are unmanaged... is this needed?
   addPage(  makeDictionaryFileSelectionPage( NULL, config )
           , i18n( "Dictionaries" )
-          , "help-contents" );
+          , QStringLiteral("help-contents") );
 
   QWidget *widget;
   widget = new QWidget();
   Ui::ConfigSearching cs;
   cs.setupUi( widget );
-  addPage( widget, i18n( "Searching" ), "edit-find" );
+  addPage( widget, i18n( "Searching" ), QStringLiteral("edit-find") );
 
   widget = new QWidget();
   Ui::ConfigLearn cl; cl.setupUi( widget );
-  addPage( widget, i18n( "Learn" ), "draw-freehand" );
+  addPage( widget, i18n( "Learn" ), QStringLiteral("draw-freehand") );
 
   widget = new QWidget();
   Ui::ConfigFont cf;
   cf.setupUi( widget );
-  addPage( widget, i18n( "Font" ), "preferences-desktop-font" );
+  addPage( widget, i18n( "Font" ), QStringLiteral("preferences-desktop-font") );
 
   addPage(  makeDictionaryPreferencesPage( NULL, config )
           , i18nc( "@title:group the settings for the dictionary display", "Display" )
-          , "format-indent-more" );
+          , QStringLiteral("format-indent-more") );
   addPage(  makeSortingPage( NULL, config )
           , i18n( "Results Sorting" )
-          , "format-indent-more" );
+          , QStringLiteral("format-indent-more") );
 
-  setHelp( QString(),"kiten" );
+  setHelp( QString(),QStringLiteral("kiten") );
 
-  connect( this, SIGNAL(widgetModified()),
-           this,   SLOT(updateConfiguration()) );
+  connect( this, &KConfigDialog::widgetModified,
+           this,   &ConfigureDialog::updateConfiguration );
 }
 
 void ConfigureDialog::updateConfiguration()
@@ -129,12 +129,12 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(  QWidget *parent
 
   foreach( DictionaryPreferenceDialog *dialog, dialogList )
   {
-    connect(   this, SIGNAL(updateWidgetsSignal()),
-             dialog,   SLOT(updateWidgets()) );
-    connect(   this, SIGNAL(updateWidgetsDefaultSignal()),
-             dialog,   SLOT(updateWidgetsDefault()) );
-    connect(   this, SIGNAL(updateSettingsSignal()),
-             dialog,   SLOT(updateSettings()) );
+    connect(   this, &ConfigureDialog::updateWidgetsSignal,
+             dialog,   &DictionaryPreferenceDialog::updateWidgets );
+    connect(   this, &ConfigureDialog::updateWidgetsDefaultSignal,
+             dialog,   &DictionaryPreferenceDialog::updateWidgetsDefault );
+    connect(   this, &ConfigureDialog::updateSettingsSignal,
+             dialog,   &DictionaryPreferenceDialog::updateSettings );
 
     tabWidget->addTab( dialog,dialog->name() );
   }
@@ -146,15 +146,15 @@ QWidget *ConfigureDialog::makeSortingPage( QWidget *parent, KitenConfigSkeleton 
 {
   ConfigSortingPage *newPage = new ConfigSortingPage(parent,config);
 
-  connect( newPage, SIGNAL(widgetChanged()),
-              this, SIGNAL(widgetModified()) );
+  connect( newPage, &ConfigSortingPage::widgetChanged,
+              this, &KConfigDialog::widgetModified );
 
-  connect(    this, SIGNAL(updateWidgetsSignal()),
-           newPage,   SLOT(updateWidgets()) );
-  connect(    this, SIGNAL(updateWidgetsDefaultSignal()),
-           newPage,   SLOT(updateWidgetsDefault()) );
-  connect(    this, SIGNAL(updateSettingsSignal()),
-           newPage,   SLOT(updateSettings()) );
+  connect(    this, &ConfigureDialog::updateWidgetsSignal,
+           newPage,   &ConfigSortingPage::updateWidgets );
+  connect(    this, &ConfigureDialog::updateWidgetsDefaultSignal,
+           newPage,   &ConfigSortingPage::updateWidgetsDefault );
+  connect(    this, &ConfigureDialog::updateSettingsSignal,
+           newPage,   &ConfigSortingPage::updateSettings );
 
   return newPage;
 }

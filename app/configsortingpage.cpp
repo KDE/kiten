@@ -39,11 +39,11 @@ ConfigSortingPage::ConfigSortingPage(  QWidget *parent
 
   //Setup the relationship between the checkbox and the dictionary sortlist
   connect(kcfg_dictionary_enable, &QCheckBox::clicked, dictionary_order, &KActionSelector::setEnabled);
-  dictionary_order->setEnabled( _config->dictionary_enable() == "true" );
+  dictionary_order->setEnabled( _config->dictionary_enable() == QLatin1String("true") );
 
-  _fields.append( "Word/Kanji" );
-  _fields.append( "Meaning" );
-  _fields.append( "Reading" );
+  _fields.append( QStringLiteral("Word/Kanji") );
+  _fields.append( QStringLiteral("Meaning") );
+  _fields.append( QStringLiteral("Reading") );
   QList<QString> fieldListMap = DictionaryManager::generateExtendedFieldsList().keys();
   _fields += fieldListMap;
 

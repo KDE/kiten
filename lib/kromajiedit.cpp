@@ -38,7 +38,7 @@ KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
 {
   m_kana = "unset";
 
-  QString romkana = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/romkana.cnv");
+  QString romkana = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/romkana.cnv"));
   if ( romkana.isNull() )
   {
     KMessageBox::error( 0, i18n( "Romaji information file not installed, so Romaji conversion cannot be used." ) );
@@ -134,8 +134,8 @@ QMenu *KRomajiEdit::createPopupMenu()
     temp->setChecked( false );
   }
 
-  connect( group, SIGNAL(triggered(QAction*)),
-                    SLOT(setKana(QAction*)) );
+  connect( group, &QActionGroup::triggered,
+                    this, &KRomajiEdit::setKana );
 
   emit aboutToShowContextMenu( menu );
   return menu;
@@ -273,7 +273,7 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
       {
         //kdDebug() << "doing the n thing\n";
 
-        setText( curKana + m_hiragana[ "n'" ] + newkana );
+        setText( curKana + m_hiragana[ QStringLiteral("n'") ] + newkana );
 
         if ( m_kana == "katakana" )
         {
@@ -290,7 +290,7 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
       {
         //kdDebug() << "doing the n thing - katakana\n";
 
-        setText( curKana + m_katakana[ "n'" ] + newkana );
+        setText( curKana + m_katakana[ QStringLiteral("n'") ] + newkana );
 
         if ( m_kana == "katakana" )
         {
@@ -308,14 +308,14 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
     {
       if ( text[ len - 1 ] == 'n' )
       {
-        setText( curKana + m_hiragana[ "n'" ] );
+        setText( curKana + m_hiragana[ QStringLiteral("n'") ] );
       }
     }
     else
     {
       if ( text[ len - 1 ] == 'N' )
       {
-        setText( curKana + m_katakana[ "n'" ] );
+        setText( curKana + m_katakana[ QStringLiteral("n'") ] );
       }
     }
   }
@@ -326,11 +326,11 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
 // This is the slot for the menu
 void KRomajiEdit::setKana( QAction *action )
 {
-  if( action->text() == "Kana" )
+  if( action->text() == QLatin1String("Kana") )
   {
     m_kana = "hiragana";
   }
-  if( action->text() == "English" )
+  if( action->text() == QLatin1String("English") )
   {
     m_kana = "english";
   }

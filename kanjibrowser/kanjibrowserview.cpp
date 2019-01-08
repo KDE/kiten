@@ -137,13 +137,13 @@ QString KanjiBrowserView::convertToCSS( const QFont &font )
   switch( font.weight() )
   {
     case QFont::Light:
-      weight = "lighter";
+      weight = QStringLiteral("lighter");
       break;
     case QFont::Normal:
-      weight = "normal";
+      weight = QStringLiteral("normal");
       break;
     case QFont::Bold:
-      weight = "bold";
+      weight = QStringLiteral("bold");
       break;
   }
 
@@ -151,13 +151,13 @@ QString KanjiBrowserView::convertToCSS( const QFont &font )
   switch( font.style() )
   {
     case QFont::StyleNormal:
-      style = "normal";
+      style = QStringLiteral("normal");
       break;
     case QFont::StyleItalic:
-      style = "italic";
+      style = QStringLiteral("italic");
       break;
     case QFont::StyleOblique:
-      style = "oblique";
+      style = QStringLiteral("oblique");
       break;
   }
 
@@ -240,10 +240,10 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _gradeList = kanjiGrades;
   _strokesList = strokeCount;
 
-  QAction *goToKanjiList = _parent->actionCollection()->addAction( "kanji_list" );
+  QAction *goToKanjiList = _parent->actionCollection()->addAction( QStringLiteral("kanji_list") );
   goToKanjiList->setText( i18n( "Kanji &List" ) );
 
-  _goToKanjiInfo = _parent->actionCollection()->addAction( "kanji_info" );
+  _goToKanjiInfo = _parent->actionCollection()->addAction( QStringLiteral("kanji_info") );
   _goToKanjiInfo->setText( i18n( "Kanji &Information" ) );
 
   _grades->addItem( i18n( "All Jouyou Kanji grades" ) );
@@ -289,29 +289,29 @@ void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
 {
   // This font is shipped with Kiten and should not be changed as it shows
   // the stroke order of a kanji.
-  QFont kanjiFont( "KanjiStrokeOrders" );
+  QFont kanjiFont( QStringLiteral("KanjiStrokeOrders") );
   kanjiFont.setPointSizeF( _kanjiSize.toReal() );
 
   QString text;
   text.append( "<html><body><style>" );
-  text.append( QString( ".kanji { %1 }" ).arg( convertToCSS( kanjiFont ) ) );
-  text.append( QString( ".label { %1 }" ).arg( convertToCSS( _labelFont ) ) );
-  text.append( QString( ".kana  { %1 }" ).arg( convertToCSS( _kanaFont ) ) );
+  text.append( QStringLiteral( ".kanji { %1 }" ).arg( convertToCSS( kanjiFont ) ) );
+  text.append( QStringLiteral( ".label { %1 }" ).arg( convertToCSS( _labelFont ) ) );
+  text.append( QStringLiteral( ".kana  { %1 }" ).arg( convertToCSS( _kanaFont ) ) );
   text.append( "</style>" );
 
   // Put the kanji.
-  text.append( QString( "<table><tr><td><p class=\"kanji\">%1</p></td>" )
+  text.append( QStringLiteral( "<table><tr><td><p class=\"kanji\">%1</p></td>" )
                         .arg( kanji->getWord() ) );
 
   // Now the kanji grades and number of strokes.
   text.append( "<td>" );
   if( ! kanji->getKanjiGrade().isEmpty() )
   {
-    text.append( QString( "<p class=\"label\">%1 %2</p></br>" )
+    text.append( QStringLiteral( "<p class=\"label\">%1 %2</p></br>" )
                           .arg( i18n( "Grade:" ) )
                           .arg( kanji->getKanjiGrade() ) );
   }
-  text.append( QString( "<p class=\"label\">%1 %2</p></td></tr></table>" )
+  text.append( QStringLiteral( "<p class=\"label\">%1 %2</p></td></tr></table>" )
                         .arg( i18n( "Strokes:" ) )
                         .arg( kanji->getStrokesCount() ) );
 
@@ -361,7 +361,7 @@ void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
   {
     text.append( i18n( "Meanings: " ) );
   }
-  text.append( QString( "<span class=\"kana\">%1</span></p>" )
+  text.append( QStringLiteral( "<span class=\"kana\">%1</span></p>" )
                         .arg( kanji->getMeanings() ) );
 
   // Close remaining tags and set the HTML text.

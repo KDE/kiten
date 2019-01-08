@@ -151,7 +151,7 @@ QString Entry::getExtendedInfoItem( const QString &x ) const
  */
 inline QString Entry::HTMLMeanings() const
 {
-  return QString( "<span class=\"Meanings\">%1</span>" )
+  return QStringLiteral( "<span class=\"Meanings\">%1</span>" )
              .arg( Meanings.join( outputListDelimiter ) );
 }
 
@@ -164,7 +164,7 @@ inline QString Entry::HTMLReadings() const
     list += makeLink( it );
   }
 
-  return QString( "<span class=\"Readings\">%1</span>" )
+  return QStringLiteral( "<span class=\"Readings\">%1</span>" )
              .arg( list.join( outputListDelimiter ) );
 }
 
@@ -173,7 +173,7 @@ inline QString Entry::HTMLReadings() const
  */
 inline QString Entry::HTMLWord() const
 {
-  return QString( "<span class=\"Word\">%1</span>" ).arg( Word );
+  return QStringLiteral( "<span class=\"Word\">%1</span>" ).arg( Word );
 }
 
 void Entry::init()
@@ -282,7 +282,7 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
  */
 inline QString Entry::makeLink( const QString &entryString ) const
 {
-  return QString( "<a href=\"%1\">%1</a>" ).arg( entryString );
+  return QStringLiteral( "<a href=\"%1\">%1</a>" ).arg( entryString );
 }
 
 bool Entry::matchesQuery( const DictQuery &query ) const
@@ -352,7 +352,7 @@ bool Entry::matchesQuery( const DictQuery &query ) const
 
   if( ! query.getMeaning().isEmpty() )
   {
-    if( ! listMatch(   Meanings.join( " " ).toLower().split( ' ' )
+    if( ! listMatch(   Meanings.join( QStringLiteral(" ") ).toLower().split( ' ' )
                      , query.getMeaning().toLower().split( DictQuery::mainDelimiter )
                      , query.getMatchType() ) )
     {
@@ -377,7 +377,7 @@ bool Entry::matchesQuery( const DictQuery &query ) const
  */
 QString Entry::toHTML() const
 {
-  return QString( "<div class=\"Entry\">%1%2%3</div>" )
+  return QStringLiteral( "<div class=\"Entry\">%1%2%3</div>" )
              .arg( HTMLWord() )
              .arg( HTMLReadings() )
              .arg( HTMLMeanings() );
@@ -406,7 +406,7 @@ inline QString Entry::toKVTML() const
  */
 QString Entry::toString() const
 {
-  return QString( "%1 (%2) %3" ).arg( Word )
+  return QStringLiteral( "%1 (%2) %3" ).arg( Word )
                                 .arg( getReadings() )
                                 .arg( getMeanings() );
 }
@@ -436,16 +436,16 @@ bool Entry::sort( const Entry &that, const QStringList &dictOrder, const QString
   {
     foreach( const QString &field, fields )
     {
-      if( field == QString( "Word/Kanji" ) )
+      if( field == QStringLiteral( "Word/Kanji" ) )
       {
         return this->getWord() < that.getWord();
       }
-      else if( field == QString( "Meaning" ) )
+      else if( field == QStringLiteral( "Meaning" ) )
       {
         return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::Exact )
                && ( that.getMeaningsList().count() != this->getMeaningsList().count() );
       }
-      else if( field == QString( "Reading" ) )
+      else if( field == QStringLiteral( "Reading" ) )
       {
         return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::Exact )
                && ( that.getReadingsList().count() != this->getReadingsList().count() );

@@ -54,7 +54,7 @@ DictFileEdict::DictFileEdict()
 , m_hasDeinflection( false )
 {
   m_dictionaryType = EDICT;
-  m_searchableAttributes.insert( "common", "common" );
+  m_searchableAttributes.insert( QStringLiteral("common"), QStringLiteral("common") );
 }
 
 /**
@@ -70,7 +70,7 @@ DictFileEdict::~DictFileEdict()
 QMap<QString,QString> DictFileEdict::displayOptions() const
 {
   QMap<QString,QString> list;
-  list[ "Part of speech(type)" ] = "type";
+  list[ QStringLiteral("Part of speech(type)") ] = QStringLiteral("type");
   return list;
 }
 
@@ -270,10 +270,10 @@ bool DictFileEdict::loadDictionary( const QString &fileName, const QString &dict
 QMap<QString,QString> DictFileEdict::loadDisplayOptions() const
 {
   QMap<QString,QString> list = displayOptions();
-  list[ "Word/Kanji" ]  = "Word/Kanji";
-  list[ "Reading" ]     = "Reading";
-  list[ "Meaning" ]     = "Meaning";
-  list[ "--Newline--" ] = "--Newline--";
+  list[ QStringLiteral("Word/Kanji") ]  = QStringLiteral("Word/Kanji");
+  list[ QStringLiteral("Reading") ]     = QStringLiteral("Reading");
+  list[ QStringLiteral("Meaning") ]     = QStringLiteral("Meaning");
+  list[ QStringLiteral("--Newline--") ] = QStringLiteral("--Newline--");
 
   return list;
 }
@@ -314,10 +314,10 @@ void DictFileEdict::loadSettings()
 void DictFileEdict::loadSettings( KConfigSkeleton *config )
 {
   QMap<QString,QString> long2short = displayOptions();
-  long2short[ "Word/Kanji" ]  = "Word/Kanji";
-  long2short[ "Reading" ]     = "Reading";
-  long2short[ "Meaning" ]     = "Meaning";
-  long2short[ "--Newline--" ] = "--Newline--";
+  long2short[ QStringLiteral("Word/Kanji") ]  = QStringLiteral("Word/Kanji");
+  long2short[ QStringLiteral("Reading") ]     = QStringLiteral("Reading");
+  long2short[ QStringLiteral("Meaning") ]     = QStringLiteral("Meaning");
+  long2short[ QStringLiteral("--Newline--") ] = QStringLiteral("--Newline--");
 
   KConfigSkeletonItem *item = config->findItem( getType() + "__displayFields" );
   this->displayFields = loadListType( item, this->displayFields, long2short );
@@ -356,7 +356,7 @@ bool DictFileEdict::validDictionaryFile( const QString &filename )
   //Now we can actually check the file
   QTextStream fileStream( &file );
   fileStream.setCodec( QTextCodec::codecForName( "eucJP" ) );
-  QString commentMarker( "？？？？" ); //Note: Don't touch this! vim seems to have
+  QString commentMarker( QStringLiteral("？？？？") ); //Note: Don't touch this! vim seems to have
                                       //An odd text codec error here too :(
   QRegExp formattedLine( "^\\S+\\s+(\\[\\S+\\]\\s+)?/.*/$" );
   while( ! fileStream.atEnd() )

@@ -42,8 +42,8 @@ ResultsView::ResultsView( QWidget *parent, const char *name )
 
   // don't let ktextbrowser internally handle link clicks
   ////////setNotifyClick(true);
-  connect( view(), SIGNAL(finishedLayout()),
-             this,   SLOT(doScroll()) );
+  connect( view(), &KHTMLView::finishedLayout,
+             this,   &ResultsView::doScroll );
 }
 
 /**
@@ -59,7 +59,7 @@ void ResultsView::append( const QString &text )
  */
 void ResultsView::clear()
 {
-  _printText = "";
+  _printText = QLatin1String("");
 }
 
 QString ResultsView::deLinkify( DOM::Node node )

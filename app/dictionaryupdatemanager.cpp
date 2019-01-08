@@ -55,7 +55,7 @@ DictionaryUpdateManager::DictionaryUpdateManager( Kiten *parent )
 , _failed( QStringList() )
 , _counter( 0 )
 {
-  _actionUpdate = _parent->actionCollection()->add<QAction>( "update_dictionaries" );
+  _actionUpdate = _parent->actionCollection()->add<QAction>( QStringLiteral("update_dictionaries") );
   _actionUpdate->setText( i18n( "Check for dictionary &updates" ) );
   _parent->actionCollection()->setDefaultShortcut(_actionUpdate, Qt::CTRL+Qt::Key_U );
 
@@ -134,7 +134,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   // Iterate on each of our installed dictionaries.
   foreach( const QString &dict, _config->dictionary_list() )
   {
-    QString filePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString( "kiten/" ) + dict.toLower() );
+    QString filePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral( "kiten/" ) + dict.toLower() );
     QFile file( filePath );
     qDebug() << "Local dictionary path:" << file.fileName() << endl;
 
@@ -276,11 +276,11 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
 
   // Check the first line's first character of the extracted file.
   // EDICT starts with a '　', KANJIDIC starts with a '#'.
-  QString fileName = device->readLine().startsWith( '#' ) ? QString( "kanjidic" ) : QString( "edict" );
+  QString fileName = device->readLine().startsWith( '#' ) ? QStringLiteral( "kanjidic" ) : QStringLiteral( "edict" );
   // Reset the position where we are going to start reading the content.
   device->reset();
   // Thanks to the above lines we can get the path to the correct file to be updated.
-  QString dictPath = QStandardPaths::writableLocation( QStandardPaths::GenericDataLocation) + QString( "/kiten/" );
+  QString dictPath = QStandardPaths::writableLocation( QStandardPaths::GenericDataLocation) + QStringLiteral( "/kiten/" );
   QDir dir(dictPath);
   dir.mkpath(dictPath);
 
@@ -312,8 +312,8 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
 void DictionaryUpdateManager::showUpdateResults()
 {
   // Avoid multiple calls to this slot.
-  disconnect( this, SIGNAL(updateFinished()),
-              this,   SLOT(showUpdateResults()) );
+  disconnect( this, &DictionaryUpdateManager::updateFinished,
+              this,   &DictionaryUpdateManager::showUpdateResults );
   
   if( ! _succeeded.isEmpty() && _failed.isEmpty() )
   {

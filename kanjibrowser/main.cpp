@@ -30,13 +30,13 @@ static const char version[] = "1.0";
 
 int main( int argc, char **argv )
 {
-  Kdelibs4ConfigMigrator migrate(QLatin1String("kitenkanjibrowser"));
-  migrate.setConfigFiles(QStringList() << QLatin1String("kitenkanjibrowserrc"));
-  migrate.setUiFiles(QStringList() << QLatin1String("kanjibrowserui.rc"));
+  Kdelibs4ConfigMigrator migrate(QStringLiteral("kitenkanjibrowser"));
+  migrate.setConfigFiles(QStringList() << QStringLiteral("kitenkanjibrowserrc"));
+  migrate.setUiFiles(QStringList() << QStringLiteral("kanjibrowserui.rc"));
   migrate.migrate();
 
   QApplication app(argc, argv);
-  app.setWindowIcon(QIcon::fromTheme(QLatin1String("kiten"), app.windowIcon()));
+  app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kiten"), app.windowIcon()));
   KLocalizedString::setApplicationDomain("kiten");
 
   KAboutData about( QStringLiteral("kitenkanjibrowser")
@@ -47,10 +47,10 @@ int main( int argc, char **argv )
                     , i18n( "(C) 2011 Daniel E. Moctezuma" )
                     , QString()
                     , QStringLiteral("http://edu.kde.org/kiten")
-                    , "democtezuma@gmail.com" );
+                    , QStringLiteral("democtezuma@gmail.com") );
   about.addAuthor(   i18n( "Daniel E. Moctezuma" )
                    , QString()
-                   , "democtezuma@gmail.com" );
+                   , QStringLiteral("democtezuma@gmail.com") );
   about.setOrganizationDomain( "kde.org" );
 
   KAboutData::setApplicationData(about);

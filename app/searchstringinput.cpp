@@ -38,20 +38,20 @@ SearchStringInput::SearchStringInput( Kiten *parent )
 : QObject( parent )
 {
   _parent = parent;
-  _actionFilterRare = _parent->actionCollection()->add<KSelectAction>( "filter_rare" );
+  _actionFilterRare = _parent->actionCollection()->add<KSelectAction>( QStringLiteral("filter_rare") );
   _actionFilterRare->setText( i18n( "Filter Type" ) );
   _actionFilterRare->addAction( i18n( "No filter" ) );
   _actionFilterRare->addAction( i18n( "Filter out rare" ) );
   _actionFilterRare->addAction( i18n( "Common/Uncommon" ) );
 
-  _actionSearchSection = _parent->actionCollection()->add<KSelectAction>( "search_searchType" );
+  _actionSearchSection = _parent->actionCollection()->add<KSelectAction>( QStringLiteral("search_searchType") );
   _actionSearchSection->setText( i18n( "Match Type" ) );
   _actionSearchSection->addAction( i18n( "Exact Match" ) );
   _actionSearchSection->addAction( i18n( "Match Beginning" ) );
   _actionSearchSection->addAction( i18n( "Match Ending" ) );
   _actionSearchSection->addAction( i18n( "Match Anywhere" ) );
 
-  _actionSelectWordType = _parent->actionCollection()->add<KSelectAction>( "search_wordType" );
+  _actionSelectWordType = _parent->actionCollection()->add<KSelectAction>( QStringLiteral("search_wordType") );
   _actionSelectWordType->setText( i18n( "Word Type" ) );
   _actionSelectWordType->addAction( i18n( "Any" ) );
   _actionSelectWordType->addAction( i18n( "Verb" ) );
@@ -67,14 +67,14 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   _actionTextInput->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
   updateFontFromConfig();
 
-  _actionFocusInput = _parent->actionCollection()->addAction( "focusinputfield", this, SLOT(focusInput()) );
+  _actionFocusInput = _parent->actionCollection()->addAction( QStringLiteral("focusinputfield"), this, SLOT(focusInput()) );
   _parent->actionCollection()->setDefaultShortcut(_actionFocusInput, Qt::CTRL+Qt::Key_L );
   _actionFocusInput->setText( i18n( "Focus input field" ) );
 
   QWidgetAction *actionsearchbox = new QWidgetAction(this);
   actionsearchbox->setText( i18n( "Search Bar" ) );
   actionsearchbox->setDefaultWidget(_actionTextInput);
-  _parent->actionCollection()->addAction( "searchbox", actionsearchbox );
+  _parent->actionCollection()->addAction( QStringLiteral("searchbox"), actionsearchbox );
   
   if( ! _actionFilterRare || ! _actionSearchSection
       || ! _actionSelectWordType || ! actionsearchbox )
@@ -100,7 +100,7 @@ DictQuery SearchStringInput::getSearchQuery() const
 
   if( _actionFilterRare->currentItem() == DictQuery::Rare )
   {
-    result.setProperty( "common", "1" );
+    result.setProperty( QStringLiteral("common"), QStringLiteral("1") );
   }
 
   result.setFilterType( (DictQuery::FilterType)_actionFilterRare->currentItem() );
@@ -131,10 +131,10 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
   foreach( KToolBar *bar, _parent->toolBars() )
   {
     if( bar->widgetForAction( _actionFilterRare ) != NULL )
-      copy.removeProperty( "common" );
+      copy.removeProperty( QStringLiteral("common") );
 
     if( bar->widgetForAction( _actionSelectWordType ) != NULL )
-      copy.removeProperty("type");
+      copy.removeProperty(QStringLiteral("type"));
   }
 
   _actionTextInput->addToHistory(copy.toString()); // Update history and completion list

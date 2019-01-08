@@ -87,12 +87,12 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       }
       delete newestRadical;
       newestRadical = new Radical(  QString( line.at( 2 ) )
-                                  , line.right( 2 ).toUInt() );
+                                  , line.rightRef( 2 ).toUInt() );
     }
     else if( newestRadical != NULL )
     {
       // List of m_kanji, potentially
-      QList<QString> m_kanjiList = line.trimmed().split( "", QString::SkipEmptyParts );
+      QList<QString> m_kanjiList = line.trimmed().split( QLatin1String(""), QString::SkipEmptyParts );
       newestRadical->addKanji( m_kanjiList.toSet() );
       foreach( const QString &kanji, m_kanjiList )
       {

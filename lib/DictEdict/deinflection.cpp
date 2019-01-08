@@ -81,7 +81,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
   edictTypesList.append( EdictFormatting::Adjectives );
   edictTypesList.append( EdictFormatting::Verbs      );
 
-  QString edictTypes = edictTypesList.join( "," );
+  QString edictTypes = edictTypesList.join( QStringLiteral(",") );
 
   foreach( const QString &item, preliminaryResults )
   {
@@ -168,7 +168,7 @@ bool Deinflection::load()
 
   conjugationList = new QList<Conjugation>;
 
-  QString vconj = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/vconj");
+  QString vconj = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/vconj"));
   
   //Find the file
   if ( vconj.isEmpty() )

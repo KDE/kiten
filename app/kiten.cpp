@@ -70,8 +70,8 @@ Kiten::Kiten( QWidget *parent, const char *name )
 , _radselect_proc( new KProcess( this ) )
 , _kanjibrowser_proc( new KProcess( this ) )
 {
-  _radselect_proc->setProgram( QStandardPaths::findExecutable( "kitenradselect" ) );
-  _kanjibrowser_proc->setProgram( QStandardPaths::findExecutable( "kitenkanjibrowser" ) );
+  _radselect_proc->setProgram( QStandardPaths::findExecutable( QStringLiteral("kitenradselect") ) );
+  _kanjibrowser_proc->setProgram( QStandardPaths::findExecutable( QStringLiteral("kitenkanjibrowser") ) );
   setStandardToolBarMenuEnabled( true );
   setObjectName( QLatin1String( name ) );
 
@@ -118,7 +118,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
   _sysTrayIcon = new KStatusNotifierItem(this);
   _sysTrayIcon->setStandardActionsEnabled(true);
   _sysTrayIcon->setAssociatedWidget(this);
-  _sysTrayIcon->setIconByName(QLatin1String("kiten"));
+  _sysTrayIcon->setIconByName(QStringLiteral("kiten"));
 
   /* Set things as they were (as told in the config) */
   _autoSearchToggle->setChecked( _config->autosearch() );
@@ -128,17 +128,17 @@ Kiten::Kiten( QWidget *parent, const char *name )
 
   /* What happens when links are clicked or things are selected in the clipboard */
   connect(_mainView, &ResultsView::urlClicked, this, &Kiten::searchText);
-  connect( QApplication::clipboard(), SIGNAL(selectionChanged()),
-                                this,   SLOT(searchClipboard()) );
+  connect( QApplication::clipboard(), &QClipboard::selectionChanged,
+                                this,   &Kiten::searchClipboard );
   connect(_inputManager, &SearchStringInput::search, this, &Kiten::searchFromEdit);
 
-  connect( _mainView->view()->verticalScrollBar(), SIGNAL(valueChanged(int)),
-                                            this,   SLOT(setCurrentScrollValue(int)) );
+  connect( _mainView->view()->verticalScrollBar(), &QAbstractSlider::valueChanged,
+                                            this,   &Kiten::setCurrentScrollValue );
   /* We need to know when to reload our dictionaries if the user updated them. */
   connect(_dictionaryUpdateManager, &DictionaryUpdateManager::updateFinished, this, &Kiten::loadDictionaries);
 
   /* See below for what else needs to be done */
-  QTimer::singleShot( 10, this, SLOT(finishInit()) );
+  QTimer::singleShot( 10, this, &Kiten::finishInit );
 }
 
 // Destructor to clean up the little bits
@@ -183,13 +183,13 @@ void Kiten::setupActions()
 //                             , SLOT(createEEdit())
 //                             , actionCollection()
 //                             , "dict_editor");
-  QAction *radselect = actionCollection()->addAction( "radselect" );
+  QAction *radselect = actionCollection()->addAction( QStringLiteral("radselect") );
   radselect->setText( i18n( "Radical Selector" ) );
 //	radselect->setIcon( "edit-find" );
   actionCollection()->setDefaultShortcut(radselect, Qt::CTRL+Qt::Key_R );
   connect(radselect, &QAction::triggered, this, &Kiten::radicalSearch);
 
-  QAction *kanjibrowser = actionCollection()->addAction( "kanjibrowser" );
+  QAction *kanjibrowser = actionCollection()->addAction( QStringLiteral("kanjibrowser") );
   kanjibrowser->setText( i18n( "Kanji Browser" ) );
   actionCollection()->setDefaultShortcut(kanjibrowser, Qt::CTRL+Qt::Key_K );
   connect(kanjibrowser, &QAction::triggered, this, &Kiten::kanjiBrowserSearch);
@@ -197,7 +197,7 @@ void Kiten::setupActions()
   /* Setup the Search Actions and our custom Edit Box */
   _inputManager = new SearchStringInput( this );
 
-  QAction *searchButton = actionCollection()->addAction( "search" );
+  QAction *searchButton = actionCollection()->addAction( QStringLiteral("search") );
   searchButton->setText( i18n( "S&earch" ) );
   // Set the search button to search
   connect(searchButton, &QAction::triggered, this, &Kiten::searchFromEdit);
@@ -215,16 +215,16 @@ void Kiten::setupActions()
 //                                 , actionCollection()
 //                                 , "deinf_toggle" );
 
-  _autoSearchToggle = actionCollection()->add<KToggleAction>( "autosearch_toggle" );
+  _autoSearchToggle = actionCollection()->add<KToggleAction>( QStringLiteral("autosearch_toggle") );
   _autoSearchToggle->setText( i18n( "&Automatically Search Clipboard Selections" ) );
 
-  _irAction = actionCollection()->add<QAction>( "search_in_results" );
+  _irAction = actionCollection()->add<QAction>( QStringLiteral("search_in_results") );
   _irAction->setText( i18n( "Search &in Results" ) );
   connect(_irAction, &QAction::triggered, this, &Kiten::searchInResults);
 
 
   QAction *actionFocusResultsView;
-  actionFocusResultsView = actionCollection()->addAction(  "focusresultview"
+  actionFocusResultsView = actionCollection()->addAction(  QStringLiteral("focusresultview")
                                                          , this
                                                          , SLOT(focusResultsView()) );
   actionCollection()->setDefaultShortcut(actionFocusResultsView, Qt::Key_Escape );
@@ -297,7 +297,7 @@ void Kiten::finishInit()
   {
     if ( ! KConfigGui::sessionConfig()->hasGroup( "app" ) )
     {
-      searchTextAndRaise( QString::fromUtf8( "辞書" ) );
+      searchTextAndRaise( QStringLiteral( "辞書" ) );
       //Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
       //it's an embedded unicode search string to find "dictionary" in japanese
     }
@@ -506,7 +506,7 @@ void Kiten::displayResults( EntryList *results )
   {
     QStringList dictSort;
     QStringList fieldSort = _config->field_sortlist();
-    if( _config->dictionary_enable() == "true" )
+    if( _config->dictionary_enable() == QLatin1String("true") )
     {
       dictSort = _config->dictionary_sortlist();
     }
@@ -556,7 +556,7 @@ void Kiten::kanjiBrowserSearch()
 void Kiten::slotConfigure()
 {
   //If the settings dialog is open and obscured/hidden/cached, show it
-  if ( ConfigureDialog::showDialog( "settings" ) )
+  if ( ConfigureDialog::showDialog( QStringLiteral("settings") ) )
   {
     return;
   }
@@ -576,7 +576,7 @@ void Kiten::slotConfigure()
  */
 void Kiten::slotConfigureHide()
 {
-  QTimer::singleShot(0, this, SLOT(slotConfigureDestroy()));
+  QTimer::singleShot(0, this, &Kiten::slotConfigureDestroy);
 }
 
 /**
@@ -610,7 +610,7 @@ void Kiten::configureToolBars()
 
 void Kiten::newToolBarConfig()
 {
-  createGUI( "kitenui.rc" );
+  createGUI( QStringLiteral("kitenui.rc") );
   KConfigGroup configGroup = KSharedConfig::openConfig()->group( "kitenWindow" );
   applyMainWindowSettings( configGroup );
 }
@@ -687,7 +687,7 @@ void Kiten::loadDictConfig( const QString &dictType )
   //If we need to load the global
   if( group.readEntry( "__useGlobal", true ) )
   {
-    QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString( "kiten/" ) + dictType.toLower());
+    QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral( "kiten/" ) + dictType.toLower());
     dictionariesToLoad.append( qMakePair( dictType, dictionary ) );
   }
 

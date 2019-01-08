@@ -141,7 +141,7 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
                                       , type
                                       , label );
 
-        result += QString( "<div style=\"font-style:italic\">%1</div>" ).arg( message );
+        result += QStringLiteral( "<div style=\"font-style:italic\">%1</div>" ).arg( message );
 
         firstTimeDeinflection = false;
       }
@@ -149,7 +149,7 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
       if( lastDictionary != newDictionary )
       {
         lastDictionary = newDictionary;
-        result += QString( "<div class=\"DictionaryHeader\">%1 %2</div>" )
+        result += QStringLiteral( "<div class=\"DictionaryHeader\">%1 %2</div>" )
                       .arg( fromDictionary )
                       .arg( newDictionary );
         firstTimeCommon = true;
@@ -164,12 +164,12 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
         EntryEdict *entryEdict = static_cast<EntryEdict*>( entry );
         if( entryEdict->isCommon() && firstTimeCommon )
         {
-          result += QString( "<div class=\"CommonHeader\">%1</div>" ).arg( i18n( "Common" ) );
+          result += QStringLiteral( "<div class=\"CommonHeader\">%1</div>" ).arg( i18n( "Common" ) );
           firstTimeCommon = false;
         }
         else if( ! entryEdict->isCommon() && firstTimeUncommon )
         {
-          result += QString( "<div class=\"UncommonHeader\">%1</div>" ).arg( i18n( "Uncommon" ) );
+          result += QStringLiteral( "<div class=\"UncommonHeader\">%1</div>" ).arg( i18n( "Uncommon" ) );
           firstTimeUncommon = false;
         }
       }
@@ -177,7 +177,7 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
 
     if( length-- > 0 )
     {
-      result += QString( "<div class=\"Entry\" index=\"%1\" dict=\"%2\">%3</div>" )
+      result += QStringLiteral( "<div class=\"Entry\" index=\"%1\" dict=\"%2\">%3</div>" )
                     .arg( QString::number( i ) )
                     .arg( entry->getDictName() )
                     .arg( entry->toHTML() );

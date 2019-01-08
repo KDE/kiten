@@ -28,9 +28,9 @@ WordType::WordType( QWidget *parent )
 : KComboBox( parent )
 {
   //TODO: i18n needed
-  addItem( "<No type specified>" );
-  addItem( "Noun" );
-  addItem( "Verb" );
+  addItem( QStringLiteral("<No type specified>") );
+  addItem( QStringLiteral("Noun") );
+  addItem( QStringLiteral("Verb") );
 //   addItems( Entry::WordTypesPretty()->uniqueKeys() );
 }
 

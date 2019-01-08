@@ -46,12 +46,12 @@ DictFileFieldSelector::DictFileFieldSelector( KConfigSkeleton *config,
   this->setLayout( newTabLayout );
 
   //Create Default List
-  m_completeList.append( "--NewLine--" );
-  m_completeList.append( "--NewLine--" );
-  m_completeList.append( "--NewLine--" );
-  m_completeList.append( "Word/Kanji" );
-  m_completeList.append( "Reading" );
-  m_completeList.append( "Meaning" );
+  m_completeList.append( QStringLiteral("--NewLine--") );
+  m_completeList.append( QStringLiteral("--NewLine--") );
+  m_completeList.append( QStringLiteral("--NewLine--") );
+  m_completeList.append( QStringLiteral("Word/Kanji") );
+  m_completeList.append( QStringLiteral("Reading") );
+  m_completeList.append( QStringLiteral("Meaning") );
 
   //Make connections
   connect(m_listView, &KActionSelector::added, this, &DictFileFieldSelector::settingChanged);

@@ -39,9 +39,9 @@ int main( int argc, char *argv[] )
 //   qInstallMsgHandler(noMessageOutput);	//Disable Qt Errors from showing
 
   // Copyright and author information
-  Kdelibs4ConfigMigrator migrate(QLatin1String("kiten"));
-  migrate.setConfigFiles(QStringList() << QLatin1String("kitenrc"));
-  migrate.setUiFiles(QStringList() << QLatin1String("kitenui.rc"));
+  Kdelibs4ConfigMigrator migrate(QStringLiteral("kiten"));
+  migrate.setConfigFiles(QStringList() << QStringLiteral("kitenrc"));
+  migrate.setUiFiles(QStringList() << QStringLiteral("kitenui.rc"));
   migrate.migrate();
 
   KLocalizedString::setApplicationDomain("kiten");
@@ -52,16 +52,16 @@ int main( int argc, char *argv[] )
                                                     "(c) 2006-2007, Eric Kjeldergaard\n"
                                                     "(c) 2006-2008, Joseph Kerian\n"
                                                     "(c) 2011, Daniel E. Moctezuma"),
-                  QString(), "http://edu.kde.org/kiten" );
+                  QString(), QStringLiteral("http://edu.kde.org/kiten") );
 
-  aboutData.addAuthor( i18n("Jason Katz-Brown"), i18n("Original author"), "jason@katzbrown.com" );
-  aboutData.addCredit( i18n("Jim Breen"),        i18n("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), "jwb@csse.monash.edu.au" );
-  aboutData.addAuthor( i18n("Neil Stevens"),     i18n("Code simplification, UI suggestions."), "neil@qualityassistant.com" );
-  aboutData.addCredit( i18n("David Vignoni"),    i18n("svg icon"), "david80v@tin.it");
-  aboutData.addCredit( i18n("Paul Temple"),      i18n("Porting to KConfig XT, bug fixing"), "paul.temple@gmx.net" );
-  aboutData.addAuthor( i18n("Joseph Kerian"),    i18n("KDE4 rewrite"), "jkerian@gmail.com" );
-  aboutData.addAuthor( i18n("Eric Kjeldergaard"), i18n("KDE4 rewrite"), "kjelderg@gmail.com" );
-  aboutData.addAuthor( i18n("Daniel E. Moctezuma"), i18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"), "democtezuma@gmail.com" );
+  aboutData.addAuthor( i18n("Jason Katz-Brown"), i18n("Original author"), QStringLiteral("jason@katzbrown.com") );
+  aboutData.addCredit( i18n("Jim Breen"),        i18n("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), QStringLiteral("jwb@csse.monash.edu.au") );
+  aboutData.addAuthor( i18n("Neil Stevens"),     i18n("Code simplification, UI suggestions."), QStringLiteral("neil@qualityassistant.com") );
+  aboutData.addCredit( i18n("David Vignoni"),    i18n("svg icon"), QStringLiteral("david80v@tin.it"));
+  aboutData.addCredit( i18n("Paul Temple"),      i18n("Porting to KConfig XT, bug fixing"), QStringLiteral("paul.temple@gmx.net") );
+  aboutData.addAuthor( i18n("Joseph Kerian"),    i18n("KDE4 rewrite"), QStringLiteral("jkerian@gmail.com") );
+  aboutData.addAuthor( i18n("Eric Kjeldergaard"), i18n("KDE4 rewrite"), QStringLiteral("kjelderg@gmail.com") );
+  aboutData.addAuthor( i18n("Daniel E. Moctezuma"), i18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"), QStringLiteral("democtezuma@gmail.com") );
 
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
   app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
@@ -80,12 +80,12 @@ int main( int argc, char *argv[] )
   Kiten *kiten = new Kiten();
 
   //Register the DBUS name or die
-  if ( ! QDBusConnection::sessionBus().registerService( "org.kde.kiten" ) )
+  if ( ! QDBusConnection::sessionBus().registerService( QStringLiteral("org.kde.kiten") ) )
   {
     exit( 1 );
   }
 
   kiten->show();
-  QDBusConnection::sessionBus().registerObject( "/", kiten, QDBusConnection::ExportAllSlots );
+  QDBusConnection::sessionBus().registerObject( QStringLiteral("/"), kiten, QDBusConnection::ExportAllSlots );
   return app.exec();
 }

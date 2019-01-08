@@ -91,10 +91,10 @@ void ButtonGrid::buildRadicalButtons()
     RadicalButton *button = new RadicalButton( *it, this );
     grid->addWidget( button, row_index++, column_index );
     //Bind slots/signals for this button
-    connect( button, SIGNAL(userClicked(QString,RadicalButton::ButtonStatus)),
-               this,   SLOT(radicalClicked(QString,RadicalButton::ButtonStatus)) );
-    connect(   this, SIGNAL(clearButtonSelections()),
-             button,   SLOT(resetButton()) );
+    connect( button, &RadicalButton::userClicked,
+               this,   &ButtonGrid::radicalClicked );
+    connect(   this, &ButtonGrid::clearButtonSelections,
+             button,   &RadicalButton::resetButton );
 
     //Add this button to our list
     m_buttons.insert( *it, button );
@@ -179,7 +179,7 @@ void ButtonGrid::updateButtons()
   //Do the announcement of the selected radical list
   QStringList radicalList( m_selectedRadicals.toList() );
   emit signalChangeStatusbar( i18n( "Selected Radicals: " )
-                              + radicalList.join( ", " ) );
+                              + radicalList.join( QStringLiteral(", ") ) );
 
   //Now figure out what our remaining radical possibilities are
   QSet<QString> remainingRadicals = m_radicalInfo->radicalsInKanji( kanjiSet );

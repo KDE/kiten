@@ -48,7 +48,7 @@ RadSelectView::RadSelectView( QWidget *parent )
   setupUi( this );
   m_radicalInfo = 0L;
   //Load the radical information
-  QString radkfilename = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/radkfile");
+  QString radkfilename = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/radkfile"));
   if ( radkfilename.isNull() )
   {
     KMessageBox::error( 0, i18n( "Kanji radical information does not seem to "
@@ -71,29 +71,29 @@ RadSelectView::RadSelectView( QWidget *parent )
 
   //== Now we connect all our signals ==
   //Connect our radical grid to our adding method
-  connect( m_buttongrid, SIGNAL(possibleKanji(QList<Kanji>)),
-                   this,   SLOT(listPossibleKanji(QList<Kanji>)) );
+  connect( m_buttongrid, &ButtonGrid::possibleKanji,
+                   this,   &RadSelectView::listPossibleKanji );
   //Connect the results selection to our logic
-  connect( selected_radicals, SIGNAL(itemClicked(QListWidgetItem*)),
-                        this,   SLOT(kanjiClicked(QListWidgetItem*)) );
-  connect( selected_radicals, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
-                        this,   SLOT(kanjiDoubleClicked(QListWidgetItem*)) );
+  connect( selected_radicals, &QListWidget::itemClicked,
+                        this,   &RadSelectView::kanjiClicked );
+  connect( selected_radicals, &QListWidget::itemDoubleClicked,
+                        this,   &RadSelectView::kanjiDoubleClicked );
   //Connect our stroke limit actions
   connect( strokes_low, SIGNAL(valueChanged(int)),
                   this,   SLOT(strokeLimitChanged(int)) );
   connect( strokes_high, SIGNAL(valueChanged(int)),
                    this,   SLOT(strokeLimitChanged(int)) );
   //Connect statusbar updates
-  connect( m_buttongrid, SIGNAL(signalChangeStatusbar(QString)),
-                   this, SIGNAL(signalChangeStatusbar(QString)) );
+  connect( m_buttongrid, &ButtonGrid::signalChangeStatusbar,
+                   this, &RadSelectView::signalChangeStatusbar );
 
   //Connect our clear button
-  connect( clear_button, SIGNAL(clicked()),
-                   this,   SLOT(clearSearch()) );
+  connect( clear_button, &QAbstractButton::clicked,
+                   this,   &RadSelectView::clearSearch );
 
   // copy text from copied_line (QLineEdit) to clipboard
-  connect( copy_button, SIGNAL(clicked()),
-                  this,   SLOT(toClipboard()) );
+  connect( copy_button, &QAbstractButton::clicked,
+                  this,   &RadSelectView::toClipboard );
 
   loadSettings();
 }

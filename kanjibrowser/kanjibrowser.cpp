@@ -54,9 +54,9 @@ KanjiBrowser::KanjiBrowser()
   loadKanji();
 
   setCentralWidget( _view );
-  setObjectName( QLatin1String( "kanjibrowser" ) );
+  setObjectName( QStringLiteral( "kanjibrowser" ) );
 
-  setupGUI( Default, "kanjibrowserui.rc" );
+  setupGUI( Default, QStringLiteral("kanjibrowserui.rc") );
 }
 
 KanjiBrowser::~KanjiBrowser()
@@ -81,7 +81,7 @@ void KanjiBrowser::loadKanji()
 
   qDebug() << "Loading kanji..." << endl;
 
-  QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/kanjidic");
+  QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/kanjidic"));
   _dictFileKanjidic = new DictFileKanjidic();
   _dictFileKanjidic->loadSettings();
   _dictFileKanjidic->loadDictionary( dictionary, KANJIDIC );
@@ -140,7 +140,7 @@ void KanjiBrowser::loadKanji()
 
 void KanjiBrowser::showPreferences()
 {
-  if( KConfigDialog::showDialog( "settings" ) )
+  if( KConfigDialog::showDialog( QStringLiteral("settings") ) )
   {
     return;
   }
@@ -149,8 +149,8 @@ void KanjiBrowser::showPreferences()
   Ui::preferences layout;
   layout.setupUi( preferences );
 
-  KConfigDialog *dialog = new KConfigDialog( this, "settings", KanjiBrowserConfigSkeleton::self() );
-  dialog->addPage( preferences, i18n( "Settings" ), "help-contents" );
+  KConfigDialog *dialog = new KConfigDialog( this, QStringLiteral("settings"), KanjiBrowserConfigSkeleton::self() );
+  dialog->addPage( preferences, i18n( "Settings" ), QStringLiteral("help-contents") );
   connect(dialog, &KConfigDialog::settingsChanged, _view, &KanjiBrowserView::loadSettings);
   dialog->show();
 }

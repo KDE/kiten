@@ -55,7 +55,7 @@ IndexedEdictFile::~IndexedEdictFile()
 bool IndexedEdictFile::buildIndex()
 {
   KProcess proc;
-  proc << QStandardPaths::findExecutable("kitengen") << m_dictFile.fileName() << m_indexFile.fileName();
+  proc << QStandardPaths::findExecutable(QStringLiteral("kitengen")) << m_dictFile.fileName() << m_indexFile.fileName();
   proc.start();
   proc.waitForStarted();
 

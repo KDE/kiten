@@ -33,13 +33,13 @@ static const char version[] = "0.1";
 int main( int argc, char **argv )
 {
   QApplication app(argc, argv);
-  app.setWindowIcon(QIcon::fromTheme(QLatin1String("kiten"), app.windowIcon()));
+  app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kiten"), app.windowIcon()));
   KLocalizedString::setApplicationDomain("kiten");
   
   KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), QStringLiteral("0.1"),
                     i18n(description), KAboutLicense::GPL,
-                    i18n("(C) 2005 Joseph Kerian"), QString(), QString(), "jkerian@gmail.com" );
-  about.addAuthor( i18n("Joseph Kerian"), QString(), "jkerian@gmail.com" );
+                    i18n("(C) 2005 Joseph Kerian"), QString(), QString(), QStringLiteral("jkerian@gmail.com") );
+  about.addAuthor( i18n("Joseph Kerian"), QString(), QStringLiteral("jkerian@gmail.com") );
   about.setOrganizationDomain("kde.org"); //For DBus domain
 
   QCommandLineParser parser;
@@ -48,7 +48,7 @@ int main( int argc, char **argv )
   parser.addVersionOption();
   parser.addHelpOption();
   about.setupCommandLine(&parser);
-  parser.addPositionalArgument("Search_String", i18n( "Initial Search String from Kiten" ));
+  parser.addPositionalArgument(QStringLiteral("Search_String"), i18n( "Initial Search String from Kiten" ));
   parser.process(app);
   about.processCommandLine(&parser);
 
