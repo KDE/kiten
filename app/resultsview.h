@@ -55,7 +55,7 @@ class ResultsView : public KHTMLPart
     void         urlClicked( const QString& );
 
   protected:
-    QString      deLinkify( DOM::Node );
+    QString      deLinkify( const DOM::Node &);
     QString      generateCSS();
     bool urlSelected(  const QString &url
                              , int button

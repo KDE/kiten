@@ -48,7 +48,7 @@
 //Declare our constants
 QList<Deinflection::Conjugation> *Deinflection::conjugationList = NULL;
 
-Deinflection::Deinflection( const QString name )
+Deinflection::Deinflection( const QString &name )
 : m_deinflectionLabel( QString() )
 , m_wordType( QString() )
 , m_dictionaryName( name )
@@ -230,7 +230,7 @@ bool Deinflection::load()
   return true;
 }
 
-inline EntryEdict* Deinflection::makeEntry( QString entry )
+inline EntryEdict* Deinflection::makeEntry( const QString &entry )
 {
   return new EntryEdict( m_dictionaryName, entry );
 }

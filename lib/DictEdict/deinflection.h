@@ -35,7 +35,7 @@ class QString;
 class Deinflection
 {
   public:
-    explicit    Deinflection( const QString name );
+    explicit    Deinflection( const QString &name );
 
     QString    *getDeinflectionLabel();
     QString    *getWordType();
@@ -53,7 +53,7 @@ class Deinflection
       QString label;
     };
 
-    EntryEdict *makeEntry( QString entry );
+    EntryEdict *makeEntry( const QString &entry );
 
     static QList<Conjugation> *conjugationList;
 

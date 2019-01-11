@@ -62,7 +62,7 @@ void ResultsView::clear()
   _printText = QLatin1String("");
 }
 
-QString ResultsView::deLinkify( DOM::Node node )
+QString ResultsView::deLinkify( const DOM::Node &node )
 {
   //TODO: make this function more flexible (ie, accept non-link-content as
   //well.)
