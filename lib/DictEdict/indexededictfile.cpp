@@ -219,7 +219,7 @@ QVector<QString> IndexedEdictFile::findMatches( const QString &query ) const
     return results;
   }
 
-  qSort( possibleHits );
+  std::sort(possibleHits.begin(), possibleHits.end());
   uint32_t last = 0;
 
   foreach( uint32_t it, possibleHits )

@@ -270,7 +270,7 @@ void EntryList::sort( QStringList &sortOrder, QStringList &dictionaryOrder )
   sorter.dictionary_order = &dictionaryOrder;
   sorter.sort_order = &sortOrder;
 
-  qStableSort( this->begin(), this->end(), sorter );
+  std::stable_sort( this->begin(), this->end(), sorter );
   d->sorted = true;
   d->sortedByDictionary = dictionaryOrder.size() > 0;
 }

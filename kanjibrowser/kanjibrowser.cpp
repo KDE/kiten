@@ -129,8 +129,8 @@ void KanjiBrowser::loadKanji()
   gradeList  = gradeList.toSet().toList();
   strokeList = strokeList.toSet().toList();
   // Sort them.
-  qSort( gradeList );
-  qSort( strokeList );
+  std::sort(gradeList.begin(), gradeList.end());
+  std::sort(strokeList.begin(), strokeList.end());
   qDebug() << "Max. grade:" << gradeList.last() << endl;
   qDebug() << "Max. stroke count:" << strokeList.last() << endl;
 

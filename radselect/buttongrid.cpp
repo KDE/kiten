@@ -173,7 +173,7 @@ void ButtonGrid::updateButtons()
 
   //Convert to a list, sort, and tell the world!
   QList<Kanji> kanjiList = kanjiSet.toList();
-  qSort( kanjiList );
+  std::sort(kanjiList.begin(), kanjiList.end());
   emit possibleKanji( kanjiList );
 
   //Do the announcement of the selected radical list
