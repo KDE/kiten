@@ -170,7 +170,7 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
     foreach( const QString &target, dictsFromQuery )
     {
       DictFile *newestFound = d->dictManagers.find( target ).value();
-      if( newestFound != 0 )
+      if( newestFound != nullptr )
       {
         EntryList *temp = newestFound->doSearch( query );
         if( temp )

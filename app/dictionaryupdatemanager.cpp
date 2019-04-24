@@ -90,7 +90,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   // Check if we have valid data to work with.
   if( data.isNull() || data.isEmpty() )
   {
-    KMessageBox::sorry( 0, i18n( "Update canceled.\nCould not read file." ) );
+    KMessageBox::sorry( nullptr, i18n( "Update canceled.\nCould not read file." ) );
     job->deleteLater();
     return;
   }
@@ -100,7 +100,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   QTemporaryFile tempFile;
   if( ! tempFile.open() )
   {
-    KMessageBox::sorry( 0, i18n( "Update canceled.\nCould not open file." ) );
+    KMessageBox::sorry( nullptr, i18n( "Update canceled.\nCould not open file." ) );
     qDebug() << "Could not open tempFile." << endl;
     tempFile.deleteLater();
     job->deleteLater();
@@ -117,7 +117,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
     // Maybe the format/content of (one or both) the files changed?
     // or maybe one or both of the files could not be opened in the
     // getFileDate function that would return an invalid empty date.
-    KMessageBox::sorry( 0, i18n( "Update canceled.\nThe update information file has an invalid date." ) );
+    KMessageBox::sorry( nullptr, i18n( "Update canceled.\nThe update information file has an invalid date." ) );
     tempFile.deleteLater();
     job->deleteLater();
     return;
@@ -317,21 +317,21 @@ void DictionaryUpdateManager::showUpdateResults()
   
   if( ! _succeeded.isEmpty() && _failed.isEmpty() )
   {
-    KMessageBox::information( 0, i18n( "You already have the latest updates." ) );
+    KMessageBox::information( nullptr, i18n( "You already have the latest updates." ) );
   }
   else if( _succeeded.isEmpty() && _failed.isEmpty() )
   {
-    KMessageBox::information( 0, i18n( "Successfully updated your dictionaries." ) );
+    KMessageBox::information( nullptr, i18n( "Successfully updated your dictionaries." ) );
   }
   else if( ! _succeeded.isEmpty() && ! _failed.isEmpty() )
   {
-    KMessageBox::information( 0, i18n( "Successfully updated:\n%1\n\nFailed to update:\n%2"
+    KMessageBox::information( nullptr, i18n( "Successfully updated:\n%1\n\nFailed to update:\n%2"
                                       , _succeeded.join( "\n" )
                                       , _failed.join( "\n" ) ) );
   }
   else if( _succeeded.isEmpty() && ! _failed.isEmpty() )
   {
-    KMessageBox::sorry( 0, i18n( "Failed to update:\n%1"
+    KMessageBox::sorry( nullptr, i18n( "Failed to update:\n%1"
                                 , _failed.join( "\n" ) ) );
   }
 

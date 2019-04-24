@@ -64,7 +64,7 @@ DictFileEdict::DictFileEdict()
 DictFileEdict::~DictFileEdict()
 {
   delete m_deinflection;
-  m_deinflection = 0;
+  m_deinflection = nullptr;
 }
 
 QMap<QString,QString> DictFileEdict::displayOptions() const

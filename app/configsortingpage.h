@@ -33,7 +33,7 @@ class ConfigSortingPage : public QWidget, public Ui::configSorting
   Q_OBJECT
 
   public:
-    explicit ConfigSortingPage(  QWidget *parent = 0
+    explicit ConfigSortingPage(  QWidget *parent = nullptr
                                , KitenConfigSkeleton *config = NULL
                                , Qt::WindowFlags f = {} );
 

@@ -349,13 +349,13 @@ bool IndexedEdictFile::loadFile( const QString &fileName )
 bool IndexedEdictFile::loadmmaps()
 {
   m_indexPtr = static_cast<uint32_t*>(
-                  mmap(0, m_indexFile.size(), PROT_READ, MAP_SHARED, m_indexFile.handle(), 0));
+                  mmap(nullptr, m_indexFile.size(), PROT_READ, MAP_SHARED, m_indexFile.handle(), 0));
   if( m_indexPtr == static_cast<uint32_t*>( MAP_FAILED ) )
   {
     return false;
   }
 
-  m_dictPtr = static_cast<unsigned char*>( mmap(  0
+  m_dictPtr = static_cast<unsigned char*>( mmap(  nullptr
                                                 , m_dictFile.size()
                                                 , PROT_READ
                                                 , MAP_SHARED

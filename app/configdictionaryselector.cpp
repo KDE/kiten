@@ -121,7 +121,7 @@ void ConfigDictionarySelector::addDictSlot()
 {
   QTreeWidgetItem *item = fileList->topLevelItem( 0 );
 
-  QString filename = QFileDialog::getOpenFileName(0, QString(),
+  QString filename = QFileDialog::getOpenFileName(nullptr, QString(),
                   item ? QFileInfo( item->text( 1 ) ).absolutePath().append( "/" )
                   : QString() );
   QString name = QFileInfo( filename ).fileName();

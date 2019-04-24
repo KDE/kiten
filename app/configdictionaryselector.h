@@ -37,7 +37,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 
   public:
     explicit ConfigDictionarySelector(  const QString &dictionaryName
-                                      , QWidget *parent = 0
+                                      , QWidget *parent = nullptr
                                       , KConfigSkeleton *iconfig = NULL
                                       , Qt::WindowFlags f = {} );
 

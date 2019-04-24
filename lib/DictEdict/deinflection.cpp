@@ -173,7 +173,7 @@ bool Deinflection::load()
   //Find the file
   if ( vconj.isEmpty() )
   {
-    KMessageBox::error( 0, i18n( "Verb deinflection information not found, so verb deinflection cannot be used." ) );
+    KMessageBox::error( nullptr, i18n( "Verb deinflection information not found, so verb deinflection cannot be used." ) );
     return false;
   }
 
@@ -182,7 +182,7 @@ bool Deinflection::load()
   QFile f( vconj );
   if ( ! f.open( QIODevice::ReadOnly ) )
   {
-    KMessageBox::error( 0, i18n( "Verb deinflection information could not be loaded, so verb deinflection cannot be used." ) );
+    KMessageBox::error( nullptr, i18n( "Verb deinflection information could not be loaded, so verb deinflection cannot be used." ) );
     return false;
   }
 

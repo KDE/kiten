@@ -33,7 +33,7 @@ class ConfigureDialog : public KConfigDialog
   Q_OBJECT
 
   public:
-    explicit ConfigureDialog(  QWidget *parent = 0
+    explicit ConfigureDialog(  QWidget *parent = nullptr
                              , KitenConfigSkeleton *config = NULL );
     virtual ~ConfigureDialog();
 

@@ -46,12 +46,12 @@ RadSelectView::RadSelectView( QWidget *parent )
 {
   //Setup the ui from the .ui file
   setupUi( this );
-  m_radicalInfo = 0L;
+  m_radicalInfo = nullptr;
   //Load the radical information
   QString radkfilename = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/radkfile"));
   if ( radkfilename.isNull() )
   {
-    KMessageBox::error( 0, i18n( "Kanji radical information does not seem to "
+    KMessageBox::error( nullptr, i18n( "Kanji radical information does not seem to "
                                  "be installed (file kiten/radkfile), this "
                                  "file is required for this app to function." ) );
   }

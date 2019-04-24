@@ -112,7 +112,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
   createGUI();
 
   _statusBar = statusBar();
-  _optionDialog = 0;
+  _optionDialog = nullptr;
 
   /* Start the system tray icon. */
   _sysTrayIcon = new KStatusNotifierItem(this);
@@ -154,7 +154,7 @@ Kiten::~Kiten()
   }
   _dictionaryManager.removeAllDictionaries();
   delete _optionDialog;
-  _optionDialog = 0;
+  _optionDialog = nullptr;
 }
 
 KitenConfigSkeleton* Kiten::getConfig()
@@ -584,10 +584,10 @@ void Kiten::slotConfigureHide()
  */
 void Kiten::slotConfigureDestroy()
 {
-  if ( _optionDialog != 0 && _optionDialog->isVisible() == 0 )
+  if ( _optionDialog != nullptr && _optionDialog->isVisible() == 0 )
   {
     delete _optionDialog;
-    _optionDialog = 0;
+    _optionDialog = nullptr;
   }
 }
 

@@ -41,7 +41,7 @@ KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
   QString romkana = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/romkana.cnv"));
   if ( romkana.isNull() )
   {
-    KMessageBox::error( 0, i18n( "Romaji information file not installed, so Romaji conversion cannot be used." ) );
+    KMessageBox::error( nullptr, i18n( "Romaji information file not installed, so Romaji conversion cannot be used." ) );
     return;
   }
 
@@ -49,7 +49,7 @@ KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
 
   if ( ! f.open( QIODevice::ReadOnly ) )
   {
-    KMessageBox::error( 0, i18n( "Romaji information could not be loaded, so Romaji conversion cannot be used." ) );
+    KMessageBox::error( nullptr, i18n( "Romaji information could not be loaded, so Romaji conversion cannot be used." ) );
   }
 
   QTextStream t( &f );

@@ -67,7 +67,7 @@ RadSelect::RadSelect()
   if( ! QDBusConnection::sessionBus().isConnected() )
   {
     qDebug() << "Session Bus not found!!" << endl;
-    m_dbusInterface = 0;
+    m_dbusInterface = nullptr;
   }
   else
   {
