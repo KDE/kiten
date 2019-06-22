@@ -29,6 +29,7 @@
 #include <QDBusConnection>
 
 #include "kiten.h"
+#include "kiten_version.h"
 
 void noMessageOutput( QtMsgType, const char* )
 {
@@ -47,7 +48,7 @@ int main( int argc, char *argv[] )
   KLocalizedString::setApplicationDomain("kiten");
   QApplication app(argc, argv);
 
-  KAboutData aboutData( QStringLiteral("kiten"), i18n("Kiten"), QStringLiteral("1.3"), i18n("Japanese Reference Tool"),
+  KAboutData aboutData( QStringLiteral("kiten"), i18n("Kiten"), QStringLiteral(KITEN_VERSION_STRING), i18n("Japanese Reference Tool"),
                   KAboutLicense::GPL_V2, i18n("(c) 2001-2004, Jason Katz-Brown\n"
                                                     "(c) 2006-2007, Eric Kjeldergaard\n"
                                                     "(c) 2006-2008, Joseph Kerian\n"

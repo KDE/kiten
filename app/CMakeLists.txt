@@ -1,4 +1,7 @@
 ############## kiten binary #############
+
+ecm_setup_version(${KDE_APPLICATIONS_VERSION} VARIABLE_PREFIX KITEN VERSION_HEADER kiten_version.h)
+
 set(kiten_bin_SRCS
     configdictionaryselector.cpp
     configsortingpage.cpp

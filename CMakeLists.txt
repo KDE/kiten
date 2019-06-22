@@ -1,7 +1,13 @@
-#Name the project
-project(kiten)
-
 cmake_minimum_required( VERSION 3.5 )
+
+# KDE Application Version, managed by release script
+set(KDE_APPLICATIONS_VERSION_MAJOR "19")
+set(KDE_APPLICATIONS_VERSION_MINOR "07")
+set(KDE_APPLICATIONS_VERSION_MICRO "70")
+set(KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
+
+#Name the project
+project(kiten VERSION ${KDE_APPLICATIONS_VERSION})
 
 #ECM setup
 find_package(ECM 1.7 REQUIRED NO_MODULE)
@@ -29,6 +35,7 @@ include(ECMGenerateHeaders)
 include(ECMAddAppIcon)
 include(ECMMarkNonGuiExecutable)
 include(GenerateExportHeader)
+include(ECMSetupVersion)
 
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
