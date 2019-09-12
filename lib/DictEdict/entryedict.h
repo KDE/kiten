@@ -66,7 +66,7 @@ class KITEN_EXPORT EntryEdict : public Entry
                     EntryEdict( const QString &dict );
                     EntryEdict( const QString &dict, const QString &entry );
 
-    Entry          *clone() const Q_DECL_OVERRIDE;
+    Entry          *clone() const override;
     /**
      * Simple accessor.
      */
@@ -91,11 +91,11 @@ class KITEN_EXPORT EntryEdict : public Entry
 
     bool            matchesWordType( const DictQuery &query ) const;
 
-    QString dumpEntry() const Q_DECL_OVERRIDE;
-    QString getDictionaryType() const Q_DECL_OVERRIDE;
-    QString HTMLWord() const Q_DECL_OVERRIDE;
-    bool    loadEntry( const QString &entryLine ) Q_DECL_OVERRIDE;
-    QString toHTML() const Q_DECL_OVERRIDE;
+    QString dumpEntry() const override;
+    QString getDictionaryType() const override;
+    QString HTMLWord() const override;
+    bool    loadEntry( const QString &entryLine ) override;
+    QString toHTML() const override;
 
   protected:
     virtual QString kanjiLinkify( const QString &inString ) const;

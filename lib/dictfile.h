@@ -118,7 +118,7 @@ class /* NO_EXPORT */ DictFile
      * @param config the KConfigSkeleton object that is currently in use
      * @param parent the parent widget for your preferences dialog
      */
-    virtual DictionaryPreferenceDialog *preferencesWidget( KConfigSkeleton *config, QWidget *parent = NULL )
+    virtual DictionaryPreferenceDialog *preferencesWidget( KConfigSkeleton *config, QWidget *parent = nullptr )
                             { Q_UNUSED( parent ); Q_UNUSED( config ); return NULL; }
     /**
      * Load information from the KConfigSkeleton that you've setup in

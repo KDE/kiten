@@ -82,7 +82,7 @@ void DictFileFieldSelector::readFromPrefs()
   QStringList actionList = m_completeList;
   QString itemName = m_dictName + "__displayFields";
   KConfigSkeletonItem *item = m_config->findItem( itemName );
-  if( item != NULL )
+  if( item != nullptr )
   {
     selectedList = item->property().toStringList();
   }

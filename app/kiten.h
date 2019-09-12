@@ -55,7 +55,7 @@ class Kiten : public KXmlGuiWindow
 
   //Constructors and other setup/takedown related methods
   public:
-    explicit Kiten( QWidget *parent = nullptr, const char *name = 0 );
+    explicit Kiten( QWidget *parent = nullptr, const char *name = nullptr );
             ~Kiten();
 
     KitenConfigSkeleton *getConfig();
@@ -68,7 +68,7 @@ class Kiten : public KXmlGuiWindow
   protected:
     void setupActions();
     void setupExportListDock();
-    bool queryClose() override; //overridden from KXmlGuiWindow (called@shutdown) Q_DECL_OVERRIDE
+    bool queryClose() override; //overridden from KXmlGuiWindow (called@shutdown) override
 
   private slots:
     void finishInit();

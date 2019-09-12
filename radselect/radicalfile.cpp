@@ -66,7 +66,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
 
   //Read our radical file through a eucJP codec (helpfully builtin to Qt)
   QTextStream t( &f );
-  Radical *newestRadical = NULL;
+  Radical *newestRadical = nullptr;
   QHash< QString, QSet<QString> > krad;
 
   t.setCodec( QTextCodec::codecForName( "eucJP" ) );
@@ -81,7 +81,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
     else if( line.at( 0 ) == '$' )
     {
       //Start of a new radical
-      if( newestRadical != NULL )
+      if( newestRadical != nullptr )
       {
         m_radicals.insert( *newestRadical, *newestRadical );
       }
@@ -89,7 +89,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       newestRadical = new Radical(  QString( line.at( 2 ) )
                                   , line.rightRef( 2 ).toUInt() );
     }
-    else if( newestRadical != NULL )
+    else if( newestRadical != nullptr )
     {
       // List of m_kanji, potentially
       QList<QString> m_kanjiList = line.trimmed().split( QLatin1String(""), QString::SkipEmptyParts );
@@ -100,7 +100,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       }
     }
   }
-  if( newestRadical != NULL )
+  if( newestRadical != nullptr )
   {
     m_radicals[ *newestRadical ] = *newestRadical;
     delete newestRadical;

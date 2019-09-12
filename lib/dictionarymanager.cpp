@@ -109,7 +109,7 @@ bool DictionaryManager::addDictionary( const QString &file
   }
 
   DictFile *newDict = makeDictFile( type );
-  if( newDict == NULL )
+  if( newDict == nullptr )
   {
     return false;
   }
@@ -243,7 +243,7 @@ DictionaryManager::generatePreferenceDialogs( KConfigSkeleton *config, QWidget *
     DictFile *tempDictFile = makeDictFile( dictType );
     DictionaryPreferenceDialog *newDialog = tempDictFile->preferencesWidget( config, parent );
 
-    if( newDialog == NULL ) continue;
+    if( newDialog == nullptr ) continue;
     result.insert( dictType, newDialog );
     delete tempDictFile;
   }
@@ -327,7 +327,7 @@ QStringList DictionaryManager::listDictionariesOfType( const QString &type ) con
 void DictionaryManager::loadDictSettings( const QString &dictName, KConfigSkeleton *config )
 {
   DictFile *dict = this->makeDictFile( dictName );
-  if( dict != NULL )
+  if( dict != nullptr )
   {
     config->setCurrentGroup( "dicts_" + dictName.toLower() );
     dict->loadSettings( config );

@@ -207,7 +207,7 @@ void KanjiBrowserView::reloadKanjiList()
 
 void KanjiBrowserView::searchKanji( QListWidgetItem *item )
 {
-  if(   _currentKanji != NULL
+  if(   _currentKanji != nullptr
       && item->text() == _currentKanji->getWord() )
   {
     return;

@@ -46,7 +46,7 @@
 //TODO: Fix this for thread safety/functionality (I'm presuming it's broken atm)
 
 //Declare our constants
-QList<Deinflection::Conjugation> *Deinflection::conjugationList = NULL;
+QList<Deinflection::Conjugation> *Deinflection::conjugationList = nullptr;
 
 Deinflection::Deinflection( const QString &name )
 : m_deinflectionLabel( QString() )
@@ -67,7 +67,7 @@ QString* Deinflection::getWordType()
 
 EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> &preliminaryResults )
 {
-  if( conjugationList == NULL )
+  if( conjugationList == nullptr )
   {
     return NULL;
   }
@@ -161,7 +161,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
 
 bool Deinflection::load()
 {
-  if ( conjugationList != NULL )
+  if ( conjugationList != nullptr )
   {
     return true;
   }

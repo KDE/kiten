@@ -34,7 +34,7 @@
 #include <QFile>
 #include <QTextCodec>
 
-QStringList *DictFileKanjidic::displayFields = NULL;
+QStringList *DictFileKanjidic::displayFields = nullptr;
 
 DictFileKanjidic::DictFileKanjidic()
 : DictFile( KANJIDIC )
@@ -219,7 +219,7 @@ QStringList* DictFileKanjidic::loadListType(  KConfigSkeletonItem *item
 {
   QStringList listFromItem;
 
-  if( item != NULL )
+  if( item != nullptr )
   {
     listFromItem = item->property().toStringList();
   }

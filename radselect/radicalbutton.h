@@ -36,9 +36,9 @@ class RadicalButton : public QPushButton
     /**
      * Overriding QPushButton's event for mousewheel events on a disabled button
      */
-    bool     event( QEvent *event ) Q_DECL_OVERRIDE;
-    QSize    minimumSizeHint() const Q_DECL_OVERRIDE;
-    QSize    sizeHint() const Q_DECL_OVERRIDE;
+    bool     event( QEvent *event ) override;
+    QSize    minimumSizeHint() const override;
+    QSize    sizeHint() const override;
 
     typedef enum
     {
@@ -53,8 +53,8 @@ class RadicalButton : public QPushButton
     void userClicked( const QString &text, RadicalButton::ButtonStatus status );
 
   public slots:
-    void mousePressEvent( QMouseEvent *e ) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent( QMouseEvent *e ) Q_DECL_OVERRIDE;
+    void mousePressEvent( QMouseEvent *e ) override;
+    void mouseReleaseEvent( QMouseEvent *e ) override;
     void resetButton();
     void setStatus( RadicalButton::ButtonStatus newStatus );
 

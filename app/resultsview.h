@@ -36,7 +36,7 @@ class ResultsView : public KHTMLPart
   Q_OBJECT
 
   public:
-    explicit     ResultsView( QWidget *parent = nullptr, const char *name = 0 );
+    explicit     ResultsView( QWidget *parent = nullptr, const char *name = nullptr );
 
     void         addResult( Entry *result, bool common = false );
     void         addKanjiResult( Entry*, bool common = false );
@@ -62,7 +62,7 @@ class ResultsView : public KHTMLPart
                              , int state
                              , const QString &_target
                              , const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments()
-                             , const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments() ) Q_DECL_OVERRIDE;
+                             , const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments() ) override;
 
   private slots:
     void doScroll();

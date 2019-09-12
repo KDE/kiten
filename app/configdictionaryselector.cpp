@@ -46,7 +46,7 @@ void ConfigDictionarySelector::updateWidgets()
 
   _config->setCurrentGroup( "dicts_" + _dictName );
   KConfigSkeletonItem *item = _config->findItem( _dictName + "__NAMES" );
-  if( item != NULL )
+  if( item != nullptr )
   {
     names = item->property().toStringList();
   }

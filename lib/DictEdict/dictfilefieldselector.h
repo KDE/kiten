@@ -50,9 +50,9 @@ class DictFileFieldSelector : public DictionaryPreferenceDialog
     void     readFromPrefs();
     void     writeToPrefs();
 
-    void     updateWidgets() Q_DECL_OVERRIDE;
-    void     updateWidgetsDefault() Q_DECL_OVERRIDE;
-    void     updateSettings() Q_DECL_OVERRIDE;
+    void     updateWidgets() override;
+    void     updateWidgetsDefault() override;
+    void     updateSettings() override;
     void     settingChanged();
 
   signals:

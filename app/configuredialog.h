@@ -34,7 +34,7 @@ class ConfigureDialog : public KConfigDialog
 
   public:
     explicit ConfigureDialog(  QWidget *parent = nullptr
-                             , KitenConfigSkeleton *config = NULL );
+                             , KitenConfigSkeleton *config = nullptr );
     virtual ~ConfigureDialog();
 
   signals:
@@ -45,12 +45,12 @@ class ConfigureDialog : public KConfigDialog
 
   private slots:
     void updateConfiguration();
-    void updateSettings() Q_DECL_OVERRIDE;
-    void updateWidgets() Q_DECL_OVERRIDE;
-    void updateWidgetsDefault() Q_DECL_OVERRIDE;
+    void updateSettings() override;
+    void updateWidgets() override;
+    void updateWidgetsDefault() override;
 
   private:
-    bool     isDefault() Q_DECL_OVERRIDE;
+    bool     isDefault() override;
     QWidget *makeDictionaryPreferencesPage( QWidget *, KitenConfigSkeleton* );
     QWidget *makeDictionaryFileSelectionPage( QWidget *, KitenConfigSkeleton* );
     QWidget *makeSortingPage( QWidget *, KitenConfigSkeleton* );

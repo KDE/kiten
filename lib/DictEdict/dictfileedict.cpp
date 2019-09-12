@@ -40,9 +40,9 @@
 #include "entrylist.h"
 #include "kitenmacros.h"
 
-QString     *DictFileEdict::deinflectionLabel = NULL;
-QStringList *DictFileEdict::displayFields = NULL;
-QString     *DictFileEdict::wordType = NULL;
+QString     *DictFileEdict::deinflectionLabel = nullptr;
+QStringList *DictFileEdict::displayFields = nullptr;
+QString     *DictFileEdict::wordType = nullptr;
 
 /**
  * Per instructions in the super-class, this constructor basically sets the
@@ -161,8 +161,8 @@ EntryList *DictFileEdict::doSearch( const DictQuery &query )
   }
   else
   {
-    deinflectionLabel = NULL;
-    wordType = NULL;
+    deinflectionLabel = nullptr;
+    wordType = nullptr;
     m_hasDeinflection = false;
   }
 
@@ -284,7 +284,7 @@ QStringList* DictFileEdict::loadListType(  KConfigSkeletonItem *item
 {
   QStringList listFromItem;
 
-  if( item != NULL )
+  if( item != nullptr )
   {
     listFromItem = item->property().toStringList();
   }

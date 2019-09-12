@@ -788,7 +788,7 @@ void Kiten::goInHistory( int index )
 
 void Kiten::displayHistoryItem()
 {
-  if ( _historyList.current() == NULL )
+  if ( _historyList.current() == nullptr )
     return;
 
   _inputManager->setSearchQuery( _historyList.current()->getQuery() );
@@ -809,7 +809,7 @@ void Kiten::enableHistoryButtons()
 
 void Kiten::setCurrentScrollValue( int value )
 {
-  if ( _historyList.current() == NULL )
+  if ( _historyList.current() == nullptr )
     return;
 
   _historyList.current()->setScrollValue( value );

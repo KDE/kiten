@@ -38,7 +38,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
   public:
     explicit ConfigDictionarySelector(  const QString &dictionaryName
                                       , QWidget *parent = nullptr
-                                      , KConfigSkeleton *iconfig = NULL
+                                      , KConfigSkeleton *iconfig = nullptr
                                       , Qt::WindowFlags f = {} );
 
   public slots:
@@ -55,7 +55,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 
   private:
     QString          _dictName;
-    KConfigSkeleton *_config;
+    KConfigSkeleton *_config = nullptr;
 };
 
 #endif
