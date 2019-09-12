@@ -81,7 +81,7 @@ EntryList* Deinflection::search( const DictQuery &query, const QVector<QString> 
   edictTypesList.append( EdictFormatting::Adjectives );
   edictTypesList.append( EdictFormatting::Verbs      );
 
-  QString edictTypes = edictTypesList.join( QStringLiteral(",") );
+  QString edictTypes = edictTypesList.join(QLatin1Char(',') );
 
   foreach( const QString &item, preliminaryResults )
   {

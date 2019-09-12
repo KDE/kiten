@@ -51,11 +51,11 @@ Entry* EntryEdict::clone() const
  */
 QString EntryEdict::dumpEntry() const
 {
-  QString readings = QString( Readings.count() == 0 ? QStringLiteral(" ") : " [" + Readings.first() + "] " );
+  QString readings = QString( Readings.isEmpty() ? QStringLiteral(" ") : " [" + Readings.first() + "] " );
 
   return QStringLiteral( "%1%2/%3/" ).arg( Word )
                               .arg( readings )
-                              .arg( Meanings.join( QStringLiteral("/") ) );
+                              .arg( Meanings.join( QLatin1Char('/') ) );
 }
 
 QString EntryEdict::getDictionaryType() const
@@ -101,7 +101,7 @@ bool EntryEdict::isAdverb() const
 
 bool EntryEdict::isCommon() const
 {
-  return getExtendedInfoItem( QStringLiteral( "common" ) ) == QLatin1String("1");
+  return getExtendedInfoItem( QStringLiteral( "common" ) ) == QLatin1Char('1');
 }
 
 bool EntryEdict::isExpression() const
@@ -303,11 +303,11 @@ bool EntryEdict::loadEntry( const QString &entryLine )
 
   //Pulls the various types out
   //TODO: Remove them from the original string
-  for ( int i = firstWord.indexOf( QLatin1String("(") );
+  for ( int i = firstWord.indexOf( QLatin1Char('(') );
         i != -1;
-        i = firstWord.indexOf( QLatin1String("("), i + 1 ) )
+        i = firstWord.indexOf( QLatin1Char('('), i + 1 ) )
   {
-    QString parentheses = firstWord.mid( i + 1, firstWord.indexOf( QLatin1String(")"), i ) - i - 1 );
+    QString parentheses = firstWord.mid( i + 1, firstWord.indexOf( QLatin1Char(')'), i ) - i - 1 );
     stringTypes += parentheses.split( ',' );
   }
 

@@ -226,7 +226,7 @@ bool operator<( const DictQuery &a, const DictQuery &b )
     QString B_version = b.d->extendedAttributes.value( it.key() );
     if( a.d->extendedAttributes[ it.key() ] != B_version )
     {
-      if( ! B_version.contains( QLatin1String(",") ) && ! B_version.contains( QLatin1String("-") ) )
+      if( ! B_version.contains( QLatin1Char(',') ) && ! B_version.contains( QLatin1Char('-') ) )
       {
         return false;
       }

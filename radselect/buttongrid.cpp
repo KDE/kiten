@@ -179,7 +179,7 @@ void ButtonGrid::updateButtons()
   //Do the announcement of the selected radical list
   QStringList radicalList( m_selectedRadicals.toList() );
   emit signalChangeStatusbar( i18n( "Selected Radicals: " )
-                              + radicalList.join( QStringLiteral(", ") ) );
+                              + radicalList.join(QLatin1String(", ") ) );
 
   //Now figure out what our remaining radical possibilities are
   QSet<QString> remainingRadicals = m_radicalInfo->radicalsInKanji( kanjiSet );

@@ -78,7 +78,7 @@ QString EntryKanjidic::dumpEntry() const
   }
 
   return QStringLiteral( "%1 %2%3" ).arg( Word )
-                             .arg( Readings.join( QStringLiteral(" ") ) )
+                             .arg( Readings.join( QLatin1Char(' ') ) )
                              .arg( dumpExtendedInfo );
 }
 
@@ -316,7 +316,7 @@ bool EntryKanjidic::loadEntry( const QString &entryLine )
           /* stroke count: may be multiple.  In that case, first is actual, others common
                   miscounts */
           i++;
-          if( ! ExtendedInfo.contains( QStringLiteral("S") ) )
+          if( ! ExtendedInfo.contains(QStringLiteral("S") ) )
           {
             LOADSTRING( curString )
             ExtendedInfo.insert( QString( ichar ), curString );

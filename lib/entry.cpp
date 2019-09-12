@@ -352,7 +352,7 @@ bool Entry::matchesQuery( const DictQuery &query ) const
 
   if( ! query.getMeaning().isEmpty() )
   {
-    if( ! listMatch(   Meanings.join( QStringLiteral(" ") ).toLower().split( ' ' )
+    if( ! listMatch(   Meanings.join(QLatin1Char(' ') ).toLower().split( ' ' )
                      , query.getMeaning().toLower().split( DictQuery::mainDelimiter )
                      , query.getMatchType() ) )
     {
@@ -436,16 +436,16 @@ bool Entry::sort( const Entry &that, const QStringList &dictOrder, const QString
   {
     foreach( const QString &field, fields )
     {
-      if( field == QStringLiteral( "Word/Kanji" ) )
+      if( field == QLatin1String( "Word/Kanji" ) )
       {
         return this->getWord() < that.getWord();
       }
-      else if( field == QStringLiteral( "Meaning" ) )
+      else if( field == QLatin1String( "Meaning" ) )
       {
         return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::Exact )
                && ( that.getMeaningsList().count() != this->getMeaningsList().count() );
       }
-      else if( field == QStringLiteral( "Reading" ) )
+      else if( field == QLatin1String( "Reading" ) )
       {
         return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::Exact )
                && ( that.getReadingsList().count() != this->getReadingsList().count() );
