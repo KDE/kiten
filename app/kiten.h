@@ -56,7 +56,7 @@ class Kiten : public KXmlGuiWindow
   //Constructors and other setup/takedown related methods
   public:
     explicit Kiten( QWidget *parent = nullptr, const char *name = nullptr );
-            ~Kiten();
+            ~Kiten() override;
 
     KitenConfigSkeleton *getConfig();
 
@@ -117,37 +117,37 @@ class Kiten : public KXmlGuiWindow
 
 
   private:
-    QStatusBar              *_statusBar;
+    QStatusBar              *_statusBar = nullptr;
     DictionaryManager        _dictionaryManager;
-    DictionaryUpdateManager *_dictionaryUpdateManager;
-    SearchStringInput       *_inputManager;
-    ResultsView             *_mainView;
+    DictionaryUpdateManager *_dictionaryUpdateManager = nullptr;
+    SearchStringInput       *_inputManager = nullptr;
+    ResultsView             *_mainView = nullptr;
 
     DictQuery                _lastQuery;
-    KToggleAction           *_autoSearchToggle;
-    KListAction             *_historyAction;
-    QAction                 *_irAction;
-    QAction                 *_backAction;
-    QAction                 *_forwardAction;
-    KProcess                *_radselect_proc;
-    KProcess                *_kanjibrowser_proc;
+    KToggleAction           *_autoSearchToggle = nullptr;
+    KListAction             *_historyAction = nullptr;
+    QAction                 *_irAction = nullptr;
+    QAction                 *_backAction = nullptr;
+    QAction                 *_forwardAction = nullptr;
+    KProcess                *_radselect_proc = nullptr;
+    KProcess                *_kanjibrowser_proc = nullptr;
 
     //TODO: this should probably be a standardaction
-    QAction                 *_globalShortcutsAction;
+    QAction                 *_globalShortcutsAction = nullptr;
 
     //ResultsView *detachedView;
-    QAction                 *_globalSearchAction;
+    QAction                 *_globalSearchAction = nullptr;
 
-    KStatusNotifierItem     *_sysTrayIcon;
+    KStatusNotifierItem     *_sysTrayIcon = nullptr;
 
     //Export list related:
-    QDockWidget             *_exportListDock;
-    QWidget                 *_exportListDockContents;
-    EntryListView           *_exportList;
+    QDockWidget             *_exportListDock = nullptr;
+    QWidget                 *_exportListDockContents = nullptr;
+    EntryListView           *_exportList = nullptr;
 
-    KGlobalAccel            *_accel;
-    ConfigureDialog         *_optionDialog;
-    KitenConfigSkeleton     *_config;
+    KGlobalAccel            *_accel = nullptr;
+    ConfigureDialog         *_optionDialog = nullptr;
+    KitenConfigSkeleton     *_config = nullptr;
 
     HistoryPtrList           _historyList;
     QString                  _personalDict;

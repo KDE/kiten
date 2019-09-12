@@ -68,10 +68,10 @@ class ResultsView : public KHTMLPart
     void doScroll();
 
   private:
-    QAction           *_addToExportListAction;
+    QAction           *_addToExportListAction = nullptr;
     bool               _basicMode;
-    KActionCollection *_popupActions;
-    KActionMenu       *_popupMenu;
+    KActionCollection *_popupActions = nullptr;
+    KActionMenu       *_popupMenu = nullptr;
     QString            _printText;
     int                _scrollValue;
 };

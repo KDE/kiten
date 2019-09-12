@@ -54,13 +54,13 @@ class SearchStringInput : public QObject
     void      focusInput();
 
   private:
-    KSelectAction    *_actionFilterRare;
+    KSelectAction    *_actionFilterRare = nullptr;
     // Search exact/anywhere/beginning
-    KSelectAction    *_actionSearchSection;
-    KSelectAction    *_actionSelectWordType;
-    KHistoryComboBox *_actionTextInput;
-    QAction          *_actionFocusInput;
-    Kiten            *_parent;
+    KSelectAction    *_actionSearchSection = nullptr;
+    KSelectAction    *_actionSelectWordType = nullptr;
+    KHistoryComboBox *_actionTextInput = nullptr;
+    QAction          *_actionFocusInput = nullptr;
+    Kiten            *_parent = nullptr;
 };
 
 #endif
