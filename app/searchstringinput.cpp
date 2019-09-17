@@ -85,7 +85,11 @@ SearchStringInput::SearchStringInput( Kiten *parent )
   }
 
   //connect(actionTextInput, SIGNAL(returnPressed()), this, SIGNAL(search()));
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
   connect(_actionTextInput, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::activated), this, &SearchStringInput::test);
+#else
+  connect(_actionTextInput, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::textActivated), this, &SearchStringInput::test);
+#endif
 }
 
 void SearchStringInput::focusInput()
