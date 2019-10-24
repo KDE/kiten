@@ -55,7 +55,7 @@ int main( int argc, char **argv )
   // see if we are starting with session management
   if ( app.isSessionRestored() )
   {
-    RESTORE( RadSelect );
+    kRestoreMainWindows<RadSelect>();
   }
   else
   {
