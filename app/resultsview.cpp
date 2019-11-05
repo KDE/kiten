@@ -67,7 +67,7 @@ QString ResultsView::deLinkify( const DOM::Node &node )
   //TODO: make this function more flexible (ie, accept non-link-content as
   //well.)
   QString word;
-  for ( int i = 0; i < node.childNodes().length(); ++i )
+  for ( long unsigned int i = 0; i < node.childNodes().length(); ++i )
   {
     if ( node.childNodes().item(i).nodeName() != "a" )
     {

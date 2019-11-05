@@ -150,8 +150,8 @@ void RadSelectView::kanjiDoubleClicked( QListWidgetItem *item )
 
 void RadSelectView::listPossibleKanji( const QList<Kanji>& list )
 {
-  int low  = strokes_low->value();
-  int high = strokes_high->value();
+  unsigned int low  = strokes_low->value();
+  unsigned int high = strokes_high->value();
 
   //Modification of the stroke boxes
   //We want to move the max value to something reasonable...

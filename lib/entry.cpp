@@ -340,7 +340,7 @@ bool Entry::matchesQuery( const DictQuery &query ) const
         if ( ! getWord().endsWith( query.getPronunciation() ) )
         {
           return false;
-        }
+        } //fallthrough
       case DictQuery::Anywhere:
         if ( ! getWord().contains( query.getPronunciation() ) )
         {

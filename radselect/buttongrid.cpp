@@ -70,7 +70,7 @@ void ButtonGrid::buildRadicalButtons()
   QMultiMap<int, Radical> *radicalMap = m_radicalInfo->mapRadicalsByStrokes();
   QMultiMap<int, Radical>::const_iterator it = radicalMap->constBegin();
   //Now create all the buttons
-  int last_column = 0;
+  unsigned int last_column = 0;
   int row_index = 1;
   while( it != radicalMap->constEnd() )
   {

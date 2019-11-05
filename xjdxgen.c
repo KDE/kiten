@@ -148,7 +148,7 @@ int main(int argc, char **argv)
 
 uint32_t buildIndex(unsigned char *dict, uint32_t dictLength) {
 	int nowReadingWord = FALSE; /*Boolean to track if we're mid-word in the dict */
-	int currentDictCharacter;   /*Current character index in the dict */
+	uint32_t currentDictCharacter;   /*Current character index in the dict */
 	unsigned char c;				/*the current reading character*/
 	unsigned char currstr[TOKENLIM]; /* String that we're currently getting */
 	int currstrIndex = 0;
@@ -192,13 +192,13 @@ uint32_t buildIndex(unsigned char *dict, uint32_t dictLength) {
 
 				/*Don't save single or dual character items where the
 				  first item is ascii */
-				if ((strlen(currstr) <= 2) && (currstr[0] < 127))
+				if ((strlen((const char*)currstr) <= 2) && (currstr[0] < 127))
 					saving = FALSE;
 				/*EXCEPT: Save anything that's two character where the second
 				  is a number
 					Note that this might catch single 2-byte kanji as well...
 					but it might not*/
-				if ((strlen(currstr) == 2) && (currstr[1] <= '9'))
+				if ((strlen((const char*)currstr) == 2) && (currstr[1] <= '9'))
 					saving = TRUE;
 
 				/* This is a latin-character string, either longer than 2 bytes
@@ -216,7 +216,7 @@ uint32_t buildIndex(unsigned char *dict, uint32_t dictLength) {
 							the non-SPTAG'd entry (the next byte)*/
 						jindex[indptr] = jindex[indptr-1]+1;
 							/*overwrite the SPTAG marker*/
-						strcpy(currstr,currstr+1);
+						strcpy((char*)currstr,(char*)(currstr+1));
 						indptr++;
 						INDEX_OVERFLOW_CHECK(indptr);
 					}
@@ -225,7 +225,7 @@ uint32_t buildIndex(unsigned char *dict, uint32_t dictLength) {
 				/*For strings that start with non latin characters*/
 				if (saving && (currstr[0] > 127))
 				{
-					int i;
+					uint32_t i;
 					uint32_t possav = jindex[indptr]; /*Save the current marker*/
 					indptr++;
 					INDEX_OVERFLOW_CHECK(indptr);
@@ -236,7 +236,7 @@ uint32_t buildIndex(unsigned char *dict, uint32_t dictLength) {
 					if (currstr[0] == 0x8f)
 						i++;
 					/*step through... two by two*/
-					for ( ;  i < strlen(currstr);  i+=2)
+					for ( ;  i < strlen((const char*)currstr);  i+=2)
 					{
 						if((currstr[i] >= 0xb0) || (currstr[i] == 0x8f))
 						{
