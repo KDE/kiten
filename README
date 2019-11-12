@@ -43,12 +43,11 @@ Kiten is currently a set of 3 tools:
 Information about edict and kanjidic is available at the following urls:
 
 EDICT
-  Summary page:       http://www.csse.monash.edu.au/~jwb/edict.html
-  Full documentation: http://www.csse.monash.edu.au/~jwb/edict_doc.html
+  Summary page:       https://www.edrdg.org/jmdict/edict.html
+  Full documentation: https://www.edrdg.org/wwwjdic/wwwjdicinf.html#dicfil_tag
 
 KANJIDIC
-  Summary page:       http://www.csse.monash.edu.au/~jwb/kanjidic.html
-  Full documentation: http://www.csse.monash.edu.au/~jwb/kanjidic_doc.html
+  Full documentation: https://www.edrdg.org/wiki/index.php/KANJIDIC_Project
 
 Jim Breen compiled these fine files, so many thanks to him.
 The licenses for these two files can be found in the
@@ -60,3 +59,4 @@ Hope Kiten is useful to you!
 
   (Edited to remove outdated information 6-21-06 - Joseph Kerian <jkerian@gmail.com>)
   (Edited to update information          8-21-11 - Daniel E. Moctezuma <democtezuma@gmail.com>)
+  (Edited to update information          11-12-19 - Yuri Chornoivan <yurchor@ukr.net>)

@@ -53,7 +53,7 @@ int main( int argc, char *argv[] )
                                                     "(c) 2006-2007, Eric Kjeldergaard\n"
                                                     "(c) 2006-2008, Joseph Kerian\n"
                                                     "(c) 2011, Daniel E. Moctezuma"),
-                  QString(), QStringLiteral("http://edu.kde.org/kiten") );
+                  QString(), QStringLiteral("https://edu.kde.org/kiten") );
 
   aboutData.addAuthor( i18n("Jason Katz-Brown"), i18n("Original author"), QStringLiteral("jason@katzbrown.com") );
   aboutData.addCredit( i18n("Jim Breen"),        i18n("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which Kiten essentially require."), QStringLiteral("jwb@csse.monash.edu.au") );

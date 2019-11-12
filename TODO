@@ -3,10 +3,10 @@ Cat By  Description
 By 4.1:
 R+  4.1 Profile the linear vs indexed EDICT back-ends
 By 4.2:
-B   4.2 Investigate crash with kinput2, long ago... http://bugs.kde.org/show_bug.cgi?id=115579
-B   4.2 Investigate http://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
+B   4.2 Investigate crash with kinput2, long ago... https://bugs.kde.org/show_bug.cgi?id=115579
+B   4.2 Investigate https://bugs.kde.org/show_bug.cgi?id=115579 , this is probably dated
 B   4.2 Make radselect hilight colors noticeable (use current theme)
-F+  4.2 GHNS support (including dictionary "updates") http://bugs.kde.org/show_bug.cgi?id=110541
+F+  4.2 GHNS support (including dictionary "updates") https://bugs.kde.org/show_bug.cgi?id=110541
 R+  4.2 Trim data/edict down to "common entries only" to help distros/svn users
 R   4.2 Correct radselect license/move some of radselect into libkiten
 R   4.2 DBUS Interface + Documentation
@@ -34,8 +34,8 @@ F    -  Opening radselect while looking at a 1 kanji search displays radicals
 F-   -  Add popup menus to Forward/Back history buttons
 F-   -  Nicely format output fields (word type in particular)
 F-   -  Links directly from things like word type to Help File
-F-   -  Seperate Project: Screensaver to display random entries http://bugs.kde.org/show_bug.cgi?id=63296
-F-   -  Can we omit/seperate name readings? http://bugs.kde.org/show_bug.cgi?id=46511
+F-   -  Seperate Project: Screensaver to display random entries https://bugs.kde.org/show_bug.cgi?id=63296
+F-   -  Can we omit/seperate name readings? https://bugs.kde.org/show_bug.cgi?id=46511
 C    -  Move display to an MVC system
 C    -  Preferences Framework
 ?    -  Case sensitive non-japanese searches?

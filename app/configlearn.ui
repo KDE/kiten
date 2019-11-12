@@ -16,7 +16,7 @@
    <item>
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Learn mode is disabled in this version of kiten. There are several excellent open source flashcard programs available, such as Parley in kde-edu (and probably in your distro's repositories), and the anki project (http://www.ichi2.net/anki)</string>
+      <string>Learn mode is disabled in this version of kiten. There are several excellent open source flashcard programs available, such as Parley in kde-edu (and probably in your distro's repositories), and the anki project (https://apps.ankiweb.net/)</string>
      </property>
      <property name="textFormat" >
       <enum>Qt::PlainText</enum>

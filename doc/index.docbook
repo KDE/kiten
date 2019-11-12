@@ -38,7 +38,7 @@
 
 <!--
 Info about kiten improvements for 4.8
-http://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 -->
 
 <keywordset>
@@ -77,7 +77,7 @@ Kanji.</para>
 English and Japanese words. You can also add other dictionaries to
 &kiten;'s list.</para>
 
-<para>&kiten; uses Jim Breen's Edict and Kanjidic as the default dictionaries. You can find more information at <ulink url="http://www.edrdg.org/jmdict/edict.html">the Edict web site</ulink> and <ulink url="http://www.csse.monash.edu.au/~jwb/kanjidic.html">the Kanjidic web site</ulink>.</para>
+<para>&kiten; uses Jim Breen's Edict and Kanjidic as the default dictionaries. You can find more information at <ulink url="https://www.edrdg.org/jmdict/edict.html">the Edict web site</ulink> and <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project">the Kanjidic web site</ulink>.</para>
 
 <sect1 id="looking-up-words">
 <title>Looking Up Words</title>
