@@ -18,14 +18,14 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 find_package(Qt5 ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
-    Completion 
-    Config 
-    ConfigWidgets 
+    Completion
+    Config
+    ConfigWidgets
     CoreAddons
     Crash
-    DocTools 
-    I18n 
-    KHtml
+    DocTools
+    I18n
+    KIO
     Notifications
     XmlGui)
 include(KDEInstallDirs)

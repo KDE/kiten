@@ -177,7 +177,8 @@ QString EntryList::toHTML( unsigned int start, unsigned int length ) const
 
     if( length-- > 0 )
     {
-      result += QStringLiteral( "<div class=\"Entry\" index=\"%1\" dict=\"%2\">%3</div>" )
+      result += QStringLiteral( "<div class=\"%1\" index=\"%2\" dict=\"%3\">%4</div>" )
+                    .arg( i % 2 == 0 ? "Entry" : "Entry odd" )
                     .arg( QString::number( i ) )
                     .arg( entry->getDictName() )
                     .arg( entry->toHTML() );

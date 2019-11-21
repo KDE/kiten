@@ -24,14 +24,14 @@
 #define RESULTSVIEW_H
 
 #include <QAction>
-#include <KHTMLPart>
+#include <QTextBrowser>
 
 #include "entry.h"
 
 class KActionCollection;
 class KActionMenu;
 
-class ResultsView : public KHTMLPart
+class ResultsView : public QTextBrowser
 {
   Q_OBJECT
 
@@ -55,14 +55,7 @@ class ResultsView : public KHTMLPart
     void         urlClicked( const QString& );
 
   protected:
-    QString      deLinkify( const DOM::Node &);
     QString      generateCSS();
-    bool urlSelected(  const QString &url
-                             , int button
-                             , int state
-                             , const QString &_target
-                             , const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments()
-                             , const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments() ) override;
 
   private slots:
     void doScroll();

@@ -22,28 +22,18 @@
  *****************************************************************************/
 
 #include "resultsview.h"
-
 #include "kitenconfig.h"
-
 #include <KColorScheme>
-#include <KHTMLView>
-
-/* Needed by ResultsView only */
 #include <QScrollBar>
 
 ResultsView::ResultsView( QWidget *parent, const char *name )
-: KHTMLPart( parent, parent )
+: QTextBrowser( parent )
 , _scrollValue( 0 )
 {
-  ////////setReadOnly(true);
-  /* TODO: configurably underlined links */
-//	setLinkUnderline(false); //KDE4 CHANGE
-  ////////basicMode = false;
-
-  // don't let ktextbrowser internally handle link clicks
-  ////////setNotifyClick(true);
-  connect( view(), &KHTMLView::finishedLayout,
-             this,   &ResultsView::doScroll );
+  setOpenLinks( false );
+  connect(this, &QTextBrowser::anchorClicked, this, [=](const QUrl &url){
+      emit urlClicked( url.toString() );
+  });
 }
 
 /**
@@ -59,33 +49,12 @@ void ResultsView::append( const QString &text )
  */
 void ResultsView::clear()
 {
-  _printText = QLatin1String("");
-}
-
-QString ResultsView::deLinkify( const DOM::Node &node )
-{
-  //TODO: make this function more flexible (ie, accept non-link-content as
-  //well.)
-  QString word;
-  for ( long unsigned int i = 0; i < node.childNodes().length(); ++i )
-  {
-    if ( node.childNodes().item(i).nodeName() != "a" )
-    {
-      return QString();
-    }
-    if ( ! node.childNodes().item(i).hasChildNodes() )
-    {
-      return QString();
-    }
-
-    word += node.childNodes().item(i).childNodes().item( 0 ).nodeValue().string();
-  }
-  return word;
+  _printText.clear();
 }
 
 void ResultsView::doScroll()
 {
-  view()->verticalScrollBar()->setValue(_scrollValue);
+  verticalScrollBar()->setValue(_scrollValue);
 }
 
 /**
@@ -93,12 +62,8 @@ void ResultsView::doScroll()
  */
 void ResultsView::flush()
 {
-  begin();
-  setUserStyleSheet( generateCSS() );
-  write( _printText );
-  end();
-//KDE4 CHANGE	setCursorPosition( 0, 0 );
-  ////////ensureCursorVisible();
+  const QString content = QString("<head><style>%1</style></head><body>%2</body>").arg(generateCSS()).arg(_printText);
+  setHtml( content );
 }
 
 QString ResultsView::generateCSS()
@@ -117,7 +82,7 @@ QString ResultsView::generateCSS()
                   "a:visited {color: %5} "
                   "a:hover {color: %6 } "
                   "a:active {color: %6}"
-                  ".Entry:hover { background-color: %10 }"
+                  ".odd { background-color: %10 }"
                   "query { color: %6 }" )
           .arg( scheme.foreground().color().name() )
           .arg( scheme.foreground( KColorScheme::InactiveText ).color().name() )
@@ -199,31 +164,14 @@ void ResultsView::setBasicMode( bool yes )
  */
 void ResultsView::setContents( const QString &text )
 {
-  begin();
-  setUserStyleSheet( generateCSS() );
-  write( text );
-  end();
-
-  qDebug() << "Set CSS to " << generateCSS();
-//KDE4 CHANGE	setCursorPosition( 0,0 );
-  ////////ensureCursorVisible();
+  const QString content = QString("<head><style>%1</style></head><body>%2</body>").arg(generateCSS()).arg(text);
+  setHtml( content );
+//  qDebug() << "Set HTML to " << content;
 }
 
 void ResultsView::setLaterScrollValue( int scrollValue )
 {
   this->_scrollValue = scrollValue;
-}
-
-bool ResultsView::urlSelected( const QString &url,
-                        int button,
-                        int state,
-                        const QString &_target,
-                        const KParts::OpenUrlArguments& args,
-                        const KParts::BrowserArguments& browserArgs )
-{
-  //qDebug() << nodeUnderMouse().parentNode().parentNode().parentNode().toHTML();
-  emit urlClicked( url );
-  return KHTMLPart::urlSelected( url, button, state, _target, args, browserArgs );
 }
 
 

@@ -28,7 +28,6 @@
 #include <KConfig>
 #include <KConfigGui>
 #include <KEditToolBar>
-#include <KHTMLView>
 #include <KLocalizedString>
 #include <KProcess>
 #include <KShortcutsDialog>
@@ -102,7 +101,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
   detachedView = new ResultsView( NULL, "detachedView" );
   */
 
-  setCentralWidget( _mainView->widget() );
+  setCentralWidget( _mainView );
 
   setupActions();
   // Be sure to create this manager before creating the GUI
@@ -132,7 +131,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
                                 this,   &Kiten::searchClipboard );
   connect(_inputManager, &SearchStringInput::search, this, &Kiten::searchFromEdit);
 
-  connect( _mainView->view()->verticalScrollBar(), &QAbstractSlider::valueChanged,
+  connect( _mainView->verticalScrollBar(), &QAbstractSlider::valueChanged,
                                             this,   &Kiten::setCurrentScrollValue );
   /* We need to know when to reload our dictionaries if the user updated them. */
   connect(_dictionaryUpdateManager, &DictionaryUpdateManager::updateFinished, this, &Kiten::loadDictionaries);
@@ -310,7 +309,7 @@ void Kiten::finishInit()
 
 void Kiten::focusResultsView()
 {
-	_mainView->view()->setFocus();
+  _mainView->verticalScrollBar()->setFocus();
 }
 
 // This function is run on program window close.
