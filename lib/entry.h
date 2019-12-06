@@ -94,7 +94,7 @@ class KITEN_EXPORT Entry
     /**
      * Get the dictionary name that generated this Entry. I can't think of a reason to be changing this
      */
-    const QString &getDictName() const;
+    QString getDictName() const;
     /**
      * Get the dictionary type (e.g. edict, kanjidic).
      */
@@ -123,7 +123,7 @@ class KITEN_EXPORT Entry
     /**
      * Simple accessor
      */
-    const QHash<QString,QString> &getExtendedInfo() const;
+    QHash<QString,QString> getExtendedInfo() const;
     /**
      * Simple accessor
      * @param x the key for the extended info item to get

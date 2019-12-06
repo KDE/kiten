@@ -38,7 +38,7 @@ class DictFileFieldSelector : public DictionaryPreferenceDialog
   Q_OBJECT
 
   public:
-             DictFileFieldSelector( KConfigSkeleton *config
+             explicit DictFileFieldSelector( KConfigSkeleton *config
                                    , const QString &dictionaryTypeName
                                    , QWidget *parent );
     virtual ~DictFileFieldSelector();

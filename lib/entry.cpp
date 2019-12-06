@@ -82,7 +82,7 @@ bool Entry::extendedItemCheck( const QString& key, const QString &value ) const
 /**
  * Get the dictionary name that generated this Entry. I can't think of a reason to be changing this
  */
-const QString& Entry::getDictName() const
+QString Entry::getDictName() const
 {
   return sourceDict;
 }
@@ -131,7 +131,7 @@ QStringList Entry::getReadingsList() const
 /**
  * Simple accessor
  */
-const QHash<QString,QString> &Entry::getExtendedInfo() const
+QHash<QString,QString> Entry::getExtendedInfo() const
 {
   return ExtendedInfo;
 }
