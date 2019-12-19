@@ -172,12 +172,12 @@ void ButtonGrid::updateButtons()
   QSet<Kanji> kanjiSet = m_radicalInfo->kanjiContainingRadicals( m_selectedRadicals );
 
   //Convert to a list, sort, and tell the world!
-  QList<Kanji> kanjiList = kanjiSet.toList();
+  QList<Kanji> kanjiList = kanjiSet.values();
   std::sort(kanjiList.begin(), kanjiList.end());
   emit possibleKanji( kanjiList );
 
   //Do the announcement of the selected radical list
-  QStringList radicalList( m_selectedRadicals.toList() );
+  QStringList radicalList( m_selectedRadicals.values() );
   emit signalChangeStatusbar( i18n( "Selected Radicals: " )
                               + radicalList.join(QLatin1String(", ") ) );
 
