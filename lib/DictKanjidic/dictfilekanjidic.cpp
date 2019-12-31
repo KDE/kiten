@@ -107,7 +107,7 @@ EntryList* DictFileKanjidic::doSearch( const DictQuery &query )
     return new EntryList();
   }
 
-  qDebug() << "Search from:" << getName() << endl;
+  qDebug() << "Search from:" << getName();
   QString searchQuery = query.getWord();
   if( searchQuery.length() == 0 )
   {
@@ -174,7 +174,7 @@ bool DictFileKanjidic::loadDictionary( const QString &file, const QString &name 
     return false;
   }
 
-  qDebug() << "Loading kanjidic from:" << file << endl;
+  qDebug() << "Loading kanjidic from:" << file;
 
   QTextStream fileStream( &dictionary );
   fileStream.setCodec( QTextCodec::codecForName( "eucJP" ) );

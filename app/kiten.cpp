@@ -669,7 +669,7 @@ void Kiten::loadDictionaries()
 
   //Update general options for the display manager (sorting by dict, etc)
   _dictionaryManager.loadSettings( *_config->config() );
-  qDebug() << "Dictionaries loaded!" << endl;
+  qDebug() << "Dictionaries loaded!";
 }
 
 /**

@@ -156,7 +156,7 @@ EntryList *DictionaryManager::doSearch( const DictQuery &query ) const
     // None specified, search all
     foreach( DictFile *it, d->dictManagers )
     {
-      qDebug() << "Searching in " << it->getName() << "dictionary." << endl;
+      qDebug() << "Searching in " << it->getName() << "dictionary.";
       EntryList *temp = it->doSearch( query );
       if( temp )
       {

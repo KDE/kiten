@@ -229,8 +229,8 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
 {
   if( kanji.isEmpty() || kanjiGrades.isEmpty() || strokeCount.isEmpty() )
   {
-    qDebug() << "One or more of our lists are empty (kanji, grades, strokes)." << endl;
-    qDebug() << "Could not load the view properly." << endl;
+    qDebug() << "One or more of our lists are empty (kanji, grades, strokes).";
+    qDebug() << "Could not load the view properly.";
     KMessageBox::error( this, i18n( "Could not load the necessary kanji information." ) );
     return;
   }
@@ -282,7 +282,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _strokes->setCurrentIndex( 1 );
   _strokes->setCurrentIndex( NoStrokeLimit );
 
-  qDebug() << "Initial setup succeeded!" << endl;
+  qDebug() << "Initial setup succeeded!";
 }
 
 void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )

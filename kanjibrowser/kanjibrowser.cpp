@@ -79,7 +79,7 @@ void KanjiBrowser::loadKanji()
     return;
   }
 
-  qDebug() << "Loading kanji..." << endl;
+  qDebug() << "Loading kanji...";
 
   QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/kanjidic"));
   _dictFileKanjidic = new DictFileKanjidic();
@@ -131,8 +131,8 @@ void KanjiBrowser::loadKanji()
   // Sort them.
   std::sort(gradeList.begin(), gradeList.end());
   std::sort(strokeList.begin(), strokeList.end());
-  qDebug() << "Max. grade:" << gradeList.last() << endl;
-  qDebug() << "Max. stroke count:" << strokeList.last() << endl;
+  qDebug() << "Max. grade:" << gradeList.last();
+  qDebug() << "Max. stroke count:" << strokeList.last();
 
   // Finally setup the view.
   _view->setupView( this, kanjiList, gradeList, strokeList );

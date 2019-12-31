@@ -64,7 +64,7 @@ DictionaryUpdateManager::DictionaryUpdateManager( Kiten *parent )
 
 void DictionaryUpdateManager::checkForUpdates()
 {
-  qDebug() << "Checking for EDICT & KANJIDIC updates." << endl;
+  qDebug() << "Checking for EDICT & KANJIDIC updates.";
   // Download the information file we need to check
   // whether or not an update to our dictionaries is necessary.
   KIO::StoredTransferJob *job = KIO::storedGet( QUrl( INFO_URL ) );
@@ -101,7 +101,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   if( ! tempFile.open() )
   {
     KMessageBox::sorry( nullptr, i18n( "Update canceled.\nCould not open file." ) );
-    qDebug() << "Could not open tempFile." << endl;
+    qDebug() << "Could not open tempFile.";
     tempFile.deleteLater();
     job->deleteLater();
     return;
@@ -136,7 +136,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   {
     QString filePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral( "kiten/" ) + dict.toLower() );
     QFile file( filePath );
-    qDebug() << "Local dictionary path:" << file.fileName() << endl;
+    qDebug() << "Local dictionary path:" << file.fileName();
 
     // Get the creation date for this dictionary.
     QDate localFileDate = getFileDate( file );
@@ -145,14 +145,14 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
     {
       // Add it to our 'failed to udate' list.
       _failed.append( dict.toUpper() );
-      qDebug() << "Failed (invalid date):" << dict.toUpper() << endl;
+      qDebug() << "Failed (invalid date):" << dict.toUpper();
       continue;
     }
     else if( localFileDate == webFileDate )
     {
       // Add it to our 'up to date' list.
       _succeeded.append( dict.toUpper() );
-      qDebug() << "Success (up to date):" << dict.toUpper() << endl;
+      qDebug() << "Success (up to date):" << dict.toUpper();
       continue;
     }
     else
@@ -183,7 +183,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
 
 void DictionaryUpdateManager::downloadDictionary( const QString &url )
 {
-  qDebug() << "Download started!" << endl;
+  qDebug() << "Download started!";
   // Download dictionary.
   KIO::StoredTransferJob *dictionaryJob = KIO::storedGet( QUrl( url ) );
   connect(dictionaryJob, &KIO::StoredTransferJob::result, this, &DictionaryUpdateManager::installDictionary);
@@ -193,7 +193,7 @@ QDate DictionaryUpdateManager::getFileDate( QFile &file )
 {
   if( ! file.open( QIODevice::ReadOnly | QIODevice::Text ) )
   {
-    qDebug() << "Could not open " << file.fileName() << endl;
+    qDebug() << "Could not open " << file.fileName();
     return QDate();
   }
 
@@ -228,7 +228,7 @@ QDate DictionaryUpdateManager::getFileDate( QFile &file )
 
   file.close();
 
-  qDebug() << "Date found:" << dateSection << "(" << file.fileName() << ")" << endl;
+  qDebug() << "Date found:" << dateSection << "(" << file.fileName() << ")";
 
   return QDate( year, month, day );
 }
@@ -248,7 +248,7 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
   QTemporaryFile compressedFile;
   if( ! compressedFile.open() )
   {
-    qDebug() << "Could not create the downloaded .gz file." << endl;
+    qDebug() << "Could not create the downloaded .gz file.";
     _failed.append( url.contains( EDICT ) ? EDICT : KANJIDIC );
     job->deleteLater();
     checkIfUpdateFinished();
@@ -258,15 +258,15 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
   compressedFile.write( data );
   compressedFile.close();
 
-  qDebug() << "Dictionary download finished!" << endl;
-  qDebug() << "Extracting dictionary..." << endl;
+  qDebug() << "Dictionary download finished!";
+  qDebug() << "Extracting dictionary...";
 
   // Extract the GZIP file.
   //QIODevice *device = KFilterDev::deviceForFile( compressedFile.fileName(), "application/x-gzip" );
   KCompressionDevice *device = new KCompressionDevice(compressedFile.fileName(), KCompressionDevice::GZip);
   if( ! device->open( QIODevice::ReadOnly ) )
   {
-    qDebug() << "Could not extract the dictionary file." << endl;
+    qDebug() << "Could not extract the dictionary file.";
     _failed.append( url.contains( EDICT ) ? EDICT : KANJIDIC );
     delete device;
     job->deleteLater();
@@ -287,7 +287,7 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
   QFile dictionary( dictPath  + fileName);
   if( ! dictionary.open( QIODevice::WriteOnly ) )
   {
-    qDebug() << "Could not create the new dictionary file." << endl;
+    qDebug() << "Could not create the new dictionary file.";
     _failed.append( fileName.toUpper() );
     device->close();
     delete device;
@@ -306,7 +306,7 @@ void DictionaryUpdateManager::installDictionary( KJob *job )
 
   // Check if we finished updating.
   checkIfUpdateFinished();
-  qDebug() << "Successfully installed at:" << dictionary.fileName() << endl;
+  qDebug() << "Successfully installed at:" << dictionary.fileName();
 }
 
 void DictionaryUpdateManager::showUpdateResults()
