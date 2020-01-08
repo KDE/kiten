@@ -45,8 +45,6 @@ int main( int argc, char **argv )
   QCommandLineParser parser;
   KAboutData::setApplicationData(about);
   
-  parser.addVersionOption();
-  parser.addHelpOption();
   about.setupCommandLine(&parser);
   parser.addPositionalArgument(QStringLiteral("Search_String"), i18n( "Initial Search String from Kiten" ));
   parser.process(app);
