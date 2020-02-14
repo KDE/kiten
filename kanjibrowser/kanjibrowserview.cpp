@@ -267,8 +267,16 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
     _strokes->addItem( i18np( "%1 stroke", "%1 strokes", stroke ) );
   }
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
   connect(_grades, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeGrade);
+#else
+  connect(_grades, static_cast<void (KComboBox::*)(int, const QString &)>(&KComboBox::currentIndexChanged) , this, &KanjiBrowserView::changeGrade);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
   connect(_strokes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeStrokeCount);
+#else
+  connect(_strokes, static_cast<void (KComboBox::*)(int, const QString &)>(&KComboBox::currentIndexChanged) , this, &KanjiBrowserView::changeStrokeCount);
+#endif
   connect(_kanjiList, &QListWidget::itemClicked, this, &KanjiBrowserView::searchKanji);
   connect(_kanjiList, &QListWidget::itemClicked, _goToKanjiInfo, &QAction::triggered);
   connect(goToKanjiList, &QAction::triggered, this, &KanjiBrowserView::changeToListPage);
