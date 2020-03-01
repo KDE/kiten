@@ -97,7 +97,7 @@
   </description>
   <url type="homepage">https://edu.kde.org/kiten/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kiten</url>
-  <url type="help">https://docs.kde.org/stable/en/kdeedu/kiten/index.html</url>
+  <url type="help">https://docs.kde.org/?application=kiten</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kiten&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
@@ -122,7 +122,7 @@
       <caption xml:lang="x-test">xxPracticing Japanese dictionary with Kitenxx</caption>
       <caption xml:lang="zh-CN">使用 Kiten 练习日语词典</caption>
       <caption xml:lang="zh-TW">使用 Kiten 練習日文字典</caption>
-      <image>https://kde.org/images/screenshots/kiten.png</image>
+      <image>https://cdn.kde.org/screenshots/kiten/kiten.png</image>
     </screenshot>
   </screenshots>
   <project_group>KDE</project_group>
