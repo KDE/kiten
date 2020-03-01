@@ -95,9 +95,9 @@
     <p xml:lang="x-test">xxKiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.xx</p>
     <p xml:lang="zh-TW">Kiten 是一套日語學習工具。它有一套英日、日英字典，以及漢字字典。漢字字典部份支援多種查詢方式。</p>
   </description>
-  <url type="homepage">http://edu.kde.org/kiten/</url>
+  <url type="homepage">https://edu.kde.org/kiten/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kiten</url>
-  <url type="help">http://docs.kde.org/stable/en/kdeedu/kiten/index.html</url>
+  <url type="help">https://docs.kde.org/?application=kiten</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kiten&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
@@ -121,7 +121,7 @@
       <caption xml:lang="x-test">xxPracticing Japanese dictionary with Kitenxx</caption>
       <caption xml:lang="zh-CN">使用 Kiten 练习日语词典</caption>
       <caption xml:lang="zh-TW">使用 Kiten 練習日文字典</caption>
-      <image>http://kde.org/images/screenshots/kiten.png</image>
+      <image>https://cdn.kde.org/screenshots/kiten/kiten.png</image>
     </screenshot>
   </screenshots>
   <project_group>KDE</project_group>
