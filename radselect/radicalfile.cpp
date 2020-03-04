@@ -92,7 +92,11 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
     else if( newestRadical != nullptr )
     {
       // List of m_kanji, potentially
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
       QList<QString> m_kanjiList = line.trimmed().split( QLatin1String(""), QString::SkipEmptyParts );
+#else
+      QList<QString> m_kanjiList = line.trimmed().split( QLatin1String(""), Qt::SkipEmptyParts );
+#endif
       newestRadical->addKanji( m_kanjiList.toSet() );
       foreach( const QString &kanji, m_kanjiList )
       {

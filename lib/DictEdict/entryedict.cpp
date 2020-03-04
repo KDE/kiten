@@ -285,7 +285,11 @@ bool EntryEdict::loadEntry( const QString &entryLine )
   QString remainingLine = entryLine.mid( endOfKanjiAndKanaSection );
   //Trim to last '/'
   remainingLine = remainingLine.left( remainingLine.lastIndexOf( '/' ) );
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
   Meanings = remainingLine.split( '/', QString::SkipEmptyParts );
+#else
+  Meanings = remainingLine.split( '/', Qt::SkipEmptyParts );
+#endif
 
   if( Meanings.size() == 0 )
   {
