@@ -101,8 +101,8 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       newestRadical->addKanji( m_kanjiList.toSet() );
 #else
       const QSet<QString> kanjiSet = QSet<QString>(m_kanjiList.begin(), m_kanjiList.end());
-#endif
       newestRadical->addKanji( kanjiSet );
+#endif
       foreach( const QString &kanji, m_kanjiList )
       {
         krad[ kanji ] += *newestRadical;
