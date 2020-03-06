@@ -134,11 +134,11 @@ void KanjiBrowser::loadKanji()
   }
 
   // This conversion from QList to QSet to QList, is to remove duplicated items.
-  gradeList  = gradeList.toSet().values();
-  strokeList = strokeList.toSet().values();
-  // Sort them.
   std::sort(gradeList.begin(), gradeList.end());
+  gradeList.erase(std::unique(gradeList.begin(), gradeList.end()), gradeList.end());
+
   std::sort(strokeList.begin(), strokeList.end());
+  strokeList.erase(std::unique(strokeList.begin(), strokeList.end()), strokeList.end());
   qDebug() << "Max. grade:" << gradeList.last();
   qDebug() << "Max. stroke count:" << strokeList.last();
 
