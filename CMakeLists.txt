@@ -64,10 +64,7 @@ check_include_files(inttypes.h HAVE_INTTYPES_H)
 configure_file( config-kiten.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kiten.h )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kiten\")
-if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
-   add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
-   add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x060000)
-endif()
+
 
 
 ## Build each subdir
