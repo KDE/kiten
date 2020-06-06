@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KitenKanjiBrowser" version="1">
+<kpartgui name="KitenKanjiBrowser" version="2">
 
 <MenuBar>
 	<Menu name="file">
@@ -15,6 +15,7 @@
 	<text>Main Toolbar</text>
 	<Action name="kanji_list" />
 	<Action name="kanji_info" />
+	<Action name="copy_kanji_to_clipboard" />
 </ToolBar>
 
 </kpartgui>

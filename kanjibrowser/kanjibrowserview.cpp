@@ -28,6 +28,7 @@
 #include "kanjibrowserconfig.h"
 
 #include <QAction>
+#include <QClipboard>
 #include <QDebug>
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -214,6 +215,8 @@ void KanjiBrowserView::searchKanji( QListWidgetItem *item )
   }
 
   _goToKanjiInfo->setText( i18n( "About %1", item->text() ) );
+  _copyToClipboard->setText( i18n( "Copy %1 to clipboard", item->text() ) );
+  _copyToClipboard->setVisible( true );
 
   Entry *result = _parent->_dictFileKanjidic->doSearch( DictQuery( item->text() ) )->first();
   EntryKanjidic *kanji = static_cast<EntryKanjidic*>( result );
@@ -246,6 +249,9 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   _goToKanjiInfo = _parent->actionCollection()->addAction( QStringLiteral("kanji_info") );
   _goToKanjiInfo->setText( i18n( "Kanji &Information" ) );
 
+  _copyToClipboard = _parent->actionCollection()->addAction( QStringLiteral("copy_kanji_to_clipboard") );
+  _copyToClipboard->setVisible(false);
+
   _grades->addItem( i18n( "All Jouyou Kanji grades" ) );
   foreach( const int &grade, kanjiGrades )
   {
@@ -273,6 +279,7 @@ void KanjiBrowserView::setupView(   KanjiBrowser *parent
   connect(_kanjiList, &QListWidget::itemClicked, _goToKanjiInfo, &QAction::triggered);
   connect(goToKanjiList, &QAction::triggered, this, &KanjiBrowserView::changeToListPage);
   connect(_goToKanjiInfo, &QAction::triggered, this, &KanjiBrowserView::changeToInfoPage);
+  connect(_copyToClipboard, &QAction::triggered, this, &KanjiBrowserView::toClipboard);
 
   // Set the current grade (Grade 1).
   _grades->setCurrentIndex( 1 );
@@ -369,4 +376,10 @@ void KanjiBrowserView::showKanjiInformation( const EntryKanjidic *kanji )
   _kanjiInformation->setHtml( text );
 }
 
+void KanjiBrowserView::toClipboard()
+{
+  QClipboard *cb = QApplication::clipboard();
+  cb->setText( _currentKanji->getWord(), QClipboard::Clipboard );
+  cb->setText( _currentKanji->getWord(), QClipboard::Selection );
+}
 

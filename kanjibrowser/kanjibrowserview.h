@@ -117,6 +117,11 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     void showKanjiInformation( const EntryKanjidic *kanji );
 
     /**
+     * Copies last selected kanji to clipboard
+     */
+    void toClipboard();
+
+    /**
      * Enumerations of our possible states in QStackedWidget.
      */
     enum Page
@@ -145,6 +150,10 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      * We need to update this action's text from different functions.
      */
     QAction                          *_goToKanjiInfo;
+    /**
+     * We need to update this action's text from different functions.
+     */
+    QAction                          *_copyToClipboard;
     /**
      * Keep track of the current kanji being displayed in the Kanji Information page.
      */
