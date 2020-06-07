@@ -192,7 +192,6 @@ QVector<QString> IndexedEdictFile::findMatches( const QString &query ) const
 
   QByteArray searchString = codec->fromUnicode( query );
   int indexSize = m_indexFile.size() / sizeof( uint32_t );
-  int dictSize  = m_dictFile.size() / sizeof( unsigned char );
 
   int matchLocation = findFirstMatch( searchString );
   QByteArray currentWord = lookupDictLine( ++matchLocation );
