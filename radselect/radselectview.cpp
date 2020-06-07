@@ -209,6 +209,7 @@ void RadSelectView::loadSettings()
 {
   //TODO: Add preferences for what to do on single/double click
   //Suggested options: Lookup in Kiten, Add to Search Bar, Copy to Clipboard
+  selected_radicals->setFont( RadSelectConfigSkeleton::self()->resultListFont() );
   m_buttongrid->setFont( RadSelectConfigSkeleton::self()->font() );
 }
 

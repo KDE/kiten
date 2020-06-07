@@ -4,8 +4,17 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 	<include>kfontrequester.h</include>
+  <include>QFontDatabase</include>
+  <include>qfont.h</include>
   <kcfgfile name="kitenradselectrc"/>
   <group name="Options">
+    <entry key="resultListFont" type="Font">
+      <code>
+        QFont resultListFnt = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
+        resultListFnt.setPointSize( 25 );
+      </code>
+      <default>resultListFnt</default>
+    </entry>
     <entry key="font" type="Font"></entry>
     <entry key="closeOnSearch" type="Bool">
       <label>Do we close this program when searching?</label>
