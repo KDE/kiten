@@ -38,10 +38,9 @@ class EntryList::Private
     Private() : storedScrollValue( 0 )
               , sorted( false )
               , sortedByDictionary( false ) {}
-    Private( const Private &old ) : storedScrollValue( old.storedScrollValue )
-                                  , sorted( old.sorted )
-                                  , sortedByDictionary( old.sortedByDictionary )
-                                  , query( old.query ) {}
+
+    Private( const Private &other ) = default;
+    Private &operator=( const Private &other )  = default;
 
     int       storedScrollValue;
     bool      sorted;
