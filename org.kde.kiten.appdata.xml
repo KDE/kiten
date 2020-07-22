@@ -42,6 +42,7 @@
   <summary xml:lang="ca">Eina de referència i estudi del japonès</summary>
   <summary xml:lang="ca-valencia">Eina de referència i estudi del japonés</summary>
   <summary xml:lang="cs">Japonský referenční a výukový nástroj</summary>
+  <summary xml:lang="da">Japanske henvisnings- og studieværktøj</summary>
   <summary xml:lang="de">Referenz- und Studienprogramm für Japanisch</summary>
   <summary xml:lang="el">Εργαλείο πηγής και μελέτης της Ιαπωνικής γλώσσας</summary>
   <summary xml:lang="en-GB">Japanese Reference and Study Tool</summary>
@@ -73,8 +74,9 @@
   <description>
     <p>Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
     <p xml:lang="bs">Kiten je japanski referenca i studijski alat. Posjeduje rječnik engleskog na japanski i japanski na engleski rečnik, kao i Kanji rječnik. Za Kanji rječniku postoji više načina podržanih za pregled znakova.</p>
-    <p xml:lang="ca">El Kiten és una eina de referència i estudi del japonès. Inclou un diccionari de l'anglès al japonès i del japonès a l'anglès, i també un diccionari Kanji. Pel diccionari Kanji, s'admeten múltiples maneres de cercar caràcters.</p>
-    <p xml:lang="ca-valencia">El Kiten és una eina de referència i estudi del japonés. Inclou un diccionari de l'anglés al japonés i del japonés a l'anglés, i també un diccionari Kanji. Pel diccionari Kanji, s'admeten múltiples maneres de cercar caràcters.</p>
+    <p xml:lang="ca">El Kiten és una eina de referència i estudi del japonès. Inclou un diccionari de l'anglès al japonès i del japonès a l'anglès, i també un diccionari Kanji. Per al diccionari Kanji, s'admeten múltiples maneres de cercar caràcters.</p>
+    <p xml:lang="ca-valencia">El Kiten és una eina de referència i estudi del japonés. Inclou un diccionari de l'anglés al japonés i del japonés a l'anglés, i també un diccionari Kanji. Per al diccionari Kanji, s'admeten múltiples maneres de cercar caràcters.</p>
+    <p xml:lang="da">Kiten er et japansk henvisnings- og studieværktøj. Det indeholder en engelsk-japansk og japansk-engelsk ordbog, samt en Kanji-ordbog. For Kanji-ordbogen er der flere forskellige måder at slå tegn op på.</p>
     <p xml:lang="de">Kiten ist ein japanisches Referenz- und Studienprogramm. Es enthält ein Wörterbuch Englisch - Japanisch und Japanisch - Englisch und auch ein Kanji-Wörterbuch. Im Kanji-Wörterbuch gibt es mehrere Möglichkeiten, einzelne Buchstaben nachzuschlagen.</p>
     <p xml:lang="el">Το Kiten είναι ένα εργαλείο αναφοράς και μελέτης της Ιαπωνικής γλώσσας. Περιλαμβάνει ένα λεξικό από Αγγλικά στα Ιαπωνικό και από τα Ιαπωνικά στα Αγγλικά, καθώς και ένα λεξικό Kanji για το οποίο υποστηρίζονται πολλοί τρόποι ανεύρεσης χαρακτήρων.</p>
     <p xml:lang="en-GB">Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
@@ -106,8 +108,9 @@
   <screenshots>
     <screenshot type="default">
       <caption>Practicing Japanese dictionary with Kiten</caption>
-      <caption xml:lang="ca">Practicant el diccionari japonès amb el Kiten</caption>
-      <caption xml:lang="ca-valencia">Practicant el diccionari japonés amb el Kiten</caption>
+      <caption xml:lang="ca">Practicant el diccionari de japonès amb el Kiten</caption>
+      <caption xml:lang="ca-valencia">Practicant el diccionari de japonés amb el Kiten</caption>
+      <caption xml:lang="da">At øve den japanske ordbog med Kiten</caption>
       <caption xml:lang="de">Japanisch-Wörterbuch mit Kiten</caption>
       <caption xml:lang="el">Εξάσκηση στο Ιαπωνικό λεξικό με το Kiten</caption>
       <caption xml:lang="en-GB">Practising Japanese dictionary with Kiten</caption>
