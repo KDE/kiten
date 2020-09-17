@@ -294,7 +294,7 @@ void Kiten::finishInit()
   // the app group won't exist and we show demo
   if ( _config->initialSearch() )
   {
-    if ( ! KConfigGui::sessionConfig()->hasGroup( "app" ) )
+    if ( KConfigGui::hasSessionConfig() && ! KConfigGui::sessionConfig()->hasGroup( "app" ) )
     {
       searchTextAndRaise( QStringLiteral( "辞書" ) );
       //Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
