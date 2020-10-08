@@ -84,6 +84,9 @@ target_link_libraries(kitengen ${QT_QTCORE_LIBRARY})
 install( TARGETS kitengen ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install(FILES org.kde.kiten.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 ki18n_install(po)
+if (KF5DocTools_FOUND)
+    kdoctools_install(po)
+endif()
 
 ## Install our datafiles
 install( FILES data/edict data/kanjidic data/radkfile data/vconj data/romkana.cnv DESTINATION ${DATA_INSTALL_DIR}/kiten )
