@@ -48,8 +48,6 @@ namespace EdictFormatting
   extern QStringList Suffix;
   extern QString     Particle;
   
-  extern QMultiHash<QString, QString> PartOfSpeechCategories;
-
   extern QSet<QString> PartsOfSpeech;
   extern QSet<QString> MiscMarkings;
   extern QSet<QString> FieldOfApplication;

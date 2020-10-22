@@ -443,8 +443,26 @@ QString EntryEdict::toHTML() const
  */
 namespace EdictFormatting
 {
+  enum WordType
+  {
+    noun,
+    verb,
+    adjective,
+    adverb,
+    particle,
+    ichidanVerb,
+    godanVerb,
+    fukisokuVerb,
+    expression,
+    idiomaticExpression,
+    prefix,
+    suffix,
+    nounPrefix,
+    nounSuffix
+  };
+
   // Forward declarations of our functions to be used.
-  QMultiHash<QString, QString> createPartOfSpeechCategories();
+  QMultiHash<WordType, QString> createPartOfSpeechCategories();
   QSet<QString>                createPartsOfSpeech();
   QSet<QString>                createMiscMarkings();
   QSet<QString>                createFieldOfApplication();
@@ -453,26 +471,9 @@ namespace EdictFormatting
   QStringList                  createExpressionsList();
   QStringList                  createPrefixesList();
   QStringList                  createSuffixesList();
- 
-  // Private variables.
-  QString noun      = QString( i18nc( "This must be a single word", "Noun" ) );
-  QString verb      = QString( i18nc( "This must be a single word", "Verb" ) );
-  QString adjective = QString( i18nc( "This must be a single word", "Adjective" ) );
-  QString adverb    = QString( i18nc( "This must be a single word", "Adverb" ) );
-  QString particle  = QString( i18nc( "This must be a single word", "Particle" ) );
-  QString ichidanVerb   = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated (except possibly in far-eastern languages), this must be a single word", "Ichidan" ) );
-  QString godanVerb     = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Godan" ) );
-  QString fukisokuVerb  = QString( i18nc( "This is a technical japanese linguist's term... and probably should not be translated, this must be a single word", "Fukisoku" ) );
-  QString expression = QString( i18n( "Expression" ) );
-  QString idiomaticExpression = QString( i18n( "Idiomatic expression" ) );
-  QString prefix = QString( i18n( "Prefix" ) );
-  QString suffix = QString( i18n( "Suffix" ) );
-  QString nounPrefix = QString( i18n( "Noun (used as a prefix)" ) );
-  QString nounSuffix = QString( i18n( "Noun (used as a suffix)" ) );
-
 
   // Define our public variables.
-  QMultiHash<QString, QString> PartOfSpeechCategories = createPartOfSpeechCategories();
+  QMultiHash<WordType, QString> PartOfSpeechCategories = createPartOfSpeechCategories();
   QSet<QString> PartsOfSpeech      = createPartsOfSpeech();
   QSet<QString> MiscMarkings       = createMiscMarkings();
   QSet<QString> FieldOfApplication = createFieldOfApplication();
@@ -535,9 +536,9 @@ namespace EdictFormatting
     return list;
   }
 
-  QMultiHash<QString, QString> createPartOfSpeechCategories()
+  QMultiHash<WordType, QString> createPartOfSpeechCategories()
   { 
-    QMultiHash<QString, QString> categories;
+    QMultiHash<WordType, QString> categories;
 
     // Nouns
     categories.insert( noun, QStringLiteral("n") );
