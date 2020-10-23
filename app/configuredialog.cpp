@@ -22,7 +22,6 @@
 
 #include "configuredialog.h"
 
-#include <KConfigDialog>
 #include <KLocalizedString>
 
 #include <QTabWidget>

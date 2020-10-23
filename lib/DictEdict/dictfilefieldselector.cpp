@@ -28,7 +28,6 @@
 #include <QString>
 #include <QStringList>
 #include <QVBoxLayout>
-#include <QWidget>
 
 DictFileFieldSelector::DictFileFieldSelector( KConfigSkeleton *config,
                        const QString &dictionaryTypeName, QWidget *parent )

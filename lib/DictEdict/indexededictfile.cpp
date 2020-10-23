@@ -24,12 +24,10 @@
 #include <QApplication>
 #include <KProcess>
 
-#include <QFile>
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QString>
 #include <QTextCodec>
-#include <QVector>
 
 #include <sys/mman.h>
 

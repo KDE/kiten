@@ -31,7 +31,6 @@ TODO: Add features to limit the number of hits on a per-search basis.
 #include <QDebug>
 
 #include <QString>
-#include <QStringList>
 
 class DictQuery::Private
 {

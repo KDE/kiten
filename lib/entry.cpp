@@ -22,7 +22,6 @@
  *****************************************************************************/
 
 #include "entry.h"
-#include "dictquery.h"
 
 #include <KLocalizedString>
 

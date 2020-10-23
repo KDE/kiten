@@ -22,7 +22,6 @@
 
 #include "entry.h"
 
-#include <KComboBox>
 
 WordType::WordType( QWidget *parent )
 : KComboBox( parent )

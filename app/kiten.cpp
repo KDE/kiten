@@ -35,7 +35,6 @@
 #include <KStandardGuiItem>
 #include <KStatusNotifierItem>
 #include <KToggleAction>
-#include <KXmlGuiWindow>
 
 #include <QAction>
 #include <QApplication>
@@ -52,11 +51,9 @@
 
 #include "configuredialog.h"
 #include "dictionaryupdatemanager.h"
-#include "dictquery.h"
 #include "entrylist.h"
 #include "entrylistmodel.h"
 #include "entrylistview.h"
-#include "historyptrlist.h"
 #include "kitenconfig.h"
 #include "resultsview.h"
 #include "searchstringinput.h"

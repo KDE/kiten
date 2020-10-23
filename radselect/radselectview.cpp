@@ -25,7 +25,6 @@
 
 #include "radselectview.h"
 
-#include "radicalfile.h"
 #include "buttongrid.h"
 #include "radselectconfig.h"
 
@@ -34,12 +33,10 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <QList>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QPushButton>
 #include <QString>
-#include <QWidget>
 
 RadSelectView::RadSelectView( QWidget *parent )
 : QWidget( parent )

@@ -29,14 +29,12 @@
 
 #include "buttongrid.h"
 
-#include "radicalbutton.h"
 
 #include <KLocalizedString>
 
 #include <QGridLayout>
 #include <QLabel>
 #include <QString>
-#include <QWidget>
 
 ButtonGrid::ButtonGrid( QWidget *parent, RadicalFile *radicalInfo )
 : QWidget( parent )

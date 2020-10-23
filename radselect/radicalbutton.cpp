@@ -21,8 +21,6 @@
 #include "radicalbutton.h"
 
 #include <QMouseEvent>
-#include <QPushButton>
-#include <QString>
 #include <QStyle>
 #include <QStyleOptionButton>
 #include <QWidget>
