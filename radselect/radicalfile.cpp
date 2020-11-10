@@ -10,6 +10,7 @@
 #include "radicalfile.h"
 
 #include <QFile>
+#include <QRegExp>
 #include <QString>
 #include <QTextCodec>
 #include <QTextStream>
@@ -79,8 +80,9 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
         m_radicals.insert( *newestRadical, *newestRadical );
       }
       delete newestRadical;
-      newestRadical = new Radical(  QString( line.at( 2 ) )
-                                  , line.rightRef( 2 ).toUInt() );
+      QStringList lineElements = line.split( QRegExp( QStringLiteral( "\\s+" ) ) );
+      newestRadical = new Radical(  lineElements.at( 1 )
+                                  , lineElements.at( 2 ).toUInt() );
     }
     else if( newestRadical != nullptr )
     {
