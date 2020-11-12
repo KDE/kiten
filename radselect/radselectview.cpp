@@ -44,6 +44,7 @@ RadSelectView::RadSelectView( QWidget *parent )
   //Setup the ui from the .ui file
   setupUi( this );
   m_radicalInfo = nullptr;
+
   //Load the radical information
   QString radkfilename = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/radkfile"));
   if ( radkfilename.isNull() )
@@ -54,7 +55,17 @@ RadSelectView::RadSelectView( QWidget *parent )
   }
   else
   {
-    m_radicalInfo = new RadicalFile( radkfilename );
+    QString kanjidicname = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/kanjidic");
+    if ( kanjidicname.isNull() )
+    {
+      KMessageBox::error( nullptr, i18n( "Kanji dictionary does not seem to "
+                                   "be installed (file kiten/kanjidic), stroke "
+                                   "count information will be unavailable." ) );
+      strokes_low->setEnabled( false );
+      strokes_high->setEnabled( false );
+    }
+
+    m_radicalInfo = new RadicalFile( radkfilename, kanjidicname );
   }
 
   //Configure the scrolling area

@@ -37,13 +37,9 @@ void Kanji::addRadical( const QString &it )
   components += it;
 }
 
-void Kanji::calculateStrokes( const QList<Radical> &lookup )
+void Kanji::setStrokes( unsigned int strokes )
 {
-  strokeCount = 0;
-  foreach( const QString &it, components )
-  {
-    strokeCount += lookup.value( lookup.indexOf( Radical( it ) ) ).strokes();
-  }
+  strokeCount = strokes;
 }
 
 const QSet<QString>& Kanji::getRadicals() const

@@ -33,10 +33,11 @@
 class RadicalFile
 {
   public:
-    explicit                RadicalFile( QString &radkfile );
+    explicit                RadicalFile( QString &radkfile, const QString &kanjidic = QString() );
 
     QSet<Kanji>             kanjiContainingRadicals( QSet<QString> &radicalList ) const;
     bool                    loadRadicalFile( QString &radkfile );
+    bool                    loadKanjidic( const QString &kanjidic );
     QMultiMap<int,Radical> *mapRadicalsByStrokes() const;
     QSet<QString>           radicalsInKanji( QSet<Kanji> &kanjiList ) const;
 
