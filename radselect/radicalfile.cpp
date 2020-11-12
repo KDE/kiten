@@ -18,6 +18,8 @@
  * Boston, MA 02110-1301, USA.                                               *
  *****************************************************************************/
 
+#include "DictKanjidic/dictfilekanjidic.h"
+#include "kitenmacros.h"
 #include "radicalfile.h"
 
 #include <QFile>
@@ -25,9 +27,13 @@
 #include <QTextCodec>
 #include <QTextStream>
 
-RadicalFile::RadicalFile( QString &radkfile )
+RadicalFile::RadicalFile( QString &radkfile, const QString &kanjidic )
 {
   loadRadicalFile( radkfile );
+  if( ! kanjidic.isEmpty() )
+  {
+    loadKanjidic( kanjidic );
+  }
 }
 
 QSet<Kanji> RadicalFile::kanjiContainingRadicals( QSet<QString> &radicallist ) const
@@ -121,9 +127,38 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
   {
     m_kanji.insert(   it.key()
                     , Kanji( it.key()
-                    , it.value() ) )->calculateStrokes( m_radicals.values() );
+                    , it.value() ) );
   }
   f.close();
+  return true;
+}
+
+// Mostly copied from KanjiBrowser::loadKanji()
+bool RadicalFile::loadKanjidic( const QString &kanjidic )
+{
+  DictFileKanjidic dictFileKanjidic;
+  dictFileKanjidic.loadSettings();
+  dictFileKanjidic.loadDictionary( kanjidic, KANJIDIC );
+
+  QRegExp strokeMatch( "^S\\d+" );
+  foreach( const QString &line, dictFileKanjidic.dumpDictionary() )
+  {
+    const QString kanji = line[ 0 ];
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+    QStringList strokesSection = line.split( " ", QString::SkipEmptyParts )
+#else
+    QStringList strokesSection = line.split( " ", Qt::SkipEmptyParts )
+#endif
+                                     .filter( strokeMatch );
+
+    unsigned int strokes = strokesSection.first().remove( 0, 1 ).toInt();
+
+    if( m_kanji.contains( kanji ) ) {
+      m_kanji[ kanji ].setStrokes( strokes );
+    }
+  }
+
   return true;
 }
 

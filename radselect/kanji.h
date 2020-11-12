@@ -35,7 +35,7 @@ class Kanji : public QString
                                , const QSet<QString> &radicals );
 
     void                 addRadical( const QString &it );
-    void                 calculateStrokes( const QList<Radical> &lookup );
+    void                 setStrokes( unsigned int strokes );
     const QSet<QString>& getRadicals() const;
     unsigned int         strokes() const;
 
