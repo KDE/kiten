@@ -59,7 +59,12 @@ void ButtonGrid::buildRadicalButtons()
   //Now make labels
   for( unsigned int i = 0; i < number_of_radical_columns; i++ )
   {
-    QLabel *header = new QLabel( QString::number( i + 1 ), this );
+    QString headerString = QString::number( i + 1 );
+    if( i == ( number_of_radical_columns - 1 ) )
+    {
+      headerString.append( QStringLiteral( "+" ) );
+    }
+    QLabel *header = new QLabel( headerString, this );
     header->setAlignment( Qt::AlignHCenter );
     grid->addWidget( header, 0, i );
   }
