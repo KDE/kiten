@@ -299,7 +299,7 @@ void Kiten::finishInit()
     }
   }
 
-//   Edit->Completion()->clear(); // make sure the edit is focused initially
+  _inputManager->focusInput();
   _statusBar->showMessage( i18n( "Welcome to Kiten" ) );
   setCaption( QString() );
 }
