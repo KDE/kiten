@@ -46,12 +46,10 @@ class SearchStringInput : public QObject
 
   public slots:
     void      test();
+    void      focusInput();
 
   signals:
     void      search();
-
-  private slots:
-    void      focusInput();
 
   private:
     KSelectAction    *_actionFilterRare = nullptr;
