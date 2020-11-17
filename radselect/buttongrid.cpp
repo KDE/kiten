@@ -40,6 +40,15 @@ ButtonGrid::~ButtonGrid()
 
 void ButtonGrid::buildRadicalButtons()
 {
+  if( layout() )
+  {
+    // Instead of iterating over our children and deleting them one by one, we
+    // simply reparent the previous layout to a temporary widget; when it goes
+    // out of scope, everything will be automatically deleted.
+    // Thanks to https://stackoverflow.com/a/10439207 for the tip!
+    QWidget().setLayout( layout() );
+  }
+
   //Setup the grid
   QGridLayout *grid = new QGridLayout( this );
 
@@ -85,6 +94,8 @@ void ButtonGrid::buildRadicalButtons()
   }
   delete radicalMap;
   setLayout( grid );
+
+  updateButtons();
 }
 
 void ButtonGrid::clearSelections()
