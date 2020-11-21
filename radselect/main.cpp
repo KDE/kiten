@@ -27,6 +27,7 @@ int main( int argc, char **argv )
                     i18n(description), KAboutLicense::GPL,
                     i18n("(C) 2005 Joseph Kerian"), QString(), QString(), QStringLiteral("jkerian@gmail.com") );
   about.addAuthor( i18n("Joseph Kerian"), QString(), QStringLiteral("jkerian@gmail.com") );
+  about.addCredit( i18n("Electronic Dictionary Research and Development Group"), i18n("This program uses the KANJIDIC and RADKFILE dictionary files. These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group's licence."), QString(), QStringLiteral("https://www.edrdg.org/") );
   about.setOrganizationDomain("kde.org"); //For DBus domain
 
   QCommandLineParser parser;
