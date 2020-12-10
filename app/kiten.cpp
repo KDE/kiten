@@ -81,8 +81,8 @@ Kiten::Kiten( QWidget *parent, const char *name )
   (void) Accel->insert(   "Lookup English/Japanese word"
                         , i18n("Lookup English/Japanese Word")
                         , i18n( "Looks up current text on clipboard in the same way as if you used Kiten's regular search." )
-                        , Qt::CTRL + Qt::ALT + Qt::Key_S
-                        , Qt::CTRL + Qt::ALT + Qt::Key_S
+                        , Qt::CTRL | Qt::ALT | Qt::Key_S
+                        , Qt::CTRL | Qt::ALT | Qt::Key_S
                         , this
                         , SLOT(searchClipboardContents()) );
   Accel->readSettings( KSharedConfig::openConfig() );
