@@ -27,7 +27,7 @@ nothing to worry about. Thanks are due to Phil for reporting this.
 
 LICENCE
 This font may be freely distributed under the terms of the BSD-style licence
-included with this archive in the file copyright.txt.
+included in LICENSES/BSD-3-Clause.txt.
 
 The kanji stroke order diagrams remain under the copyright of Ulrich Apel
 and the AAAA and Wadoku projects. If you find this font useful then please
