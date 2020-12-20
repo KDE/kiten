@@ -1,24 +1,11 @@
-/**************************************************************************
-*                     X J D X G E N
-*                                                   Author: Jim Breen
-*           Index (.xjdx) generator program fron XJDIC
-*
-*		V2.3 - indexes JIS X 0212 (3-byte EUC) kanji
-*		Copyright 1998 Jim Breen <jwb@csse.monash.edu.au>
-***************************************************************************/
-/*  This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 1, or (at your option)
-    any later version.
+/*
+    X J D X G E N
+    Index (.xjdx) generator program fron XJDIC
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.     */
+    v2.3 - indexes JIS X 0212 (3-byte EUC) kanji
+    SPDX-FileCopyrightText: 1998 Jim Breen <jwb@csse.monash.edu.au>
+    SPDX-License-Identifier: GPL-1.0-or-later
+*/
 
 /* Changed: ignore all rc stuff. use args 1 and 2 for input/output file.
   -- jason */
