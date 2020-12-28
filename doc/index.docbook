@@ -27,13 +27,13 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2016-05-07</date>
-<releaseinfo>1.3 (Applications 16.04)</releaseinfo>
+<date>2020-12-28</date>
+<releaseinfo>Applications 20.12</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
-<para>&kiten; is a Japanese reference/study tool by &kde;. </para>
+<para>&kiten; is a Japanese reference/study tool by &kde;.</para>
 </abstract>
 
 <!--
@@ -84,7 +84,7 @@ English and Japanese words. You can also add other dictionaries to
 
 <para>To look up words in either language, type them in to the
 text-edit (much like &konqueror;'s location bar) and press either
-&Enter; or the <guilabel>Search</guilabel> button on
+&Enter; or the <guibutton>Search</guibutton> button on
 the toolbar (again, much like &konqueror;). &kiten; will then look up
 the word.</para>
 
@@ -150,10 +150,10 @@ searches.</para>
 <sect2 id="beginning-ending-anywhere-searches">
 <title>Beginning/Ending/Anywhere Searches</title>
 <para>Beside a search with <guilabel>Exact Match</guilabel> &kiten; has
-three additional search modes</para>
+three additional search modes.</para>
 <para>To search for the beginning of a word, instead of pressing the
-<guilabel>Search</guilabel> button on the toolbar or pressing
-<keycap>Return</keycap> on the text-entry in the toolbar, choose
+<guibutton>Search</guibutton> button on the toolbar or pressing
+&Enter; on the text-entry in the toolbar, choose
 using the <menuchoice><guimenu>Search</guimenu><guisubmenu>Match Type
 </guisubmenu><guimenuitem>Match Beginning</guimenuitem></menuchoice>.
 Similarly, for ending or anywhere searches, choose <menuchoice><guimenu>Search</guimenu>
@@ -379,7 +379,7 @@ go backward one in the history, choose
 Go to the &kiten; configuration dialog, which can be
 opened by choosing
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
-Kiten...</guimenuitem></menuchoice>. Select the
+&kiten;...</guimenuitem></menuchoice>. Select the
 <guilabel>Font</guilabel> page of the dialog and select the font in
 the font-chooser.</para>
 
@@ -421,17 +421,17 @@ fine.</para></note>
   <para>Paul Temple <email>paul.temple@gmx.net</email> - Port to KConfig XT and bug fixing.</para>
 </listitem>
 <listitem>
-  <para>David Vignoni <email>david80v@tin.it</email> - SVG icon.</para>
+  <para>David Vignoni <email>david80v@tin.it</email> - &SVG; icon.</para>
 </listitem>
 <listitem>
-	<para>Joe Kerian <email>jkerian@gmail.com</email> - KDE4 rewrite.</para>
+	<para>Joe Kerian <email>jkerian@gmail.com</email> - &kde; 4 rewrite.</para>
 </listitem>
 <listitem>
-  <para>Eric Kjeldergaard <email>kjelderg@gmail.com</email> - KDE4 rewrite.</para>
+  <para>Eric Kjeldergaard <email>kjelderg@gmail.com</email> - &kde; 4 rewrite.</para>
 </listitem>
 <listitem>
   <para>Daniel E. Moctezuma <email>democtezuma@gmail.com</email> - Deinflection system improvements,
-  dictionary updates for EDICT and KANJIDIC, GUI improvements, Kanji Browser, bug fixes,
+  dictionary updates for EDICT and KANJIDIC, &GUI; improvements, Kanji Browser, bug fixes,
   code polishing and simplification.</para>
 </listitem>
 </itemizedlist>
