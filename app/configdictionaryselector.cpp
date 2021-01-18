@@ -32,30 +32,19 @@ void ConfigDictionarySelector::updateWidgets()
   QStringList names;
 
   QString groupName = "dicts_" + _dictName;
-  _config->setCurrentGroup( groupName );
+  KConfigGroup group = _config->config()->group( groupName );
   KConfigSkeletonItem *item = _config->findItem( _dictName + "__NAMES" );
   if( item != nullptr )
   {
     names = item->property().toStringList();
   }
 
-  foreach( const QString &it, names )
-  {
-    QString name = _dictName + '_' + it;
-    if ( ! _config->findItem( name ) )
-    {
-      _config->addItem( new KConfigSkeleton::ItemString( groupName, it, *new QString() ), name );
-      //Don't touch the *new QString()... that's a reference for a reason... stupid KDE
-    }
-  }
-
-  _config->load();
   fileList->clear();
 
   foreach( const QString &it, names )
   {
     QStringList newRow( it );
-    newRow << _config->findItem( _dictName + '_' + it )->property().toString();
+    newRow << group.readEntry( it, QString() );
     (void) new QTreeWidgetItem( fileList, newRow );
   }
 }
@@ -73,12 +62,6 @@ void ConfigDictionarySelector::updateSettings()
     QString dictionaryPath = it->text( 1 );
     names.append( dictionaryName );
 
-    if ( ! group.hasKey( dictionaryName ) )
-    {
-      KConfigSkeletonItem *item = new KConfigSkeleton::ItemPath( group.name()
-                                                , dictionaryName, *new QString() );
-      _config->addItem( item, dictionaryName );
-    }
     group.writeEntry( dictionaryName, dictionaryPath );
   }
 
