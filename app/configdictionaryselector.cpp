@@ -29,15 +29,9 @@ ConfigDictionarySelector::ConfigDictionarySelector( const QString &dictionaryNam
 //Read from preferences to the active list
 void ConfigDictionarySelector::updateWidgets()
 {
-  QStringList names;
-
   QString groupName = "dicts_" + _dictName;
   KConfigGroup group = _config->config()->group( groupName );
-  KConfigSkeletonItem *item = _config->findItem( _dictName + "__NAMES" );
-  if( item != nullptr )
-  {
-    names = item->property().toStringList();
-  }
+  QStringList names = group.readEntry( "__NAMES", QStringList() );
 
   fileList->clear();
 
