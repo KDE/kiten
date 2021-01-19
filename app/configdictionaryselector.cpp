@@ -44,7 +44,8 @@ void ConfigDictionarySelector::updateWidgets()
 {
   QStringList names;
 
-  _config->setCurrentGroup( "dicts_" + _dictName );
+  QString groupName = "dicts_" + _dictName;
+  _config->setCurrentGroup( groupName );
   KConfigSkeletonItem *item = _config->findItem( _dictName + "__NAMES" );
   if( item != nullptr )
   {
@@ -56,7 +57,7 @@ void ConfigDictionarySelector::updateWidgets()
     QString name = _dictName + '_' + it;
     if ( ! _config->findItem( name ) )
     {
-      _config->addItem( new KConfigSkeleton::ItemString( _dictName, it, *new QString() ), name );
+      _config->addItem( new KConfigSkeleton::ItemString( groupName, it, *new QString() ), name );
       //Don't touch the *new QString()... that's a reference for a reason... stupid KDE
     }
   }
