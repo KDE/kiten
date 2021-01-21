@@ -12,9 +12,10 @@ Radical::Radical()
 {
 }
 
-Radical::Radical( const QString &irad, unsigned int strokes )
+Radical::Radical( const QString &irad, unsigned int strokes, unsigned int index )
 : QString( irad.at( 0 ) )
 , strokeCount( strokes )
+, idx( index )
 {
 }
 
@@ -35,5 +36,5 @@ unsigned int Radical::strokes() const
 
 bool Radical::operator<( const Radical &other ) const
 {
-  return this->strokeCount < other.strokeCount;
+  return this->idx < other.idx;
 }

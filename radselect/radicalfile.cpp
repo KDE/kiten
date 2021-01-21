@@ -82,7 +82,8 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       delete newestRadical;
       QStringList lineElements = line.split( QRegExp( QStringLiteral( "\\s+" ) ) );
       newestRadical = new Radical(  lineElements.at( 1 )
-                                  , lineElements.at( 2 ).toUInt() );
+                                  , lineElements.at( 2 ).toUInt()
+                                  , m_radicals.size() );
     }
     else if( newestRadical != nullptr )
     {

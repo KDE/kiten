@@ -16,7 +16,8 @@ class Radical : public QString
   public:
                          Radical();
     explicit             Radical(  const QString &irad
-                                 , unsigned int strokes = 0 );
+                                 , unsigned int strokes = 0
+                                 , unsigned int index = 0 );
 
     const QSet<QString>& getKanji() const;
     void                 addKanji( const QSet<QString> &newKanji );
@@ -26,6 +27,7 @@ class Radical : public QString
 
   protected:
     unsigned int  strokeCount;
+    unsigned int  idx;
     QSet<QString> kanji;
     QSet<QString> components;
 };

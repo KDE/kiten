@@ -58,14 +58,14 @@ void ButtonGrid::buildRadicalButtons()
 
   //Get a list of radicals (organized by strokes)
   QMultiMap<int, Radical> *radicalMap = m_radicalInfo->mapRadicalsByStrokes();
-  QMultiMap<int, Radical>::const_iterator it = radicalMap->constBegin();
+  QList<int> radicalStrokeCounts = radicalMap->uniqueKeys();
   //Now create all the buttons
   unsigned int last_column = 0;
   int row_index = 1;
-  while( it != radicalMap->constEnd() )
+  foreach( int strokeCount, radicalStrokeCounts )
   {
-    //For each radical, figure out which slot it goes in (0-based column index)
-    unsigned int column_index = it.key() - 1;
+    //(0-based column index)
+    unsigned int column_index = strokeCount - 1;
     if( column_index >= number_of_radical_columns )
     {
       column_index = number_of_radical_columns - 1;
@@ -77,20 +77,24 @@ void ButtonGrid::buildRadicalButtons()
       row_index = 1;
     }
 
-    //Make the button
-    RadicalButton *button = new RadicalButton( *it, this );
-    grid->addWidget( button, row_index++, column_index );
-    //Bind slots/signals for this button
-    connect( button, &RadicalButton::userClicked,
-               this,   &ButtonGrid::radicalClicked );
-    connect(   this, &ButtonGrid::clearButtonSelections,
-             button,   &RadicalButton::resetButton );
+    QList<Radical> radicals = radicalMap->values( strokeCount );
+    std::sort( radicals.begin(), radicals.end() );
+    foreach( const Radical &radical, radicals )
+    {
+      //Make the button
+      RadicalButton *button = new RadicalButton( radical, this );
+      grid->addWidget( button, row_index++, column_index );
+      //Bind slots/signals for this button
+      connect( button, &RadicalButton::userClicked,
+                 this,   &ButtonGrid::radicalClicked );
+      connect(   this, &ButtonGrid::clearButtonSelections,
+               button,   &RadicalButton::resetButton );
 
-    //Add this button to our list
-    m_buttons.insert( *it, button );
+      //Add this button to our list
+      m_buttons.insert( radical, button );
+    }
 
     last_column = column_index;
-    ++it;
   }
   delete radicalMap;
   setLayout( grid );
