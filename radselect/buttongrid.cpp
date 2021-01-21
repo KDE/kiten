@@ -57,25 +57,14 @@ void ButtonGrid::buildRadicalButtons()
   }
 
   //Get a list of radicals (organized by strokes)
-  QMultiMap<int, Radical> *radicalMap = m_radicalInfo->mapRadicalsByStrokes();
+  QMultiMap<int, Radical> *radicalMap = m_radicalInfo->mapRadicalsByStrokes( number_of_radical_columns );
   QList<int> radicalStrokeCounts = radicalMap->uniqueKeys();
   //Now create all the buttons
-  unsigned int last_column = 0;
-  int row_index = 1;
   foreach( int strokeCount, radicalStrokeCounts )
   {
     //(0-based column index)
     unsigned int column_index = strokeCount - 1;
-    if( column_index >= number_of_radical_columns )
-    {
-      column_index = number_of_radical_columns - 1;
-    }
-
-    //If we're starting a new column, reset the row
-    if( last_column != column_index )
-    {
-      row_index = 1;
-    }
+    int row_index = 1;
 
     QList<Radical> radicals = radicalMap->values( strokeCount );
     std::sort( radicals.begin(), radicals.end() );
@@ -93,8 +82,6 @@ void ButtonGrid::buildRadicalButtons()
       //Add this button to our list
       m_buttons.insert( radical, button );
     }
-
-    last_column = column_index;
   }
   delete radicalMap;
   setLayout( grid );
