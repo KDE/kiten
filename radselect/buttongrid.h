@@ -48,6 +48,8 @@ class ButtonGrid : public QWidget
      */
     void clearSelections();
 
+    void setSortByFrequency( bool enable );
+
   private:
     void buildRadicalButtons();
     void updateButtons();
@@ -64,6 +66,7 @@ class ButtonGrid : public QWidget
     QString        m_relationalRadical;
     QSet<QString>  m_selectedRadicals;
     RadicalFile   *m_radicalInfo;
+    bool           m_sortByFrequency;
 
     //Radical -> Button Mapping
     QHash<QString, RadicalButton*> m_buttons;

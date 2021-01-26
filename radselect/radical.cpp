@@ -5,6 +5,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
+#include <tuple>
+
 #include "radical.h"
 
 Radical::Radical()
@@ -42,4 +44,11 @@ unsigned int Radical::strokes() const
 bool Radical::compareIndices( const Radical &a, const Radical &b )
 {
   return a.idx < b.idx;
+}
+
+bool Radical::compareFrequencies( const Radical &a, const Radical &b )
+{
+  // Negative frequency results in a descending order
+  return std::make_tuple( - a.getKanji().size(), a.idx ) <
+         std::make_tuple( - b.getKanji().size(), b.idx );
 }

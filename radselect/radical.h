@@ -26,6 +26,7 @@ class Radical
     unsigned int         strokes() const;
 
     static bool          compareIndices( const Radical &a, const Radical &b );
+    static bool          compareFrequencies( const Radical &a, const Radical &b );
 
   protected:
     QString       string;

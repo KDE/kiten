@@ -207,6 +207,8 @@ void RadSelectView::loadSettings()
   //Suggested options: Lookup in Kiten, Add to Search Bar, Copy to Clipboard
   selected_radicals->setFont( RadSelectConfigSkeleton::self()->resultListFont() );
   m_buttongrid->setFont( RadSelectConfigSkeleton::self()->font() );
+
+  m_buttongrid->setSortByFrequency( RadSelectConfigSkeleton::self()->sortByFrequency() );
 }
 
 void RadSelectView::strokeLimitChanged( int newvalue )

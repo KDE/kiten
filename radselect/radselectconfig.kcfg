@@ -16,6 +16,10 @@
       <default>resultListFnt</default>
     </entry>
     <entry key="font" type="Font"></entry>
+    <entry key="sortByFrequency" type="Bool">
+      <label>Display radicals in descending frequency order</label>
+      <default>true</default>
+    </entry>
     <entry key="closeOnSearch" type="Bool">
       <label>Do we close this program when searching?</label>
       <default>false</default>

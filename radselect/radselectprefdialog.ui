@@ -26,6 +26,13 @@
         </widget>
       </item>
       <item>
+        <widget class="QCheckBox" name="kcfg_sortByFrequency" >
+          <property name="text">
+            <string>Display radicals in descending frequency order</string>
+          </property>
+        </widget>
+      </item>
+      <item>
         <layout class="QGridLayout" >
           <property name="margin" >
              <number>0</number>

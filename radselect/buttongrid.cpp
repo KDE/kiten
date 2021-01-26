@@ -27,6 +27,7 @@ ButtonGrid::ButtonGrid( QWidget *parent, RadicalFile *radicalInfo )
 : QWidget( parent )
 , CurrentMode( Selection )
 , m_radicalInfo( radicalInfo )
+, m_sortByFrequency( false )
 {
   if ( m_radicalInfo )
   {
@@ -76,7 +77,8 @@ void ButtonGrid::buildRadicalButtons()
     int row_index = 1;
 
     QList<Radical> radicals = radicalMap->values( strokeCount );
-    std::sort( radicals.begin(), radicals.end(), Radical::compareIndices );
+    std::sort( radicals.begin(), radicals.end(),
+               m_sortByFrequency ? Radical::compareFrequencies : Radical::compareIndices );
     foreach( const Radical &radical, radicals )
     {
       //Make the button
@@ -96,6 +98,15 @@ void ButtonGrid::buildRadicalButtons()
   setLayout( grid );
 
   updateButtons();
+}
+
+void ButtonGrid::setSortByFrequency( bool enable )
+{
+  if( m_sortByFrequency != enable )
+  {
+    m_sortByFrequency = enable;
+    buildRadicalButtons();
+  }
 }
 
 void ButtonGrid::clearSelections()
