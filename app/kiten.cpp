@@ -102,6 +102,7 @@ Kiten::Kiten( QWidget *parent, const char *name )
   _sysTrayIcon->setStandardActionsEnabled(true);
   _sysTrayIcon->setAssociatedWidget(this);
   _sysTrayIcon->setIconByName(QStringLiteral("kiten"));
+  _sysTrayIcon->setStatus(KStatusNotifierItem::Active);
 
   /* Set things as they were (as told in the config) */
   _autoSearchToggle->setChecked( _config->autosearch() );
