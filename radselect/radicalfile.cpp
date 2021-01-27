@@ -77,7 +77,7 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
       //Start of a new radical
       if( newestRadical != nullptr )
       {
-        m_radicals.insert( *newestRadical, *newestRadical );
+        m_radicals.insert( newestRadical->toString(), *newestRadical );
       }
       delete newestRadical;
       QStringList lineElements = line.split( QRegExp( QStringLiteral( "\\s+" ) ) );
@@ -101,13 +101,13 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
 #endif
       foreach( const QString &kanji, m_kanjiList )
       {
-        krad[ kanji ] += *newestRadical;
+        krad[ kanji ] += newestRadical->toString();
       }
     }
   }
   if( newestRadical != nullptr )
   {
-    m_radicals[ *newestRadical ] = *newestRadical;
+    m_radicals[ newestRadical->toString() ] = *newestRadical;
     delete newestRadical;
   }
 

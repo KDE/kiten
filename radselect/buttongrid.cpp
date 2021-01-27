@@ -67,11 +67,11 @@ void ButtonGrid::buildRadicalButtons()
     int row_index = 1;
 
     QList<Radical> radicals = radicalMap->values( strokeCount );
-    std::sort( radicals.begin(), radicals.end() );
+    std::sort( radicals.begin(), radicals.end(), Radical::compareIndices );
     foreach( const Radical &radical, radicals )
     {
       //Make the button
-      RadicalButton *button = new RadicalButton( radical, this );
+      RadicalButton *button = new RadicalButton( radical.toString(), this );
       grid->addWidget( button, row_index++, column_index );
       //Bind slots/signals for this button
       connect( button, &RadicalButton::userClicked,
@@ -80,7 +80,7 @@ void ButtonGrid::buildRadicalButtons()
                button,   &RadicalButton::resetButton );
 
       //Add this button to our list
-      m_buttons.insert( radical, button );
+      m_buttons.insert( radical.toString(), button );
     }
   }
   delete radicalMap;

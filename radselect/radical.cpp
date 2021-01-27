@@ -13,10 +13,15 @@ Radical::Radical()
 }
 
 Radical::Radical( const QString &irad, unsigned int strokes, unsigned int index )
-: QString( irad.at( 0 ) )
+: string( irad.at( 0 ) )
 , strokeCount( strokes )
 , idx( index )
 {
+}
+
+QString Radical::toString() const
+{
+  return string;
 }
 
 void Radical::addKanji( const QSet<QString> &newKanji )
@@ -34,7 +39,7 @@ unsigned int Radical::strokes() const
   return strokeCount;
 }
 
-bool Radical::operator<( const Radical &other ) const
+bool Radical::compareIndices( const Radical &a, const Radical &b )
 {
-  return this->idx < other.idx;
+  return a.idx < b.idx;
 }

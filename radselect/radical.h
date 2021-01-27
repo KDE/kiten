@@ -11,7 +11,7 @@
 #include <QSet>
 #include <QString>
 
-class Radical : public QString
+class Radical
 {
   public:
                          Radical();
@@ -19,13 +19,16 @@ class Radical : public QString
                                  , unsigned int strokes = 0
                                  , unsigned int index = 0 );
 
+    QString              toString() const;
+
     const QSet<QString>& getKanji() const;
     void                 addKanji( const QSet<QString> &newKanji );
     unsigned int         strokes() const;
 
-    bool                 operator<( const Radical &other ) const;
+    static bool          compareIndices( const Radical &a, const Radical &b );
 
   protected:
+    QString       string;
     unsigned int  strokeCount;
     unsigned int  idx;
     QSet<QString> kanji;
