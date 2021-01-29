@@ -23,7 +23,7 @@ target_link_libraries(radselect_bin
     KF5::CoreAddons 
     KF5::I18n 
     KF5::XmlGui)
-install( TARGETS radselect_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS radselect_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
 install( PROGRAMS org.kde.kitenradselect.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )

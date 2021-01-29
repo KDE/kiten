@@ -40,7 +40,7 @@ target_link_libraries(kiten_bin
     KF5::XmlGui
     kiten)
 
-install( TARGETS kiten_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS kiten_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############ install files #############
 install( PROGRAMS org.kde.kiten.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )

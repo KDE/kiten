@@ -42,7 +42,7 @@ if(WIN32)
 endif()
 
 set_target_properties(kiten PROPERTIES VERSION ${KITEN_LIB_VERSION} SOVERSION ${KITEN_LIB_SOVERSION})
-install( TARGETS kiten  ${INSTALL_TARGETS_DEFAULT_ARGS})
+install( TARGETS kiten  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ############ install headers #############
 install( FILES

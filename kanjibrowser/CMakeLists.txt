@@ -17,7 +17,7 @@ target_link_libraries(kanjibrowser_bin
     KF5::Completion
     KF5::I18n
     KF5::XmlGui)
-install( TARGETS kanjibrowser_bin ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS kanjibrowser_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############## install files ####################
 install( PROGRAMS org.kde.kitenkanjibrowser.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
