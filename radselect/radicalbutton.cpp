@@ -54,7 +54,7 @@ void RadicalButton::mousePressEvent( QMouseEvent *e )
   QPushButton::mousePressEvent( e );
   if( e->button() == Qt::RightButton )
   {
-    setStatus( Related );
+    //setStatus( Related );
     emit userClicked( text(), Related );
   }
 }
@@ -107,7 +107,6 @@ void RadicalButton::setStatus( RadicalButton::ButtonStatus newStatus )
       disabled = true;
       break;
     case Related:
-      italic = true;
       break;
     case Hidden:
       hidden = true;
