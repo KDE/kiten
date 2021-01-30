@@ -92,8 +92,6 @@ void RadicalButton::setStatus( RadicalButton::ButtonStatus newStatus )
   //Because it's more work to check everything rather than just set it,
   //we'll just set everything every time
   bool checked   = false,
-       underline = false,
-       italic    = false,
        hidden    = false,
        disabled  = false;
   switch( newStatus )
@@ -112,10 +110,6 @@ void RadicalButton::setStatus( RadicalButton::ButtonStatus newStatus )
       hidden = true;
   }
 
-  QFont theFont = font();
-  theFont.setUnderline( underline );
-  theFont.setItalic( italic );
-  setFont( theFont );
   setVisible( ! hidden );
   setEnabled( ! disabled );
   setChecked( checked );

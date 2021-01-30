@@ -47,7 +47,6 @@ class ButtonGrid : public QWidget
      * Reset all buttons to the up and uncolored state
      */
     void clearSelections();
-    void setFont( const QFont &font );
 
   private:
     void buildRadicalButtons();

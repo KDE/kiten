@@ -122,14 +122,6 @@ void ButtonGrid::radicalClicked(  const QString &newrad
   }
 }
 
-void ButtonGrid::setFont( const QFont &font )
-{
-  foreach( QPushButton *button, m_buttons )
-  {
-    button->setFont( font );
-  }
-}
-
 void ButtonGrid::updateButtons()
 {
   if ( ! m_radicalInfo )

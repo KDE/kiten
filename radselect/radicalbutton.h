@@ -30,7 +30,7 @@ class RadicalButton : public QPushButton
     typedef enum
     {
       Normal,         /**< Normal button */
-      Selected,       /**< This button has been selected: bold + underline */
+      Selected,       /**< This button has been selected (checked) */
       NotAppropriate, /**< Due to other selected buttons: disabled */
       Related,        /**< Display only this radical and related ones: italics? */
       Hidden          /**< Not related (to above), so hide() */
