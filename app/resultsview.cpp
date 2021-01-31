@@ -17,6 +17,7 @@ ResultsView::ResultsView( QWidget *parent, const char *name )
 : QTextBrowser( parent )
 , _scrollValue( 0 )
 {
+  Q_UNUSED( name );
   setOpenLinks( false );
   connect(this, &QTextBrowser::anchorClicked, this, [=](const QUrl &url){
       emit urlClicked( url.toString() );
