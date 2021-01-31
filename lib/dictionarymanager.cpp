@@ -324,6 +324,7 @@ void DictionaryManager::loadDictSettings( const QString &dictName, KConfigSkelet
 
 void DictionaryManager::loadSettings( const KConfig &config )
 {
+  Q_UNUSED( config );
   //TODO
 }
 

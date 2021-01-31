@@ -190,6 +190,7 @@ void RadSelectView::listPossibleKanji( const QList<Kanji>& list )
 
 void RadSelectView::loadKanji( QString &kanji )
 {
+  Q_UNUSED( kanji );
   //TODO: loadKanji method
 }
 
@@ -197,6 +198,9 @@ void RadSelectView::loadRadicals(  const QString &radicals
                                  , int strokeMin
                                  , int strokeMax )
 {
+  Q_UNUSED( radicals );
+  Q_UNUSED( strokeMin );
+  Q_UNUSED( strokeMax );
   //TODO: loadRadicals method
   emit searchModified();
 }

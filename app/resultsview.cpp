@@ -89,6 +89,7 @@ QString ResultsView::generateCSS()
  */
 void ResultsView::print( const QString &title )
 {
+  Q_UNUSED( title )
   /* KDE4 CHANGE
   KPrinter printer;
   printer.setFullPage(true);
