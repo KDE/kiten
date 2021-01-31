@@ -16,6 +16,7 @@
 
 ConfigDictionarySelector::ConfigDictionarySelector( const QString &dictionaryName,
   QWidget *parent, KConfigSkeleton *config,Qt::WindowFlags f )
+: QWidget( parent, f )
 {
   setupUi( this );
   _dictName = dictionaryName;

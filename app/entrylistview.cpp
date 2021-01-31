@@ -18,6 +18,7 @@
 #define READINGRATIO 0.2
 
 EntryListView::EntryListView( QWidget *parent )
+  : QTableView( parent )
 {
   horizontalHeader()->setStretchLastSection( true );
 }
