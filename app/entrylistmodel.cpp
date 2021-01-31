@@ -59,12 +59,12 @@ void EntryListModel::setEntryList( const EntryList &list )
 
 int EntryListModel::rowCount( const QModelIndex & parent ) const
 {
-  return _list.size();
+  return parent.isValid() ? 0 : _list.size();
 }
 
 int EntryListModel::columnCount( const QModelIndex & parent ) const
 {
-  return 3;
+  return parent.isValid() ? 0 : 3;
 }
 
 QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
