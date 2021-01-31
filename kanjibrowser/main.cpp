@@ -28,7 +28,7 @@ int main( int argc, char **argv )
 
   KAboutData about( QStringLiteral("kitenkanjibrowser")
                     , i18n( "kitenkanjibrowser" )
-                    , QStringLiteral("1.0")
+                    , version
                     , i18n( description )
                     , KAboutLicense::GPL_V2
                     , i18n( "(C) 2011 Daniel E. Moctezuma" )
