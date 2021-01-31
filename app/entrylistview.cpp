@@ -24,6 +24,7 @@ EntryListView::EntryListView( QWidget *parent )
 
 void EntryListView::resizeEvent( QResizeEvent *event )
 {
+  Q_UNUSED( event );
   QHeaderView *header = horizontalHeader();
   header->resizeSection( 0, float( width() ) * WORDRATIO    );
   header->resizeSection( 1, float( width() ) * READINGRATIO );
