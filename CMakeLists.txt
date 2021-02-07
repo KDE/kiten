@@ -89,5 +89,5 @@ if (KF5DocTools_FOUND)
 endif()
 
 ## Install our datafiles
-install( FILES data/edict data/kanjidic data/radkfile data/vconj data/romkana.cnv DESTINATION ${DATA_INSTALL_DIR}/kiten )
+install( FILES data/edict data/kanjidic data/radkfile data/vconj data/romkana.cnv DESTINATION ${KDE_INSTALL_DATADIR}/kiten )
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

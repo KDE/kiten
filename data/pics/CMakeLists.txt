@@ -13,5 +13,5 @@ ecm_install_icons( ICONS
                    64-apps-kiten.png
                    128-apps-kiten.png
                    sc-apps-kiten.svgz
-                   DESTINATION ${ICON_INSTALL_DIR} THEME hicolor 
+                   DESTINATION ${KDE_INSTALL_ICONDIR} THEME hicolor 
                    )

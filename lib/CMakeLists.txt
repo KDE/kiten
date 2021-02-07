@@ -53,13 +53,13 @@ install( FILES
 		entrylist.h
 		historyptrlist.h
 		kromajiedit.h
-	  DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten COMPONENT Devel
+	  DESTINATION ${KDE_INSTALL_INCLUDEDIR}/libkiten COMPONENT Devel
 		)
 install(FILES
         DictEdict/dictfileedict.h
         DictEdict/entryedict.h
-        DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten/DictEdict COMPONENT Devel)
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR}/libkiten/DictEdict COMPONENT Devel)
 install(FILES
         DictKanjidic/dictfilekanjidic.h
         DictKanjidic/entrykanjidic.h
-        DESTINATION ${INCLUDE_INSTALL_DIR}/libkiten/DictKanjidic COMPONENT Devel)
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR}/libkiten/DictKanjidic COMPONENT Devel)

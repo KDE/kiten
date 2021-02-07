@@ -43,6 +43,6 @@ target_link_libraries(kiten_bin
 install( TARGETS kiten_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ############ install files #############
-install( PROGRAMS org.kde.kiten.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
-install( FILES kiten.kcfg DESTINATION ${KCFG_INSTALL_DIR} )
-install( FILES kitenui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kiten )
+install( PROGRAMS org.kde.kiten.desktop DESTINATION ${KDE_INSTALL_APPDIR} )
+install( FILES kiten.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR} )
+install( FILES kitenui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kiten )

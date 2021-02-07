@@ -1,1 +1,1 @@
-INSTALL( FILES KanjiStrokeOrders.ttf DESTINATION ${DATA_INSTALL_DIR}/fonts/kanjistrokeorders )
+INSTALL( FILES KanjiStrokeOrders.ttf DESTINATION ${KDE_INSTALL_DATADIR}/fonts/kanjistrokeorders )
