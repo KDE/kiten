@@ -16,7 +16,6 @@
 
 class KConfigSkeleton;
 class QString;
-class QWidget;
 
 class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 {
