@@ -12,12 +12,14 @@
 
 #include "ui_radselectprefdialog.h"
 
+#include <kxmlgui_version.h>
 #include <KActionCollection>
 #include <KConfig>
 #include <KConfigDialog>
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <KStandardShortcut>
+#include <KXMLGUIFactory>
 
 #include <QDBusConnection>
 #include <QDBusInterface>
@@ -38,7 +40,13 @@ RadSelect::RadSelect()
 
   KStandardAction::quit( this, SLOT(close()), actionCollection() );
   KStandardAction::preferences( this, SLOT(optionsPreferences()), actionCollection() );
+
+#if KXMLGUI_VERSION >= QT_VERSION_CHECK(5, 84, 0)
+  KStandardAction::keyBindings(guiFactory(), &KXMLGUIFactory::showConfigureShortcutsDialog, actionCollection());
+#else
   KStandardAction::keyBindings( (const QObject*)guiFactory(), SLOT(configureShortcuts()), actionCollection() );
+#endif
+
   statusBar()->show();
 
   // Apply the create the main window and ask the mainwindow to
