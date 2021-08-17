@@ -23,7 +23,7 @@ class /* NO_EXPORT */ KRomajiEdit : public KLineEdit
   Q_OBJECT
 
   public:
-    KRomajiEdit( QWidget *parent, const char *name );
+    KRomajiEdit( QWidget *parent);
     ~KRomajiEdit();
 
   public Q_SLOTS:

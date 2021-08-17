@@ -20,8 +20,8 @@
 #include <QTextCodec>
 #include <QTextStream>
 
-KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
-: KLineEdit( name, parent ) //KDE4 CHANGE
+KRomajiEdit::KRomajiEdit( QWidget *parent)
+: KLineEdit( parent ) //KDE4 CHANGE
 {
   m_kana = "unset";
 
@@ -46,11 +46,11 @@ KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
     QString s = t.readLine();
 
     QChar first = s.at( 0 );
-    if ( first == '#' ) // comment!
+    if ( first == QLatin1Char('#') ) // comment!
     {
       // nothing
     }
-    else if ( first == '$' ) // header
+    else if ( first == QLatin1Char('$') ) // header
     {
       if ( m_kana == "unset" )
       {
@@ -63,7 +63,7 @@ KRomajiEdit::KRomajiEdit( QWidget *parent, const char *name )
     }
     else // body
     {
-      QStringList things( s.split( QChar( ' ' ) ) );
+      QStringList things( s.split( QLatin1Char( ' ' ) ) );
       QString thekana( things.first() );
       QString romaji( /* KDE4 CHANGE: * */things.at( 1 ) );
 
@@ -177,7 +177,7 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
 
     //kdDebug() << "at = " << QString(at) << endl;
 
-    if ( at.row() == 0 && at != '.' )
+    if ( at.row() == 0 && at != QLatin1Char('.') )
     {
       //kdDebug() << "prepending " << QString(at) << endl;
       curEng.prepend(at);
@@ -235,11 +235,11 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
     {
       if ( m_kana == "hiragana" )
       {
-        setText( curKana + m_hiragana[ ji.at( 0 ) == 'n' ? "n'" : "t-" ] + farRight.at( 0 ) );
+            setText( curKana + m_hiragana[ ji.at( 0 ) == QLatin1Char('n') ? "n'" : "t-" ] + farRight.at( 0 ) );
       }
       else
       {
-        setText( curKana + m_katakana[ ji.at( 0 ) == 'n' ? "n'" : "t-" ] + farRight.at( 0 ) );
+          setText( curKana + m_katakana[ ji.at( 0 ) == QLatin1Char('n') ? "n'" : "t-" ] + farRight.at( 0 ) );
       }
 
       if ( m_kana == "katakana" )
@@ -256,7 +256,7 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
     {
       newkana = m_hiragana[ farRight ];
       //kdDebug() << "newkana = " << newkana << endl;
-      if ( ji.at( 0 ) == 'n' && ! ( newkana.isEmpty() ) ) //KDE4 CHANGE
+      if ( ji.at( 0 ) == QLatin1Char('n') && ! ( newkana.isEmpty() ) ) //KDE4 CHANGE
       {
         //kdDebug() << "doing the n thing\n";
 
@@ -273,7 +273,7 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
     else
     {
       newkana = m_katakana[ farRight ];
-      if ( ji.at( 0 ) == 'n' && ! newkana.isEmpty() ) //KDE4 CHANGE
+        if ( ji.at( 0 ) == QLatin1Char('n') && ! newkana.isEmpty() ) //KDE4 CHANGE
       {
         //kdDebug() << "doing the n thing - katakana\n";
 
@@ -293,14 +293,14 @@ void KRomajiEdit::keyPressEvent( QKeyEvent *e )
   {
     if ( m_kana == "hiragana" )
     {
-      if ( text[ len - 1 ] == 'n' )
+          if ( text[ len - 1 ] == QLatin1Char('n') )
       {
         setText( curKana + m_hiragana[ QStringLiteral("n'") ] );
       }
     }
     else
     {
-      if ( text[ len - 1 ] == 'N' )
+        if ( text[ len - 1 ] == QLatin1Char('N') )
       {
         setText( curKana + m_katakana[ QStringLiteral("n'") ] );
       }

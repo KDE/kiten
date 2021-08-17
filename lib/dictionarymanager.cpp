@@ -200,8 +200,8 @@ EntryList *DictionaryManager::doSearchInList( const DictQuery &query, const Entr
 QMap<QString, QString> DictionaryManager::generateExtendedFieldsList()
 {
   QMap<QString,QString> result;
-  QStringList dictTypes = listDictFileTypes();
-  foreach( const QString &dictType, dictTypes )
+  const QStringList dictTypes = listDictFileTypes();
+  for( const QString &dictType : dictTypes )
   {
     DictFile *tempDictFile = makeDictFile( dictType );
     QMap<QString,QString> tempList = tempDictFile->getSearchableAttributes();
@@ -224,8 +224,8 @@ QMap<QString,DictionaryPreferenceDialog*>
 DictionaryManager::generatePreferenceDialogs( KConfigSkeleton *config, QWidget *parent )
 {
   QMap<QString,DictionaryPreferenceDialog*> result;
-  QStringList dictTypes = listDictFileTypes();
-  foreach( const QString &dictType, dictTypes )
+  const QStringList dictTypes = listDictFileTypes();
+  for( const QString &dictType : dictTypes )
   {
     DictFile *tempDictFile = makeDictFile( dictType );
     DictionaryPreferenceDialog *newDialog = tempDictFile->preferencesWidget( config, parent );
