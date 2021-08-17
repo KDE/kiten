@@ -31,11 +31,11 @@ class SearchStringInput : public QObject
     void      setSearchQuery( const DictQuery &query );
     void      updateFontFromConfig();
 
-  public slots:
+  public Q_SLOTS:
     void      test();
     void      focusInput();
 
-  signals:
+  Q_SIGNALS:
     void      search();
 
   private:

@@ -100,7 +100,7 @@ RadSelectView::~RadSelectView()
 
 void RadSelectView::changedSearch()
 {
-  emit searchModified();
+  Q_EMIT searchModified();
 }
 
 void RadSelectView::clearSearch()
@@ -185,7 +185,7 @@ void RadSelectView::listPossibleKanji( const QList<Kanji>& list )
 
   m_possibleKanji = list;
 
-  emit searchModified();
+  Q_EMIT searchModified();
 }
 
 void RadSelectView::loadKanji( QString &kanji )
@@ -202,7 +202,7 @@ void RadSelectView::loadRadicals(  const QString &radicals
   Q_UNUSED( strokeMin );
   Q_UNUSED( strokeMax );
   //TODO: loadRadicals method
-  emit searchModified();
+  Q_EMIT searchModified();
 }
 
 void RadSelectView::loadSettings()

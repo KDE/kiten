@@ -41,7 +41,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
                     , QList<int> &kanjiGrades
                     , QList<int> &strokeCount );
 
-  signals:
+  Q_SIGNALS:
     /**
      * Emitted when the status bar changed.
      *
@@ -49,13 +49,13 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      */
     void statusBarChanged( const QString &text );
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Load the font settings.
      */
     void loadSettings();
 
-  private slots:
+  private Q_SLOTS:
     /**
      * Called when the user changed the grade
      * of a kanji to be shown in the ComboBox.

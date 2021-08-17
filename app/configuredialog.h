@@ -24,13 +24,13 @@ class ConfigureDialog : public KConfigDialog
                              , KitenConfigSkeleton *config = nullptr );
     virtual ~ConfigureDialog();
 
-  signals:
+  Q_SIGNALS:
     void settingsChangedSignal();
     void updateWidgetsSignal();
     void updateWidgetsDefaultSignal();
     void updateSettingsSignal();
 
-  private slots:
+  private Q_SLOTS:
     void updateConfiguration();
     void updateSettings() override;
     void updateWidgets() override;

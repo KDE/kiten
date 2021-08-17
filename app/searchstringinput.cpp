@@ -136,7 +136,7 @@ void SearchStringInput::setSearchQuery( const DictQuery &query )
 void SearchStringInput::test()
 {
   qDebug() << "test1";
-  emit search();
+  Q_EMIT search();
   qDebug() << "test2";
 }
 

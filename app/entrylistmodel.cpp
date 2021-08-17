@@ -54,7 +54,7 @@ bool EntryListModel::setData ( const QModelIndex &index, const QVariant &value, 
 void EntryListModel::setEntryList( const EntryList &list )
 {
   _list = list;
-  emit layoutChanged();
+  Q_EMIT layoutChanged();
 }
 
 int EntryListModel::rowCount( const QModelIndex & parent ) const

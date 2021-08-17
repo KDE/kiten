@@ -24,7 +24,7 @@ class KanjiBrowser : public KXmlGuiWindow
          KanjiBrowser();
         ~KanjiBrowser();
 
-  private slots:
+  private Q_SLOTS:
     /**
      * Change/update the status bar.
      */

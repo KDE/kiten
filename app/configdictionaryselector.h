@@ -27,7 +27,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
                                       , KConfigSkeleton *iconfig = nullptr
                                       , Qt::WindowFlags f = {} );
 
-  public slots:
+  public Q_SLOTS:
     void addDictSlot();
     void deleteDictSlot();
     bool hasChanged();
@@ -36,7 +36,7 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
     void updateWidgets();
     void updateWidgetsDefault();
 
-  signals:
+  Q_SIGNALS:
     void widgetChanged();
 
   private:

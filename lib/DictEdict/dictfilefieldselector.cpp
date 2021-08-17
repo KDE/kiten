@@ -107,7 +107,7 @@ void DictFileFieldSelector::setDefaultList( const QStringList &list )
 
 void DictFileFieldSelector::settingChanged()
 {
-  emit widgetChanged();
+  Q_EMIT widgetChanged();
 }
 
 void DictFileFieldSelector::updateSettings()

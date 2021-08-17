@@ -33,14 +33,14 @@ class RadSelectView : public QWidget, public Ui::radical_selector
     void loadRadicals( const QString &radicals, int strokeMin, int strokeMax );
     void loadKanji( QString &kanji );
 
-  signals:
+  Q_SIGNALS:
     void signalChangeStatusbar( const QString &text );
     //Listen for this if you want to detect each minor change
     void searchModified();
     //This is when they've actually pressed a kanji
     void kanjiSelected( const QStringList &kanjiList );
 
-  private slots:
+  private Q_SLOTS:
     void loadSettings();
     //Handles either of the stroke limiters moving
     void strokeLimitChanged( int newvalue );

@@ -56,7 +56,7 @@ class RadSelect : public KXmlGuiWindow
     void readProperties( const KConfigGroup &config ) override;
 
 
-  private slots:
+  private Q_SLOTS:
     void optionsPreferences();
 
     void changeStatusbar( const QString &text );

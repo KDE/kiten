@@ -25,19 +25,19 @@ class ButtonGrid : public QWidget
              ButtonGrid( QWidget *parent, RadicalFile *radicalInfo );
     virtual ~ButtonGrid();
 
-  signals:
+  Q_SIGNALS:
     /**
      * Our generic message alert signal
      */
     void signalChangeStatusbar( const QString &text );
     /**
-     * We emit this whenever something changed. This gives our list of
+     * We Q_EMIT this whenever something changed. This gives our list of
      * suggested kanji
      */
     void possibleKanji( const QList<Kanji> &kanjiList );
     void clearButtonSelections();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Triggered by a button press
      */

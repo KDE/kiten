@@ -99,7 +99,7 @@ void ConfigDictionarySelector::addDictSlot()
   (void) new QTreeWidgetItem( fileList, newRow );
 
   updateSettings();
-  emit widgetChanged();
+  Q_EMIT widgetChanged();
 }
 
 void ConfigDictionarySelector::deleteDictSlot()
@@ -114,7 +114,7 @@ void ConfigDictionarySelector::deleteDictSlot()
     delete file;
 
     updateSettings();
-    emit widgetChanged();
+    Q_EMIT widgetChanged();
   }
 }
 

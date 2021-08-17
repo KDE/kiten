@@ -19,7 +19,7 @@ class EntryListView : public QTableView
   public:
     explicit EntryListView( QWidget *parent = nullptr );
 
-  public slots:
+  public Q_SLOTS:
     void setEmptyModel();
 
   protected:

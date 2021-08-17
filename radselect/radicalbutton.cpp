@@ -55,7 +55,7 @@ void RadicalButton::mousePressEvent( QMouseEvent *e )
   if( e->button() == Qt::RightButton )
   {
     //setStatus( Related );
-    emit userClicked( text(), Related );
+    Q_EMIT userClicked( text(), Related );
   }
 }
 
@@ -68,11 +68,11 @@ void RadicalButton::mouseReleaseEvent( QMouseEvent *e )
     {
       case Selected:
         setStatus( Normal );
-        emit userClicked( text(), Normal );
+        Q_EMIT userClicked( text(), Normal );
         break;
       default:
         setStatus( Selected );
-        emit userClicked( text(), Selected );
+        Q_EMIT userClicked( text(), Selected );
     }
   }
 }

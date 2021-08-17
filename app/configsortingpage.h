@@ -24,14 +24,14 @@ class ConfigSortingPage : public QWidget, public Ui::configSorting
                                , KitenConfigSkeleton *config = nullptr
                                , Qt::WindowFlags f = {} );
 
-  public slots:
+  public Q_SLOTS:
     bool hasChanged();
     bool isDefault();
     void updateSettings();
     void updateWidgets();
     void updateWidgetsDefault();
 
-  signals:
+  Q_SIGNALS:
     void widgetChanged();
 
   private:

@@ -112,7 +112,7 @@ void ButtonGrid::setSortByFrequency( bool enable )
 void ButtonGrid::clearSelections()
 {
   m_selectedRadicals.clear();
-  emit clearButtonSelections();
+  Q_EMIT clearButtonSelections();
 }
 
 void ButtonGrid::radicalClicked(  const QString &newrad
@@ -132,7 +132,7 @@ void ButtonGrid::radicalClicked(  const QString &newrad
       m_selectedRadicals.remove( newrad );
       if( m_selectedRadicals.isEmpty() )
       {
-        emit signalChangeStatusbar( i18n( "No Radicals Selected" ) );
+        Q_EMIT signalChangeStatusbar( i18n( "No Radicals Selected" ) );
       }
     }
     else
@@ -159,7 +159,7 @@ void ButtonGrid::updateButtons()
       button->setStatus( RadicalButton::Normal );
     }
 
-    emit possibleKanji( blankList );
+    Q_EMIT possibleKanji( blankList );
     return;
   }
 
@@ -169,11 +169,11 @@ void ButtonGrid::updateButtons()
   //Convert to a list, sort, and tell the world!
   QList<Kanji> kanjiList = kanjiSet.values();
   std::sort(kanjiList.begin(), kanjiList.end());
-  emit possibleKanji( kanjiList );
+  Q_EMIT possibleKanji( kanjiList );
 
   //Do the announcement of the selected radical list
   QStringList radicalList( m_selectedRadicals.values() );
-  emit signalChangeStatusbar( i18n( "Selected Radicals: " )
+  Q_EMIT signalChangeStatusbar( i18n( "Selected Radicals: " )
                               + radicalList.join(QLatin1String(", ") ) );
 
   //Now figure out what our remaining radical possibilities are

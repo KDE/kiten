@@ -36,13 +36,13 @@ class DictionaryUpdateManager : public QObject
      */
     explicit DictionaryUpdateManager( Kiten *parent );
 
-  signals:
+  Q_SIGNALS:
     /**
      * Emitted when all the updates for EDICT and KANJIDIC finished.
      */
     void     updateFinished();
 
-  private slots:
+  private Q_SLOTS:
     /**
      * Downloads an information file containing:
      *   Name of dictionary
@@ -75,7 +75,7 @@ class DictionaryUpdateManager : public QObject
   private:
     /**
      * Check whether or not the update finished, if so,
-     * emit an updateFinished signal.
+     * Q_EMIT an updateFinished signal.
      */
     void     checkIfUpdateFinished();
     /**

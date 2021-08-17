@@ -124,7 +124,7 @@ QMenu *KRomajiEdit::createPopupMenu()
   connect( group, &QActionGroup::triggered,
                     this, &KRomajiEdit::setKana );
 
-  emit aboutToShowContextMenu( menu );
+  Q_EMIT aboutToShowContextMenu( menu );
   return menu;
 }
 

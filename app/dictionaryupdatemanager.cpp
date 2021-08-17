@@ -66,7 +66,7 @@ void DictionaryUpdateManager::checkIfUpdateFinished()
   {
     // Make sure to reset this variable to 0.
     _counter = 0;
-    emit updateFinished();
+    Q_EMIT updateFinished();
   }
 }
 
@@ -161,7 +161,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   // Let Kiten know we finished and don't need to download anything else.
   if( ! updates )
   {
-    emit updateFinished();
+    Q_EMIT updateFinished();
   }
 
   tempFile.deleteLater();

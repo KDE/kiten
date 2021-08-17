@@ -20,7 +20,7 @@ ResultsView::ResultsView( QWidget *parent, const char *name )
   Q_UNUSED( name );
   setOpenLinks( false );
   connect(this, &QTextBrowser::anchorClicked, this, [=](const QUrl &url){
-      emit urlClicked( url.toString() );
+      Q_EMIT urlClicked( url.toString() );
   });
 }
 

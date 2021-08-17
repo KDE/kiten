@@ -48,7 +48,7 @@ class Kiten : public KXmlGuiWindow
     KitenConfigSkeleton *getConfig();
 
   // The following will be available via dbus.
-  public slots:
+  public Q_SLOTS:
     void searchTextAndRaise( const QString &str );
     void addExportListEntry( int index );
 
@@ -57,7 +57,7 @@ class Kiten : public KXmlGuiWindow
     void setupExportListDock();
     bool queryClose() override; //overridden from KXmlGuiWindow (called@shutdown) override
 
-  private slots:
+  private Q_SLOTS:
     void finishInit();
     void focusResultsView();
 
@@ -98,7 +98,7 @@ class Kiten : public KXmlGuiWindow
   //	void createEEdit();
   //	void kanjiDictChange();
   //	void slotLearnConfigure();
-  //signals:
+  //Q_SIGNALS:
   //	void saveLists();
   //	void add( Entry* );
 

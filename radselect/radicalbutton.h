@@ -36,10 +36,10 @@ class RadicalButton : public QPushButton
       Hidden          /**< Not related (to above), so hide() */
     } ButtonStatus;
 
-  signals:
+  Q_SIGNALS:
     void userClicked( const QString &text, RadicalButton::ButtonStatus status );
 
-  public slots:
+  public Q_SLOTS:
     void mousePressEvent( QMouseEvent *e ) override;
     void mouseReleaseEvent( QMouseEvent *e ) override;
     void resetButton();

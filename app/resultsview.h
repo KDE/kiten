@@ -29,7 +29,7 @@ class ResultsView : public QTextBrowser
     void         addKanjiResult( Entry*, bool common = false );
     void         setLaterScrollValue( int scrollValue );
 
-  public slots:
+  public Q_SLOTS:
     void         append( const QString &text );
     void         clear();
     void         flush();
@@ -37,14 +37,14 @@ class ResultsView : public QTextBrowser
     void         setBasicMode( bool yes );
     void         setContents( const QString &text );
 
-  signals:
+  Q_SIGNALS:
     void         entrySpecifiedForExport( int index );
     void         urlClicked( const QString& );
 
   protected:
     QString      generateCSS();
 
-  private slots:
+  private Q_SLOTS:
     void doScroll();
 
   private:

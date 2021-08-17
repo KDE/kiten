@@ -70,7 +70,7 @@ ConfigureDialog::ConfigureDialog( QWidget *parent, KitenConfigSkeleton *config )
 
 void ConfigureDialog::updateConfiguration()
 {
-  emit settingsChanged( QString() );
+  Q_EMIT settingsChanged( QString() );
 }
 
 ConfigureDialog::~ConfigureDialog()
@@ -147,17 +147,17 @@ QWidget *ConfigureDialog::makeSortingPage( QWidget *parent, KitenConfigSkeleton 
 
 void ConfigureDialog::updateWidgets()
 {
-  emit updateWidgetsSignal();
+  Q_EMIT updateWidgetsSignal();
 }
 
 void ConfigureDialog::updateWidgetsDefault()
 {
-  emit updateWidgetsDefaultSignal();
+  Q_EMIT updateWidgetsDefaultSignal();
 }
 
 void ConfigureDialog::updateSettings()
 {
-  emit updateSettingsSignal();
+  Q_EMIT updateSettingsSignal();
 }
 
 bool ConfigureDialog::isDefault()

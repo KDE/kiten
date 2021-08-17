@@ -30,7 +30,7 @@ class DictFileFieldSelector : public DictionaryPreferenceDialog
                                    , QWidget *parent );
     virtual ~DictFileFieldSelector();
 
-  public slots:
+  public Q_SLOTS:
     void     setAvailable( const QStringList &list );
     void     addAvailable( const QStringList &list );
     void     setDefaultList( const QStringList &list );
@@ -42,7 +42,7 @@ class DictFileFieldSelector : public DictionaryPreferenceDialog
     void     updateSettings() override;
     void     settingChanged();
 
-  signals:
+  Q_SIGNALS:
     void     widgetChanged();
 
   private:
