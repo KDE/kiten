@@ -22,7 +22,7 @@ class KanjiBrowser : public KXmlGuiWindow
 
   public:
          KanjiBrowser();
-        ~KanjiBrowser();
+        ~KanjiBrowser() override;
 
   private Q_SLOTS:
     /**

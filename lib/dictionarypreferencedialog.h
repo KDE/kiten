@@ -42,7 +42,7 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget
     /**
      * Basic destructor
      */
-    virtual ~DictionaryPreferenceDialog();
+    ~DictionaryPreferenceDialog() override;
     /**
      * Get the dictionary type name associated with this dialog
      */

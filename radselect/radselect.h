@@ -29,7 +29,7 @@ class RadSelect : public KXmlGuiWindow
 
   public:
     RadSelect();
-    virtual ~RadSelect();
+    ~RadSelect() override;
 
    /**
     * This loads a string for a given query into the UI

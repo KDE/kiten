@@ -24,7 +24,7 @@ class /* NO_EXPORT */ KRomajiEdit : public KLineEdit
 
   public:
     KRomajiEdit( QWidget *parent);
-    ~KRomajiEdit();
+    ~KRomajiEdit() override;
 
   public Q_SLOTS:
     void setKana( QAction* );

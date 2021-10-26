@@ -26,7 +26,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
          * @param parent parent QWidget
          */
          explicit KanjiBrowserView( QWidget *parent );
-        ~KanjiBrowserView();
+        ~KanjiBrowserView() override;
 
     /**
      * Initial setup.

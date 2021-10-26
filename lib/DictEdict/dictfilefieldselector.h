@@ -28,7 +28,7 @@ class DictFileFieldSelector : public DictionaryPreferenceDialog
              explicit DictFileFieldSelector( KConfigSkeleton *config
                                    , const QString &dictionaryTypeName
                                    , QWidget *parent );
-    virtual ~DictFileFieldSelector();
+    ~DictFileFieldSelector() override;
 
   public Q_SLOTS:
     void     setAvailable( const QStringList &list );

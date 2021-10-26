@@ -37,7 +37,7 @@ class KITEN_EXPORT DictFileEdict : public DictFile
 
   public:
                                         DictFileEdict();
-    virtual                            ~DictFileEdict();
+    ~DictFileEdict() override;
 
     EntryList                  *doSearch( const DictQuery &query ) override;
     QStringList                 listDictDisplayOptions( QStringList x ) const override;

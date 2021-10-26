@@ -27,7 +27,7 @@ class RadSelectView : public QWidget, public Ui::radical_selector
 
   public:
     explicit RadSelectView( QWidget *parent );
-    virtual ~RadSelectView();
+    ~RadSelectView() override;
 
     //Load pre-determined search parameters
     void loadRadicals( const QString &radicals, int strokeMin, int strokeMax );
