@@ -20,7 +20,6 @@
 #include "historyptrlist.h"
 
 class QAction;
-class KGlobalAccel;
 class KListAction;
 class KProcess;
 class QStatusBar;
@@ -132,7 +131,6 @@ class Kiten : public KXmlGuiWindow
     QWidget                 *_exportListDockContents = nullptr;
     EntryListView           *_exportList = nullptr;
 
-    KGlobalAccel            *_accel = nullptr;
     ConfigureDialog         *_optionDialog = nullptr;
     KitenConfigSkeleton     *_config = nullptr;
 
