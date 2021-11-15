@@ -12,7 +12,6 @@
 #include <Kdelibs4ConfigMigrator>
 #include "kanjibrowser.h"
 
-static const char description[] = I18N_NOOP( "Kiten's Kanji Browser, a KDE Japanese Reference Tool" );
 static const char version[] = "1.0";
 
 int main( int argc, char **argv )
@@ -29,7 +28,7 @@ int main( int argc, char **argv )
   KAboutData about( QStringLiteral("kitenkanjibrowser")
                     , i18n( "kitenkanjibrowser" )
                     , version
-                    , i18n( description )
+                    , i18n( "Kiten's Kanji Browser, a KDE Japanese Reference Tool" )
                     , KAboutLicense::GPL_V2
                     , i18n( "(C) 2011 Daniel E. Moctezuma" )
                     , QString()

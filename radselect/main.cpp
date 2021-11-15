@@ -14,7 +14,6 @@
 
 #include "radselect.h"
 
-static const char description[] = I18N_NOOP( "A KDE Application" );
 static const char version[] = "0.1";
 
 int main( int argc, char **argv )
@@ -24,7 +23,7 @@ int main( int argc, char **argv )
   KLocalizedString::setApplicationDomain("kiten");
   
   KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), version,
-                    i18n(description), KAboutLicense::GPL,
+                    i18n("A KDE Application"), KAboutLicense::GPL,
                     i18n("(C) 2005 Joseph Kerian"), QString(), QString(), QStringLiteral("jkerian@gmail.com") );
   about.addAuthor( i18n("Joseph Kerian"), QString(), QStringLiteral("jkerian@gmail.com") );
   about.addCredit( i18n("Electronic Dictionary Research and Development Group"), i18n("This program uses the KANJIDIC and RADKFILE dictionary files. These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group's licence."), QString(), QStringLiteral("https://www.edrdg.org/") );
