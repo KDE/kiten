@@ -94,6 +94,7 @@
     <p xml:lang="pl">Kiten jest materiałem źródłowym i narzędziem do nauki japońskiego. Zapewnia słownik z angielskiego na japoński i na odwrót, a także słownik Kanji. W przypadku słownika Kanji istnieje wiele sposobów na wyszukiwanie znaków.</p>
     <p xml:lang="pt">O Kiten é uma ferramenta de estudo e de referência de Japonês. Oferece um dicionário de Inglês para Japonês e vice-versa, assim como um dicionário de Kanji. Para o dicionário de Kanji existem várias formas suportadas para pesquisar os caracteres.</p>
     <p xml:lang="pt-BR">Kiten é uma ferramenta de estudo e referência de japonês. Oferece um dicionário de inglês para japonês e vice-versa, assim como um dicionário de Kanji. Para o dicionário de Kanji existem várias formas suportadas para pesquisa de caracteres.</p>
+    <p xml:lang="ru">Kiten — это справочник и учебное пособие по изучению японского языка. Он содержит англо-японский и японско-английский словарь, а также словарь кандзи. Для словаря кандзи поддерживается несколько способов поиска символов.</p>
     <p xml:lang="sk">Kiten je príručka Japončiny a študijný nástroj. Obsahuje anglicko-japonský a japonsko-anglický slovník, ako aj kandži slovník. Pre kandži slovník je viacero možnosti na hľadanie znakov.</p>
     <p xml:lang="sl">Kiten je orodje za učenje japonščine. Vsebuje angleško-japonski in japonsko-angleški slovar kot tudi slovar Kandži. Za slovar Kandži obstajajo številni načini kako poiskati znake.</p>
     <p xml:lang="sv">Kiten är ett japanskt referens- och studieverktyg. Den innehåller både en engelsk-japansk och japansk-engelsk ordlista, samt ett Kanji-lexikon. Flera sätt att slå upp tecken stöds för Kanji-lexikonet.</p>
@@ -129,6 +130,7 @@
       <caption xml:lang="pl">Ćwiczenie japońskiego słownika z Kiten</caption>
       <caption xml:lang="pt">A praticar um dicionário de Japonês com o Kiten</caption>
       <caption xml:lang="pt-BR">Praticando o dicionário japonês com o Kiten</caption>
+      <caption xml:lang="ru">Изучение японских слов с Kiten</caption>
       <caption xml:lang="sk">Precvičovanie japonského slovníka s Kitenom</caption>
       <caption xml:lang="sl">Vadba japonskega slovarja s Kiten</caption>
       <caption xml:lang="sv">Japansk övningsordbok med Kiten</caption>
