@@ -2,7 +2,9 @@
 
 set(kanjibrowser_bin_SRCS
     kanjibrowser.cpp
+    kanjibrowser.h
     kanjibrowserview.cpp
+    kanjibrowserview.h
     main.cpp
    )
 

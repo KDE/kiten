@@ -4,16 +4,26 @@ ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KITEN VERSION_HEADE
 
 set(kiten_bin_SRCS
     configdictionaryselector.cpp
+    configdictionaryselector.h
     configsortingpage.cpp
+    configsortingpage.h
     configuredialog.cpp
+    configuredialog.h
+    dictionaryupdatemanager.cpp
+    dictionaryupdatemanager.h
     entrylistmodel.cpp
+    entrylistmodel.h
     entrylistview.cpp
+    entrylistview.h
     kiten.cpp
+    kiten.h
     main.cpp
     resultsview.cpp
+    resultsview.h
     searchstringinput.cpp
-    dictionaryupdatemanager.cpp
+    searchstringinput.h
     wordtype.cpp
+    wordtype.h
    )
 ki18n_wrap_ui(kiten_bin_SRCS
         configdictselect.ui
