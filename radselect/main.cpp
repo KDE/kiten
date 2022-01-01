@@ -22,7 +22,7 @@ int main( int argc, char **argv )
   app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kiten"), app.windowIcon()));
   KLocalizedString::setApplicationDomain("kiten");
   
-  KAboutData about( QStringLiteral("kitenradselect"), i18n("kitenradselect"), version,
+  KAboutData about( QStringLiteral("kitenradselect"), i18n("Radical Selector"), version,
                     i18n("A KDE Application"), KAboutLicense::GPL,
                     i18n("(C) 2005 Joseph Kerian"), QString(), QString(), QStringLiteral("jkerian@gmail.com") );
   about.addAuthor( i18n("Joseph Kerian"), QString(), QStringLiteral("jkerian@gmail.com") );

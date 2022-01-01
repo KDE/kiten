@@ -26,7 +26,7 @@ int main( int argc, char **argv )
   KLocalizedString::setApplicationDomain("kiten");
 
   KAboutData about( QStringLiteral("kitenkanjibrowser")
-                    , i18n( "kitenkanjibrowser" )
+                    , i18n( "Kanji Browser" )
                     , version
                     , i18n( "Kiten's Kanji Browser, a KDE Japanese Reference Tool" )
                     , KAboutLicense::GPL_V2
