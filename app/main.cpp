@@ -54,6 +54,10 @@ int main( int argc, char *argv[] )
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
   app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
+#ifdef Q_OS_WIN
+  QApplication::setStyle(QStringLiteral("breeze"));
+#endif
+
   KCrash::initialize();
 
   QCommandLineParser parser;

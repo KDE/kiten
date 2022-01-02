@@ -37,6 +37,10 @@ int main( int argc, char **argv )
   parser.process(app);
   about.processCommandLine(&parser);
 
+#ifdef Q_OS_WIN
+  QApplication::setStyle(QStringLiteral("breeze"));
+#endif
+
   // see if we are starting with session management
   if ( app.isSessionRestored() )
   {

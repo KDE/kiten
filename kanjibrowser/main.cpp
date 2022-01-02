@@ -40,6 +40,10 @@ int main( int argc, char **argv )
   about.setOrganizationDomain( "kde.org" );
 
   KAboutData::setApplicationData(about);
+
+#ifdef Q_OS_WIN
+  QApplication::setStyle(QStringLiteral("breeze"));
+#endif
   
   if( app.isSessionRestored() )
   {
