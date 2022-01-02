@@ -28,11 +28,11 @@
 #include <QStandardPaths>
 
 // URL to the information file.
-#define INFO_URL     "http://ftp.monash.edu.au/pub/nihongo/edicthdr.txt"
+#define INFO_URL     "http://ftp.edrdg.org/pub/Nihongo/edicthdr.txt"
 // URL to the EDICT dictionary.
-#define EDICT_URL    "http://ftp.monash.edu.au/pub/nihongo/edict.gz"
+#define EDICT_URL    "http://ftp.edrdg.org/pub/Nihongo/edict.gz"
 // URL to the KANJIDIC dictionary.
-#define KANJIDIC_URL "http://ftp.monash.edu.au/pub/nihongo/kanjidic.gz"
+#define KANJIDIC_URL "http://ftp.edrdg.org/pub/Nihongo/kanjidic.gz"
 
 DictionaryUpdateManager::DictionaryUpdateManager( Kiten *parent )
 : QObject( parent )
