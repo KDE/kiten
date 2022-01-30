@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kiten</name>
+  <name xml:lang="ar">كيتن</name>
   <name xml:lang="bs">Kiten</name>
   <name xml:lang="ca">Kiten</name>
   <name xml:lang="ca-valencia">Kiten</name>
@@ -38,6 +39,7 @@
   <name xml:lang="zh-CN">Kiten</name>
   <name xml:lang="zh-TW">語言_Kiten</name>
   <summary>Japanese Reference and Study Tool</summary>
+  <summary xml:lang="ar">مرجع ياباني وأداة دراسة</summary>
   <summary xml:lang="bs">Alat za učenje japanskog</summary>
   <summary xml:lang="ca">Eina de referència i estudi del japonès</summary>
   <summary xml:lang="ca-valencia">Eina de referència i estudi del japonés</summary>
@@ -73,6 +75,7 @@
   <summary xml:lang="zh-TW">日語參考/學習工具</summary>
   <description>
     <p>Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
+    <p xml:lang="ar">كيتن هي أداة مرجعية ودراسة يابانية. يحتوي على قاموس من الإنجليزية إلى اليابانية ومن اليابانية إلى الإنجليزية، بالإضافة إلى قاموس كانجي. بالنسبة لقاموس كانجي هناك طرق متعددة مدعومة للبحث عن الأحرف.</p>
     <p xml:lang="bs">Kiten je japanski referenca i studijski alat. Posjeduje rječnik engleskog na japanski i japanski na engleski rečnik, kao i Kanji rječnik. Za Kanji rječniku postoji više načina podržanih za pregled znakova.</p>
     <p xml:lang="ca">El Kiten és una eina de referència i estudi del japonès. Inclou un diccionari de l'anglès al japonès i del japonès a l'anglès, i també un diccionari de Kanji. Per al diccionari de Kanji, s'admeten múltiples maneres de cercar els caràcters.</p>
     <p xml:lang="ca-valencia">El Kiten és una eina de referència i estudi del japonés. Inclou un diccionari de l'anglés al japonés i del japonés a l'anglés, i també un diccionari de Kanji. Per al diccionari de Kanji, s'admeten múltiples maneres de cercar els caràcters.</p>
@@ -110,6 +113,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Practicing Japanese dictionary with Kiten</caption>
+      <caption xml:lang="ar">ممارسة القاموس الياباني مع كيتن</caption>
       <caption xml:lang="ca">Practicant el diccionari de japonès amb el Kiten</caption>
       <caption xml:lang="ca-valencia">Practicant el diccionari de japonés amb el Kiten</caption>
       <caption xml:lang="da">At øve den japanske ordbog med Kiten</caption>
