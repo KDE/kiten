@@ -1,6 +1,7 @@
 [Desktop Entry]
 GenericName=Japanese Reference/Study Tool
 GenericName[af]=Japanese Verwysings/Leerder
+GenericName[ar]=مرجع ياباني/أداة دراسة
 GenericName[be]=Праграма для паўтарэння/вывучэння японскай мовы
 GenericName[bg]=Самоучител по японски
 GenericName[bn]=জাপানি তথ্যসূত্র/শিক্ষা সহায়িকা
@@ -66,6 +67,7 @@ GenericName[x-test]=xxJapanese Reference/Study Toolxx
 GenericName[zh_CN]=日语参考/学习工具
 GenericName[zh_TW]=日語參考/學習工具
 Comment=Japanese Reference and Study Tool
+Comment[ar]=المرجع الياباني وأداة الدراسة
 Comment[bg]=Самоучител по японски
 Comment[bs]=japanski alat za reference i studiranje
 Comment[ca]=Eina de referència i estudi del japonès
@@ -124,6 +126,7 @@ X-DBUS-StartupType=Unique
 Exec=kiten -qwindowtitle %c -qwindowicon kiten
 Name=Kiten
 Name[af]=Katjie
+Name[ar]=كيتن
 Name[be]=Kiten
 Name[bg]=Kiten
 Name[bn]=কিটেন
