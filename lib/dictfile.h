@@ -11,7 +11,7 @@
 #include "kiten_export.h"
 
 #include <QMap>
-#include <QString>
+#include <QStringList>
 
 class DictQuery;
 class DictionaryPreferenceDialog;
@@ -19,7 +19,6 @@ class Entry;
 class EntryList;
 class KConfig;
 class KConfigSkeleton;
-class QStringList;
 class QWidget;
 
 /**

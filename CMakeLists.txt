@@ -10,12 +10,23 @@ set(RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_
 project(kiten VERSION ${RELEASE_SERVICE_VERSION})
 
 #ECM setup
-set(KF5_MIN_VERSION "5.83.0")
+set(KF5_MIN_VERSION "5.90.0")
+set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 set(QT_REQUIRED_VERSION "5.15.0")
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+include(KDEInstallDirs)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+include(KDECMakeSettings)
+include(ECMInstallIcons)
+include(CheckIncludeFiles)
+include(ECMGenerateHeaders)
+include(ECMAddAppIcon)
+include(ECMMarkNonGuiExecutable)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
 
-find_package(Qt5 ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Completion
@@ -28,16 +39,9 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     KIO
     Notifications
     XmlGui)
-include(KDEInstallDirs)
-include(KDECompilerSettings NO_POLICY_SCOPE)
-include(KDECMakeSettings)
-include(ECMInstallIcons)
-include(CheckIncludeFiles)
-include(ECMGenerateHeaders)
-include(ECMAddAppIcon)
-include(ECMMarkNonGuiExecutable)
-include(GenerateExportHeader)
-include(ECMSetupVersion)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    find_package(Qt6Core5Compat)
+endif()
 
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
@@ -80,7 +84,7 @@ add_subdirectory( radselect )
 set(kitengen_SRCS xjdxgen.c)
 add_executable(kitengen ${kitengen_SRCS})
 ecm_mark_nongui_executable(kitengen)
-target_link_libraries(kitengen ${QT_QTCORE_LIBRARY})
+target_link_libraries(kitengen Qt::Core)
 install( TARGETS kitengen ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 install(FILES org.kde.kiten.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 ki18n_install(po)

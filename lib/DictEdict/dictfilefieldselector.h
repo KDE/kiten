@@ -13,11 +13,9 @@
 #include "dictionarypreferencedialog.h"
 
 #include <QWidget>
-
+#include <QStringList>
 class KActionSelector;
 class KConfigSkeleton;
-class QString;
-class QStringList;
 
 //This is the default one used by edict and kanjidic
 class DictFileFieldSelector : public DictionaryPreferenceDialog

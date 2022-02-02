@@ -19,7 +19,7 @@
 #include "linearedictfile.h"
 
 #include <QMap>
-
+#include <QStringList>
 #include <sys/types.h>
 
 class Deinflection;
@@ -28,8 +28,6 @@ class DictionaryPreferenceDialog;
 class EntryEdict;
 class KConfigSkeleton;
 class KConfigSkeletonItem;
-class QString;
-class QStringList;
 
 class KITEN_EXPORT DictFileEdict : public DictFile
 {

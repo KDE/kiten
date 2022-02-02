@@ -15,7 +15,7 @@ add_executable(kanjibrowser_bin ${kanjibrowser_bin_SRCS})
 set_target_properties(kanjibrowser_bin PROPERTIES OUTPUT_NAME kitenkanjibrowser)
 target_link_libraries(kanjibrowser_bin  
     kiten
-    Qt5::Widgets
+    Qt::Widgets
     KF5::Completion
     KF5::I18n
     KF5::XmlGui)

@@ -17,8 +17,8 @@ add_executable(radselect_bin ${radselect_bin_SRCS})
 set_target_properties(radselect_bin PROPERTIES OUTPUT_NAME kitenradselect)
 target_link_libraries(radselect_bin 
     kiten 
-    Qt5::Core 
-    Qt5::Widgets
+    Qt::Core
+    Qt::Widgets
     KF5::ConfigWidgets 
     KF5::CoreAddons 
     KF5::I18n 

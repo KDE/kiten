@@ -27,14 +27,17 @@ add_library(kiten SHARED ${kiten_LIB_SRCS})
 generate_export_header(kiten)
 
 target_link_libraries(kiten
-		Qt5::Core
-		Qt5::Widgets
+                Qt::Core
+                Qt::Widgets
 		KF5::Completion
 		KF5::ConfigCore
 		KF5::ConfigGui
 		KF5::CoreAddons
 		KF5::I18n
 		KF5::WidgetsAddons)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    target_link_libraries(kiten Qt6::Core5Compat)
+endif()
 
 if(WIN32)
 	target_include_directories(kiten PRIVATE ${MMAN_INCLUDE_PATH})

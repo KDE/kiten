@@ -18,6 +18,7 @@
 #include <QMenu>
 #include <QStandardPaths>
 #include <QTextCodec>
+#include <QActionGroup>
 #include <QTextStream>
 
 KRomajiEdit::KRomajiEdit( QWidget *parent)

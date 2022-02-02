@@ -13,6 +13,7 @@
 
 #include <QMap>
 #include <QPair>
+#include <QStringList>
 
 class DictFile;
 class DictQuery;
@@ -20,8 +21,6 @@ class DictionaryPreferenceDialog;
 class EntryList;
 class KConfig;
 class KConfigSkeleton;
-class QString;
-class QStringList;
 class QWidget;
 
 /**
