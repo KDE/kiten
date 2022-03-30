@@ -78,7 +78,7 @@
     <p xml:lang="ar">كيتن هي أداة مرجعية ودراسة يابانية. يحتوي على قاموس من الإنجليزية إلى اليابانية ومن اليابانية إلى الإنجليزية، بالإضافة إلى قاموس كانجي. بالنسبة لقاموس كانجي هناك طرق متعددة مدعومة للبحث عن الأحرف.</p>
     <p xml:lang="bs">Kiten je japanski referenca i studijski alat. Posjeduje rječnik engleskog na japanski i japanski na engleski rečnik, kao i Kanji rječnik. Za Kanji rječniku postoji više načina podržanih za pregled znakova.</p>
     <p xml:lang="ca">El Kiten és una eina de referència i estudi del japonès. Inclou un diccionari de l'anglès al japonès i del japonès a l'anglès, i també un diccionari de Kanji. Per al diccionari de Kanji, s'admeten múltiples maneres de cercar els caràcters.</p>
-    <p xml:lang="ca-valencia">El Kiten és una eina de referència i estudi del japonés. Inclou un diccionari de l'anglés al japonés i del japonés a l'anglés, i també un diccionari de Kanji. Per al diccionari de Kanji, s'admeten múltiples maneres de buscar els caràcters.</p>
+    <p xml:lang="ca-valencia">Kiten és una eina de referència i estudi del japonés. Inclou un diccionari de l'anglés al japonés i del japonés a l'anglés, i també un diccionari de Kanji. Per al diccionari de Kanji, s'admeten múltiples maneres de buscar els caràcters.</p>
     <p xml:lang="da">Kiten er et japansk henvisnings- og studieværktøj. Det indeholder en engelsk-japansk og japansk-engelsk ordbog, samt en Kanji-ordbog. For Kanji-ordbogen er der flere forskellige måder at slå tegn op på.</p>
     <p xml:lang="de">Kiten ist ein japanisches Referenz- und Studienprogramm. Es enthält ein Wörterbuch Englisch - Japanisch und Japanisch - Englisch und auch ein Kanji-Wörterbuch. Im Kanji-Wörterbuch gibt es mehrere Möglichkeiten, einzelne Buchstaben nachzuschlagen.</p>
     <p xml:lang="el">Το Kiten είναι ένα εργαλείο αναφοράς και μελέτης της Ιαπωνικής γλώσσας. Περιλαμβάνει ένα λεξικό από Αγγλικά στα Ιαπωνικό και από τα Ιαπωνικά στα Αγγλικά, καθώς και ένα λεξικό Kanji για το οποίο υποστηρίζονται πολλοί τρόποι ανεύρεσης χαρακτήρων.</p>
@@ -116,7 +116,7 @@
       <caption>Practicing Japanese dictionary with Kiten</caption>
       <caption xml:lang="ar">ممارسة القاموس الياباني مع كيتن</caption>
       <caption xml:lang="ca">Practicant el diccionari de japonès amb el Kiten</caption>
-      <caption xml:lang="ca-valencia">Practicant el diccionari de japonés amb el Kiten</caption>
+      <caption xml:lang="ca-valencia">Practicant el diccionari de japonés amb Kiten</caption>
       <caption xml:lang="da">At øve den japanske ordbog med Kiten</caption>
       <caption xml:lang="de">Japanisch-Wörterbuch mit Kiten</caption>
       <caption xml:lang="el">Εξάσκηση στο Ιαπωνικό λεξικό με το Kiten</caption>
