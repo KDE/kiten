@@ -21,6 +21,9 @@ int main( int argc, char **argv )
   migrate.setUiFiles(QStringList() << QStringLiteral("kanjibrowserui.rc"));
   migrate.migrate();
 
+  QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
   QApplication app(argc, argv);
   app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kiten"), app.windowIcon()));
   KLocalizedString::setApplicationDomain("kiten");
