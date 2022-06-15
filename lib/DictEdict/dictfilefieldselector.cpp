@@ -13,7 +13,6 @@
 
 #include <QListWidget>
 #include <QString>
-#include <QStringList>
 #include <QVBoxLayout>
 
 DictFileFieldSelector::DictFileFieldSelector( KConfigSkeleton *config,
