@@ -33,6 +33,9 @@ int main( int argc, char *argv[] )
   migrate.migrate();
 
   KLocalizedString::setApplicationDomain("kiten");
+  QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
   QApplication app(argc, argv);
 
   KAboutData aboutData( QStringLiteral("kiten"), i18n("Kiten"), QStringLiteral(KITEN_VERSION_STRING), i18n("Japanese Reference Tool"),
@@ -52,7 +55,6 @@ int main( int argc, char *argv[] )
   aboutData.addAuthor( i18n("Daniel E. Moctezuma"), i18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"), QStringLiteral("democtezuma@gmail.com") );
 
   aboutData.setOrganizationDomain( "kde.org" ); //Set this for the DBUS ID
-  app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
 #ifdef Q_OS_WIN
   QApplication::setStyle(QStringLiteral("breeze"));
