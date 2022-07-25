@@ -77,7 +77,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   // Check if we have valid data to work with.
   if( data.isNull() || data.isEmpty() )
   {
-    KMessageBox::sorry( nullptr, i18n( "Update canceled.\nCould not read file." ) );
+    KMessageBox::error( nullptr, i18n( "Update canceled.\nCould not read file." ) );
     job->deleteLater();
     return;
   }
@@ -87,7 +87,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
   QTemporaryFile tempFile;
   if( ! tempFile.open() )
   {
-    KMessageBox::sorry( nullptr, i18n( "Update canceled.\nCould not open file." ) );
+    KMessageBox::error( nullptr, i18n( "Update canceled.\nCould not open file." ) );
     qDebug() << "Could not open tempFile.";
     tempFile.deleteLater();
     job->deleteLater();
@@ -104,7 +104,7 @@ void DictionaryUpdateManager::checkInfoFile( KJob *job )
     // Maybe the format/content of (one or both) the files changed?
     // or maybe one or both of the files could not be opened in the
     // getFileDate function that would return an invalid empty date.
-    KMessageBox::sorry( nullptr, i18n( "Update canceled.\nThe update information file has an invalid date." ) );
+    KMessageBox::error( nullptr, i18n( "Update canceled.\nThe update information file has an invalid date." ) );
     tempFile.deleteLater();
     job->deleteLater();
     return;
@@ -318,7 +318,7 @@ void DictionaryUpdateManager::showUpdateResults()
   }
   else if( _succeeded.isEmpty() && ! _failed.isEmpty() )
   {
-    KMessageBox::sorry( nullptr, i18n( "Failed to update:\n%1"
+    KMessageBox::error( nullptr, i18n( "Failed to update:\n%1"
                                 , _failed.join( "\n" ) ) );
   }
 
