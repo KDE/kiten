@@ -192,7 +192,6 @@ Name[xh]=Kiten
 Name[x-test]=xxKitenxx
 Name[zh_CN]=Kiten
 Name[zh_TW]=語言_Kiten
-Terminal=false
 Type=Application
 Icon=kiten
 Categories=Qt;KDE;Education;Languages;

@@ -42,7 +42,6 @@ Name[x-test]=xxRadical Selectorxx
 Name[zh_CN]=字根选择器
 Name[zh_TW]=字根選擇器
 X-DocPath=kiten/radical-search.html
-Terminal=false
 Type=Application
 Icon=kiten
 NoDisplay=true
