@@ -88,17 +88,9 @@ bool RadicalFile::loadRadicalFile( QString &radkfile )
     else if( newestRadical != nullptr )
     {
       // List of m_kanji, potentially
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-      const QList<QString> m_kanjiList = line.trimmed().split( QLatin1String(""), QString::SkipEmptyParts );
-#else
       const QList<QString> m_kanjiList = line.trimmed().split( QLatin1String(""), Qt::SkipEmptyParts );
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-      newestRadical->addKanji( m_kanjiList.toSet() );
-#else
       const QSet<QString> kanjiSet = QSet<QString>(m_kanjiList.begin(), m_kanjiList.end());
       newestRadical->addKanji( kanjiSet );
-#endif
       foreach( const QString &kanji, m_kanjiList )
       {
         krad[ kanji ] += newestRadical->toString();
@@ -135,11 +127,7 @@ bool RadicalFile::loadKanjidic( const QString &kanjidic )
   {
     const QString kanji = line[ 0 ];
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    QStringList strokesSection = line.split( " ", QString::SkipEmptyParts )
-#else
     QStringList strokesSection = line.split( " ", Qt::SkipEmptyParts )
-#endif
                                      .filter( strokeMatch );
 
     unsigned int strokes = strokesSection.first().remove( 0, 1 ).toInt();

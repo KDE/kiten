@@ -11,7 +11,6 @@
 
 #include "kiten.h"
 
-#include <kxmlgui_version.h>
 #include <KActionCollection>
 #include <KConfig>
 #include <KConfigGui>
@@ -143,13 +142,7 @@ void Kiten::setupActions()
   //	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
   (void) KStandardAction::preferences( this, SLOT(slotConfigure()), actionCollection() );
   //old style cast seems needed here, (const QObject*)
-#if KXMLGUI_VERSION >= QT_VERSION_CHECK(5, 84, 0)
   KStandardAction::keyBindings(guiFactory(), &KXMLGUIFactory::showConfigureShortcutsDialog, actionCollection());
-#else
-  KStandardAction::keyBindings(   (const QObject*)guiFactory()
-                                , SLOT(configureShortcuts())
-                                , actionCollection() );
-#endif
 
   /* Setup the Go-to-learn-mode actions */
   /* TODO: put back when Dictionary Editor is reorganised */
@@ -595,13 +588,7 @@ void Kiten::newToolBarConfig()
 /** Opens the dialog for configuring the global accelerator keys. */
 void Kiten::configureGlobalKeys()
 {
-#if KXMLGUI_VERSION >= QT_VERSION_CHECK(5, 84, 0)
   KShortcutsDialog::showDialog(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this);
-#else
-  KShortcutsDialog::configure(  actionCollection()
-                              , KShortcutsEditor::LetterShortcutsAllowed
-                              , this );
-#endif
 }
 
 /**

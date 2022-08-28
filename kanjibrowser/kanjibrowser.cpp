@@ -89,17 +89,9 @@ void KanjiBrowser::loadKanji()
     // manage that information in KanjiBrowserView.
     int grade   = 0;
     int strokes = 0;
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    QStringList gradeSection = line.split( ' ', QString::SkipEmptyParts )
-#else
     QStringList gradeSection = line.split( ' ', Qt::SkipEmptyParts )
-#endif
                                    .filter( gradeMatch );
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    QStringList strokesSection = line.split( ' ', QString::SkipEmptyParts )
-#else
     QStringList strokesSection = line.split( ' ', Qt::SkipEmptyParts )
-#endif
                                      .filter( strokeMatch );
 
     // There are some kanji without grade (example: those not in Jouyou list).
