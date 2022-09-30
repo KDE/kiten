@@ -14,7 +14,6 @@
 
 #include "kiten_export.h"
 
-#include <QHash>
 #include <QList>
 #include <QSet>
 

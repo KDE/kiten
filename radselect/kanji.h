@@ -8,7 +8,6 @@
 #ifndef KANJI_H
 #define KANJI_H
 
-#include <QList>
 #include <QSet>
 #include <QString>
 
