@@ -1,0 +1,1161 @@
+# Translation of kiten.po to Ukrainian
+# Copyright (C) 2007-2021 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2007, 2008, 2009, 2010, 2011, 2012, 2019, 2020, 2021, 2022.
+# Ivan Petrouchtchak <fr.ivan@ukrainian-orthodox.org>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: kiten\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-29 00:41+0000\n"
+"PO-Revision-Date: 2022-01-03 08:46+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.12.0\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "о. Іван Петрущак, Юрій Чорноіван"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "fr.ivan@ukrainian-orthodox.org,yurchor@ukr.net"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
+#: app/configdictselect.ui:14
+#, kde-format
+msgid "Dictionary Selector"
+msgstr "Вибір словника"
+
+#. i18n: ectx: property (text), widget (QCheckBox, __useGlobal)
+#: app/configdictselect.ui:25
+#, kde-format
+msgid "Use prei&nstalled dict"
+msgstr "Використовувати вже вста&новлений dict"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, fileList)
+#: app/configdictselect.ui:56
+#, kde-format
+msgid "Name"
+msgstr "Назва"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, fileList)
+#: app/configdictselect.ui:67
+#, kde-format
+msgid "File"
+msgstr "Файл"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: app/configdictselect.ui:86
+#, kde-format
+msgid "&Add..."
+msgstr "&Додати..."
+
+#. i18n: ectx: property (text), widget (QPushButton, delButton)
+#: app/configdictselect.ui:93
+#, kde-format
+msgid "Delete"
+msgstr "Вилучити"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigFont)
+#: app/configfont.ui:13
+#, kde-format
+msgid "Fonts"
+msgstr "Шрифти"
+
+#. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
+#: app/configfont.ui:21
+#, kde-format
+msgid "Main Font"
+msgstr "Основний шрифт"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
+#: app/configfont.ui:28
+#, kde-format
+msgid "漢字 かな romaji"
+msgstr "漢字 かな ромадзі"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
+#: app/configlearn.ui:13 app/configuredialog.cpp:51
+#, kde-format
+msgid "Learn"
+msgstr "Навчання"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: app/configlearn.ui:19
+#, kde-format
+msgid ""
+"Learn mode is disabled in this version of kiten. There are several excellent "
+"open source flashcard programs available, such as <a href=\"https://apps.kde."
+"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
+"project</a>."
+msgstr ""
+"У цій версії kiten вимкнено режим навчання. Для цього у вас є чудові "
+"відкриті програми для навчання за картками, такі як <a href=\"https://apps."
+"kde.org/parley\">Parley</a> і <a href=\"https://apps.ankiweb.net\">проєкт "
+"Anki</a>."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
+#: app/configsearching.ui:13 app/configuredialog.cpp:47
+#, kde-format
+msgid "Searching"
+msgstr "Пошук"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
+#: app/configsearching.ui:33
+#, kde-format
+msgid "Search for \"jiten\" on startup"
+msgstr "Шукати слово«jiten» відразу після запуску"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, configSorting)
+#: app/configsorting.ui:15
+#, kde-format
+msgid "sorting"
+msgstr "сортування"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_dictionary_enable)
+#: app/configsorting.ui:21
+#, kde-format
+msgid "Sort Se&arch Results By Dictionary"
+msgstr "Сортувати результати пош&уку за словником"
+
+#. i18n: ectx: property (availableLabel), widget (KActionSelector, dictionary_order)
+#: app/configsorting.ui:28
+#, kde-format
+msgid "Dicti&onaries Available:"
+msgstr "Доступні сл&овники:"
+
+#. i18n: ectx: property (selectedLabel), widget (KActionSelector, dictionary_order)
+#: app/configsorting.ui:31
+#, kde-format
+msgid "Displa&y First:"
+msgstr "Першими пока&зувати:"
+
+#. i18n: ectx: property (availableLabel), widget (KActionSelector, field_order)
+#: app/configsorting.ui:48
+#, kde-format
+msgid "Fields to Sort &By:"
+msgstr "Поля, які слід сортувати з&а:"
+
+#: app/configuredialog.cpp:40
+#, kde-format
+msgid "Dictionaries"
+msgstr "Словники"
+
+#: app/configuredialog.cpp:56
+#, kde-format
+msgid "Font"
+msgstr "Шрифт"
+
+#: app/configuredialog.cpp:59
+#, kde-format
+msgctxt "@title:group the settings for the dictionary display"
+msgid "Display"
+msgstr "Показ"
+
+#: app/configuredialog.cpp:62
+#, kde-format
+msgid "Results Sorting"
+msgstr "Сортування результатів"
+
+#: app/dictionaryupdatemanager.cpp:46
+#, kde-format
+msgid "Check for dictionary &updates"
+msgstr "Виконати пошук &оновлень словників"
+
+#: app/dictionaryupdatemanager.cpp:80
+#, kde-format
+msgid ""
+"Update canceled.\n"
+"Could not read file."
+msgstr ""
+"Оновлення скасовано.\n"
+"Не вдалося прочитати файл."
+
+#: app/dictionaryupdatemanager.cpp:90
+#, kde-format
+msgid ""
+"Update canceled.\n"
+"Could not open file."
+msgstr ""
+"Оновлення скасовано.\n"
+"Не вдалося відкрити файл."
+
+#: app/dictionaryupdatemanager.cpp:107
+#, kde-format
+msgid ""
+"Update canceled.\n"
+"The update information file has an invalid date."
+msgstr ""
+"Оновлення скасовано.\n"
+"Вказано некоректну дату для файла даних щодо оновлення."
+
+#: app/dictionaryupdatemanager.cpp:307
+#, kde-format
+msgid "You already have the latest updates."
+msgstr "Всі оновлення вже встановлено."
+
+#: app/dictionaryupdatemanager.cpp:311
+#, kde-format
+msgid "Successfully updated your dictionaries."
+msgstr "Ваші словники успішно оновлено."
+
+#: app/dictionaryupdatemanager.cpp:315
+#, kde-format
+msgid ""
+"Successfully updated:\n"
+"%1\n"
+"\n"
+"Failed to update:\n"
+"%2"
+msgstr ""
+"Успішно оновлено:\n"
+"%1\n"
+"\n"
+"Не вдалося оновити:\n"
+"%2"
+
+#: app/dictionaryupdatemanager.cpp:321
+#, kde-format
+msgid ""
+"Failed to update:\n"
+"%1"
+msgstr ""
+"Не вдалося оновити:\n"
+"%1"
+
+#: app/kiten.cpp:157 radselect/main.cpp:28
+#, kde-format
+msgid "Radical Selector"
+msgstr "Вибір радикалів"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
+#: app/kiten.cpp:163 kanjibrowser/kanjibrowserview.ui:26
+#: kanjibrowser/main.cpp:32
+#, kde-format
+msgid "Kanji Browser"
+msgstr "Переглядач кандзі"
+
+#. i18n: ectx: Menu (search)
+#: app/kiten.cpp:171 app/kitenui.rc:15
+#, kde-format
+msgid "S&earch"
+msgstr "&Пошук"
+
+#: app/kiten.cpp:189
+#, kde-format
+msgid "&Automatically Search Clipboard Selections"
+msgstr "&Автоматично шукати те, що потрапляє до кишені"
+
+#: app/kiten.cpp:192
+#, kde-format
+msgid "Search &in Results"
+msgstr "Шукати &у результатах"
+
+#: app/kiten.cpp:201
+#, kde-format
+msgid "Focus result view"
+msgstr "Фокусувати перегляд результатів"
+
+#: app/kiten.cpp:231
+#, kde-format
+msgid "Export List"
+msgstr "Експортувати список"
+
+#: app/kiten.cpp:262
+#, kde-format
+msgid "Initializing Dictionaries"
+msgstr "Ініціалізація словників"
+
+#: app/kiten.cpp:277
+#, kde-format
+msgid "Welcome to Kiten"
+msgstr "Ласкаво просимо до Kiten"
+
+#: app/kiten.cpp:379 app/kiten.cpp:443
+#, kde-format
+msgid "Searching..."
+msgstr "Пошук..."
+
+#: app/kiten.cpp:464
+#, kde-format
+msgid "Found 1 result"
+msgid_plural "Found %1 results"
+msgstr[0] "Знайдено %1 результат"
+msgstr[1] "Знайдено %1 результати"
+msgstr[2] "Знайдено %1 результатів"
+msgstr[3] "Знайдено %1 результат"
+
+#: app/kiten.cpp:468
+#, kde-format
+msgid "No results found"
+msgstr "Нічого не знайдено"
+
+#. i18n: ectx: label, entry (dictionary_list), group (dict_config_types)
+#: app/kiten.kcfg:10
+#, kde-format
+msgid "List of dictionary Types, used internally, do not touch"
+msgstr "Список типів словників; використовується у програмі, не чіпайте"
+
+#. i18n: ectx: label, entry (edict__NAMES), group (dicts_edict)
+#: app/kiten.kcfg:25
+#, kde-format
+msgid "Edict dictionary files"
+msgstr "Файли словників Edict"
+
+#. i18n: ectx: label, entry (edict__useGlobal), group (dicts_edict)
+#: app/kiten.kcfg:28
+#, kde-format
+msgid "Use preinstalled edict"
+msgstr "Використовувати вже встановлений edict"
+
+#. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
+#. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
+#: app/kiten.kcfg:32 app/kiten.kcfg:46
+#, kde-format
+msgid "Set of fields to display for this dictionary type"
+msgstr "Набір полів, які слід показувати для цього типу словника"
+
+#. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
+#: app/kiten.kcfg:39
+#, kde-format
+msgid "Kanjidic dictionary files"
+msgstr "Файли словників Kanjidic"
+
+#. i18n: ectx: label, entry (kanjidic__useGlobal), group (dicts_kanjidic)
+#: app/kiten.kcfg:42
+#, kde-format
+msgid "Use preinstalled kanjidic"
+msgstr "Використовувати вже встановлений kanjidic"
+
+#. i18n: ectx: label, entry, group (Searching Options)
+#: app/kiten.kcfg:53
+#, kde-format
+msgid "Do we search for \"jiten\" on startup"
+msgstr "Чи шукати слово «jiten» одразу після запуску"
+
+#. i18n: ectx: label, entry, group (Searching Options)
+#: app/kiten.kcfg:57
+#, kde-format
+msgid "Case sensitive searches"
+msgstr "Пошук з врахуванням регістру"
+
+#. i18n: ectx: label, entry, group (Sorting)
+#: app/kiten.kcfg:63
+#, kde-format
+msgid "Enable Sorting By Dictionary"
+msgstr "Увімкнути впорядкування за словником"
+
+#. i18n: ectx: label, entry, group (Sorting)
+#: app/kiten.kcfg:67
+#, kde-format
+msgid "What order do we sort the dictionaries in?"
+msgstr "У якому порядку слід сортувати словники?"
+
+#. i18n: ectx: label, entry, group (Sorting)
+#: app/kiten.kcfg:71
+#, kde-format
+msgid "What order do we sort the fields in?"
+msgstr "У якому порядку сортувати поля?"
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:91
+#, kde-format
+msgid ""
+"0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
+"common and uncommon entries"
+msgstr ""
+"0=Без фільтрування, 1=Обмежити результати пошуку лише типовими записами, "
+"2=Відокремити типові і нетипові записи"
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:95
+#, kde-format
+msgid ""
+"The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
+"Anywhere"
+msgstr ""
+"Останній тип пошуку користувачем, 0=Точний, 1=Однаковий початок, 2=Однакове "
+"закінчення, 4=Однакова будь-яка частина"
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:99
+#, kde-format
+msgid ""
+"The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
+"4=Adverb, 5=Prefix, 6=Suffix, 7=Expression"
+msgstr ""
+"Останній тип пошуку користувачем, 0=Будь-яка, 1=Дієслово, 2=Іменник, "
+"3=Прикметник, 4=Прислівник, 5=Префікс, 6=Суфікс, 7=Вираз"
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:103
+#, kde-format
+msgid "Automatically search for clipboard entries?"
+msgstr "Автоматично шукати те, що потрапляє до буфера?"
+
+#. i18n: ectx: Menu (file)
+#: app/kitenui.rc:6 kanjibrowser/kanjibrowserui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "&Файл"
+
+#. i18n: ectx: ToolBar (mainToolbar)
+#: app/kitenui.rc:34 kanjibrowser/kanjibrowserui.rc:15
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Головний пенал"
+
+#. i18n: ectx: ToolBar (extraToolbar)
+#: app/kitenui.rc:46
+#, kde-format
+msgid "Extra Toolbar"
+msgstr "Додатковий пенал"
+
+#. i18n: ectx: ToolBar (searchToolbar)
+#: app/kitenui.rc:50
+#, kde-format
+msgid "Search Toolbar"
+msgstr "Панель пошуку"
+
+#: app/main.cpp:41
+#, kde-format
+msgid "Kiten"
+msgstr "Kiten"
+
+#: app/main.cpp:41
+#, kde-format
+msgid "Japanese Reference Tool"
+msgstr "Довідник та інструмент для вивчення японської"
+
+#: app/main.cpp:42
+#, kde-format
+msgid ""
+"(c) 2001-2004, Jason Katz-Brown\n"
+"(c) 2006-2007, Eric Kjeldergaard\n"
+"(c) 2006-2008, Joseph Kerian\n"
+"(c) 2011, Daniel E. Moctezuma"
+msgstr ""
+"© Jason Katz-Brown, 2001–2004\n"
+"© Eric Kjeldergaard, 2006–2007\n"
+"© Joseph Kerian, 2006–2008\n"
+"© Daniel E. Moctezuma, 2011"
+
+#: app/main.cpp:48
+#, kde-format
+msgid "Jason Katz-Brown"
+msgstr "Jason Katz-Brown"
+
+#: app/main.cpp:48
+#, kde-format
+msgid "Original author"
+msgstr "Перший автор"
+
+#: app/main.cpp:49
+#, kde-format
+msgid "Jim Breen"
+msgstr "Jim Breen"
+
+#: app/main.cpp:49
+#, kde-format
+msgid ""
+"Wrote xjdic, of which Kiten borrows code, and the xjdic index file "
+"generator.\n"
+"Also is main author of edict and kanjidic, which Kiten essentially require."
+msgstr ""
+"Написав xjdic, з якого було позичено код для Kiten, та програму побудови "
+"індексу xjdic.\n"
+"Також він є головним автором edict та kanjidic, без яких неможливий Kiten."
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Neil Stevens"
+msgstr "Neil Stevens"
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Code simplification, UI suggestions."
+msgstr "Спрощення коду, пропозиції щодо інтерфейсу."
+
+#: app/main.cpp:51
+#, kde-format
+msgid "David Vignoni"
+msgstr "David Vignoni"
+
+#: app/main.cpp:51
+#, kde-format
+msgid "svg icon"
+msgstr "піктограма svg"
+
+#: app/main.cpp:52
+#, kde-format
+msgid "Paul Temple"
+msgstr "Paul Temple"
+
+#: app/main.cpp:52
+#, kde-format
+msgid "Porting to KConfig XT, bug fixing"
+msgstr "Портування до KConfig XT, виправлення помилок"
+
+#: app/main.cpp:53 radselect/main.cpp:31
+#, kde-format
+msgid "Joseph Kerian"
+msgstr "Joseph Kerian"
+
+#: app/main.cpp:53 app/main.cpp:54
+#, kde-format
+msgid "KDE4 rewrite"
+msgstr "Переписування під KDE4"
+
+#: app/main.cpp:54
+#, kde-format
+msgid "Eric Kjeldergaard"
+msgstr "Eric Kjeldergaard"
+
+#: app/main.cpp:55 kanjibrowser/main.cpp:40
+#, kde-format
+msgid "Daniel E. Moctezuma"
+msgstr "Daniel E. Moctezuma"
+
+#: app/main.cpp:55
+#, kde-format
+msgid ""
+"Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
+"GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
+msgstr ""
+"Покращення у системі усування закінчень, оновлення словників для EDICT і "
+"KANJIDIC, покращення у графічному інтерфейсі, переглядач кандзі, виправлення "
+"вад, покращення та спрощення коду."
+
+#: app/searchstringinput.cpp:29
+#, kde-format
+msgid "Filter Type"
+msgstr "Тип фільтрування"
+
+#: app/searchstringinput.cpp:30
+#, kde-format
+msgid "No filter"
+msgstr "Без фільтрування"
+
+#: app/searchstringinput.cpp:31
+#, kde-format
+msgid "Filter out rare"
+msgstr "Фільтрувати рідкісні"
+
+#: app/searchstringinput.cpp:32
+#, kde-format
+msgid "Common/Uncommon"
+msgstr "Типові/Нетипові"
+
+#: app/searchstringinput.cpp:35
+#, kde-format
+msgid "Match Type"
+msgstr "Тип відповідності"
+
+#: app/searchstringinput.cpp:36
+#, kde-format
+msgid "Exact Match"
+msgstr "Повна відповідність"
+
+#: app/searchstringinput.cpp:37
+#, kde-format
+msgid "Match Beginning"
+msgstr "Однаковий початок"
+
+#: app/searchstringinput.cpp:38
+#, kde-format
+msgid "Match Ending"
+msgstr "Однакове закінчення"
+
+#: app/searchstringinput.cpp:39
+#, kde-format
+msgid "Match Anywhere"
+msgstr "Шукати всюди"
+
+#: app/searchstringinput.cpp:42
+#, kde-format
+msgid "Word Type"
+msgstr "Частина мови"
+
+#: app/searchstringinput.cpp:43
+#, kde-format
+msgid "Any"
+msgstr "Будь-яка"
+
+#: app/searchstringinput.cpp:44
+#, kde-format
+msgid "Verb"
+msgstr "Дієслово"
+
+#: app/searchstringinput.cpp:45
+#, kde-format
+msgid "Noun"
+msgstr "Іменник"
+
+#: app/searchstringinput.cpp:46
+#, kde-format
+msgid "Adjective"
+msgstr "Прикметник"
+
+#: app/searchstringinput.cpp:47
+#, kde-format
+msgid "Adverb"
+msgstr "Прислівник"
+
+#: app/searchstringinput.cpp:48
+#, kde-format
+msgid "Prefix"
+msgstr "Префікс"
+
+#: app/searchstringinput.cpp:49
+#, kde-format
+msgid "Suffix"
+msgstr "Суфікс"
+
+#: app/searchstringinput.cpp:50
+#, kde-format
+msgid "Expression"
+msgstr "Вираз"
+
+#: app/searchstringinput.cpp:59
+#, kde-format
+msgid "Focus input field"
+msgstr "Фокусувати поле вводу"
+
+#: app/searchstringinput.cpp:62
+#, kde-format
+msgid "Search Bar"
+msgstr "Панель пошуку"
+
+#: kanjibrowser/kanjibrowser.cpp:140 radselect/radselect.cpp:123
+#, kde-format
+msgid "Settings"
+msgstr "Параметри"
+
+#: kanjibrowser/kanjibrowserview.cpp:193
+#, kde-format
+msgid "%1 kanji found"
+msgid_plural "%1 kanji found"
+msgstr[0] "Знайдено %1 кандзі"
+msgstr[1] "Знайдено %1 кандзі"
+msgstr[2] "Знайдено %1 кандзі"
+msgstr[3] "Знайдено один кандзі"
+
+#: kanjibrowser/kanjibrowserview.cpp:204
+#, kde-format
+msgid "About %1"
+msgstr "Про %1"
+
+#: kanjibrowser/kanjibrowserview.cpp:205
+#, kde-format
+msgid "Copy %1 to clipboard"
+msgstr "Скопіювати %1 до буфера"
+
+#: kanjibrowser/kanjibrowserview.cpp:224
+#, kde-format
+msgid "Could not load the necessary kanji information."
+msgstr "Не вдалося завантажити потрібних даних кандзі."
+
+#: kanjibrowser/kanjibrowserview.cpp:234
+#, kde-format
+msgid "Kanji &List"
+msgstr "С&писок кандзі"
+
+#: kanjibrowser/kanjibrowserview.cpp:237
+#, kde-format
+msgid "Kanji &Information"
+msgstr "&Дані щодо кандзі"
+
+#: kanjibrowser/kanjibrowserview.cpp:242
+#, kde-format
+msgid "All Jouyou Kanji grades"
+msgstr "Всі класи повсякденних кандзі"
+
+#: kanjibrowser/kanjibrowserview.cpp:248
+#, kde-format
+msgid "Grade %1 (Jinmeiyou)"
+msgstr "Клас %1 (дзінмейо)"
+
+#: kanjibrowser/kanjibrowserview.cpp:252
+#, kde-format
+msgid "Grade %1"
+msgstr "Клас %1"
+
+#: kanjibrowser/kanjibrowserview.cpp:255
+#, kde-format
+msgid "Not in Jouyou list"
+msgstr "Не у списку повсякденних"
+
+#: kanjibrowser/kanjibrowserview.cpp:257
+#, kde-format
+msgid "No stroke limit"
+msgstr "Без обмеження щодо штрихів"
+
+#: kanjibrowser/kanjibrowserview.cpp:260
+#, kde-format
+msgid "%1 stroke"
+msgid_plural "%1 strokes"
+msgstr[0] "%1 риска"
+msgstr[1] "%1 риски"
+msgstr[2] "%1 рисок"
+msgstr[3] "1 риска"
+
+#: kanjibrowser/kanjibrowserview.cpp:305
+#, kde-format
+msgid "Grade:"
+msgstr "Клас:"
+
+#. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
+#: kanjibrowser/kanjibrowserview.cpp:309 radselect/radical_selector.ui:102
+#, kde-format
+msgid "Strokes:"
+msgstr "Риски:"
+
+#: kanjibrowser/kanjibrowserview.cpp:317
+#, kde-format
+msgid "Onyomi: "
+msgstr "Онйомі: "
+
+#: kanjibrowser/kanjibrowserview.cpp:326
+#, kde-format
+msgid "Kunyomi: "
+msgstr "Кунйомі: "
+
+#: kanjibrowser/kanjibrowserview.cpp:335 lib/DictKanjidic/entrykanjidic.cpp:155
+#, kde-format
+msgid "In names: "
+msgstr "У назвах: "
+
+#: kanjibrowser/kanjibrowserview.cpp:344 lib/DictKanjidic/entrykanjidic.cpp:161
+#, kde-format
+msgid "As radical: "
+msgstr "Як ключ: "
+
+#: kanjibrowser/kanjibrowserview.cpp:352
+#, kde-format
+msgid "Meaning: "
+msgstr "Значення: "
+
+#: kanjibrowser/kanjibrowserview.cpp:356
+#, kde-format
+msgid "Meanings: "
+msgstr "Значення: "
+
+#: kanjibrowser/main.cpp:34
+#, kde-format
+msgid "Kiten's Kanji Browser, a KDE Japanese Reference Tool"
+msgstr ""
+"Переглядач кандзі Kiten, довідника та інструмента для вивчення японської"
+
+#: kanjibrowser/main.cpp:36
+#, kde-format
+msgid "(C) 2011 Daniel E. Moctezuma"
+msgstr "© Daniel E. Moctezuma, 2011"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, preferences)
+#. i18n: ectx: property (windowTitle), widget (QWidget, radselectprefdialog)
+#: kanjibrowser/preferences.ui:14 radselect/radselectprefdialog.ui:15
+#, kde-format
+msgid "Preferences"
+msgstr "Параметри"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: kanjibrowser/preferences.ui:20
+#, kde-format
+msgid "Kanji List"
+msgstr "Список кандзі"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, _kanjiListFontLabel)
+#. i18n: ectx: property (toolTip), widget (QLabel, resultListFontSize_label)
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_resultListFont)
+#. i18n: ectx: property (toolTip), widget (QLabel, fontSize_label)
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_font)
+#: kanjibrowser/preferences.ui:34 radselect/radselectprefdialog.ui:46
+#: radselect/radselectprefdialog.ui:59 radselect/radselectprefdialog.ui:72
+#: radselect/radselectprefdialog.ui:85
+#, kde-format
+msgid "The font for the main kanji/kana entry in list view"
+msgstr "Шрифт для головного елемента кандзі або кана у перегляді списком"
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_font)
+#: kanjibrowser/preferences.ui:37 radselect/radselectprefdialog.ui:75
+#: radselect/radselectprefdialog.ui:88
+#, kde-format
+msgid "Use this to adjust the button font"
+msgstr "Скористайтеся для налаштовування шрифту кнопок"
+
+#. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
+#: kanjibrowser/preferences.ui:40
+#, kde-format
+msgid "Kanji font:"
+msgstr "Шрифт кандзі:"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
+#: kanjibrowser/preferences.ui:56
+#, kde-format
+msgid "漢字"
+msgstr "漢字"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: kanjibrowser/preferences.ui:77
+#, kde-format
+msgid "Kanji Information"
+msgstr "Дані щодо кандзі"
+
+#. i18n: ectx: property (text), widget (QLabel, _kanjiSizeLabel)
+#: kanjibrowser/preferences.ui:97
+#, kde-format
+msgid "Kanji size:"
+msgstr "Розмір кандзі:"
+
+#. i18n: ectx: property (text), widget (QLabel, _kanaFontLabel)
+#: kanjibrowser/preferences.ui:121
+#, kde-format
+msgid "Kana font:"
+msgstr "Шрифт кани:"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
+#: kanjibrowser/preferences.ui:128
+#, kde-format
+msgid "かな"
+msgstr "かな"
+
+#. i18n: ectx: property (text), widget (QLabel, _labelFontLabel)
+#: kanjibrowser/preferences.ui:151
+#, kde-format
+msgid "Label font:"
+msgstr "Шрифт міток:"
+
+#: lib/DictEdict/deinflection.cpp:131
+#, kde-format
+msgid "verb"
+msgstr "дієслово"
+
+#: lib/DictEdict/deinflection.cpp:135
+#, kde-format
+msgid "adjective"
+msgstr "прикметник"
+
+#: lib/DictEdict/deinflection.cpp:163
+#, kde-format
+msgid ""
+"Verb deinflection information not found, so verb deinflection cannot be used."
+msgstr ""
+"Інформацію про виключення закінчення з дієслова не знайдено, тому виключення "
+"не може бути використане."
+
+#: lib/DictEdict/deinflection.cpp:172
+#, kde-format
+msgid ""
+"Verb deinflection information could not be loaded, so verb deinflection "
+"cannot be used."
+msgstr ""
+"Інформацію про виключення закінчення з дієслова неможливо завантажити, тому "
+"виключення не може бути використане."
+
+#: lib/DictEdict/dictfilefieldselector.cpp:27
+#, kde-format
+msgid "&Available Fields:"
+msgstr "&Доступні поля:"
+
+#: lib/entry.cpp:167
+#, kde-format
+msgid "; "
+msgstr "; "
+
+#: lib/entrylist.cpp:106
+#, kde-format
+msgid "From Dictionary:"
+msgstr "Зі словника:"
+
+#: lib/entrylist.cpp:126
+#, kde-format
+msgctxt ""
+"%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
+"Example: 'Entered verb in past tense'."
+msgid "Entered %1 in %2 form"
+msgstr "Введено %1 у формі %2"
+
+#: lib/entrylist.cpp:153
+#, kde-format
+msgid "Common"
+msgstr "Типові"
+
+#: lib/entrylist.cpp:158
+#, kde-format
+msgid "Uncommon"
+msgstr "Нетипові"
+
+#: lib/kromajiedit.cpp:32
+#, kde-format
+msgid ""
+"Romaji information file not installed, so Romaji conversion cannot be used."
+msgstr ""
+"Інформації щодо ромадзі не встановлено, отже перетворення ромадзі "
+"використовувати неможливо."
+
+#: lib/kromajiedit.cpp:40
+#, kde-format
+msgid ""
+"Romaji information could not be loaded, so Romaji conversion cannot be used."
+msgstr ""
+"Інформацію щодо ромадзі неможливо завантажити, отже перетворення ромадзі "
+"використовувати неможливо."
+
+#: lib/kromajiedit.cpp:101
+#, kde-format
+msgctxt "@option:radio selects english translation"
+msgid "English"
+msgstr "Англійська"
+
+#: lib/kromajiedit.cpp:113
+#, kde-format
+msgctxt "@option:radio selects japanese translation"
+msgid "Kana"
+msgstr "Кана"
+
+#: radselect/buttongrid.cpp:135
+#, kde-format
+msgid "No Radicals Selected"
+msgstr "Не вибрано ключів"
+
+#: radselect/buttongrid.cpp:176
+#, kde-format
+msgid "Selected Radicals: "
+msgstr "Вибрані ключі: "
+
+#: radselect/main.cpp:29
+#, kde-format
+msgid "A KDE Application"
+msgstr "Програма KDE"
+
+#: radselect/main.cpp:30
+#, kde-format
+msgid "(C) 2005 Joseph Kerian"
+msgstr "© Joseph Kerian, 2005"
+
+#: radselect/main.cpp:32
+#, kde-format
+msgid "Electronic Dictionary Research and Development Group"
+msgstr "Electronic Dictionary Research and Development Group"
+
+#: radselect/main.cpp:32
+#, kde-format
+msgid ""
+"This program uses the KANJIDIC and RADKFILE dictionary files. These files "
+"are the property of the Electronic Dictionary Research and Development "
+"Group, and are used in conformance with the Group's licence."
+msgstr ""
+"У цій програмі використано файли словників KANJIDIC і RADKFILE. Ці файли є "
+"власністю Electronic Dictionary Research and Development Group і "
+"використовуються за умов ліцензування цієї групи."
+
+#: radselect/main.cpp:39
+#, kde-format
+msgid "Initial Search String from Kiten"
+msgstr "Початковий рядок пошуку від Kiten"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, radical_selector)
+#: radselect/radical_selector.ui:22
+#, kde-format
+msgid "RadicalSelector"
+msgstr "RadicalSelector"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: radselect/radical_selector.ui:40
+#, kde-format
+msgid "Results"
+msgstr "Результати"
+
+#. i18n: ectx: property (text), widget (QPushButton, copy_button)
+#: radselect/radical_selector.ui:82
+#, kde-format
+msgid "&To Clipboard"
+msgstr "&До буфера обміну"
+
+#. i18n: ectx: property (text), widget (QLabel, strokes_label)
+#: radselect/radical_selector.ui:122
+#, kde-format
+msgid " - "
+msgstr " - "
+
+#. i18n: ectx: property (text), widget (QPushButton, clear_button)
+#: radselect/radical_selector.ui:164
+#, kde-format
+msgid "Clear"
+msgstr "Очистити"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_sortByFrequency)
+#. i18n: ectx: label, entry, group (Options)
+#: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
+#, kde-format
+msgid "Display radicals in descending frequency order"
+msgstr "Показувати радикали за спаданням частоти використання"
+
+#. i18n: ectx: label, entry, group (Options)
+#: radselect/radselectconfig.kcfg:24
+#, kde-format
+msgid "Do we close this program when searching?"
+msgstr "Чи закривати цю програму під час пошуку?"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_closeOnSearch)
+#: radselect/radselectprefdialog.ui:24
+#, kde-format
+msgid "Close radselect when you press search"
+msgstr "Закрити radselect, коли ви натиснете кнопку пошуку"
+
+#. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
+#: radselect/radselectprefdialog.ui:43
+#, kde-format
+msgid "Search Results Font:"
+msgstr "Шрифт результатів пошуку:"
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
+#: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
+#, kde-format
+msgid "Use this to adjust the result list font"
+msgstr ""
+"Скористайтеся цим параметром для налаштовування шрифту списку результатів"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
+#: radselect/radselectprefdialog.ui:56 radselect/radselectprefdialog.ui:82
+#, kde-format
+msgid "漢字 かな"
+msgstr "漢字 かな"
+
+#. i18n: ectx: property (text), widget (QLabel, fontSize_label)
+#: radselect/radselectprefdialog.ui:69
+#, kde-format
+msgid "Button Font:"
+msgstr "Шрифт кнопок:"
+
+#: radselect/radselectview.cpp:39
+#, kde-format
+msgid ""
+"Kanji radical information does not seem to be installed (file kiten/"
+"radkfile), this file is required for this app to function."
+msgstr ""
+"Інформацію про ключі кандзі, здається, не встановлено (файл kiten/radkfile), "
+"цей файл потрібний для належного функціонування програми"
+
+#: radselect/radselectview.cpp:48
+#, kde-format
+msgid ""
+"Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
+"count information will be unavailable."
+msgstr ""
+"Здається, у системі не встановлено словника кандзі (файла kiten/kanjidic). У "
+"вас не буде доступу до даних щодо кількості штрихів у ієрогліфі."
+
+#: radselect/radselectview.cpp:64
+#, kde-format
+msgctxt "Minimum number of strokes for a kanji"
+msgid "Min"
+msgstr "Мін."
+
+#: radselect/radselectview.cpp:65
+#, kde-format
+msgctxt "Maximum number of strokes for a kanji"
+msgid "Max"
+msgstr "Макс."
+
+#: radselect/radselectview.cpp:117
+#, kde-format
+msgctxt "@item:inlist all matches should be found"
+msgid "(ALL)"
+msgstr "(ВСІ)"
+
+#~ msgid "kitenkanjibrowser"
+#~ msgstr "kitenkanjibrowser"
+
+#~ msgid "kitenradselect"
+#~ msgstr "kitenradselect"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "Noun"
+#~ msgstr "Іменник"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "Verb"
+#~ msgstr "Дієслово"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "Adjective"
+#~ msgstr "Прикметник"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "Adverb"
+#~ msgstr "Прислівник"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "Particle"
+#~ msgstr "Частка"
+
+#~ msgctxt ""
+#~ "This is a technical japanese linguist's term... and probably should not "
+#~ "be translated (except possibly in far-eastern languages), this must be a "
+#~ "single word"
+#~ msgid "Ichidan"
+#~ msgstr "Ічидан"
+
+#~ msgctxt ""
+#~ "This is a technical japanese linguist's term... and probably should not "
+#~ "be translated, this must be a single word"
+#~ msgid "Godan"
+#~ msgstr "Годан"
+
+#~ msgctxt ""
+#~ "This is a technical japanese linguist's term... and probably should not "
+#~ "be translated, this must be a single word"
+#~ msgid "Fukisoku"
+#~ msgstr "Фукісоку"
+
+#~ msgid "Idiomatic expression"
+#~ msgstr "Ідіоматичний вираз"
+
+#~ msgid "Noun (used as a prefix)"
+#~ msgstr "Іменник (використано як префікс)"
+
+#~ msgid "Noun (used as a suffix)"
+#~ msgstr "Іменник (використано як суфікс)"
+
+#~ msgid "On The Spo&t Search"
+#~ msgstr "&Миттєвий пошук"
+
+#~ msgid "(c) 2001-2004, Jason Katz-Brown"
+#~ msgstr "© Jason Katz-Brown, 2001–2004"
+
+#~ msgid "Deinflect Verbs/Adjectives"
+#~ msgstr "Відновити початкову форму дієслів/прикметників"
+
+#~ msgid "Possible de-conjugation %1 as %2"
+#~ msgstr "Можлива форма %1 у початковій дієвідміні — %2"
+
+#~ msgid "Deinflect Dictionary Files"
+#~ msgstr "Усунути відмінювання з файлів словника"
+
+#~ msgid ""
+#~ "Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb"
+#~ msgstr ""
+#~ "Обмежити вибір користувачем частини мови? 0:Будь-яка, Дієслово, Іменник, "
+#~ "Прикметник, Прислівник"
+
+#~ msgid "Enable the Deinflection checker?"
+#~ msgstr "Увімкнути перевірку невідмінюваності?"
+
+#~ msgid "Configure &Global Shortcuts..."
+#~ msgstr "Налаштувати глобальні с&корочення..."

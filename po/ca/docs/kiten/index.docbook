@@ -1,0 +1,608 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Catalan  "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>El manual del &kiten;</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+&traductor.Antoni.Bella; 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>28 de desembre de 2020</date>
+<releaseinfo
+>Aplicacions 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>El &kiten; és una eina de referència/estudi del japonès per al &kde;.</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Japonès</keyword>
+<keyword
+>Idioma</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducció</title>
+
+<para
+>El &kiten; és un conjunt de 3 eines amb múltiples funcions. En primer lloc, és un pràctic diccionari anglès a japonès i japonès a anglès. En segon lloc, és un diccionari de kanji, amb múltiples formes de veure caràcters específics. En tercer lloc, és una eina d'ajuda per a aprendre kanji.</para>
+
+<para
+>Cadascun d'aquests modes es tracta en el seu propi capítol.</para>
+
+<screenshot>
+<screeninfo
+>Aquesta és una captura de pantalla del &kiten;</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Captura de pantalla del &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Usar el diccionari</title>
+
+<para
+>El mode més bàsic del &kiten; és com un diccionari per a cercar paraules en anglès i japonès. També podeu afegir altres diccionaris a la llista del &kiten;.</para>
+
+<para
+>El &kiten; utilitza Edict i Kanjidic d'en Jim Breen com els diccionaris predeterminats. Trobareu més informació <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>al lloc web de l'Edict</ulink
+> i <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
+>al lloc web del Kanjidic</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Cercar paraules</title>
+
+<para
+>Per a cercar paraules en qualsevol idioma, escriviu-les a l'editor de text (molt semblant a la barra d'adreces del &konqueror;) i premeu &Intro; o el botó <guibutton
+>Cerca</guibutton
+> a la barra d'eines (una vegada més, com la del &konqueror;). Llavors, el &kiten; cercarà la paraula.</para>
+
+<para
+>Podeu introduir termes en kanji, kana i anglès, i obtindreu els resultats des del &kiten;. Aquests resultats de la cerca apareixeran a la gran vista de resultats que ocupa la major part de la finestra del &kiten;.</para>
+
+<screenshot>
+<screeninfo
+>Cercant una traducció a l'anglès</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Captura de pantalla de cerca al &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Filtratge</title>
+
+<para
+>Moltes vegades voldreu filtrar paraules rares de la cerca. El &kiten; ho farà per vosaltres si activeu <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Filtra les rares</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>El filtratge d'entrades rares no està admès per tots els fitxers de diccionari. La majoria, excloent els dos diccionaris proporcionats de manera predeterminada amb el &kiten;.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla utilitzant el filtratge de paraules rares</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Cerca amb filtratge en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Paraules usuals/inusuals</title>
+<para
+>Una altra forma de separar la informació és filtrar les paraules usuals i inusuals, això és útil quan voleu centrar-vos en paraules usuals i/o interessar-vos en les inusuals. L'única diferència entre les opcions Filtra les rares/inusuals i Usual/Inusual és que aquí també obtindreu els resultats rars/inusuals.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la concordança usual/inusual</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Concordança usual/inusual en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Cerques avançades</title>
+
+<para
+>El &kiten; admet cerques més avançades que les senzilles cerques normals de paraules.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Cerques a l'inici/final/onsevulga</title>
+<para
+>A més d'una cerca amb <guilabel
+>Concordança exacta</guilabel
+>, el &kiten; té tres modes de cerca addicionals.</para>
+<para
+>Per a cercar l'inici d'una paraula, en comptes de prémer el botó <guibutton
+>Cerca</guibutton
+> a la barra d'eines o prémer &Intro; a l'entrada de text a la barra d'eines, escolliu utilitzant <menuchoice
+><guimenu
+>Cerca</guimenu
+><guisubmenu
+>Tipus de concordança</guisubmenu
+><guimenuitem
+>Concordança a l'inici</guimenuitem
+></menuchoice
+>. De la mateixa manera, per a cerques al final o onsevulga, escolliu <menuchoice
+><guimenu
+>Cerca</guimenu
+><guisubmenu
+>Tipus de concordança</guisubmenu
+></menuchoice
+> <guimenuitem
+>Concordança onsevulga</guimenuitem
+> o <guimenuitem
+>Concordança al final</guimenuitem
+> per a cercar el text onsevulga o al final d'una paraula. Aquests modes de cerca funcionen per a les cerques en ambdós idiomes.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la cerca de concordança al final</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Cerca de concordança al final en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Cerques per tipus de paraula</title>
+<para
+>El &kiten; admet les cerques per tipus de paraula, com ara: verb, substantiu, adjectiu, adverbi, prefix, sufix, expressió o de qualsevol tipus. D'aquesta manera podreu filtrar els resultats de la manera més convenient.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la concordança del tipus de paraula</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Concordança del tipus de paraula en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Cerques als resultats</title>
+
+<para
+>El &kiten; també pot ajudar a refinar les vostres cerques permetent-vos cercar un text nou en els resultats generats per una cerca anterior. Per a fer-ho, senzillament escolliu <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Cerca als resultats</guimenuitem
+></menuchoice
+> per a dur a terme la cerca. De la mateixa manera per a les cerques a l'inici/final/onsevulga, això també funciona per a ambdós idiomes.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la cerca als resultats</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Cerca als resultats en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Cercar kanji</title>
+
+<para
+>El &kiten; té característiques que faciliten la cerca d'un kanji entre els més de 14.000 en el diccionari predeterminat.</para>
+
+<note
+><para
+>En fer clic a qualsevol kanji a la vista de resultats principal es mostraran els detalls d'aquest kanji en particular. De vegades, aquesta pot ser la manera més ràpida de cercar un kanji.</para
+></note>
+
+<tip
+><para
+>Les cerques de kanji també es filtren en funció de si està marcada l'opció <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Filtra les rares</guimenuitem
+></menuchoice
+>.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Cercar de forma normal</title>
+
+<para
+>Podeu cercar amb cadenes de cerca en anglès i japonès de la mateixa manera que amb el diccionari normal.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Cercar de forma radical</title>
+
+<para
+>És possible utilitzar el diàleg de cerca radical del &kiten; per a cercar kanjis amb una combinació de radicals i un cert compte de traços. <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Selector de radicals</guimenuitem
+></menuchoice
+> per a obrir el diàleg de cerca radical.</para>
+
+<para
+>Per a escollir els radicals que estaran al vostre kanji, seleccioneu-ne un des dels botons a la part inferior de la finestra. Per a mostrar els radicals possibles seleccionant-los a partir d'aquests botons amb un cert nombre de traços, escolliu aquest nombre de traços des dels botons de selecció de valors just a sobre dels botons. Els radicals que escolliu apareixeran a la part superior del quadre de llista.</para>
+
+<para
+>Per a escollir quants traços haurà de tenir el vostre kanji, només cal introduir els valors en els botons de selecció de valors per sota de l'àrea de resultats.</para>
+
+<para
+>Per a dur a terme la cerca, premeu el botó que concorda amb el kanji que voleu cercar.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per al selector de radicals</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Selector de radicals en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Cercar per grau</title>
+
+<para
+>Per a obtenir una llista de tots els kanjis en un grau determinat, introduïu-lo al quadre de cerca com «G:1» (G: és l'etiqueta kanjidic de grau).</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la cerca per grau de kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Cerca per grau de kanji en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Cercar per traços</title>
+
+<para
+>Per a obtenir una llista de tots els kanjis amb un cert nombre de traços, introduïu aquest número al quadre de cerca, «S:2».</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la cerca per traços de kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Cerca per traços de kanji en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Llista de kanjis</title>
+
+<para
+>Aquesta part del navegador de kanjis permet visualitzar una llista de kanjis filtrada per grau i nombre de traços. En fer clic sobre un kanji obtindreu informació detallada sobre seu. El navegador de kanjis separa la llista en kanjis Jōyō, Jinmeiyō i no Jōyō. Tots aquests kanjis estan disponibles gràcies al diccionari KANJIDIC.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la llista de kanjis</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Llista de kanjis en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Informació de kanji</title>
+
+<para
+>Aquesta part mostra informació detallada sobre un kanji, com ara: ordre dels traços de kanji, nombre de traços, lectures i significats.</para>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per a la informació de kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Informació de kanji en el &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Miscel·lània</title>
+
+<para
+>En aquest capítol es descriuen les diverses característiques que es poden utilitzar en ambdós modes a la finestra principal del &kiten;.</para>
+
+<sect1 id="history">
+<title
+>Historial</title>
+
+<para
+>El &kiten; manté un registre de totes les consultes en el camp d'entrada. Podeu veure els últims resultats fent clic sobre la marca de selecció a la dreta del camp d'entrada. Per a avançar un pas en l'historial, escolliu <menuchoice
+><guimenu
+>Ves</guimenu
+><guimenuitem
+>Endavant</guimenuitem
+></menuchoice
+>. Per a anar cap enrere en l'historial, escolliu <menuchoice
+><guimenu
+>Ves</guimenu
+><guimenuitem
+>Enrere</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>Tipus de lletra</title>
+
+<para
+>Podeu escollir el tipus de lletra que utilitzarà el &kiten; en la seva vista de resultats. Aneu al diàleg de configuració del &kiten;, el qual es pot obrir escollint <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura el &kiten;...</guimenuitem
+></menuchoice
+>. Seleccioneu la pàgina <guilabel
+>Tipus de lletra</guilabel
+> del diàleg i seleccioneu-lo en el selector del tipus de lletra.</para>
+
+<note
+><para
+>El sistema de substitució del tipus de lletra de les &Qt; fa que un tipus de lletra japonesa sempre sigui substituït per caràcters japonesos, encara que el tipus de lletra especificat no els inclogui. Per tant, podreu escollir qualsevol tipus de lletra al selector i encara es mostrarà tot bé.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Captura de pantalla per al tipus de lletra</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Tipus de lletra del &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Crèdits i llicència</title>
+
+<para
+>Copyright del &kiten; 2001, 2002 &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>Equip de desenvolupament</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - Autor original.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - Simplificació del codi, suggeriments de la IU.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> - Va escriure el xjdic, del qual el &kiten; manlleva codi, i també el generador del fitxer d'índex del xjdic. També és l'autor principal de «edict» i «kanjidic», els quals són requisits essencials del &kiten;.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - Adaptació a KConfig XT i correcció d'errors.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> - Icona &SVG;.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - Reescriptura per al &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - Reescriptura per al &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> - Millores en el sistema de desinflexió, actualitzacions dels diccionaris per a «edict» i «kanjidic», millores de la &IGU;, navegador de kanjis, correcció d'errors, simplificació i poliment del codi.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Copyright de la documentació 2002, &Jason.Katz-Brown;</para>
+<para
+>Copyright de la documentació 2012, Daniel E. Moctezuma</para>
+
+<para
+>Traductor/Revisor de la documentació: &credits.Antoni.Bella;</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>

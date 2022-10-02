@@ -1,0 +1,665 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kappname "&kiten;">
+  <!ENTITY package "kdeedu">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Estonian  "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>&kiten;i käsiraamat</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2012-03-14</date>
+<releaseinfo
+>1.3 (&kde; 4.8)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kiten; on &kde; jaapani keele õppimise ja harjutamise vahend. </para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+http://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Jaapani</keyword>
+<keyword
+>keel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Sissejuhatus</title>
+
+<para
+>&kiten; on mitme funktsiooniga rakendus: esiteks on see käepärane inglise-jaapani ja jaapani-inglise sõnaraamat, teiseks on see korralik kanji sõnaraamat, kus on mitu võimalust otsida konkreetseid märke, ning kolmandaks aitab see kanjid paremini tundma õppida.</para>
+
+<para
+>Kõigist neist võimalustest tuleb allpool lähemalt juttu.</para>
+
+<screenshot>
+<screeninfo
+>Selline näeb &kiten; välja</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i pilt</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Sõnaraamatu kasutamine</title>
+
+<para
+>&kiten;i kõige elementaarsem töörežiim on sõnaraamat, kus saab otsida nii inglis- kui jaapanikeelseid sõnu. &kiten;i nimekirja võib lisada ka muid sõnaraamatuid.</para>
+
+<para
+>&kiten; kasutab vaikesõnaraamatutena Jim Breeni Edicti ja Kanjidici. Nende kohta leiab rohkem infot <ulink url="http://www.csse.monash.edu.au/~jwb/edict.html"
+>Edicti</ulink
+> ja <ulink url="http://www.csse.monash.edu.au/~jwb/kanjidic.html"
+>Kanjidici</ulink
+> veebileheküljelt.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Sõnade otsimine</title>
+
+<para
+>Sõna otsimiseks mis tahes keeles kirjuta see tekstireale (see sarnaneb väga &konqueror;i asukohareaga) ja vajuta klahvi &Enter; või tööriistariba nuppu <guilabel
+>Otsi</guilabel
+> (ka see sarnaneb väga &konqueror;ile). &kiten; otsib seejärel sõna vasteid.</para>
+
+<para
+>&kiten; lubab sõnu sisestada kanjis, kanas või ladina tähtedes. Tulemused on näha suures tulemuste vaates, mis hõlmab enamiku &kiten;i aknast.</para>
+
+<screenshot>
+<screeninfo
+>ingliskeelse tõlke otsimine</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i otsingu pilt</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Filtreerimine</title>
+
+<para
+>Sageli on mõttekas haruldasemad sõnad otsingust välja jätta. &kiten; võib seda teha sinu eest, kui valid menüükäsu <menuchoice
+><guimenu
+>Otsimine</guimenu
+><guimenuitem
+>Haruldaste filtreerimine</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>Haruldaste sõnade filtreerimist ei toeta mitte kõik sõnaraamatufailid - õigupoolest enamik ei toetagi, välja arvatud need kaks, mis on &kiten;iga kaasas.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Haruldaste sõnade filtreerimine</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i otsingu filtreerimine</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Levinud/vähelevinud sõnad</title>
+<para
+>Veel üks võimalus teavet eristada on filtreerida levinud ja vähelevinud sõnu. See on kasulik, kui soovid keskenduda levinud sõnadele või kui sul on erihuvi just vähelevinud sõnade vastu. Ainuke erinevus haruldaste sõnade filtrist on see, et levinud/vähelevinud sõnade filtri korral kaasatakse ka haruldased/vähelevinud sõnad.</para>
+
+<screenshot>
+<screeninfo
+>Levinud/vähelevinud sõnade filtreerimine</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; levinud/vähelevinud sõnade filtriga</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<!-- not in kde4
+<para
+>If you have not enabled filtering rare entries, common entries
+will be labeled <guilabel
+>Common</guilabel
+> in the result view.</para>
+-->
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Täpsemad otsingud</title>
+
+<para
+>&kiten; toetab ka täpsemaid otsinguvõimalusi kui lihtne sõnaotsing.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Otsingud algusest/lõpust/kõikjalt</title>
+<para
+>Lisaks <guilabel
+>täpse sobivuse</guilabel
+> otsingule pakub &kiten; veel kolme otsimisviisi</para>
+<para
+>Kui soovid otsida sõna algust, mitte aga vajutada pärast teksti sisestamist tekstiribale tööriistariba nuppu <guilabel
+>Otsi</guilabel
+> või klahvi <keycap
+>Return</keycap
+>, vali menüükäsk <menuchoice
+><guimenu
+>Otsimine</guimenu
+><guisubmenu
+>Tüübi sobivus</guisubmenu
+><guimenuitem
+>Alguse sobivus</guimenuitem
+></menuchoice
+>. Kui aga soovid otsida oma teksti suvalisest kohast sõnas, vali menüükäsk <menuchoice
+><guimenu
+>Otsimine</guimenu
+><guisubmenu
+>Tüübi sobivus</guisubmenu
+></menuchoice
+><guimenuitem
+>Sobivus ükskõik kus</guimenuitem
+> või <guimenuitem
+>Alguse sobivus</guimenuitem
+>. Need otsimisviisid toimivad mõlema keele puhul.</para>
+
+<screenshot>
+<screeninfo
+>Lõpu sobivusega otsing</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i lõpu sobivusega otsing</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Sõnatüübi otsing</title>
+<para
+>&kappname; toetab sõnatüübi otsingut järgmiste tüüpide puhul: tegusõna, nimisõna, omadussõna, määrsõna, prefiks, sufiks, väljend või suvaline tüüp. Sel moel saab tulemusi veel täpsemalt filtreerida.</para>
+
+<screenshot>
+<screeninfo
+>Sõnatüübi sobivuse pilt</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; sõnatüübi sobivuse otsinguga</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Otsimine tulemustes</title>
+
+<para
+>Veel üks &kiten;i võimalusi otsingut täpsustada on uue teksti otsimine eelmise otsingu tulemustes. Selleks kasuta menüükäsku <menuchoice
+><guimenu
+>Otsimine</guimenu
+><guimenuitem
+>Otsimine tulemustes</guimenuitem
+></menuchoice
+>. Sarnaselt otsingutele algusest/lõpust/ükskõik kust toimib seegi mõlema keele korral.</para>
+
+<screenshot>
+<screeninfo
+>Otsimine tulemustes</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i otsimine tulemustes</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="deinf">
+<title
+>Tegusõnade teisendamine põhivormi</title>
+
+<para
+>&kiten; võib panna otsitavad sõnad põhivormi. Põhivormi kasutamise võimalus püüab kõrvaldada jaapani verbidelt võimaliku pöörde ning näitab tulemuste kohal teadet sisestatud tegusõna tüübi kohta. Kui kasutad otsingus mahukamat jaapanikeelset teksti, võiks selle sisse lülitada vähemalt seni, kuni sa pole jaapani verbivormide äratundmises vilumust omandanud. </para>
+
+<screenshot>
+<screeninfo
+>Tegusõnade teisendamine põhivormi</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i tegusõnade teisendamine põhivormi</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Kanji otsimine</title>
+
+<para
+>&kiten; suudab leida enam kui 14 000 vaikesõnaraamatus leiduva kanji seast just sulle vajaliku hõlpsasti ja kiiresti.</para>
+
+<note
+><para
+>Tulemuste aknas suvalisel kanjil klõpsamine näitab selle kohta käivat infot. Tihtipeale ongi see kõige kiirem viis kanji kohta infot leida.</para
+></note>
+
+<tip
+><para
+>Kanji otsinguid saab samuti filtreerida, kui lülitada sisse võimalus <menuchoice
+><guimenu
+>Otsimine</guimenu
+><guimenuitem
+>Haruldaste filtreerimine</guimenuitem
+></menuchoice
+>.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Tavaotsing</title>
+
+<para
+>Ingliskeelset ja jaapanikeelset teksti saab otsida samal moel nagu tavalises sõnaraamatus.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Radikaali otsimine</title>
+
+<para
+>&kiten;i radikaalide otsimise dialoogi abil saab otsida kanjid konkreetse radikaalikombinatsiooni ja kriipsude arvu järgi. Dialoogi avab menüükäsk <menuchoice
+><guimenu
+>Otsimine</guimenu
+><guimenuitem
+>Radikaalide valija</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Radikaali, mis peab kanjis leiduma, saab valida ühega akna allservas olevatest nuppudest. Kui soovid näha kindla kriipsude arvuga radikaale, vali kriipsude arv kerimiskastidest otse nuppude kohal. Valitud radikaalid on näha ülal asuvas nimekirjakastis.</para>
+
+<para
+>Valimaks, kui palju kriipse kanjil peab olema, sisesta väärtused otse tulemusala all asuvatesse kerimiskastidesse.</para>
+
+<para
+>Otsingu sooritamiseks klõpsa nuppu, mis vastab otsitavale kanjile.</para>
+
+<screenshot>
+<screeninfo
+>Radikaalide valija</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i radikaalide valija</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Taseme otsing</title>
+
+<para
+>Kõigi teatud taseme kanjide nimekirja nägemiseks kirjuta see otsingukasti kujul "G:1" (G: on Kanjidici taset tähistav silt).</para>
+
+<screenshot>
+<screeninfo
+>Kanji taseme otsing</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i kanji taseme otsing</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Kriipsude otsimine</title>
+
+<para
+>Kui soovid näha kõiki konkreetse kriipsude arvuga kanjisid, kirjuta soovitud number tekstiribale, näiteks "S:2".</para>
+
+<screenshot>
+<screeninfo
+>Kanji kriipsude otsing</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i kanji kriipsude otsing</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Kanjide nimekiri</title>
+
+<para
+>See kanjide brauseri osa võimaldab näha taseme ja kriipsude arvu järgi filtreeritud kanjide nimekirja. Kanjil klõpsates näeb selle kohta üksikasjalikku teavet. Kanjide brauser eristab nimekirjas Jouyou, Jinmeiyou ja mitte-Jouyou kanjisid. Kõik kanjid on saadaval KANJIDIC-i sõnaraamatu vahendusel.</para>
+
+<screenshot>
+<screeninfo
+>Kanjide nimekiri</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i kanjide nimekiri</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Kanji teave</title>
+
+<para
+>Selles osas näeb üksikasjalikku teavet kanji kohta: kriipsude tase ja arv, hääldus ja tähendus.</para>
+
+<screenshot>
+<screeninfo
+>Kanji teave</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i kanji teave</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Mitmesugust</title>
+
+<para
+>See peatükk kirjeldab mitmesuguseid võimalusi, mida saab kasutada &kiten;i peaakna mõlemas režiimis.</para>
+
+<sect1 id="history">
+<title
+>Ajalugu</title>
+<!-- changed in kde4-->
+<para
+>&kiten; peab meeles kõik sinu päringud. Viimaseid tulemusi võib näha,  kui klõpsata sisendväljast paremal asuval linnukesele. Ajaloos ühe tulemuse võrra edasi liikumiseks vali <menuchoice
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Edasi</guimenuitem
+></menuchoice
+>. Ajaloos ühe tulemuse võrra tagasi liikumiseks vali <menuchoice
+><guimenu
+>Liikumine</guimenu
+><guimenuitem
+>Tagasi</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+<!-- how to do that in kde4 ?
+<sect1 id="global-keys">
+<title
+>Global Shortcuts</title>
+
+<para
+>You can set global &kiten; shortcuts that work everywhere on
+your desktop. Go to the &kiten; configuration dialog, which can be
+opened by choosing
+<menuchoice
+><guimenu
+>Settings</guimenu
+><guimenuitem
+>Configure
+Kiten...</guimenuitem
+></menuchoice
+>. Select the <guilabel
+>Global
+Keys</guilabel
+> section of the dialog. Here you can set the keys for a
+global word search and a global Kanji search like in other &kde;
+shortcut configuration panels.</para>
+
+</sect1>
+-->
+<sect1 id="fonts">
+<title
+>Fondid</title>
+
+<para
+>&kiten; võimaldab valida, millist fonti kasutada tulemuste vaates. Selleks ava &kiten;i seadistustedialoog (<menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Kiteni seadistamine...</guimenuitem
+></menuchoice
+>) ja vali kaart <guilabel
+>Font</guilabel
+>, kus saadki valida meelepärased fondid.</para>
+
+<note
+><para
+>&Qt; uus fondiasendussüsteem tagab jaapani märkide kasutamise korral alati jaapani fondi kasutamise isegi juhul, kui kirjatüüp seda ei sisalda. See tagab, et suvalise fondi valimisel on ometi kõik korrektselt näha.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Font</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten;i font</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Autorid ja litsents</title>
+
+<para
+>&kiten;i autoriõigus 2001, 2002: &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>Arendajad</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - algne autor.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - koodi lihtsustamine, ettepanekud kasutajaliidese osas.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> - kirjutas xjdici, millelt &kiten; laenas koodi, ning xjdici indeksifaili generaatori; samuti on ta edicti ja kanjidici põhiautor ning need mõlemad on &kiten;ile hädavajalikud.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - portimine KConfig XT-sse ja veaparandused.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> - SVG ikoon.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - ümberkirjutamine KDE4 tarbeks.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - ümberkirjutamine KDE4 tarbeks.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> - põhivormi teisendamise süsteemi parandamine, EDICT-i ja KANJIDIC-i sõnaraamatu uuendamine, kasutajaliidese parandamine, kanjide brauser, veaparandused, koodi lihvimine ja lihtsustamine.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Dokumentatsiooni autoriõigus 2002: &Jason.Katz-Brown;</para>
+<para
+>Dokumentatsiooni autoriõigus 2012: Daniel E. Moctezuma</para>
+
+<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@smail.ee</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<!-- <appendix id="installation">
+<title
+>Installation</title>
+
+&install.intro.documentation;
+&install.compile.documentation;
+
+</appendix
+> -->
+
+&documentation.index;
+</book>

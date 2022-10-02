@@ -1,0 +1,674 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Italian "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>Manuale di &kiten;</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+><affiliation
+><address
+><email
+>toscano.pino@tiscali.it</email
+></address
+></affiliation
+><contrib
+>Traduzione italiana</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Nicola</firstname
+><surname
+>Ruggero</surname
+><affiliation
+><address
+><email
+>nicola@nxnt.org</email
+></address
+></affiliation
+><contrib
+>Traduzione italiana</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Davide</firstname
+><surname
+>Rizzo</surname
+><affiliation
+><address
+><email
+>drizzo@daviderizzo.com</email
+></address
+></affiliation
+><contrib
+>Traduzione italiana</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Paolo</firstname
+><surname
+>Zamponi</surname
+><affiliation
+><address
+><email
+>zapaolo@email.it</email
+></address
+></affiliation
+><contrib
+>Aggiornamento della traduzione italiana</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>28/12/2020</date>
+<releaseinfo
+>Applications 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kiten; è uno strumento di &kde; di riferimento e di studio del giapponese.</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Giapponese</keyword>
+<keyword
+>Lingua</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introduzione</title>
+
+<para
+>&kiten; è un insieme di tre strumenti con molteplici funzioni. Prima di tutto è un utile dizionario inglese-giapponese e giapponese-inglese; in secondo luogo è un dizionario dei kanji, con diversi modi per cercare caratteri specifici; infine, è uno strumento per aiutarti a imparare i kanji.</para>
+
+<para
+>Ciascuna di queste modalità è discussa in un capitolo apposito.</para>
+
+<screenshot>
+<screeninfo
+>Ecco una schermata di &kiten;</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Schermata di &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Usare il dizionario</title>
+
+<para
+>La modalità base di &kiten; è quella di dizionario per la ricerca di parole inglesi e giapponesi. Puoi anche aggiungere altri dizionari alla lista di &kiten;.</para>
+
+<para
+>&kiten; utilizza Edict e Kanjidic di Jim Breen come dizionari predefiniti. Puoi trovare maggiori informazioni presso i siti web di <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>Edict</ulink
+> e <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
+>Kanjidic</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Cercare parole</title>
+
+<para
+>Per cercare parole in una delle due lingue, digitale nella casella di testo (simile alla barra degli indirizzi di &konqueror;) e premi &Enter; o il pulsante <guibutton
+>Cerca</guibutton
+> nella barra degli strumenti (di nuovo, proprio come in &konqueror;). &kiten; cercherà quindi la parola.</para>
+
+<para
+>Puoi inserire kanji, kana e inglese, e ricevere i risultati da &kiten;. Questi risultati della tua ricerca appariranno nell'ampio spazio dei risultati, che occupa la maggior parte della finestra di &kiten;.</para>
+
+<screenshot>
+<screeninfo
+>ricerca di una traduzione in inglese</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Schermata funzione di ricerca di &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Filtrare</title>
+
+<para
+>Spesso vorrai filtrare le parole rare dalla tua ricerca. &kiten; lo farà per te abilitando <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Filtra rari</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>Non tutti i file di dizionario supportano il filtraggio delle voci rare: la maggior parte dei dizionari, esclusi i due forniti di serie con &kiten;, non lo permettono.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Schermata che mostra il filtraggio delle parole rare</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Filtraggio della ricerca in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Parole comuni / non comuni</title>
+<para
+>Un altro modo di separare le informazioni è quello di filtrare le parole comuni e non comuni: questo può essere utile quando vuoi focalizzarti su quelle comuni o sei interessato alle parole non comuni. L'unica differenza tra le opzioni "Filtra rari" e "Comuni / non comuni" è che in questo modo vedi anche i risultati rari / non comuni.</para>
+
+<screenshot>
+<screeninfo
+>Schermata per la corrispondenza comuni/non comuni</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>La corrispondenza comuni/non comuni di &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Ricerche avanzate</title>
+
+<para
+>&kiten; supporta ricerche più avanzate rispetto a quella semplice di parole normali.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Ricerche inizio parola/fine parola/ovunque</title>
+<para
+>Oltre alla ricerca con <guilabel
+>Corrispondenza esatta</guilabel
+>, &kiten; ha tre metodi di ricerca aggiuntivi.</para>
+<para
+>Per cercare l'inizio di una parola, invece di premere il pulsante <guibutton
+>Cerca</guibutton
+> sulla barra degli strumenti, o &Enter; nella casella di testo sulla stessa barra, scegli <menuchoice
+><guimenu
+>Cerca</guimenu
+><guisubmenu
+>Corrispondenza per tipo</guisubmenu
+><guimenuitem
+>Corrispondenza con l'inizio</guimenuitem
+></menuchoice
+>. Analogamente, per cercare solo la fine, oppure in qualsiasi punto, scegli <menuchoice
+><guimenu
+>Cerca</guimenu
+> <guisubmenu
+>Corrispondenza per tipo</guisubmenu
+></menuchoice
+>, <guimenuitem
+>Corrispondenza in qualsiasi punto</guimenuitem
+>, oppure <guimenuitem
+>Corrispondenza con la fine</guimenuitem
+> per cercare del testo ovunque all'interno o alla fine di una parola. Queste modalità di ricerca funzionano per ricerche in entrambe le lingue.</para>
+
+<screenshot>
+<screeninfo
+>Schermata della ricerca di corrispondenza con la fine</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Ricerca di corrispondenza con la fine in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Ricerche per tipo di parola</title>
+<para
+>&kiten; supporta ricerche per tipi di parola quali verbi, nomi, aggettivi, avverbi, prefissi, suffissi, espressioni, oppure qualunque tipo. In questo modo puoi filtrare i risultati in un modo più pratico.</para>
+
+<screenshot>
+<screeninfo
+>Schermata della corrispondenza per tipo di parola</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Corrispondenza per tipo di parola in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Ricerche nei risultati</title>
+
+<para
+>&kiten; ti aiuta anche ad affinare le tue ricerche, permettendoti di cercare un nuovo testo nei risultati generati da una ricerca precedente. Per farlo è sufficiente scegliere <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Cerca nei risultati</guimenuitem
+></menuchoice
+>. In modo simile alle ricerche inizio parola/fine parola/ovunque, anche questa ricerca funziona per entrambe le lingue.</para>
+
+<screenshot>
+<screeninfo
+>Schermata della ricerca nei risultati</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>La ricerca nei risultati in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Cercare kanji</title>
+
+<para
+>&kiten; dispone di caratteristiche che rendono semplice trovare il kanji che ti interessa tra gli oltre 14.000 del dizionario predefinito.</para>
+
+<note
+><para
+>Facendo clic su un qualsiasi kanji nello spazio dei risultati, saranno visualizzati i dettagli sul kanji stesso. Questo è talvolta il modo più veloce per cercarne uno.</para
+></note>
+
+<tip
+><para
+>Le ricerche dei kanji sono anche filtrate a seconda che <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Filtra rari</guimenuitem
+></menuchoice
+> sia selezionato o meno.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Ricerche regolari</title>
+
+<para
+>Puoi effettuare ricerche con stringhe inglesi e giapponesi nello stesso modo in cui lo faresti con uno dizionario normale.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Ricerca di radicali</title>
+
+<para
+>Puoi usare la ricerca di radicali di &kiten; per cercare kanji con una combinazione di radicali e un certo numero di tratti. Scegli <menuchoice
+><guimenu
+>Cerca</guimenu
+><guimenuitem
+>Selettore di radicali</guimenuitem
+></menuchoice
+> per aprire la finestra di ricerca dei radicali.</para>
+
+<para
+>Per scegliere i radicali che desideri siano nel tuo kanji, selezionali da uno dei pulsanti in fondo alla finestra. Per visualizzare possibili radicali da selezionare con un certo numero di tratti, scegli questo numero dalla casella sopra i pulsanti. I radicali da te scelti appariranno nella lista in alto.</para>
+
+<para
+>Per scegliere quanti tratti debba avere il tuo kanji, inserisci i valori nei riquadri appositi, sotto l'area con i risultati.</para>
+
+<para
+>Per effettuare la ricerca, premi il pulsante che corrisponde al kanji che vuoi cercare.</para>
+
+<screenshot>
+<screeninfo
+>Schermata del selettore di radicali</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Il selettore di radicali di &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Ricerca di gradi</title>
+
+<para
+>Per avere una lista di tutti i kanji di un certo grado, inserisci nel riquadro della ricerca «G:1» (dove G: è il segnaposto per indicare il grado del kanji).</para>
+
+<screenshot>
+<screeninfo
+>Schermata della ricerca per gradi dei kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Ricerca per gradi dei kanji in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Ricerca di tratti</title>
+
+<para
+>Per ottenere una lista di tutti i kanji con un certo numero di tratti, inserisci il numero nella casella di ricerca come «S:2».</para>
+
+<screenshot>
+<screeninfo
+>Schermata della ricerca di tratti dei kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Ricerca di tratti dei kanji in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Lista dei kanji</title>
+
+<para
+>Questa parte del visualizzatore dei kanji ti permette di visualizzare una lista di kanji filtrata per grado e numero di tratti. Facendo clic su un kanji puoi ottenere le sue informazioni dettagliate. Il visualizzatore di kanji divide la lista in kanji jōyō, jinmeiyō e non jōyō. Tutti questi kanji sono forniti dal dizionario KANJIDICT.</para>
+
+<screenshot>
+<screeninfo
+>Schermata della lista dei kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Lista dei kanji di &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Informazioni sul kanji</title>
+
+<para
+>Questa parte mostra le informazioni dettagliate di un kanji quali: ordine dei tratti del kanji, numero di tratti, letture e significati.</para>
+
+<screenshot>
+<screeninfo
+>Schermata delle informazioni sul kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Informazioni sul kanji di &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Varie</title>
+
+<para
+>Questo capitolo descrive caratteristiche varie utilizzabili in entrambe le modalità della finestra principale di &kiten;.</para>
+
+<sect1 id="history">
+<title
+>Cronologia</title>
+
+<para
+>&kiten; tiene traccia di tutte le tue ricerche effettuate nel campo di inserimento. Puoi vedere i tuoi ultimi risultati facendo clic sul segno di spunta a destra del campo di inserimento. Per avanzare di un elemento nella cronologia, scegli <menuchoice
+><guimenu
+>Vai</guimenu
+><guimenuitem
+>Avanti</guimenuitem
+></menuchoice
+>. Per andare indietro di un elemento nella cronologia, scegli <menuchoice
+><guimenu
+>Vai</guimenu
+><guimenuitem
+>Indietro</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>Caratteri</title>
+
+<para
+>Puoi scegliere il carattere che &kiten; utilizza nel mostrare i risultati. Vai alla finestra di configurazione di &kiten;, che si apre scegliendo <menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Configura &kiten;...</guimenuitem
+></menuchoice
+>. Seleziona la pagina <guilabel
+>Carattere</guilabel
+>, e scegli quello che desideri.</para>
+
+<note
+><para
+>Il nuovo sistema di sostituzione dei caratteri di &Qt; fa sì che i caratteri giapponesi vengano sempre mostrati come tali, anche se il tipo di carattere che hai scelto non li include. Perciò puoi scegliere qualsiasi tipo di carattere, e tutto dovrebbe comunque essere visualizzato correttamente.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Schermata dei caratteri</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Caratteri in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Riconoscimenti e licenza</title>
+
+<para
+>&kiten; copyright 2001, 2002 &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>Sviluppatori</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - Autore originario.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - Semplificazione del codice, suggerimenti per l'interfaccia utente.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> - Ha scritto xjdic, da cui &kiten; ha tratto del codice, e il generatore di file indice di xjdic. È anche il principale autore di edict e kanjidic, entrambi richiesti da &kiten;.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - Adattamento a KConfig XT e correzione di bug.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> - Icona &SVG;.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - Riscrittura per &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - Riscrittura per &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> - Miglioramenti del sistema di deconiugazione, sistema di aggiornamento dei dizionari EDICT e KANJIDICT, miglioramenti alla &GUI;, visualizzatore dei kanji, correzioni di bug, pulizia e semplificazione del codice.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Copyright documentazione 2002, &Jason.Katz-Brown;</para>
+<para
+>Documentazione copyright 2012, Daniel E. Moctezuma</para>
+
+<para
+>Traduzione italiana: Nicola Ruggero (<email
+>nicola@nxnt.org</email
+>)</para
+><para
+>Traduzione italiana: Davide Rizzo (<email
+>drizzo@daviderizzo.com</email
+>)</para
+><para
+>Aggiornamento della traduzione italiana: Paolo Zamponi (<email
+>zapaolo@email.it</email
+>)</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>

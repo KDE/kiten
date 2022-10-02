@@ -1,0 +1,642 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>Руководство пользователя &kiten;</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Сергей</firstname
+> <surname
+>Бобыкин</surname
+> <affiliation
+><address
+><email
+>_myst@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>28 декабря 2020 г.</date>
+<releaseinfo
+>Приложения KDE 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kiten; &mdash; программа по изучению японского языка, разработнная &kde;.</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Японский</keyword>
+<keyword
+>Язык</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Введение</title>
+
+<para
+>&kiten; &mdash; набор из трёх утилит со множеством функций. Во-первых, это удобный англо-японский и японско-английский словарь. Во-вторых, это словарь иероглифов с множеством способов поиска конкретных символов. В-третьих, это средство обучения иероглифам.</para>
+
+<para
+>Каждый из этих режимов обсуждается в отдельной главе.</para>
+
+<screenshot>
+<screeninfo
+>Главное окно &kiten;</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Главное окно &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Использование словаря</title>
+
+<para
+>Основной режим &kiten; &mdash; словарь для поиска английских и японских слов. В &kiten; можно добавить другие словари.</para>
+
+<para
+>По умолчанию &kiten; использует Edict &mdash; словарь Джима Брина (Jim Breen) и Kanjidic. Дополнительная информация есть на сайтах <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>Edict</ulink
+> и <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
+>Kanjidic</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Поиск слов</title>
+
+<para
+>Для поиска слов на любом языке наберите их в текстовом поле ввода (оно похоже на адресную панель &konqueror;) и нажмите клавишу «Ввод» или кнопку <guibutton
+>Поиск</guibutton
+> на этой же панели (снова, как в &konqueror;).</para>
+
+<para
+>Вы можете вводить английские слова, японские слова, используя кандзи (иероглифы) и кану, и получать результаты поиска. Результаты помещаются в область просмотра, которая занимает бóльшую часть окна программы.</para>
+
+<screenshot>
+<screeninfo
+>Поиск по английскому слову</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск по словарю</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Фильтрация</title>
+
+<para
+>Часто требуется удалить редко используемые слова из поиска. В &kiten; это можно сделать с помощью пункта меню <menuchoice
+><guimenu
+>Поиск</guimenu
+><guimenuitem
+>Не искать в редко используемых</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>Не все словари поддерживают фильтрацию словарных статей редко используемых слов. Большинство словарей, за исключением тех, что по умолчанию поставляются с программой, её не поддерживают.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с фильтрацией редко используемых слов</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск с фильрацией в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Типичные/нетипичные слова</title>
+<para
+>Ещё одним способом отделения данных является фильтрация по типичным и нетипичным словам. Такая фильтрация полезна, если требуется сосредоточиться на изучении типичных слов и/или ознакомиться с нетипичными словами. Единственное отличие фильтрации редко используемых слов и фильтрации типичных/нетипичных слов заключается в том, что в результатах будут показаны также и редкие/нетипичные слова.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском типичных и нетипичных слов</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск типичных и нетипичных слов в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Расширенный поиск</title>
+
+<para
+>&kiten; поддерживает более широкие средства поиска, чем простой поиск слов.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Поиск по началу, поиск по концу, поиск везде</title>
+<para
+>Помимо поиска с условием <guilabel
+>Точное совпадение</guilabel
+>, в &kiten; предусмотрено три дополнительных режима поиска.</para>
+<para
+>Чтобы искать начало слова, не нажимайте кнопку <guibutton
+>Поиск</guibutton
+> на панели инструментов или клавишу «Ввод» после ввода текста в поле поиска на панели инструментов, а выберите пункт меню <menuchoice
+><guimenu
+>Поиск</guimenu
+><guisubmenu
+>Требуемое совпадение</guisubmenu
+><guimenuitem
+>Начало слова</guimenuitem
+></menuchoice
+>. Аналогичным образом, для поиска любой части слова или его конца следует использовать, соответственно, пункт меню <menuchoice
+><guimenu
+>Поиск</guimenu
+> <guisubmenu
+>Требуемое совпадение</guisubmenu
+></menuchoice
+> <guimenuitem
+>Частичное совпадение</guimenuitem
+> или <guimenuitem
+>Конец слова</guimenuitem
+>. Данные режимы поиска работают для обоих языков.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском по концу слова</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск по концу слова в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Поиск по части речи</title>
+<para
+>В &kiten; предусмотрена поддержка поиска глаголов, существительных, прилагательных, наречий, префиксов, суффиксов, выражений. Это делает фильтрацию результатов удобнее.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском по типу слова</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск по части речи в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Поиск в результатах</title>
+
+<para
+>&kiten; может также уточнить поиск, позволяя искать другой текст в результатах предыдущего поиска. Для этого используйте пункт меню <menuchoice
+><guimenu
+>Поиск</guimenu
+><guimenuitem
+>Поиск в найденном</guimenuitem
+></menuchoice
+>. Как и поиск по началу, концу или любому месту слова, этот режим поиска работает для обоих языков.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском в результатах</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск в найденном &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Поиск кандзи</title>
+
+<para
+>&kiten; обладает свойством, которое упрощает поиск любого из более 14000 кандзи в словаре по умолчанию.</para>
+
+<note
+><para
+>Нажатие на любом иероглифе в окне результатов показывает подробную информацию о нём. Это иногда самый быстрый способ поиска иероглифов.</para
+></note>
+
+<tip
+><para
+>Результаты поиска иероглифов также фильтруются в соответствии с параметром <menuchoice
+><guimenu
+>Поиск</guimenu
+><guimenuitem
+>Не искать в редко используемых</guimenuitem
+></menuchoice
+>.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Обычный поиск</title>
+
+<para
+>Вы можете искать строки на английском и японском языках точно так же, как в обычном словаре.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Поиск по ключу</title>
+
+<para
+>Для поиска иероглифов, состоящих из нескольких ключей и определённого количества черт, можно использовать диалог поиска ключей. Он открывается с помощью пункта меню <menuchoice
+><guimenu
+>Поиск</guimenu
+><guimenuitem
+>Поиск кандзи по ключам</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Чтобы выбрать ключи, которые должны быть в кандзи, воспользуйтесь кнопками в нижней части окна. Для просмотра возможных ключей, в которых определённое количество черт, укажите это количество черт с помощью полей счётчиков, расположенных над кнопками. Выбранные ключи появятся в поле со списком в верхней части.</para>
+
+<para
+>Чтобы выбрать количество черт, просто укажите необходимые значения с помощью полей счётчиков, расположенных под областью результатов.</para>
+
+<para
+>Для выполнения поиска нажмите кнопку, которая соответствует нужному кандзи.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском кандзи по ключам</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск по ключам в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Поиск уровня</title>
+
+<para
+>Для получения списка всех иероглифов определённого уровня укажите этот уровень в поле поиска в виде «G:1» (G: — метка Kanjidic, обозначающая уровень).</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском кандзи по уровню</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск кандзи по уровню в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Поиск черт</title>
+
+<para
+>Для получения списка всех иероглифов с определённым количеством черт укажите это количество в поле поиска в виде «S:2».</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с поиском кандзи по чертам</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Поиск черт кандзи в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Список кандзи</title>
+
+<para
+>В этой части браузера кандзи показан перечень кандзи с фильтрацией по уровню и количеству черт. Для получения подробных сведений о кандзи сделайте по нему щелчок. Перечень кандзи в браузере подразделяется на Jouyou, Jinmeiyou и не-Jouyou. Все эти кандзи доступны благодаря словарю KANJIDIC.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана со списком кандзи</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Список кандзи в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Информация о кандзи</title>
+
+<para
+>В этой области показана информация о кандзи, в частности: порядок черт кандзи, количество черт, способы чтения и значения.</para>
+
+<screenshot>
+<screeninfo
+>Снимок экрана с информацией о кандзи</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Информация о кандзи в &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Разное</title>
+
+<para
+>Эта глава описывает возможности, которые могут быть использованы в обоих режимах в главном окне программы.</para>
+
+<sect1 id="history">
+<title
+>Журнал</title>
+
+<para
+>&kiten; сохраняет все запросы, сделанные с помощью поля ввода. Чтобы просмотреть последние результаты, щёлкните по галочке справа от поля ввода. Для перехода на одну позицию вперёд в журнале выберите пункт меню <menuchoice
+><guimenu
+>Переход</guimenu
+><guimenuitem
+>Вперёд</guimenuitem
+></menuchoice
+>. Для перехода на одну позицию назад в журнале выберите пункт меню <menuchoice
+><guimenu
+>Переход</guimenu
+><guimenuitem
+>Назад</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>Шрифты</title>
+
+<para
+>Возможно выбрать шрифт для показа результатов и печати. Перейдите в диалог настройки &kiten; с помощью пункта меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &kiten;...</guimenuitem
+></menuchoice
+>. Выберите раздел <guilabel
+>Шрифт</guilabel
+> диалога и укажите требуемый шрифт.</para>
+
+<note
+><para
+>Система подстановки шрифтов в &Qt; осуществляет подстановку японского шрифта для японских символов, даже если выбранный шрифт не включает их. Поэтому возможно выбирать любой шрифт, и всё должно отлично показываться.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Снимок экрана со шрифтом</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Шрифт &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Авторские права и лицензия</title>
+
+<para
+>Авторские права на программу 2001, 2002 Джейсон Катц-Браун (&Jason.Katz-Brown;)</para>
+
+<itemizedlist>
+<title
+>Разработчики</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; — первоначальный автор.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; — упрощение кода, предложения по интерфейсу пользователя.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> — написал xjdic, из которого &kiten; заимствует код, и генератор индексных файлов для xjdic. Он также автор edict и kanjidic, которые совершенно необходимы &kiten; для работы.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> — перенос на KConfig XT и исправление ошибок.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> — значок &SVG;.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> — перепись кода для &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> — перепись кода для &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> — улучшение системы  устранения окончаний, обновления словаря для EDICT и KANJIDIC, улучшение интерфейса пользователя, браузер кандзи, исправление ошибок, шлифовка и упрощение кода.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Авторские права на документацию: &Jason.Katz-Brown;, 2002</para>
+<para
+>Авторские права на документацию: Daniel E. Moctezuma, 2012</para>
+
+<para
+>Перевод на русский язык: Сергей Бобыкин <email
+>_myst@mail.ru</email
+></para
+><para
+>Обновление перевода: Олеся Герасименко<email
+>translation-team@basealt.ru</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>

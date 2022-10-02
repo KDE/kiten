@@ -1,0 +1,626 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>Handbok &kiten;</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-12-28</date>
+<releaseinfo
+>Program 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kiten; är ett japanskt referens och studieverktyg av &kde;</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Japanska</keyword>
+<keyword
+>Språk</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inledning</title>
+
+<para
+>&kiten; består av tre verktyg med flera funktioner: För det första är det en bekväm engelsk-japansk och japansk-engelsk ordbok. För det andra är det en kanji ordbok, med flera sätt att slå upp särskilda tecken. För det tredje är det ett verktyg för att hjälpa dig lära dig kanji.</para>
+
+<para
+>Vart och ett av dessa lägen diskuteras i sitt eget kapitel.</para>
+
+<screenshot>
+<screeninfo
+>Här är en skärmbild av &kiten;</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Skärmbild av &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Använda ordboken</title>
+
+<para
+>&kiten; mest grundläggande läge är som ordbok för att både slå upp engelska och japanska ord. Du kan också lägga till ytterligare ordböcker i &kiten;s lista.</para>
+
+<para
+>&kiten; använder Jim Breens Edict och Kanjidic som standardordböcker. Du hittar mer information på <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>Edicts hemsida</ulink
+> och <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
+>Kanjidics hemsida</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Slå upp ord</title>
+
+<para
+>För att slå upp ord i endera språket, skriv in dem i textrutan (som liknar &konqueror;s platsrad på många sätt) och tryck antingen på <keycap
+>Enter</keycap
+> eller knappen <guibutton
+>Sök</guibutton
+> i verktygsraden (återigen likt &konqueror;). &kiten; slår då upp ordet.</para>
+
+<para
+>Du kan skriva in kanji, kana eller engelska och få tillbaka resultat från &kiten;. Resultatet av sökningen visas i den stora resultatrutan som upptar den största delen av &kiten;s fönster.</para>
+
+<screenshot>
+<screeninfo
+>söka efter en engelsk översättning</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Skärmbild av sökning i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Filtrering</title>
+
+<para
+>Många gånger vill du filtrera sällsynta ord från sökningen. &kiten; gör det åt dig om du aktiverar <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Filtrera sällsynta</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>Alla ordboksfiler stöder inte filtrering av sällsynta ord. De flesta ordböcker, bortsett från de två som normalt tillhandahålls i &kiten;, gör det inte.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Skärmbild av filtrering av sällsynta ord</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Filtrerad sökning i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Vanliga eller sällsynta ord</title>
+<para
+>Ett annat sätt att separera information är att filtrera vanliga och sällsynta ord. Det är användbart om du vill fokusera på de vanliga orden och/eller har intresse av sällsynta. Den enda skillnaden mellan alternativen Filtrera sällsynta och Vanlig eller sällsynt är att här får du ocså de sällsynta resultaten.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild med matchning av vanliga eller sällsynta</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Matchning av vanliga eller sällsynta i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Avancerad sökning</title>
+
+<para
+>&kiten; stöder mer avancerade sökningar än helt vanliga ordsökningar.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Sökning med början, slutet eller var som helst</title>
+<para
+>Förutom en sökning med <guilabel
+>Exakt match</guilabel
+> har &kiten; tre ytterligare sökmöjligheter.</para>
+<para
+>För att söka efter början på ett ord, välj <menuchoice
+><guimenu
+>Sök</guimenu
+> <guisubmenu
+>Matchtyp</guisubmenu
+> <guimenuitem
+>Matcha början</guimenuitem
+></menuchoice
+> istället för att trycka på knappen <guibutton
+>Sök</guibutton
+> på verktygsraden eller trycka på returtangenten. På liknande sätt, för att söka efter slutet eller var som helst, välj <menuchoice
+><guimenu
+>Sök</guimenu
+> <guisubmenu
+>Matchtyp</guisubmenu
+></menuchoice
+> <guimenuitem
+>Matcha var som helst</guimenuitem
+> eller <guimenuitem
+>Matcha slutet</guimenuitem
+> för att söka efter texten var som helst i ett ord eller i slutet av ett ord. Dessa söklägen fungerar för sökningar med båda språken.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av sökning efter matchning av slutet</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Sökning efter matchning av slutet i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Sökningar efter ordtyp</title>
+<para
+>&kiten; stöder sökningar efter ordtyp såsom verb, substantiv, adjektiv, adverb, prefix, suffix, uttryck, eller vilken typ som helst. På så sätt kan du mer bekvämt filtrera dina resultat.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av ordtypsmatchning</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Matchning av ordtyp i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Söka i resultat</title>
+
+<para
+>&kiten; kan också hjälpa till att förfina sökningar genom att låta dig söka efter ny text i resultatet som skapats av en tidigare sökning. För att göra detta, välj bara <menuchoice
+><guimenu
+>Sök</guimenu
+><guimenuitem
+>Sök i resultat</guimenuitem
+></menuchoice
+> för att göra sökningen. I likhet med sökning efter början, slutet eller var som helst, så fungerar detta också för båda språken.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av sökning i resultat</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Skärmbild av sökning i resultat i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Slå upp kanji</title>
+
+<para
+>&kiten; har funktioner som gör det lätt att hitta den kanji du vill ha bland över 14 000 i den förvalda ordboken.</para>
+
+<note
+><para
+>Genom att klicka på någon kanji i resultatrutan visas information om denna kanji. Detta kan ibland vara det snabbaste sättet att slå upp en kanji.</para
+></note>
+
+<tip
+><para
+>Kanji-sökningar filtreras också i enlighet med värdet av <menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Filtrera sällsynta</guimenuitem
+></menuchoice
+>.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Vanlig sökning</title>
+
+<para
+>Du kan söka med engelska och japanska söksträngar, precis på samma sätt som du kan med den vanliga ordboken.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Radikalsökning</title>
+
+<para
+>Du kan använda &kiten;s radikalsökdialogruta för att söka efter kanji med en kombination av radikaler och ett visst antal streck. Välj <menuchoice
+><guimenu
+>Sök</guimenu
+><guimenuitem
+>Radikalväljare</guimenuitem
+></menuchoice
+> för att visa radikalsökdialogrutan.</para>
+
+<para
+>För att välja radikalerna du vill ska vara med i en kanji, välj dem med knapparna längst ner i fönstret. För att visa möjliga radikaler att välja på de här knapparna med ett visst antal streck, välj antalet streck i nummerrutorna precis ovanför knapparna. Radikalerna du väljer visas i listrutan längst upp.</para>
+
+<para
+>För att välja hur många streck kanji ska ha, skriv bara in värdena i nummerrutorna under resultatrutan.</para>
+
+<para
+>För att utföra uppslagningen, tryck på knappen som motsvarar kanji du vill slå upp.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av radikalväljare</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Radikalväljare i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Gradsökning</title>
+
+<para
+>För att få en lista med alla kanji av en viss grad, skriv in det i sökrutan som "G:1" (G: är beteckningen för grad i kanjidic).</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av sökning efter kanji-grad</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Sökning efter kanji-grad i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Strecksökning</title>
+
+<para
+>För att få en lista med alla Kanji med ett visst antal streck, skriv in antalet i textrutan i verktygsraden som "S:2".</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av kanji-strecksökning</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Kanji-strecksökning i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Kanji-lista</title>
+
+<para
+>Den här delen av kanji-bläddraren åskådliggör en lista med kanji filtrerade enligt grad och antal streck. Genom att klicka på en kanji får du detaljerad information om den. Kanji-bläddraren separerar listan i jōyō, jinmeiyō och icke-jōyō kanji. Alla kanji är tillgängliga tack vara ordlistan KANJIDIC.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av kanji-lista</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Kanji-lista i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Kanji-information</title>
+
+<para
+>Den här delen visar detaljinformation om en kanji, såsom streckordningen, antal streck, utläsning och betydelser.</para>
+
+<screenshot>
+<screeninfo
+>Skärmbild av kanji-information</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Kanji-information i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Diverse</title>
+
+<para
+>Det här kapitlet beskriver diverse funktioner som kan användas i båda lägen i &kiten;s huvudfönster.</para>
+
+<sect1 id="history">
+<title
+>Historik</title>
+
+<para
+>&kiten; håller ordning på alla dina sökningar i inmatningsfältet. Du kan se de senaste resultaten genom att klicka på bocken till höger om inmatningsfältet. För att gå framåt ett steg i historiken, välj <menuchoice
+><guimenu
+>Gå</guimenu
+><guimenuitem
+>Framåt</guimenuitem
+></menuchoice
+>. För att gå bakåt ett steg i historiken, välj <menuchoice
+><guimenu
+>Gå</guimenu
+><guimenuitem
+>Bakåt</guimenuitem
+> </menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>Teckensnitt</title>
+
+<para
+>Du kan välja teckensnittet som &kiten; använder i resultatrutan. Gå till &kiten;s inställningsdialogruta, som kan visas genom att välja <menuchoice
+><guimenu
+>Inställningar</guimenu
+><guimenuitem
+>Anpassa &kiten;...</guimenuitem
+></menuchoice
+>. Välj sidan <guilabel
+>Teckensnitt</guilabel
+> i dialogrutan och välj teckensnittet med teckensnittsväljaren.</para>
+
+<note
+><para
+>&Qt;:s ersättningssystem för teckensnitt gör så att ett japanskt teckensnitt alltid ersätts med japanska tecken, även om teckensnittet du anger inte innehåller dem. Därför kan du välja vilket teckensnitt som helst i teckensnittsväljaren, och allting ska fortfarande visas riktigt.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Skärmbild av teckensnitt</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Teckensnitt i &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Tack till och licens</title>
+
+<para
+>&kiten; copyright 2001, 2002 &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>Utvecklare</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - Ursprunglig upphovsman.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - Kodförenkling, förslag för användargränssnittet.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> - Skrev xjdic, som &kiten; lånar kod från, och xjdic indexfilskaparen. Är också huvudförfattare till edict och kanjidic, som &kiten; väsentligen kräver.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - Överföring till KConfig XT och felrättning.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> - &SVG;-ikon.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - Omskrivning för &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - Omskrivning för &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> - Förbättringar av grundformssystemet, uppdateringar av ordlista för EDICT och KANJIDIC, förbättringar av det grafiska användargränssnittet, Kanji-bläddrare, felrättningar, koduppsnyggning och förenkling.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Dokumentation copyright 2002, &Jason.Katz-Brown;</para>
+<para
+>Dokumentation copyright 2012, Daniel E. Moctezuma</para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>

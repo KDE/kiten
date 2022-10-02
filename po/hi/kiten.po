@@ -1,0 +1,1229 @@
+# translation of kiten.po to Hindi
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Ravishankar Shrivastava <raviratlami@yahoo.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: kiten\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-29 00:41+0000\n"
+"PO-Revision-Date: 2007-12-21 17:46+0530\n"
+"Last-Translator: Ravishankar Shrivastava <raviratlami@yahoo.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "रविशंकर श्रीवास्तव, जी. करूणाकर"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "raviratlami@aol.in,"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
+#: app/configdictselect.ui:14
+#, kde-format
+msgid "Dictionary Selector"
+msgstr "शब्दकोश चयनक"
+
+#. i18n: ectx: property (text), widget (QCheckBox, __useGlobal)
+#: app/configdictselect.ui:25
+#, kde-format
+msgid "Use prei&nstalled dict"
+msgstr "पूर्व संस्थापित शब्दकोश इस्तेमाल करें (&n)"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, fileList)
+#: app/configdictselect.ui:56
+#, kde-format
+msgid "Name"
+msgstr "नाम"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, fileList)
+#: app/configdictselect.ui:67
+#, kde-format
+msgid "File"
+msgstr "फ़ाइल"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: app/configdictselect.ui:86
+#, kde-format
+msgid "&Add..."
+msgstr "जोड़ें...(&A)"
+
+#. i18n: ectx: property (text), widget (QPushButton, delButton)
+#: app/configdictselect.ui:93
+#, kde-format
+msgid "Delete"
+msgstr "मिटाएँ"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigFont)
+#: app/configfont.ui:13
+#, kde-format
+msgid "Fonts"
+msgstr "फ़ॉन्ट्स"
+
+#. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
+#: app/configfont.ui:21
+#, kde-format
+msgid "Main Font"
+msgstr "मुख्य फ़ॉन्ट"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
+#: app/configfont.ui:28
+#, kde-format
+msgid "漢字 かな romaji"
+msgstr "漢字 かな रोमाजी"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
+#: app/configlearn.ui:13 app/configuredialog.cpp:51
+#, kde-format
+msgid "Learn"
+msgstr "सीखें"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: app/configlearn.ui:19
+#, kde-format
+msgid ""
+"Learn mode is disabled in this version of kiten. There are several excellent "
+"open source flashcard programs available, such as <a href=\"https://apps.kde."
+"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
+"project</a>."
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
+#: app/configsearching.ui:13 app/configuredialog.cpp:47
+#, kde-format
+msgid "Searching"
+msgstr "ढूंढा जा रहा है"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
+#: app/configsearching.ui:33
+#, kde-format
+msgid "Search for \"jiten\" on startup"
+msgstr "प्रारंभ में \"jiten\" के लिए ढूंढें"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, configSorting)
+#: app/configsorting.ui:15
+#, kde-format
+msgid "sorting"
+msgstr "क्रमबद्ध करने में"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_dictionary_enable)
+#: app/configsorting.ui:21
+#, kde-format
+msgid "Sort Se&arch Results By Dictionary"
+msgstr "ढूंढे गए परिणामों को शब्दकोश से छांटें (&a)"
+
+#. i18n: ectx: property (availableLabel), widget (KActionSelector, dictionary_order)
+#: app/configsorting.ui:28
+#, kde-format
+msgid "Dicti&onaries Available:"
+msgstr "उपलब्ध शब्दकोश: (&o)"
+
+#. i18n: ectx: property (selectedLabel), widget (KActionSelector, dictionary_order)
+#: app/configsorting.ui:31
+#, kde-format
+msgid "Displa&y First:"
+msgstr "प्रथम दिखाएँ: (&y)"
+
+#. i18n: ectx: property (availableLabel), widget (KActionSelector, field_order)
+#: app/configsorting.ui:48
+#, kde-format
+msgid "Fields to Sort &By:"
+msgstr "क्षेत्र को इस आधार पर छाँटें: (&B)"
+
+#: app/configuredialog.cpp:40
+#, kde-format
+msgid "Dictionaries"
+msgstr "शब्दकोश"
+
+#: app/configuredialog.cpp:56
+#, kde-format
+msgid "Font"
+msgstr "फ़ॉन्ट"
+
+#: app/configuredialog.cpp:59
+#, kde-format
+msgctxt "@title:group the settings for the dictionary display"
+msgid "Display"
+msgstr "प्रदर्शक"
+
+#: app/configuredialog.cpp:62
+#, kde-format
+msgid "Results Sorting"
+msgstr "छंटाई परिणाम"
+
+#: app/dictionaryupdatemanager.cpp:46
+#, kde-format
+msgid "Check for dictionary &updates"
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:80
+#, kde-format
+msgid ""
+"Update canceled.\n"
+"Could not read file."
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:90
+#, kde-format
+msgid ""
+"Update canceled.\n"
+"Could not open file."
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:107
+#, kde-format
+msgid ""
+"Update canceled.\n"
+"The update information file has an invalid date."
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:307
+#, kde-format
+msgid "You already have the latest updates."
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:311
+#, kde-format
+msgid "Successfully updated your dictionaries."
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:315
+#, kde-format
+msgid ""
+"Successfully updated:\n"
+"%1\n"
+"\n"
+"Failed to update:\n"
+"%2"
+msgstr ""
+
+#: app/dictionaryupdatemanager.cpp:321
+#, kde-format
+msgid ""
+"Failed to update:\n"
+"%1"
+msgstr ""
+
+#: app/kiten.cpp:157 radselect/main.cpp:28
+#, fuzzy, kde-format
+#| msgid "RadicalSelector"
+msgid "Radical Selector"
+msgstr "रेडिकल सलेक्टर"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
+#: app/kiten.cpp:163 kanjibrowser/kanjibrowserview.ui:26
+#: kanjibrowser/main.cpp:32
+#, kde-format
+msgid "Kanji Browser"
+msgstr ""
+
+#. i18n: ectx: Menu (search)
+#: app/kiten.cpp:171 app/kitenui.rc:15
+#, kde-format
+msgid "S&earch"
+msgstr "ढूंढें (&e)"
+
+#: app/kiten.cpp:189
+#, kde-format
+msgid "&Automatically Search Clipboard Selections"
+msgstr "क्लिपबोर्ड चयनों को स्वचलित ढूंढें (&A)"
+
+#: app/kiten.cpp:192
+#, kde-format
+msgid "Search &in Results"
+msgstr "परिणामों में ढूंढें (&i)"
+
+#: app/kiten.cpp:201
+#, fuzzy, kde-format
+#| msgid " results"
+msgid "Focus result view"
+msgstr "परिणाम"
+
+#: app/kiten.cpp:231
+#, kde-format
+msgid "Export List"
+msgstr "सूची निर्यात करें"
+
+#: app/kiten.cpp:262
+#, fuzzy, kde-format
+#| msgid "Initialising Dictionaries"
+msgid "Initializing Dictionaries"
+msgstr "शब्दकोशों को इनिशियलाइज किया जा रहा है"
+
+#: app/kiten.cpp:277
+#, kde-format
+msgid "Welcome to Kiten"
+msgstr "के-आईटीईएन में आपका स्वागत है"
+
+#: app/kiten.cpp:379 app/kiten.cpp:443
+#, kde-format
+msgid "Searching..."
+msgstr "ढूंढ रहे हैं..."
+
+#: app/kiten.cpp:464
+#, fuzzy, kde-format
+#| msgid " results"
+msgid "Found 1 result"
+msgid_plural "Found %1 results"
+msgstr[0] "परिणाम"
+msgstr[1] "परिणाम"
+
+#: app/kiten.cpp:468
+#, kde-format
+msgid "No results found"
+msgstr "कोई परिणाम नहीं मिला"
+
+#. i18n: ectx: label, entry (dictionary_list), group (dict_config_types)
+#: app/kiten.kcfg:10
+#, kde-format
+msgid "List of dictionary Types, used internally, do not touch"
+msgstr "शब्दकोश किस्मों की सूची, आंतरिक इस्तेमाल में, छुएँ नहीं"
+
+#. i18n: ectx: label, entry (edict__NAMES), group (dicts_edict)
+#: app/kiten.kcfg:25
+#, kde-format
+msgid "Edict dictionary files"
+msgstr "एडिक्ट शब्दकोश फ़ाइलें"
+
+#. i18n: ectx: label, entry (edict__useGlobal), group (dicts_edict)
+#: app/kiten.kcfg:28
+#, kde-format
+msgid "Use preinstalled edict"
+msgstr "पूर्वसंस्थापित एडिक्ट प्रयोग करें"
+
+#. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
+#. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
+#: app/kiten.kcfg:32 app/kiten.kcfg:46
+#, kde-format
+msgid "Set of fields to display for this dictionary type"
+msgstr "इस शब्दकोश किस्म को प्रदर्शित करने के लिए क्षेत्रों के सेट"
+
+#. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
+#: app/kiten.kcfg:39
+#, kde-format
+msgid "Kanjidic dictionary files"
+msgstr "कांजीडिक शब्दकोश फ़ाइलें"
+
+#. i18n: ectx: label, entry (kanjidic__useGlobal), group (dicts_kanjidic)
+#: app/kiten.kcfg:42
+#, kde-format
+msgid "Use preinstalled kanjidic"
+msgstr "पूर्वसंस्थापत कान्जीडिक प्रयोग करें"
+
+#. i18n: ectx: label, entry, group (Searching Options)
+#: app/kiten.kcfg:53
+#, kde-format
+msgid "Do we search for \"jiten\" on startup"
+msgstr "क्या हम प्रारंभ में \"jiten\" के लिए ढूंढें"
+
+#. i18n: ectx: label, entry, group (Searching Options)
+#: app/kiten.kcfg:57
+#, kde-format
+msgid "Case sensitive searches"
+msgstr "केस सेंसिटिव खोज"
+
+#. i18n: ectx: label, entry, group (Sorting)
+#: app/kiten.kcfg:63
+#, fuzzy, kde-format
+#| msgid "Initialising Dictionaries"
+msgid "Enable Sorting By Dictionary"
+msgstr "शब्दकोशों को इनिशियलाइज किया जा रहा है"
+
+#. i18n: ectx: label, entry, group (Sorting)
+#: app/kiten.kcfg:67
+#, kde-format
+msgid "What order do we sort the dictionaries in?"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (Sorting)
+#: app/kiten.kcfg:71
+#, kde-format
+msgid "What order do we sort the fields in?"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:91
+#, kde-format
+msgid ""
+"0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
+"common and uncommon entries"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:95
+#, kde-format
+msgid ""
+"The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
+"Anywhere"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:99
+#, kde-format
+msgid ""
+"The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
+"4=Adverb, 5=Prefix, 6=Suffix, 7=Expression"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (app)
+#: app/kiten.kcfg:103
+#, fuzzy, kde-format
+#| msgid "&Automatically Search Clipboard Selections"
+msgid "Automatically search for clipboard entries?"
+msgstr "क्लिपबोर्ड चयनों को स्वचलित ढूंढें (&A)"
+
+#. i18n: ectx: Menu (file)
+#: app/kitenui.rc:6 kanjibrowser/kanjibrowserui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "फ़ाइल (&F)"
+
+#. i18n: ectx: ToolBar (mainToolbar)
+#: app/kitenui.rc:34 kanjibrowser/kanjibrowserui.rc:15
+#, fuzzy, kde-format
+#| msgid "&Search Toolbar"
+msgid "Main Toolbar"
+msgstr "ढूंढने के लिए औज़ार पट्टी (&S)"
+
+#. i18n: ectx: ToolBar (extraToolbar)
+#: app/kitenui.rc:46
+#, fuzzy, kde-format
+#| msgid "&Search Toolbar"
+msgid "Extra Toolbar"
+msgstr "ढूंढने के लिए औज़ार पट्टी (&S)"
+
+#. i18n: ectx: ToolBar (searchToolbar)
+#: app/kitenui.rc:50
+#, fuzzy, kde-format
+#| msgid "&Search Toolbar"
+msgid "Search Toolbar"
+msgstr "ढूंढने के लिए औज़ार पट्टी (&S)"
+
+#: app/main.cpp:41
+#, kde-format
+msgid "Kiten"
+msgstr "किटेन"
+
+#: app/main.cpp:41
+#, kde-format
+msgid "Japanese Reference Tool"
+msgstr "जापानी सन्दर्भ शिक्षण औज़ार"
+
+#: app/main.cpp:42
+#, kde-format
+msgid ""
+"(c) 2001-2004, Jason Katz-Brown\n"
+"(c) 2006-2007, Eric Kjeldergaard\n"
+"(c) 2006-2008, Joseph Kerian\n"
+"(c) 2011, Daniel E. Moctezuma"
+msgstr ""
+
+#: app/main.cpp:48
+#, kde-format
+msgid "Jason Katz-Brown"
+msgstr "जेसन कार्त्ज-ब्राउन"
+
+#: app/main.cpp:48
+#, kde-format
+msgid "Original author"
+msgstr "मूल लेखक"
+
+#: app/main.cpp:49
+#, kde-format
+msgid "Jim Breen"
+msgstr "जिम ब्रीन"
+
+#: app/main.cpp:49
+#, kde-format
+msgid ""
+"Wrote xjdic, of which Kiten borrows code, and the xjdic index file "
+"generator.\n"
+"Also is main author of edict and kanjidic, which Kiten essentially require."
+msgstr ""
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Neil Stevens"
+msgstr "नील स्टीवेंस"
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Code simplification, UI suggestions."
+msgstr "कोड सरलीकरण, यूआई सुझाव."
+
+#: app/main.cpp:51
+#, kde-format
+msgid "David Vignoni"
+msgstr "डेविड विग्नोनी"
+
+#: app/main.cpp:51
+#, kde-format
+msgid "svg icon"
+msgstr "एसवीजी प्रतीक"
+
+#: app/main.cpp:52
+#, kde-format
+msgid "Paul Temple"
+msgstr "पॉल टेंपल"
+
+#: app/main.cpp:52
+#, kde-format
+msgid "Porting to KConfig XT, bug fixing"
+msgstr "के-कॉन्फ़िग एक्सटी में पोर्ट, बग सुधार"
+
+#: app/main.cpp:53 radselect/main.cpp:31
+#, kde-format
+msgid "Joseph Kerian"
+msgstr "जोसफ़ केरियन"
+
+#: app/main.cpp:53 app/main.cpp:54
+#, kde-format
+msgid "KDE4 rewrite"
+msgstr "केडीई४ फिर से लिखना"
+
+#: app/main.cpp:54
+#, kde-format
+msgid "Eric Kjeldergaard"
+msgstr ""
+
+#: app/main.cpp:55 kanjibrowser/main.cpp:40
+#, kde-format
+msgid "Daniel E. Moctezuma"
+msgstr ""
+
+#: app/main.cpp:55
+#, kde-format
+msgid ""
+"Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
+"GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
+msgstr ""
+
+#: app/searchstringinput.cpp:29
+#, fuzzy, kde-format
+#| msgid "Word type"
+msgid "Filter Type"
+msgstr "अक्षर टाइप"
+
+#: app/searchstringinput.cpp:30
+#, kde-format
+msgid "No filter"
+msgstr ""
+
+#: app/searchstringinput.cpp:31
+#, fuzzy, kde-format
+#| msgid "&Filter Rare"
+msgid "Filter out rare"
+msgstr "फ़िल्टर विरल (&F)"
+
+#: app/searchstringinput.cpp:32
+#, kde-format
+msgid "Common/Uncommon"
+msgstr ""
+
+#: app/searchstringinput.cpp:35
+#, kde-format
+msgid "Match Type"
+msgstr ""
+
+#: app/searchstringinput.cpp:36
+#, kde-format
+msgid "Exact Match"
+msgstr ""
+
+#: app/searchstringinput.cpp:37
+#, kde-format
+msgid "Match Beginning"
+msgstr ""
+
+#: app/searchstringinput.cpp:38
+#, kde-format
+msgid "Match Ending"
+msgstr ""
+
+#: app/searchstringinput.cpp:39
+#, fuzzy, kde-format
+#| msgid "Search &Anywhere"
+msgid "Match Anywhere"
+msgstr "कहीं से भी ढूंढें (&S)"
+
+#: app/searchstringinput.cpp:42
+#, fuzzy, kde-format
+#| msgid "Word type"
+msgid "Word Type"
+msgstr "अक्षर टाइप"
+
+#: app/searchstringinput.cpp:43
+#, kde-format
+msgid "Any"
+msgstr ""
+
+#: app/searchstringinput.cpp:44
+#, fuzzy, kde-format
+#| msgctxt "This must be a single word"
+#| msgid "verb"
+msgid "Verb"
+msgstr "क्रिया"
+
+#: app/searchstringinput.cpp:45
+#, fuzzy, kde-format
+#| msgctxt "This must be a single word"
+#| msgid "noun"
+msgid "Noun"
+msgstr "संज्ञा"
+
+#: app/searchstringinput.cpp:46
+#, fuzzy, kde-format
+#| msgctxt "this must be a single word"
+#| msgid "adjective"
+msgid "Adjective"
+msgstr "विशेषण"
+
+#: app/searchstringinput.cpp:47
+#, fuzzy, kde-format
+#| msgctxt "This must be a single word"
+#| msgid "adverb"
+msgid "Adverb"
+msgstr "क्रियाविशेषण"
+
+#: app/searchstringinput.cpp:48
+#, kde-format
+msgid "Prefix"
+msgstr ""
+
+#: app/searchstringinput.cpp:49
+#, kde-format
+msgid "Suffix"
+msgstr ""
+
+#: app/searchstringinput.cpp:50
+#, kde-format
+msgid "Expression"
+msgstr ""
+
+#: app/searchstringinput.cpp:59
+#, kde-format
+msgid "Focus input field"
+msgstr ""
+
+#: app/searchstringinput.cpp:62
+#, kde-format
+msgid "Search Bar"
+msgstr "खोज पट्टी"
+
+#: kanjibrowser/kanjibrowser.cpp:140 radselect/radselect.cpp:123
+#, kde-format
+msgid "Settings"
+msgstr "विन्यास"
+
+#: kanjibrowser/kanjibrowserview.cpp:193
+#, kde-format
+msgid "%1 kanji found"
+msgid_plural "%1 kanji found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: kanjibrowser/kanjibrowserview.cpp:204
+#, kde-format
+msgid "About %1"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:205
+#, kde-format
+msgid "Copy %1 to clipboard"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:224
+#, kde-format
+msgid "Could not load the necessary kanji information."
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:234
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Kanji &List"
+msgstr "कान्जी"
+
+#: kanjibrowser/kanjibrowserview.cpp:237
+#, kde-format
+msgid "Kanji &Information"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:242
+#, kde-format
+msgid "All Jouyou Kanji grades"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:248
+#, kde-format
+msgid "Grade %1 (Jinmeiyou)"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:252
+#, fuzzy, kde-format
+#| msgid "&Grade"
+msgid "Grade %1"
+msgstr "श्रेणी (&G)"
+
+#: kanjibrowser/kanjibrowserview.cpp:255
+#, kde-format
+msgid "Not in Jouyou list"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:257
+#, kde-format
+msgid "No stroke limit"
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:260
+#, kde-format
+msgid "%1 stroke"
+msgid_plural "%1 strokes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: kanjibrowser/kanjibrowserview.cpp:305
+#, fuzzy, kde-format
+#| msgid "&Grade"
+msgid "Grade:"
+msgstr "श्रेणी (&G)"
+
+#. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
+#: kanjibrowser/kanjibrowserview.cpp:309 radselect/radical_selector.ui:102
+#, kde-format
+msgid "Strokes:"
+msgstr "स्ट्रोक्स:"
+
+#: kanjibrowser/kanjibrowserview.cpp:317
+#, kde-format
+msgid "Onyomi: "
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:326
+#, kde-format
+msgid "Kunyomi: "
+msgstr ""
+
+#: kanjibrowser/kanjibrowserview.cpp:335 lib/DictKanjidic/entrykanjidic.cpp:155
+#, kde-format
+msgid "In names: "
+msgstr "नामों में:"
+
+#: kanjibrowser/kanjibrowserview.cpp:344 lib/DictKanjidic/entrykanjidic.cpp:161
+#, kde-format
+msgid "As radical: "
+msgstr "रेडिकल की तरहः"
+
+#: kanjibrowser/kanjibrowserview.cpp:352
+#, fuzzy, kde-format
+#| msgid "Meaning"
+msgid "Meaning: "
+msgstr "अर्थ"
+
+#: kanjibrowser/kanjibrowserview.cpp:356
+#, fuzzy, kde-format
+#| msgid "Meaning"
+msgid "Meanings: "
+msgstr "अर्थ"
+
+#: kanjibrowser/main.cpp:34
+#, fuzzy, kde-format
+#| msgid "Japanese Reference Tool"
+msgid "Kiten's Kanji Browser, a KDE Japanese Reference Tool"
+msgstr "जापानी सन्दर्भ शिक्षण औज़ार"
+
+#: kanjibrowser/main.cpp:36
+#, kde-format
+msgid "(C) 2011 Daniel E. Moctezuma"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, preferences)
+#. i18n: ectx: property (windowTitle), widget (QWidget, radselectprefdialog)
+#: kanjibrowser/preferences.ui:14 radselect/radselectprefdialog.ui:15
+#, kde-format
+msgid "Preferences"
+msgstr "प्राथमिकताएँ"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: kanjibrowser/preferences.ui:20
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Kanji List"
+msgstr "कान्जी"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, _kanjiListFontLabel)
+#. i18n: ectx: property (toolTip), widget (QLabel, resultListFontSize_label)
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_resultListFont)
+#. i18n: ectx: property (toolTip), widget (QLabel, fontSize_label)
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_font)
+#: kanjibrowser/preferences.ui:34 radselect/radselectprefdialog.ui:46
+#: radselect/radselectprefdialog.ui:59 radselect/radselectprefdialog.ui:72
+#: radselect/radselectprefdialog.ui:85
+#, kde-format
+msgid "The font for the main kanji/kana entry in list view"
+msgstr "सूची दृश्य में मुख्य कांजी / काना प्रविष्टि के लिए फ़ॉन्ट"
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_font)
+#: kanjibrowser/preferences.ui:37 radselect/radselectprefdialog.ui:75
+#: radselect/radselectprefdialog.ui:88
+#, kde-format
+msgid "Use this to adjust the button font"
+msgstr "इसका प्रयोग बटन बटन फ़ॉन्ट एडजस्ट करने के लिए करें"
+
+#. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
+#: kanjibrowser/preferences.ui:40
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Kanji font:"
+msgstr "कान्जी"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
+#: kanjibrowser/preferences.ui:56
+#, fuzzy, kde-format
+#| msgid "漢字 かな"
+msgid "漢字"
+msgstr "漢字 かな"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: kanjibrowser/preferences.ui:77
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Kanji Information"
+msgstr "कान्जी"
+
+#. i18n: ectx: property (text), widget (QLabel, _kanjiSizeLabel)
+#: kanjibrowser/preferences.ui:97
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Kanji size:"
+msgstr "कान्जी"
+
+#. i18n: ectx: property (text), widget (QLabel, _kanaFontLabel)
+#: kanjibrowser/preferences.ui:121
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Kana font:"
+msgstr "कान्जी"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
+#: kanjibrowser/preferences.ui:128
+#, fuzzy, kde-format
+#| msgid "漢字 かな"
+msgid "かな"
+msgstr "漢字 かな"
+
+#. i18n: ectx: property (text), widget (QLabel, _labelFontLabel)
+#: kanjibrowser/preferences.ui:151
+#, fuzzy, kde-format
+#| msgid "Kanji"
+msgid "Label font:"
+msgstr "कान्जी"
+
+#: lib/DictEdict/deinflection.cpp:131
+#, fuzzy, kde-format
+#| msgctxt "This must be a single word"
+#| msgid "verb"
+msgid "verb"
+msgstr "क्रिया"
+
+#: lib/DictEdict/deinflection.cpp:135
+#, fuzzy, kde-format
+#| msgctxt "this must be a single word"
+#| msgid "adjective"
+msgid "adjective"
+msgstr "विशेषण"
+
+#: lib/DictEdict/deinflection.cpp:163
+#, kde-format
+msgid ""
+"Verb deinflection information not found, so verb deinflection cannot be used."
+msgstr ""
+"क्रिया डिइनफ्लेक्शन जानकारी नहीं मिली, अत: क्रिया डिइनफ्लेक्शन इस्तेमाल नहीं किया जा "
+"सकता."
+
+#: lib/DictEdict/deinflection.cpp:172
+#, kde-format
+msgid ""
+"Verb deinflection information could not be loaded, so verb deinflection "
+"cannot be used."
+msgstr ""
+"शब्द डीइन्फ्लेक्शन जानकारी लोड नहीं की जा सकी, अतः शब्द डीइनफ्लेक्शन इस्तेमाल नहीं किया "
+"जा सकता."
+
+#: lib/DictEdict/dictfilefieldselector.cpp:27
+#, fuzzy, kde-format
+#| msgid "&Available List Fields:"
+msgid "&Available Fields:"
+msgstr "उपलब्ध सूची क्षेत्र: (&A)"
+
+#: lib/entry.cpp:167
+#, kde-format
+msgid "; "
+msgstr "; "
+
+#: lib/entrylist.cpp:106
+#, fuzzy, kde-format
+#| msgid "Dictionaries"
+msgid "From Dictionary:"
+msgstr "शब्दकोश"
+
+#: lib/entrylist.cpp:126
+#, kde-format
+msgctxt ""
+"%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
+"Example: 'Entered verb in past tense'."
+msgid "Entered %1 in %2 form"
+msgstr ""
+
+#: lib/entrylist.cpp:153
+#, kde-format
+msgid "Common"
+msgstr ""
+
+#: lib/entrylist.cpp:158
+#, kde-format
+msgid "Uncommon"
+msgstr ""
+
+#: lib/kromajiedit.cpp:32
+#, kde-format
+msgid ""
+"Romaji information file not installed, so Romaji conversion cannot be used."
+msgstr ""
+"रोमाजी जानकारी संस्थापित नहीं है, अत: रोमाजी परिवर्तन इस्तेमाल नहीं किया जा सकता."
+
+#: lib/kromajiedit.cpp:40
+#, kde-format
+msgid ""
+"Romaji information could not be loaded, so Romaji conversion cannot be used."
+msgstr ""
+"रोमाजी जानकारी लोड नहीं की जा सकी, अत: रोमाजी परिवर्तन इस्तेमाल नहीं किया जा सकता."
+
+#: lib/kromajiedit.cpp:101
+#, kde-format
+msgctxt "@option:radio selects english translation"
+msgid "English"
+msgstr "अंग्रेज़ी"
+
+#: lib/kromajiedit.cpp:113
+#, kde-format
+msgctxt "@option:radio selects japanese translation"
+msgid "Kana"
+msgstr "काना"
+
+#: radselect/buttongrid.cpp:135
+#, kde-format
+msgid "No Radicals Selected"
+msgstr "कोई रेडिकल्स चयनित नहीं"
+
+#: radselect/buttongrid.cpp:176
+#, kde-format
+msgid "Selected Radicals: "
+msgstr "चयनित रेडिकल्स:"
+
+#: radselect/main.cpp:29
+#, kde-format
+msgid "A KDE Application"
+msgstr "एक केडीई अनुप्रयोग"
+
+#: radselect/main.cpp:30
+#, kde-format
+msgid "(C) 2005 Joseph Kerian"
+msgstr "(c), 2005 जोसेफ केरियन"
+
+#: radselect/main.cpp:32
+#, kde-format
+msgid "Electronic Dictionary Research and Development Group"
+msgstr ""
+
+#: radselect/main.cpp:32
+#, kde-format
+msgid ""
+"This program uses the KANJIDIC and RADKFILE dictionary files. These files "
+"are the property of the Electronic Dictionary Research and Development "
+"Group, and are used in conformance with the Group's licence."
+msgstr ""
+
+#: radselect/main.cpp:39
+#, kde-format
+msgid "Initial Search String from Kiten"
+msgstr "किटेन से आरंभिक सर्च स्ट्रिंग"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, radical_selector)
+#: radselect/radical_selector.ui:22
+#, kde-format
+msgid "RadicalSelector"
+msgstr "रेडिकल सलेक्टर"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: radselect/radical_selector.ui:40
+#, kde-format
+msgid "Results"
+msgstr "परिणाम"
+
+#. i18n: ectx: property (text), widget (QPushButton, copy_button)
+#: radselect/radical_selector.ui:82
+#, kde-format
+msgid "&To Clipboard"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, strokes_label)
+#: radselect/radical_selector.ui:122
+#, kde-format
+msgid " - "
+msgstr " - "
+
+#. i18n: ectx: property (text), widget (QPushButton, clear_button)
+#: radselect/radical_selector.ui:164
+#, kde-format
+msgid "Clear"
+msgstr "साफ करें"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_sortByFrequency)
+#. i18n: ectx: label, entry, group (Options)
+#: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
+#, kde-format
+msgid "Display radicals in descending frequency order"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (Options)
+#: radselect/radselectconfig.kcfg:24
+#, kde-format
+msgid "Do we close this program when searching?"
+msgstr "जब ढूंढा जा रहा हो तो क्या हम इस प्रोग्राम को बंद करें?"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_closeOnSearch)
+#: radselect/radselectprefdialog.ui:24
+#, kde-format
+msgid "Close radselect when you press search"
+msgstr "जब आप ढूंढना प्रेस करते हैं तो रेडसलेक्ट को बंद करें"
+
+#. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
+#: radselect/radselectprefdialog.ui:43
+#, fuzzy, kde-format
+#| msgid "Search &in Results"
+msgid "Search Results Font:"
+msgstr "परिणामों में ढूंढें (&i)"
+
+#. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
+#: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
+#, fuzzy, kde-format
+#| msgid "Use this to adjust the button font"
+msgid "Use this to adjust the result list font"
+msgstr "इसका प्रयोग बटन बटन फ़ॉन्ट एडजस्ट करने के लिए करें"
+
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
+#. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
+#: radselect/radselectprefdialog.ui:56 radselect/radselectprefdialog.ui:82
+#, kde-format
+msgid "漢字 かな"
+msgstr "漢字 かな"
+
+#. i18n: ectx: property (text), widget (QLabel, fontSize_label)
+#: radselect/radselectprefdialog.ui:69
+#, kde-format
+msgid "Button Font:"
+msgstr "बटन फ़ॉन्ट:"
+
+#: radselect/radselectview.cpp:39
+#, kde-format
+msgid ""
+"Kanji radical information does not seem to be installed (file kiten/"
+"radkfile), this file is required for this app to function."
+msgstr ""
+
+#: radselect/radselectview.cpp:48
+#, kde-format
+msgid ""
+"Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
+"count information will be unavailable."
+msgstr ""
+
+#: radselect/radselectview.cpp:64
+#, fuzzy, kde-format
+#| msgid "Min"
+msgctxt "Minimum number of strokes for a kanji"
+msgid "Min"
+msgstr "न्यून."
+
+#: radselect/radselectview.cpp:65
+#, fuzzy, kde-format
+#| msgid "Max"
+msgctxt "Maximum number of strokes for a kanji"
+msgid "Max"
+msgstr "अधिकतम"
+
+#: radselect/radselectview.cpp:117
+#, fuzzy, kde-format
+#| msgctxt "@item:inlist all matches should be found"
+#| msgid "(ALL"
+msgctxt "@item:inlist all matches should be found"
+msgid "(ALL)"
+msgstr "(सभी"
+
+#~ msgid "kitenradselect"
+#~ msgstr "किटेनरादसेलेक्ट"
+
+#, fuzzy
+#~| msgctxt "This must be a single word"
+#~| msgid "noun"
+#~ msgctxt "This must be a single word"
+#~ msgid "Noun"
+#~ msgstr "संज्ञा"
+
+#, fuzzy
+#~| msgctxt "This must be a single word"
+#~| msgid "verb"
+#~ msgctxt "This must be a single word"
+#~ msgid "Verb"
+#~ msgstr "क्रिया"
+
+#, fuzzy
+#~| msgctxt "this must be a single word"
+#~| msgid "adjective"
+#~ msgctxt "This must be a single word"
+#~ msgid "Adjective"
+#~ msgstr "विशेषण"
+
+#, fuzzy
+#~| msgctxt "This must be a single word"
+#~| msgid "adverb"
+#~ msgctxt "This must be a single word"
+#~ msgid "Adverb"
+#~ msgstr "क्रियाविशेषण"
+
+#, fuzzy
+#~| msgctxt "This must be a single word"
+#~| msgid "particle"
+#~ msgctxt "This must be a single word"
+#~ msgid "Particle"
+#~ msgstr "पार्टीकल"
+
+#, fuzzy
+#~| msgctxt ""
+#~| "This is a technical japanese linguist's term... and probably should not "
+#~| "be translated, this must be a single word"
+#~| msgid "ichidan"
+#~ msgctxt ""
+#~ "This is a technical japanese linguist's term... and probably should not "
+#~ "be translated (except possibly in far-eastern languages), this must be a "
+#~ "single word"
+#~ msgid "Ichidan"
+#~ msgstr "इचिदान"
+
+#, fuzzy
+#~| msgctxt ""
+#~| "This is a technical japanese linguist's term... and probably should not "
+#~| "be translated, this must be a single word"
+#~| msgid "godan"
+#~ msgctxt ""
+#~ "This is a technical japanese linguist's term... and probably should not "
+#~ "be translated, this must be a single word"
+#~ msgid "Godan"
+#~ msgstr "गोडन"
+
+#~ msgid "On The Spo&t Search"
+#~ msgstr "आन द स्पाट सर्च (&t)"
+
+#~ msgid "(c) 2001-2004, Jason Katz-Brown"
+#~ msgstr "(c) 2001-2004, जेसन कार्त्ज-ब्राउन"
+
+#, fuzzy
+#~| msgid "Edict dictionary files"
+#~ msgid "Deinflect Dictionary Files"
+#~ msgstr "एडिक्ट शब्दकोश फ़ाइलें"
+
+#~ msgid "Configure &Global Shortcuts..."
+#~ msgstr "वैश्विक शॉर्टकट्स कॉन्फ़िगर करें..."
+
+#, fuzzy
+#~| msgid "Case sensitive searches"
+#~ msgid "Case sensitive searches (non-Japanese languages)"
+#~ msgstr "केस सेंसिटिव खोज"
+
+#~ msgctxt "@item:inlist all matches should be found"
+#~ msgid "(All)"
+#~ msgstr "(सभी)"
+
+#~ msgid "&Show Full Search String"
+#~ msgstr "पूरा सर्च स्ट्रिंग दिखाएँ (&S)"
+
+#~ msgid "GroupBox"
+#~ msgstr "समूह-बक्सा"
+
+#~ msgid "All Text is the same size"
+#~ msgstr "सभी पाठ के लिए एक ही आकार"
+
+#~ msgid "All Kanji are written bigger"
+#~ msgstr "सभी कांजी को बड़ा लिखा जाए"
+
+#~ msgid "Make the main dictionary entry larger"
+#~ msgstr "मुख्य शब्दकोश प्रविष्टि बड़ा बनाएँ"
+
+#~ msgid "Kvtml files (*.kvtml)"
+#~ msgstr "केवीटीएमएल फ़ाइलें (*.kvtml)"
+
+#~ msgid "Choose file to export to"
+#~ msgstr "फ़ाइल निर्यात हेतु चुनें"
+
+#~ msgid "&Add to export list"
+#~ msgstr "निर्यात सूची में निर्यात करें (&A)"
+
+#~ msgid "Search t&ext"
+#~ msgstr "पाठ ढूंढें (&e)"
+
+#~ msgid "&Available Full View Fields:"
+#~ msgstr "उपलब्ध पूर्ण दृश्य क्षेत्र: (&A)"
+
+#~ msgid "Match only whole english word"
+#~ msgstr "सिर्फ अंग्रेज़ी के पूरे अक्षरों के जोड़ मिलाएँ"
+
+#~ msgid "Match only whole English word"
+#~ msgstr "सिर्फ अंग्रेज़ी के पूरे अक्षरों के जोड़ मिलाएँ"
+
+#~ msgid "Start \"learn\" on Kiten startup"
+#~ msgstr "किटेन प्रारंभ होने पर \"learn\" प्रारंभ करें"
+
+#~ msgid "Quizzing"
+#~ msgstr "प्रश्नोत्तर"
+
+#~ msgid "Clue:"
+#~ msgstr "संकेतः"
+
+#~ msgid "Reading"
+#~ msgstr "पढ़ा जा रहा है"
+
+#~ msgid "Possible answers:"
+#~ msgstr "संभावित उत्तर:"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "noun"
+#~ msgstr "संज्ञा"
+
+#~ msgctxt "This must be a single word"
+#~ msgid "adverb"
+#~ msgstr "क्रियाविशेषण"
+
+#~ msgid "Search with &Beginning of Word"
+#~ msgstr "शब्द के प्रारंभ से ढूंढें (&B)"
+
+#~ msgid "Stro&kes"
+#~ msgstr "स्ट्रोक्स (&k)"
+
+#~ msgid "Found "
+#~ msgstr "मिला"
+
+#~ msgid "&Extra search options"
+#~ msgstr "ढूंढने के अतिरिक्त विकल्प (&E)"

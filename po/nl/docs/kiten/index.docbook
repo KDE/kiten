@@ -1,0 +1,606 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>Het handboek van &kiten;</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+&Rinse.Devries;&Freek.de.Kruijf; 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-12-28</date>
+<releaseinfo
+>Applications 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kiten; is een Japans referentie/studieprogramma door &kde;.</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Japans</keyword>
+<keyword
+>Taal</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inleiding</title>
+
+<para
+>&kiten; is een set van 3 toepassingen met meerdere functies. Ten eerste is het een gemakkelijk Engels naar Japans en Japans naar Engels woordenboek. Ten tweede is het een Kanji-woordenboek waarmee u op verschillende manieren specifieke karakters opzoeken. Ten derde helpt dit programma u bij het leren van Kanji.</para>
+
+<para
+>Al deze functies worden in hun eigen hoofdstuk beschreven.</para>
+
+<screenshot>
+<screeninfo
+>Hier is een schermafdruk van &kiten;</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>schermafdruk van &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Het woordenboek gebruiken</title>
+
+<para
+>De basisfunctie van &kiten; is een woordenboek voor het opzoeken van zowel Engelse als Japanse woorden. U kunt ook andere woordenboeken aan &kiten;'s lijst toevoegen.</para>
+
+<para
+>&kiten; maakt gebruik van Jim Breen's Edict en Kanjidic als standaardwoordenboeken. U kunt meer informatie vinden op de <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>website van Edict</ulink
+> en de <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
+>website van Kanjidic</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Woorden opzoeken</title>
+
+<para
+>Om woorden in een van beide talen op te zoeken, typ ze in het invoerveld (dat er uitziet als de locatiebalk van &konqueror;) en druk op de toets &Enter; of op de knop <guibutton
+>Zoeken</guibutton
+>. &kiten; zal dan het woord opzoeken.</para>
+
+<para
+>U kunt tekst in Kanji, Kana en Engels invoeren. Het resultaat van uw zoekopdracht verschijnt in het resultatenvak, dat het grootste deel van het venster van &kiten; inneemt.</para>
+
+<screenshot>
+<screeninfo
+>zoeken naar een Engelse vertaling</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>schermafdruk van zoekopdracht in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Filteren</title>
+
+<para
+>In de meeste gevallen wilt u weinig voorkomende worden uit uw zoekresultaat filteren. &kiten; kan dit voor u doen als u <menuchoice
+><guimenu
+>Zoeken</guimenu
+><guimenuitem
+>Filteren op zeldzaam</guimenuitem
+></menuchoice
+> activeert.</para>
+
+<note
+><para
+>Niet alle woordenboekbestanden bieden ondersteuning voor het filteren op zeldzame items. De meeste woordenboeken, uitgezonderd die standaard met &kiten; worden meegeleverd bieden die ondersteuning niet.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van het gebruik van het filteren van zeldzame woorden</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Gefilterd zoeken in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Veelvoorkomende/zeldzame woorden</title>
+<para
+>Een andere manier om informatie te scheiden is om gewone en ongewone woorden filteren, dit is nuttig wanneer u zich wilt focussen op de gewone woorden en/of geïnteresseerd bent in ongewone. Het enige verschil tussen Zeldzame uitfilteren en de opties Gewoon/ongewoon is dat u hier ook de zeldzame/ongewone resultaten krijgt.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van overeenkomst veelvoorkomend/zeldzaam</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Overeenkomst van veelvoorkomend/zeldzaam in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Uitgebreide zoekopdrachten</title>
+
+<para
+>&kiten; biedt ondersteuning voor meer uitgebreide zoekopdrachten dan alleen het zoeken naar normale woorden.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Zoekopdrachten van begin/eind/ergens</title>
+<para
+>Naast zoeken met <guilabel
+>Exacte overeenkomst</guilabel
+> heeft &kiten; drie additionele zoekmodi.</para>
+<para
+>Om het begin van een woord op te zoeken drukt u niet op de knop <guibutton
+>Zoeken</guibutton
+> of de toets &Enter;, maar kiest u menuoptie <menuchoice
+><guimenu
+>Zoeken</guimenu
+><guimenuitem
+>Type overeen laten komen</guimenuitem
+><guimenuitem
+>Begin overeen laten komen</guimenuitem
+></menuchoice
+>. Op dezelfde manier, voor eind of ergens zoeken kies <menuchoice
+><guimenu
+>Zoeken</guimenu
+> <guisubmenu
+>Type overeen laten komen</guisubmenu
+></menuchoice
+> <guimenuitem
+>Overal overeen laten komen</guimenuitem
+> of <guimenuitem
+>Eind overeen laten komen</guimenuitem
+> om uw tekst overal in of aan het eind van een woord te zoeken. Deze zoekmethoden werken voor zoekopdrachten in beide talen.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van overeenkomsten in zoeken op het eind</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Overeenkomst aan einde in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Zoeken op type woord</title>
+<para
+>&kiten; ondersteunt zoeken naar typen woorden zoals: werkwoord, zelfstandig naamwoord, bijvoeglijk naamwoord, bijwoord, voorvoegsel, achtervoegsel, uitdrukking van elk type. Op deze manier kunt u uw resultaten gemakkelijker filteren.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van overeenkomsten in zoeken op type woord</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Overeenkomsten in zoeken op type woord van &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Zoeken in resultaten</title>
+
+<para
+>&kiten; kan u ook helpen bij het verfijnen van uw zoekopdrachten. U kunt naar nieuwe tekst zoeken in de resultaten van de vorige zoekopdracht. Kies menuoptie <menuchoice
+><guimenu
+>Zoeken</guimenu
+><guimenuitem
+>zoeken in resultaten</guimenuitem
+></menuchoice
+> om uw zoekopdracht uit te voeren. Op dezelfde wijze als begin/einde/ergens zoeken, werkt dit ook voor beide talen.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van zoeken in resultaten</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Zoeken in resultaten in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Kanji opzoeken</title>
+
+<para
+>&kiten; heeft enkele functies die het zoeken naar de Kanji die u wilt uit 14.000 Kanji's in het standaardwoordenboek eenvoudig maakt.</para>
+
+<note
+><para
+>Door te klikken op een Kanji in het hoofdresultaat krijgt u details over die Kanji. Dit is soms de snelste manier om een Kanji op te zoeken.</para
+></note>
+
+<tip
+><para
+>Kanji-zoekopdrachten worden ook gefilterd aan de hand van de optie <menuchoice
+><guimenu
+>Zoeken</guimenu
+><guimenuitem
+>Filteren op zeldzaam</guimenuitem
+></menuchoice
+>.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Algemene zoekopdrachten</title>
+
+<para
+>U kunt op dezelfde manier zoeken op Engelse en Japanse zoektermen als in het normale woordenboek.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Basisvorm zoeken</title>
+
+<para
+>U kunt &kiten;'s dialoog voor basisvorm-zoekopdrachten  gebruiken om te zoeken naar Kanji met een combinatie van basisvormen en een bepaald aantal streken. Selecteer menuoptie <menuchoice
+><guimenu
+>Zoeken</guimenu
+> <guimenuitem
+>Zoeken naar basisvorm</guimenuitem
+></menuchoice
+> om deze dialoog te openen.</para>
+
+<para
+>Selecteer met de knoppen onderaan het venster de basisvormen die in uw Kanji moeten zitten. Voor knoppen met mogelijke basisvormen die een bepaald aantal streken bevatten geeft u dit aantal streken op in het spinveld boven de knoppen. De door u gekozen basisvormen verschijnen in het lijstveld bovenaan.</para>
+
+<para
+>Om te kiezen hoeveel streken uw Kanji zou moeten hebben, voer de waarden in in de spinvelden onder het resultatengebied.</para>
+
+<para
+>Om een zoekopdracht uit te voeren, druk op de knop die overeenkomt met de kanji die u wilt opzoeken.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van radicale selector</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Radicale selector van &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Zoeken op klasse</title>
+
+<para
+>Om een lijst te verkrijgen van alle Kanji in een zekere klasse, voer dat in in het zoekvak als "G:1" (G: is de Kanjidic-tag voor klas).</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van zoeken op kanji-klasse</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Zoeken op kanji-klasse in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Zoeken op streken</title>
+
+<para
+>Om een lijst met alle Kanji met een bepaald aantal streken te krijgen, voer dat aantal in in het zoekveld als "S:2".</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van zoeken op kanji-streken</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Zoeken op kanji-streken in &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Kanji-lijst</title>
+
+<para
+>Dit deel van de Kanji-browser laat u een lijst met kanji gefilterd op klasse en aantal streken. Door op een kanji te klikken krijgt u er gedetailleerde informatie over. De Kanji-browser scheidt de lijst in Jouyou, Jinmeiyou en niet-Jouyou kanji. Al deze kanji zijn beschikbaar met dank aan het woordenboek van KANJIDIC.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van de kanji-lijst</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Kanji-lijst van &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Kanji-informatie</title>
+
+<para
+>Dit deel toont u gedetailleerde informatie over een kanji zoals: volgorde van kanji-streken, aantal streken, uitspraak en betekenis.</para>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van kanji-informatie</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Kanji-informatie van &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Diversen</title>
+
+<para
+>Dit hoofdstuk beschrijft diverse functies die kunnen worden gebruikt in beide standen van &kiten;'s hoofdvenster.</para>
+
+<sect1 id="history">
+<title
+>Geschiedenis</title>
+
+<para
+>&kiten; houdt al uw zoekopdrachten bij in het invoerveld. U kunt de laatste zoekresultaten bekijken door te klikken op het activeringsteken rechts van het invoerveld. Om vooruit te gaan in de geschiedenis, kies menuoptie <menuchoice
+><guimenu
+>Ga naar</guimenu
+><guimenuitem
+>Verder</guimenuitem
+></menuchoice
+>. Om terug te gaan in de geschiedenis, kies <menuchoice
+><guimenu
+>Ga naar</guimenu
+><guimenuitem
+>Terug</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>Lettertypen</title>
+
+<para
+>U kunt het lettertype dat &kiten; gebruikt in de resultaatweergave instellen. Open de configuratiedialoog van &kiten; via menuoptie <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&kiten; configureren...</guimenuitem
+></menuchoice
+>. Ga naar de pagina <guilabel
+>Lettertype</guilabel
+> en selecteer het lettertype dat u wilt gebruiken.</para>
+
+<note
+><para
+>Dankzij het lettertype-vervangingssysteem van &Qt; zullen Japanse lettertypen altijd worden vervangen door Japanse tekens, ook als het lettertype dat u hebt gekozen deze niet bevat. Kies dus een willekeurig lettertype en de weergave zal goed blijven.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Schermafdruk van lettertype</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Lettertype van &kiten;</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Dankbetuigingen en licentie</title>
+
+<para
+>&kiten; copyright 2001, 2002 &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>Ontwikkelaars</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - Oorspronkelijke auteur.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - Vereenvoudiging van de code, UI-suggesties.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> - schreef xjidic, waar &kiten; code van leent en de xjidic index file generator. Hij is ook de hoofdauteur van edict en kanjidic, twee essentiële onderdelen van &kiten;.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - Overdracht naar KConfig XT en bugreparaties.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> - &SVG; icon.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - herschrijven voor &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - herschrijven voor &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> - Verbeteringen aan systeem voor vervoegingen, zaken voor bijwerken van woordenboeken voor EDICT en KANJIDIC, &GUI;-verbeteringen, Kanji-browser, bug-fixes, opschonen van code en vereenvoudigingen.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Documentatie copyright 2002, &Jason.Katz-Brown;</para>
+<para
+>Documentatie copyright 2012, Daniel E. Moctezuma</para>
+
+&meld.fouten;&vertaling.rinse; &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
