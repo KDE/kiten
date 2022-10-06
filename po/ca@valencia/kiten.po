@@ -42,7 +42,7 @@ msgstr "Selector del diccionari"
 #: app/configdictselect.ui:25
 #, kde-format
 msgid "Use prei&nstalled dict"
-msgstr "Utilitza el dicc. prei&nstalat"
+msgstr "Utilitza el dicc. prei&nstal·lat"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:56
@@ -60,7 +60,7 @@ msgstr "Fitxer"
 #: app/configdictselect.ui:86
 #, kde-format
 msgid "&Add..."
-msgstr "&Afig..."
+msgstr "Afi&g..."
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
@@ -407,7 +407,7 @@ msgstr "Voleu buscar automàticament per a les entrades en el porta-retalls?"
 #: app/kitenui.rc:6 kanjibrowser/kanjibrowserui.rc:6
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: ToolBar (mainToolbar)
 #: app/kitenui.rc:34 kanjibrowser/kanjibrowserui.rc:15
