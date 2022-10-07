@@ -1082,6 +1082,3 @@ msgstr "最大"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(すべて)"
-
-#~ msgid "kitenradselect"
-#~ msgstr "kitenradselect"
