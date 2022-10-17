@@ -323,7 +323,7 @@ msgstr "Utilitza l'edict preinstal·lat"
 #: app/kiten.kcfg:32 app/kiten.kcfg:46
 #, kde-format
 msgid "Set of fields to display for this dictionary type"
-msgstr "Conjunt de camps a mostrar per a este tipus de diccionari"
+msgstr "Conjunt de camps que s'ha de mostrar per a este tipus de diccionari"
 
 #. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
 #: app/kiten.kcfg:39
