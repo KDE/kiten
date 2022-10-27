@@ -146,7 +146,7 @@ msgstr "&Mostra primer:"
 #: app/configsorting.ui:48
 #, kde-format
 msgid "Fields to Sort &By:"
-msgstr "&Camps a ordenar per:"
+msgstr "&Camps que s'han d'ordenar per:"
 
 #: app/configuredialog.cpp:40
 #, kde-format
