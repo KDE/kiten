@@ -7,19 +7,21 @@
 # Burkhard Lück <lueck@hube-lueck.de>, 2008, 2010, 2011, 2012, 2013, 2020, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011.
 # Peter Rüthemann <peter.ruethemann@gmail.com>, 2011.
+# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-29 00:41+0000\n"
-"PO-Revision-Date: 2021-05-10 06:37+0200\n"
-"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"PO-Revision-Date: 2022-11-10 20:30+0100\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -93,12 +95,7 @@ msgstr "Lernen"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: app/configlearn.ui:19
-#, fuzzy, kde-format
-#| msgid ""
-#| "Learn mode is disabled in this version of kiten. There are several "
-#| "excellent open source flashcard programs available, such as Parley in kde-"
-#| "edu (and probably in your distro's repositories), and the anki project "
-#| "(https://apps.ankiweb.net/)"
+#, kde-format
 msgid ""
 "Learn mode is disabled in this version of kiten. There are several excellent "
 "open source flashcard programs available, such as <a href=\"https://apps.kde."
@@ -106,9 +103,9 @@ msgid ""
 "project</a>."
 msgstr ""
 "Der Lernmodus ist in dieser Version von kiten deaktiviert. Es gibt einige "
-"gute OpenSource-Lernkartenprogramme, wie beispielsweise Parley aus Kde-Edu "
-"(möglicherweise in den Installationsdateien Ihrer Distribution) oder das "
-"anki-Projekt (https://apps.ankiweb.net/)"
+"gute OpenSource-Lernkartenprogramme, wie beispielsweise <a href=\"https://"
+"apps.kde.org/parley\">Parley</a> oder das <a href=\"https://apps.ankiweb.net"
+"\">anki-Projekt</a>."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
 #: app/configsearching.ui:13 app/configuredialog.cpp:47
