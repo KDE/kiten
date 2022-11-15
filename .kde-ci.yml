@@ -16,3 +16,6 @@ Dependencies:
     'frameworks/kio': '@stable'
     'frameworks/knotifications': '@stable'
     'frameworks/kxmlgui': '@stable'
+
+Options:
+  require-passing-tests-on: [ '@all' ]
