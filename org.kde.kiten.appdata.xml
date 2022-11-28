@@ -15,6 +15,7 @@
   <name xml:lang="en-GB">Kiten</name>
   <name xml:lang="es">Kiten</name>
   <name xml:lang="et">Kiten</name>
+  <name xml:lang="eu">Kiten</name>
   <name xml:lang="fi">Kiten</name>
   <name xml:lang="fr">Kiten</name>
   <name xml:lang="gl">Kiten</name>
@@ -51,6 +52,7 @@
   <summary xml:lang="en-GB">Japanese Reference and Study Tool</summary>
   <summary xml:lang="es">Herramienta de estudio y de referencia del japonés</summary>
   <summary xml:lang="et">Jaapani keele õpiprogramm</summary>
+  <summary xml:lang="eu">Japonieraren erreferentzia eta ikasteko tresna</summary>
   <summary xml:lang="fi">Japanin opiskelutyökalu</summary>
   <summary xml:lang="fr">Outil pour l'étude du japonais</summary>
   <summary xml:lang="gl">Ferramenta de consulta e aprendizaxe do xaponés</summary>
@@ -87,6 +89,7 @@
     <p xml:lang="en-GB">Kiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.</p>
     <p xml:lang="es">Kiten es una herramienta de estudio y de referencia del japonés. Contiene un diccionario inglés-japonés y otro japonés-inglés, así como un diccionario de kanjis. Dispone de diferentes formas de buscar caracteres en el diccionario de kanjis.</p>
     <p xml:lang="et">Kiten on jaapani keele õppimisele kaasaaitav rakendus. See pakub inglise-jaapani ja jaapani-inglise sõnaraamatut, samuti kanji sõnaraamatut. Viimase puhul saab märke mitmel viisil otsida.</p>
+    <p xml:lang="eu">Kiten Japonieraren erreferentzia eta ikasteko tresna bat da. Ingelesetik Japonierara eta Japonieratik Ingeleserako hiztegi bat du, baita Kanji hiztegi bat ere. Kanji hiztegirako, karaktereak bilatzeko askotariko erak onartzen dira.</p>
     <p xml:lang="fi">Kiten on japanin hakuteos- ja opiskelutyökalu. Siinä on englanti–japani–englanti-sanakirja ja kanji-sanakirja. Merkkejä voi hakea kanjisanakirjasta monin tavoin.</p>
     <p xml:lang="fr">Kiten est un outil pour l'étude du japonais. Il comprend un dictionnaire anglais / japonais et japonais / anglais, ainsi qu'un dictionnaire de Kanji. Plusieurs façons de rechercher les caractères Kanji sont possibles.</p>
     <p xml:lang="gl">Kiten é unha ferramenta de consulta e aprendizaxe do xaponés. Goza dun dicionario inglés-xaponés e un dicionario xaponés-inglés, así como un dicionario de Kanji. O dicionario de Kanji permite buscar caracteres de varios xeitos distintos.</p>
@@ -125,6 +128,7 @@
       <caption xml:lang="en-GB">Practising Japanese dictionary with Kiten</caption>
       <caption xml:lang="es">Practicando con el diccionario japonés de Kiten</caption>
       <caption xml:lang="et">Jaapani keele harjutamine Kitenis</caption>
+      <caption xml:lang="eu">Japonieraren hiztegiarekin trebatzea Kiten erabiliz</caption>
       <caption xml:lang="fi">Japanin sanaston harjoittelu Kitenillä</caption>
       <caption xml:lang="fr">Séance d'exercices sur un dictionnaire japonais grâce à Kiten</caption>
       <caption xml:lang="gl">Practicando o dicionario de xaponés con Kiten</caption>
