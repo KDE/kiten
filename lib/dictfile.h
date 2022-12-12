@@ -32,40 +32,48 @@ class QWidget;
  * kiten. This class is not exported outside of the library. */
 class /* NO_EXPORT */ DictFile
 {
-  private:
+private:
     /**
      * You are not allowed to create a dictFile subclass without specifying the type-name
      */
-    DictFile() {}
-  public:
+    DictFile()
+    {
+    }
+
+public:
     /**
      * Use this constructor for your subclasses. Dictionary subclasses MUST specify their type
      * at creation.
      */
-    explicit DictFile( const QString& dictionaryTypeName ) : m_dictionaryType( dictionaryTypeName ) {}
+    explicit DictFile(const QString &dictionaryTypeName)
+        : m_dictionaryType(dictionaryTypeName)
+    {
+    }
     /**
      * Destructor
      */
-    virtual ~DictFile() {}
+    virtual ~DictFile()
+    {
+    }
     /**
      * This method allows the user to test if a dictionary is the proper type for this format.
      * This process is allowed to take some time, but nonetheless you should find checking the format
      * of a few hundred entries sufficient for this.
      *
      * @param filename the name of the file, suitable for using with QFile::setFileName() */
-    virtual bool validDictionaryFile( const QString &filename ) = 0;
+    virtual bool validDictionaryFile(const QString &filename) = 0;
     /**
      * Is this query relevant to this dictionary type? Usually this will return true,
      * unless the query specifies extended attributes that the dictionary does not provide.
      *
      * @param query the query to examine for relevance to this dictionary type */
-    virtual bool validQuery( const DictQuery &query ) = 0;
+    virtual bool validQuery(const DictQuery &query) = 0;
     /**
      * This actually conducts the search on the given query. This is usually most of the work
      *
      * @param query the DictQuery that specifies what results to return
      */
-    virtual EntryList *doSearch( const DictQuery &query ) = 0;
+    virtual EntryList *doSearch(const DictQuery &query) = 0;
     /**
      * Load a dictionary as at system startup.
      *
@@ -73,7 +81,7 @@ class /* NO_EXPORT */ DictFile
      * @param name the name of the file to open, used in various user-interface aspects.
      *             It may be related to the file parameter, but perhaps not.
      */
-    virtual bool loadDictionary( const QString &file, const QString &name ) = 0;
+    virtual bool loadDictionary(const QString &file, const QString &name) = 0;
     /**
      * Load a new dictionary. This is called with the assumption that this dictionary
      * has not been opened previously, in case you need to build an index or other activity.
@@ -83,8 +91,10 @@ class /* NO_EXPORT */ DictFile
      * @param name the name of the file to open, used in various user-interface aspects.
      *             It may be related to the file parameter, but perhaps not.
      */
-    virtual bool loadNewDictionary( const QString &file, const QString &name )
-            { return loadDictionary( file, name ); }
+    virtual bool loadNewDictionary(const QString &file, const QString &name)
+    {
+        return loadDictionary(file, name);
+    }
     /**
      * Return a list of the fields that can be displayed, note the following
      * should probably always be returned: --NewLine--, Word/Kanji, Meaning,
@@ -96,7 +106,7 @@ class /* NO_EXPORT */ DictFile
      * not be exactly the same. Note: The "Dictionary" option will be
      * appended to your list at the end.
      */
-    virtual QStringList listDictDisplayOptions( QStringList ) const = 0 ;
+    virtual QStringList listDictDisplayOptions(QStringList) const = 0;
     /**
      * If you want your own dialog to pick preferences for your dict, then override this.
      * Leaving it blank will leave your dictionary type without a preferences dialog.
@@ -104,32 +114,50 @@ class /* NO_EXPORT */ DictFile
      * @param config the KConfigSkeleton object that is currently in use
      * @param parent the parent widget for your preferences dialog
      */
-    virtual DictionaryPreferenceDialog *preferencesWidget( KConfigSkeleton *config, QWidget *parent = nullptr )
-                            { Q_UNUSED( parent ); Q_UNUSED( config ); return NULL; }
+    virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config, QWidget *parent = nullptr)
+    {
+        Q_UNUSED(parent);
+        Q_UNUSED(config);
+        return NULL;
+    }
     /**
      * Load information from the KConfigSkeleton that you've setup in
      * the above preferences widget.
      */
-    virtual void loadSettings( KConfigSkeleton* ) {}
+    virtual void loadSettings(KConfigSkeleton *)
+    {
+    }
 
     /**
      * Returns the name of the dictionary
      */
-    virtual QString getName() const { return m_dictionaryName; }
+    virtual QString getName() const
+    {
+        return m_dictionaryName;
+    }
     /**
      * Returns the type of files this dictFile object deals with
      */
-    virtual QString getType() const { return m_dictionaryType; }
+    virtual QString getType() const
+    {
+        return m_dictionaryType;
+    }
     /**
      * Returns the file that this is working with, usually used in the preferences display
      */
-    virtual QString getFile() const { return m_dictionaryFile; }
+    virtual QString getFile() const
+    {
+        return m_dictionaryFile;
+    }
     /**
      * Fetch a list of searchable attributes and their codes
      */
-    virtual const QMap<QString,QString> &getSearchableAttributes() const
-                                      { return m_searchableAttributes; }
-  protected:
+    virtual const QMap<QString, QString> &getSearchableAttributes() const
+    {
+        return m_searchableAttributes;
+    }
+
+protected:
     /**
      * Name is the 'primary key' of the list of dictionaries. You will want to
      * place this into your Entry objects to identify where they came from
@@ -161,7 +189,7 @@ class /* NO_EXPORT */ DictFile
      * (Kanji Grade => G), (Strokes => S), (Heisig Number => H)
      * for a simple example appropriate to kanji.
      */
-    QMap<QString,QString> m_searchableAttributes;
+    QMap<QString, QString> m_searchableAttributes;
 };
 
 #endif

@@ -19,7 +19,7 @@
  */
 class /* NO_EXPORT */ LinearEdictFile
 {
-  public:
+public:
     /**
      * Create and initialize this object
      */
@@ -29,7 +29,7 @@ class /* NO_EXPORT */ LinearEdictFile
     /**
      * Load a file, generate the index if it doesn't already exist
      */
-    bool loadFile( const QString &filename );
+    bool loadFile(const QString &filename);
 
     /**
      * Test if the file was properly loaded
@@ -39,11 +39,11 @@ class /* NO_EXPORT */ LinearEdictFile
     /**
      * Get everything that looks remotely like a given search string
      */
-    QVector<QString> findMatches( const QString &searchString ) const;
+    QVector<QString> findMatches(const QString &searchString) const;
 
-  private:
+private:
     QStringList m_edict;
-    bool        m_properlyLoaded;
+    bool m_properlyLoaded;
 };
 
 #endif

@@ -32,8 +32,8 @@
 #include <QList>
 #include <QPair>
 #include <QScrollBar>
-#include <QStatusBar>
 #include <QStandardPaths>
+#include <QStatusBar>
 #include <QTimer>
 #include <QVBoxLayout>
 
@@ -46,253 +46,240 @@
 #include "resultsview.h"
 #include "searchstringinput.h"
 /* Separating Learn */
-//#include "learn.h"
+// #include "learn.h"
 
-Kiten::Kiten( QWidget *parent, const char *name )
-: KXmlGuiWindow( parent )
-, _lastQuery( DictQuery() )
-, _radselect_proc( new KProcess( this ) )
-, _kanjibrowser_proc( new KProcess( this ) )
+Kiten::Kiten(QWidget *parent, const char *name)
+    : KXmlGuiWindow(parent)
+    , _lastQuery(DictQuery())
+    , _radselect_proc(new KProcess(this))
+    , _kanjibrowser_proc(new KProcess(this))
 {
-  _radselect_proc->setProgram( QStandardPaths::findExecutable( QStringLiteral("kitenradselect") ) );
-  _kanjibrowser_proc->setProgram( QStandardPaths::findExecutable( QStringLiteral("kitenkanjibrowser") ) );
-  setStandardToolBarMenuEnabled( true );
-  setObjectName( QLatin1String( name ) );
+    _radselect_proc->setProgram(QStandardPaths::findExecutable(QStringLiteral("kitenradselect")));
+    _kanjibrowser_proc->setProgram(QStandardPaths::findExecutable(QStringLiteral("kitenkanjibrowser")));
+    setStandardToolBarMenuEnabled(true);
+    setObjectName(QLatin1String(name));
 
-  /* Set up the config */
-  _config = KitenConfigSkeleton::self();
-  _config->load();
+    /* Set up the config */
+    _config = KitenConfigSkeleton::self();
+    _config->load();
 
-  /* ResultsView is our main widget, displaying the results of a search */
-  _mainView = new ResultsView( this, "mainView" );
+    /* ResultsView is our main widget, displaying the results of a search */
+    _mainView = new ResultsView(this, "mainView");
 
-  /* Create the export list */
-//	setupExportListDock();
+    /* Create the export list */
+    //	setupExportListDock();
 
-  /* TODO: have a look at this idea
-  detachedView = new ResultsView( NULL, "detachedView" );
-  */
+    /* TODO: have a look at this idea
+    detachedView = new ResultsView( NULL, "detachedView" );
+    */
 
-  setCentralWidget( _mainView );
+    setCentralWidget(_mainView);
 
-  setupActions();
-  // Be sure to create this manager before creating the GUI
-  // as it needs to add a KAction to it.
-  _dictionaryUpdateManager = new DictionaryUpdateManager( this );
+    setupActions();
+    // Be sure to create this manager before creating the GUI
+    // as it needs to add a KAction to it.
+    _dictionaryUpdateManager = new DictionaryUpdateManager(this);
 
-  createGUI();
+    createGUI();
 
-  _statusBar = statusBar();
-  _optionDialog = nullptr;
+    _statusBar = statusBar();
+    _optionDialog = nullptr;
 
-  /* Start the system tray icon. */
-  _sysTrayIcon = new KStatusNotifierItem(this);
-  _sysTrayIcon->setStandardActionsEnabled(true);
-  _sysTrayIcon->setAssociatedWidget(this);
-  _sysTrayIcon->setIconByName(QStringLiteral("kiten"));
-  _sysTrayIcon->setStatus(KStatusNotifierItem::Active);
+    /* Start the system tray icon. */
+    _sysTrayIcon = new KStatusNotifierItem(this);
+    _sysTrayIcon->setStandardActionsEnabled(true);
+    _sysTrayIcon->setAssociatedWidget(this);
+    _sysTrayIcon->setIconByName(QStringLiteral("kiten"));
+    _sysTrayIcon->setStatus(KStatusNotifierItem::Active);
 
-  /* Set things as they were (as told in the config) */
-  _autoSearchToggle->setChecked( _config->autosearch() );
-  _inputManager->setDefaultsFromConfig();
-  updateConfiguration();
-  applyMainWindowSettings( KSharedConfig::openConfig()->group( "kitenWindow" ) );
+    /* Set things as they were (as told in the config) */
+    _autoSearchToggle->setChecked(_config->autosearch());
+    _inputManager->setDefaultsFromConfig();
+    updateConfiguration();
+    applyMainWindowSettings(KSharedConfig::openConfig()->group("kitenWindow"));
 
-  /* What happens when links are clicked or things are selected in the clipboard */
-  connect(_mainView, &ResultsView::urlClicked, this, &Kiten::searchText);
-  connect( QApplication::clipboard(), &QClipboard::selectionChanged,
-                                this,   &Kiten::searchClipboard );
-  connect(_inputManager, &SearchStringInput::search, this, &Kiten::searchFromEdit);
+    /* What happens when links are clicked or things are selected in the clipboard */
+    connect(_mainView, &ResultsView::urlClicked, this, &Kiten::searchText);
+    connect(QApplication::clipboard(), &QClipboard::selectionChanged, this, &Kiten::searchClipboard);
+    connect(_inputManager, &SearchStringInput::search, this, &Kiten::searchFromEdit);
 
-  connect( _mainView->verticalScrollBar(), &QAbstractSlider::valueChanged,
-                                            this,   &Kiten::setCurrentScrollValue );
-  /* We need to know when to reload our dictionaries if the user updated them. */
-  connect(_dictionaryUpdateManager, &DictionaryUpdateManager::updateFinished, this, &Kiten::loadDictionaries);
+    connect(_mainView->verticalScrollBar(), &QAbstractSlider::valueChanged, this, &Kiten::setCurrentScrollValue);
+    /* We need to know when to reload our dictionaries if the user updated them. */
+    connect(_dictionaryUpdateManager, &DictionaryUpdateManager::updateFinished, this, &Kiten::loadDictionaries);
 
-  /* See below for what else needs to be done */
-  QTimer::singleShot( 10, this, &Kiten::finishInit );
+    /* See below for what else needs to be done */
+    QTimer::singleShot(10, this, &Kiten::finishInit);
 }
 
 // Destructor to clean up the little bits
 Kiten::~Kiten()
 {
-  if( _radselect_proc->state() != QProcess::NotRunning )
-  {
-    _radselect_proc->kill();
-  }
-  if( _kanjibrowser_proc->state() != QProcess::NotRunning )
-  {
-    _kanjibrowser_proc->kill();
-  }
-  _dictionaryManager.removeAllDictionaries();
-  delete _optionDialog;
-  _optionDialog = nullptr;
+    if (_radselect_proc->state() != QProcess::NotRunning) {
+        _radselect_proc->kill();
+    }
+    if (_kanjibrowser_proc->state() != QProcess::NotRunning) {
+        _kanjibrowser_proc->kill();
+    }
+    _dictionaryManager.removeAllDictionaries();
+    delete _optionDialog;
+    _optionDialog = nullptr;
 }
 
-KitenConfigSkeleton* Kiten::getConfig()
+KitenConfigSkeleton *Kiten::getConfig()
 {
-  return _config;
+    return _config;
 }
 
 void Kiten::setupActions()
 {
-  /* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
-  (void) KStandardAction::quit( this, SLOT(close()), actionCollection() );
-  //Why the heck is KSA:print adding it's own toolbar!?
-  //	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
-  (void) KStandardAction::preferences( this, SLOT(slotConfigure()), actionCollection() );
-  //old style cast seems needed here, (const QObject*)
-  KStandardAction::keyBindings(guiFactory(), &KXMLGUIFactory::showConfigureShortcutsDialog, actionCollection());
+    /* Add the basic quit/print/prefs actions, use the gui factory for keybindings */
+    (void)KStandardAction::quit(this, SLOT(close()), actionCollection());
+    // Why the heck is KSA:print adding it's own toolbar!?
+    //	(void) KStandardAction::print(this, SLOT(print()), actionCollection());
+    (void)KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+    // old style cast seems needed here, (const QObject*)
+    KStandardAction::keyBindings(guiFactory(), &KXMLGUIFactory::showConfigureShortcutsDialog, actionCollection());
 
-  /* Setup the Go-to-learn-mode actions */
-  /* TODO: put back when Dictionary Editor is reorganised */
-// 	(void) new KAction(   i18n( "&Dictionary Editor..." )
-//                             , "document-properties"
-//                             , 0
-//                             , this
-//                             , SLOT(createEEdit())
-//                             , actionCollection()
-//                             , "dict_editor");
-  QAction *radselect = actionCollection()->addAction( QStringLiteral("radselect") );
-  radselect->setText( i18n( "Radical Selector" ) );
-//	radselect->setIcon( "edit-find" );
-  actionCollection()->setDefaultShortcut(radselect, Qt::CTRL+Qt::Key_R );
-  connect(radselect, &QAction::triggered, this, &Kiten::radicalSearch);
+    /* Setup the Go-to-learn-mode actions */
+    /* TODO: put back when Dictionary Editor is reorganised */
+    // 	(void) new KAction(   i18n( "&Dictionary Editor..." )
+    //                             , "document-properties"
+    //                             , 0
+    //                             , this
+    //                             , SLOT(createEEdit())
+    //                             , actionCollection()
+    //                             , "dict_editor");
+    QAction *radselect = actionCollection()->addAction(QStringLiteral("radselect"));
+    radselect->setText(i18n("Radical Selector"));
+    //	radselect->setIcon( "edit-find" );
+    actionCollection()->setDefaultShortcut(radselect, Qt::CTRL + Qt::Key_R);
+    connect(radselect, &QAction::triggered, this, &Kiten::radicalSearch);
 
-  QAction *kanjibrowser = actionCollection()->addAction( QStringLiteral("kanjibrowser") );
-  kanjibrowser->setText( i18n( "Kanji Browser" ) );
-  actionCollection()->setDefaultShortcut(kanjibrowser, Qt::CTRL+Qt::Key_K );
-  connect(kanjibrowser, &QAction::triggered, this, &Kiten::kanjiBrowserSearch);
+    QAction *kanjibrowser = actionCollection()->addAction(QStringLiteral("kanjibrowser"));
+    kanjibrowser->setText(i18n("Kanji Browser"));
+    actionCollection()->setDefaultShortcut(kanjibrowser, Qt::CTRL + Qt::Key_K);
+    connect(kanjibrowser, &QAction::triggered, this, &Kiten::kanjiBrowserSearch);
 
-  /* Setup the Search Actions and our custom Edit Box */
-  _inputManager = new SearchStringInput( this );
+    /* Setup the Search Actions and our custom Edit Box */
+    _inputManager = new SearchStringInput(this);
 
-  QAction *searchButton = actionCollection()->addAction( QStringLiteral("search") );
-  searchButton->setText( i18n( "S&earch" ) );
-  // Set the search button to search
-  connect(searchButton, &QAction::triggered, this, &Kiten::searchFromEdit);
-  searchButton->setIcon( KStandardGuiItem::find().icon() );
+    QAction *searchButton = actionCollection()->addAction(QStringLiteral("search"));
+    searchButton->setText(i18n("S&earch"));
+    // Set the search button to search
+    connect(searchButton, &QAction::triggered, this, &Kiten::searchFromEdit);
+    searchButton->setIcon(KStandardGuiItem::find().icon());
 
-  // That's not it, that's "find as you type"...
-//   connect( Edit, SIGNAL(completion(QString)),
-//            this,   SLOT(searchFromEdit()) );
+    // That's not it, that's "find as you type"...
+    //   connect( Edit, SIGNAL(completion(QString)),
+    //            this,   SLOT(searchFromEdit()) );
 
-  /* Setup our widgets that handle preferences */
-//   deinfCB = new KToggleAction(   i18n( "&Deinflect Verbs in Regular Search" )
-//                                 , 0
-//                                 , this
-//                                 , SLOT(kanjiDictChange())
-//                                 , actionCollection()
-//                                 , "deinf_toggle" );
+    /* Setup our widgets that handle preferences */
+    //   deinfCB = new KToggleAction(   i18n( "&Deinflect Verbs in Regular Search" )
+    //                                 , 0
+    //                                 , this
+    //                                 , SLOT(kanjiDictChange())
+    //                                 , actionCollection()
+    //                                 , "deinf_toggle" );
 
-  _autoSearchToggle = actionCollection()->add<KToggleAction>( QStringLiteral("autosearch_toggle") );
-  _autoSearchToggle->setText( i18n( "&Automatically Search Clipboard Selections" ) );
+    _autoSearchToggle = actionCollection()->add<KToggleAction>(QStringLiteral("autosearch_toggle"));
+    _autoSearchToggle->setText(i18n("&Automatically Search Clipboard Selections"));
 
-  _irAction = actionCollection()->add<QAction>( QStringLiteral("search_in_results") );
-  _irAction->setText( i18n( "Search &in Results" ) );
-  connect(_irAction, &QAction::triggered, this, &Kiten::searchInResults);
+    _irAction = actionCollection()->add<QAction>(QStringLiteral("search_in_results"));
+    _irAction->setText(i18n("Search &in Results"));
+    connect(_irAction, &QAction::triggered, this, &Kiten::searchInResults);
 
+    QAction *actionFocusResultsView;
+    actionFocusResultsView = actionCollection()->addAction(QStringLiteral("focusresultview"), this, SLOT(focusResultsView()));
+    actionCollection()->setDefaultShortcut(actionFocusResultsView, Qt::Key_Escape);
+    actionFocusResultsView->setText(i18n("Focus result view"));
 
-  QAction *actionFocusResultsView;
-  actionFocusResultsView = actionCollection()->addAction(  QStringLiteral("focusresultview")
-                                                         , this
-                                                         , SLOT(focusResultsView()) );
-  actionCollection()->setDefaultShortcut(actionFocusResultsView, Qt::Key_Escape );
-  actionFocusResultsView->setText( i18n( "Focus result view" ) );
+    (void)KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
+    // TODO: this should probably be a standard action
+    /*
+    globalShortcutsAction = actionCollection()->addAction( "options_configure_global_keybinding" );
+    globalShortcutsAction->setText( i18n( "Configure &Global Shortcuts..." ) );
+    connect( globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()) );
+    */
 
-  (void) KStandardAction::configureToolbars(   this
-                                             , SLOT(configureToolBars())
-                                             , actionCollection() );
+    // TODO: implement this
+    //_globalSearchAction = actionCollection()->add<KToggleAction>( "search_on_the_spot" );
+    //_globalSearchAction->setText( i18n( "On The Spo&t Search" ) );
+    // KAction *temp = qobject_cast<KAction*>( _globalSearchAction );
+    // KShortcut shrt( "Ctrl+Alt+S" );
+    // globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
+    // connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
 
-  //TODO: this should probably be a standard action
-  /*
-  globalShortcutsAction = actionCollection()->addAction( "options_configure_global_keybinding" );
-  globalShortcutsAction->setText( i18n( "Configure &Global Shortcuts..." ) );
-  connect( globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()) );
-  */
-
-  //TODO: implement this
-  //_globalSearchAction = actionCollection()->add<KToggleAction>( "search_on_the_spot" );
-  //_globalSearchAction->setText( i18n( "On The Spo&t Search" ) );
-  //KAction *temp = qobject_cast<KAction*>( _globalSearchAction );
-  //KShortcut shrt( "Ctrl+Alt+S" );
-  //globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
-  //connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
-
-  _backAction = KStandardAction::back( this, SLOT(back()), actionCollection() );
-  _forwardAction = KStandardAction::forward( this, SLOT(forward()), actionCollection() );
-  _backAction->setEnabled( false );
-  _forwardAction->setEnabled( false );
+    _backAction = KStandardAction::back(this, SLOT(back()), actionCollection());
+    _forwardAction = KStandardAction::forward(this, SLOT(forward()), actionCollection());
+    _backAction->setEnabled(false);
+    _forwardAction->setEnabled(false);
 }
 
 void Kiten::setupExportListDock()
 {
-  _exportListDock = new QDockWidget( i18n( "Export List" ), this );
-  _exportListDockContents = new QWidget( _exportListDock );
-  _exportListDock->setWidget( _exportListDockContents );
-  addDockWidget( Qt::RightDockWidgetArea, _exportListDock );
+    _exportListDock = new QDockWidget(i18n("Export List"), this);
+    _exportListDockContents = new QWidget(_exportListDock);
+    _exportListDock->setWidget(_exportListDockContents);
+    addDockWidget(Qt::RightDockWidgetArea, _exportListDock);
 
+    QVBoxLayout *layout = new QVBoxLayout(_exportListDockContents);
+    _exportListDockContents->setLayout(layout);
 
-  QVBoxLayout *layout = new QVBoxLayout( _exportListDockContents );
-  _exportListDockContents->setLayout( layout );
+    _exportList = new EntryListView(_exportListDockContents);
 
-  _exportList = new EntryListView( _exportListDockContents );
+    layout->addWidget(_exportList);
 
-  layout->addWidget( _exportList );
-
-  _exportList->setModel( new EntryListModel( EntryList() ) );
+    _exportList->setModel(new EntryListModel(EntryList()));
 }
 
-void Kiten::addExportListEntry( int index )
+void Kiten::addExportListEntry(int index)
 {
-  EntryListModel *model = qobject_cast<EntryListModel*>( _exportList->model() );
-  if ( ! model )
-    return;
+    EntryListModel *model = qobject_cast<EntryListModel *>(_exportList->model());
+    if (!model)
+        return;
 
-  EntryList list = model->entryList();
+    EntryList list = model->entryList();
 
-  list << _historyList.current()->at( index )->clone();
-  model->setEntryList( list );
+    list << _historyList.current()->at(index)->clone();
+    model->setEntryList(list);
 }
 
 // This is the latter part of the initialization
 void Kiten::finishInit()
 {
-  _statusBar->showMessage( i18n( "Initializing Dictionaries" ) );
+    _statusBar->showMessage(i18n("Initializing Dictionaries"));
 
-  // if it's the application's first time starting,
-  // the app group won't exist and we show demo
-  if ( _config->initialSearch() )
-  {
-    if ( KConfigGui::hasSessionConfig() && ! KConfigGui::sessionConfig()->hasGroup( "app" ) )
-    {
-      searchTextAndRaise( QStringLiteral( "辞書" ) );
-      //Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
-      //it's an embedded unicode search string to find "dictionary" in japanese
+    // if it's the application's first time starting,
+    // the app group won't exist and we show demo
+    if (_config->initialSearch()) {
+        if (KConfigGui::hasSessionConfig() && !KConfigGui::sessionConfig()->hasGroup("app")) {
+            searchTextAndRaise(QStringLiteral("辞書"));
+            // Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
+            // it's an embedded unicode search string to find "dictionary" in japanese
+        }
     }
-  }
 
-  _inputManager->focusInput();
-  _statusBar->showMessage( i18n( "Welcome to Kiten" ) );
-  setCaption( QString() );
+    _inputManager->focusInput();
+    _statusBar->showMessage(i18n("Welcome to Kiten"));
+    setCaption(QString());
 }
 
 void Kiten::focusResultsView()
 {
-  _mainView->verticalScrollBar()->setFocus();
+    _mainView->verticalScrollBar()->setFocus();
 }
 
 // This function is run on program window close.
 // It saves the settings in the config.
 bool Kiten::queryClose()
 {
-  _config->setAutosearch( _autoSearchToggle->isChecked() );
-  _config->save();
+    _config->setAutosearch(_autoSearchToggle->isChecked());
+    _config->save();
 
-  KConfigGroup configGroup = KSharedConfig::openConfig()->group( "kitenWindow" );
-  saveMainWindowSettings( configGroup );
-  return true;
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group("kitenWindow");
+    saveMainWindowSettings(configGroup);
+    return true;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -305,13 +292,12 @@ bool Kiten::queryClose()
  */
 void Kiten::searchFromEdit()
 {
-  qDebug() << "SEARCH FROM EDIT CALLED";
-  DictQuery query = _inputManager->getSearchQuery();
-  if( query != _lastQuery )
-  {
-    _lastQuery = query;
-    searchAndDisplay( query );
-  }
+    qDebug() << "SEARCH FROM EDIT CALLED";
+    DictQuery query = _inputManager->getSearchQuery();
+    if (query != _lastQuery) {
+        _lastQuery = query;
+        searchAndDisplay(query);
+    }
 }
 
 /**
@@ -319,21 +305,21 @@ void Kiten::searchFromEdit()
  * or any other time in which we want to search for something that didn't
  * come from the input box.
  */
-void Kiten::searchText( const QString &text )
+void Kiten::searchText(const QString &text)
 {
-  searchAndDisplay( DictQuery( text ) );
+    searchAndDisplay(DictQuery(text));
 }
 
 /**
  * This should change the Edit text to be appropriate and then begin a search
  * of the dictionaries' entries.
  */
-void Kiten::searchTextAndRaise( const QString &str )
+void Kiten::searchTextAndRaise(const QString &str)
 {
-  /* Do the search */
-  searchText( str );
-  /* get the window as we'd like it */
-  raise();
+    /* Do the search */
+    searchText(str);
+    /* get the window as we'd like it */
+    raise();
 }
 
 /**
@@ -346,92 +332,80 @@ void Kiten::searchTextAndRaise( const QString &str )
  */
 void Kiten::searchClipboard()
 {
-  if ( _autoSearchToggle->isChecked() )
-  {
-    QString clipboard = QApplication::clipboard()->text( QClipboard::Selection ).simplified();
+    if (_autoSearchToggle->isChecked()) {
+        QString clipboard = QApplication::clipboard()->text(QClipboard::Selection).simplified();
 
-    //Only search if the clipboard selection was less than 20 characters wide
-    if ( clipboard.length() < 20 )
-    {
-      DictQuery potentialQuery( clipboard );
-      //Make sure that we're not looking for a substring of the current string (needed?)
-      if( ! ( potentialQuery < _inputManager->getSearchQuery() ) )
-      {
-        searchTextAndRaise(clipboard);
-      }
+        // Only search if the clipboard selection was less than 20 characters wide
+        if (clipboard.length() < 20) {
+            DictQuery potentialQuery(clipboard);
+            // Make sure that we're not looking for a substring of the current string (needed?)
+            if (!(potentialQuery < _inputManager->getSearchQuery())) {
+                searchTextAndRaise(clipboard);
+            }
 
-      qDebug() << "Clipboard item is a substring (rejected)";
+            qDebug() << "Clipboard item is a substring (rejected)";
+        } else {
+            qDebug() << "Clipboard entry too long";
+        }
     }
-    else
-    {
-      qDebug() << "Clipboard entry too long";
-    }
-  }
 }
 
 /**
  * This method performs the search and displays
  * the result to the screen.
  */
-void Kiten::searchAndDisplay( const DictQuery &query )
+void Kiten::searchAndDisplay(const DictQuery &query)
 {
-  /* keep the user informed of what we are doing */
-  _statusBar->showMessage( i18n( "Searching..." ) );
+    /* keep the user informed of what we are doing */
+    _statusBar->showMessage(i18n("Searching..."));
 
-  /* This gorgeous incantation is all that's necessary to fill a DictQuery
-    with a query and an Entrylist with all of the results form all of the
-    requested dictionaries */
-  EntryList *results = _dictionaryManager.doSearch( query );
+    /* This gorgeous incantation is all that's necessary to fill a DictQuery
+      with a query and an Entrylist with all of the results form all of the
+      requested dictionaries */
+    EntryList *results = _dictionaryManager.doSearch(query);
 
-  /* if there are no results */
-  if ( results->size() == 0 ) //TODO: check here if the user actually prefers this
-  {
-    //create a modifiable copy of the original query
-    DictQuery newQuery( query );
-
-    bool tryAgain = false;
-
-    do
+    /* if there are no results */
+    if (results->size() == 0) // TODO: check here if the user actually prefers this
     {
-      //by default we don't try again
-      tryAgain = false;
+        // create a modifiable copy of the original query
+        DictQuery newQuery(query);
 
-      //but if the matchtype is changed we try again
-      if ( newQuery.getMatchType() == DictQuery::Exact )
-      {
-        newQuery.setMatchType( DictQuery::Beginning );
-        tryAgain = true;
-      }
-      else if ( newQuery.getMatchType() == DictQuery::Beginning )
-      {
-        newQuery.setMatchType( DictQuery::Anywhere );
-        tryAgain = true;
-      }
+        bool tryAgain = false;
 
+        do {
+            // by default we don't try again
+            tryAgain = false;
 
-      //try another search
-      if ( tryAgain )
-      {
-        delete results;
-        results = _dictionaryManager.doSearch( newQuery );
+            // but if the matchtype is changed we try again
+            if (newQuery.getMatchType() == DictQuery::Exact) {
+                newQuery.setMatchType(DictQuery::Beginning);
+                tryAgain = true;
+            } else if (newQuery.getMatchType() == DictQuery::Beginning) {
+                newQuery.setMatchType(DictQuery::Anywhere);
+                tryAgain = true;
+            }
 
-        //results means all is ok; don't try again
-        if ( results->size() > 0 )
-        {
-          tryAgain = false;
-        }
-      }
-    } while ( tryAgain );
-  }
+            // try another search
+            if (tryAgain) {
+                delete results;
+                results = _dictionaryManager.doSearch(newQuery);
 
-  /* synchronize the history (and store this pointer there) */
-  addHistory( results );
+                // results means all is ok; don't try again
+                if (results->size() > 0) {
+                    tryAgain = false;
+                }
+            }
+        } while (tryAgain);
+    }
 
-  /* Add the current search to our drop down list */
-  _inputManager->setSearchQuery( results->getQuery() );
+    /* synchronize the history (and store this pointer there) */
+    addHistory(results);
 
-  /* suppose it's about time to show the users the results. */
-  displayResults( results );
+    /* Add the current search to our drop down list */
+    _inputManager->setSearchQuery(results->getQuery());
+
+    /* suppose it's about time to show the users the results. */
+    displayResults(results);
 }
 
 /**
@@ -440,63 +414,54 @@ void Kiten::searchAndDisplay( const DictQuery &query )
  */
 void Kiten::searchInResults()
 {
-  _statusBar->showMessage( i18n( "Searching..." ) );
+    _statusBar->showMessage(i18n("Searching..."));
 
-  DictQuery searchQuery = _inputManager->getSearchQuery();
-  EntryList *results = _dictionaryManager.doSearchInList(  searchQuery
-                                                         ,_historyList.current() );
+    DictQuery searchQuery = _inputManager->getSearchQuery();
+    EntryList *results = _dictionaryManager.doSearchInList(searchQuery, _historyList.current());
 
-  addHistory( results );
-  _inputManager->setSearchQuery( searchQuery );
-  displayResults( results );
+    addHistory(results);
+    _inputManager->setSearchQuery(searchQuery);
+    displayResults(results);
 }
 
 /**
  * Given a set of Search Results items, this function does all that's needed
  * to put the interface into an appropriate state for those searchResults.
  */
-void Kiten::displayResults( EntryList *results )
+void Kiten::displayResults(EntryList *results)
 {
-  QString infoStr;
-  /* synchronize the statusbar */
-  if( results->count() > 0 )
-  {
-    infoStr = i18np( "Found 1 result", "Found %1 results", results->count() );
-  }
-  else
-  {
-    infoStr = i18n( "No results found" );
-  }
-  _statusBar->showMessage( infoStr );
-  setCaption( infoStr );
-
-  /* sort the results */
-  /* synchronize the results window */
-  if( results->count() > 0 )
-  {
-    QStringList dictSort;
-    QStringList fieldSort = _config->field_sortlist();
-    if( _config->dictionary_enable() == QLatin1String("true") )
-    {
-      dictSort = _config->dictionary_sortlist();
+    QString infoStr;
+    /* synchronize the statusbar */
+    if (results->count() > 0) {
+        infoStr = i18np("Found 1 result", "Found %1 results", results->count());
+    } else {
+        infoStr = i18n("No results found");
     }
-    results->sort( fieldSort, dictSort );
-    _mainView->setContents( results->toHTML() );
-  }
-  else
-  {
-    _mainView->setContents( "<html><body>" + infoStr + "</body></html>" );
-  }
+    _statusBar->showMessage(infoStr);
+    setCaption(infoStr);
 
-  _mainView->setLaterScrollValue( results->scrollValue() );
+    /* sort the results */
+    /* synchronize the results window */
+    if (results->count() > 0) {
+        QStringList dictSort;
+        QStringList fieldSort = _config->field_sortlist();
+        if (_config->dictionary_enable() == QLatin1String("true")) {
+            dictSort = _config->dictionary_sortlist();
+        }
+        results->sort(fieldSort, dictSort);
+        _mainView->setContents(results->toHTML());
+    } else {
+        _mainView->setContents("<html><body>" + infoStr + "</body></html>");
+    }
 
+    _mainView->setLaterScrollValue(results->scrollValue());
 
-  /* //Debuggery: to print the html results to file:
-  QFile file( "/tmp/lala" );
-  file.open( QIODevice::WriteOnly );
-  file.write( results->toHTML().toUtf8() );
-  file.close();
-  */
+    /* //Debuggery: to print the html results to file:
+    QFile file( "/tmp/lala" );
+    file.open( QIODevice::WriteOnly );
+    file.write( results->toHTML().toUtf8() );
+    file.close();
+    */
 }
 
 /*
@@ -508,16 +473,16 @@ void Kiten::searchOnTheSpot()
 
 void Kiten::radicalSearch()
 {
-  // Radselect is a KUniqueApplication, so we don't
-  // need to worry about opening more than one copy
-  _radselect_proc->start();
+    // Radselect is a KUniqueApplication, so we don't
+    // need to worry about opening more than one copy
+    _radselect_proc->start();
 }
 
 void Kiten::kanjiBrowserSearch()
 {
-  // KanjiBrowser is a KUniqueApplication, so we don't
-  // need to worry about opening more than one copy
-  _kanjibrowser_proc->start();
+    // KanjiBrowser is a KUniqueApplication, so we don't
+    // need to worry about opening more than one copy
+    _kanjibrowser_proc->start();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -525,19 +490,17 @@ void Kiten::kanjiBrowserSearch()
 //////////////////////////////////////////////////////////////////////////////
 void Kiten::slotConfigure()
 {
-  //If the settings dialog is open and obscured/hidden/cached, show it
-  if ( ConfigureDialog::showDialog( QStringLiteral("settings") ) )
-  {
-    return;
-  }
+    // If the settings dialog is open and obscured/hidden/cached, show it
+    if (ConfigureDialog::showDialog(QStringLiteral("settings"))) {
+        return;
+    }
 
-  //ConfigureDialog didn't find an instance of this dialog, so lets create it :
-  _optionDialog = new ConfigureDialog( this, _config );
-  connect( _optionDialog, SIGNAL(hidden()),
-                   this,   SLOT(slotConfigureHide()) );
-  connect(_optionDialog, &ConfigureDialog::settingsChanged, this, &Kiten::updateConfiguration);
+    // ConfigureDialog didn't find an instance of this dialog, so lets create it :
+    _optionDialog = new ConfigureDialog(this, _config);
+    connect(_optionDialog, SIGNAL(hidden()), this, SLOT(slotConfigureHide()));
+    connect(_optionDialog, &ConfigureDialog::settingsChanged, this, &Kiten::updateConfiguration);
 
-  _optionDialog->show();
+    _optionDialog->show();
 }
 
 /**
@@ -546,7 +509,7 @@ void Kiten::slotConfigure()
  */
 void Kiten::slotConfigureHide()
 {
-  QTimer::singleShot(0, this, &Kiten::slotConfigureDestroy);
+    QTimer::singleShot(0, this, &Kiten::slotConfigureDestroy);
 }
 
 /**
@@ -554,11 +517,10 @@ void Kiten::slotConfigureHide()
  */
 void Kiten::slotConfigureDestroy()
 {
-  if ( _optionDialog != nullptr && _optionDialog->isVisible() == 0 )
-  {
-    delete _optionDialog;
-    _optionDialog = nullptr;
-  }
+    if (_optionDialog != nullptr && _optionDialog->isVisible() == 0) {
+        delete _optionDialog;
+        _optionDialog = nullptr;
+    }
 }
 
 /* TODO: reimplement something very much like this
@@ -571,24 +533,24 @@ void Kiten::createEEdit()
 
 void Kiten::configureToolBars()
 {
-  KConfigGroup configGroup = KSharedConfig::openConfig()->group( "kitenWindow" );
-  saveMainWindowSettings( configGroup );
-  KEditToolBar dlg( actionCollection() );
-  connect(&dlg, &KEditToolBar::newToolBarConfig, this, &Kiten::newToolBarConfig);
-  dlg.exec();
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group("kitenWindow");
+    saveMainWindowSettings(configGroup);
+    KEditToolBar dlg(actionCollection());
+    connect(&dlg, &KEditToolBar::newToolBarConfig, this, &Kiten::newToolBarConfig);
+    dlg.exec();
 }
 
 void Kiten::newToolBarConfig()
 {
-  createGUI( QStringLiteral("kitenui.rc") );
-  KConfigGroup configGroup = KSharedConfig::openConfig()->group( "kitenWindow" );
-  applyMainWindowSettings( configGroup );
+    createGUI(QStringLiteral("kitenui.rc"));
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group("kitenWindow");
+    applyMainWindowSettings(configGroup);
 }
 
 /** Opens the dialog for configuring the global accelerator keys. */
 void Kiten::configureGlobalKeys()
 {
-  KShortcutsDialog::showDialog(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this);
+    KShortcutsDialog::showDialog(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this);
 }
 
 /**
@@ -597,21 +559,21 @@ void Kiten::configureGlobalKeys()
  */
 void Kiten::updateConfiguration()
 {
-  loadDictionaries();
+    loadDictionaries();
 
-  //Update the HTML/CSS for our fonts
-  displayHistoryItem();
+    // Update the HTML/CSS for our fonts
+    displayHistoryItem();
 
-  _inputManager->updateFontFromConfig();
+    _inputManager->updateFontFromConfig();
 
-  // Reset the content of the last query. This is because in case the user adds
-  // new dictionaries and wants to execute the same last search, the output
-  // will contain results of the new dictionary/dictionaries added.
-  _lastQuery = DictQuery();
+    // Reset the content of the last query. This is because in case the user adds
+    // new dictionaries and wants to execute the same last search, the output
+    // will contain results of the new dictionary/dictionaries added.
+    _lastQuery = DictQuery();
 
-  /*: TODO: have a look at this as well
-  detachedView->updateFont();
-  */
+    /*: TODO: have a look at this as well
+    detachedView->updateFont();
+    */
 }
 
 /**
@@ -620,94 +582,84 @@ void Kiten::updateConfiguration()
  */
 void Kiten::loadDictionaries()
 {
-  // Avoid duplicates (this makes it easy when we need to reload the dictionaries).
-  _dictionaryManager.removeAllDictionaries();
+    // Avoid duplicates (this makes it easy when we need to reload the dictionaries).
+    _dictionaryManager.removeAllDictionaries();
 
-  //Load the dictionaries of each type that we can adjust in prefs
-  foreach( const QString &it, _config->dictionary_list() )
-  {
-    loadDictConfig( it );
-  }
+    // Load the dictionaries of each type that we can adjust in prefs
+    foreach (const QString &it, _config->dictionary_list()) {
+        loadDictConfig(it);
+    }
 
-  //Load settings for each dictionary type
-  foreach( const QString &it, _dictionaryManager.listDictFileTypes() )
-  {
-    _dictionaryManager.loadDictSettings( it, _config );
-  }
+    // Load settings for each dictionary type
+    foreach (const QString &it, _dictionaryManager.listDictFileTypes()) {
+        _dictionaryManager.loadDictSettings(it, _config);
+    }
 
-  //Update general options for the display manager (sorting by dict, etc)
-  _dictionaryManager.loadSettings( *_config->config() );
-  qDebug() << "Dictionaries loaded!";
+    // Update general options for the display manager (sorting by dict, etc)
+    _dictionaryManager.loadSettings(*_config->config());
+    qDebug() << "Dictionaries loaded!";
 }
 
 /**
  * This function loads the dictionaries from the config file for the program
  * to use via the dictionaryManager object.
  */
-void Kiten::loadDictConfig( const QString &dictType )
+void Kiten::loadDictConfig(const QString &dictType)
 {
-  KConfigGroup group = _config->config()->group( "dicts_" + dictType.toLower() );
+    KConfigGroup group = _config->config()->group("dicts_" + dictType.toLower());
 
-  //A list of QPair's Name->Path
-  QList< QPair<QString,QString> > dictionariesToLoad;
+    // A list of QPair's Name->Path
+    QList<QPair<QString, QString>> dictionariesToLoad;
 
-  //If we need to load the global
-  if( group.readEntry( "__useGlobal", true ) )
-  {
-    QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral( "kiten/" ) + dictType.toLower());
-    dictionariesToLoad.append( qMakePair( dictType, dictionary ) );
-  }
-
-  QStringList dictNames = group.readEntry<QStringList>( "__NAMES", QStringList() );
-  foreach( const QString &name, dictNames )
-  {
-    QString dictPath = group.readEntry( name,QString() );
-    if( ! dictPath.isEmpty() && ! name.isEmpty() )
-    {
-      dictionariesToLoad.append( qMakePair( name, dictPath ) );
+    // If we need to load the global
+    if (group.readEntry("__useGlobal", true)) {
+        QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/") + dictType.toLower());
+        dictionariesToLoad.append(qMakePair(dictType, dictionary));
     }
-  }
 
-  QStringList loadedDictionaries =
-            _dictionaryManager.listDictionariesOfType( dictType.toLower() );
-
-  typedef QPair<QString,QString> __dictName_t; //Can't have commas in a foreach
-  foreach( const __dictName_t &it, dictionariesToLoad )
-  {
-    //Remove from the loadedDictionaries list all the dicts that we are supposed to load
-    //This will leave only those that need to be unloaded at the end
-    if( loadedDictionaries.removeAll( it.first ) == 0 )
-    {
-      _dictionaryManager.addDictionary( it.second, it.first, dictType.toLower() );
+    QStringList dictNames = group.readEntry<QStringList>("__NAMES", QStringList());
+    foreach (const QString &name, dictNames) {
+        QString dictPath = group.readEntry(name, QString());
+        if (!dictPath.isEmpty() && !name.isEmpty()) {
+            dictionariesToLoad.append(qMakePair(name, dictPath));
+        }
     }
-  }
 
-  foreach( const QString &it, loadedDictionaries )
-  {
-    _dictionaryManager.removeDictionary( it );
-  }
+    QStringList loadedDictionaries = _dictionaryManager.listDictionariesOfType(dictType.toLower());
 
-  /*
-  #define PERSONALDictionaryLocation( __X ) KGlobal::dirs()->saveLocation(__X, \
-          "kiten/dictionaries/",true).append("personal")
-  if(!isKanji) { //Don't load personal dicts as kanji dicts
-          QString personalDict(PERSONALDictionaryLocation("data"));
-          if (QFile::exists(personalDict) &&
-                                  loadedDicts.find(personalDict) == loadedDicts.end())
-          {
-                  dictionaryManager.addDictionary(personalDict,"Personal",dictType.lower());
-          }
-  }
-  */
+    typedef QPair<QString, QString> __dictName_t; // Can't have commas in a foreach
+    foreach (const __dictName_t &it, dictionariesToLoad) {
+        // Remove from the loadedDictionaries list all the dicts that we are supposed to load
+        // This will leave only those that need to be unloaded at the end
+        if (loadedDictionaries.removeAll(it.first) == 0) {
+            _dictionaryManager.addDictionary(it.second, it.first, dictType.toLower());
+        }
+    }
+
+    foreach (const QString &it, loadedDictionaries) {
+        _dictionaryManager.removeDictionary(it);
+    }
+
+    /*
+    #define PERSONALDictionaryLocation( __X ) KGlobal::dirs()->saveLocation(__X, \
+            "kiten/dictionaries/",true).append("personal")
+    if(!isKanji) { //Don't load personal dicts as kanji dicts
+            QString personalDict(PERSONALDictionaryLocation("data"));
+            if (QFile::exists(personalDict) &&
+                                    loadedDicts.find(personalDict) == loadedDicts.end())
+            {
+                    dictionaryManager.addDictionary(personalDict,"Personal",dictType.lower());
+            }
+    }
+    */
 }
-
 
 /**
  * This function allows one to print out the currently displayed result
  */
 void Kiten::print()
 {
-//	_ResultsView->toHTML();
+    //	_ResultsView->toHTML();
 }
 
 /******************************************************************************
@@ -720,48 +672,48 @@ void Kiten::print()
  * does not display the EntryList it is given... so you can add something to the
  * history and display it separately.
  */
-void Kiten::addHistory( EntryList *result )
+void Kiten::addHistory(EntryList *result)
 {
-  _historyList.addItem( result );
-  enableHistoryButtons();
+    _historyList.addItem(result);
+    enableHistoryButtons();
 }
 
 /**
  * This goes back one item in the history and displays
  */
-void Kiten::back( void )
+void Kiten::back(void)
 {
-  _historyList.prev();
-  displayHistoryItem();
+    _historyList.prev();
+    displayHistoryItem();
 }
 
 /**
  * This goes forward one item in the history and displays
  */
-void Kiten::forward( void )
+void Kiten::forward(void)
 {
-  _historyList.next();
-  displayHistoryItem();
+    _historyList.next();
+    displayHistoryItem();
 }
 
 /**
  * This method just sets the current element in the list and triggers the display
  */
-void Kiten::goInHistory( int index )
+void Kiten::goInHistory(int index)
 {
-  _historyList.setCurrent( index );
-  displayHistoryItem();
+    _historyList.setCurrent(index);
+    displayHistoryItem();
 }
 
 void Kiten::displayHistoryItem()
 {
-  if ( _historyList.current() == nullptr )
-    return;
+    if (_historyList.current() == nullptr)
+        return;
 
-  _inputManager->setSearchQuery( _historyList.current()->getQuery() );
-  enableHistoryButtons();
+    _inputManager->setSearchQuery(_historyList.current()->getQuery());
+    enableHistoryButtons();
 
-  displayResults( _historyList.current() );
+    displayResults(_historyList.current());
 }
 
 /**
@@ -770,16 +722,14 @@ void Kiten::displayHistoryItem()
  */
 void Kiten::enableHistoryButtons()
 {
-  _backAction->setEnabled( _historyList.index() > 0 );
-  _forwardAction->setEnabled( _historyList.index() + 1 < _historyList.count() );
+    _backAction->setEnabled(_historyList.index() > 0);
+    _forwardAction->setEnabled(_historyList.index() + 1 < _historyList.count());
 }
 
-void Kiten::setCurrentScrollValue( int value )
+void Kiten::setCurrentScrollValue(int value)
 {
-  if ( _historyList.current() == nullptr )
-    return;
+    if (_historyList.current() == nullptr)
+        return;
 
-  _historyList.current()->setScrollValue( value );
+    _historyList.current()->setScrollValue(value);
 }
-
-

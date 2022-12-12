@@ -17,16 +17,16 @@ class QListWidgetItem;
 
 class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-        /**
-         * Constructor.
-         *
-         * @param parent parent QWidget
-         */
-         explicit KanjiBrowserView( QWidget *parent );
-        ~KanjiBrowserView() override;
+public:
+    /**
+     * Constructor.
+     *
+     * @param parent parent QWidget
+     */
+    explicit KanjiBrowserView(QWidget *parent);
+    ~KanjiBrowserView() override;
 
     /**
      * Initial setup.
@@ -36,33 +36,30 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      * @param kanjiGrades sorted list of grades found in KANJIDIC
      * @param strokeCount sorted list of strokes found in KANJIDIC
      */
-    void setupView(   KanjiBrowser *parent
-                    , const QHash< QString, QPair<int, int> > &kanji
-                    , QList<int> &kanjiGrades
-                    , QList<int> &strokeCount );
+    void setupView(KanjiBrowser *parent, const QHash<QString, QPair<int, int>> &kanji, QList<int> &kanjiGrades, QList<int> &strokeCount);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * Emitted when the status bar changed.
      *
      * @param text new text to put in the status bar
      */
-    void statusBarChanged( const QString &text );
+    void statusBarChanged(const QString &text);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     /**
      * Load the font settings.
      */
     void loadSettings();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * Called when the user changed the grade
      * of a kanji to be shown in the ComboBox.
      *
      * @param grade kanji grade to filter
      */
-    void changeGrade( const int grade );
+    void changeGrade(const int grade);
     /**
      * Change StackedWidget to "Kanji Information" page.
      */
@@ -77,21 +74,21 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      *
      * @param strokes number of strokes of a kanji to filter
      */
-    void changeStrokeCount( const int strokes );
+    void changeStrokeCount(const int strokes);
     /**
      * Search for an item (kanji) in KANJIDIC.
      *
      * @param item item to search in the dictionary
      */
-    void searchKanji( QListWidgetItem *item );
+    void searchKanji(QListWidgetItem *item);
 
-  private:
+private:
     /**
      * QFont to CSS font style conversion.
      *
      * @param font font to be convert
      */
-    QString convertToCSS( const QFont &font );
+    QString convertToCSS(const QFont &font);
     /**
      * Reload the KListWidget items.
      */
@@ -101,7 +98,7 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
      *
      * @param kanji kanji that will be displayed as HTML
      */
-    void showKanjiInformation( const EntryKanjidic *kanji );
+    void showKanjiInformation(const EntryKanjidic *kanji);
 
     /**
      * Copies last selected kanji to clipboard
@@ -111,72 +108,60 @@ class KanjiBrowserView : public QWidget, private Ui::KanjiBrowserView
     /**
      * Enumerations of our possible states in QStackedWidget.
      */
-    enum Page
-    {
-      List,
-      Info
-    };
+    enum Page { List, Info };
 
-    enum Grade
-    {
-      AllJouyouGrades = 0,
-      Grade7          = 7,
-      Jinmeiyou       = 9
-    };
+    enum Grade { AllJouyouGrades = 0, Grade7 = 7, Jinmeiyou = 9 };
 
-    enum StrokesCount
-    {
-      NoStrokeLimit
-    };
+    enum StrokesCount { NoStrokeLimit };
 
     /**
      * We need this as we are going to add some QActions to it.
      */
-    KanjiBrowser                     *_parent;
+    KanjiBrowser *_parent;
     /**
      * We need to update this action's text from different functions.
      */
-    QAction                          *_goToKanjiInfo;
+    QAction *_goToKanjiInfo;
     /**
      * We need to update this action's text from different functions.
      */
-    QAction                          *_copyToClipboard;
+    QAction *_copyToClipboard;
     /**
      * Keep track of the current kanji being displayed in the Kanji Information page.
      */
-    EntryKanjidic                    *_currentKanji;
+    EntryKanjidic *_currentKanji;
     /**
      * A hash containing all the kanji (found in KANJIDIC) we need to filter.
      */
-    QHash< QString, QPair<int, int> > _kanji;
+    QHash<QString, QPair<int, int>> _kanji;
     /**
      * A list containing all the kanji grades found in KANJIDIC.
      */
-    QList<int>                        _gradeList;
+    QList<int> _gradeList;
     /**
      * A list containing all the number of strokes found in KANJIDIC.
      */
-    QList<int>                        _strokesList;
+    QList<int> _strokesList;
     /**
      * Current kanji grades selected by the user to be filtered.
      */
-    QList<int>                        _currentGradeList;
+    QList<int> _currentGradeList;
     /**
      * Current number of strokes selected by the user to be filtered.
      */
-    QList<int>                        _currentStrokesList;
+    QList<int> _currentStrokesList;
     /**
      * Font size of the kanji displayed in the Kanji Information page.
      */
-    QVariant                          _kanjiSize;
+    QVariant _kanjiSize;
     /**
      * Font used in kana (onyomi and kunyomi pronunciations of a kanji).
      */
-    QFont                             _kanaFont;
+    QFont _kanaFont;
     /**
      * Font used in information labels of a kanji (Grades, Strokes, etc.).
      */
-    QFont                             _labelFont;
+    QFont _labelFont;
 };
 
 #endif

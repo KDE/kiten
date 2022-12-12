@@ -28,9 +28,9 @@
  */
 class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * Basic constructor. Used by internal classes only. Implement if you are
      * adding your own dictionary type.
@@ -38,7 +38,7 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget
      * @param parent the parent widget, as per normal Qt Widget handling
      * @param name the name of your widget, as understood by the preference code
      */
-    DictionaryPreferenceDialog( QWidget *parent, const QString &name );
+    DictionaryPreferenceDialog(QWidget *parent, const QString &name);
     /**
      * Basic destructor
      */
@@ -48,7 +48,7 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget
      */
     QString name() const;
 
-  public Q_SLOTS:
+public Q_SLOTS:
     /**
      * Connect the signal of your preferences dialog to this updateWidgets slot, to handle reading
      * preference settings cleanly. You can also call this slot directly from your own updateWidgets slot.
@@ -65,13 +65,13 @@ class KITEN_EXPORT DictionaryPreferenceDialog : public QWidget
      */
     virtual void updateSettings() = 0;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * When the user edits something on this preference page, this signal should be emitted
      */
     void widgetChanged();
 
-  protected:
+protected:
     /**
      * A place to store the name, passed in the constructor
      */

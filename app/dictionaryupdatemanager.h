@@ -25,24 +25,24 @@ class KitenConfigSkeleton;
  */
 class DictionaryUpdateManager : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     /**
      * Constructor.
      *
      * @param parent pointer to the Kiten instance. This helps us to add
      *               QAction actions to the program.
      */
-    explicit DictionaryUpdateManager( Kiten *parent );
+    explicit DictionaryUpdateManager(Kiten *parent);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * Emitted when all the updates for EDICT and KANJIDIC finished.
      */
-    void     updateFinished();
+    void updateFinished();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * Downloads an information file containing:
      *   Name of dictionary
@@ -50,7 +50,7 @@ class DictionaryUpdateManager : public QObject
      *   Latest creation date
      *   Number of entries in the dictionary
      */
-    void     checkForUpdates();
+    void checkForUpdates();
     /**
      * Compare the downloaded information file with our
      * dictionaries and check whether or not we need to
@@ -59,25 +59,25 @@ class DictionaryUpdateManager : public QObject
      * @param job the job that downloaded the information file.
      *            This slot should be connected to the result() signal from KJob.
      */
-    void     checkInfoFile( KJob *job );
+    void checkInfoFile(KJob *job);
     /**
      * Install the downloaded dictionary.
      *
      * @param job the job that downloaded a dictionary file.
      *            This slot should be connected to the result() signal from KJob.
      */
-    void     installDictionary( KJob *job );
+    void installDictionary(KJob *job);
     /**
      * Show the update results as a KMessageBox.
      */
-    void     showUpdateResults();
+    void showUpdateResults();
 
-  private:
+private:
     /**
      * Check whether or not the update finished, if so,
      * Q_EMIT an updateFinished signal.
      */
-    void     checkIfUpdateFinished();
+    void checkIfUpdateFinished();
     /**
      * Return the creation date of a file.
      * Files could be:
@@ -88,7 +88,7 @@ class DictionaryUpdateManager : public QObject
      * @param file file from which you want to get the creation date
      * @return creation date of the given file
      */
-    QDate    getFileDate( QFile &file );
+    QDate getFileDate(QFile &file);
     /**
      * Download a dictionary.
      * Could be:
@@ -97,34 +97,34 @@ class DictionaryUpdateManager : public QObject
      *
      * @param url url to the dictionary you want to download
      */
-    void     downloadDictionary( const QString &url );
+    void downloadDictionary(const QString &url);
 
     /**
      * We need it to add a QAction action to the main toolbar.
      */
-    Kiten                 *_parent;
+    Kiten *_parent;
     /**
      * Config file that we need to know the path to
      * the installed dictionaries.
      */
-    KitenConfigSkeleton   *_config;
+    KitenConfigSkeleton *_config;
     /**
      * Update action.
      */
-    QAction               *_actionUpdate;
+    QAction *_actionUpdate;
     /**
      * List of dictionaries already up to date.
      */
-    QStringList            _succeeded;
+    QStringList _succeeded;
     /**
      * List of dictionaries that failed to be updated.
      */
-    QStringList            _failed;
+    QStringList _failed;
     /**
      * Counter to know how many dictionaries we are trying to
      * install (to be used inside the installDictionary private slot).
      */
-    int                    _counter;
+    int _counter;
 };
 
 #endif

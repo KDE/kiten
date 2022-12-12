@@ -17,27 +17,25 @@ class QString;
 
 class ConfigSortingPage : public QWidget, public Ui::configSorting
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit ConfigSortingPage(  QWidget *parent = nullptr
-                               , KitenConfigSkeleton *config = nullptr
-                               , Qt::WindowFlags f = {} );
+public:
+    explicit ConfigSortingPage(QWidget *parent = nullptr, KitenConfigSkeleton *config = nullptr, Qt::WindowFlags f = {});
 
-  public Q_SLOTS:
+public Q_SLOTS:
     bool hasChanged();
     bool isDefault();
     void updateSettings();
     void updateWidgets();
     void updateWidgetsDefault();
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void widgetChanged();
 
-  private:
+private:
     KitenConfigSkeleton *_config;
-    QStringList          _dictNames;
-    QStringList          _fields;
+    QStringList _dictNames;
+    QStringList _fields;
 };
 
 #endif

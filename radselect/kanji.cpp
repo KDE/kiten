@@ -8,38 +8,38 @@
 #include "kanji.h"
 
 Kanji::Kanji()
-: strokeCount( 0 )
+    : strokeCount(0)
 {
 }
 
-Kanji::Kanji( const QString &kanji, const QSet<QString> &radicals )
-: QString( kanji.at( 0 ) )
-, strokeCount( 0 )
+Kanji::Kanji(const QString &kanji, const QSet<QString> &radicals)
+    : QString(kanji.at(0))
+    , strokeCount(0)
 {
-  components = radicals;
+    components = radicals;
 }
 
-void Kanji::addRadical( const QString &it )
+void Kanji::addRadical(const QString &it)
 {
-  components += it;
+    components += it;
 }
 
-void Kanji::setStrokes( unsigned int strokes )
+void Kanji::setStrokes(unsigned int strokes)
 {
-  strokeCount = strokes;
+    strokeCount = strokes;
 }
 
-const QSet<QString>& Kanji::getRadicals() const
+const QSet<QString> &Kanji::getRadicals() const
 {
-  return components;
+    return components;
 }
 
 unsigned int Kanji::strokes() const
 {
-  return strokeCount;
+    return strokeCount;
 }
 
-bool Kanji::operator<( const Kanji &other ) const
+bool Kanji::operator<(const Kanji &other) const
 {
-  return this->strokeCount < other.strokeCount;
+    return this->strokeCount < other.strokeCount;
 }

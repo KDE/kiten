@@ -25,48 +25,47 @@ class RadSelectView;
  */
 class RadSelect : public KXmlGuiWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
     RadSelect();
     ~RadSelect() override;
 
-   /**
-    * This loads a string for a given query into the UI
-    */
-    void loadSearchString( const QString &searchString );
+    /**
+     * This loads a string for a given query into the UI
+     */
+    void loadSearchString(const QString &searchString);
 
-  protected:
+protected:
     // Overridden virtuals for Qt drag 'n drop (XDND)
-    void dragEnterEvent( QDragEnterEvent *event ) override;
-    void dropEvent( QDropEvent *event ) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
-  protected:
+protected:
     /**
      * This function is called when it is time for the app to save its
      * properties for session management purposes.
      */
-    void saveProperties( KConfigGroup &config ) override;
+    void saveProperties(KConfigGroup &config) override;
 
     /**
      * This function is called when this app is restored. The KConfig
      * object points to the session management config file that was saved
      * with @ref saveProperties
      */
-    void readProperties( const KConfigGroup &config ) override;
+    void readProperties(const KConfigGroup &config) override;
 
-
-  private Q_SLOTS:
+private Q_SLOTS:
     void optionsPreferences();
 
-    void changeStatusbar( const QString &text );
+    void changeStatusbar(const QString &text);
 
-    void sendSearch( const QStringList &kanji );
+    void sendSearch(const QStringList &kanji);
 
-  private:
+private:
     QDBusInterface *m_dbusInterface;
-    RadSelectView  *m_view;
-    DictQuery       m_currentQuery;
+    RadSelectView *m_view;
+    DictQuery m_currentQuery;
 };
 
 #endif

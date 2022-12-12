@@ -20,33 +20,33 @@ class QString;
 
 class KITEN_EXPORT EntryKanjidic : public Entry
 {
-  public:
-                    EntryKanjidic( const EntryKanjidic &dict );
-    explicit        EntryKanjidic( const QString &dict );
-                    EntryKanjidic( const QString &dict, const QString &entry );
+public:
+    EntryKanjidic(const EntryKanjidic &dict);
+    explicit EntryKanjidic(const QString &dict);
+    EntryKanjidic(const QString &dict, const QString &entry);
 
-    Entry          *clone() const override;
+    Entry *clone() const override;
     QString dumpEntry() const override;
-    QString         getAsRadicalReadings() const;
-    QStringList     getAsRadicalReadingsList() const;
+    QString getAsRadicalReadings() const;
+    QStringList getAsRadicalReadingsList() const;
     QString getDictionaryType() const override;
-    QString         getInNamesReadings() const;
-    QStringList     getInNamesReadingsList() const;
-    QString         getKanjiGrade() const;
-    QString         getKunyomiReadings() const;
-    QStringList     getKunyomiReadingsList() const;
-    QString         getOnyomiReadings() const;
-    QStringList     getOnyomiReadingsList() const;
-    QString         getStrokesCount() const;
-    bool    loadEntry( const QString &entryLine ) override;
+    QString getInNamesReadings() const;
+    QStringList getInNamesReadingsList() const;
+    QString getKanjiGrade() const;
+    QString getKunyomiReadings() const;
+    QStringList getKunyomiReadingsList() const;
+    QString getOnyomiReadings() const;
+    QStringList getOnyomiReadingsList() const;
+    QString getStrokesCount() const;
+    bool loadEntry(const QString &entryLine) override;
     QString toHTML() const override;
 
-  protected:
-    bool    extendedItemCheck( const QString &key, const QString &value ) const override;
-    virtual QString HTMLExtendedInfo( const QString &field ) const;
+protected:
+    bool extendedItemCheck(const QString &key, const QString &value) const override;
+    virtual QString HTMLExtendedInfo(const QString &field) const;
     QString HTMLReadings() const override;
     QString HTMLWord() const override;
-    virtual QString makeReadingLink( const QString &inReading ) const;
+    virtual QString makeReadingLink(const QString &inReading) const;
 
     QStringList AsRadicalReadings;
     QStringList InNamesReadings;
@@ -54,8 +54,8 @@ class KITEN_EXPORT EntryKanjidic : public Entry
     QStringList OnyomiReadings;
     QStringList originalReadings;
 
-  private:
-    QString addReadings( const QStringList &list ) const;
+private:
+    QString addReadings(const QStringList &list) const;
 };
 
 #endif

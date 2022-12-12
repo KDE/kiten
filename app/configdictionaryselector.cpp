@@ -14,108 +14,99 @@
 #include <QFileDialog>
 #include <QStringList>
 
-ConfigDictionarySelector::ConfigDictionarySelector( const QString &dictionaryName,
-  QWidget *parent, KConfigSkeleton *config,Qt::WindowFlags f )
-: QWidget( parent, f )
+ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName, QWidget *parent, KConfigSkeleton *config, Qt::WindowFlags f)
+    : QWidget(parent, f)
 {
-  setupUi( this );
-  _dictName = dictionaryName;
-  _config = config;
+    setupUi(this);
+    _dictName = dictionaryName;
+    _config = config;
 
-  connect(addButton, &QPushButton::clicked, this, &ConfigDictionarySelector::addDictSlot);
-  connect(delButton, &QPushButton::clicked, this, &ConfigDictionarySelector::deleteDictSlot);
-  __useGlobal->setObjectName( QString( "kcfg_" + _dictName + "__useGlobal" ) );
+    connect(addButton, &QPushButton::clicked, this, &ConfigDictionarySelector::addDictSlot);
+    connect(delButton, &QPushButton::clicked, this, &ConfigDictionarySelector::deleteDictSlot);
+    __useGlobal->setObjectName(QString("kcfg_" + _dictName + "__useGlobal"));
 }
 
-//Read from preferences to the active list
+// Read from preferences to the active list
 void ConfigDictionarySelector::updateWidgets()
 {
-  QString groupName = "dicts_" + _dictName;
-  KConfigGroup group = _config->config()->group( groupName );
-  QStringList names = group.readEntry( "__NAMES", QStringList() );
+    QString groupName = "dicts_" + _dictName;
+    KConfigGroup group = _config->config()->group(groupName);
+    QStringList names = group.readEntry("__NAMES", QStringList());
 
-  fileList->clear();
+    fileList->clear();
 
-  foreach( const QString &it, names )
-  {
-    QStringList newRow( it );
-    newRow << group.readEntry( it, QString() );
-    (void) new QTreeWidgetItem( fileList, newRow );
-  }
+    foreach (const QString &it, names) {
+        QStringList newRow(it);
+        newRow << group.readEntry(it, QString());
+        (void)new QTreeWidgetItem(fileList, newRow);
+    }
 }
 
 void ConfigDictionarySelector::updateSettings()
 {
-  QStringList names;
+    QStringList names;
 
-  KConfigGroup group = _config->config()->group( "dicts_" + _dictName.toLower() );
+    KConfigGroup group = _config->config()->group("dicts_" + _dictName.toLower());
 
-  for( int i = 0; i < fileList->topLevelItemCount(); i++ )
-  {
-    QTreeWidgetItem *it = fileList->topLevelItem( i );
-    QString dictionaryName = it->text( 0 );
-    QString dictionaryPath = it->text( 1 );
-    names.append( dictionaryName );
+    for (int i = 0; i < fileList->topLevelItemCount(); i++) {
+        QTreeWidgetItem *it = fileList->topLevelItem(i);
+        QString dictionaryName = it->text(0);
+        QString dictionaryPath = it->text(1);
+        names.append(dictionaryName);
 
-    group.writeEntry( dictionaryName, dictionaryPath );
-  }
+        group.writeEntry(dictionaryName, dictionaryPath);
+    }
 
-  //This feels distinctly hackish to me... :(
-  _config->findItem( _dictName + "__NAMES" )->setProperty( names );
-  _config->save();
+    // This feels distinctly hackish to me... :(
+    _config->findItem(_dictName + "__NAMES")->setProperty(names);
+    _config->save();
 }
 
 void ConfigDictionarySelector::updateWidgetsDefault()
 {
-  // no default for custom edict list or
-  // should we really delete all items in the list?
+    // no default for custom edict list or
+    // should we really delete all items in the list?
 }
 
 bool ConfigDictionarySelector::isDefault()
 {
-  // no default for custom edict list or
-  // should we really delete all items in the list?
-  return true;
+    // no default for custom edict list or
+    // should we really delete all items in the list?
+    return true;
 }
 
 bool ConfigDictionarySelector::hasChanged()
 {
-  return false;
+    return false;
 }
 
 void ConfigDictionarySelector::addDictSlot()
 {
-  QTreeWidgetItem *item = fileList->topLevelItem( 0 );
+    QTreeWidgetItem *item = fileList->topLevelItem(0);
 
-  QString filename = QFileDialog::getOpenFileName(nullptr, QString(),
-                  item ? QFileInfo( item->text( 1 ) ).absolutePath().append( "/" )
-                  : QString() );
-  QString name = QFileInfo( filename ).fileName();
-  if( filename.isNull() )
-    return;
+    QString filename = QFileDialog::getOpenFileName(nullptr, QString(), item ? QFileInfo(item->text(1)).absolutePath().append("/") : QString());
+    QString name = QFileInfo(filename).fileName();
+    if (filename.isNull())
+        return;
 
-  QStringList newRow( name );
-  newRow << filename;
-  (void) new QTreeWidgetItem( fileList, newRow );
+    QStringList newRow(name);
+    newRow << filename;
+    (void)new QTreeWidgetItem(fileList, newRow);
 
-  updateSettings();
-  Q_EMIT widgetChanged();
+    updateSettings();
+    Q_EMIT widgetChanged();
 }
 
 void ConfigDictionarySelector::deleteDictSlot()
 {
-  foreach( QTreeWidgetItem *file, fileList->selectedItems() )
-  {
-    if ( ! file )
-    {
-      return;
+    foreach (QTreeWidgetItem *file, fileList->selectedItems()) {
+        if (!file) {
+            return;
+        }
+
+        delete file;
+
+        updateSettings();
+        Q_EMIT widgetChanged();
     }
-
-    delete file;
-
-    updateSettings();
-    Q_EMIT widgetChanged();
-  }
 }
-
-

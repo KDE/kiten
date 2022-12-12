@@ -27,21 +27,21 @@
 #include "entrylist.h"
 #include "kitenmacros.h"
 
-QString     *DictFileEdict::deinflectionLabel = nullptr;
+QString *DictFileEdict::deinflectionLabel = nullptr;
 QStringList *DictFileEdict::displayFields = nullptr;
-QString     *DictFileEdict::wordType = nullptr;
+QString *DictFileEdict::wordType = nullptr;
 
 /**
  * Per instructions in the super-class, this constructor basically sets the
  * dictionaryType member variable to identify this as an edict-type database handler.
  */
 DictFileEdict::DictFileEdict()
-: DictFile( EDICT )
-, m_deinflection( 0 )
-, m_hasDeinflection( false )
+    : DictFile(EDICT)
+    , m_deinflection(0)
+    , m_hasDeinflection(false)
 {
-  m_dictionaryType = EDICT;
-  m_searchableAttributes.insert( QStringLiteral("common"), QStringLiteral("common") );
+    m_dictionaryType = EDICT;
+    m_searchableAttributes.insert(QStringLiteral("common"), QStringLiteral("common"));
 }
 
 /**
@@ -50,15 +50,15 @@ DictFileEdict::DictFileEdict()
  */
 DictFileEdict::~DictFileEdict()
 {
-  delete m_deinflection;
-  m_deinflection = nullptr;
+    delete m_deinflection;
+    m_deinflection = nullptr;
 }
 
-QMap<QString,QString> DictFileEdict::displayOptions() const
+QMap<QString, QString> DictFileEdict::displayOptions() const
 {
-  QMap<QString,QString> list;
-  list[ QStringLiteral("Part of speech(type)") ] = QStringLiteral("type");
-  return list;
+    QMap<QString, QString> list;
+    list[QStringLiteral("Part of speech(type)")] = QStringLiteral("type");
+    return list;
 }
 
 /**
@@ -67,259 +67,225 @@ QMap<QString,QString> DictFileEdict::displayOptions() const
  * binary search on the dictionary for that item. Take all results and filter
  * them using the rest of the query with the validate method.
  */
-EntryList *DictFileEdict::doSearch( const DictQuery &query )
+EntryList *DictFileEdict::doSearch(const DictQuery &query)
 {
-  if( query.isEmpty() || ! m_edictFile.valid() )	//No query or dict, no results.
-  {
-    return new EntryList();
-  }
-
-  qDebug()<< "Search from : " << getName();
-
-  QString firstChoice = query.getWord();
-  if( firstChoice.length() == 0 )
-  {
-    firstChoice = query.getPronunciation();
-    if( firstChoice.length() == 0 )
+    if (query.isEmpty() || !m_edictFile.valid()) // No query or dict, no results.
     {
-      firstChoice = query.getMeaning().split( ' ' ).first().toLower();
-      if( firstChoice.length() == 0 )
-      {
-        //The nastiest situation... we have to assemble a search string
-        //from the first property
-        QList<QString> keys = query.listPropertyKeys();
-        if( keys.size() == 0 ) //Shouldn't happen... but maybe in the future
-        {
-          return new EntryList();
+        return new EntryList();
+    }
+
+    qDebug() << "Search from : " << getName();
+
+    QString firstChoice = query.getWord();
+    if (firstChoice.length() == 0) {
+        firstChoice = query.getPronunciation();
+        if (firstChoice.length() == 0) {
+            firstChoice = query.getMeaning().split(' ').first().toLower();
+            if (firstChoice.length() == 0) {
+                // The nastiest situation... we have to assemble a search string
+                // from the first property
+                QList<QString> keys = query.listPropertyKeys();
+                if (keys.size() == 0) // Shouldn't happen... but maybe in the future
+                {
+                    return new EntryList();
+                }
+                firstChoice = keys[0];
+                firstChoice = firstChoice + query.getProperty(firstChoice);
+                // TODO: doSearch: some accommodation for searching for ranges and such of properties
+            }
         }
-        firstChoice = keys[ 0 ];
-        firstChoice = firstChoice + query.getProperty( firstChoice );
-        //TODO: doSearch: some accommodation for searching for ranges and such of properties
-      }
+    } else {
+        // Only search for one kanji or the
+        // binary lookup mechanism breaks
+        firstChoice = firstChoice.at(0);
     }
-  }
-  else
-  {
-    // Only search for one kanji or the
-    // binary lookup mechanism breaks
-    firstChoice = firstChoice.at( 0 );
-  }
 
-  QVector<QString> preliminaryResults = m_edictFile.findMatches( firstChoice );
+    QVector<QString> preliminaryResults = m_edictFile.findMatches(firstChoice);
 
-  if( preliminaryResults.size() == 0 )	//If there were no matches... return an empty list
-  {
-    return new EntryList();
-  }
-
-  EntryList *results = new EntryList();
-  foreach( const QString &it, preliminaryResults )
-  {
-//     qDebug() << "result: " << it << endl;
-    Entry *result = makeEntry( it );
-    EntryEdict *resultEdict = static_cast<EntryEdict*>( result );
-    if( result->matchesQuery( query ) && resultEdict->matchesWordType( query ) )
+    if (preliminaryResults.size() == 0) // If there were no matches... return an empty list
     {
-      results->append( result );
-    }
-    else
-    {
-      delete result;
-    }
-  }
-
-  // At this point we should have some preliminary results
-  // and if there were no matches, it probably means the user
-  // input was a verb or adjective, so we have to deinflect it.
-  bool isAnyQuery       = query.getMatchWordType() == DictQuery::Any;
-  bool isVerbQuery      = query.getMatchWordType() == DictQuery::Verb;
-  bool isAdjectiveQuery = query.getMatchWordType() == DictQuery::Adjective;
-  if( results->count() == 0 && ( isAnyQuery || isVerbQuery || isAdjectiveQuery ) )
-  {
-    delete results;
-    results = m_deinflection->search( query, preliminaryResults );
-    QString *label = m_deinflection->getDeinflectionLabel();
-    if( ! label->isEmpty() && ! m_hasDeinflection )
-    {
-      deinflectionLabel = label;
-      m_hasDeinflection = true;
-      wordType = m_deinflection->getWordType();
-    }
-  }
-  else
-  {
-    deinflectionLabel = nullptr;
-    wordType = nullptr;
-    m_hasDeinflection = false;
-  }
-
-  if( results )
-  {
-    EntryList *common   = new EntryList();
-    EntryList *uncommon = new EntryList();
-    EntryList::EntryIterator i( *results );
-    while( i.hasNext() )
-    {
-      EntryEdict *entry = static_cast<EntryEdict*>( i.next() );
-      if( entry->isCommon() )
-      {
-        common->append( entry );
-      }
-      else
-      {
-        uncommon->append( entry );
-      }
+        return new EntryList();
     }
 
-    delete results;
-    results = new EntryList();
-    results->appendList( common );
-    results->appendList( uncommon );
-    delete common;
-    delete uncommon;
-
-    EntryList *exact     = new EntryList();
-    EntryList *beginning = new EntryList();
-    EntryList *ending    = new EntryList();
-    EntryList *anywhere  = new EntryList();
-    EntryList::EntryIterator it( *results );
-    while( it.hasNext() )
-    {
-      Entry *entry = it.next();
-
-      if( entry->getWord() == query.getWord() )
-      {
-        exact->append( entry );
-      }
-      else if( entry->getWord().startsWith( query.getWord() ) )
-      {
-        beginning->append( entry );
-      }
-      else if( entry->getWord().endsWith( query.getWord() ) )
-      {
-        ending->append( entry );
-      }
-      else
-      {
-        anywhere->append( entry );
-      }
+    EntryList *results = new EntryList();
+    foreach (const QString &it, preliminaryResults) {
+        //     qDebug() << "result: " << it << endl;
+        Entry *result = makeEntry(it);
+        EntryEdict *resultEdict = static_cast<EntryEdict *>(result);
+        if (result->matchesQuery(query) && resultEdict->matchesWordType(query)) {
+            results->append(result);
+        } else {
+            delete result;
+        }
     }
 
-    delete results;
-    results = new EntryList();
-    results->appendList( exact );
-    results->appendList( beginning );
-    results->appendList( ending );
-    results->appendList( anywhere );
-    delete exact;
-    delete beginning;
-    delete ending;
-    delete anywhere;
-  }
+    // At this point we should have some preliminary results
+    // and if there were no matches, it probably means the user
+    // input was a verb or adjective, so we have to deinflect it.
+    bool isAnyQuery = query.getMatchWordType() == DictQuery::Any;
+    bool isVerbQuery = query.getMatchWordType() == DictQuery::Verb;
+    bool isAdjectiveQuery = query.getMatchWordType() == DictQuery::Adjective;
+    if (results->count() == 0 && (isAnyQuery || isVerbQuery || isAdjectiveQuery)) {
+        delete results;
+        results = m_deinflection->search(query, preliminaryResults);
+        QString *label = m_deinflection->getDeinflectionLabel();
+        if (!label->isEmpty() && !m_hasDeinflection) {
+            deinflectionLabel = label;
+            m_hasDeinflection = true;
+            wordType = m_deinflection->getWordType();
+        }
+    } else {
+        deinflectionLabel = nullptr;
+        wordType = nullptr;
+        m_hasDeinflection = false;
+    }
 
-  return results;
+    if (results) {
+        EntryList *common = new EntryList();
+        EntryList *uncommon = new EntryList();
+        EntryList::EntryIterator i(*results);
+        while (i.hasNext()) {
+            EntryEdict *entry = static_cast<EntryEdict *>(i.next());
+            if (entry->isCommon()) {
+                common->append(entry);
+            } else {
+                uncommon->append(entry);
+            }
+        }
+
+        delete results;
+        results = new EntryList();
+        results->appendList(common);
+        results->appendList(uncommon);
+        delete common;
+        delete uncommon;
+
+        EntryList *exact = new EntryList();
+        EntryList *beginning = new EntryList();
+        EntryList *ending = new EntryList();
+        EntryList *anywhere = new EntryList();
+        EntryList::EntryIterator it(*results);
+        while (it.hasNext()) {
+            Entry *entry = it.next();
+
+            if (entry->getWord() == query.getWord()) {
+                exact->append(entry);
+            } else if (entry->getWord().startsWith(query.getWord())) {
+                beginning->append(entry);
+            } else if (entry->getWord().endsWith(query.getWord())) {
+                ending->append(entry);
+            } else {
+                anywhere->append(entry);
+            }
+        }
+
+        delete results;
+        results = new EntryList();
+        results->appendList(exact);
+        results->appendList(beginning);
+        results->appendList(ending);
+        results->appendList(anywhere);
+        delete exact;
+        delete beginning;
+        delete ending;
+        delete anywhere;
+    }
+
+    return results;
 }
 
 /**
  * Make a list of all the extra fields in our db.. Entry uses this to decide
  * what goes in the interpretations it gives.
  */
-QStringList DictFileEdict::listDictDisplayOptions( QStringList x ) const
+QStringList DictFileEdict::listDictDisplayOptions(QStringList x) const
 {
-  x += displayOptions().keys();
-  return x;
+    x += displayOptions().keys();
+    return x;
 }
 
 /**
  * Load up the dictionary
  */
-bool DictFileEdict::loadDictionary( const QString &fileName, const QString &dictName )
+bool DictFileEdict::loadDictionary(const QString &fileName, const QString &dictName)
 {
-  if( m_edictFile.valid() )
-  {
-    return false; //Already loaded
-  }
-
-  if( m_edictFile.loadFile( fileName ) )
-  {
-    m_dictionaryName = dictName;
-    m_dictionaryFile = fileName;
-
-    m_deinflection = new Deinflection( m_dictionaryName );
-    m_deinflection->load();
-
-    return true;
-  }
-
-  return false;
-}
-
-QMap<QString,QString> DictFileEdict::loadDisplayOptions() const
-{
-  QMap<QString,QString> list = displayOptions();
-  list[ QStringLiteral("Word/Kanji") ]  = QStringLiteral("Word/Kanji");
-  list[ QStringLiteral("Reading") ]     = QStringLiteral("Reading");
-  list[ QStringLiteral("Meaning") ]     = QStringLiteral("Meaning");
-  list[ QStringLiteral("--Newline--") ] = QStringLiteral("--Newline--");
-
-  return list;
-}
-
-QStringList* DictFileEdict::loadListType(  KConfigSkeletonItem *item
-                                         , QStringList *list
-                                         , const QMap<QString,QString> &long2short )
-{
-  QStringList listFromItem;
-
-  if( item != nullptr )
-  {
-    listFromItem = item->property().toStringList();
-  }
-
-  if( ! listFromItem.isEmpty() )
-  {
-    delete list;
-
-    list = new QStringList();
-    foreach( const QString &it, listFromItem )
-    {
-      if( long2short.contains( it ) )
-      {
-        list->append( long2short[ it ] );
-      }
+    if (m_edictFile.valid()) {
+        return false; // Already loaded
     }
-  }
 
-  return list;
+    if (m_edictFile.loadFile(fileName)) {
+        m_dictionaryName = dictName;
+        m_dictionaryFile = fileName;
+
+        m_deinflection = new Deinflection(m_dictionaryName);
+        m_deinflection->load();
+
+        return true;
+    }
+
+    return false;
+}
+
+QMap<QString, QString> DictFileEdict::loadDisplayOptions() const
+{
+    QMap<QString, QString> list = displayOptions();
+    list[QStringLiteral("Word/Kanji")] = QStringLiteral("Word/Kanji");
+    list[QStringLiteral("Reading")] = QStringLiteral("Reading");
+    list[QStringLiteral("Meaning")] = QStringLiteral("Meaning");
+    list[QStringLiteral("--Newline--")] = QStringLiteral("--Newline--");
+
+    return list;
+}
+
+QStringList *DictFileEdict::loadListType(KConfigSkeletonItem *item, QStringList *list, const QMap<QString, QString> &long2short)
+{
+    QStringList listFromItem;
+
+    if (item != nullptr) {
+        listFromItem = item->property().toStringList();
+    }
+
+    if (!listFromItem.isEmpty()) {
+        delete list;
+
+        list = new QStringList();
+        foreach (const QString &it, listFromItem) {
+            if (long2short.contains(it)) {
+                list->append(long2short[it]);
+            }
+        }
+    }
+
+    return list;
 }
 
 void DictFileEdict::loadSettings()
 {
-  this->displayFields = new QStringList( loadDisplayOptions().values() );
+    this->displayFields = new QStringList(loadDisplayOptions().values());
 }
 
-void DictFileEdict::loadSettings( KConfigSkeleton *config )
+void DictFileEdict::loadSettings(KConfigSkeleton *config)
 {
-  QMap<QString,QString> long2short = displayOptions();
-  long2short[ QStringLiteral("Word/Kanji") ]  = QStringLiteral("Word/Kanji");
-  long2short[ QStringLiteral("Reading") ]     = QStringLiteral("Reading");
-  long2short[ QStringLiteral("Meaning") ]     = QStringLiteral("Meaning");
-  long2short[ QStringLiteral("--Newline--") ] = QStringLiteral("--Newline--");
+    QMap<QString, QString> long2short = displayOptions();
+    long2short[QStringLiteral("Word/Kanji")] = QStringLiteral("Word/Kanji");
+    long2short[QStringLiteral("Reading")] = QStringLiteral("Reading");
+    long2short[QStringLiteral("Meaning")] = QStringLiteral("Meaning");
+    long2short[QStringLiteral("--Newline--")] = QStringLiteral("--Newline--");
 
-  KConfigSkeletonItem *item = config->findItem( getType() + "__displayFields" );
-  this->displayFields = loadListType( item, this->displayFields, long2short );
+    KConfigSkeletonItem *item = config->findItem(getType() + "__displayFields");
+    this->displayFields = loadListType(item, this->displayFields, long2short);
 }
 
-inline Entry* DictFileEdict::makeEntry( const QString &entry )
+inline Entry *DictFileEdict::makeEntry(const QString &entry)
 {
-  return new EntryEdict( getName(), entry );
+    return new EntryEdict(getName(), entry);
 }
 
-DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *config, QWidget *parent )
+DictionaryPreferenceDialog *DictFileEdict::preferencesWidget(KConfigSkeleton *config, QWidget *parent)
 {
-  DictFileFieldSelector *dialog = new DictFileFieldSelector( config, getType(), parent );
-  dialog->addAvailable( listDictDisplayOptions( QStringList() ) );
-  return dialog;
+    DictFileFieldSelector *dialog = new DictFileFieldSelector(config, getType(), parent);
+    dialog->addAvailable(listDictDisplayOptions(QStringList()));
+    return dialog;
 }
 
 /**
@@ -330,49 +296,46 @@ DictionaryPreferenceDialog *DictFileEdict::preferencesWidget( KConfigSkeleton *c
  * \<kanji or kana\>+ [\<kana\>] /latin characters & symbols/separated with slashes/
  * Comment lines start with... something... not remembering now.
  */
-bool DictFileEdict::validDictionaryFile( const QString &filename )
+bool DictFileEdict::validDictionaryFile(const QString &filename)
 {
-  QFile file( filename );
-  bool returnFlag = true;
+    QFile file(filename);
+    bool returnFlag = true;
 
-  if( ! file.exists() || ! file.open( QIODevice::ReadOnly ) )
-  {
-    return false;
-  }
-
-  //Now we can actually check the file
-  QTextStream fileStream( &file );
-  fileStream.setCodec( QTextCodec::codecForName( "eucJP" ) );
-  QString commentMarker( QStringLiteral("？？？？") ); //Note: Don't touch this! vim seems to have
-                                      //An odd text codec error here too :(
-  QRegExp formattedLine( "^\\S+\\s+(\\[\\S+\\]\\s+)?/.*/$" );
-  while( ! fileStream.atEnd() )
-  {
-    QString line = fileStream.readLine();
-
-    if( line.left( 4 ) == commentMarker )
-    {
-      continue;
-    }
-    if( line.contains( formattedLine ) ) //If it matches our regex
-    {
-      continue;
+    if (!file.exists() || !file.open(QIODevice::ReadOnly)) {
+        return false;
     }
 
-    returnFlag = false;
-    break;
-  }
+    // Now we can actually check the file
+    QTextStream fileStream(&file);
+    fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    QString commentMarker(QStringLiteral("？？？？")); // Note: Don't touch this! vim seems to have
+                                                       // An odd text codec error here too :(
+    QRegExp formattedLine("^\\S+\\s+(\\[\\S+\\]\\s+)?/.*/$");
+    while (!fileStream.atEnd()) {
+        QString line = fileStream.readLine();
 
-  file.close();
-  return returnFlag;
+        if (line.left(4) == commentMarker) {
+            continue;
+        }
+        if (line.contains(formattedLine)) // If it matches our regex
+        {
+            continue;
+        }
+
+        returnFlag = false;
+        break;
+    }
+
+    file.close();
+    return returnFlag;
 }
 
 /**
  * Reject queries that specify anything we don't understand
  */
-//TODO: Actually write this method (validQuery)
-bool DictFileEdict::validQuery( const DictQuery &query )
+// TODO: Actually write this method (validQuery)
+bool DictFileEdict::validQuery(const DictQuery &query)
 {
-  Q_UNUSED( query );
-  return true;
+    Q_UNUSED(query);
+    return true;
 }

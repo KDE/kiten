@@ -25,6 +25,8 @@ include(ECMAddAppIcon)
 include(ECMMarkNonGuiExecutable)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
+include(KDEClangFormat)
+include(KDEGitCommitHooks)
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
@@ -94,4 +96,10 @@ endif()
 
 ## Install our datafiles
 install( FILES data/edict data/kanjidic data/radkfile data/vconj data/romkana.cnv DESTINATION ${KDE_INSTALL_DATADIR}/kiten )
+
+file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
+kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
+
+kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
+
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -17,30 +17,29 @@ class QWidget;
 
 class ConfigureDialog : public KConfigDialog
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit ConfigureDialog(  QWidget *parent = nullptr
-                             , KitenConfigSkeleton *config = nullptr );
+public:
+    explicit ConfigureDialog(QWidget *parent = nullptr, KitenConfigSkeleton *config = nullptr);
     ~ConfigureDialog() override;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void settingsChangedSignal();
     void updateWidgetsSignal();
     void updateWidgetsDefaultSignal();
     void updateSettingsSignal();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void updateConfiguration();
     void updateSettings() override;
     void updateWidgets() override;
     void updateWidgetsDefault() override;
 
-  private:
-    bool     isDefault() override;
-    QWidget *makeDictionaryPreferencesPage( QWidget *, KitenConfigSkeleton* );
-    QWidget *makeDictionaryFileSelectionPage( QWidget *, KitenConfigSkeleton* );
-    QWidget *makeSortingPage( QWidget *, KitenConfigSkeleton* );
+private:
+    bool isDefault() override;
+    QWidget *makeDictionaryPreferencesPage(QWidget *, KitenConfigSkeleton *);
+    QWidget *makeDictionaryFileSelectionPage(QWidget *, KitenConfigSkeleton *);
+    QWidget *makeSortingPage(QWidget *, KitenConfigSkeleton *);
 };
 
 #endif

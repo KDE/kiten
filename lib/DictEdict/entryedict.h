@@ -22,75 +22,75 @@
 
 namespace EdictFormatting
 {
-  extern QStringList Nouns;
-  extern QStringList Verbs;
-  extern QStringList Adjectives;
-  extern QStringList Adverbs;
-  extern QStringList IchidanVerbs;
-  extern QStringList GodanVerbs;
-  extern QStringList FukisokuVerbs;
-  extern QStringList Expressions;
-  extern QStringList Prefix;
-  extern QStringList Suffix;
-  extern QString     Particle;
-  
-  extern QSet<QString> PartsOfSpeech;
-  extern QSet<QString> MiscMarkings;
-  extern QSet<QString> FieldOfApplication;
+extern QStringList Nouns;
+extern QStringList Verbs;
+extern QStringList Adjectives;
+extern QStringList Adverbs;
+extern QStringList IchidanVerbs;
+extern QStringList GodanVerbs;
+extern QStringList FukisokuVerbs;
+extern QStringList Expressions;
+extern QStringList Prefix;
+extern QStringList Suffix;
+extern QString Particle;
+
+extern QSet<QString> PartsOfSpeech;
+extern QSet<QString> MiscMarkings;
+extern QSet<QString> FieldOfApplication;
 }
 
 #endif
 
 class KITEN_EXPORT EntryEdict : public Entry
 {
-  friend class DictFileEdict;
+    friend class DictFileEdict;
 
-  public:
-//     EntryEdict( const EntryEdict &x ) : Entry( x ) {} //No special members to copy in this one
-                    EntryEdict( const QString &dict );
-                    EntryEdict( const QString &dict, const QString &entry );
+public:
+    //     EntryEdict( const EntryEdict &x ) : Entry( x ) {} //No special members to copy in this one
+    EntryEdict(const QString &dict);
+    EntryEdict(const QString &dict, const QString &entry);
 
-    Entry          *clone() const override;
+    Entry *clone() const override;
     /**
      * Simple accessor.
      */
-    QString         getTypes() const;
+    QString getTypes() const;
     /**
      * Simple accessor.
      */
-    QStringList     getTypesList() const;
+    QStringList getTypesList() const;
 
-    bool            isAdjective() const;
-    bool            isAdverb() const;
-    bool            isCommon() const;
-    bool            isExpression() const;
-    bool            isFukisokuVerb() const;
-    bool            isGodanVerb() const;
-    bool            isIchidanVerb() const;
-    bool            isNoun() const;
-    bool            isParticle() const;
-    bool            isPrefix() const;
-    bool            isSuffix() const;
-    bool            isVerb() const;
+    bool isAdjective() const;
+    bool isAdverb() const;
+    bool isCommon() const;
+    bool isExpression() const;
+    bool isFukisokuVerb() const;
+    bool isGodanVerb() const;
+    bool isIchidanVerb() const;
+    bool isNoun() const;
+    bool isParticle() const;
+    bool isPrefix() const;
+    bool isSuffix() const;
+    bool isVerb() const;
 
-    bool            matchesWordType( const DictQuery &query ) const;
+    bool matchesWordType(const DictQuery &query) const;
 
     QString dumpEntry() const override;
     QString getDictionaryType() const override;
     QString HTMLWord() const override;
-    bool    loadEntry( const QString &entryLine ) override;
+    bool loadEntry(const QString &entryLine) override;
     QString toHTML() const override;
 
-  protected:
-    virtual QString kanjiLinkify( const QString &inString ) const;
+protected:
+    virtual QString kanjiLinkify(const QString &inString) const;
 
-  private:
+private:
     /**
      * Types that match this entry (i.e. n, adj, adv).
      */
-    QStringList    m_types;
+    QStringList m_types;
 
-    //Field of Application goes into the hash
+    // Field of Application goes into the hash
     QList<QString> m_miscMarkings;
 };
 

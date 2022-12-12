@@ -43,7 +43,7 @@ class QWidget;
 
 class KITEN_EXPORT DictionaryManager
 {
-  public:
+public:
     /**
      * Basic constructor
      */
@@ -61,7 +61,7 @@ class KITEN_EXPORT DictionaryManager
      *             for all future dealings with this file, this name will be the key value
      * @param type the known dictionary type of this file
      */
-    bool addDictionary( const QString &file, const QString &name, const QString &type );
+    bool addDictionary(const QString &file, const QString &name, const QString &type);
     /**
      * Removes all previously loaded dictionaries (if any).
      */
@@ -71,7 +71,7 @@ class KITEN_EXPORT DictionaryManager
      *
      * @param name the name of the dictionary file, as given in addDictionary
      */
-    bool removeDictionary( const QString &name );
+    bool removeDictionary(const QString &name);
     /**
      * List names of each open dictionary
      */
@@ -81,19 +81,19 @@ class KITEN_EXPORT DictionaryManager
      *
      * @param name the name of the dictionary whose information we are looking for
      */
-    QPair<QString, QString> listDictionaryInfo( const QString &name ) const;
+    QPair<QString, QString> listDictionaryInfo(const QString &name) const;
     /**
      * Lists all dictionaries of a given type (Convenient for preference dialogs)
      *
      * @param type the type of dictionaries to list
      */
-    QStringList listDictionariesOfType( const QString &type ) const;
+    QStringList listDictionariesOfType(const QString &type) const;
     /**
      * This is the main search routine that most of kiten should use
      *
      * @param query the DictQuery object describing the search to conduct
      */
-    EntryList *doSearch( const DictQuery &query ) const;
+    EntryList *doSearch(const DictQuery &query) const;
     /**
      * A simple method for searching inside of a given set of results
      *
@@ -102,7 +102,7 @@ class KITEN_EXPORT DictionaryManager
      *              only out of the second parameter
      * @param list the list of results to search for the above query in
      */
-    EntryList *doSearchInList( const DictQuery &query, const EntryList *list ) const;
+    EntryList *doSearchInList(const DictQuery &query, const EntryList *list) const;
     /**
      * Get a list of all supported dictionary types. Useful for preference code
      */
@@ -115,33 +115,32 @@ class KITEN_EXPORT DictionaryManager
      * @param config the config skeleton
      * @param parent the parent widget, as per the normal Qt widget system
      */
-    static QMap<QString,DictionaryPreferenceDialog*>
-            generatePreferenceDialogs( KConfigSkeleton *config, QWidget *parent = nullptr );
+    static QMap<QString, DictionaryPreferenceDialog *> generatePreferenceDialogs(KConfigSkeleton *config, QWidget *parent = nullptr);
     /**
      * Compiles a list of all fields beyond the basic three (word/pronunciation/meaning) that all dictionary
      * types support. This can be used to generate a preference dialog, or provide more direct references.
      * The return value is "full name of the field" => "abbreviation usable in search string"
      */
-    static QMap<QString,QString> generateExtendedFieldsList();
+    static QMap<QString, QString> generateExtendedFieldsList();
     /**
      * Trigger loading preferences from a given KConfigSkeleton config object for a dictionary of type dict
      *
      * @param dict the dictionary type to load settings for
      * @param config the config skeleton object */
-    void loadDictSettings( const QString &dict, KConfigSkeleton *config );
+    void loadDictSettings(const QString &dict, KConfigSkeleton *config);
     /**
      * Load general settings
      */
-    void loadSettings( const KConfig &config );
+    void loadSettings(const KConfig &config);
 
-  private:
+private:
     /**
      * Static method, used to create the polymorphic dictFile object. Do not use externally.
      * If you are adding a new dictionary type, see the instructions in the code.
      */
-    static DictFile *makeDictFile( const QString &type );
+    static DictFile *makeDictFile(const QString &type);
     class Private;
-    Private* const d;
+    Private *const d;
 };
 
 #endif

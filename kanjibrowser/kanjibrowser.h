@@ -16,25 +16,25 @@ class KanjiBrowserView;
 
 class KanjiBrowser : public KXmlGuiWindow
 {
-  friend class KanjiBrowserView;
+    friend class KanjiBrowserView;
 
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-         KanjiBrowser();
-        ~KanjiBrowser() override;
+public:
+    KanjiBrowser();
+    ~KanjiBrowser() override;
 
-  private Q_SLOTS:
+private Q_SLOTS:
     /**
      * Change/update the status bar.
      */
-    void changeStatusBar( const QString &text );
+    void changeStatusBar(const QString &text);
     /**
      * Show a font preferences dialog.
      */
     void showPreferences();
 
-  private:
+private:
     /**
      * Load KANJIDIC dictionary and parse the necessary information and
      * calls KanjiBrowserView::setupView() member function to finish the setup.
@@ -44,8 +44,8 @@ class KanjiBrowser : public KXmlGuiWindow
     void loadKanji();
 
     KanjiBrowserConfigSkeleton *_config;
-    KanjiBrowserView           *_view;
-    DictFileKanjidic           *_dictFileKanjidic;
+    KanjiBrowserView *_view;
+    DictFileKanjidic *_dictFileKanjidic;
 };
 
 #endif

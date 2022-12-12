@@ -14,16 +14,16 @@
 
 class EntryListView : public QTableView
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit EntryListView( QWidget *parent = nullptr );
+public:
+    explicit EntryListView(QWidget *parent = nullptr);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void setEmptyModel();
 
-  protected:
-    void resizeEvent( QResizeEvent *event ) override;
+protected:
+    void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif

@@ -20,20 +20,20 @@ class QWidget;
 
 class /* NO_EXPORT */ KRomajiEdit : public KLineEdit
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    KRomajiEdit( QWidget *parent);
+public:
+    KRomajiEdit(QWidget *parent);
     ~KRomajiEdit() override;
 
-  public Q_SLOTS:
-    void setKana( QAction* );
+public Q_SLOTS:
+    void setKana(QAction *);
 
-  protected:
+protected:
     QMenu *createPopupMenu();
-    void   keyPressEvent( QKeyEvent *e ) override;
+    void keyPressEvent(QKeyEvent *e) override;
 
-  private:
+private:
     QMap<QString, QString> m_hiragana;
     QMap<QString, QString> m_katakana;
 

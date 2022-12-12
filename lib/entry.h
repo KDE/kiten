@@ -29,27 +29,27 @@ class QString;
  */
 class KITEN_EXPORT Entry
 {
-  friend class EntryListModel;
+    friend class EntryListModel;
 
-  private:
+private:
     /**
-      * Default constructor, should not be used. Made private to serve as a warning
-      * that you're doing something wrong if you try to call this.
-      */
+     * Default constructor, should not be used. Made private to serve as a warning
+     * that you're doing something wrong if you try to call this.
+     */
     Entry();
 
-  protected:
+protected:
     /**
      * Copy constructor
      */
-    Entry( const Entry& );
+    Entry(const Entry &);
     /**
      * Constructor that includes the dictionary source. This does not need to be overridden by
      * subclasses, but you might find it to be convenient as the superclass constructor to call
      * from your constructors.
      * @param sourceDictionary the dictionary name (not fileName) that this entry originated with
      */
-    Entry( const QString &sourceDictionary );
+    Entry(const QString &sourceDictionary);
     /**
      * A constructor that includes the basic information, nicely separated
      * @param sourceDictionary the dictionary name (not fileName) that this entry originated with
@@ -57,10 +57,9 @@ class KITEN_EXPORT Entry
      * @param readings a list of possible pronunciations for this result (kana)
      * @param meanings a list of possible meanings for this word
      */
-    Entry( const QString &sourceDictionary, const QString &word,
-           const QStringList &readings, const QStringList &meanings );
+    Entry(const QString &sourceDictionary, const QString &word, const QStringList &readings, const QStringList &meanings);
 
-  public:
+public:
     /**
      * Generic Destructor
      */
@@ -76,7 +75,7 @@ class KITEN_EXPORT Entry
      * check more carefully by calling this method. This works nicely for handling searchWithinResults
      * cleanly.
      */
-    virtual bool matchesQuery( const DictQuery& ) const;
+    virtual bool matchesQuery(const DictQuery &) const;
 
     /**
      * Get the dictionary name that generated this Entry. I can't think of a reason to be changing this
@@ -110,19 +109,19 @@ class KITEN_EXPORT Entry
     /**
      * Simple accessor
      */
-    QHash<QString,QString> getExtendedInfo() const;
+    QHash<QString, QString> getExtendedInfo() const;
     /**
      * Simple accessor
      * @param x the key for the extended info item to get
      */
-    QString getExtendedInfoItem( const QString &x ) const;
+    QString getExtendedInfoItem(const QString &x) const;
     /**
      * Simple accessor
      * @param key the key for the extended item that is being verified
      * @param value the value it is supposed to have
      * @returns true if the key has that value, false if it is different or does not exist
      */
-    virtual bool extendedItemCheck( const QString &key, const QString &value ) const;
+    virtual bool extendedItemCheck(const QString &key, const QString &value) const;
 
     /**
      * An entry should be able to generate a representation of itself in (valid) HTML
@@ -142,7 +141,7 @@ class KITEN_EXPORT Entry
      * as a QString and put it back.  The latter will be useful for writing
      * to dictionaries on disk at some point.
      */
-    virtual bool loadEntry( const QString& ) = 0;
+    virtual bool loadEntry(const QString &) = 0;
     /**
      * Return a QString of an entry, as if it were dumped back into it's source file
      */
@@ -159,8 +158,7 @@ class KITEN_EXPORT Entry
      *		        Reading, Meaning, Word/Kanji for those elements, all others by their
      *		        extended attribute keys.
      */
-    virtual bool sort( const Entry &that, const QStringList &dictOrder,
-                       const QStringList &fields ) const;
+    virtual bool sort(const Entry &that, const QStringList &dictOrder, const QStringList &fields) const;
     /**
      * Overrideable sorting mechanism for sorting by individual fields.
      * The sort routine checks if the given field is equal, before calling this virtual function
@@ -169,9 +167,9 @@ class KITEN_EXPORT Entry
      * @param that the second item we are comparing (this) with
      * @param field the specific extended item field that is being compared
      */
-    virtual bool sortByField( const Entry &that, const QString &field ) const;
+    virtual bool sortByField(const Entry &that, const QString &field) const;
 
-  protected:
+protected:
     /**
      * The Word (usually containing kanji) that matches this entry. If you override the accessors
      * above, this has no use.
@@ -190,7 +188,7 @@ class KITEN_EXPORT Entry
     /**
      * A hash of extended information. You may find it useful to store all sorts of details here
      */
-    QHash<QString,QString> ExtendedInfo;
+    QHash<QString, QString> ExtendedInfo;
 
     /**
      * The dictionary that this entry originated at
@@ -209,7 +207,7 @@ class KITEN_EXPORT Entry
     /**
      * Handy function for generating a link from a given QString
      */
-    virtual QString makeLink( const QString &entryString ) const;
+    virtual QString makeLink(const QString &entryString) const;
     /**
      * Return and HTML version of a word
      */
@@ -226,11 +224,11 @@ class KITEN_EXPORT Entry
     /**
      * Handy Utility functions for matching to lists and identifying char types
      */
-    bool listMatch( const QStringList &list, const QStringList &test, DictQuery::MatchType type ) const;
+    bool listMatch(const QStringList &list, const QStringList &test, DictQuery::MatchType type) const;
     /**
      * Handy Utility functions for matching to lists and identifying char types
      */
-    bool isKanji( const QChar &character ) const;
+    bool isKanji(const QChar &character) const;
 };
 
 #endif

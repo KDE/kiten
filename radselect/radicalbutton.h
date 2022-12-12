@@ -15,37 +15,36 @@ class QMouseEvent;
 
 class RadicalButton : public QPushButton
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-             RadicalButton( const QString &text, QWidget *parent );
+public:
+    RadicalButton(const QString &text, QWidget *parent);
     ~RadicalButton() override;
     /**
      * Overriding QPushButton's event for mousewheel events on a disabled button
      */
-    bool     event( QEvent *event ) override;
-    QSize    minimumSizeHint() const override;
-    QSize    sizeHint() const override;
+    bool event(QEvent *event) override;
+    QSize minimumSizeHint() const override;
+    QSize sizeHint() const override;
 
-    typedef enum
-    {
-      Normal,         /**< Normal button */
-      Selected,       /**< This button has been selected (checked) */
-      NotAppropriate, /**< Due to other selected buttons: disabled */
-      Related,        /**< Display only this radical and related ones: italics? */
-      Hidden          /**< Not related (to above), so hide() */
+    typedef enum {
+        Normal, /**< Normal button */
+        Selected, /**< This button has been selected (checked) */
+        NotAppropriate, /**< Due to other selected buttons: disabled */
+        Related, /**< Display only this radical and related ones: italics? */
+        Hidden /**< Not related (to above), so hide() */
     } ButtonStatus;
 
-  Q_SIGNALS:
-    void userClicked( const QString &text, RadicalButton::ButtonStatus status );
+Q_SIGNALS:
+    void userClicked(const QString &text, RadicalButton::ButtonStatus status);
 
-  public Q_SLOTS:
-    void mousePressEvent( QMouseEvent *e ) override;
-    void mouseReleaseEvent( QMouseEvent *e ) override;
+public Q_SLOTS:
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
     void resetButton();
-    void setStatus( RadicalButton::ButtonStatus newStatus );
+    void setStatus(RadicalButton::ButtonStatus newStatus);
 
-  private:
+private:
     ButtonStatus m_status;
 };
 

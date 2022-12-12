@@ -21,31 +21,31 @@ class WordType;
 
 class SearchStringInput : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit  SearchStringInput( Kiten *parent );
+public:
+    explicit SearchStringInput(Kiten *parent);
 
     DictQuery getSearchQuery() const;
-    void      setDefaultsFromConfig();
-    void      setSearchQuery( const DictQuery &query );
-    void      updateFontFromConfig();
+    void setDefaultsFromConfig();
+    void setSearchQuery(const DictQuery &query);
+    void updateFontFromConfig();
 
-  public Q_SLOTS:
-    void      test();
-    void      focusInput();
+public Q_SLOTS:
+    void test();
+    void focusInput();
 
-  Q_SIGNALS:
-    void      search();
+Q_SIGNALS:
+    void search();
 
-  private:
-    KSelectAction    *_actionFilterRare = nullptr;
+private:
+    KSelectAction *_actionFilterRare = nullptr;
     // Search exact/anywhere/beginning
-    KSelectAction    *_actionSearchSection = nullptr;
-    KSelectAction    *_actionSelectWordType = nullptr;
+    KSelectAction *_actionSearchSection = nullptr;
+    KSelectAction *_actionSelectWordType = nullptr;
     KHistoryComboBox *_actionTextInput = nullptr;
-    QAction          *_actionFocusInput = nullptr;
-    Kiten            *_parent = nullptr;
+    QAction *_actionFocusInput = nullptr;
+    Kiten *_parent = nullptr;
 };
 
 #endif

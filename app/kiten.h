@@ -14,8 +14,8 @@
 
 #include <KXmlGuiWindow>
 
-#include "dictquery.h"
 #include "dictionarymanager.h"
+#include "dictquery.h"
 #include "entry.h"
 #include "historyptrlist.h"
 
@@ -37,41 +37,41 @@ class SearchStringInput;
 
 class Kiten : public KXmlGuiWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  //Constructors and other setup/takedown related methods
-  public:
-    explicit Kiten( QWidget *parent = nullptr, const char *name = nullptr );
-            ~Kiten() override;
+    // Constructors and other setup/takedown related methods
+public:
+    explicit Kiten(QWidget *parent = nullptr, const char *name = nullptr);
+    ~Kiten() override;
 
     KitenConfigSkeleton *getConfig();
 
-  // The following will be available via dbus.
-  public Q_SLOTS:
-    void searchTextAndRaise( const QString &str );
-    void addExportListEntry( int index );
+    // The following will be available via dbus.
+public Q_SLOTS:
+    void searchTextAndRaise(const QString &str);
+    void addExportListEntry(int index);
 
-  protected:
+protected:
     void setupActions();
     void setupExportListDock();
-    bool queryClose() override; //overridden from KXmlGuiWindow (called@shutdown) override
+    bool queryClose() override; // overridden from KXmlGuiWindow (called@shutdown) override
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void finishInit();
     void focusResultsView();
 
-    //Searching related methods
+    // Searching related methods
     void searchFromEdit();
-    void searchText( const QString& );
+    void searchText(const QString &);
     void searchClipboard();
-    void searchAndDisplay( const DictQuery& );
+    void searchAndDisplay(const DictQuery &);
     void searchInResults();
-    void displayResults( EntryList* );
+    void displayResults(EntryList *);
     void radicalSearch();
     void kanjiBrowserSearch();
-    //void searchOnTheSpot();
+    // void searchOnTheSpot();
 
-    //Configuration related slots
+    // Configuration related slots
     void slotConfigure();
     void slotConfigureHide();
     void slotConfigureDestroy();
@@ -80,62 +80,61 @@ class Kiten : public KXmlGuiWindow
     void newToolBarConfig();
     void updateConfiguration();
     void loadDictionaries();
-    void loadDictConfig( const QString& );
+    void loadDictConfig(const QString &);
 
-    //Other
+    // Other
     void print();
 
-    //History related methods
+    // History related methods
     void back();
     void forward();
-    void goInHistory( int );
+    void goInHistory(int);
     void displayHistoryItem();
-    void addHistory( EntryList* );
+    void addHistory(EntryList *);
     void enableHistoryButtons();
-    void setCurrentScrollValue( int value );
+    void setCurrentScrollValue(int value);
 
-  //	void createEEdit();
-  //	void kanjiDictChange();
-  //	void slotLearnConfigure();
-  //Q_SIGNALS:
-  //	void saveLists();
-  //	void add( Entry* );
+    //	void createEEdit();
+    //	void kanjiDictChange();
+    //	void slotLearnConfigure();
+    // Q_SIGNALS:
+    //	void saveLists();
+    //	void add( Entry* );
 
-
-  private:
-    QStatusBar              *_statusBar = nullptr;
-    DictionaryManager        _dictionaryManager;
+private:
+    QStatusBar *_statusBar = nullptr;
+    DictionaryManager _dictionaryManager;
     DictionaryUpdateManager *_dictionaryUpdateManager = nullptr;
-    SearchStringInput       *_inputManager = nullptr;
-    ResultsView             *_mainView = nullptr;
+    SearchStringInput *_inputManager = nullptr;
+    ResultsView *_mainView = nullptr;
 
-    DictQuery                _lastQuery;
-    KToggleAction           *_autoSearchToggle = nullptr;
-    KListAction             *_historyAction = nullptr;
-    QAction                 *_irAction = nullptr;
-    QAction                 *_backAction = nullptr;
-    QAction                 *_forwardAction = nullptr;
-    KProcess                *_radselect_proc = nullptr;
-    KProcess                *_kanjibrowser_proc = nullptr;
+    DictQuery _lastQuery;
+    KToggleAction *_autoSearchToggle = nullptr;
+    KListAction *_historyAction = nullptr;
+    QAction *_irAction = nullptr;
+    QAction *_backAction = nullptr;
+    QAction *_forwardAction = nullptr;
+    KProcess *_radselect_proc = nullptr;
+    KProcess *_kanjibrowser_proc = nullptr;
 
-    //TODO: this should probably be a standardaction
-    QAction                 *_globalShortcutsAction = nullptr;
+    // TODO: this should probably be a standardaction
+    QAction *_globalShortcutsAction = nullptr;
 
-    //ResultsView *detachedView;
-    QAction                 *_globalSearchAction = nullptr;
+    // ResultsView *detachedView;
+    QAction *_globalSearchAction = nullptr;
 
-    KStatusNotifierItem     *_sysTrayIcon = nullptr;
+    KStatusNotifierItem *_sysTrayIcon = nullptr;
 
-    //Export list related:
-    QDockWidget             *_exportListDock = nullptr;
-    QWidget                 *_exportListDockContents = nullptr;
-    EntryListView           *_exportList = nullptr;
+    // Export list related:
+    QDockWidget *_exportListDock = nullptr;
+    QWidget *_exportListDockContents = nullptr;
+    EntryListView *_exportList = nullptr;
 
-    ConfigureDialog         *_optionDialog = nullptr;
-    KitenConfigSkeleton     *_config = nullptr;
+    ConfigureDialog *_optionDialog = nullptr;
+    KitenConfigSkeleton *_config = nullptr;
 
-    HistoryPtrList           _historyList;
-    QString                  _personalDict;
+    HistoryPtrList _historyList;
+    QString _personalDict;
 };
 
 #endif

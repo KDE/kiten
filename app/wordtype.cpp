@@ -9,15 +9,12 @@
 
 #include "entry.h"
 
-
-WordType::WordType( QWidget *parent )
-: KComboBox( parent )
+WordType::WordType(QWidget *parent)
+    : KComboBox(parent)
 {
-  //TODO: i18n needed
-  addItem( QStringLiteral("<No type specified>") );
-  addItem( QStringLiteral("Noun") );
-  addItem( QStringLiteral("Verb") );
-//   addItems( Entry::WordTypesPretty()->uniqueKeys() );
+    // TODO: i18n needed
+    addItem(QStringLiteral("<No type specified>"));
+    addItem(QStringLiteral("Noun"));
+    addItem(QStringLiteral("Verb"));
+    //   addItems( Entry::WordTypesPretty()->uniqueKeys() );
 }
-
-

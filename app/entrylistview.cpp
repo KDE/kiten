@@ -12,28 +12,26 @@
 
 #include <QHeaderView>
 
-//These are the ratios for how much space the word and reading headers should
-//take. The meaning will always stretch and take up the remaining space.
-#define WORDRATIO    0.2
+// These are the ratios for how much space the word and reading headers should
+// take. The meaning will always stretch and take up the remaining space.
+#define WORDRATIO 0.2
 #define READINGRATIO 0.2
 
-EntryListView::EntryListView( QWidget *parent )
-  : QTableView( parent )
+EntryListView::EntryListView(QWidget *parent)
+    : QTableView(parent)
 {
-  horizontalHeader()->setStretchLastSection( true );
+    horizontalHeader()->setStretchLastSection(true);
 }
 
-void EntryListView::resizeEvent( QResizeEvent *event )
+void EntryListView::resizeEvent(QResizeEvent *event)
 {
-  Q_UNUSED( event );
-  QHeaderView *header = horizontalHeader();
-  header->resizeSection( 0, float( width() ) * WORDRATIO    );
-  header->resizeSection( 1, float( width() ) * READINGRATIO );
+    Q_UNUSED(event);
+    QHeaderView *header = horizontalHeader();
+    header->resizeSection(0, float(width()) * WORDRATIO);
+    header->resizeSection(1, float(width()) * READINGRATIO);
 }
 
 void EntryListView::setEmptyModel()
 {
-  //TODO: implement me
+    // TODO: implement me
 }
-
-

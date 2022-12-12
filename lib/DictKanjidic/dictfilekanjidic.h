@@ -25,36 +25,33 @@ class KConfigSkeletonItem;
 
 class KITEN_EXPORT DictFileKanjidic : public DictFile
 {
-  friend class EntryKanjidic;
+    friend class EntryKanjidic;
 
-  public:
-                          DictFileKanjidic();
+public:
+    DictFileKanjidic();
     ~DictFileKanjidic() override;
 
-    QMap<QString,QString> displayOptions() const;
-    EntryList    *doSearch( const DictQuery &query ) override;
-    QStringList           dumpDictionary();
-    QStringList   listDictDisplayOptions( QStringList list ) const override;
-    bool                  loadDictionary(  const QString &file
-                                         , const QString &name ) override;
-    QStringList          *loadListType(  KConfigSkeletonItem *item
-                                       , QStringList *list
-                                       , const QMap<QString,QString> &long2short );
-    void                  loadSettings();
-    void          loadSettings( KConfigSkeleton *item ) override;
-    bool                  validDictionaryFile( const QString &filename ) override;
-    bool                  validQuery( const DictQuery &query ) override;
+    QMap<QString, QString> displayOptions() const;
+    EntryList *doSearch(const DictQuery &query) override;
+    QStringList dumpDictionary();
+    QStringList listDictDisplayOptions(QStringList list) const override;
+    bool loadDictionary(const QString &file, const QString &name) override;
+    QStringList *loadListType(KConfigSkeletonItem *item, QStringList *list, const QMap<QString, QString> &long2short);
+    void loadSettings();
+    void loadSettings(KConfigSkeleton *item) override;
+    bool validDictionaryFile(const QString &filename) override;
+    bool validQuery(const DictQuery &query) override;
 
-  protected:
-    virtual inline Entry *makeEntry( const QString &entry );
+protected:
+    virtual inline Entry *makeEntry(const QString &entry);
 
     static QStringList *displayFields;
 
-  private:
-    QMap<QString,QString> loadDisplayOptions() const;
+private:
+    QMap<QString, QString> loadDisplayOptions() const;
 
     QStringList m_kanjidic;
-    bool        m_validKanjidic;
+    bool m_validKanjidic;
 };
 
 #endif

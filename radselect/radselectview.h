@@ -8,7 +8,7 @@
 #ifndef RADSELECTVIEW_H
 #define RADSELECTVIEW_H
 
-//generated from the uic from radical_selector.ui (defines Ui::radical_selector)
+// generated from the uic from radical_selector.ui (defines Ui::radical_selector)
 #include "ui_radical_selector.h"
 
 #include <QList>
@@ -19,48 +19,48 @@ class QListWidgetItem;
 class QString;
 class QStringList;
 
-#include "radicalfile.h"	//For Kanji/radicalFile definitions
+#include "radicalfile.h" //For Kanji/radicalFile definitions
 
 class RadSelectView : public QWidget, public Ui::radical_selector
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit RadSelectView( QWidget *parent );
+public:
+    explicit RadSelectView(QWidget *parent);
     ~RadSelectView() override;
 
-    //Load pre-determined search parameters
-    void loadRadicals( const QString &radicals, int strokeMin, int strokeMax );
-    void loadKanji( QString &kanji );
+    // Load pre-determined search parameters
+    void loadRadicals(const QString &radicals, int strokeMin, int strokeMax);
+    void loadKanji(QString &kanji);
 
-  Q_SIGNALS:
-    void signalChangeStatusbar( const QString &text );
-    //Listen for this if you want to detect each minor change
+Q_SIGNALS:
+    void signalChangeStatusbar(const QString &text);
+    // Listen for this if you want to detect each minor change
     void searchModified();
-    //This is when they've actually pressed a kanji
-    void kanjiSelected( const QStringList &kanjiList );
+    // This is when they've actually pressed a kanji
+    void kanjiSelected(const QStringList &kanjiList);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void loadSettings();
-    //Handles either of the stroke limiters moving
-    void strokeLimitChanged( int newvalue );
-    //Connected to any changes in searches, emits searchModified
+    // Handles either of the stroke limiters moving
+    void strokeLimitChanged(int newvalue);
+    // Connected to any changes in searches, emits searchModified
     void changedSearch();
-    //Clear everything
+    // Clear everything
     void clearSearch();
-    //Result is clicked
-    void kanjiClicked( QListWidgetItem *item );
-    //Result is double-clicked
-    void kanjiDoubleClicked( QListWidgetItem *item );
-    //Sets the list of visible Kanji
-    void listPossibleKanji( const QList<Kanji> &list );
-    //Copy text from lineedit to clipboard
+    // Result is clicked
+    void kanjiClicked(QListWidgetItem *item);
+    // Result is double-clicked
+    void kanjiDoubleClicked(QListWidgetItem *item);
+    // Sets the list of visible Kanji
+    void listPossibleKanji(const QList<Kanji> &list);
+    // Copy text from lineedit to clipboard
     void toClipboard();
 
-  private:
-    RadicalFile  *m_radicalInfo;
-    ButtonGrid   *m_buttongrid;
-    QList<Kanji>  m_possibleKanji;
+private:
+    RadicalFile *m_radicalInfo;
+    ButtonGrid *m_buttongrid;
+    QList<Kanji> m_possibleKanji;
 };
 
 #endif

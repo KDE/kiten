@@ -16,10 +16,10 @@
 
 class /* NO_EXPORT */ WordType : public KComboBox
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit WordType( QWidget *parent );
+public:
+    explicit WordType(QWidget *parent);
 };
 
 #endif

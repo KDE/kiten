@@ -19,57 +19,52 @@
 
 class ButtonGrid : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-             ButtonGrid( QWidget *parent, RadicalFile *radicalInfo );
+public:
+    ButtonGrid(QWidget *parent, RadicalFile *radicalInfo);
     ~ButtonGrid() override;
 
-  Q_SIGNALS:
+Q_SIGNALS:
     /**
      * Our generic message alert signal
      */
-    void signalChangeStatusbar( const QString &text );
+    void signalChangeStatusbar(const QString &text);
     /**
      * We Q_EMIT this whenever something changed. This gives our list of
      * suggested kanji
      */
-    void possibleKanji( const QList<Kanji> &kanjiList );
+    void possibleKanji(const QList<Kanji> &kanjiList);
     void clearButtonSelections();
 
-  public Q_SLOTS:
+public Q_SLOTS:
     /**
      * Triggered by a button press
      */
-    void radicalClicked(   const QString &newrad
-                         , RadicalButton::ButtonStatus newStatus );
+    void radicalClicked(const QString &newrad, RadicalButton::ButtonStatus newStatus);
     /**
      * Reset all buttons to the up and uncolored state
      */
     void clearSelections();
 
-    void setSortByFrequency( bool enable );
+    void setSortByFrequency(bool enable);
 
-  private:
+private:
     void buildRadicalButtons();
     void updateButtons();
 
     static const unsigned int number_of_radical_columns = 11;
     static const unsigned int maximumStrokeValue = 50;
 
-    enum
-    {
-      Selection,
-      Relational
-    } CurrentMode;
+    enum { Selection, Relational } CurrentMode;
 
-    QString        m_relationalRadical;
-    QSet<QString>  m_selectedRadicals;
-    RadicalFile   *m_radicalInfo;
-    bool           m_sortByFrequency;
+    QString m_relationalRadical;
+    QSet<QString> m_selectedRadicals;
+    RadicalFile *m_radicalInfo;
+    bool m_sortByFrequency;
 
-    //Radical -> Button Mapping
-    QHash<QString, RadicalButton*> m_buttons;
+    // Radical -> Button Mapping
+    QHash<QString, RadicalButton *> m_buttons;
 };
 
 #endif

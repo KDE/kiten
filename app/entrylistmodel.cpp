@@ -12,88 +12,80 @@
 
 #include "entry.h"
 
-EntryListModel::EntryListModel( const EntryList &list )
-: _list( list )
+EntryListModel::EntryListModel(const EntryList &list)
+    : _list(list)
 {
-
 }
 
 EntryList EntryListModel::entryList() const
 {
-  return _list;
+    return _list;
 }
 
-Qt::ItemFlags EntryListModel::flags ( const QModelIndex &index ) const
+Qt::ItemFlags EntryListModel::flags(const QModelIndex &index) const
 {
-  return QAbstractTableModel::flags( index ) | Qt::ItemIsEditable;
+    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
-bool EntryListModel::setData ( const QModelIndex &index, const QVariant &value, int role )
+bool EntryListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-  if ( role == Qt::EditRole )
-  {
-    const QString &separator = _list[ index.row() ]->outputListDelimiter;
+    if (role == Qt::EditRole) {
+        const QString &separator = _list[index.row()]->outputListDelimiter;
 
-    switch ( index.column() )
-    {
-      case 0:
-        _list[ index.row() ]->Word = value.toString();
-        break;
-      case 1:
-        _list[ index.row() ]->Readings = value.toString().split( separator );
-        break;
-      case 2:
-        _list[ index.row() ]->Meanings = value.toString().split( separator );
-        break;
+        switch (index.column()) {
+        case 0:
+            _list[index.row()]->Word = value.toString();
+            break;
+        case 1:
+            _list[index.row()]->Readings = value.toString().split(separator);
+            break;
+        case 2:
+            _list[index.row()]->Meanings = value.toString().split(separator);
+            break;
+        }
     }
-  }
 
-  return false;
+    return false;
 }
 
-void EntryListModel::setEntryList( const EntryList &list )
+void EntryListModel::setEntryList(const EntryList &list)
 {
-  _list = list;
-  Q_EMIT layoutChanged();
+    _list = list;
+    Q_EMIT layoutChanged();
 }
 
-int EntryListModel::rowCount( const QModelIndex & parent ) const
+int EntryListModel::rowCount(const QModelIndex &parent) const
 {
-  return parent.isValid() ? 0 : _list.size();
+    return parent.isValid() ? 0 : _list.size();
 }
 
-int EntryListModel::columnCount( const QModelIndex & parent ) const
+int EntryListModel::columnCount(const QModelIndex &parent) const
 {
-  return parent.isValid() ? 0 : 3;
+    return parent.isValid() ? 0 : 3;
 }
 
-QVariant EntryListModel::data ( const QModelIndex & index, int role ) const
+QVariant EntryListModel::data(const QModelIndex &index, int role) const
 {
-  //kDebug() << "Retrieving data at line" << index.row();
-  switch ( role )
-  {
+    // kDebug() << "Retrieving data at line" << index.row();
+    switch (role) {
     /* DisplayRole and EditRole have the same output */
     case Qt::DisplayRole:
-    case Qt::EditRole:
-    {
-      switch ( index.column() )
-      {
+    case Qt::EditRole: {
+        switch (index.column()) {
         case 0:
-          return _list.at( index.row() )->getWord();
-          break;
+            return _list.at(index.row())->getWord();
+            break;
         case 1:
-          return _list.at( index.row() )->getReadings();
-          break;
+            return _list.at(index.row())->getReadings();
+            break;
         case 2:
-          return _list.at( index.row() )->getMeanings();
-          break;
-      }
+            return _list.at(index.row())->getMeanings();
+            break;
+        }
 
-      break;
+        break;
     }
-  }
+    }
 
-  return QVariant();
+    return QVariant();
 }
-
-

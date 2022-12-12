@@ -10,45 +10,44 @@
 #include "radical.h"
 
 Radical::Radical()
-: strokeCount( 0 )
+    : strokeCount(0)
 {
 }
 
-Radical::Radical( const QString &irad, unsigned int strokes, unsigned int index )
-: string( irad.at( 0 ) )
-, strokeCount( strokes )
-, idx( index )
+Radical::Radical(const QString &irad, unsigned int strokes, unsigned int index)
+    : string(irad.at(0))
+    , strokeCount(strokes)
+    , idx(index)
 {
 }
 
 QString Radical::toString() const
 {
-  return string;
+    return string;
 }
 
-void Radical::addKanji( const QSet<QString> &newKanji )
+void Radical::addKanji(const QSet<QString> &newKanji)
 {
-  kanji += newKanji;
+    kanji += newKanji;
 }
 
-const QSet<QString>& Radical::getKanji() const
+const QSet<QString> &Radical::getKanji() const
 {
-  return kanji;
+    return kanji;
 }
 
 unsigned int Radical::strokes() const
 {
-  return strokeCount;
+    return strokeCount;
 }
 
-bool Radical::compareIndices( const Radical &a, const Radical &b )
+bool Radical::compareIndices(const Radical &a, const Radical &b)
 {
-  return a.idx < b.idx;
+    return a.idx < b.idx;
 }
 
-bool Radical::compareFrequencies( const Radical &a, const Radical &b )
+bool Radical::compareFrequencies(const Radical &a, const Radical &b)
 {
-  // Negative frequency results in a descending order
-  return std::make_tuple( - a.getKanji().size(), a.idx ) <
-         std::make_tuple( - b.getKanji().size(), b.idx );
+    // Negative frequency results in a descending order
+    return std::make_tuple(-a.getKanji().size(), a.idx) < std::make_tuple(-b.getKanji().size(), b.idx);
 }

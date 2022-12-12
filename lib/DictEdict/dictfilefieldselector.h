@@ -5,48 +5,46 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-//This is currently the only file in libkiten dict handlers to have moc code included...
+// This is currently the only file in libkiten dict handlers to have moc code included...
 
 #ifndef KITEN_DICTFILEFIELDSELECTOR_H
 #define KITEN_DICTFILEFIELDSELECTOR_H
 
 #include "dictionarypreferencedialog.h"
 
-#include <QWidget>
 #include <QStringList>
+#include <QWidget>
 class KActionSelector;
 class KConfigSkeleton;
 
-//This is the default one used by edict and kanjidic
+// This is the default one used by edict and kanjidic
 class DictFileFieldSelector : public DictionaryPreferenceDialog
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-             explicit DictFileFieldSelector( KConfigSkeleton *config
-                                   , const QString &dictionaryTypeName
-                                   , QWidget *parent );
+public:
+    explicit DictFileFieldSelector(KConfigSkeleton *config, const QString &dictionaryTypeName, QWidget *parent);
     ~DictFileFieldSelector() override;
 
-  public Q_SLOTS:
-    void     setAvailable( const QStringList &list );
-    void     addAvailable( const QStringList &list );
-    void     setDefaultList( const QStringList &list );
-    void     readFromPrefs();
-    void     writeToPrefs();
+public Q_SLOTS:
+    void setAvailable(const QStringList &list);
+    void addAvailable(const QStringList &list);
+    void setDefaultList(const QStringList &list);
+    void readFromPrefs();
+    void writeToPrefs();
 
-    void     updateWidgets() override;
-    void     updateWidgetsDefault() override;
-    void     updateSettings() override;
-    void     settingChanged();
+    void updateWidgets() override;
+    void updateWidgetsDefault() override;
+    void updateSettings() override;
+    void settingChanged();
 
-  Q_SIGNALS:
-    void     widgetChanged();
+Q_SIGNALS:
+    void widgetChanged();
 
-  private:
-    QStringList      m_completeList;
-    QStringList      m_defaultList;
-    QString          m_dictName;
+private:
+    QStringList m_completeList;
+    QStringList m_defaultList;
+    QString m_dictName;
     KActionSelector *m_listView;
     KConfigSkeleton *m_config;
 };

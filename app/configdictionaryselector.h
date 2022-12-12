@@ -19,15 +19,12 @@ class QString;
 
 class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit ConfigDictionarySelector(  const QString &dictionaryName
-                                      , QWidget *parent = nullptr
-                                      , KConfigSkeleton *iconfig = nullptr
-                                      , Qt::WindowFlags f = {} );
+public:
+    explicit ConfigDictionarySelector(const QString &dictionaryName, QWidget *parent = nullptr, KConfigSkeleton *iconfig = nullptr, Qt::WindowFlags f = {});
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void addDictSlot();
     void deleteDictSlot();
     bool hasChanged();
@@ -36,11 +33,11 @@ class ConfigDictionarySelector : public QWidget, public Ui::configDictSelect
     void updateWidgets();
     void updateWidgetsDefault();
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void widgetChanged();
 
-  private:
-    QString          _dictName;
+private:
+    QString _dictName;
     KConfigSkeleton *_config = nullptr;
 };
 

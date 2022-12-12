@@ -22,124 +22,115 @@
 #include <KStandardAction>
 
 KanjiBrowser::KanjiBrowser()
-: KXmlGuiWindow()
-, _dictFileKanjidic( 0 )
+    : KXmlGuiWindow()
+    , _dictFileKanjidic(0)
 {
-  // Read the configuration file.
-  _config = KanjiBrowserConfigSkeleton::self();
-  _config->load();
+    // Read the configuration file.
+    _config = KanjiBrowserConfigSkeleton::self();
+    _config->load();
 
-  statusBar()->show();
+    statusBar()->show();
 
-  // Add some actions.
-  KStandardAction::quit( this, SLOT(close()), actionCollection() );
-  KStandardAction::preferences( this, SLOT(showPreferences()), actionCollection() );
+    // Add some actions.
+    KStandardAction::quit(this, SLOT(close()), actionCollection());
+    KStandardAction::preferences(this, SLOT(showPreferences()), actionCollection());
 
-  _view = new KanjiBrowserView( this->parentWidget() );
-  connect(_view, &KanjiBrowserView::statusBarChanged, this, &KanjiBrowser::changeStatusBar);
-  // Load the necessary information and setup the view.
-  loadKanji();
+    _view = new KanjiBrowserView(this->parentWidget());
+    connect(_view, &KanjiBrowserView::statusBarChanged, this, &KanjiBrowser::changeStatusBar);
+    // Load the necessary information and setup the view.
+    loadKanji();
 
-  setCentralWidget( _view );
-  setObjectName( QStringLiteral( "kanjibrowser" ) );
+    setCentralWidget(_view);
+    setObjectName(QStringLiteral("kanjibrowser"));
 
-  setupGUI( Default, QStringLiteral("kanjibrowserui.rc") );
+    setupGUI(Default, QStringLiteral("kanjibrowserui.rc"));
 }
 
 KanjiBrowser::~KanjiBrowser()
 {
-  if( _dictFileKanjidic )
-  {
-    delete _dictFileKanjidic;
-  }
+    if (_dictFileKanjidic) {
+        delete _dictFileKanjidic;
+    }
 }
 
-void KanjiBrowser::changeStatusBar( const QString &text )
+void KanjiBrowser::changeStatusBar(const QString &text)
 {
-  statusBar()->showMessage( text );
+    statusBar()->showMessage(text);
 }
 
 void KanjiBrowser::loadKanji()
 {
-  if( _dictFileKanjidic )
-  {
-    return;
-  }
-
-  qDebug() << "Loading kanji...";
-
-  QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/kanjidic"));
-  _dictFileKanjidic = new DictFileKanjidic();
-  _dictFileKanjidic->loadSettings();
-  _dictFileKanjidic->loadDictionary( dictionary, KANJIDIC );
-
-  // Parse the contents of KANJIDIC that we need to create the view.
-  // We need:
-  //  - Kanji
-  //  - Grade
-  //  - Number of strokes
-  QRegExp gradeMatch( "^G\\d+" );
-  QRegExp strokeMatch( "^S\\d+" );
-  QList<int> gradeList;
-  QList<int> strokeList;
-  QHash< QString, QPair<int, int> > kanjiList;
-  foreach( const QString &line, _dictFileKanjidic->dumpDictionary() )
-  {
-    // All the kanji without grade will have Grade 0, making easy to
-    // manage that information in KanjiBrowserView.
-    int grade   = 0;
-    int strokes = 0;
-    QStringList gradeSection = line.split( ' ', Qt::SkipEmptyParts )
-                                   .filter( gradeMatch );
-    QStringList strokesSection = line.split( ' ', Qt::SkipEmptyParts )
-                                     .filter( strokeMatch );
-
-    // There are some kanji without grade (example: those not in Jouyou list).
-    if( ! gradeSection.isEmpty() )
-    {
-      // In KANJIDIC the grade/stroke section is: G# (for grade)
-      //                                          S# (for strokes)
-      // where # can be one or more digits.
-      // We remove the first character and convert the remaining ones to int.
-      grade = gradeSection.first().remove( 0, 1 ).toInt();
-      gradeList << grade;
+    if (_dictFileKanjidic) {
+        return;
     }
 
-    strokes = strokesSection.first().remove( 0, 1 ).toInt();
-    strokeList << strokes;
+    qDebug() << "Loading kanji...";
 
-    // Insert the extracted information into our QHash.
-    kanjiList.insert( line[ 0 ], qMakePair( grade, strokes ) );
-  }
+    QString dictionary = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/kanjidic"));
+    _dictFileKanjidic = new DictFileKanjidic();
+    _dictFileKanjidic->loadSettings();
+    _dictFileKanjidic->loadDictionary(dictionary, KANJIDIC);
 
-  // This conversion from QList to QSet to QList, is to remove duplicated items.
-  std::sort(gradeList.begin(), gradeList.end());
-  gradeList.erase(std::unique(gradeList.begin(), gradeList.end()), gradeList.end());
+    // Parse the contents of KANJIDIC that we need to create the view.
+    // We need:
+    //  - Kanji
+    //  - Grade
+    //  - Number of strokes
+    QRegExp gradeMatch("^G\\d+");
+    QRegExp strokeMatch("^S\\d+");
+    QList<int> gradeList;
+    QList<int> strokeList;
+    QHash<QString, QPair<int, int>> kanjiList;
+    foreach (const QString &line, _dictFileKanjidic->dumpDictionary()) {
+        // All the kanji without grade will have Grade 0, making easy to
+        // manage that information in KanjiBrowserView.
+        int grade = 0;
+        int strokes = 0;
+        QStringList gradeSection = line.split(' ', Qt::SkipEmptyParts).filter(gradeMatch);
+        QStringList strokesSection = line.split(' ', Qt::SkipEmptyParts).filter(strokeMatch);
 
-  std::sort(strokeList.begin(), strokeList.end());
-  strokeList.erase(std::unique(strokeList.begin(), strokeList.end()), strokeList.end());
-  qDebug() << "Max. grade:" << gradeList.last();
-  qDebug() << "Max. stroke count:" << strokeList.last();
+        // There are some kanji without grade (example: those not in Jouyou list).
+        if (!gradeSection.isEmpty()) {
+            // In KANJIDIC the grade/stroke section is: G# (for grade)
+            //                                          S# (for strokes)
+            // where # can be one or more digits.
+            // We remove the first character and convert the remaining ones to int.
+            grade = gradeSection.first().remove(0, 1).toInt();
+            gradeList << grade;
+        }
 
-  // Finally setup the view.
-  _view->setupView( this, kanjiList, gradeList, strokeList );
+        strokes = strokesSection.first().remove(0, 1).toInt();
+        strokeList << strokes;
+
+        // Insert the extracted information into our QHash.
+        kanjiList.insert(line[0], qMakePair(grade, strokes));
+    }
+
+    // This conversion from QList to QSet to QList, is to remove duplicated items.
+    std::sort(gradeList.begin(), gradeList.end());
+    gradeList.erase(std::unique(gradeList.begin(), gradeList.end()), gradeList.end());
+
+    std::sort(strokeList.begin(), strokeList.end());
+    strokeList.erase(std::unique(strokeList.begin(), strokeList.end()), strokeList.end());
+    qDebug() << "Max. grade:" << gradeList.last();
+    qDebug() << "Max. stroke count:" << strokeList.last();
+
+    // Finally setup the view.
+    _view->setupView(this, kanjiList, gradeList, strokeList);
 }
 
 void KanjiBrowser::showPreferences()
 {
-  if( KConfigDialog::showDialog( QStringLiteral("settings") ) )
-  {
-    return;
-  }
+    if (KConfigDialog::showDialog(QStringLiteral("settings"))) {
+        return;
+    }
 
-  QWidget *preferences = new QWidget();
-  Ui::preferences layout;
-  layout.setupUi( preferences );
+    QWidget *preferences = new QWidget();
+    Ui::preferences layout;
+    layout.setupUi(preferences);
 
-  KConfigDialog *dialog = new KConfigDialog( this, QStringLiteral("settings"), KanjiBrowserConfigSkeleton::self() );
-  dialog->addPage( preferences, i18n( "Settings" ), QStringLiteral("help-contents") );
-  connect(dialog, &KConfigDialog::settingsChanged, _view, &KanjiBrowserView::loadSettings);
-  dialog->show();
+    KConfigDialog *dialog = new KConfigDialog(this, QStringLiteral("settings"), KanjiBrowserConfigSkeleton::self());
+    dialog->addPage(preferences, i18n("Settings"), QStringLiteral("help-contents"));
+    connect(dialog, &KConfigDialog::settingsChanged, _view, &KanjiBrowserView::loadSettings);
+    dialog->show();
 }
-
-

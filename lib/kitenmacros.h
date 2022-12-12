@@ -8,7 +8,7 @@
 #ifndef KITEN_MACROS_H
 #define KITEN_MACROS_H
 
-#define EDICT    QString( "edict" )
-#define KANJIDIC QString( "kanjidic" )
+#define EDICT QString("edict")
+#define KANJIDIC QString("kanjidic")
 
 #endif

@@ -22,13 +22,13 @@
  * EntryList is a simple container for Entry objects, and is-a QList<Entry*>
  * A few simple overrides allow you to deal with sorting and translating.
  */
-class KITEN_EXPORT EntryList : public QList<Entry*>
+class KITEN_EXPORT EntryList : public QList<Entry *>
 {
-  public:
+public:
     /**
      * A simple overridden iterator for working with the Entries
      */
-    typedef QListIterator<Entry*> EntryIterator;
+    typedef QListIterator<Entry *> EntryIterator;
 
     /**
      * Basic constructor, create an empty EntryList
@@ -37,7 +37,7 @@ class KITEN_EXPORT EntryList : public QList<Entry*>
     /**
      * Copy constructor
      */
-    EntryList( const EntryList &old );
+    EntryList(const EntryList &old);
     /**
      * Basic Destructor, does not delete Entry* objects. Please remember to call
      * deleteAll() before deleting an EntryList.
@@ -63,19 +63,19 @@ class KITEN_EXPORT EntryList : public QList<Entry*>
      * @param start the location in the list where we should start
      * @param length the length of the list we should generate
      */
-    QString toString( unsigned int start, unsigned int length ) const;
+    QString toString(unsigned int start, unsigned int length) const;
     /**
      * Convert a given range of the EntryList to a QString in HTML form and return it
      * @param start the location in the list where we should start
      * @param length the length of the list we should generate
      */
-    QString toHTML( unsigned int start, unsigned int length ) const;
+    QString toHTML(unsigned int start, unsigned int length) const;
     /**
      * Convert the entire list to KVTML for export to a flashcard app
      * @param start the location in the list where we should start
      * @param length the length of the list we should generate
      */
-    QString toKVTML( unsigned int start, unsigned int length ) const;
+    QString toKVTML(unsigned int start, unsigned int length) const;
 
     /**
      * Sort the list according to the given fields in sortOrder, if dictionaryOrder
@@ -89,20 +89,20 @@ class KITEN_EXPORT EntryList : public QList<Entry*>
      * @param dictionaryOrder the order for the Entry objects to be sorted in, dictionary-wise. This should
      *        match the names of the dictionary objects, passed to the DictionaryManager.
      */
-    void sort( QStringList &sortOrder, QStringList &dictionaryOrder );
+    void sort(QStringList &sortOrder, QStringList &dictionaryOrder);
 
     /**
      * Append another EntryList onto this one
      */
-    const EntryList& operator+=( const EntryList &other );
+    const EntryList &operator+=(const EntryList &other);
     /**
      * Copy an entry list
      */
-    const EntryList& operator=( const EntryList &other );
+    const EntryList &operator=(const EntryList &other);
     /**
      * Append another EntryList onto this one
      */
-    void appendList( const EntryList *other );
+    void appendList(const EntryList *other);
     /**
      * Get the query that generated this list, note that if you have appended EntryLists from
      * two different queries, the resulting DictQuery from this is undefined.
@@ -111,14 +111,14 @@ class KITEN_EXPORT EntryList : public QList<Entry*>
     /**
      * Set the query for this list.  See getQuery() for a potential problem with this
      */
-    void setQuery( const DictQuery &newQuery );
+    void setQuery(const DictQuery &newQuery);
 
     int scrollValue() const;
-    void setScrollValue( int val );
+    void setScrollValue(int val);
 
-  private:
+private:
     class Private;
-    Private* const d;
+    Private *const d;
 };
 
 #endif

@@ -12,11 +12,10 @@
 
 #include <KLocalizedString>
 
-
-#include <iostream>
 #include <cassert>
-#include <sys/mman.h>
+#include <iostream>
 #include <stdio.h>
+#include <sys/mman.h>
 
 /**
  * The default constructor, unless you really know what you're doing,
@@ -26,43 +25,42 @@
  */
 Entry::Entry()
 {
-  init();
+    init();
 }
 
-Entry::Entry( const QString &sourceDictionary )
-: sourceDict( sourceDictionary )
+Entry::Entry(const QString &sourceDictionary)
+    : sourceDict(sourceDictionary)
 {
-  init();
+    init();
 }
 
-Entry::Entry( const QString &sourceDictionary, const QString &word,
-	      const QStringList &reading, const QStringList &meanings )
-: Word( word )
-, Meanings( meanings )
-, Readings( reading )
-, sourceDict( sourceDictionary )
+Entry::Entry(const QString &sourceDictionary, const QString &word, const QStringList &reading, const QStringList &meanings)
+    : Word(word)
+    , Meanings(meanings)
+    , Readings(reading)
+    , sourceDict(sourceDictionary)
 {
-  init();
+    init();
 }
 
-Entry::Entry( const Entry &src )
-: Word( src.Word )
-, Meanings( src.Meanings )
-, Readings( src.Readings )
-, ExtendedInfo( src.ExtendedInfo )
-, sourceDict( src.sourceDict )
+Entry::Entry(const Entry &src)
+    : Word(src.Word)
+    , Meanings(src.Meanings)
+    , Readings(src.Readings)
+    , ExtendedInfo(src.ExtendedInfo)
+    , sourceDict(src.sourceDict)
 {
-  outputListDelimiter = src.outputListDelimiter;
+    outputListDelimiter = src.outputListDelimiter;
 }
 
 Entry::~Entry()
 {
-//   kdDebug() << "nuking : " << Word << endl;
+    //   kdDebug() << "nuking : " << Word << endl;
 }
 
-bool Entry::extendedItemCheck( const QString& key, const QString &value ) const
+bool Entry::extendedItemCheck(const QString &key, const QString &value) const
 {
-  return getExtendedInfoItem( key ) == value;
+    return getExtendedInfoItem(key) == value;
 }
 
 /**
@@ -70,7 +68,7 @@ bool Entry::extendedItemCheck( const QString& key, const QString &value ) const
  */
 QString Entry::getDictName() const
 {
-  return sourceDict;
+    return sourceDict;
 }
 
 /**
@@ -79,7 +77,7 @@ QString Entry::getDictName() const
  */
 QString Entry::getWord() const
 {
-  return Word;
+    return Word;
 }
 
 /**
@@ -87,7 +85,7 @@ QString Entry::getWord() const
  */
 QString Entry::getMeanings() const
 {
-  return Meanings.join(outputListDelimiter);
+    return Meanings.join(outputListDelimiter);
 }
 
 /**
@@ -95,7 +93,7 @@ QString Entry::getMeanings() const
  */
 QStringList Entry::getMeaningsList() const
 {
-  return Meanings;
+    return Meanings;
 }
 
 /**
@@ -103,7 +101,7 @@ QStringList Entry::getMeaningsList() const
  */
 QString Entry::getReadings() const
 {
-  return Readings.join( outputListDelimiter );
+    return Readings.join(outputListDelimiter);
 }
 
 /**
@@ -111,15 +109,15 @@ QString Entry::getReadings() const
  */
 QStringList Entry::getReadingsList() const
 {
-  return Readings;
+    return Readings;
 }
 
 /**
  * Simple accessor
  */
-QHash<QString,QString> Entry::getExtendedInfo() const
+QHash<QString, QString> Entry::getExtendedInfo() const
 {
-  return ExtendedInfo;
+    return ExtendedInfo;
 }
 
 /**
@@ -127,9 +125,9 @@ QHash<QString,QString> Entry::getExtendedInfo() const
  *
  * @param x the key for the extended info item to get
  */
-QString Entry::getExtendedInfoItem( const QString &x ) const
+QString Entry::getExtendedInfoItem(const QString &x) const
 {
-  return ExtendedInfo[ x ];
+    return ExtendedInfo[x];
 }
 
 /**
@@ -137,21 +135,18 @@ QString Entry::getExtendedInfoItem( const QString &x ) const
  */
 inline QString Entry::HTMLMeanings() const
 {
-  return QStringLiteral( "<span class=\"Meanings\">%1</span>" )
-             .arg( Meanings.join( outputListDelimiter ) );
+    return QStringLiteral("<span class=\"Meanings\">%1</span>").arg(Meanings.join(outputListDelimiter));
 }
 
 /* Prepares Readings for output as HTML */
 inline QString Entry::HTMLReadings() const
 {
-  QStringList list;
-  foreach( const QString &it, Readings )
-  {
-    list += makeLink( it );
-  }
+    QStringList list;
+    foreach (const QString &it, Readings) {
+        list += makeLink(it);
+    }
 
-  return QStringLiteral( "<span class=\"Readings\">%1</span>" )
-             .arg( list.join( outputListDelimiter ) );
+    return QStringLiteral("<span class=\"Readings\">%1</span>").arg(list.join(outputListDelimiter));
 }
 
 /**
@@ -159,106 +154,83 @@ inline QString Entry::HTMLReadings() const
  */
 inline QString Entry::HTMLWord() const
 {
-  return QStringLiteral( "<span class=\"Word\">%1</span>" ).arg( Word );
+    return QStringLiteral("<span class=\"Word\">%1</span>").arg(Word);
 }
 
 void Entry::init()
 {
-  outputListDelimiter = i18n( "; " );
+    outputListDelimiter = i18n("; ");
 }
 
 /**
  * Determines whether @param character is a kanji character.
  */
-bool Entry::isKanji( const QChar &character ) const
+bool Entry::isKanji(const QChar &character) const
 {
-  ushort value = character.unicode();
-  if( value < 255 )
-  {
-    return false;
-  }
-  if( 0x3040 <= value && value <= 0x30FF )
-  {
-    return false; //Kana
-  }
+    ushort value = character.unicode();
+    if (value < 255) {
+        return false;
+    }
+    if (0x3040 <= value && value <= 0x30FF) {
+        return false; // Kana
+    }
 
-  return true; //Note our folly here... we assuming any non-ascii/kana is kanji
+    return true; // Note our folly here... we assuming any non-ascii/kana is kanji
 }
 
 /**
  * Returns true if all members of test are in list
  */
-bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQuery::MatchType type ) const
+bool Entry::listMatch(const QStringList &list, const QStringList &test, DictQuery::MatchType type) const
 {
-  if( type == DictQuery::Exact )
-  {
-    foreach( const QString &it, test )
-    {
-      if( ! list.contains( it ) )
-      {
-        return false;
-      }
-    }
-  }
-  else if( type == DictQuery::Beginning )
-  {
-    foreach( const QString &it, test )
-    {
-      bool found = false;
-      foreach( const QString &it2, list )
-      {
-        if( it2.startsWith( it ) )
-        {
-          found = true;
-          break;
+    if (type == DictQuery::Exact) {
+        foreach (const QString &it, test) {
+            if (!list.contains(it)) {
+                return false;
+            }
         }
-      }
-      if( ! found )
-      {
-        return false;
-      }
-    }
-  }
-  else if( type == DictQuery::Ending )
-  {
-    foreach( const QString &it, test )
-    {
-      bool found = false;
-      foreach( const QString &it2, list )
-      {
-        if( it2.endsWith( it ) )
-        {
-          found = true;
-          break;
+    } else if (type == DictQuery::Beginning) {
+        foreach (const QString &it, test) {
+            bool found = false;
+            foreach (const QString &it2, list) {
+                if (it2.startsWith(it)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
         }
-      }
-      if( ! found )
-      {
-        return false;
-      }
-    }
-  }
-  else
-  {
-    foreach( const QString &it, test )
-    {
-      bool found = false;
-      foreach( const QString &it2, list )
-      {
-        if( it2.contains( it ) )
-        {
-          found = true;
-          break;
+    } else if (type == DictQuery::Ending) {
+        foreach (const QString &it, test) {
+            bool found = false;
+            foreach (const QString &it2, list) {
+                if (it2.endsWith(it)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
         }
-      }
-      if( ! found )
-      {
-        return false;
-      }
+    } else {
+        foreach (const QString &it, test) {
+            bool found = false;
+            foreach (const QString &it2, list) {
+                if (it2.contains(it)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
     }
-  }
 
-  return true;
+    return true;
 }
 
 /**
@@ -266,96 +238,74 @@ bool Entry::listMatch( const QStringList &list, const QStringList &test, DictQue
  *
  * Creates a link for the given @p entryString.
  */
-inline QString Entry::makeLink( const QString &entryString ) const
+inline QString Entry::makeLink(const QString &entryString) const
 {
-  return QStringLiteral( "<a href=\"%1\">%1</a>" ).arg( entryString );
+    return QStringLiteral("<a href=\"%1\">%1</a>").arg(entryString);
 }
 
-bool Entry::matchesQuery( const DictQuery &query ) const
+bool Entry::matchesQuery(const DictQuery &query) const
 {
-  if( ! query.getWord().isEmpty() )
-  {
-    if( query.getMatchType() == DictQuery::Exact
-      && this->getWord() != query.getWord() )
-    {
-      return false;
-    }
-    if( query.getMatchType() == DictQuery::Beginning
-      && ! this->getWord().startsWith( query.getWord() ) )
-    {
-      return false;
-    }
-    if( query.getMatchType() == DictQuery::Ending
-      && ! this->getWord().endsWith( query.getWord() ) )
-    {
-      return false;
-    }
-    if( query.getMatchType() == DictQuery::Anywhere
-      && ! this->getWord().contains( query.getWord() ) )
-    {
-      return false;
-    }
-  }
-
-  if( ! query.getPronunciation().isEmpty() && ! getReadings().isEmpty() )
-  {
-    if( ! listMatch( Readings, query.getPronunciation().split( DictQuery::mainDelimiter ),
-                            query.getMatchType() ) )
-    {
-      return false;
-    }
-  }
-
-  if( ! query.getPronunciation().isEmpty() && getReadings().isEmpty() && ! getWord().isEmpty() )
-  {
-    switch ( query.getMatchType() )
-    {
-      case DictQuery::Exact:
-        if ( getWord() != query.getPronunciation() )
-        {
-          return false;
+    if (!query.getWord().isEmpty()) {
+        if (query.getMatchType() == DictQuery::Exact && this->getWord() != query.getWord()) {
+            return false;
         }
-        break;
-      case DictQuery::Beginning:
-        if ( ! getWord().startsWith( query.getPronunciation() ) )
-        {
-          return false;
+        if (query.getMatchType() == DictQuery::Beginning && !this->getWord().startsWith(query.getWord())) {
+            return false;
         }
-        break;
-      case DictQuery::Ending:
-        if ( ! getWord().endsWith( query.getPronunciation() ) )
-        {
-          return false;
-        } //fallthrough
-      case DictQuery::Anywhere:
-        if ( ! getWord().contains( query.getPronunciation() ) )
-        {
-          return false;
+        if (query.getMatchType() == DictQuery::Ending && !this->getWord().endsWith(query.getWord())) {
+            return false;
         }
-        break;
+        if (query.getMatchType() == DictQuery::Anywhere && !this->getWord().contains(query.getWord())) {
+            return false;
+        }
     }
-  }
 
-  if( ! query.getMeaning().isEmpty() )
-  {
-    if( ! listMatch(   Meanings.join(QLatin1Char(' ') ).toLower().split( ' ' )
-                     , query.getMeaning().toLower().split( DictQuery::mainDelimiter )
-                     , query.getMatchType() ) )
-    {
-      return false;
+    if (!query.getPronunciation().isEmpty() && !getReadings().isEmpty()) {
+        if (!listMatch(Readings, query.getPronunciation().split(DictQuery::mainDelimiter), query.getMatchType())) {
+            return false;
+        }
     }
-  }
 
-  QList<QString> propList = query.listPropertyKeys();
-  foreach( const QString &key, propList )
-  {
-    if( ! extendedItemCheck( key, query.getProperty( key ) ) )
-    {
-      return false;
+    if (!query.getPronunciation().isEmpty() && getReadings().isEmpty() && !getWord().isEmpty()) {
+        switch (query.getMatchType()) {
+        case DictQuery::Exact:
+            if (getWord() != query.getPronunciation()) {
+                return false;
+            }
+            break;
+        case DictQuery::Beginning:
+            if (!getWord().startsWith(query.getPronunciation())) {
+                return false;
+            }
+            break;
+        case DictQuery::Ending:
+            if (!getWord().endsWith(query.getPronunciation())) {
+                return false;
+            } // fallthrough
+        case DictQuery::Anywhere:
+            if (!getWord().contains(query.getPronunciation())) {
+                return false;
+            }
+            break;
+        }
     }
-  }
 
-  return true;
+    if (!query.getMeaning().isEmpty()) {
+        if (!listMatch(Meanings.join(QLatin1Char(' ')).toLower().split(' '),
+                       query.getMeaning().toLower().split(DictQuery::mainDelimiter),
+                       query.getMatchType())) {
+            return false;
+        }
+    }
+
+    QList<QString> propList = query.listPropertyKeys();
+    foreach (const QString &key, propList) {
+        if (!extendedItemCheck(key, query.getProperty(key))) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /**
@@ -363,26 +313,25 @@ bool Entry::matchesQuery( const DictQuery &query ) const
  */
 QString Entry::toHTML() const
 {
-  return QStringLiteral( "<div class=\"Entry\">%1%2%3</div>" )
-             .arg( HTMLWord() )
-             .arg( HTMLReadings() )
-             .arg( HTMLMeanings() );
+    return QStringLiteral("<div class=\"Entry\">%1%2%3</div>").arg(HTMLWord()).arg(HTMLReadings()).arg(HTMLMeanings());
 }
 
 inline QString Entry::toKVTML() const
 {
-        /*
-   <e m="1" s="1">
-           <o width="414" l="en" q="t">(eh,) excuse me</o>
-           <t width="417" l="jp" q="o">(あのう、) すみません </t>
-   </e>
-   */
-  //TODO: en should not necessarily be the language here.
-  return QString( "<e>\n<o l=\"en\">%1</o>\n"
-                  "<t l=\"jp-kanji\">%2</t>\n"
-                  "<t l=\"jp-kana\">%3</t></e>\n\n" ).arg( getMeanings() )
-                                                     .arg( getWord() )
-                                                     .arg( getReadings() );
+    /*
+<e m="1" s="1">
+       <o width="414" l="en" q="t">(eh,) excuse me</o>
+       <t width="417" l="jp" q="o">(あのう、) すみません </t>
+</e>
+*/
+    // TODO: en should not necessarily be the language here.
+    return QString(
+               "<e>\n<o l=\"en\">%1</o>\n"
+               "<t l=\"jp-kanji\">%2</t>\n"
+               "<t l=\"jp-kana\">%3</t></e>\n\n")
+        .arg(getMeanings())
+        .arg(getWord())
+        .arg(getReadings());
 }
 
 /**
@@ -392,9 +341,7 @@ inline QString Entry::toKVTML() const
  */
 QString Entry::toString() const
 {
-  return QStringLiteral( "%1 (%2) %3" ).arg( Word )
-                                .arg( getReadings() )
-                                .arg( getMeanings() );
+    return QStringLiteral("%1 (%2) %3").arg(Word).arg(getReadings()).arg(getMeanings());
 }
 
 /**
@@ -402,67 +349,50 @@ QString Entry::toString() const
  * This is a replacement for an operator\< function... so we return true if
  * "this" should show up first on the list.
  */
-bool Entry::sort( const Entry &that, const QStringList &dictOrder, const QStringList &fields ) const
+bool Entry::sort(const Entry &that, const QStringList &dictOrder, const QStringList &fields) const
 {
-  if( this->sourceDict != that.sourceDict )
-  {
-    foreach( const QString &dict, dictOrder )
-    {
-      if( dict == that.sourceDict )
-      {
-        return false;
-      }
-      if( dict == this->sourceDict )
-      {
-        return true;
-      }
-    }
-  }
-  else
-  {
-    foreach( const QString &field, fields )
-    {
-      if( field == QLatin1String( "Word/Kanji" ) )
-      {
-        return this->getWord() < that.getWord();
-      }
-      else if( field == QLatin1String( "Meaning" ) )
-      {
-        return listMatch( that.getMeaningsList(), this->getMeaningsList(), DictQuery::Exact )
-               && ( that.getMeaningsList().count() != this->getMeaningsList().count() );
-      }
-      else if( field == QLatin1String( "Reading" ) )
-      {
-        return listMatch( that.getReadingsList(), this->getReadingsList(), DictQuery::Exact )
-               && ( that.getReadingsList().count() != this->getReadingsList().count() );
-      }
-      else
-      {
-        const QString thisOne = this->getExtendedInfoItem( field );
-        const QString thatOne = that.getExtendedInfoItem( field );
-        //Only sort by this field if the values differ, otherwise move to the next field
-        if( thisOne != thatOne )
-        {
-          //If the second item does not have this field, sort this one first
-          if( thatOne.isEmpty() )
-          {
-            return true;
-          }
-          //If we don't have this field, sort "this" to second
-          if( thisOne.isEmpty() )
-          {
-            return false;
-          }
-          //Otherwise, send it to a virtual function (to allow dictionaries to override sorting)
-          return this->sortByField( that, field );
+    if (this->sourceDict != that.sourceDict) {
+        foreach (const QString &dict, dictOrder) {
+            if (dict == that.sourceDict) {
+                return false;
+            }
+            if (dict == this->sourceDict) {
+                return true;
+            }
         }
-      }
+    } else {
+        foreach (const QString &field, fields) {
+            if (field == QLatin1String("Word/Kanji")) {
+                return this->getWord() < that.getWord();
+            } else if (field == QLatin1String("Meaning")) {
+                return listMatch(that.getMeaningsList(), this->getMeaningsList(), DictQuery::Exact)
+                    && (that.getMeaningsList().count() != this->getMeaningsList().count());
+            } else if (field == QLatin1String("Reading")) {
+                return listMatch(that.getReadingsList(), this->getReadingsList(), DictQuery::Exact)
+                    && (that.getReadingsList().count() != this->getReadingsList().count());
+            } else {
+                const QString thisOne = this->getExtendedInfoItem(field);
+                const QString thatOne = that.getExtendedInfoItem(field);
+                // Only sort by this field if the values differ, otherwise move to the next field
+                if (thisOne != thatOne) {
+                    // If the second item does not have this field, sort this one first
+                    if (thatOne.isEmpty()) {
+                        return true;
+                    }
+                    // If we don't have this field, sort "this" to second
+                    if (thisOne.isEmpty()) {
+                        return false;
+                    }
+                    // Otherwise, send it to a virtual function (to allow dictionaries to override sorting)
+                    return this->sortByField(that, field);
+                }
+            }
+        }
     }
-  }
-  return false; //If we reach here, they match as much as possible
+    return false; // If we reach here, they match as much as possible
 }
 
-bool Entry::sortByField( const Entry &that, const QString &field ) const
+bool Entry::sortByField(const Entry &that, const QString &field) const
 {
-  return this->getExtendedInfoItem( field ) < that.getExtendedInfoItem( field );
+    return this->getExtendedInfoItem(field) < that.getExtendedInfoItem(field);
 }

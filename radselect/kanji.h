@@ -15,20 +15,19 @@
 
 class Kanji : public QString
 {
-  public:
-                         Kanji();
-    explicit             Kanji(  const QString &kanji
-                               , const QSet<QString> &radicals );
+public:
+    Kanji();
+    explicit Kanji(const QString &kanji, const QSet<QString> &radicals);
 
-    void                 addRadical( const QString &it );
-    void                 setStrokes( unsigned int strokes );
-    const QSet<QString>& getRadicals() const;
-    unsigned int         strokes() const;
+    void addRadical(const QString &it);
+    void setStrokes(unsigned int strokes);
+    const QSet<QString> &getRadicals() const;
+    unsigned int strokes() const;
 
-    bool operator<( const Kanji &other ) const;
+    bool operator<(const Kanji &other) const;
 
-  protected:
-    unsigned int  strokeCount;
+protected:
+    unsigned int strokeCount;
     QSet<QString> components;
 };
 

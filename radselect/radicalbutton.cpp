@@ -12,113 +12,103 @@
 #include <QStyleOptionButton>
 #include <QWidget>
 
-RadicalButton::RadicalButton( const QString &text, QWidget *parent )
-: QPushButton( text, parent )
-, m_status( Normal )
+RadicalButton::RadicalButton(const QString &text, QWidget *parent)
+    : QPushButton(text, parent)
+    , m_status(Normal)
 {
-  setCheckable( true );
+    setCheckable(true);
 }
 
 RadicalButton::~RadicalButton()
 {
 }
 
-bool RadicalButton::event( QEvent *event )
+bool RadicalButton::event(QEvent *event)
 {
-  //This button does not handle wheel events, and unlike
-  //the superclass, we don't care if we're enabled or disabled
-  //(the superclass eats wheel events when disabled)
-  if( event->type() == QEvent::Wheel )
-  {
-    return false;
-  }
-  return QPushButton::event( event );
+    // This button does not handle wheel events, and unlike
+    // the superclass, we don't care if we're enabled or disabled
+    //(the superclass eats wheel events when disabled)
+    if (event->type() == QEvent::Wheel) {
+        return false;
+    }
+    return QPushButton::event(event);
 }
 
 QSize RadicalButton::minimumSizeHint() const
 {
-  int width = fontMetrics().size( Qt::TextShowMnemonic, text() ).width();
-  int height = QPushButton::sizeHint().height();
-//TODO: RadicalButton size calculation right, one of these days
-//	QSize sz = fontMetrics().size(Qt::TextShowMnemonic, *it);
-//	setMinimumSize(sz);
+    int width = fontMetrics().size(Qt::TextShowMnemonic, text()).width();
+    int height = QPushButton::sizeHint().height();
+    // TODO: RadicalButton size calculation right, one of these days
+    //	QSize sz = fontMetrics().size(Qt::TextShowMnemonic, *it);
+    //	setMinimumSize(sz);
 
-//	QStyleOptionButton opt;
-//	opt.initFrom(this);
-//	QRect rect = kapp->style()->subElementRect(QStyle::SE_PushButtonContents,&opt,this);
-  return QSize( width, height );
+    //	QStyleOptionButton opt;
+    //	opt.initFrom(this);
+    //	QRect rect = kapp->style()->subElementRect(QStyle::SE_PushButtonContents,&opt,this);
+    return QSize(width, height);
 }
 
-void RadicalButton::mousePressEvent( QMouseEvent *e )
+void RadicalButton::mousePressEvent(QMouseEvent *e)
 {
-  QPushButton::mousePressEvent( e );
-  if( e->button() == Qt::RightButton )
-  {
-    //setStatus( Related );
-    Q_EMIT userClicked( text(), Related );
-  }
-}
-
-void RadicalButton::mouseReleaseEvent( QMouseEvent *e )
-{
-  QPushButton::mouseReleaseEvent( e );
-  if( e->button() == Qt::LeftButton )
-  {
-    switch( m_status )
-    {
-      case Selected:
-        setStatus( Normal );
-        Q_EMIT userClicked( text(), Normal );
-        break;
-      default:
-        setStatus( Selected );
-        Q_EMIT userClicked( text(), Selected );
+    QPushButton::mousePressEvent(e);
+    if (e->button() == Qt::RightButton) {
+        // setStatus( Related );
+        Q_EMIT userClicked(text(), Related);
     }
-  }
+}
+
+void RadicalButton::mouseReleaseEvent(QMouseEvent *e)
+{
+    QPushButton::mouseReleaseEvent(e);
+    if (e->button() == Qt::LeftButton) {
+        switch (m_status) {
+        case Selected:
+            setStatus(Normal);
+            Q_EMIT userClicked(text(), Normal);
+            break;
+        default:
+            setStatus(Selected);
+            Q_EMIT userClicked(text(), Selected);
+        }
+    }
 }
 
 void RadicalButton::resetButton()
 {
-  setStatus( Normal );
+    setStatus(Normal);
 }
 
-void RadicalButton::setStatus( RadicalButton::ButtonStatus newStatus )
+void RadicalButton::setStatus(RadicalButton::ButtonStatus newStatus)
 {
-  if( m_status == newStatus )
-  {
-    return;
-  }
+    if (m_status == newStatus) {
+        return;
+    }
 
-  //Because it's more work to check everything rather than just set it,
-  //we'll just set everything every time
-  bool checked   = false,
-       hidden    = false,
-       disabled  = false;
-  switch( newStatus )
-  {
+    // Because it's more work to check everything rather than just set it,
+    // we'll just set everything every time
+    bool checked = false, hidden = false, disabled = false;
+    switch (newStatus) {
     case Normal:
-      break;
+        break;
     case Selected:
-      checked = true;
-      break;
+        checked = true;
+        break;
     case NotAppropriate:
-      disabled = true;
-      break;
+        disabled = true;
+        break;
     case Related:
-      break;
+        break;
     case Hidden:
-      hidden = true;
-  }
+        hidden = true;
+    }
 
-  setVisible( ! hidden );
-  setEnabled( ! disabled );
-  setChecked( checked );
-  m_status = newStatus;
+    setVisible(!hidden);
+    setEnabled(!disabled);
+    setChecked(checked);
+    m_status = newStatus;
 }
 
 QSize RadicalButton::sizeHint() const
 {
-  return minimumSizeHint();
+    return minimumSizeHint();
 }
-
-

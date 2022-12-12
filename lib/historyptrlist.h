@@ -17,7 +17,7 @@ class EntryList;
 
 class KITEN_EXPORT HistoryPtrList
 {
-  public:
+public:
     /**
      * Construct a HistoryPtrList, this should be done early on
      */
@@ -30,7 +30,7 @@ class KITEN_EXPORT HistoryPtrList
      * Add an item to the end of the history list and set it as
      * the current displayed item.
      */
-    void addItem( EntryList *newItem );
+    void addItem(EntryList *newItem);
     /**
      * Return a list of the entries. Note that this is usually
      * just a QStringList of all of the EntryList's DictQuery->toString() calls.
@@ -48,11 +48,11 @@ class KITEN_EXPORT HistoryPtrList
     /**
      * Add one to the current location, convenient for 'forward' buttons
      */
-    void next( int distance = 1 );
+    void next(int distance = 1);
     /**
      * Sub one from the current location, the counterpart to next()
      */
-    void prev( int distance = 1 );
+    void prev(int distance = 1);
     /**
      * Return the current numerical 0-based location
      */
@@ -68,15 +68,15 @@ class KITEN_EXPORT HistoryPtrList
     /**
      * Set the current item
      */
-    void setCurrent( int i );
+    void setCurrent(int i);
     /**
      * Return the total number of items in the list
      */
     int count();
 
-  private:
+private:
     class Private;
-    Private* const d;
+    Private *const d;
 };
 
 #endif

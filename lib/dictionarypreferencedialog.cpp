@@ -9,9 +9,9 @@
 
 #include <QString>
 
-DictionaryPreferenceDialog::DictionaryPreferenceDialog( QWidget *parent, const QString &name )
-: QWidget( parent )
-, m_name( name )
+DictionaryPreferenceDialog::DictionaryPreferenceDialog(QWidget *parent, const QString &name)
+    : QWidget(parent)
+    , m_name(name)
 {
 }
 
@@ -21,7 +21,5 @@ DictionaryPreferenceDialog::~DictionaryPreferenceDialog()
 
 QString DictionaryPreferenceDialog::name() const
 {
-  return m_name;
+    return m_name;
 }
-
-

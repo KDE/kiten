@@ -13,25 +13,23 @@
 
 class Radical
 {
-  public:
-                         Radical();
-    explicit             Radical(  const QString &irad
-                                 , unsigned int strokes = 0
-                                 , unsigned int index = 0 );
+public:
+    Radical();
+    explicit Radical(const QString &irad, unsigned int strokes = 0, unsigned int index = 0);
 
-    QString              toString() const;
+    QString toString() const;
 
-    const QSet<QString>& getKanji() const;
-    void                 addKanji( const QSet<QString> &newKanji );
-    unsigned int         strokes() const;
+    const QSet<QString> &getKanji() const;
+    void addKanji(const QSet<QString> &newKanji);
+    unsigned int strokes() const;
 
-    static bool          compareIndices( const Radical &a, const Radical &b );
-    static bool          compareFrequencies( const Radical &a, const Radical &b );
+    static bool compareIndices(const Radical &a, const Radical &b);
+    static bool compareFrequencies(const Radical &a, const Radical &b);
 
-  protected:
-    QString       string;
-    unsigned int  strokeCount;
-    unsigned int  idx;
+protected:
+    QString string;
+    unsigned int strokeCount;
+    unsigned int idx;
     QSet<QString> kanji;
     QSet<QString> components;
 };

@@ -20,40 +20,40 @@ class KActionMenu;
 
 class ResultsView : public QTextBrowser
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit     ResultsView( QWidget *parent = nullptr, const char *name = nullptr );
+public:
+    explicit ResultsView(QWidget *parent = nullptr, const char *name = nullptr);
 
-    void         addResult( Entry *result, bool common = false );
-    void         addKanjiResult( Entry*, bool common = false );
-    void         setLaterScrollValue( int scrollValue );
+    void addResult(Entry *result, bool common = false);
+    void addKanjiResult(Entry *, bool common = false);
+    void setLaterScrollValue(int scrollValue);
 
-  public Q_SLOTS:
-    void         append( const QString &text );
-    void         clear();
-    void         flush();
-    void         print( const QString &title );
-    void         setBasicMode( bool yes );
-    void         setContents( const QString &text );
+public Q_SLOTS:
+    void append(const QString &text);
+    void clear();
+    void flush();
+    void print(const QString &title);
+    void setBasicMode(bool yes);
+    void setContents(const QString &text);
 
-  Q_SIGNALS:
-    void         entrySpecifiedForExport( int index );
-    void         urlClicked( const QString& );
+Q_SIGNALS:
+    void entrySpecifiedForExport(int index);
+    void urlClicked(const QString &);
 
-  protected:
-    QString      generateCSS();
+protected:
+    QString generateCSS();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void doScroll();
 
-  private:
-    QAction           *_addToExportListAction = nullptr;
-    bool               _basicMode;
+private:
+    QAction *_addToExportListAction = nullptr;
+    bool _basicMode;
     KActionCollection *_popupActions = nullptr;
-    KActionMenu       *_popupMenu = nullptr;
-    QString            _printText;
-    int                _scrollValue;
+    KActionMenu *_popupMenu = nullptr;
+    QString _printText;
+    int _scrollValue;
 };
 
 #endif

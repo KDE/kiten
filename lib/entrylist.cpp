@@ -12,7 +12,6 @@
 
 #include <KLocalizedString>
 
-
 #include <sys/mman.h>
 
 #include "DictEdict/dictfileedict.h"
@@ -21,280 +20,251 @@
 
 class EntryList::Private
 {
-  public:
-    Private() : storedScrollValue( 0 )
-              , sorted( false )
-              , sortedByDictionary( false ) {}
+public:
+    Private()
+        : storedScrollValue(0)
+        , sorted(false)
+        , sortedByDictionary(false)
+    {
+    }
 
-    Private( const Private &other ) = default;
-    Private &operator=( const Private &other )  = default;
+    Private(const Private &other) = default;
+    Private &operator=(const Private &other) = default;
 
-    int       storedScrollValue;
-    bool      sorted;
-    bool      sortedByDictionary;
+    int storedScrollValue;
+    bool sorted;
+    bool sortedByDictionary;
     DictQuery query;
 };
 
 /* sorts the EntryList in a C++ish, thread-safe manner. */
 class SortFunctor
 {
-  public:
+public:
     QStringList *dictionary_order;
     QStringList *sort_order;
 
-    bool operator()( const Entry *n1, const Entry *n2 ) const
+    bool operator()(const Entry *n1, const Entry *n2) const
     {
-      return n1->sort( *n2, *dictionary_order, *sort_order );
+        return n1->sort(*n2, *dictionary_order, *sort_order);
     }
 };
 
 EntryList::EntryList()
-: QList<Entry*>()
-, d( new Private )
+    : QList<Entry *>()
+    , d(new Private)
 {
 }
 
-EntryList::EntryList( const EntryList &old )
-: QList<Entry*> ( old )
-, d( new Private( *( old.d ) ) )
+EntryList::EntryList(const EntryList &old)
+    : QList<Entry *>(old)
+    , d(new Private(*(old.d)))
 {
 }
 
 EntryList::~EntryList()
 {
-  delete d;
-//   kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
+    delete d;
+    //   kdDebug() << "A copy of EntryList is being deleted... watch your memory!" << endl;
 }
 
 int EntryList::scrollValue() const
 {
-  return d->storedScrollValue;
+    return d->storedScrollValue;
 }
 
-void EntryList::setScrollValue( int val )
+void EntryList::setScrollValue(int val)
 {
-  d->storedScrollValue = val;
+    d->storedScrollValue = val;
 }
 
 void EntryList::deleteAll()
 {
-  while( ! this->isEmpty() )
-  {
-    delete this->takeFirst();
-  }
+    while (!this->isEmpty()) {
+        delete this->takeFirst();
+    }
 
-  d->sorted = false;
+    d->sorted = false;
 }
 
 /* Returns the EntryList as HTML */
-//TODO: Some intelligent decision making regarding when to print what when AutoPrinting is on
-QString EntryList::toHTML( unsigned int start, unsigned int length ) const
+// TODO: Some intelligent decision making regarding when to print what when AutoPrinting is on
+QString EntryList::toHTML(unsigned int start, unsigned int length) const
 {
-  unsigned int max = count();
-  if( start > max )
-  {
-    return QString();
-  }
-  if( start + length > max )
-  {
-    length = max-start;
-  }
-
-  QString result;
-  QString temp;
-  QString &lastDictionary = temp;
-  const QString fromDictionary = i18n( "From Dictionary:" );
-  QString query( getQuery() );
-
-  bool firstTimeDeinflection  = true;
-  bool firstTimeCommon = true;
-  bool firstTimeUncommon = true;
-  for( unsigned int i = 0; i < max; ++i )
-  {
-    Entry *entry = at( i );
-    if( d->sortedByDictionary )
-    {
-      const QString &newDictionary = entry->getDictName();
-      if( firstTimeDeinflection && newDictionary == EDICT
-          && DictFileEdict::deinflectionLabel )
-      {
-        const QString &label = *DictFileEdict::deinflectionLabel;
-        const QString &type  = *DictFileEdict::wordType;
-        const QString &message = i18nc( "%1 is a word type (verb or adjective)."
-                                        " %2 is a verb or adjective tense."
-                                        " Example: 'Entered verb in past tense'."
-                                      , "Entered %1 in %2 form"
-                                      , type
-                                      , label );
-
-        result += QStringLiteral( "<div style=\"font-style:italic\">%1</div>" ).arg( message );
-
-        firstTimeDeinflection = false;
-      }
-
-      if( lastDictionary != newDictionary )
-      {
-        lastDictionary = newDictionary;
-        result += QStringLiteral( "<div class=\"DictionaryHeader\">%1 %2</div>" )
-                      .arg( fromDictionary )
-                      .arg( newDictionary );
-        firstTimeCommon = true;
-        firstTimeUncommon = true;
-      }
+    unsigned int max = count();
+    if (start > max) {
+        return QString();
+    }
+    if (start + length > max) {
+        length = max - start;
     }
 
-    if( getQuery().getFilterType() == DictQuery::CommonUncommon )
-    {
-      if( entry->getDictionaryType() == EDICT )
-      {
-        EntryEdict *entryEdict = static_cast<EntryEdict*>( entry );
-        if( entryEdict->isCommon() && firstTimeCommon )
-        {
-          result += QStringLiteral( "<div class=\"CommonHeader\">%1</div>" ).arg( i18n( "Common" ) );
-          firstTimeCommon = false;
+    QString result;
+    QString temp;
+    QString &lastDictionary = temp;
+    const QString fromDictionary = i18n("From Dictionary:");
+    QString query(getQuery());
+
+    bool firstTimeDeinflection = true;
+    bool firstTimeCommon = true;
+    bool firstTimeUncommon = true;
+    for (unsigned int i = 0; i < max; ++i) {
+        Entry *entry = at(i);
+        if (d->sortedByDictionary) {
+            const QString &newDictionary = entry->getDictName();
+            if (firstTimeDeinflection && newDictionary == EDICT && DictFileEdict::deinflectionLabel) {
+                const QString &label = *DictFileEdict::deinflectionLabel;
+                const QString &type = *DictFileEdict::wordType;
+                const QString &message = i18nc(
+                    "%1 is a word type (verb or adjective)."
+                    " %2 is a verb or adjective tense."
+                    " Example: 'Entered verb in past tense'.",
+                    "Entered %1 in %2 form",
+                    type,
+                    label);
+
+                result += QStringLiteral("<div style=\"font-style:italic\">%1</div>").arg(message);
+
+                firstTimeDeinflection = false;
+            }
+
+            if (lastDictionary != newDictionary) {
+                lastDictionary = newDictionary;
+                result += QStringLiteral("<div class=\"DictionaryHeader\">%1 %2</div>").arg(fromDictionary).arg(newDictionary);
+                firstTimeCommon = true;
+                firstTimeUncommon = true;
+            }
         }
-        else if( ! entryEdict->isCommon() && firstTimeUncommon )
-        {
-          result += QStringLiteral( "<div class=\"UncommonHeader\">%1</div>" ).arg( i18n( "Uncommon" ) );
-          firstTimeUncommon = false;
-        }
-      }
-    }
 
-    if( length-- > 0 )
-    {
-      result += QStringLiteral( "<div class=\"%1\" index=\"%2\" dict=\"%3\">%4</div>" )
-                    .arg( i % 2 == 0 ? "Entry" : "Entry odd" )
-                    .arg( QString::number( i ) )
-                    .arg( entry->getDictName() )
-                    .arg( entry->toHTML() );
+        if (getQuery().getFilterType() == DictQuery::CommonUncommon) {
+            if (entry->getDictionaryType() == EDICT) {
+                EntryEdict *entryEdict = static_cast<EntryEdict *>(entry);
+                if (entryEdict->isCommon() && firstTimeCommon) {
+                    result += QStringLiteral("<div class=\"CommonHeader\">%1</div>").arg(i18n("Common"));
+                    firstTimeCommon = false;
+                } else if (!entryEdict->isCommon() && firstTimeUncommon) {
+                    result += QStringLiteral("<div class=\"UncommonHeader\">%1</div>").arg(i18n("Uncommon"));
+                    firstTimeUncommon = false;
+                }
+            }
+        }
+
+        if (length-- > 0) {
+            result += QStringLiteral("<div class=\"%1\" index=\"%2\" dict=\"%3\">%4</div>")
+                          .arg(i % 2 == 0 ? "Entry" : "Entry odd")
+                          .arg(QString::number(i))
+                          .arg(entry->getDictName())
+                          .arg(entry->toHTML());
+        } else {
+            break;
+        }
     }
-    else
-    {
-      break;
-    }
-  }
-  //result.replace( query, "<query>" + query + "</query>" );
-  return result;
+    // result.replace( query, "<query>" + query + "</query>" );
+    return result;
 }
 
-QString EntryList::toKVTML( unsigned int start, unsigned int length ) const
+QString EntryList::toKVTML(unsigned int start, unsigned int length) const
 {
-  unsigned int max = count();
-  if( start > max )
-  {
-    return QString();
-  }
-  if( start + length > max )
-  {
-    length = max - start;
-  }
+    unsigned int max = count();
+    if (start > max) {
+        return QString();
+    }
+    if (start + length > max) {
+        length = max - start;
+    }
 
-  QString result = "<?xml version=\"1.0\"?>\n<!DOCTYPE kvtml SYSTEM \"kvoctrain.dtd\">\n"
-          "<kvtml encoding=\"UTF-8\" "
-          " generator=\"kiten v42.0\""
-          " title=\"To be determined\">\n";
-  foreach( Entry *it, *this )
-  {
-    if( length-- > 0 )
-    {
-      result = result + it->toKVTML() + '\n';
+    QString result =
+        "<?xml version=\"1.0\"?>\n<!DOCTYPE kvtml SYSTEM \"kvoctrain.dtd\">\n"
+        "<kvtml encoding=\"UTF-8\" "
+        " generator=\"kiten v42.0\""
+        " title=\"To be determined\">\n";
+    foreach (Entry *it, *this) {
+        if (length-- > 0) {
+            result = result + it->toKVTML() + '\n';
+        } else {
+            break;
+        }
     }
-    else
-    {
-      break;
-    }
-  }
-  return result + "</kvtml>\n";
+    return result + "</kvtml>\n";
 }
 
 QString EntryList::toHTML() const
 {
-  return toHTML( 0, count() );
+    return toHTML(0, count());
 }
 
 /* Returns the EntryList as HTML */
-//TODO: Some intelligent decision making... regarding the output format (differ for
-//different types of searches?
-QString EntryList::toString( unsigned int start, unsigned int length ) const
+// TODO: Some intelligent decision making... regarding the output format (differ for
+// different types of searches?
+QString EntryList::toString(unsigned int start, unsigned int length) const
 {
-  unsigned int max = count();
-  if( start > max )
-  {
-    return QString();
-  }
-  if( start + length > max )
-  {
-    length = max-start;
-  }
-
-  QString result;
-  foreach( Entry *it, *this )
-  {
-    if( length-- > 0 )
-    {
-      result = result + it->toString();
+    unsigned int max = count();
+    if (start > max) {
+        return QString();
     }
-    else
-    {
-      break;
+    if (start + length > max) {
+        length = max - start;
     }
-  }
 
-  return result;
+    QString result;
+    foreach (Entry *it, *this) {
+        if (length-- > 0) {
+            result = result + it->toString();
+        } else {
+            break;
+        }
+    }
+
+    return result;
 }
 
 QString EntryList::toString() const
 {
-  return toString( 0, count() );
+    return toString(0, count());
 }
 
-void EntryList::sort( QStringList &sortOrder, QStringList &dictionaryOrder )
+void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder)
 {
-  //Don't shortcut sorting, unless we start to keep track of the last sorting order,
-  //Otherwise we won't respond when the user changes the sorting order
-  SortFunctor sorter;
-  sorter.dictionary_order = &dictionaryOrder;
-  sorter.sort_order = &sortOrder;
+    // Don't shortcut sorting, unless we start to keep track of the last sorting order,
+    // Otherwise we won't respond when the user changes the sorting order
+    SortFunctor sorter;
+    sorter.dictionary_order = &dictionaryOrder;
+    sorter.sort_order = &sortOrder;
 
-  std::stable_sort( this->begin(), this->end(), sorter );
-  d->sorted = true;
-  d->sortedByDictionary = dictionaryOrder.size() > 0;
+    std::stable_sort(this->begin(), this->end(), sorter);
+    d->sorted = true;
+    d->sortedByDictionary = dictionaryOrder.size() > 0;
 }
 
-const EntryList& EntryList::operator+=( const EntryList &other )
+const EntryList &EntryList::operator+=(const EntryList &other)
 {
-  foreach( Entry *it, other )
-  {
-    this->append( it );
-  }
-  if( other.size() > 0 )
-  {
-    d->sorted = false;
-  }
+    foreach (Entry *it, other) {
+        this->append(it);
+    }
+    if (other.size() > 0) {
+        d->sorted = false;
+    }
 
-  return *this;
+    return *this;
 }
 
-const EntryList& EntryList::operator=( const EntryList &other )
+const EntryList &EntryList::operator=(const EntryList &other)
 {
-  QList<Entry*>::operator=( other );
-  *d = *( other.d );
+    QList<Entry *>::operator=(other);
+    *d = *(other.d);
 
-  return *this;
+    return *this;
 }
 
-void EntryList::appendList( const EntryList *other )
+void EntryList::appendList(const EntryList *other)
 {
-  foreach( Entry *it, *other )
-  {
-    append( it );
-  }
+    foreach (Entry *it, *other) {
+        append(it);
+    }
 
-  if( other->size() > 0 )
-  {
-    d->sorted = false;
-  }
+    if (other->size() > 0) {
+        d->sorted = false;
+    }
 }
 
 /**
@@ -303,13 +273,13 @@ void EntryList::appendList( const EntryList *other )
  */
 DictQuery EntryList::getQuery() const
 {
-  return d->query;
+    return d->query;
 }
 
 /**
  * This allows us to save a query in the EntryList for later retrieval
  */
-void EntryList::setQuery( const DictQuery &newQuery )
+void EntryList::setQuery(const DictQuery &newQuery)
 {
-  d->query = newQuery;
+    d->query = newQuery;
 }

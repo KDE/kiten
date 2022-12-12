@@ -19,17 +19,17 @@
 
 class RadicalFile
 {
-  public:
-    explicit                RadicalFile( QString &radkfile, const QString &kanjidic = QString() );
+public:
+    explicit RadicalFile(QString &radkfile, const QString &kanjidic = QString());
 
-    QSet<Kanji>             kanjiContainingRadicals( QSet<QString> &radicalList ) const;
-    bool                    loadRadicalFile( QString &radkfile );
-    bool                    loadKanjidic( const QString &kanjidic );
-    QMultiMap<int,Radical> *mapRadicalsByStrokes( int max_strokes = 0 ) const;
-    QSet<QString>           radicalsInKanji( QSet<Kanji> &kanjiList ) const;
+    QSet<Kanji> kanjiContainingRadicals(QSet<QString> &radicalList) const;
+    bool loadRadicalFile(QString &radkfile);
+    bool loadKanjidic(const QString &kanjidic);
+    QMultiMap<int, Radical> *mapRadicalsByStrokes(int max_strokes = 0) const;
+    QSet<QString> radicalsInKanji(QSet<Kanji> &kanjiList) const;
 
-  private:
-    QHash<QString, Kanji>   m_kanji;
+private:
+    QHash<QString, Kanji> m_kanji;
     QHash<QString, Radical> m_radicals;
 };
 
