@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 00:46+0000\n"
-"PO-Revision-Date: 2022-12-30 07:02+0100\n"
+"PO-Revision-Date: 2023-01-11 06:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -97,6 +97,9 @@ msgid ""
 "org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
 "project</a>."
 msgstr ""
+"Kiten-ის ამ ვერსიაში სწავლის რეჟიმი გამორთულია. არსებობს სხვა, არანაკლებ "
+"სახალისო პროგრამები, მაგალითად<a href=\"https://apps.kde.org/parley"
+"\">Parley</a>, და <a href=\"https://apps.ankiweb.net\">პროექტი Anki</a>."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
 #: app/configsearching.ui:13 app/configuredialog.cpp:45
@@ -248,7 +251,7 @@ msgstr "&ძებნა"
 #: app/kiten.cpp:185
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
-msgstr ""
+msgstr "ბუფერის ჩანაწერების &ავტომატური ძებნა"
 
 #: app/kiten.cpp:188
 #, kde-format
@@ -296,7 +299,7 @@ msgstr "შედეგების გარეშე"
 #: app/kiten.kcfg:10
 #, kde-format
 msgid "List of dictionary Types, used internally, do not touch"
-msgstr ""
+msgstr "შიდა მოხმარების ლექსიკონების ტიპების სია, მათი შეხების გარეშე"
 
 #. i18n: ectx: label, entry (edict__NAMES), group (dicts_edict)
 #: app/kiten.kcfg:25
@@ -315,49 +318,49 @@ msgstr "დაყენებული edict-ის გამოყენებ�
 #: app/kiten.kcfg:32 app/kiten.kcfg:46
 #, kde-format
 msgid "Set of fields to display for this dictionary type"
-msgstr ""
+msgstr "ამ ლექსიკონის ტიპისთვის საჩვენებელი ველების დაყენება"
 
 #. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
 #: app/kiten.kcfg:39
 #, kde-format
 msgid "Kanjidic dictionary files"
-msgstr ""
+msgstr "Kanjidic ლექსიკონის ფაილები"
 
 #. i18n: ectx: label, entry (kanjidic__useGlobal), group (dicts_kanjidic)
 #: app/kiten.kcfg:42
 #, kde-format
 msgid "Use preinstalled kanjidic"
-msgstr ""
+msgstr "წინასწარ დაყენებული kanjidic-ის გამოყენება"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:53
 #, kde-format
 msgid "Do we search for \"jiten\" on startup"
-msgstr ""
+msgstr "ვეძებთ 'jiten'-ს გაშვებისას"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:57
 #, kde-format
 msgid "Case sensitive searches"
-msgstr ""
+msgstr "რეგისტრზე-დამოკიდებული ძებნა"
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:63
 #, kde-format
 msgid "Enable Sorting By Dictionary"
-msgstr ""
+msgstr "ლექსიკონის დალაგების ჩართვა"
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:67
 #, kde-format
 msgid "What order do we sort the dictionaries in?"
-msgstr ""
+msgstr "რა მიმდევრობით ვალაგებთ ლექსიკონებს?"
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:71
 #, kde-format
 msgid "What order do we sort the fields in?"
-msgstr ""
+msgstr "რა მიმდევრობით ვალაგებთ ველებს?"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:91
@@ -387,7 +390,7 @@ msgstr ""
 #: app/kiten.kcfg:103
 #, kde-format
 msgid "Automatically search for clipboard entries?"
-msgstr ""
+msgstr "ავტომატურად მოვძებნო ბუფერის ჩანაწერები?"
 
 #. i18n: ectx: Menu (file)
 #: app/kitenui.rc:6 kanjibrowser/kanjibrowserui.rc:6
@@ -421,7 +424,7 @@ msgstr "Kiten"
 #: app/main.cpp:44
 #, kde-format
 msgid "Japanese Reference Tool"
-msgstr ""
+msgstr "იაპონურის ცნობარი"
 
 #: app/main.cpp:46
 #, kde-format
@@ -431,6 +434,10 @@ msgid ""
 "(c) 2006-2008, Joseph Kerian\n"
 "(c) 2011, Daniel E. Moctezuma"
 msgstr ""
+"(c) 2001-2004, Jason Katz-Brown\n"
+"(c) 2006-2007, Eric Kjeldergaard\n"
+"(c) 2006-2008, Joseph Kerian\n"
+"(c) 2011, Daniel E. Moctezuma"
 
 #: app/main.cpp:53
 #, kde-format
@@ -463,7 +470,7 @@ msgstr "Neil Stevens"
 #: app/main.cpp:58
 #, kde-format
 msgid "Code simplification, UI suggestions."
-msgstr ""
+msgstr "კოდის გამარტივება, ინტერფეისის რჩევები."
 
 #: app/main.cpp:59
 #, kde-format
@@ -483,7 +490,7 @@ msgstr "Paul Temple"
 #: app/main.cpp:60
 #, kde-format
 msgid "Porting to KConfig XT, bug fixing"
-msgstr ""
+msgstr "KConfig XT-ზე გადატანა, გამართვა"
 
 #: app/main.cpp:61 radselect/main.cpp:37
 #, kde-format
@@ -637,7 +644,7 @@ msgstr "%1-ის ბუფერში კოპირება"
 #: kanjibrowser/kanjibrowserview.cpp:206
 #, kde-format
 msgid "Could not load the necessary kanji information."
-msgstr ""
+msgstr "კანჯის შესახებ ინფორმაციის ჩატვირთვის შეცდომა."
 
 #: kanjibrowser/kanjibrowserview.cpp:216
 #, kde-format
@@ -652,7 +659,7 @@ msgstr "კანჯის &ინფორმაცია"
 #: kanjibrowser/kanjibrowserview.cpp:224
 #, kde-format
 msgid "All Jouyou Kanji grades"
-msgstr ""
+msgstr "Jouyou Kanji ყველა დონე"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
 #, kde-format
@@ -730,7 +737,7 @@ msgstr ""
 #: kanjibrowser/main.cpp:36
 #, kde-format
 msgid "(C) 2011 Daniel E. Moctezuma"
-msgstr ""
+msgstr "(C) 2011 Daniel E. Moctezuma"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, preferences)
 #. i18n: ectx: property (windowTitle), widget (QWidget, radselectprefdialog)
@@ -755,7 +762,7 @@ msgstr "კანჯის სია"
 #: radselect/radselectprefdialog.ui:85
 #, kde-format
 msgid "The font for the main kanji/kana entry in list view"
-msgstr ""
+msgstr "ფონტი მთავარი კანჯი/კანას ჩანაწერისთვის სიის ხედში"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
@@ -764,7 +771,7 @@ msgstr ""
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr ""
+msgstr "გამოიყენეთ ღიაკის ფონტის მოსარგებად"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
@@ -852,7 +859,7 @@ msgctxt ""
 "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
 "Example: 'Entered verb in past tense'."
 msgid "Entered %1 in %2 form"
-msgstr ""
+msgstr "შეიყვანეთ %1 %2-ის ფორმაში"
 
 #: lib/entrylist.cpp:143
 #, kde-format
@@ -891,7 +898,7 @@ msgstr "კანა"
 #: radselect/buttongrid.cpp:117
 #, kde-format
 msgid "No Radicals Selected"
-msgstr ""
+msgstr "რადიკალები არჩეული არაა"
 
 #: radselect/buttongrid.cpp:153
 #, kde-format
@@ -924,13 +931,13 @@ msgstr ""
 #: radselect/main.cpp:49
 #, kde-format
 msgid "Initial Search String from Kiten"
-msgstr ""
+msgstr "საწყისი საძებნი სტრიქონი Kiten-სგან"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, radical_selector)
 #: radselect/radical_selector.ui:22
 #, kde-format
 msgid "RadicalSelector"
-msgstr ""
+msgstr "კანძის გასაღებების ძებნა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: radselect/radical_selector.ui:40
@@ -967,13 +974,13 @@ msgstr ""
 #: radselect/radselectconfig.kcfg:24
 #, kde-format
 msgid "Do we close this program when searching?"
-msgstr ""
+msgstr "დავხუროთ პროგრამა ძებნისას?"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_closeOnSearch)
 #: radselect/radselectprefdialog.ui:24
 #, kde-format
 msgid "Close radselect when you press search"
-msgstr ""
+msgstr "ძებნის ღილაკზე დაჭერისას radselect-ის დახურვა"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
@@ -986,7 +993,7 @@ msgstr "ძებნის შედეგების ფონტი:"
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
 #, kde-format
 msgid "Use this to adjust the result list font"
-msgstr ""
+msgstr "გამოიყენეთ შედეგის სიის მოსარგებლად"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
