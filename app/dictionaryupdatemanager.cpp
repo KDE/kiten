@@ -13,7 +13,6 @@
 
 #include <KActionCollection>
 #include <KCompressionDevice>
-#include <KIO/Scheduler>
 #include <KIO/StoredTransferJob>
 #include <KLocalizedString>
 #include <KMessageBox>
