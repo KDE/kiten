@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 00:46+0000\n"
-"PO-Revision-Date: 2023-01-11 06:09+0100\n"
+"PO-Revision-Date: 2023-01-12 07:25+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -369,6 +369,8 @@ msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
 "common and uncommon entries"
 msgstr ""
+"0=ფილტრის გარეშე, 1=ძებნის შედეგების \"საერთოებზე\" შეზღუდვა. 2=საერთო და "
+"განსხვავებული ჩანაწერების ცალ-ცალკე ჩვენება"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:95
@@ -377,6 +379,8 @@ msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
 "Anywhere"
 msgstr ""
+"მომხმარებლის ბოლო ძებნის ტიპი. 0=ზუსტი. 1=დასაწყისის დამთხვევა. 2=ბოლოს "
+"დამთხვევა. 3=ნებისმიერ ადგილას დამთხვევა"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:99
@@ -385,6 +389,8 @@ msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
 "4=Adverb, 5=Prefix, 6=Suffix, 7=Expression"
 msgstr ""
+"მომხმარებლის ბოლო ძებნის ტიპი. 0=ნებისმიერი, 1=ზმნა, 2=ქვემდებარე, "
+"3=ზედსართავი სახელი, 4=ზმნიზედა, 5=პრეფიქსი, 6=სუფიქსი, 7=გამოსახულება"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:103
@@ -685,8 +691,8 @@ msgstr "ხაზების ლიმიტის გარეშე"
 #, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 თვისება"
+msgstr[1] "%1 თვისება"
 
 #: kanjibrowser/kanjibrowserview.cpp:279
 #, kde-format
@@ -697,7 +703,7 @@ msgstr "დონე:"
 #: kanjibrowser/kanjibrowserview.cpp:281 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
-msgstr ""
+msgstr "თვისებები:"
 
 #: kanjibrowser/kanjibrowserview.cpp:287
 #, kde-format
