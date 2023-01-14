@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:46+0000\n"
+"POT-Creation-Date: 2023-01-14 00:52+0000\n"
 "PO-Revision-Date: 2021-06-20 09:43+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -171,12 +171,12 @@ msgstr "Εμφάνιση"
 msgid "Results Sorting"
 msgstr "Ταξινόμηση αποτελεσμάτων"
 
-#: app/dictionaryupdatemanager.cpp:46
+#: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr "Έλεγχος για &ενημερώσεις των λεξικών"
 
-#: app/dictionaryupdatemanager.cpp:78
+#: app/dictionaryupdatemanager.cpp:77
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -185,7 +185,7 @@ msgstr ""
 "Η ενημέρωση ακυρώθηκε.\n"
 "Αδυναμία ανάγνωσης του αρχείου."
 
-#: app/dictionaryupdatemanager.cpp:87
+#: app/dictionaryupdatemanager.cpp:86
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -194,7 +194,7 @@ msgstr ""
 "Η ενημέρωση ακυρώθηκε.\n"
 "Αδυναμία ανοίγματος του αρχείου."
 
-#: app/dictionaryupdatemanager.cpp:103
+#: app/dictionaryupdatemanager.cpp:102
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -203,17 +203,17 @@ msgstr ""
 "Η ενημέρωση ακυρώθηκε.\n"
 "Το αρχείο πληροφοριών της ενημέρωσης δεν έχει έγκυρη ημερομηνία."
 
-#: app/dictionaryupdatemanager.cpp:285
+#: app/dictionaryupdatemanager.cpp:284
 #, kde-format
 msgid "You already have the latest updates."
 msgstr "Έχετε ήδη τις τελευταίες ενημερώσεις."
 
-#: app/dictionaryupdatemanager.cpp:287
+#: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr "Επιτυχής ενημέρωση των λεξικών σας."
 
-#: app/dictionaryupdatemanager.cpp:289
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -228,7 +228,7 @@ msgstr ""
 "Αποτυχία ενημέρωσης:\n"
 "%2"
 
-#: app/dictionaryupdatemanager.cpp:291
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid ""
 "Failed to update:\n"

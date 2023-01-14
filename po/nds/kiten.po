@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:46+0000\n"
+"POT-Creation-Date: 2023-01-14 00:52+0000\n"
 "PO-Revision-Date: 2014-06-20 18:11+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-doc@kde.org>\n"
@@ -169,12 +169,12 @@ msgstr "Dorstellen"
 msgid "Results Sorting"
 msgstr "Resultaten sorteren"
 
-#: app/dictionaryupdatemanager.cpp:46
+#: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr "Na Wöörbook-&Opfrischen kieken"
 
-#: app/dictionaryupdatemanager.cpp:78
+#: app/dictionaryupdatemanager.cpp:77
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -183,7 +183,7 @@ msgstr ""
 "Opfrischen afbraken.\n"
 "Datei lett sik nich lesen."
 
-#: app/dictionaryupdatemanager.cpp:87
+#: app/dictionaryupdatemanager.cpp:86
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -192,7 +192,7 @@ msgstr ""
 "Opfrischen afbraken.\n"
 "Datei lett sik nich opmaken."
 
-#: app/dictionaryupdatemanager.cpp:103
+#: app/dictionaryupdatemanager.cpp:102
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -201,17 +201,17 @@ msgstr ""
 "Opfrischen afbraken.\n"
 "De Datei mit Opfrisch-Informatschonen ehr Datum is leeg."
 
-#: app/dictionaryupdatemanager.cpp:285
+#: app/dictionaryupdatemanager.cpp:284
 #, kde-format
 msgid "You already have the latest updates."
 msgstr "Du büst al op Stand."
 
-#: app/dictionaryupdatemanager.cpp:287
+#: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr "Wöörböker mit Spood opfrischt"
 
-#: app/dictionaryupdatemanager.cpp:289
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -226,7 +226,7 @@ msgstr ""
 "Opfrischen fehlslaan:\n"
 "%2"
 
-#: app/dictionaryupdatemanager.cpp:291
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid ""
 "Failed to update:\n"

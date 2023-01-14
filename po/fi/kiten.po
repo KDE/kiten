@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:46+0000\n"
+"POT-Creation-Date: 2023-01-14 00:52+0000\n"
 "PO-Revision-Date: 2022-10-17 00:10+0300\n"
 "Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -172,12 +172,12 @@ msgstr "Näkymä"
 msgid "Results Sorting"
 msgstr "Tulosten järjestäminen"
 
-#: app/dictionaryupdatemanager.cpp:46
+#: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr "Tarkista &sanakirjapäivitykset"
 
-#: app/dictionaryupdatemanager.cpp:78
+#: app/dictionaryupdatemanager.cpp:77
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -186,7 +186,7 @@ msgstr ""
 "Päivitys keskeytettiin.\n"
 "Tiedostoa ei voitu lukea."
 
-#: app/dictionaryupdatemanager.cpp:87
+#: app/dictionaryupdatemanager.cpp:86
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -195,7 +195,7 @@ msgstr ""
 "Päivitys keskeytettiin.\n"
 "Tiedostoa ei voitu avata."
 
-#: app/dictionaryupdatemanager.cpp:103
+#: app/dictionaryupdatemanager.cpp:102
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -204,17 +204,17 @@ msgstr ""
 "Päivitys keskeytettiin.\n"
 "Päivitystietotiedostolla on virheellinen päiväys."
 
-#: app/dictionaryupdatemanager.cpp:285
+#: app/dictionaryupdatemanager.cpp:284
 #, kde-format
 msgid "You already have the latest updates."
 msgstr "Sinulla on jo viimeisimmät päivitykset."
 
-#: app/dictionaryupdatemanager.cpp:287
+#: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr "Sanakirjojen päivitys onnistui."
 
-#: app/dictionaryupdatemanager.cpp:289
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -229,7 +229,7 @@ msgstr ""
 "Seuraavien päivitys epäonnistui:\n"
 "%2"
 
-#: app/dictionaryupdatemanager.cpp:291
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid ""
 "Failed to update:\n"

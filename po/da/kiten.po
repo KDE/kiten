@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:46+0000\n"
+"POT-Creation-Date: 2023-01-14 00:52+0000\n"
 "PO-Revision-Date: 2022-02-08 20:05+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -173,12 +173,12 @@ msgstr "Vis"
 msgid "Results Sorting"
 msgstr "Resultatsortering"
 
-#: app/dictionaryupdatemanager.cpp:46
+#: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr "Se efter &opdateringer til ordbog"
 
-#: app/dictionaryupdatemanager.cpp:78
+#: app/dictionaryupdatemanager.cpp:77
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -187,7 +187,7 @@ msgstr ""
 "Opdatering afbrudt.\n"
 "Kunne ikke læse fil."
 
-#: app/dictionaryupdatemanager.cpp:87
+#: app/dictionaryupdatemanager.cpp:86
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -196,7 +196,7 @@ msgstr ""
 "Opdatering afbrudt.\n"
 "Kunne ikke åbne fil."
 
-#: app/dictionaryupdatemanager.cpp:103
+#: app/dictionaryupdatemanager.cpp:102
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -205,17 +205,17 @@ msgstr ""
 "Opdatering afbrudt.\n"
 "Filen med opdateringsinformation har en ugyldig dato."
 
-#: app/dictionaryupdatemanager.cpp:285
+#: app/dictionaryupdatemanager.cpp:284
 #, kde-format
 msgid "You already have the latest updates."
 msgstr "Du har allerede de seneste opdateringer."
 
-#: app/dictionaryupdatemanager.cpp:287
+#: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr "Opdatering af dine ordbøger blev gennemført."
 
-#: app/dictionaryupdatemanager.cpp:289
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -229,7 +229,7 @@ msgstr ""
 "Kunne ikke opdatere:\n"
 "%2"
 
-#: app/dictionaryupdatemanager.cpp:291
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid ""
 "Failed to update:\n"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:46+0000\n"
+"POT-Creation-Date: 2023-01-14 00:52+0000\n"
 "PO-Revision-Date: 2022-02-20 22:22+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -163,12 +163,12 @@ msgstr "표시"
 msgid "Results Sorting"
 msgstr "결과 정렬"
 
-#: app/dictionaryupdatemanager.cpp:46
+#: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr "사전 업데이트 확인(&U)"
 
-#: app/dictionaryupdatemanager.cpp:78
+#: app/dictionaryupdatemanager.cpp:77
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -177,7 +177,7 @@ msgstr ""
 "업데이트가 취소되었습니다.\n"
 "파일을 읽을 수 없습니다."
 
-#: app/dictionaryupdatemanager.cpp:87
+#: app/dictionaryupdatemanager.cpp:86
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -186,7 +186,7 @@ msgstr ""
 "업데이트가 취소되었습니다.\n"
 "파일을 열 수 없습니다."
 
-#: app/dictionaryupdatemanager.cpp:103
+#: app/dictionaryupdatemanager.cpp:102
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -195,17 +195,17 @@ msgstr ""
 "업데이트가 취소되었습니다.\n"
 "업데이트 정보 파일의 날짜가 잘못되었습니다."
 
-#: app/dictionaryupdatemanager.cpp:285
+#: app/dictionaryupdatemanager.cpp:284
 #, kde-format
 msgid "You already have the latest updates."
 msgstr "최신 업데이트가 설치되어 있습니다."
 
-#: app/dictionaryupdatemanager.cpp:287
+#: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr "사전을 업데이트했습니다."
 
-#: app/dictionaryupdatemanager.cpp:289
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -220,7 +220,7 @@ msgstr ""
 "업데이트 실패:\n"
 "%2"
 
-#: app/dictionaryupdatemanager.cpp:291
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid ""
 "Failed to update:\n"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:46+0000\n"
+"POT-Creation-Date: 2023-01-14 00:52+0000\n"
 "PO-Revision-Date: 2012-07-16 11:38+0700\n"
 "Last-Translator: Sok Sophea <sophea@khmeros.info>\n"
 "Language-Team: Khmer <>\n"
@@ -176,12 +176,12 @@ msgstr "បង្ហាញ"
 msgid "Results Sorting"
 msgstr "ការ​តម្រៀប​លទ្ធផល"
 
-#: app/dictionaryupdatemanager.cpp:46
+#: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr "ពិនិត្យមើល​បច្ចុប្បន្នភាព​វចនានុក្រម"
 
-#: app/dictionaryupdatemanager.cpp:78
+#: app/dictionaryupdatemanager.cpp:77
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -190,7 +190,7 @@ msgstr ""
 "បាន​បោះបង់​ការ​ធ្វើ​បច្ចុប្បន្នភាព ។\n"
 "មិន​អាច​អាន​ឯកសារ​បាន ។"
 
-#: app/dictionaryupdatemanager.cpp:87
+#: app/dictionaryupdatemanager.cpp:86
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -199,7 +199,7 @@ msgstr ""
 "បាន​បោះបង់​ការ​ធ្វើ​បច្ចុប្បន្នភាព ។\n"
 "មិន​អាច​បើក​ឯកសារ​បាន ។"
 
-#: app/dictionaryupdatemanager.cpp:103
+#: app/dictionaryupdatemanager.cpp:102
 #, kde-format
 msgid ""
 "Update canceled.\n"
@@ -208,17 +208,17 @@ msgstr ""
 "បាន​បោះបង់​ការ​ធ្វើ​បច្ចុប្បន្នភាព ។\n"
 "ឯកសារ​ព័ត៌មាន​បច្ចុប្បន្នភាព​មាន​ការ​កាលបរិច្ឆេទ​មិន​ត្រឹមត្រូវ ។"
 
-#: app/dictionaryupdatemanager.cpp:285
+#: app/dictionaryupdatemanager.cpp:284
 #, kde-format
 msgid "You already have the latest updates."
 msgstr "អ្នក​បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ​រួច​ហើយ ។"
 
-#: app/dictionaryupdatemanager.cpp:287
+#: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr "បាន​ធ្វើ​បច្ចុប្បន្នភាព​វចនានុក្រម​របស់​អ្នក​ដោយ​ជោគជ័យ ។"
 
-#: app/dictionaryupdatemanager.cpp:289
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -233,7 +233,7 @@ msgstr ""
 "បាន​បរាជ័យ​ក្នុង​ការ​ធ្វើ​បច្ចុប្បន្នភាព ៖\n"
 "%2"
 
-#: app/dictionaryupdatemanager.cpp:291
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid ""
 "Failed to update:\n"
