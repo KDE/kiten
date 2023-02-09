@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-29 00:41+0000\n"
-"PO-Revision-Date: 2023-01-12 08:24+0100\n"
+"PO-Revision-Date: 2023-02-08 07:51+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -467,6 +467,9 @@ msgid ""
 "generator.\n"
 "Also is main author of edict and kanjidic, which Kiten essentially require."
 msgstr ""
+"დაწერა xjdic, რომლის კოდზეც Kiten-ია აგებული და xjdic-ის ინდექსის ფაილის "
+"გენერატორი.\n"
+"ასევე kanjidic-ის მთავარი ავტორი, რომელიც Kiten-ს ესაჭიროება."
 
 #: app/main.cpp:50
 #, kde-format
@@ -524,6 +527,9 @@ msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
+"სისტემური გაუმჯობესებები, ლექსიკონის განახლებები EDICT-სთვის და KANJIDIC-"
+"სთვის, ინტერფეისის გაუმჯობესებები, კანჯის ბრაუზერი, შეცდომების გასწორება, "
+"კოდის გალამაზება და გამარტივება"
 
 #: app/searchstringinput.cpp:29
 #, kde-format
@@ -738,7 +744,7 @@ msgstr "მნიშვნელობები: "
 #: kanjibrowser/main.cpp:34
 #, kde-format
 msgid "Kiten's Kanji Browser, a KDE Japanese Reference Tool"
-msgstr ""
+msgstr "Kiten-ის კანჯის ბრაუზერი, KDE-ის იაპონური მმართვის პროგრამა"
 
 #: kanjibrowser/main.cpp:36
 #, kde-format
@@ -836,6 +842,7 @@ msgstr "ზედსართავი სახელი"
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
 msgstr ""
+"ზმნის გადატანის ინფორმაცია ვერ ვიპოვე, ამიტომ ზმნა გადატანილი არ იქნება."
 
 #: lib/DictEdict/deinflection.cpp:172
 #, kde-format
@@ -843,6 +850,7 @@ msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
 msgstr ""
+"ზმნის გადატანის ინფორმაციის ჩატვირთვის შეცდომა. ზმნა გადატანილი არ იქნება."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:27
 #, kde-format
@@ -882,12 +890,16 @@ msgstr "არაჩვეულებრივი"
 msgid ""
 "Romaji information file not installed, so Romaji conversion cannot be used."
 msgstr ""
+"რომაჯის ინფორმაციის ფაილი დაყენებული არაა, ამიტომ რომაჯის გადაყვანის "
+"გამოყენება შეუძლებელია."
 
 #: lib/kromajiedit.cpp:40
 #, kde-format
 msgid ""
 "Romaji information could not be loaded, so Romaji conversion cannot be used."
 msgstr ""
+"რომაჯის ინფორმაციის ჩატვირთვის შეცდომა. ამიტომ რომაჯიში გადაყვანა "
+"შეუძლებელია."
 
 #: lib/kromajiedit.cpp:101
 #, kde-format
@@ -924,7 +936,7 @@ msgstr "(C) 2005 Joseph Kerian"
 #: radselect/main.cpp:32
 #, kde-format
 msgid "Electronic Dictionary Research and Development Group"
-msgstr ""
+msgstr "ელექტრონული ლექსიკონის კვლევისა და განვითარების ჯგუფი"
 
 #: radselect/main.cpp:32
 #, kde-format
@@ -933,6 +945,9 @@ msgid ""
 "are the property of the Electronic Dictionary Research and Development "
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
+"ეს პროგრამა იყენებს KANJIDIC და RADKFILE ლექსიკონის ფაილებს. ეს ფაილები "
+"ელექტრონული ლექსიკონის კვლევისა და განვითარების ჯგუფს ეკუთვნის და ჯგუფის "
+"ლიცენზიასთან შეთანხმებით ვრცელდება."
 
 #: radselect/main.cpp:39
 #, kde-format
@@ -974,7 +989,7 @@ msgstr "სუფთა ცა"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr ""
+msgstr "რადიკალების დაღმავალი სიხშირით დალაგება"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
@@ -1020,6 +1035,8 @@ msgid ""
 "Kanji radical information does not seem to be installed (file kiten/"
 "radkfile), this file is required for this app to function."
 msgstr ""
+"კანჯის რადიკალის ინფორმაცია როგორც ჩანს, დაყენებული არაა (ფაილი kiten/"
+"radkfile). ეს ფაილი აპის ფუნქციონირებისთვის აუცილებელია."
 
 #: radselect/radselectview.cpp:48
 #, kde-format
@@ -1027,6 +1044,8 @@ msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
+"როგორც ჩანს, კანჯის ლექსიკონი დაყენებული არაა (ფაილი kiten/kajidic). ათვლის "
+"ინფორმაცია ხელმიუწვდომელი იქნება."
 
 #: radselect/radselectview.cpp:64
 #, kde-format
