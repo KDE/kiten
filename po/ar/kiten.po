@@ -901,7 +901,7 @@ msgstr "مختار الراديكاليون "
 #: radselect/main.cpp:31
 #, kde-format
 msgid "A KDE Application"
-msgstr "تطبيق كدي"
+msgstr "تطبيق كِيدِي"
 
 #: radselect/main.cpp:33
 #, fuzzy, kde-format
