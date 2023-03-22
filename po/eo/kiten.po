@@ -1,13 +1,15 @@
 # translation of kiten.po to esperanto
+# Copyright (C) 2007 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2007.
 # Pierre-Marie Pédrot <pedrotpmx@wanadoo.fr>, 2007.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:52+0000\n"
-"PO-Revision-Date: 2007-12-05 01:35-0500\n"
-"Last-Translator: Pierre-Marie Pédrot <pedrotpmx@wanadoo.fr>\n"
+"PO-Revision-Date: 2023-03-20 22:43+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -214,9 +216,9 @@ msgid ""
 msgstr ""
 
 #: app/kiten.cpp:153 radselect/main.cpp:29
-#, fuzzy, kde-format
+#, kde-format
 msgid "Radical Selector"
-msgstr "Radikala elektilo"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
 #: app/kiten.cpp:159 kanjibrowser/kanjibrowserview.ui:26
@@ -242,9 +244,9 @@ msgid "Search &in Results"
 msgstr "Serĉi en la &rezultoj"
 
 #: app/kiten.cpp:194
-#, fuzzy, kde-format
+#, kde-format
 msgid "Focus result view"
-msgstr " rezultoj"
+msgstr ""
 
 #: app/kiten.cpp:221
 #, kde-format
@@ -252,9 +254,9 @@ msgid "Export List"
 msgstr "Eksporta listo"
 
 #: app/kiten.cpp:251
-#, fuzzy, kde-format
+#, kde-format
 msgid "Initializing Dictionaries"
-msgstr "Preparante la vortarojn"
+msgstr ""
 
 #: app/kiten.cpp:264
 #, kde-format
@@ -267,11 +269,11 @@ msgid "Searching..."
 msgstr "Serĉante..."
 
 #: app/kiten.cpp:436
-#, fuzzy, kde-format
+#, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
-msgstr[0] " rezultoj"
-msgstr[1] " rezultoj"
+msgstr[0] ""
+msgstr[1] ""
 
 #: app/kiten.cpp:438
 #, kde-format
@@ -329,9 +331,9 @@ msgstr "Usklecodistinga serĉado"
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:63
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enable Sorting By Dictionary"
-msgstr "Preparante la vortarojn"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:67
@@ -371,9 +373,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:103
-#, fuzzy, kde-format
+#, kde-format
 msgid "Automatically search for clipboard entries?"
-msgstr "&Aŭtomate serĉi en la poŝenhavo"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: app/kitenui.rc:6 kanjibrowser/kanjibrowserui.rc:6
@@ -383,21 +385,21 @@ msgstr "&Dosiero"
 
 #. i18n: ectx: ToolBar (mainToolbar)
 #: app/kitenui.rc:34 kanjibrowser/kanjibrowserui.rc:15
-#, fuzzy, kde-format
+#, kde-format
 msgid "Main Toolbar"
-msgstr "&Serĉobreto"
+msgstr ""
 
 #. i18n: ectx: ToolBar (extraToolbar)
 #: app/kitenui.rc:46
-#, fuzzy, kde-format
+#, kde-format
 msgid "Extra Toolbar"
-msgstr "&Serĉobreto"
+msgstr ""
 
 #. i18n: ectx: ToolBar (searchToolbar)
 #: app/kitenui.rc:50
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search Toolbar"
-msgstr "&Serĉobreto"
+msgstr ""
 
 #: app/main.cpp:42
 #, kde-format
@@ -503,9 +505,9 @@ msgid ""
 msgstr ""
 
 #: app/searchstringinput.cpp:29
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter Type"
-msgstr "Vortotipo"
+msgstr ""
 
 #: app/searchstringinput.cpp:30
 #, kde-format
@@ -513,9 +515,9 @@ msgid "No filter"
 msgstr ""
 
 #: app/searchstringinput.cpp:31
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter out rare"
-msgstr "&Filtri maloftajn"
+msgstr ""
 
 #: app/searchstringinput.cpp:32
 #, kde-format
@@ -543,14 +545,14 @@ msgid "Match Ending"
 msgstr ""
 
 #: app/searchstringinput.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "Match Anywhere"
-msgstr "Serĉi ĉi&e"
+msgstr ""
 
 #: app/searchstringinput.cpp:42
-#, fuzzy, kde-format
+#, kde-format
 msgid "Word Type"
-msgstr "Vortotipo"
+msgstr ""
 
 #: app/searchstringinput.cpp:43
 #, kde-format
@@ -558,24 +560,24 @@ msgid "Any"
 msgstr ""
 
 #: app/searchstringinput.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Verb"
-msgstr "verbo"
+msgstr ""
 
 #: app/searchstringinput.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Noun"
-msgstr "nomo"
+msgstr ""
 
 #: app/searchstringinput.cpp:46
-#, fuzzy, kde-format
+#, kde-format
 msgid "Adjective"
-msgstr "adjektivo"
+msgstr ""
 
 #: app/searchstringinput.cpp:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "Adverb"
-msgstr "adverbo"
+msgstr ""
 
 #: app/searchstringinput.cpp:48
 #, kde-format
@@ -630,9 +632,9 @@ msgid "Could not load the necessary kanji information."
 msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:216
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kanji &List"
-msgstr "Kanĝio"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:219
 #, kde-format
@@ -650,9 +652,9 @@ msgid "Grade %1 (Jinmeiyou)"
 msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:230
-#, fuzzy, kde-format
+#, kde-format
 msgid "Grade %1"
-msgstr "&Nivelo"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -672,9 +674,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:279
-#, fuzzy, kde-format
+#, kde-format
 msgid "Grade:"
-msgstr "&Nivelo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
 #: kanjibrowser/kanjibrowserview.cpp:281 radselect/radical_selector.ui:102
@@ -703,19 +705,19 @@ msgid "As radical: "
 msgstr "Kiel radiko:"
 
 #: kanjibrowser/kanjibrowserview.cpp:318
-#, fuzzy, kde-format
+#, kde-format
 msgid "Meaning: "
-msgstr "Signifo"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:320
-#, fuzzy, kde-format
+#, kde-format
 msgid "Meanings: "
-msgstr "Signifo"
+msgstr ""
 
 #: kanjibrowser/main.cpp:34
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kiten's Kanji Browser, a KDE Japanese Reference Tool"
-msgstr "Referenca japanlingvilo"
+msgstr ""
 
 #: kanjibrowser/main.cpp:36
 #, kde-format
@@ -731,9 +733,9 @@ msgstr "Preferencoj"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: kanjibrowser/preferences.ui:20
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kanji List"
-msgstr "Kanĝio"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (toolTip), widget (QLabel, resultListFontSize_label)
@@ -758,55 +760,55 @@ msgstr "Uzu tion por agordi la butonan tiparon"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kanji font:"
-msgstr "Kanĝio"
+msgstr ""
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
 #: kanjibrowser/preferences.ui:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "漢字"
-msgstr "漢字 かな"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: kanjibrowser/preferences.ui:77
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kanji Information"
-msgstr "Kanĝio"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiSizeLabel)
 #: kanjibrowser/preferences.ui:97
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kanji size:"
-msgstr "Kanĝio"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, _kanaFontLabel)
 #: kanjibrowser/preferences.ui:121
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kana font:"
-msgstr "Kanĝio"
+msgstr ""
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
 #: kanjibrowser/preferences.ui:128
-#, fuzzy, kde-format
+#, kde-format
 msgid "かな"
-msgstr "漢字 かな"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, _labelFontLabel)
 #: kanjibrowser/preferences.ui:151
-#, fuzzy, kde-format
+#, kde-format
 msgid "Label font:"
-msgstr "Kanĝio"
+msgstr ""
 
 #: lib/DictEdict/deinflection.cpp:117
-#, fuzzy, kde-format
+#, kde-format
 msgid "verb"
-msgstr "verbo"
+msgstr ""
 
 #: lib/DictEdict/deinflection.cpp:119
-#, fuzzy, kde-format
+#, kde-format
 msgid "adjective"
-msgstr "adjektivo"
+msgstr ""
 
 #: lib/DictEdict/deinflection.cpp:145
 #, kde-format
@@ -824,9 +826,9 @@ msgstr ""
 "Verbomalfleksiiga informo ne ŝargeblis, do verbomalfleksiigo ne uzeblas."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Available Fields:"
-msgstr "&Uzeblaj listaj kampoj:"
+msgstr ""
 
 #: lib/entry.cpp:162
 #, kde-format
@@ -834,9 +836,9 @@ msgid "; "
 msgstr "; "
 
 #: lib/entrylist.cpp:105
-#, fuzzy, kde-format
+#, kde-format
 msgid "From Dictionary:"
-msgstr "Vortaroj"
+msgstr ""
 
 #: lib/entrylist.cpp:122
 #, kde-format
@@ -969,18 +971,16 @@ msgstr "Fermi radselect kiam vi presas serĉi"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
-#, fuzzy, kde-format
-#| msgid "Search &in Results"
+#, kde-format
 msgid "Search Results Font:"
-msgstr "Serĉi en la &rezultoj"
+msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
-#, fuzzy, kde-format
-#| msgid "Use this to adjust the button font"
+#, kde-format
 msgid "Use this to adjust the result list font"
-msgstr "Uzu tion por agordi la butonan tiparon"
+msgstr ""
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1005,73 +1005,26 @@ msgstr ""
 "dosiero bezonatas por funkciigi la programon."
 
 #: radselect/radselectview.cpp:46
-#, fuzzy, kde-format
-#| msgid ""
-#| "Kanji radical information does not seem to be installed (file kiten/"
-#| "radkfile), this file is required for this app to function."
+#, kde-format
 msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
-"Kanĝiradikala informo ŝajne ne instalatas (dosiero kiten/radkfile), ĉi tiu "
-"dosiero bezonatas por funkciigi la programon."
 
 #: radselect/radselectview.cpp:62
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Minimum number of strokes for a kanji"
 msgid "Min"
-msgstr "Min"
+msgstr ""
 
 #: radselect/radselectview.cpp:63
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Maximum number of strokes for a kanji"
 msgid "Max"
-msgstr "Maks"
+msgstr ""
 
 #: radselect/radselectview.cpp:107
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
-msgstr "(ĈIUJ"
-
-#~ msgid "kitenradselect"
-#~ msgstr "kitenradselect"
-
-#, fuzzy
-#~ msgctxt "This must be a single word"
-#~ msgid "Noun"
-#~ msgstr "nomo"
-
-#, fuzzy
-#~ msgctxt "This must be a single word"
-#~ msgid "Verb"
-#~ msgstr "verbo"
-
-#, fuzzy
-#~ msgctxt "This must be a single word"
-#~ msgid "Adjective"
-#~ msgstr "adjektivo"
-
-#, fuzzy
-#~ msgctxt "This must be a single word"
-#~ msgid "Adverb"
-#~ msgstr "adverbo"
-
-#, fuzzy
-#~ msgctxt "This must be a single word"
-#~ msgid "Particle"
-#~ msgstr "partikulo"
-
-#, fuzzy
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated (except possibly in far-eastern languages), this must be a "
-#~ "single word"
-#~ msgid "Ichidan"
-#~ msgstr "Ichidan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Godan"
-#~ msgstr "Godan"
+msgstr ""
