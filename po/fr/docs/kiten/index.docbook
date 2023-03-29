@@ -107,7 +107,7 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 >Chercher des Mots</title>
 
 <para
->Pour chercher des mots dans une des deux langues, saisissez-les dans le champ de saisie (ressemblant  à la barre d'emplacement de &konqueror;) et appuyez sur la touche &Enter; ou le bouton <guilabel
+>Pour chercher des mots dans une des deux langues, saisissez-les dans le champ de saisie (ressemblant à la barre d'emplacement de &konqueror;) et appuyez sur la touche &Enter; ou le bouton <guilabel
 >Recherche</guilabel
 > sur la barre d'outils (encore une fois, comme sur &konqueror;). &kiten; recherchera alors le mot.</para>
 
@@ -210,7 +210,7 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 ><guimenuitem
 >Correspondance au début</guimenuitem
 ></menuchoice
->. De la même manière, pour chercher la fin d'un mot ou n'importe où dans le mot,  sélectionnez <menuchoice
+>. De la même manière, pour chercher la fin d'un mot ou n'importe où dans le mot, sélectionnez <menuchoice
 ><guimenu
 >Recherche</guimenu
 ><guisubmenu
@@ -581,7 +581,7 @@ until you get used to handling Japanese verb forms.
 	<para
 >Joe Kerian <email
 >jkerian@gmail.com</email
-> -  Réécriture pour &kde; 4.</para>
+> - Réécriture pour &kde; 4.</para>
 </listitem>
 <listitem>
   <para
