@@ -122,7 +122,7 @@ msgid ""
 msgstr ""
 "Le mode « Apprentissage » est désactivé dans cette version de Kiten. Il "
 "existe de nombreux excellents programmes libres sur cartes mémoire, comme <a "
-"href=\"https://apps.kde.org/parley\">Parley</a> ainsi que le  <a href="
+"href=\"https://apps.kde.org/parley\">Parley</a> ainsi que le <a href="
 "\"https://apps.ankiweb.net\">projet Anki</a>."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
