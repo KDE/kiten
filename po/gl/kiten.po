@@ -6,13 +6,13 @@
 # Xosé <xosecalvo@gmail.com>, 2010, 2011, 2012.
 # Marce Villarino <mvillarino@kde-espana.org>, 2013, 2014.
 # Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-14 00:52+0000\n"
-"PO-Revision-Date: 2019-11-17 09:28+0100\n"
+"PO-Revision-Date: 2023-04-28 20:40+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.03.70\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -44,7 +44,7 @@ msgstr "Selector de dicionario"
 #: app/configdictselect.ui:25
 #, kde-format
 msgid "Use prei&nstalled dict"
-msgstr "Empregar o dicionario prei&nstalado"
+msgstr "Usar o dicionario i&nstalado"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:56
@@ -96,12 +96,7 @@ msgstr "Aprender"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: app/configlearn.ui:19
-#, fuzzy, kde-format
-#| msgid ""
-#| "Learn mode is disabled in this version of kiten. There are several "
-#| "excellent open source flashcard programs available, such as Parley in kde-"
-#| "edu (and probably in your distro's repositories), and the anki project "
-#| "(http://www.ichi2.net/anki)"
+#, kde-format
 msgid ""
 "Learn mode is disabled in this version of kiten. There are several excellent "
 "open source flashcard programs available, such as <a href=\"https://apps.kde."
@@ -110,8 +105,8 @@ msgid ""
 msgstr ""
 "O modo de aprendizaxe está desactivado nesta versión de kiten. Hai "
 "dispoñíbeis varios programas excelentes de aprendizaxe mediante xogos de "
-"cartas, como Parley en kde-edu (que posibelmente estea nos repositorios da "
-"súa distribución), e o proxecto anki (http://www.ichi2.net/anki)"
+"cartas, como <a href=\"https://apps.kde.org/parley\">Parley</a> e o <a href="
+"\"https://apps.ankiweb.net\">proxecto Anki</a>."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
 #: app/configsearching.ui:13 app/configuredialog.cpp:45
@@ -323,7 +318,7 @@ msgstr "Ficheiros de dicionario edict"
 #: app/kiten.kcfg:28
 #, kde-format
 msgid "Use preinstalled edict"
-msgstr "Empregar o edict preinstalado"
+msgstr "Usar o edict instalado"
 
 #. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
 #. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
@@ -342,7 +337,7 @@ msgstr "Ficheiros de dicionario Kanjidic"
 #: app/kiten.kcfg:42
 #, kde-format
 msgid "Use preinstalled kanjidic"
-msgstr "Empregar o kanjidic preinstalado"
+msgstr "Usar o kanjidic instalado"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:53
@@ -492,7 +487,7 @@ msgstr "Neil Stevens"
 #: app/main.cpp:58
 #, kde-format
 msgid "Code simplification, UI suggestions."
-msgstr "Simplificación do código, suxestións para a inteface."
+msgstr "Simplificación do código, suxestións para a interface."
 
 #: app/main.cpp:59
 #, kde-format
@@ -540,9 +535,9 @@ msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
-"Melloras do sistema de deinflexión, actualizacións dos dicionarios de EDICT "
-"e KANJIDIC, melloras na inteface gráfica, navegador de kanji, fallos, "
-"limpeza do código e simplificación"
+"Melloras do sistema de deflexión, actualizacións dos dicionarios de EDICT e "
+"KANJIDIC, melloras na interface gráfica, navegador de Kanji, fallos, limpeza "
+"do código e simplificación"
 
 #: app/searchstringinput.cpp:29
 #, kde-format
@@ -662,10 +657,9 @@ msgid "About %1"
 msgstr "Sobre %1"
 
 #: kanjibrowser/kanjibrowserview.cpp:191
-#, fuzzy, kde-format
-#| msgid "&To Clipboard"
+#, kde-format
 msgid "Copy %1 to clipboard"
-msgstr "Para o por&tapapeis"
+msgstr "Copiar %1 no portapapeis"
 
 #: kanjibrowser/kanjibrowserview.cpp:206
 #, kde-format
@@ -857,8 +851,8 @@ msgstr "adxectivo"
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
 msgstr ""
-"Non se atopa información sobre a lematización dos verbos, polo que non pode "
-"empregarse."
+"Non se atopou a información sobre conxugacións verbais, polo que non se pode "
+"obter un verbo dunha conxugación."
 
 #: lib/DictEdict/deinflection.cpp:153
 #, kde-format
@@ -866,8 +860,8 @@ msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
 msgstr ""
-"Non se puido cargar a información sobre a lematización dos verbos, polo que "
-"non pode empregarse."
+"Non se puido cargar a información sobre conxugacións verbais, polo que non "
+"se pode obter un verbo dunha conxugación."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:26
 #, kde-format
@@ -953,7 +947,7 @@ msgstr "© 2005 Joseph Kerian"
 #: radselect/main.cpp:38
 #, kde-format
 msgid "Electronic Dictionary Research and Development Group"
-msgstr ""
+msgstr "Electronic Dictionary Research and Development Group"
 
 #: radselect/main.cpp:39
 #, kde-format
@@ -962,6 +956,9 @@ msgid ""
 "are the property of the Electronic Dictionary Research and Development "
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
+"Este programa usa os ficheiros de dicionario KANJIDIC e RADKFILE. Estes "
+"ficheiros son propiedade do Electronic Dictionary Research and Development "
+"Group, e úsanse nos termos que permite a súa licenza."
 
 #: radselect/main.cpp:49
 #, kde-format
@@ -1003,7 +1000,7 @@ msgstr "Borrar"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr ""
+msgstr "Mostrar os radicais en orde de frecuencia descendente"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
@@ -1019,18 +1016,16 @@ msgstr "Pechar o selector de radicais cando prema buscar"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
-#, fuzzy, kde-format
-#| msgid "Search &in Results"
+#, kde-format
 msgid "Search Results Font:"
-msgstr "Buscar &nos resultados"
+msgstr "Fonte dos resultados de busca:"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
-#, fuzzy, kde-format
-#| msgid "Use this to adjust the button font"
+#, kde-format
 msgid "Use this to adjust the result list font"
-msgstr "Use isto para axustar a fonte do botón"
+msgstr "Use isto para axustar a fonte da lista de resultados"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1055,16 +1050,13 @@ msgstr ""
 "radkfile), e é preciso para que este aplicativo funcione."
 
 #: radselect/radselectview.cpp:46
-#, fuzzy, kde-format
-#| msgid ""
-#| "Kanji radical information does not seem to be installed (file kiten/"
-#| "radkfile), this file is required for this app to function."
+#, kde-format
 msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
-"Non semella estar instalada a información do radical Kanji (ficheiro kiten/"
-"radkfile), e é preciso para que este aplicativo funcione."
+"O dicionario de Kanji non parece estar instalado (ficheiro kiten/kanjidic), "
+"a información de número de trazos non estará dispoñíbel."
 
 #: radselect/radselectview.cpp:62
 #, kde-format
