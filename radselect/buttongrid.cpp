@@ -33,10 +33,6 @@ ButtonGrid::ButtonGrid(QWidget *parent, RadicalFile *radicalInfo)
     }
 }
 
-ButtonGrid::~ButtonGrid()
-{
-}
-
 void ButtonGrid::buildRadicalButtons()
 {
     if (layout()) {

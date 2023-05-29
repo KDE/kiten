@@ -13,8 +13,8 @@
 #include <KLocalizedString>
 
 #include <cassert>
+#include <cstdio>
 #include <iostream>
-#include <stdio.h>
 #include <sys/mman.h>
 
 /**
@@ -51,11 +51,6 @@ Entry::Entry(const Entry &src)
     , sourceDict(src.sourceDict)
 {
     outputListDelimiter = src.outputListDelimiter;
-}
-
-Entry::~Entry()
-{
-    //   kdDebug() << "nuking : " << Word << endl;
 }
 
 bool Entry::extendedItemCheck(const QString &key, const QString &value) const

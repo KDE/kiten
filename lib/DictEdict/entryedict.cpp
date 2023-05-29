@@ -245,7 +245,7 @@ bool EntryEdict::loadEntry(const QString &entryLine)
     remainingLine = remainingLine.left(remainingLine.lastIndexOf('/'));
     Meanings = remainingLine.split('/', Qt::SkipEmptyParts);
 
-    if (Meanings.size() == 0) {
+    if (Meanings.empty()) {
         return false;
     }
 

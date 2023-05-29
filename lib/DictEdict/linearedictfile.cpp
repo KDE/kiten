@@ -17,10 +17,6 @@ LinearEdictFile::LinearEdictFile()
 {
 }
 
-LinearEdictFile::~LinearEdictFile()
-{
-}
-
 /**
  * Get everything that looks remotely like a given search string
  */

@@ -42,7 +42,7 @@ public:
     /**
      * Basic destructor
      */
-    ~DictionaryPreferenceDialog() override;
+    ~DictionaryPreferenceDialog() override = default;
     /**
      * Get the dictionary type name associated with this dialog
      */

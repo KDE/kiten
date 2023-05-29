@@ -23,14 +23,10 @@
 
 KanjiBrowserView::KanjiBrowserView(QWidget *parent)
     : QWidget(parent)
-    , _currentKanji(0)
+    , _currentKanji(nullptr)
 {
     setupUi(this);
     loadSettings();
-}
-
-KanjiBrowserView::~KanjiBrowserView()
-{
 }
 
 void KanjiBrowserView::changeGrade(const int grade)

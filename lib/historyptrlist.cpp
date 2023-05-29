@@ -64,7 +64,7 @@ void HistoryPtrList::addItem(EntryList *newItem)
 
     // One other odd case... if this query is a repeat of the last query
     // replace the current one with the new one
-    if (d->list.size() > 0) {
+    if (!d->list.empty()) {
         if (current()->getQuery() == newItem->getQuery()) {
             temp = d->list.takeLast();
             temp->deleteAll();
@@ -84,7 +84,7 @@ int HistoryPtrList::count()
 EntryList *HistoryPtrList::current()
 {
     if (d->index == -1) {
-        return NULL;
+        return nullptr;
     }
 
     return d->list.at(d->index);

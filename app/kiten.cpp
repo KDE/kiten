@@ -365,7 +365,7 @@ void Kiten::searchAndDisplay(const DictQuery &query)
     EntryList *results = _dictionaryManager.doSearch(query);
 
     /* if there are no results */
-    if (results->size() == 0) // TODO: check here if the user actually prefers this
+    if (results->empty()) // TODO: check here if the user actually prefers this
     {
         // create a modifiable copy of the original query
         DictQuery newQuery(query);
@@ -391,7 +391,7 @@ void Kiten::searchAndDisplay(const DictQuery &query)
                 results = _dictionaryManager.doSearch(newQuery);
 
                 // results means all is ok; don't try again
-                if (results->size() > 0) {
+                if (!results->empty()) {
                     tryAgain = false;
                 }
             }
@@ -681,7 +681,7 @@ void Kiten::addHistory(EntryList *result)
 /**
  * This goes back one item in the history and displays
  */
-void Kiten::back(void)
+void Kiten::back()
 {
     _historyList.prev();
     displayHistoryItem();
@@ -690,7 +690,7 @@ void Kiten::back(void)
 /**
  * This goes forward one item in the history and displays
  */
-void Kiten::forward(void)
+void Kiten::forward()
 {
     _historyList.next();
     displayHistoryItem();

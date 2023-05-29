@@ -73,10 +73,6 @@ KRomajiEdit::KRomajiEdit(QWidget *parent)
     m_kana = "english";
 }
 
-KRomajiEdit::~KRomajiEdit()
-{
-}
-
 QMenu *KRomajiEdit::createPopupMenu()
 {
     QMenu *menu;

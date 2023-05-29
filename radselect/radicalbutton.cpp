@@ -19,10 +19,6 @@ RadicalButton::RadicalButton(const QString &text, QWidget *parent)
     setCheckable(true);
 }
 
-RadicalButton::~RadicalButton()
-{
-}
-
 bool RadicalButton::event(QEvent *event)
 {
     // This button does not handle wheel events, and unlike
@@ -45,7 +41,7 @@ QSize RadicalButton::minimumSizeHint() const
     //	QStyleOptionButton opt;
     //	opt.initFrom(this);
     //	QRect rect = kapp->style()->subElementRect(QStyle::SE_PushButtonContents,&opt,this);
-    return QSize(width, height);
+    return {width, height};
 }
 
 void RadicalButton::mousePressEvent(QMouseEvent *e)

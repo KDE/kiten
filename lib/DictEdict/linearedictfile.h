@@ -24,7 +24,7 @@ public:
      * Create and initialize this object
      */
     LinearEdictFile();
-    ~LinearEdictFile();
+    ~LinearEdictFile() = default;
 
     /**
      * Load a file, generate the index if it doesn't already exist

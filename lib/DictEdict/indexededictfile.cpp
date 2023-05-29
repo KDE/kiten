@@ -177,7 +177,7 @@ QVector<QString> IndexedEdictFile::findMatches(const QString &query) const
         possibleHits.push_back(m_indexPtr[matchLocation - 1] + i - 1);
     } while (matchLocation < indexSize && 0 == equalOrSubstring(searchString, currentWord));
 
-    if (possibleHits.size() <= 0) {
+    if (possibleHits.empty()) {
         return results;
     }
 
@@ -331,7 +331,7 @@ inline unsigned char IndexedEdictFile::lookupDictChar(uint32_t i) const
 QByteArray IndexedEdictFile::lookupDictLine(uint32_t i) const
 {
     if (i > static_cast<uint32_t>(m_dictFile.size()) /*|| i < 0*/) {
-        return QByteArray("");
+        return {""};
     }
 
     uint32_t start = m_indexPtr[i] - 1;
@@ -355,7 +355,7 @@ QByteArray IndexedEdictFile::lookupDictLine(uint32_t i) const
 QByteArray IndexedEdictFile::lookupFullLine(uint32_t i) const
 {
     if (i > static_cast<uint32_t>(m_dictFile.size()) /*|| i < 0*/) {
-        return QByteArray(0x0A, 1); // If out of bounds, return endl
+        return {0x0A, 1}; // If out of bounds, return endl
     }
 
     uint32_t start = i;

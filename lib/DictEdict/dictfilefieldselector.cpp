@@ -47,10 +47,6 @@ DictFileFieldSelector::DictFileFieldSelector(KConfigSkeleton *config, const QStr
     updateWidgets();
 }
 
-DictFileFieldSelector::~DictFileFieldSelector()
-{
-}
-
 void DictFileFieldSelector::addAvailable(const QStringList &list)
 {
     m_completeList += list;

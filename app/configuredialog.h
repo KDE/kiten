@@ -21,7 +21,7 @@ class ConfigureDialog : public KConfigDialog
 
 public:
     explicit ConfigureDialog(QWidget *parent = nullptr, KitenConfigSkeleton *config = nullptr);
-    ~ConfigureDialog() override;
+    ~ConfigureDialog() override = default;
 
 Q_SIGNALS:
     void settingsChangedSignal();

@@ -36,7 +36,7 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config)
     : KConfigDialog(parent, QStringLiteral("Settings"), config)
 {
     // TODO: Figure out why these pages are unmanaged... is this needed?
-    addPage(makeDictionaryFileSelectionPage(NULL, config), i18n("Dictionaries"), QStringLiteral("help-contents"));
+    addPage(makeDictionaryFileSelectionPage(nullptr, config), i18n("Dictionaries"), QStringLiteral("help-contents"));
 
     QWidget *widget;
     widget = new QWidget();
@@ -54,10 +54,10 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config)
     cf.setupUi(widget);
     addPage(widget, i18n("Font"), QStringLiteral("preferences-desktop-font"));
 
-    addPage(makeDictionaryPreferencesPage(NULL, config),
+    addPage(makeDictionaryPreferencesPage(nullptr, config),
             i18nc("@title:group the settings for the dictionary display", "Display"),
             QStringLiteral("format-indent-more"));
-    addPage(makeSortingPage(NULL, config), i18n("Results Sorting"), QStringLiteral("format-indent-more"));
+    addPage(makeSortingPage(nullptr, config), i18n("Results Sorting"), QStringLiteral("format-indent-more"));
 
     setHelp(QString(), QStringLiteral("kiten"));
 
@@ -67,10 +67,6 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config)
 void ConfigureDialog::updateConfiguration()
 {
     Q_EMIT settingsChanged(QString());
-}
-
-ConfigureDialog::~ConfigureDialog()
-{
 }
 
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, KitenConfigSkeleton *config)

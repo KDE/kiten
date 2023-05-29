@@ -23,7 +23,7 @@ class ButtonGrid : public QWidget
 
 public:
     ButtonGrid(QWidget *parent, RadicalFile *radicalInfo);
-    ~ButtonGrid() override;
+    ~ButtonGrid() override = default;
 
 Q_SIGNALS:
     /**

@@ -320,7 +320,7 @@ DictFile *DictionaryManager::makeDictFile(const QString &type)
 
     // Add new dictionary types here!!!
 
-    return NULL;
+    return nullptr;
 }
 
 void DictionaryManager::removeAllDictionaries()

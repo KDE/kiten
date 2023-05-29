@@ -29,7 +29,7 @@ class KITEN_EXPORT DictFileKanjidic : public DictFile
 
 public:
     DictFileKanjidic();
-    ~DictFileKanjidic() override;
+    ~DictFileKanjidic() override = default;
 
     QMap<QString, QString> displayOptions() const;
     EntryList *doSearch(const DictQuery &query) override;

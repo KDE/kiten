@@ -63,7 +63,7 @@ public:
     /**
      * Generic Destructor
      */
-    virtual ~Entry();
+    virtual ~Entry() = default;
     /**
      * A clone method, this should just implement "return new EntrySubClass(*this)"
      */

@@ -93,7 +93,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const
 {
     unsigned int max = count();
     if (start > max) {
-        return QString();
+        return {};
     }
     if (start + length > max) {
         length = max - start;
@@ -167,7 +167,7 @@ QString EntryList::toKVTML(unsigned int start, unsigned int length) const
 {
     unsigned int max = count();
     if (start > max) {
-        return QString();
+        return {};
     }
     if (start + length > max) {
         length = max - start;
@@ -200,7 +200,7 @@ QString EntryList::toString(unsigned int start, unsigned int length) const
 {
     unsigned int max = count();
     if (start > max) {
-        return QString();
+        return {};
     }
     if (start + length > max) {
         length = max - start;
@@ -233,7 +233,7 @@ void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder)
 
     std::stable_sort(this->begin(), this->end(), sorter);
     d->sorted = true;
-    d->sortedByDictionary = dictionaryOrder.size() > 0;
+    d->sortedByDictionary = !dictionaryOrder.empty();
 }
 
 const EntryList &EntryList::operator+=(const EntryList &other)
@@ -241,7 +241,7 @@ const EntryList &EntryList::operator+=(const EntryList &other)
     foreach (Entry *it, other) {
         this->append(it);
     }
-    if (other.size() > 0) {
+    if (!other.empty()) {
         d->sorted = false;
     }
 
@@ -262,7 +262,7 @@ void EntryList::appendList(const EntryList *other)
         append(it);
     }
 
-    if (other->size() > 0) {
+    if (!other->empty()) {
         d->sorted = false;
     }
 }

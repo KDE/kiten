@@ -37,7 +37,7 @@ QString *DictFileEdict::wordType = nullptr;
  */
 DictFileEdict::DictFileEdict()
     : DictFile(EDICT)
-    , m_deinflection(0)
+    , m_deinflection(nullptr)
     , m_hasDeinflection(false)
 {
     m_dictionaryType = EDICT;
@@ -85,7 +85,7 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
                 // The nastiest situation... we have to assemble a search string
                 // from the first property
                 QList<QString> keys = query.listPropertyKeys();
-                if (keys.size() == 0) // Shouldn't happen... but maybe in the future
+                if (keys.empty()) // Shouldn't happen... but maybe in the future
                 {
                     return new EntryList();
                 }
@@ -102,7 +102,7 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
 
     QVector<QString> preliminaryResults = m_edictFile.findMatches(firstChoice);
 
-    if (preliminaryResults.size() == 0) // If there were no matches... return an empty list
+    if (preliminaryResults.empty()) // If there were no matches... return an empty list
     {
         return new EntryList();
     }

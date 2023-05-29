@@ -55,7 +55,7 @@ QString *Deinflection::getWordType()
 EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &preliminaryResults)
 {
     if (conjugationList == nullptr) {
-        return NULL;
+        return nullptr;
     }
 
     m_deinflectionLabel = QString();
@@ -96,7 +96,7 @@ EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &
                 entries->deleteAll();
                 delete entries;
                 delete results;
-                return NULL;
+                return nullptr;
             }
         }
 

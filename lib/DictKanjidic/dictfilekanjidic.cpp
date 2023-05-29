@@ -52,10 +52,6 @@ DictFileKanjidic::DictFileKanjidic()
     m_searchableAttributes.insert(QStringLiteral("other"), QStringLiteral("D"));
 }
 
-DictFileKanjidic::~DictFileKanjidic()
-{
-}
-
 QMap<QString, QString> DictFileKanjidic::displayOptions() const
 {
     // Enumerate the fields in our dict.... there are a rather lot of them here
@@ -101,7 +97,7 @@ EntryList *DictFileKanjidic::doSearch(const DictQuery &query)
             searchQuery = query.getMeaning().split(' ').first().toLower();
             if (searchQuery.length() == 0) {
                 QList<QString> keys = query.listPropertyKeys();
-                if (keys.size() == 0) {
+                if (keys.empty()) {
                     return new EntryList();
                 }
                 searchQuery = keys[0];
@@ -127,7 +123,7 @@ EntryList *DictFileKanjidic::doSearch(const DictQuery &query)
 QStringList DictFileKanjidic::dumpDictionary()
 {
     if (!m_validKanjidic) {
-        return QStringList();
+        return {};
     }
 
     return m_kanjidic;

@@ -19,7 +19,7 @@ class RadicalButton : public QPushButton
 
 public:
     RadicalButton(const QString &text, QWidget *parent);
-    ~RadicalButton() override;
+    ~RadicalButton() override = default;
     /**
      * Overriding QPushButton's event for mousewheel events on a disabled button
      */

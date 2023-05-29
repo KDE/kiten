@@ -36,9 +36,7 @@ private:
     /**
      * You are not allowed to create a dictFile subclass without specifying the type-name
      */
-    DictFile()
-    {
-    }
+    DictFile() = default;
 
 public:
     /**
@@ -52,9 +50,7 @@ public:
     /**
      * Destructor
      */
-    virtual ~DictFile()
-    {
-    }
+    virtual ~DictFile() = default;
     /**
      * This method allows the user to test if a dictionary is the proper type for this format.
      * This process is allowed to take some time, but nonetheless you should find checking the format
@@ -118,7 +114,7 @@ public:
     {
         Q_UNUSED(parent);
         Q_UNUSED(config);
-        return NULL;
+        return nullptr;
     }
     /**
      * Load information from the KConfigSkeleton that you've setup in

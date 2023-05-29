@@ -23,7 +23,7 @@
 
 KanjiBrowser::KanjiBrowser()
     : KXmlGuiWindow()
-    , _dictFileKanjidic(0)
+    , _dictFileKanjidic(nullptr)
 {
     // Read the configuration file.
     _config = KanjiBrowserConfigSkeleton::self();

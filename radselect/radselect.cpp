@@ -134,7 +134,7 @@ void RadSelect::saveProperties(KConfigGroup &config)
 // is in some other way given priority.
 void RadSelect::sendSearch(const QStringList &kanji)
 {
-    if (kanji.size() == 0) {
+    if (kanji.empty()) {
         return;
     }
 
