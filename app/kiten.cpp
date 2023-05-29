@@ -223,7 +223,7 @@ void Kiten::setupExportListDock()
     _exportListDock->setWidget(_exportListDockContents);
     addDockWidget(Qt::RightDockWidgetArea, _exportListDock);
 
-    QVBoxLayout *layout = new QVBoxLayout(_exportListDockContents);
+    auto layout = new QVBoxLayout(_exportListDockContents);
     _exportListDockContents->setLayout(layout);
 
     _exportList = new EntryListView(_exportListDockContents);
@@ -235,7 +235,7 @@ void Kiten::setupExportListDock()
 
 void Kiten::addExportListEntry(int index)
 {
-    EntryListModel *model = qobject_cast<EntryListModel *>(_exportList->model());
+    auto model = qobject_cast<EntryListModel *>(_exportList->model());
     if (!model)
         return;
 

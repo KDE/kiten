@@ -61,7 +61,7 @@ EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &
     m_deinflectionLabel = QString();
     m_wordType = QString();
 
-    EntryList *entries = new EntryList();
+    auto entries = new EntryList();
 
     QStringList edictTypesList;
     edictTypesList.append(EdictFormatting::Adjectives);
@@ -83,10 +83,10 @@ EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &
             delete entry;
     }
 
-    EntryList *results = new EntryList();
+    auto results = new EntryList();
     EntryList::EntryIterator it(*entries);
     while (it.hasNext()) {
-        EntryEdict *entry = static_cast<EntryEdict *>(it.next());
+        auto entry = static_cast<EntryEdict *>(it.next());
 
         QString text = query.getWord();
         if (text.isEmpty()) {

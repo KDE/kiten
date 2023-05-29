@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     if (app.isSessionRestored()) {
         kRestoreMainWindows<KanjiBrowser>();
     } else {
-        KanjiBrowser *kanjiBrowser = new KanjiBrowser();
+        auto kanjiBrowser = new KanjiBrowser();
         kanjiBrowser->show();
     }
 

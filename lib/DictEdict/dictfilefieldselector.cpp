@@ -19,7 +19,7 @@ DictFileFieldSelector::DictFileFieldSelector(KConfigSkeleton *config, const QStr
     : DictionaryPreferenceDialog(parent, dictionaryTypeName)
     , m_dictName(dictionaryTypeName)
 {
-    QVBoxLayout *newTabLayout = new QVBoxLayout();
+    auto newTabLayout = new QVBoxLayout();
 
     // Make selection box
     m_listView = new KActionSelector();

@@ -125,7 +125,7 @@ void KanjiBrowser::showPreferences()
         return;
     }
 
-    QWidget *preferences = new QWidget();
+    auto preferences = new QWidget();
     Ui::preferences layout;
     layout.setupUi(preferences);
 

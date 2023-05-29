@@ -108,7 +108,7 @@ void RadSelect::optionsPreferences()
     }
 
     KConfigDialog *dialog = new KConfigDialog(this, QStringLiteral("settings"), RadSelectConfigSkeleton::self());
-    QWidget *preferences = new QWidget();
+    auto preferences = new QWidget();
     Ui::radselectprefdialog layout;
     layout.setupUi(preferences);
     dialog->addPage(preferences, i18n("Settings"), QStringLiteral("help-contents"));

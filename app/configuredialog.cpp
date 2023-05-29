@@ -71,7 +71,7 @@ void ConfigureDialog::updateConfiguration()
 
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, KitenConfigSkeleton *config)
 {
-    QTabWidget *tabWidget = new QTabWidget(parent);
+    auto tabWidget = new QTabWidget(parent);
 
     foreach (const QString &dict, config->dictionary_list()) {
         QWidget *newTab = new ConfigDictionarySelector(dict, tabWidget, config);
@@ -91,7 +91,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenCo
 {
     QStringList dictTypes = DictionaryManager::listDictFileTypes();
 
-    QTabWidget *tabWidget = new QTabWidget(parent);
+    auto tabWidget = new QTabWidget(parent);
 
     QMap<QString, DictionaryPreferenceDialog *> dialogList = DictionaryManager::generatePreferenceDialogs(config, parent);
 
@@ -108,7 +108,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenCo
 
 QWidget *ConfigureDialog::makeSortingPage(QWidget *parent, KitenConfigSkeleton *config)
 {
-    ConfigSortingPage *newPage = new ConfigSortingPage(parent, config);
+    auto newPage = new ConfigSortingPage(parent, config);
 
     connect(newPage, &ConfigSortingPage::widgetChanged, this, &KConfigDialog::widgetModified);
 

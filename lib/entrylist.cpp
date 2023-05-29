@@ -138,7 +138,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const
 
         if (getQuery().getFilterType() == DictQuery::CommonUncommon) {
             if (entry->getDictionaryType() == EDICT) {
-                EntryEdict *entryEdict = static_cast<EntryEdict *>(entry);
+                auto entryEdict = static_cast<EntryEdict *>(entry);
                 if (entryEdict->isCommon() && firstTimeCommon) {
                     result += QStringLiteral("<div class=\"CommonHeader\">%1</div>").arg(i18n("Common"));
                     firstTimeCommon = false;

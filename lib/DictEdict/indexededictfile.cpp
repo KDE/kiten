@@ -55,7 +55,7 @@ bool IndexedEdictFile::buildIndex()
 bool IndexedEdictFile::checkIndex() const
 {
     // Verify the index file version and size
-    uint32_t dictionaryLength = static_cast<uint32_t>(m_dictFile.size());
+    auto dictionaryLength = static_cast<uint32_t>(m_dictFile.size());
     dictionaryLength++;
     uint32_t indexVersionTest;
 
@@ -79,8 +79,8 @@ bool IndexedEdictFile::checkIndex() const
 int IndexedEdictFile::equalOrSubstring(const char *str1, const char *str2) const
 {
     for (unsigned i = 0;; ++i) {
-        unsigned char c1 = static_cast<unsigned char>(str1[i]);
-        unsigned char c2 = static_cast<unsigned char>(str2[i]);
+        auto c1 = static_cast<unsigned char>(str1[i]);
+        auto c2 = static_cast<unsigned char>(str2[i]);
 
         if (c1 == '\0') {
             return 0;
@@ -207,8 +207,8 @@ int IndexedEdictFile::findMatches(const char *str1, const char *str2) const
 #define EUC_LATIN_CHARACTER(x) (('a' <= x && x <= 'z') || (x == 0xA4) || (x == 0x80))
 
     for (unsigned i = 0;; ++i) {
-        unsigned char c1 = static_cast<unsigned char>(str1[i]);
-        unsigned char c2 = static_cast<unsigned char>(str2[i]);
+        auto c1 = static_cast<unsigned char>(str1[i]);
+        auto c2 = static_cast<unsigned char>(str2[i]);
 
         if ((i % 2) == 0) {
             // on the highbyte (of kana)

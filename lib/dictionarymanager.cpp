@@ -117,7 +117,7 @@ bool DictionaryManager::addDictionary(const QString &file, const QString &name, 
  */
 EntryList *DictionaryManager::doSearch(const DictQuery &query) const
 {
-    EntryList *ret = new EntryList();
+    auto ret = new EntryList();
 #if 0
   if( query.getMeaning() == "(libkiten)" )
   {
@@ -169,7 +169,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const
  */
 EntryList *DictionaryManager::doSearchInList(const DictQuery &query, const EntryList *list) const
 {
-    EntryList *ret = new EntryList();
+    auto ret = new EntryList();
 
     foreach (Entry *it, *list) {
         if (it->matchesQuery(query)) {

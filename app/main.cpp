@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     parser.process(app);
     aboutData.processCommandLine(&parser);
 
-    Kiten *kiten = new Kiten();
+    auto kiten = new Kiten();
 
     // Register the DBUS name or die
     if (!QDBusConnection::sessionBus().registerService(QStringLiteral("org.kde.kiten"))) {

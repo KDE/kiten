@@ -121,7 +121,7 @@ bool RadicalFile::loadKanjidic(const QString &kanjidic)
 
 QMultiMap<int, Radical> *RadicalFile::mapRadicalsByStrokes(int max_strokes) const
 {
-    QMultiMap<int, Radical> *result = new QMultiMap<int, Radical>();
+    auto result = new QMultiMap<int, Radical>();
     foreach (const Radical &rad, m_radicals) {
         int strokes = rad.strokes();
         if ((max_strokes > 0) && (strokes > max_strokes)) {

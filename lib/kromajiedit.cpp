@@ -81,7 +81,7 @@ QMenu *KRomajiEdit::createPopupMenu()
     menu->addSeparator();
 
     // Put our action group together
-    QActionGroup *group = new QActionGroup(menu);
+    auto group = new QActionGroup(menu);
 
     QAction *temp;
     temp = new QAction(i18nc("@option:radio selects english translation", "English"), group);

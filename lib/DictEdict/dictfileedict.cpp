@@ -107,11 +107,11 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
         return new EntryList();
     }
 
-    EntryList *results = new EntryList();
+    auto results = new EntryList();
     foreach (const QString &it, preliminaryResults) {
         //     qDebug() << "result: " << it << endl;
         Entry *result = makeEntry(it);
-        EntryEdict *resultEdict = static_cast<EntryEdict *>(result);
+        auto resultEdict = static_cast<EntryEdict *>(result);
         if (result->matchesQuery(query) && resultEdict->matchesWordType(query)) {
             results->append(result);
         } else {
@@ -141,11 +141,11 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
     }
 
     if (results) {
-        EntryList *common = new EntryList();
-        EntryList *uncommon = new EntryList();
+        auto common = new EntryList();
+        auto uncommon = new EntryList();
         EntryList::EntryIterator i(*results);
         while (i.hasNext()) {
-            EntryEdict *entry = static_cast<EntryEdict *>(i.next());
+            auto entry = static_cast<EntryEdict *>(i.next());
             if (entry->isCommon()) {
                 common->append(entry);
             } else {
@@ -160,10 +160,10 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
         delete common;
         delete uncommon;
 
-        EntryList *exact = new EntryList();
-        EntryList *beginning = new EntryList();
-        EntryList *ending = new EntryList();
-        EntryList *anywhere = new EntryList();
+        auto exact = new EntryList();
+        auto beginning = new EntryList();
+        auto ending = new EntryList();
+        auto anywhere = new EntryList();
         EntryList::EntryIterator it(*results);
         while (it.hasNext()) {
             Entry *entry = it.next();
@@ -283,7 +283,7 @@ inline Entry *DictFileEdict::makeEntry(const QString &entry)
 
 DictionaryPreferenceDialog *DictFileEdict::preferencesWidget(KConfigSkeleton *config, QWidget *parent)
 {
-    DictFileFieldSelector *dialog = new DictFileFieldSelector(config, getType(), parent);
+    auto dialog = new DictFileFieldSelector(config, getType(), parent);
     dialog->addAvailable(listDictDisplayOptions(QStringList()));
     return dialog;
 }

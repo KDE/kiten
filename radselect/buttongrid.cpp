@@ -44,7 +44,7 @@ void ButtonGrid::buildRadicalButtons()
     }
 
     // Setup the grid
-    QGridLayout *grid = new QGridLayout(this);
+    auto grid = new QGridLayout(this);
 
     // Now make labels
     for (unsigned int i = 0; i < number_of_radical_columns; i++) {
@@ -52,7 +52,7 @@ void ButtonGrid::buildRadicalButtons()
         if (i == (number_of_radical_columns - 1)) {
             headerString.append(QStringLiteral("+"));
         }
-        QLabel *header = new QLabel(headerString, this);
+        auto header = new QLabel(headerString, this);
         header->setAlignment(Qt::AlignHCenter);
         grid->addWidget(header, 0, i);
     }
@@ -70,7 +70,7 @@ void ButtonGrid::buildRadicalButtons()
         std::sort(radicals.begin(), radicals.end(), m_sortByFrequency ? Radical::compareFrequencies : Radical::compareIndices);
         foreach (const Radical &radical, radicals) {
             // Make the button
-            RadicalButton *button = new RadicalButton(radical.toString(), this);
+            auto button = new RadicalButton(radical.toString(), this);
             grid->addWidget(button, row_index++, column_index);
             // Bind slots/signals for this button
             connect(button, &RadicalButton::userClicked, this, &ButtonGrid::radicalClicked);

@@ -58,7 +58,7 @@ SearchStringInput::SearchStringInput(Kiten *parent)
     _parent->actionCollection()->setDefaultShortcut(_actionFocusInput, Qt::CTRL + Qt::Key_L);
     _actionFocusInput->setText(i18n("Focus input field"));
 
-    QWidgetAction *actionsearchbox = new QWidgetAction(this);
+    auto actionsearchbox = new QWidgetAction(this);
     actionsearchbox->setText(i18n("Search Bar"));
     actionsearchbox->setDefaultWidget(_actionTextInput);
     _parent->actionCollection()->addAction(QStringLiteral("searchbox"), actionsearchbox);

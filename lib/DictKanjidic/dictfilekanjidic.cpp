@@ -106,7 +106,7 @@ EntryList *DictFileKanjidic::doSearch(const DictQuery &query)
         }
     }
 
-    EntryList *results = new EntryList();
+    auto results = new EntryList();
     foreach (const QString &line, m_kanjidic) {
         if (line.contains(searchQuery)) {
             Entry *entry = makeEntry(line);

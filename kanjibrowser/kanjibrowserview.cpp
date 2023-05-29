@@ -188,7 +188,7 @@ void KanjiBrowserView::searchKanji(QListWidgetItem *item)
     _copyToClipboard->setVisible(true);
 
     Entry *result = _parent->_dictFileKanjidic->doSearch(DictQuery(item->text()))->first();
-    EntryKanjidic *kanji = static_cast<EntryKanjidic *>(result);
+    auto kanji = static_cast<EntryKanjidic *>(result);
     _currentKanji = kanji;
 
     showKanjiInformation(kanji);

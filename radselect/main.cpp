@@ -60,7 +60,7 @@ int main(int argc, char **argv)
     } else {
         // no session.. just start up normally
 
-        RadSelect *widget = new RadSelect();
+        auto widget = new RadSelect();
         widget->show();
 
         if (parser.positionalArguments().count() >= 1) {
