@@ -34,12 +34,12 @@ QSet<Kanji> RadicalFile::kanjiContainingRadicals(QSet<QString> &radicallist) con
     // Start out with our first set
     kanjiStringSet = m_radicals[*radicallist.begin()].getKanji();
     // Make a set intersection of these m_kanji
-    foreach (const QString &rad, radicallist) {
+    for (const QString &rad : radicallist) {
         kanjiStringSet &= m_radicals[rad].getKanji();
     }
 
     // Convert our set of QString to a set of Kanji
-    foreach (const QString &kanji, kanjiStringSet) {
+    for (const QString &kanji : kanjiStringSet) {
         result += m_kanji[kanji];
     }
 
@@ -77,7 +77,7 @@ bool RadicalFile::loadRadicalFile(QString &radkfile)
             const QList<QString> m_kanjiList = line.trimmed().split(QLatin1String(""), Qt::SkipEmptyParts);
             const QSet<QString> kanjiSet = QSet<QString>(m_kanjiList.begin(), m_kanjiList.end());
             newestRadical->addKanji(kanjiSet);
-            foreach (const QString &kanji, m_kanjiList) {
+            for (const QString &kanji : m_kanjiList) {
                 krad[kanji] += newestRadical->toString();
             }
         }
@@ -104,7 +104,7 @@ bool RadicalFile::loadKanjidic(const QString &kanjidic)
     dictFileKanjidic.loadDictionary(kanjidic, KANJIDIC);
 
     QRegExp strokeMatch("^S\\d+");
-    foreach (const QString &line, dictFileKanjidic.dumpDictionary()) {
+    for (const QString &line : dictFileKanjidic.dumpDictionary()) {
         const QString kanji = line[0];
 
         QStringList strokesSection = line.split(" ", Qt::SkipEmptyParts).filter(strokeMatch);
@@ -122,7 +122,7 @@ bool RadicalFile::loadKanjidic(const QString &kanjidic)
 QMultiMap<int, Radical> *RadicalFile::mapRadicalsByStrokes(int max_strokes) const
 {
     auto result = new QMultiMap<int, Radical>();
-    foreach (const Radical &rad, m_radicals) {
+    for (const Radical &rad : m_radicals) {
         int strokes = rad.strokes();
         if ((max_strokes > 0) && (strokes > max_strokes)) {
             strokes = max_strokes;
@@ -135,7 +135,7 @@ QMultiMap<int, Radical> *RadicalFile::mapRadicalsByStrokes(int max_strokes) cons
 QSet<QString> RadicalFile::radicalsInKanji(QSet<Kanji> &kanjilist) const
 {
     QSet<QString> possibleRadicals;
-    foreach (const QString &kanji, kanjilist) {
+    for (const QString &kanji : kanjilist) {
         possibleRadicals |= m_kanji[kanji].getRadicals();
     }
 

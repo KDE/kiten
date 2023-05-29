@@ -23,7 +23,7 @@ LinearEdictFile::LinearEdictFile()
 QVector<QString> LinearEdictFile::findMatches(const QString &searchString) const
 {
     QVector<QString> matches;
-    foreach (const QString &it, m_edict) {
+    for (const QString &it : m_edict) {
         if (it.contains(searchString)) {
             matches.append(it);
         }

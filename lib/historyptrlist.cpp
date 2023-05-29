@@ -125,7 +125,7 @@ QStringList HistoryPtrList::toStringList()
 {
     QStringList result;
 
-    foreach (const EntryList *p, d->list) {
+    for (const EntryList *p : d->list) {
         result.append(p->getQuery().toString());
     }
 

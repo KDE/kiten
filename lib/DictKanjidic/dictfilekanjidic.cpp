@@ -107,7 +107,7 @@ EntryList *DictFileKanjidic::doSearch(const DictQuery &query)
     }
 
     auto results = new EntryList();
-    foreach (const QString &line, m_kanjidic) {
+    for (const QString &line : m_kanjidic) {
         if (line.contains(searchQuery)) {
             Entry *entry = makeEntry(line);
             if (entry->matchesQuery(query)) {
@@ -194,7 +194,7 @@ QStringList *DictFileKanjidic::loadListType(KConfigSkeletonItem *item, QStringLi
         delete list;
 
         list = new QStringList();
-        foreach (const QString &it, listFromItem) {
+        for (const QString &it : listFromItem) {
             if (long2short.contains(it)) {
                 list->append(long2short[it]);
             }

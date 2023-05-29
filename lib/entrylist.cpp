@@ -178,7 +178,7 @@ QString EntryList::toKVTML(unsigned int start, unsigned int length) const
         "<kvtml encoding=\"UTF-8\" "
         " generator=\"kiten v42.0\""
         " title=\"To be determined\">\n";
-    foreach (Entry *it, *this) {
+    for (Entry *it : *this) {
         if (length-- > 0) {
             result = result + it->toKVTML() + '\n';
         } else {
@@ -207,7 +207,7 @@ QString EntryList::toString(unsigned int start, unsigned int length) const
     }
 
     QString result;
-    foreach (Entry *it, *this) {
+    for (Entry *it : *this) {
         if (length-- > 0) {
             result = result + it->toString();
         } else {
@@ -238,7 +238,7 @@ void EntryList::sort(QStringList &sortOrder, QStringList &dictionaryOrder)
 
 const EntryList &EntryList::operator+=(const EntryList &other)
 {
-    foreach (Entry *it, other) {
+    for (Entry *it : other) {
         this->append(it);
     }
     if (!other.empty()) {
@@ -258,7 +258,7 @@ const EntryList &EntryList::operator=(const EntryList &other)
 
 void EntryList::appendList(const EntryList *other)
 {
-    foreach (Entry *it, *other) {
+    for (Entry *it : *other) {
         append(it);
     }
 

@@ -184,7 +184,7 @@ QVector<QString> IndexedEdictFile::findMatches(const QString &query) const
     std::sort(possibleHits.begin(), possibleHits.end());
     uint32_t last = 0;
 
-    foreach (uint32_t it, possibleHits) {
+    for (uint32_t it : possibleHits) {
         if (last != it) {
             last = it;
             results.push_back(codec->toUnicode(lookupFullLine(it)));

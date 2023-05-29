@@ -53,11 +53,11 @@ void ConfigSortingPage::updateWidgets()
     QStringList availDicts = _dictNames;
     QStringList availFields = _fields;
 
-    foreach (const QString &dict, selectedDicts) {
+    for (const QString &dict : selectedDicts) {
         availDicts.removeAll(dict);
     }
 
-    foreach (const QString &field, selectedFields) {
+    for (const QString &field : selectedFields) {
         availDicts.removeAll(field);
     }
 

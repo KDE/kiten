@@ -107,7 +107,7 @@ void RadSelectView::kanjiClicked(QListWidgetItem *item)
     QString allText = i18nc("@item:inlist all matches should be found", "(ALL)");
     QString finalText;
     if (item->text() == allText) {
-        foreach (QListWidgetItem *listItem, selected_radicals->findItems("*", Qt::MatchWildcard)) {
+        for (QListWidgetItem *listItem : selected_radicals->findItems("*", Qt::MatchWildcard)) {
             if (listItem->text() != allText) {
                 finalText += listItem->text();
             }
@@ -153,7 +153,7 @@ void RadSelectView::listPossibleKanji(const QList<Kanji> &list)
     }
 
     selected_radicals->clear();
-    foreach (const Kanji &it, list) {
+    for (const Kanji &it : list) {
         if (low <= it.strokes() && it.strokes() <= high) {
             new QListWidgetItem((QString)it, selected_radicals);
         }

@@ -114,7 +114,7 @@ void DictionaryUpdateManager::checkInfoFile(KJob *job)
     // This variable help us to know if we need to download any file.
     bool updates = false;
     // Iterate on each of our installed dictionaries.
-    foreach (const QString &dict, _config->dictionary_list()) {
+    for (const QString &dict : _config->dictionary_list()) {
         QString filePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/") + dict.toLower());
         QFile file(filePath);
         qDebug() << "Local dictionary path:" << file.fileName();

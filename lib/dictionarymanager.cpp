@@ -135,7 +135,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const
     QStringList dictsFromQuery = query.getDictionaries();
     if (dictsFromQuery.isEmpty()) {
         // None specified, search all
-        foreach (DictFile *it, d->dictManagers) {
+        for (DictFile *it : d->dictManagers) {
             qDebug() << "Searching in " << it->getName() << "dictionary.";
             EntryList *temp = it->doSearch(query);
             if (temp) {
@@ -144,7 +144,7 @@ EntryList *DictionaryManager::doSearch(const DictQuery &query) const
             delete temp;
         }
     } else {
-        foreach (const QString &target, dictsFromQuery) {
+        for (const QString &target : dictsFromQuery) {
             DictFile *newestFound = d->dictManagers.find(target).value();
             if (newestFound != nullptr) {
                 EntryList *temp = newestFound->doSearch(query);
@@ -171,7 +171,7 @@ EntryList *DictionaryManager::doSearchInList(const DictQuery &query, const Entry
 {
     auto ret = new EntryList();
 
-    foreach (Entry *it, *list) {
+    for (Entry *it : *list) {
         if (it->matchesQuery(query)) {
             Entry *x = it->clone();
             ret->append(x);
@@ -227,7 +227,7 @@ QMap<QString, DictionaryPreferenceDialog *> DictionaryManager::generatePreferenc
 QStringList DictionaryManager::listDictionaries() const
 {
     QStringList ret;
-    foreach (DictFile *it, d->dictManagers) {
+    for (DictFile *it : d->dictManagers) {
         ret.append(it->getName());
     }
 

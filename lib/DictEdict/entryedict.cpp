@@ -60,7 +60,7 @@ QStringList EntryEdict::getTypesList() const
 
 bool EntryEdict::isAdjective() const
 {
-    foreach (const QString &type, EdictFormatting::Adjectives) {
+    for (const QString &type : EdictFormatting::Adjectives) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -71,7 +71,7 @@ bool EntryEdict::isAdjective() const
 
 bool EntryEdict::isAdverb() const
 {
-    foreach (const QString &type, EdictFormatting::Adverbs) {
+    for (const QString &type : EdictFormatting::Adverbs) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -87,7 +87,7 @@ bool EntryEdict::isCommon() const
 
 bool EntryEdict::isExpression() const
 {
-    foreach (const QString &type, EdictFormatting::Expressions) {
+    for (const QString &type : EdictFormatting::Expressions) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -98,7 +98,7 @@ bool EntryEdict::isExpression() const
 
 bool EntryEdict::isFukisokuVerb() const
 {
-    foreach (const QString &type, EdictFormatting::FukisokuVerbs) {
+    for (const QString &type : EdictFormatting::FukisokuVerbs) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -109,7 +109,7 @@ bool EntryEdict::isFukisokuVerb() const
 
 bool EntryEdict::isGodanVerb() const
 {
-    foreach (const QString &type, EdictFormatting::GodanVerbs) {
+    for (const QString &type : EdictFormatting::GodanVerbs) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -120,7 +120,7 @@ bool EntryEdict::isGodanVerb() const
 
 bool EntryEdict::isIchidanVerb() const
 {
-    foreach (const QString &type, EdictFormatting::IchidanVerbs) {
+    for (const QString &type : EdictFormatting::IchidanVerbs) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -131,7 +131,7 @@ bool EntryEdict::isIchidanVerb() const
 
 bool EntryEdict::isNoun() const
 {
-    foreach (const QString &type, EdictFormatting::Nouns) {
+    for (const QString &type : EdictFormatting::Nouns) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -147,7 +147,7 @@ bool EntryEdict::isParticle() const
 
 bool EntryEdict::isPrefix() const
 {
-    foreach (const QString &type, EdictFormatting::Prefix) {
+    for (const QString &type : EdictFormatting::Prefix) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -158,7 +158,7 @@ bool EntryEdict::isPrefix() const
 
 bool EntryEdict::isSuffix() const
 {
-    foreach (const QString &type, EdictFormatting::Suffix) {
+    for (const QString &type : EdictFormatting::Suffix) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -169,7 +169,7 @@ bool EntryEdict::isSuffix() const
 
 bool EntryEdict::isVerb() const
 {
-    foreach (const QString &type, EdictFormatting::Verbs) {
+    for (const QString &type : EdictFormatting::Verbs) {
         if (m_types.contains(type)) {
             return true;
         }
@@ -264,7 +264,7 @@ bool EntryEdict::loadEntry(const QString &entryLine)
         stringTypes += parentheses.split(',');
     }
 
-    foreach (const QString &str, stringTypes) {
+    for (const QString &str : stringTypes) {
         if (EdictFormatting::PartsOfSpeech.contains(str)) {
             m_types += str;
         } else if (EdictFormatting::FieldOfApplication.contains(str)) {
@@ -319,7 +319,7 @@ QString EntryEdict::toHTML() const
         result += QLatin1String("<div class=\"Common\">");
     }
 
-    foreach (const QString &field, QSTRINGLISTCHECK(DictFileEdict::displayFields)) {
+    for (const QString &field : QSTRINGLISTCHECK(DictFileEdict::displayFields)) {
         if (field == QLatin1String("--NewLine--"))
             result += QLatin1String("<br>");
         else if (field == QLatin1String("Word/Kanji"))

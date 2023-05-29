@@ -108,7 +108,7 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
     }
 
     auto results = new EntryList();
-    foreach (const QString &it, preliminaryResults) {
+    for (const QString &it : preliminaryResults) {
         //     qDebug() << "result: " << it << endl;
         Entry *result = makeEntry(it);
         auto resultEdict = static_cast<EntryEdict *>(result);
@@ -249,7 +249,7 @@ QStringList *DictFileEdict::loadListType(KConfigSkeletonItem *item, QStringList 
         delete list;
 
         list = new QStringList();
-        foreach (const QString &it, listFromItem) {
+        for (const QString &it : listFromItem) {
             if (long2short.contains(it)) {
                 list->append(long2short[it]);
             }

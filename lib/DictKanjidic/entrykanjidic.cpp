@@ -37,7 +37,7 @@ EntryKanjidic::EntryKanjidic(const QString &dict, const QString &entry)
 QString EntryKanjidic::addReadings(const QStringList &list) const
 {
     QString readings;
-    foreach (const QString &reading, list) {
+    for (const QString &reading : list) {
         readings.append(makeReadingLink(reading) + outputListDelimiter);
     }
 
@@ -424,7 +424,7 @@ QString EntryKanjidic::toHTML() const
 {
     QString result = QStringLiteral("<div class=\"KanjidicBrief\">");
 
-    foreach (const QString &field, QSTRINGLISTCHECK(DictFileKanjidic::displayFields)) {
+    for (const QString &field : QSTRINGLISTCHECK(DictFileKanjidic::displayFields)) {
         // qDebug() << "Display: "<<field;
         if (field == QLatin1String("--NewLine--"))
             result += QLatin1String("<br>");

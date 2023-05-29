@@ -71,7 +71,7 @@ void DictFileFieldSelector::readFromPrefs()
         selectedList = m_config->findItem(itemName)->property().toStringList();
     }
 
-    foreach (const QString &it, selectedList) {
+    for (const QString &it : selectedList) {
         actionList.removeAt(actionList.indexOf(it)); // don't just use remove()... will remove all
     }
 

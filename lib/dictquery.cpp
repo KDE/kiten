@@ -137,7 +137,7 @@ DictQuery &DictQuery::operator=(const DictQuery &old)
 
 DictQuery &DictQuery::operator+=(const DictQuery &old)
 {
-    foreach (const QString &item, old.d->entryOrder) {
+    for (const QString &item : old.d->entryOrder) {
         if (item == d->meaningMarker) {
             if (d->entryOrder.removeAll(d->meaningMarker) > 0) {
                 setMeaning(getMeaning() + mainDelimiter + old.getMeaning());
@@ -202,7 +202,7 @@ bool operator<(const DictQuery &a, const DictQuery &b)
     if (!a.d->pronunciation.isEmpty()) {
         QStringList aList = a.d->pronunciation.split(DictQuery::mainDelimiter);
         QStringList bList = b.d->pronunciation.split(DictQuery::mainDelimiter);
-        foreach (const QString &str, aList) {
+        for (const QString &str : aList) {
             if (bList.contains(str) == 0) {
                 return false;
             }
@@ -212,7 +212,7 @@ bool operator<(const DictQuery &a, const DictQuery &b)
     if (!a.d->meaning.isEmpty()) {
         QStringList aList = a.d->meaning.split(DictQuery::mainDelimiter);
         QStringList bList = b.d->meaning.split(DictQuery::mainDelimiter);
-        foreach (const QString &str, aList) {
+        for (const QString &str : aList) {
             if (bList.contains(str) == 0) {
                 return false;
             }
@@ -240,7 +240,7 @@ const QString DictQuery::toString() const
     }
 
     QString reply;
-    foreach (const QString &it, d->entryOrder) {
+    for (const QString &it : d->entryOrder) {
         if (it == d->pronunciationMarker) {
             reply += d->pronunciation + mainDelimiter;
         } else if (it == d->meaningMarker) {
@@ -261,7 +261,7 @@ DictQuery &DictQuery::operator=(const QString &str)
     QStringList parts = str.split(mainDelimiter);
     DictQuery result;
     if (str.length() > 0) {
-        foreach (const QString &it, parts) {
+        for (const QString &it : parts) {
             if (it.contains(propertySeperator)) {
                 QStringList prop = it.split(propertySeperator);
                 if (prop.count() != 2) {

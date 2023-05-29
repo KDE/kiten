@@ -69,7 +69,7 @@ EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &
 
     QString edictTypes = edictTypesList.join(QLatin1Char(','));
 
-    foreach (const QString &item, preliminaryResults) {
+    for (const QString &item : preliminaryResults) {
         EntryEdict *entry = makeEntry(item);
         QStringListIterator it(entry->getTypesList());
         bool matched = false;
@@ -101,7 +101,7 @@ EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &
         }
 
         QString word = entry->getWord();
-        foreach (const Deinflection::Conjugation &conj, *conjugationList) {
+        for (const Deinflection::Conjugation &conj : *conjugationList) {
             if (text.endsWith(conj.ending) && word.endsWith(conj.replace) && text.startsWith(word.left(word.length() - conj.replace.length()))) {
                 QString replacement = text;
                 replacement.truncate(text.length() - conj.ending.length());

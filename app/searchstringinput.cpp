@@ -110,7 +110,7 @@ void SearchStringInput::setSearchQuery(const DictQuery &query)
 
     // Secondly we remove aspects that are visible in the gui from the search string
     DictQuery copy(query);
-    foreach (KToolBar *bar, _parent->toolBars()) {
+    for (KToolBar *bar : _parent->toolBars()) {
         if (bar->widgetForAction(_actionFilterRare) != nullptr)
             copy.removeProperty(QStringLiteral("common"));
 

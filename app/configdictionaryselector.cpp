@@ -35,7 +35,7 @@ void ConfigDictionarySelector::updateWidgets()
 
     fileList->clear();
 
-    foreach (const QString &it, names) {
+    for (const QString &it : names) {
         QStringList newRow(it);
         newRow << group.readEntry(it, QString());
         (void)new QTreeWidgetItem(fileList, newRow);
@@ -99,7 +99,7 @@ void ConfigDictionarySelector::addDictSlot()
 
 void ConfigDictionarySelector::deleteDictSlot()
 {
-    foreach (QTreeWidgetItem *file, fileList->selectedItems()) {
+    for (QTreeWidgetItem *file : fileList->selectedItems()) {
         if (!file) {
             return;
         }

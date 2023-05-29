@@ -137,7 +137,7 @@ inline QString Entry::HTMLMeanings() const
 inline QString Entry::HTMLReadings() const
 {
     QStringList list;
-    foreach (const QString &it, Readings) {
+    for (const QString &it : Readings) {
         list += makeLink(it);
     }
 
@@ -179,15 +179,15 @@ bool Entry::isKanji(const QChar &character) const
 bool Entry::listMatch(const QStringList &list, const QStringList &test, DictQuery::MatchType type) const
 {
     if (type == DictQuery::Exact) {
-        foreach (const QString &it, test) {
+        for (const QString &it : test) {
             if (!list.contains(it)) {
                 return false;
             }
         }
     } else if (type == DictQuery::Beginning) {
-        foreach (const QString &it, test) {
+        for (const QString &it : test) {
             bool found = false;
-            foreach (const QString &it2, list) {
+            for (const QString &it2 : list) {
                 if (it2.startsWith(it)) {
                     found = true;
                     break;
@@ -198,9 +198,9 @@ bool Entry::listMatch(const QStringList &list, const QStringList &test, DictQuer
             }
         }
     } else if (type == DictQuery::Ending) {
-        foreach (const QString &it, test) {
+        for (const QString &it : test) {
             bool found = false;
-            foreach (const QString &it2, list) {
+            for (const QString &it2 : list) {
                 if (it2.endsWith(it)) {
                     found = true;
                     break;
@@ -211,9 +211,9 @@ bool Entry::listMatch(const QStringList &list, const QStringList &test, DictQuer
             }
         }
     } else {
-        foreach (const QString &it, test) {
+        for (const QString &it : test) {
             bool found = false;
-            foreach (const QString &it2, list) {
+            for (const QString &it2 : list) {
                 if (it2.contains(it)) {
                     found = true;
                     break;
@@ -294,7 +294,7 @@ bool Entry::matchesQuery(const DictQuery &query) const
     }
 
     QList<QString> propList = query.listPropertyKeys();
-    foreach (const QString &key, propList) {
+    for (const QString &key : propList) {
         if (!extendedItemCheck(key, query.getProperty(key))) {
             return false;
         }
@@ -347,7 +347,7 @@ QString Entry::toString() const
 bool Entry::sort(const Entry &that, const QStringList &dictOrder, const QStringList &fields) const
 {
     if (this->sourceDict != that.sourceDict) {
-        foreach (const QString &dict, dictOrder) {
+        for (const QString &dict : dictOrder) {
             if (dict == that.sourceDict) {
                 return false;
             }
@@ -356,7 +356,7 @@ bool Entry::sort(const Entry &that, const QStringList &dictOrder, const QStringL
             }
         }
     } else {
-        foreach (const QString &field, fields) {
+        for (const QString &field : fields) {
             if (field == QLatin1String("Word/Kanji")) {
                 return this->getWord() < that.getWord();
             } else if (field == QLatin1String("Meaning")) {

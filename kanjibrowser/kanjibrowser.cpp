@@ -81,7 +81,7 @@ void KanjiBrowser::loadKanji()
     QList<int> gradeList;
     QList<int> strokeList;
     QHash<QString, QPair<int, int>> kanjiList;
-    foreach (const QString &line, _dictFileKanjidic->dumpDictionary()) {
+    for (const QString &line : _dictFileKanjidic->dumpDictionary()) {
         // All the kanji without grade will have Grade 0, making easy to
         // manage that information in KanjiBrowserView.
         int grade = 0;

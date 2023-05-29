@@ -586,12 +586,12 @@ void Kiten::loadDictionaries()
     _dictionaryManager.removeAllDictionaries();
 
     // Load the dictionaries of each type that we can adjust in prefs
-    foreach (const QString &it, _config->dictionary_list()) {
+    for (const QString &it : _config->dictionary_list()) {
         loadDictConfig(it);
     }
 
     // Load settings for each dictionary type
-    foreach (const QString &it, _dictionaryManager.listDictFileTypes()) {
+    for (const QString &it : _dictionaryManager.listDictFileTypes()) {
         _dictionaryManager.loadDictSettings(it, _config);
     }
 
@@ -618,7 +618,7 @@ void Kiten::loadDictConfig(const QString &dictType)
     }
 
     QStringList dictNames = group.readEntry<QStringList>("__NAMES", QStringList());
-    foreach (const QString &name, dictNames) {
+    for (const QString &name : dictNames) {
         QString dictPath = group.readEntry(name, QString());
         if (!dictPath.isEmpty() && !name.isEmpty()) {
             dictionariesToLoad.append(qMakePair(name, dictPath));
@@ -627,8 +627,7 @@ void Kiten::loadDictConfig(const QString &dictType)
 
     QStringList loadedDictionaries = _dictionaryManager.listDictionariesOfType(dictType.toLower());
 
-    typedef QPair<QString, QString> __dictName_t; // Can't have commas in a foreach
-    foreach (const __dictName_t &it, dictionariesToLoad) {
+    for (const auto &it : dictionariesToLoad) {
         // Remove from the loadedDictionaries list all the dicts that we are supposed to load
         // This will leave only those that need to be unloaded at the end
         if (loadedDictionaries.removeAll(it.first) == 0) {
@@ -636,7 +635,7 @@ void Kiten::loadDictConfig(const QString &dictType)
         }
     }
 
-    foreach (const QString &it, loadedDictionaries) {
+    for (const QString &it : loadedDictionaries) {
         _dictionaryManager.removeDictionary(it);
     }
 

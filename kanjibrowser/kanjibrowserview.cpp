@@ -44,7 +44,7 @@ void KanjiBrowserView::changeGrade(const int grade)
 
     if (grade == AllJouyouGrades) {
         // Add the all the grades found in our list.
-        foreach (const int grd, _gradeList) {
+        for (const int grd : _gradeList) {
             _currentGradeList << grd;
         }
     }
@@ -83,7 +83,7 @@ void KanjiBrowserView::changeStrokeCount(const int strokes)
     // We don't need to filter any kanji by stroke number.
     if (strokes == NoStrokeLimit) {
         // Add all the strokes found to our the list.
-        foreach (const int stroke, _strokesList) {
+        for (const int stroke : _strokesList) {
             _currentStrokesList << stroke;
         }
     }
@@ -164,8 +164,8 @@ void KanjiBrowserView::reloadKanjiList()
     // which kanji we are going to filter.
     // We just iterate on them to actually do the filtering.
     QStringList list;
-    foreach (const int strokes, _currentStrokesList) {
-        foreach (const int grade, _currentGradeList) {
+    for (const int strokes : _currentStrokesList) {
+        for (const int grade : _currentGradeList) {
             list.append(_kanji.keys(qMakePair(grade, strokes)));
         }
     }
@@ -218,7 +218,7 @@ void KanjiBrowserView::setupView(KanjiBrowser *parent, const QHash<QString, QPai
     _copyToClipboard->setVisible(false);
 
     _grades->addItem(i18n("All Jouyou Kanji grades"));
-    foreach (const int &grade, kanjiGrades) {
+    for (const int &grade : kanjiGrades) {
         // Grades 9 and above are considered Jinmeiyou.
         if (grade >= Jinmeiyou) {
             _grades->addItem(i18n("Grade %1 (Jinmeiyou)", grade));
@@ -229,7 +229,7 @@ void KanjiBrowserView::setupView(KanjiBrowser *parent, const QHash<QString, QPai
     _grades->addItem(i18n("Not in Jouyou list"));
 
     _strokes->addItem(i18n("No stroke limit"));
-    foreach (const int &stroke, strokeCount) {
+    for (const int &stroke : strokeCount) {
         _strokes->addItem(i18np("%1 stroke", "%1 strokes", stroke));
     }
 

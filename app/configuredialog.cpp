@@ -73,7 +73,7 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, Kiten
 {
     auto tabWidget = new QTabWidget(parent);
 
-    foreach (const QString &dict, config->dictionary_list()) {
+    for (const QString &dict : config->dictionary_list()) {
         QWidget *newTab = new ConfigDictionarySelector(dict, tabWidget, config);
         if (newTab) {
             connect(newTab, SIGNAL(widgetChanged()), this, SIGNAL(widgetModified()));
@@ -95,7 +95,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenCo
 
     QMap<QString, DictionaryPreferenceDialog *> dialogList = DictionaryManager::generatePreferenceDialogs(config, parent);
 
-    foreach (DictionaryPreferenceDialog *dialog, dialogList) {
+    for (DictionaryPreferenceDialog *dialog : dialogList) {
         connect(this, &ConfigureDialog::updateWidgetsSignal, dialog, &DictionaryPreferenceDialog::updateWidgets);
         connect(this, &ConfigureDialog::updateWidgetsDefaultSignal, dialog, &DictionaryPreferenceDialog::updateWidgetsDefault);
         connect(this, &ConfigureDialog::updateSettingsSignal, dialog, &DictionaryPreferenceDialog::updateSettings);
