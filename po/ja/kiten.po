@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 19.04.1\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -288,8 +288,7 @@ msgstr "検索中..."
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
-msgstr[0] "検索結果 1 件"
-msgstr[1] "検索結果 %1 件"
+msgstr[0] "検索結果 %1 件"
 
 #: app/kiten.cpp:438
 #, kde-format
@@ -645,7 +644,6 @@ msgstr "設定"
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
 msgstr[0] ""
-msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:190
 #, kde-format
@@ -702,7 +700,6 @@ msgstr ""
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
 msgstr[0] ""
-msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:279
 #, kde-format
