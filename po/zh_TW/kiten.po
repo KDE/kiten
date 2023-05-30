@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:52+0000\n"
+"POT-Creation-Date: 2023-05-30 00:42+0000\n"
 "PO-Revision-Date: 2023-01-06 23:22+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -644,105 +644,105 @@ msgstr "搜尋列"
 msgid "Settings"
 msgstr "設定"
 
-#: kanjibrowser/kanjibrowserview.cpp:181
+#: kanjibrowser/kanjibrowserview.cpp:177
 #, kde-format
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
 msgstr[0] "找到 %1 漢字"
 
-#: kanjibrowser/kanjibrowserview.cpp:190
+#: kanjibrowser/kanjibrowserview.cpp:186
 #, kde-format
 msgid "About %1"
 msgstr "關於 %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:191
+#: kanjibrowser/kanjibrowserview.cpp:187
 #, kde-format
 msgid "Copy %1 to clipboard"
 msgstr "複製 %1 到剪貼簿"
 
-#: kanjibrowser/kanjibrowserview.cpp:206
+#: kanjibrowser/kanjibrowserview.cpp:202
 #, kde-format
 msgid "Could not load the necessary kanji information."
 msgstr "無法載入需要的漢字資訊。"
 
-#: kanjibrowser/kanjibrowserview.cpp:216
+#: kanjibrowser/kanjibrowserview.cpp:212
 #, kde-format
 msgid "Kanji &List"
 msgstr "漢字清單(&L)"
 
-#: kanjibrowser/kanjibrowserview.cpp:219
+#: kanjibrowser/kanjibrowserview.cpp:215
 #, kde-format
 msgid "Kanji &Information"
 msgstr "漢字資訊(&I)"
 
-#: kanjibrowser/kanjibrowserview.cpp:224
+#: kanjibrowser/kanjibrowserview.cpp:220
 #, kde-format
 msgid "All Jouyou Kanji grades"
 msgstr "所有常用漢字等級"
 
-#: kanjibrowser/kanjibrowserview.cpp:228
+#: kanjibrowser/kanjibrowserview.cpp:224
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
 msgstr "等級 %1（人名用）"
 
-#: kanjibrowser/kanjibrowserview.cpp:230
+#: kanjibrowser/kanjibrowserview.cpp:226
 #, kde-format
 msgid "Grade %1"
 msgstr "等級 %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:233
+#: kanjibrowser/kanjibrowserview.cpp:229
 #, kde-format
 msgid "Not in Jouyou list"
 msgstr "不在常用漢字清單內"
 
-#: kanjibrowser/kanjibrowserview.cpp:235
+#: kanjibrowser/kanjibrowserview.cpp:231
 #, kde-format
 msgid "No stroke limit"
 msgstr "沒有筆劃限制"
 
-#: kanjibrowser/kanjibrowserview.cpp:237
+#: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
 msgstr[0] "%1 劃"
 
-#: kanjibrowser/kanjibrowserview.cpp:279
+#: kanjibrowser/kanjibrowserview.cpp:275
 #, kde-format
 msgid "Grade:"
 msgstr "等級："
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
-#: kanjibrowser/kanjibrowserview.cpp:281 radselect/radical_selector.ui:102
+#: kanjibrowser/kanjibrowserview.cpp:277 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
 msgstr "筆劃："
 
-#: kanjibrowser/kanjibrowserview.cpp:287
+#: kanjibrowser/kanjibrowserview.cpp:283
 #, kde-format
 msgid "Onyomi: "
 msgstr "音讀（Onyomi）："
 
-#: kanjibrowser/kanjibrowserview.cpp:295
+#: kanjibrowser/kanjibrowserview.cpp:291
 #, kde-format
 msgid "Kunyomi: "
 msgstr "訓讀（Kunyomi）："
 
-#: kanjibrowser/kanjibrowserview.cpp:303 lib/DictKanjidic/entrykanjidic.cpp:147
+#: kanjibrowser/kanjibrowserview.cpp:299 lib/DictKanjidic/entrykanjidic.cpp:147
 #, kde-format
 msgid "In names: "
 msgstr "進入名稱："
 
-#: kanjibrowser/kanjibrowserview.cpp:311 lib/DictKanjidic/entrykanjidic.cpp:152
+#: kanjibrowser/kanjibrowserview.cpp:307 lib/DictKanjidic/entrykanjidic.cpp:152
 #, kde-format
 msgid "As radical: "
 msgstr "字根："
 
-#: kanjibrowser/kanjibrowserview.cpp:318
+#: kanjibrowser/kanjibrowserview.cpp:314
 #, kde-format
 msgid "Meaning: "
 msgstr "意義："
 
-#: kanjibrowser/kanjibrowserview.cpp:320
+#: kanjibrowser/kanjibrowserview.cpp:316
 #, kde-format
 msgid "Meanings: "
 msgstr "意義："
@@ -861,7 +861,7 @@ msgstr "無法載入動詞反變調資訊，所以動詞反變調無法使用。
 msgid "&Available Fields:"
 msgstr "可用的欄位(&A)："
 
-#: lib/entry.cpp:162
+#: lib/entry.cpp:157
 #, kde-format
 msgid "; "
 msgstr "; "
@@ -901,24 +901,24 @@ msgid ""
 "Romaji information could not be loaded, so Romaji conversion cannot be used."
 msgstr "Romaji 資訊檔無法載入，所以 Romaji 轉換無法使用。"
 
-#: lib/kromajiedit.cpp:91
+#: lib/kromajiedit.cpp:87
 #, kde-format
 msgctxt "@option:radio selects english translation"
 msgid "English"
 msgstr "英語"
 
-#: lib/kromajiedit.cpp:100
+#: lib/kromajiedit.cpp:96
 #, kde-format
 msgctxt "@option:radio selects japanese translation"
 msgid "Kana"
 msgstr "假名"
 
-#: radselect/buttongrid.cpp:117
+#: radselect/buttongrid.cpp:113
 #, kde-format
 msgid "No Radicals Selected"
 msgstr "沒有選擇字根"
 
-#: radselect/buttongrid.cpp:153
+#: radselect/buttongrid.cpp:149
 #, kde-format
 msgid "Selected Radicals: "
 msgstr "選取的字根："

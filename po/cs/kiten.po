@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:52+0000\n"
+"POT-Creation-Date: 2023-05-30 00:42+0000\n"
 "PO-Revision-Date: 2022-01-06 16:56+0100\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -618,7 +618,7 @@ msgstr "Panel pro hledání"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: kanjibrowser/kanjibrowserview.cpp:181
+#: kanjibrowser/kanjibrowserview.cpp:177
 #, kde-format
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
@@ -626,57 +626,57 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: kanjibrowser/kanjibrowserview.cpp:190
+#: kanjibrowser/kanjibrowserview.cpp:186
 #, kde-format
 msgid "About %1"
 msgstr "O aplikaci %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:191
+#: kanjibrowser/kanjibrowserview.cpp:187
 #, kde-format
 msgid "Copy %1 to clipboard"
 msgstr "Zkopírovat %1 do schránky"
 
-#: kanjibrowser/kanjibrowserview.cpp:206
+#: kanjibrowser/kanjibrowserview.cpp:202
 #, kde-format
 msgid "Could not load the necessary kanji information."
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:216
+#: kanjibrowser/kanjibrowserview.cpp:212
 #, kde-format
 msgid "Kanji &List"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:219
+#: kanjibrowser/kanjibrowserview.cpp:215
 #, kde-format
 msgid "Kanji &Information"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:224
+#: kanjibrowser/kanjibrowserview.cpp:220
 #, kde-format
 msgid "All Jouyou Kanji grades"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:228
+#: kanjibrowser/kanjibrowserview.cpp:224
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:230
+#: kanjibrowser/kanjibrowserview.cpp:226
 #, kde-format
 msgid "Grade %1"
 msgstr "Úroveň %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:233
+#: kanjibrowser/kanjibrowserview.cpp:229
 #, kde-format
 msgid "Not in Jouyou list"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:235
+#: kanjibrowser/kanjibrowserview.cpp:231
 #, kde-format
 msgid "No stroke limit"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:237
+#: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
@@ -684,43 +684,43 @@ msgstr[0] "%1 tah"
 msgstr[1] "%1 tahy"
 msgstr[2] "%1 tah;"
 
-#: kanjibrowser/kanjibrowserview.cpp:279
+#: kanjibrowser/kanjibrowserview.cpp:275
 #, kde-format
 msgid "Grade:"
 msgstr "Úroveň:"
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
-#: kanjibrowser/kanjibrowserview.cpp:281 radselect/radical_selector.ui:102
+#: kanjibrowser/kanjibrowserview.cpp:277 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
 msgstr "Tahy:"
 
-#: kanjibrowser/kanjibrowserview.cpp:287
+#: kanjibrowser/kanjibrowserview.cpp:283
 #, kde-format
 msgid "Onyomi: "
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:295
+#: kanjibrowser/kanjibrowserview.cpp:291
 #, kde-format
 msgid "Kunyomi: "
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:303 lib/DictKanjidic/entrykanjidic.cpp:147
+#: kanjibrowser/kanjibrowserview.cpp:299 lib/DictKanjidic/entrykanjidic.cpp:147
 #, kde-format
 msgid "In names: "
 msgstr "V názvech: "
 
-#: kanjibrowser/kanjibrowserview.cpp:311 lib/DictKanjidic/entrykanjidic.cpp:152
+#: kanjibrowser/kanjibrowserview.cpp:307 lib/DictKanjidic/entrykanjidic.cpp:152
 #, kde-format
 msgid "As radical: "
 msgstr "Jako radikál: "
 
-#: kanjibrowser/kanjibrowserview.cpp:318
+#: kanjibrowser/kanjibrowserview.cpp:314
 #, kde-format
 msgid "Meaning: "
 msgstr "Význam: "
 
-#: kanjibrowser/kanjibrowserview.cpp:320
+#: kanjibrowser/kanjibrowserview.cpp:316
 #, kde-format
 msgid "Meanings: "
 msgstr "Významy:"
@@ -843,7 +843,7 @@ msgstr ""
 msgid "&Available Fields:"
 msgstr "&Dostupná pole:"
 
-#: lib/entry.cpp:162
+#: lib/entry.cpp:157
 #, kde-format
 msgid "; "
 msgstr "; "
@@ -887,24 +887,24 @@ msgstr ""
 "Informace o rómadži nebyly načteny. Z toho důvodu nelze používat převod do a "
 "z rómadži."
 
-#: lib/kromajiedit.cpp:91
+#: lib/kromajiedit.cpp:87
 #, kde-format
 msgctxt "@option:radio selects english translation"
 msgid "English"
 msgstr "Anglicky"
 
-#: lib/kromajiedit.cpp:100
+#: lib/kromajiedit.cpp:96
 #, kde-format
 msgctxt "@option:radio selects japanese translation"
 msgid "Kana"
 msgstr "Kana"
 
-#: radselect/buttongrid.cpp:117
+#: radselect/buttongrid.cpp:113
 #, kde-format
 msgid "No Radicals Selected"
 msgstr "Nebyly vybrány žádné radikály"
 
-#: radselect/buttongrid.cpp:153
+#: radselect/buttongrid.cpp:149
 #, kde-format
 msgid "Selected Radicals: "
 msgstr "Vybrané radikály: "

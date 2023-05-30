@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-14 00:52+0000\n"
+"POT-Creation-Date: 2023-05-30 00:42+0000\n"
 "PO-Revision-Date: 2022-01-09 09:22+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -662,107 +662,107 @@ msgstr "Barre de recherche"
 msgid "Settings"
 msgstr "Configuration"
 
-#: kanjibrowser/kanjibrowserview.cpp:181
+#: kanjibrowser/kanjibrowserview.cpp:177
 #, kde-format
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
 msgstr[0] "%1 kanji trouvé"
 msgstr[1] "%1 kanji trouvés"
 
-#: kanjibrowser/kanjibrowserview.cpp:190
+#: kanjibrowser/kanjibrowserview.cpp:186
 #, kde-format
 msgid "About %1"
 msgstr "À propos de %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:191
+#: kanjibrowser/kanjibrowserview.cpp:187
 #, kde-format
 msgid "Copy %1 to clipboard"
 msgstr "Copier %1 vers le presse-papier"
 
-#: kanjibrowser/kanjibrowserview.cpp:206
+#: kanjibrowser/kanjibrowserview.cpp:202
 #, kde-format
 msgid "Could not load the necessary kanji information."
 msgstr "Impossible de charger les informations kanji nécessaire."
 
-#: kanjibrowser/kanjibrowserview.cpp:216
+#: kanjibrowser/kanjibrowserview.cpp:212
 #, kde-format
 msgid "Kanji &List"
 msgstr "&Liste de kanjis"
 
-#: kanjibrowser/kanjibrowserview.cpp:219
+#: kanjibrowser/kanjibrowserview.cpp:215
 #, kde-format
 msgid "Kanji &Information"
 msgstr "&Informations de kanji"
 
-#: kanjibrowser/kanjibrowserview.cpp:224
+#: kanjibrowser/kanjibrowserview.cpp:220
 #, kde-format
 msgid "All Jouyou Kanji grades"
 msgstr "Tous les grades Kanji Jouyou "
 
-#: kanjibrowser/kanjibrowserview.cpp:228
+#: kanjibrowser/kanjibrowserview.cpp:224
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
 msgstr "Grade %1 (Jinmeiyou)"
 
-#: kanjibrowser/kanjibrowserview.cpp:230
+#: kanjibrowser/kanjibrowserview.cpp:226
 #, kde-format
 msgid "Grade %1"
 msgstr "Grade %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:233
+#: kanjibrowser/kanjibrowserview.cpp:229
 #, kde-format
 msgid "Not in Jouyou list"
 msgstr "Hors de la liste Jouyou"
 
-#: kanjibrowser/kanjibrowserview.cpp:235
+#: kanjibrowser/kanjibrowserview.cpp:231
 #, kde-format
 msgid "No stroke limit"
 msgstr "Aucune limite de frappe"
 
-#: kanjibrowser/kanjibrowserview.cpp:237
+#: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
 msgstr[0] "%1 frappe"
 msgstr[1] "%1 frappes"
 
-#: kanjibrowser/kanjibrowserview.cpp:279
+#: kanjibrowser/kanjibrowserview.cpp:275
 #, kde-format
 msgid "Grade:"
 msgstr "Grade :"
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
-#: kanjibrowser/kanjibrowserview.cpp:281 radselect/radical_selector.ui:102
+#: kanjibrowser/kanjibrowserview.cpp:277 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
 msgstr "Frappes :"
 
-#: kanjibrowser/kanjibrowserview.cpp:287
+#: kanjibrowser/kanjibrowserview.cpp:283
 #, kde-format
 msgid "Onyomi: "
 msgstr "Onyomi :"
 
-#: kanjibrowser/kanjibrowserview.cpp:295
+#: kanjibrowser/kanjibrowserview.cpp:291
 #, kde-format
 msgid "Kunyomi: "
 msgstr "Kunyomi :"
 
-#: kanjibrowser/kanjibrowserview.cpp:303 lib/DictKanjidic/entrykanjidic.cpp:147
+#: kanjibrowser/kanjibrowserview.cpp:299 lib/DictKanjidic/entrykanjidic.cpp:147
 #, kde-format
 msgid "In names: "
 msgstr "Dans les noms : "
 
-#: kanjibrowser/kanjibrowserview.cpp:311 lib/DictKanjidic/entrykanjidic.cpp:152
+#: kanjibrowser/kanjibrowserview.cpp:307 lib/DictKanjidic/entrykanjidic.cpp:152
 #, kde-format
 msgid "As radical: "
 msgstr "En tant que radical : "
 
-#: kanjibrowser/kanjibrowserview.cpp:318
+#: kanjibrowser/kanjibrowserview.cpp:314
 #, kde-format
 msgid "Meaning: "
 msgstr "Signification :"
 
-#: kanjibrowser/kanjibrowserview.cpp:320
+#: kanjibrowser/kanjibrowserview.cpp:316
 #, kde-format
 msgid "Meanings: "
 msgstr "Significations :"
@@ -888,7 +888,7 @@ msgstr ""
 msgid "&Available Fields:"
 msgstr "Ch&amps disponibles :"
 
-#: lib/entry.cpp:162
+#: lib/entry.cpp:157
 #, kde-format
 msgid "; "
 msgstr " ; "
@@ -932,24 +932,24 @@ msgstr ""
 "Impossible de charger le fichier d'informations « Romaji ». Impossible donc "
 "d'utiliser la conversion « Romaji »."
 
-#: lib/kromajiedit.cpp:91
+#: lib/kromajiedit.cpp:87
 #, kde-format
 msgctxt "@option:radio selects english translation"
 msgid "English"
 msgstr "Anglais"
 
-#: lib/kromajiedit.cpp:100
+#: lib/kromajiedit.cpp:96
 #, kde-format
 msgctxt "@option:radio selects japanese translation"
 msgid "Kana"
 msgstr "Kana"
 
-#: radselect/buttongrid.cpp:117
+#: radselect/buttongrid.cpp:113
 #, kde-format
 msgid "No Radicals Selected"
 msgstr "Aucun radical n'est sélectionné"
 
-#: radselect/buttongrid.cpp:153
+#: radselect/buttongrid.cpp:149
 #, kde-format
 msgid "Selected Radicals: "
 msgstr "Radicaux sélectionnés :"
