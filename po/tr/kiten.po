@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-30 00:42+0000\n"
-"PO-Revision-Date: 2023-01-31 01:09+0300\n"
+"PO-Revision-Date: 2023-05-31 02:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -46,7 +46,7 @@ msgstr "Sözlük Seçici"
 #: app/configdictselect.ui:25
 #, kde-format
 msgid "Use prei&nstalled dict"
-msgstr "Öncede&n kurulmuş dict'i kullan"
+msgstr "Önceden &kurulmuş sözlüğü kullan"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:56
@@ -106,9 +106,9 @@ msgid ""
 "project</a>."
 msgstr ""
 "Öğrenme kipi, kiten'in bu sürümünde devre dışıdır. Birkaç adet açık kaynaklı "
-"mükemmel bellek kartı uygulamaları mevcuttur; örneğin <a href=\"https://apps."
-"kde.org/parley\">Parley</a> ve <a href=\"https://apps.ankiweb.net\">Anki "
-"projesi</a> gibi."
+"mükemmel bellek kartı uygulamaları kullanılabilir; örneğin <a href=\"https://"
+"apps.kde.org/parley\">Parley</a> ve <a href=\"https://apps.ankiweb.net"
+"\">Anki projesi</a> gibi."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
 #: app/configsearching.ui:13 app/configuredialog.cpp:45
@@ -132,7 +132,7 @@ msgstr "sıralama"
 #: app/configsorting.ui:21
 #, kde-format
 msgid "Sort Se&arch Results By Dictionary"
-msgstr "Arama Sonuçlarını Sözlüğe Göre Sır&ala"
+msgstr "Arama sonuçlarını sözlüğe göre sır&ala"
 
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, dictionary_order)
 #: app/configsorting.ui:28
@@ -176,7 +176,7 @@ msgstr "Sonuçların Sıralanışı"
 #: app/dictionaryupdatemanager.cpp:45
 #, kde-format
 msgid "Check for dictionary &updates"
-msgstr "Sözlük &güncellemelerini kontrol et"
+msgstr "Sözlük &Güncellemelerini Denetle"
 
 #: app/dictionaryupdatemanager.cpp:77
 #, kde-format
@@ -280,7 +280,7 @@ msgstr "Listeyi Dışa Aktar"
 #: app/kiten.cpp:251
 #, kde-format
 msgid "Initializing Dictionaries"
-msgstr "Sözlükler Başlatılıyor"
+msgstr "Sözlükler İlklendiriliyor"
 
 #: app/kiten.cpp:264
 #, kde-format
@@ -398,8 +398,8 @@ msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
 "4=Adverb, 5=Prefix, 6=Suffix, 7=Expression"
 msgstr ""
-"Kullanıcının son arama türü, 0=Herhangi, 1=Eylem, 2=Ad, 3=Önadlar, "
-"4=Adıllar, 5=Önek, 6=Sonek, 7=İfade"
+"Kullanıcının son arama türü; 0=Herhangi, 1=Eylem, 2=Ad, 3=Önadlar, "
+"4=Belirteç, 5=Önek, 6=Sonek, 7=İfade"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:103
@@ -549,12 +549,12 @@ msgstr "Süzgeç Türü"
 #: app/searchstringinput.cpp:30
 #, kde-format
 msgid "No filter"
-msgstr "Süzgeç yok"
+msgstr "Süzgeç Yok"
 
 #: app/searchstringinput.cpp:31
 #, kde-format
 msgid "Filter out rare"
-msgstr "Az kullanılanları süz"
+msgstr "Az Kullanılanları Süz"
 
 #: app/searchstringinput.cpp:32
 #, kde-format
@@ -564,12 +564,12 @@ msgstr "Yaygın/Yaygın Olmayan"
 #: app/searchstringinput.cpp:35
 #, kde-format
 msgid "Match Type"
-msgstr "Eşleme Türü"
+msgstr "Eşleştirme Türü"
 
 #: app/searchstringinput.cpp:36
 #, kde-format
 msgid "Exact Match"
-msgstr "Tam Eşleme"
+msgstr "Tam Eşleşme"
 
 #: app/searchstringinput.cpp:37
 #, kde-format
@@ -579,12 +579,12 @@ msgstr "Başlangıcı Eşleştir"
 #: app/searchstringinput.cpp:38
 #, kde-format
 msgid "Match Ending"
-msgstr "Eşleme Sonu"
+msgstr "Eşleşme Sonu"
 
 #: app/searchstringinput.cpp:39
 #, kde-format
 msgid "Match Anywhere"
-msgstr "Herhangi Bir Yerde Ara"
+msgstr "Herhangi Bir Yerde Eşleştir"
 
 #: app/searchstringinput.cpp:42
 #, kde-format
@@ -634,7 +634,7 @@ msgstr "İfade"
 #: app/searchstringinput.cpp:59
 #, kde-format
 msgid "Focus input field"
-msgstr "Girgi alanına odaklan"
+msgstr "Girdi alanına odaklan"
 
 #: app/searchstringinput.cpp:62
 #, kde-format
@@ -656,7 +656,7 @@ msgstr[1] "%1 kanji bulundu"
 #: kanjibrowser/kanjibrowserview.cpp:186
 #, kde-format
 msgid "About %1"
-msgstr "%1 Hakkında"
+msgstr "%1 hakkında"
 
 #: kanjibrowser/kanjibrowserview.cpp:187
 #, kde-format
@@ -686,12 +686,12 @@ msgstr "Tüm Jouyou Kanji düzeyleri"
 #: kanjibrowser/kanjibrowserview.cpp:224
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
-msgstr "%1 Düzeyi (Jinmeiyou)"
+msgstr "%1 düzey (Jinmeiyou)"
 
 #: kanjibrowser/kanjibrowserview.cpp:226
 #, kde-format
 msgid "Grade %1"
-msgstr "%1 Düzeyi"
+msgstr "%1 düzey"
 
 #: kanjibrowser/kanjibrowserview.cpp:229
 #, kde-format
@@ -840,25 +840,25 @@ msgstr "Etiket yazıtipi:"
 #: lib/DictEdict/deinflection.cpp:117
 #, kde-format
 msgid "verb"
-msgstr "fiil"
+msgstr "eylem"
 
 #: lib/DictEdict/deinflection.cpp:119
 #, kde-format
 msgid "adjective"
-msgstr "sıfat"
+msgstr "önad"
 
 #: lib/DictEdict/deinflection.cpp:145
 #, kde-format
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
-msgstr "Fiil ayırma bilgisi bulunamadı, bu yüzden ayırma kullanılamaz."
+msgstr "Eylem ayırma bilgisi bulunamadı, bu yüzden ayırma kullanılamaz."
 
 #: lib/DictEdict/deinflection.cpp:153
 #, kde-format
 msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
-msgstr "Fiil ayırma bilgisi yüklenemedi, bu yüzden fiil ayırma kullanılamaz."
+msgstr "Eylem ayırma bilgisi yüklenemedi, bu yüzden eylem ayırma kullanılamaz."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:26
 #, kde-format
@@ -923,7 +923,7 @@ msgstr "Kana"
 #: radselect/buttongrid.cpp:113
 #, kde-format
 msgid "No Radicals Selected"
-msgstr "Hiç Kök Seçilmedi"
+msgstr "Seçili Kök Yok"
 
 #: radselect/buttongrid.cpp:149
 #, kde-format
@@ -1008,13 +1008,13 @@ msgstr "Arama yapılırken bu program kapatılsın mı?"
 #: radselect/radselectprefdialog.ui:24
 #, kde-format
 msgid "Close radselect when you press search"
-msgstr "Aramaya bastığınızda kökseçici kapatılır"
+msgstr "Aramaya basıldığında kök seçiciyi kapat"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
 #, kde-format
 msgid "Search Results Font:"
-msgstr "Arama Sonuçları Yazıtipi:"
+msgstr "Arama sonuçları yazıtipi:"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
@@ -1034,7 +1034,7 @@ msgstr "漢字 かな"
 #: radselect/radselectprefdialog.ui:69
 #, kde-format
 msgid "Button Font:"
-msgstr "Düğme Yazıtipi:"
+msgstr "Düğme yazıtipi:"
 
 #: radselect/radselectview.cpp:39
 #, kde-format
