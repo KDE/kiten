@@ -13,6 +13,7 @@
   <name xml:lang="de">Kiten</name>
   <name xml:lang="el">Kiten</name>
   <name xml:lang="en-GB">Kiten</name>
+  <name xml:lang="eo">Kiten</name>
   <name xml:lang="es">Kiten</name>
   <name xml:lang="et">Kiten</name>
   <name xml:lang="eu">Kiten</name>
@@ -50,6 +51,7 @@
   <summary xml:lang="de">Referenz- und Studienprogramm für Japanisch</summary>
   <summary xml:lang="el">Εργαλείο πηγής και μελέτης της Ιαπωνικής γλώσσας</summary>
   <summary xml:lang="en-GB">Japanese Reference and Study Tool</summary>
+  <summary xml:lang="eo">Japana referenco kaj lernilo</summary>
   <summary xml:lang="es">Herramienta de estudio y de referencia del japonés</summary>
   <summary xml:lang="et">Jaapani keele õpiprogramm</summary>
   <summary xml:lang="eu">Japonieraren erreferentzia eta ikasteko tresna</summary>
@@ -127,6 +129,7 @@
       <caption xml:lang="de">Japanisch-Wörterbuch mit Kiten</caption>
       <caption xml:lang="el">Εξάσκηση στο Ιαπωνικό λεξικό με το Kiten</caption>
       <caption xml:lang="en-GB">Practising Japanese dictionary with Kiten</caption>
+      <caption xml:lang="eo">Ekzerante japanan vortprovizon per Kiten</caption>
       <caption xml:lang="es">Practicando con el diccionario japonés de Kiten</caption>
       <caption xml:lang="et">Jaapani keele harjutamine Kitenis</caption>
       <caption xml:lang="eu">Japonieraren hiztegiarekin trebatzea Kiten erabiliz</caption>
