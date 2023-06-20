@@ -325,7 +325,7 @@ msgstr "Usar o edict instalado"
 #: app/kiten.kcfg:32 app/kiten.kcfg:46
 #, kde-format
 msgid "Set of fields to display for this dictionary type"
-msgstr "Conxunto de campos para mostrar neste tipo de dicionario"
+msgstr "Conxunto de campos para amosar neste tipo de dicionario"
 
 #. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
 #: app/kiten.kcfg:39
@@ -902,14 +902,14 @@ msgid ""
 "Romaji information file not installed, so Romaji conversion cannot be used."
 msgstr ""
 "O ficheiro de información de Romaji non está instalado, así que non se pode "
-"empregar a conversión de Romaji."
+"usar a conversión de Romaji."
 
 #: lib/kromajiedit.cpp:38
 #, kde-format
 msgid ""
 "Romaji information could not be loaded, so Romaji conversion cannot be used."
 msgstr ""
-"Non se puido ler a información de Romaji, polo que non se pode empregar a "
+"Non se puido ler a información de Romaji, polo que non se pode usar a "
 "conversión de Romaji."
 
 #: lib/kromajiedit.cpp:91
@@ -1000,7 +1000,7 @@ msgstr "Borrar"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr "Mostrar os radicais en orde de frecuencia descendente"
+msgstr "Amosar os radicais en orde de frecuencia descendente"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
