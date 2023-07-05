@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -274,6 +274,7 @@ msgstr "جستجو..."
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] " نتیجه"
+msgstr[1] ""
 
 #: app/kiten.cpp:438
 #, kde-format
@@ -611,6 +612,7 @@ msgstr "تنظیمات"
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
 msgstr[0] ""
+msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:186
 #, kde-format
@@ -668,6 +670,7 @@ msgstr ""
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
 msgstr[0] ""
+msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:275
 #, fuzzy, kde-format
