@@ -108,3 +108,5 @@ QSize RadicalButton::sizeHint() const
 {
     return minimumSizeHint();
 }
+
+#include "moc_radicalbutton.cpp"

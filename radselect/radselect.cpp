@@ -150,3 +150,5 @@ void RadSelect::sendSearch(const QStringList &kanji)
         }
     }
 }
+
+#include "moc_radselect.cpp"

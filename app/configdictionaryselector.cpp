@@ -110,3 +110,5 @@ void ConfigDictionarySelector::deleteDictSlot()
         Q_EMIT widgetChanged();
     }
 }
+
+#include "moc_configdictionaryselector.cpp"

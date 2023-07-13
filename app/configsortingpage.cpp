@@ -101,3 +101,5 @@ bool ConfigSortingPage::hasChanged()
 {
     return false;
 }
+
+#include "moc_configsortingpage.cpp"

@@ -134,3 +134,5 @@ void KanjiBrowser::showPreferences()
     connect(dialog, &KConfigDialog::settingsChanged, _view, &KanjiBrowserView::loadSettings);
     dialog->show();
 }
+
+#include "moc_kanjibrowser.cpp"

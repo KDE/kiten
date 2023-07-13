@@ -733,3 +733,5 @@ void Kiten::setCurrentScrollValue(int value)
 
     _historyList.current()->setScrollValue(value);
 }
+
+#include "moc_kiten.cpp"

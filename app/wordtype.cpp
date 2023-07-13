@@ -18,3 +18,5 @@ WordType::WordType(QWidget *parent)
     addItem(QStringLiteral("Verb"));
     //   addItems( Entry::WordTypesPretty()->uniqueKeys() );
 }
+
+#include "moc_wordtype.cpp"

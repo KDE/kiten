@@ -212,3 +212,5 @@ void RadSelectView::toClipboard()
     cb->setText(copied_line->text(), QClipboard::Clipboard);
     cb->setText(copied_line->text(), QClipboard::Selection);
 }
+
+#include "moc_radselectview.cpp"

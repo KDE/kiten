@@ -134,3 +134,5 @@ void SearchStringInput::updateFontFromConfig()
 {
     _actionTextInput->setFont(KitenConfigSkeleton::self()->font());
 }
+
+#include "moc_searchstringinput.cpp"

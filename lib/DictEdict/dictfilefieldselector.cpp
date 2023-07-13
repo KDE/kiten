@@ -132,3 +132,5 @@ void DictFileFieldSelector::writeToPrefs()
 
     m_config->save();
 }
+
+#include "moc_dictfilefieldselector.cpp"

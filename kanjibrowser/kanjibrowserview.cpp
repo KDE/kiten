@@ -328,3 +328,5 @@ void KanjiBrowserView::toClipboard()
     cb->setText(_currentKanji->getWord(), QClipboard::Clipboard);
     cb->setText(_currentKanji->getWord(), QClipboard::Selection);
 }
+
+#include "moc_kanjibrowserview.cpp"

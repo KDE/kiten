@@ -163,3 +163,5 @@ void ResultsView::setLaterScrollValue(int scrollValue)
 {
     this->_scrollValue = scrollValue;
 }
+
+#include "moc_resultsview.cpp"

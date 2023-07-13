@@ -271,3 +271,5 @@ void KRomajiEdit::setKana(QAction *action)
         m_kana = "english";
     }
 }
+
+#include "moc_kromajiedit.cpp"

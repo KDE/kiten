@@ -294,3 +294,5 @@ void DictionaryUpdateManager::showUpdateResults()
     _succeeded.clear();
     _failed.clear();
 }
+
+#include "moc_dictionaryupdatemanager.cpp"

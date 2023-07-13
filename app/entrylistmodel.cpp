@@ -89,3 +89,5 @@ QVariant EntryListModel::data(const QModelIndex &index, int role) const
 
     return {};
 }
+
+#include "moc_entrylistmodel.cpp"

@@ -35,3 +35,5 @@ void EntryListView::setEmptyModel()
 {
     // TODO: implement me
 }
+
+#include "moc_entrylistview.cpp"

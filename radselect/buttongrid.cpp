@@ -167,3 +167,5 @@ void ButtonGrid::updateButtons()
         ++i;
     }
 }
+
+#include "moc_buttongrid.cpp"

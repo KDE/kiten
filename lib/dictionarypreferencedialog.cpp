@@ -19,3 +19,5 @@ QString DictionaryPreferenceDialog::name() const
 {
     return m_name;
 }
+
+#include "moc_dictionarypreferencedialog.cpp"

@@ -139,3 +139,5 @@ bool ConfigureDialog::isDefault()
     return false;
     // Always show the defaults button.... perhaps make a workaround later
 }
+
+#include "moc_configuredialog.cpp"
