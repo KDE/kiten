@@ -81,14 +81,10 @@ add_subdirectory( doc )
 add_subdirectory( kanjibrowser )
 add_subdirectory( lib )
 add_subdirectory( radselect )
+add_subdirectory( kitengen )
 
-## Build kitengen, a small index generator used by the kiten app
-set(kitengen_SRCS xjdxgen.c)
-add_executable(kitengen ${kitengen_SRCS})
-ecm_mark_nongui_executable(kitengen)
-target_link_libraries(kitengen Qt::Core)
-install( TARGETS kitengen ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 install(FILES org.kde.kiten.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+
 ki18n_install(po)
 if (KF5DocTools_FOUND)
     kdoctools_install(po)
