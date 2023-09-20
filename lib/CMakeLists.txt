@@ -1,50 +1,56 @@
 ############# kitenlib #################
 set(KITEN_LIB_VERSION "5.0.0")
 set(KITEN_LIB_SOVERSION "5")
-set(edict_SRCS
-		DictEdict/deinflection.cpp
-		DictEdict/dictfileedict.cpp
-		DictEdict/entryedict.cpp
-		DictEdict/indexededictfile.cpp
-		DictEdict/linearedictfile.cpp
-    DictEdict/dictfilefieldselector.cpp)
-set(kanjidic_SRCS
-		DictKanjidic/dictfilekanjidic.cpp
-		DictKanjidic/entrykanjidic.cpp)
-set(dictionary_SRCS ${edict_SRCS} ${kanjidic_SRCS})
 
-set(kiten_LIB_SRCS
-		dictionarymanager.cpp
-		dictionarypreferencedialog.cpp
-		dictquery.cpp
-		entry.cpp
-		entrylist.cpp
-		historyptrlist.cpp
-		kromajiedit.cpp
-		${dictionary_SRCS})
+add_library(kiten)
+set_target_properties(kiten PROPERTIES
+    VERSION ${KITEN_LIB_VERSION}
+    SOVERSION ${KITEN_LIB_SOVERSION}
+)
 
-add_library(kiten SHARED ${kiten_LIB_SRCS})
+target_sources(kiten PRIVATE
+    DictEdict/deinflection.cpp
+    DictEdict/dictfileedict.cpp
+    DictEdict/entryedict.cpp
+    DictEdict/indexededictfile.cpp
+    DictEdict/linearedictfile.cpp
+    DictEdict/dictfilefieldselector.cpp
+
+    DictKanjidic/dictfilekanjidic.cpp
+    DictKanjidic/entrykanjidic.cpp
+
+    dictionarymanager.cpp
+    dictionarypreferencedialog.cpp
+    dictquery.cpp
+    entry.cpp
+    entrylist.cpp
+    historyptrlist.cpp
+    kromajiedit.cpp
+)
+
 generate_export_header(kiten)
 
 target_link_libraries(kiten
-                Qt::Core
-                Qt::Widgets
-		KF5::Completion
-		KF5::ConfigCore
-		KF5::ConfigGui
-		KF5::CoreAddons
-		KF5::I18n
-		KF5::WidgetsAddons)
+    PUBLIC
+        KF5::Completion
+        Qt::Widgets
+        Qt::Core
+    PRIVATE
+        KF5::ConfigCore
+        KF5::ConfigGui
+        KF5::CoreAddons
+        KF5::I18n
+        KF5::WidgetsAddons
+)
 if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(kiten Qt6::Core5Compat)
+    target_link_libraries(kiten PRIVATE Qt6::Core5Compat)
 endif()
 
 if(WIN32)
-	target_include_directories(kiten PRIVATE ${MMAN_INCLUDE_PATH})
-	target_link_libraries(kiten ${MMAN_LIBRARY})
+    target_include_directories(kiten PRIVATE ${MMAN_INCLUDE_PATH})
+    target_link_libraries(kiten PRIVATE ${MMAN_LIBRARY})
 endif()
 
-set_target_properties(kiten PROPERTIES VERSION ${KITEN_LIB_VERSION} SOVERSION ${KITEN_LIB_SOVERSION})
 install( TARGETS kiten  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ############ install headers #############
