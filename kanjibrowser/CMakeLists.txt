@@ -11,6 +11,8 @@ target_sources(kanjibrowser_bin PRIVATE
     kanjibrowserview.cpp
     kanjibrowserview.h
     main.cpp
+
+    kanjibrowser.qrc
 )
 
 ki18n_wrap_ui(kanjibrowser_bin
@@ -30,4 +32,3 @@ target_link_libraries(kanjibrowser_bin
 install( TARGETS kanjibrowser_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( PROGRAMS org.kde.kitenkanjibrowser.desktop DESTINATION ${KDE_INSTALL_APPDIR} )
-install( FILES kanjibrowserui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kitenkanjibrowser )

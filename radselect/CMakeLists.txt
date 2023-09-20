@@ -14,6 +14,8 @@ target_sources(radselect_bin PRIVATE
     radicalfile.cpp
     radselect.cpp
     radselectview.cpp
+
+    radselect.qrc
 )
 ki18n_wrap_ui(radselect_bin
     radical_selector.ui
@@ -34,4 +36,3 @@ target_link_libraries(radselect_bin
 install( TARGETS radselect_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( PROGRAMS org.kde.kitenradselect.desktop DESTINATION ${KDE_INSTALL_APPDIR} )
-install( FILES radselectui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kitenradselect )

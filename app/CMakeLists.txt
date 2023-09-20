@@ -30,6 +30,8 @@ target_sources(kiten_bin PRIVATE
     searchstringinput.h
     wordtype.cpp
     wordtype.h
+
+    kiten.qrc
 )
 ki18n_wrap_ui(kiten_bin
     configdictselect.ui
@@ -58,4 +60,3 @@ install( TARGETS kiten_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( PROGRAMS org.kde.kiten.desktop DESTINATION ${KDE_INSTALL_APPDIR} )
 install( FILES kiten.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR} )
-install( FILES kitenui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kiten )
