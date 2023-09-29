@@ -4,7 +4,7 @@
 #
 # Miguel Revilla Rodríguez <yo@miguelrevilla.com>, 2002,2003, 2004.
 # Rafael Beccar <rafael.beccar@kdemail.net>, 2004, 2005.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2005, 2009, 2010, 2011, 2013, 2019, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2005, 2009, 2010, 2011, 2013, 2019, 2020, 2021, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
 # Santiago Fernández Sancho <santi@kde-es.org>, 2007, 2008.
 # Enrique Matias Sanchez (aka Quique) <cronopios@gmail.com>, 2007.
 msgid ""
@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-30 00:42+0000\n"
-"PO-Revision-Date: 2022-01-03 11:40+0100\n"
+"PO-Revision-Date: 2023-09-27 21:58+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.0\n"
+"X-Generator: Lokalize 23.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -46,7 +46,7 @@ msgstr "Selector de diccionario"
 #: app/configdictselect.ui:25
 #, kde-format
 msgid "Use prei&nstalled dict"
-msgstr "Utilizar dict prei&nstalado"
+msgstr "Usar dict prei&nstalado"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:56
@@ -120,19 +120,19 @@ msgstr "Búsqueda"
 #: app/configsearching.ui:33
 #, kde-format
 msgid "Search for \"jiten\" on startup"
-msgstr "Buscar «jiten» al inicio"
+msgstr "Buscar «jiten» durante el inicio"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configSorting)
 #: app/configsorting.ui:15
 #, kde-format
 msgid "sorting"
-msgstr "ordenación"
+msgstr "orden"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_dictionary_enable)
 #: app/configsorting.ui:21
 #, kde-format
 msgid "Sort Se&arch Results By Dictionary"
-msgstr "Orden&ar resultados de búsqueda por diccionario"
+msgstr "Orden&ar el resultado de la búsqueda por diccionario"
 
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, dictionary_order)
 #: app/configsorting.ui:28
@@ -166,12 +166,12 @@ msgstr "Tipo de letra"
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
-msgstr "Pantalla"
+msgstr "Mostrar"
 
 #: app/configuredialog.cpp:60
 #, kde-format
 msgid "Results Sorting"
-msgstr "Ordenación de los resultados"
+msgstr "Orden de los resultados"
 
 #: app/dictionaryupdatemanager.cpp:45
 #, kde-format
@@ -185,7 +185,7 @@ msgid ""
 "Could not read file."
 msgstr ""
 "Actualización cancelada.\n"
-"No se puede leer archivo."
+"No se puede leer el archivo."
 
 #: app/dictionaryupdatemanager.cpp:86
 #, kde-format
@@ -194,7 +194,7 @@ msgid ""
 "Could not open file."
 msgstr ""
 "Actualización cancelada.\n"
-"No se puede abrir archivo."
+"No se puede abrir el archivo."
 
 #: app/dictionaryupdatemanager.cpp:102
 #, kde-format
@@ -213,7 +213,7 @@ msgstr "Ya tiene las últimas actualizaciones."
 #: app/dictionaryupdatemanager.cpp:286
 #, kde-format
 msgid "Successfully updated your dictionaries."
-msgstr "Sus diccionarios se han actualizado correctamente."
+msgstr "Los diccionarios se han actualizado correctamente."
 
 #: app/dictionaryupdatemanager.cpp:288
 #, kde-format
@@ -224,10 +224,10 @@ msgid ""
 "Failed to update:\n"
 "%2"
 msgstr ""
-"Actualización exitosa:\n"
+"Se ha actualizado correctamente:\n"
 "%1\n"
 "\n"
-"Ha fallado la actualización:\n"
+"La actualización ha fallado:\n"
 "%2"
 
 #: app/dictionaryupdatemanager.cpp:290
@@ -236,7 +236,7 @@ msgid ""
 "Failed to update:\n"
 "%1"
 msgstr ""
-"Ha fallado la actualización:\n"
+"La actualización ha fallado:\n"
 "%1"
 
 #: app/kiten.cpp:153 radselect/main.cpp:29
@@ -271,7 +271,7 @@ msgstr "Buscar &en los resultados"
 #: app/kiten.cpp:194
 #, kde-format
 msgid "Focus result view"
-msgstr "Vista del resultado del foco"
+msgstr "Ir a la vista de resultados"
 
 #: app/kiten.cpp:221
 #, kde-format
@@ -297,8 +297,8 @@ msgstr "Buscando..."
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
-msgstr[0] "1 resultado encontrado"
-msgstr[1] "%1 resultados encontrados"
+msgstr[0] "Se ha encontrado 1 resultado"
+msgstr[1] "Se han encontrado %1 resultados"
 
 #: app/kiten.cpp:438
 #, kde-format
@@ -309,38 +309,38 @@ msgstr "No se han encontrado resultados"
 #: app/kiten.kcfg:10
 #, kde-format
 msgid "List of dictionary Types, used internally, do not touch"
-msgstr "Lista de los tipos de diccionario, usado internamente, no tocar"
+msgstr "Lista de los tipos de diccionarios (se usa internamente; no modificar)"
 
 #. i18n: ectx: label, entry (edict__NAMES), group (dicts_edict)
 #: app/kiten.kcfg:25
 #, kde-format
 msgid "Edict dictionary files"
-msgstr "Editar archivos de diccionario"
+msgstr "Archivos de diccionario edict"
 
 #. i18n: ectx: label, entry (edict__useGlobal), group (dicts_edict)
 #: app/kiten.kcfg:28
 #, kde-format
 msgid "Use preinstalled edict"
-msgstr "Utilizar edict preinstalado"
+msgstr "Usar edict preinstalado"
 
 #. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
 #. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
 #: app/kiten.kcfg:32 app/kiten.kcfg:46
 #, kde-format
 msgid "Set of fields to display for this dictionary type"
-msgstr "Conjunto de campos para mostrar este tipo de diccionario"
+msgstr "Conjunto de campos para mostrar en este tipo de diccionario"
 
 #. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
 #: app/kiten.kcfg:39
 #, kde-format
 msgid "Kanjidic dictionary files"
-msgstr "Archivos de diccionario de kanjidic"
+msgstr "Archivos de diccionario kanjidic"
 
 #. i18n: ectx: label, entry (kanjidic__useGlobal), group (dicts_kanjidic)
 #: app/kiten.kcfg:42
 #, kde-format
 msgid "Use preinstalled kanjidic"
-msgstr "Utilizar kanjidic preinstalado"
+msgstr "Usar kanjidic preinstalado"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:53
@@ -358,19 +358,19 @@ msgstr "Buscar distinguiendo mayúsculas/minúsculas"
 #: app/kiten.kcfg:63
 #, kde-format
 msgid "Enable Sorting By Dictionary"
-msgstr "Activar ordenación por diccionario"
+msgstr "Ordenar por diccionario"
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:67
 #, kde-format
 msgid "What order do we sort the dictionaries in?"
-msgstr "¿Qué orden utilizaremos en el diccionario?"
+msgstr "¿En qué orden se mostrará el diccionario?"
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:71
 #, kde-format
 msgid "What order do we sort the fields in?"
-msgstr "¿Qué orden utilizaremos para los campos?"
+msgstr "¿En qué orden se mostrarán los campos?"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:91
@@ -426,7 +426,7 @@ msgstr "Barra de herramientas de principal"
 #: app/kitenui.rc:46
 #, kde-format
 msgid "Extra Toolbar"
-msgstr "Barra de herramientas extra"
+msgstr "Barra de herramientas adicional"
 
 # no-c-format
 #. i18n: ectx: ToolBar (searchToolbar)
@@ -800,7 +800,7 @@ msgstr ""
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr "Utilice esto para ajustar el tipo de letra de los botones"
+msgstr "Use esto para ajustar el tipo de letra de los botones"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
@@ -859,8 +859,8 @@ msgstr "adjetivo"
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
 msgstr ""
-"No se encuentra información sobre la conjugación de verbos, así que no puede "
-"utilizarse."
+"No se encuentra información sobre la conjugación de verbos, por lo que no se "
+"puede utilizar."
 
 #: lib/DictEdict/deinflection.cpp:153
 #, kde-format
@@ -868,8 +868,8 @@ msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
 msgstr ""
-"No se puede cargar la información sobre la conjugación de verbos, así que no "
-"puede utilizarse."
+"No se puede cargar la información sobre la conjugación de verbos, por lo que "
+"no se puede utilizar."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:26
 #, kde-format
@@ -909,15 +909,15 @@ msgstr "Poco común"
 msgid ""
 "Romaji information file not installed, so Romaji conversion cannot be used."
 msgstr ""
-"El archivo de información de romaji no está instalado, así que no se puede "
-"utilizar la conversión a romaji."
+"El archivo de información de romaji no está instalado, por lo que no se "
+"puede usar la conversión a romaji."
 
 #: lib/kromajiedit.cpp:38
 #, kde-format
 msgid ""
 "Romaji information could not be loaded, so Romaji conversion cannot be used."
 msgstr ""
-"La información sobre romaji no se puede cargar, así que no se puede utilizar "
+"La información sobre romaji no se puede cargar, por lo que no se puede usar "
 "la conversión a romaji."
 
 #: lib/kromajiedit.cpp:87
@@ -983,7 +983,7 @@ msgstr "Selector de radical"
 #: radselect/radical_selector.ui:40
 #, kde-format
 msgid "Results"
-msgstr "Resultados"
+msgstr "Resultado"
 
 #. i18n: ectx: property (text), widget (QPushButton, copy_button)
 #: radselect/radical_selector.ui:82
@@ -1020,13 +1020,13 @@ msgstr "¿Desea cerrar este programa durante la búsqueda?"
 #: radselect/radselectprefdialog.ui:24
 #, kde-format
 msgid "Close radselect when you press search"
-msgstr "Cerrar el selector de radicales cuando pulse «Buscar»"
+msgstr "Cerrar el selector de radicales al pulsar «Buscar»"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
 #, kde-format
 msgid "Search Results Font:"
-msgstr "Buscar tipo de letra en los resultados:"
+msgstr "Tipo de letra del resultado de la búsqueda:"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
@@ -1064,7 +1064,7 @@ msgid ""
 "count information will be unavailable."
 msgstr ""
 "Parece que no está instalado el diccionario kanji (archivo kiten/kanjidic), "
-"por lo que no estará disponible la información del número de trazos."
+"por lo que no estará disponible la información sobre el número de trazos."
 
 #: radselect/radselectview.cpp:62
 #, kde-format
