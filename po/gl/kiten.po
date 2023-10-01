@@ -234,7 +234,7 @@ msgid ""
 "Failed to update:\n"
 "%1"
 msgstr ""
-"Non se puido actualizar:\n"
+"Non foi posíbel actualizar:\n"
 "%1"
 
 #: app/kiten.cpp:153 radselect/main.cpp:29
@@ -664,7 +664,7 @@ msgstr "Copiar %1 no portapapeis"
 #: kanjibrowser/kanjibrowserview.cpp:202
 #, kde-format
 msgid "Could not load the necessary kanji information."
-msgstr "Non se puido cargar a información necesaria sobre o kanji."
+msgstr "Non foi posíbel cargar a información necesaria sobre o kanji."
 
 #: kanjibrowser/kanjibrowserview.cpp:212
 #, kde-format
@@ -860,8 +860,8 @@ msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
 msgstr ""
-"Non se puido cargar a información sobre conxugacións verbais, polo que non "
-"se pode obter un verbo dunha conxugación."
+"Non foi posíbel cargar a información sobre conxugacións verbais, polo que "
+"non se pode obter un verbo dunha conxugación."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:26
 #, kde-format
@@ -909,7 +909,7 @@ msgstr ""
 msgid ""
 "Romaji information could not be loaded, so Romaji conversion cannot be used."
 msgstr ""
-"Non se puido ler a información de Romaji, polo que non se pode usar a "
+"Non foi posíbel ler a información de Romaji, polo que non se pode usar a "
 "conversión de Romaji."
 
 #: lib/kromajiedit.cpp:87
