@@ -14,8 +14,6 @@
 
 #include "radselect.h"
 
-static const char version[] = "0.1";
-
 int main(int argc, char **argv)
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -27,7 +25,7 @@ int main(int argc, char **argv)
 
     KAboutData about(QStringLiteral("kitenradselect"),
                      i18n("Radical Selector"),
-                     version,
+                     QStringLiteral("0.1"),
                      i18n("A KDE Application"),
                      KAboutLicense::GPL,
                      i18n("(C) 2005 Joseph Kerian"),

@@ -40,7 +40,7 @@ RadSelectView::RadSelectView(QWidget *parent)
                                 "be installed (file kiten/radkfile), this "
                                 "file is required for this app to function."));
     } else {
-        QString kanjidicname = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kiten/kanjidic");
+        QString kanjidicname = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("kiten/kanjidic"));
         if (kanjidicname.isNull()) {
             KMessageBox::error(nullptr,
                                i18n("Kanji dictionary does not seem to "
@@ -107,7 +107,7 @@ void RadSelectView::kanjiClicked(QListWidgetItem *item)
     QString allText = i18nc("@item:inlist all matches should be found", "(ALL)");
     QString finalText;
     if (item->text() == allText) {
-        for (QListWidgetItem *listItem : selected_radicals->findItems("*", Qt::MatchWildcard)) {
+        for (QListWidgetItem *listItem : selected_radicals->findItems(QStringLiteral("*"), Qt::MatchWildcard)) {
             if (listItem->text() != allText) {
                 finalText += listItem->text();
             }

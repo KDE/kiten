@@ -10,17 +10,9 @@
 #include "kanjibrowser.h"
 #include <KAboutData>
 #include <KLocalizedString>
-#include <Kdelibs4ConfigMigrator>
-
-static const char version[] = "1.0";
 
 int main(int argc, char **argv)
 {
-    Kdelibs4ConfigMigrator migrate(QStringLiteral("kitenkanjibrowser"));
-    migrate.setConfigFiles(QStringList() << QStringLiteral("kitenkanjibrowserrc"));
-    migrate.setUiFiles(QStringList() << QStringLiteral("kanjibrowserui.rc"));
-    migrate.migrate();
-
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
@@ -30,7 +22,7 @@ int main(int argc, char **argv)
 
     KAboutData about(QStringLiteral("kitenkanjibrowser"),
                      i18n("Kanji Browser"),
-                     version,
+                     QStringLiteral("1.0"),
                      i18n("Kiten's Kanji Browser, a KDE Japanese Reference Tool"),
                      KAboutLicense::GPL_V2,
                      i18n("(C) 2011 Daniel E. Moctezuma"),

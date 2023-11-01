@@ -21,6 +21,8 @@
 #include <KLocalizedString>
 #include <KStandardAction>
 
+using namespace Qt::StringLiterals;
+
 KanjiBrowser::KanjiBrowser()
     : KXmlGuiWindow()
     , _dictFileKanjidic(nullptr)
@@ -76,8 +78,8 @@ void KanjiBrowser::loadKanji()
     //  - Kanji
     //  - Grade
     //  - Number of strokes
-    QRegExp gradeMatch("^G\\d+");
-    QRegExp strokeMatch("^S\\d+");
+    QRegularExpression gradeMatch(QStringLiteral("^G\\d+"));
+    QRegularExpression strokeMatch(QStringLiteral("^S\\d+"));
     QList<int> gradeList;
     QList<int> strokeList;
     QHash<QString, QPair<int, int>> kanjiList;
@@ -86,8 +88,8 @@ void KanjiBrowser::loadKanji()
         // manage that information in KanjiBrowserView.
         int grade = 0;
         int strokes = 0;
-        QStringList gradeSection = line.split(' ', Qt::SkipEmptyParts).filter(gradeMatch);
-        QStringList strokesSection = line.split(' ', Qt::SkipEmptyParts).filter(strokeMatch);
+        QStringList gradeSection = line.split(' '_L1, Qt::SkipEmptyParts).filter(gradeMatch);
+        QStringList strokesSection = line.split(' '_L1, Qt::SkipEmptyParts).filter(strokeMatch);
 
         // There are some kanji without grade (example: those not in Jouyou list).
         if (!gradeSection.isEmpty()) {

@@ -10,10 +10,12 @@
 #include "kitenmacros.h"
 
 #include <QFile>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QString>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QTextStream>
+
+using namespace Qt::StringLiterals;
 
 RadicalFile::RadicalFile(QString &radkfile, const QString &kanjidic)
 {
@@ -54,23 +56,25 @@ bool RadicalFile::loadRadicalFile(QString &radkfile)
     }
 
     // Read our radical file through a eucJP codec (helpfully builtin to Qt)
-    QTextStream t(&f);
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(f.readAll());
+    QTextStream t(decoded.toUtf8());
+
     Radical *newestRadical = nullptr;
     QHash<QString, QSet<QString>> krad;
 
-    t.setCodec(QTextCodec::codecForName("eucJP"));
     while (!t.atEnd()) {
         QString line = t.readLine();
-        if (line.length() == 0 || line.at(0) == '#') {
+        if (line.length() == 0 || line.at(0) == '#'_L1) {
             // Skip comment characters
             continue;
-        } else if (line.at(0) == '$') {
+        } else if (line.at(0) == '$'_L1) {
             // Start of a new radical
             if (newestRadical != nullptr) {
                 m_radicals.insert(newestRadical->toString(), *newestRadical);
             }
             delete newestRadical;
-            QStringList lineElements = line.split(QRegExp(QStringLiteral("\\s+")));
+            QStringList lineElements = line.split(QRegularExpression(QStringLiteral("\\s+")));
             newestRadical = new Radical(lineElements.at(1), lineElements.at(2).toUInt(), m_radicals.size());
         } else if (newestRadical != nullptr) {
             // List of m_kanji, potentially
@@ -103,11 +107,11 @@ bool RadicalFile::loadKanjidic(const QString &kanjidic)
     dictFileKanjidic.loadSettings();
     dictFileKanjidic.loadDictionary(kanjidic, KANJIDIC);
 
-    QRegExp strokeMatch("^S\\d+");
+    QRegularExpression strokeMatch(QStringLiteral("^S\\d+"));
     for (const QString &line : dictFileKanjidic.dumpDictionary()) {
         const QString kanji = line[0];
 
-        QStringList strokesSection = line.split(" ", Qt::SkipEmptyParts).filter(strokeMatch);
+        QStringList strokesSection = line.split(" "_L1, Qt::SkipEmptyParts).filter(strokeMatch);
 
         unsigned int strokes = strokesSection.first().remove(0, 1).toInt();
 

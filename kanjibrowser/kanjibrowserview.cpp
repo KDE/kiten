@@ -134,7 +134,7 @@ QString KanjiBrowserView::convertToCSS(const QFont &font)
         break;
     }
 
-    return QString(
+    return QStringLiteral(
                "font-family:\"%1\";"
                "font-size:%2px;"
                "font-weight:%3;"
@@ -236,7 +236,9 @@ void KanjiBrowserView::setupView(KanjiBrowser *parent, const QHash<QString, QPai
     connect(_grades, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeGrade);
     connect(_strokes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeStrokeCount);
     connect(_kanjiList, &QListWidget::itemClicked, this, &KanjiBrowserView::searchKanji);
-    connect(_kanjiList, &QListWidget::itemClicked, _goToKanjiInfo, &QAction::triggered);
+    connect(_kanjiList, &QListWidget::itemClicked, _goToKanjiInfo, [this] {
+        _goToKanjiInfo->triggered();
+    });
     connect(goToKanjiList, &QAction::triggered, this, &KanjiBrowserView::changeToListPage);
     connect(_goToKanjiInfo, &QAction::triggered, this, &KanjiBrowserView::changeToInfoPage);
     connect(_copyToClipboard, &QAction::triggered, this, &KanjiBrowserView::toClipboard);
@@ -260,17 +262,17 @@ void KanjiBrowserView::showKanjiInformation(const EntryKanjidic *kanji)
     kanjiFont.setPointSizeF(_kanjiSize.toReal());
 
     QString text;
-    text.append("<html><body><style>");
+    text.append(QStringLiteral("<html><body><style>"));
     text.append(QStringLiteral(".kanji { %1 }").arg(convertToCSS(kanjiFont)));
     text.append(QStringLiteral(".label { %1 }").arg(convertToCSS(_labelFont)));
     text.append(QStringLiteral(".kana  { %1 }").arg(convertToCSS(_kanaFont)));
-    text.append("</style>");
+    text.append(QStringLiteral("</style>"));
 
     // Put the kanji.
     text.append(QStringLiteral("<table><tr><td><p class=\"kanji\">%1</p></td>").arg(kanji->getWord()));
 
     // Now the kanji grades and number of strokes.
-    text.append("<td>");
+    text.append(QStringLiteral("<td>"));
     if (!kanji->getKanjiGrade().isEmpty()) {
         text.append(QStringLiteral("<p class=\"label\">%1 %2</p></br>").arg(i18n("Grade:")).arg(kanji->getKanjiGrade()));
     }
@@ -278,38 +280,38 @@ void KanjiBrowserView::showKanjiInformation(const EntryKanjidic *kanji)
 
     // Onyomi readings.
     if (!kanji->getOnyomiReadingsList().isEmpty()) {
-        text.append(QString("<p class=\"label\">%1"
-                            "<span class=\"kana\">%2</span></p></br>")
+        text.append(QStringLiteral("<p class=\"label\">%1"
+                                   "<span class=\"kana\">%2</span></p></br>")
                         .arg(i18n("Onyomi: "))
                         .arg(kanji->getOnyomiReadings()));
     }
 
     // Kunyomi readings.
     if (!kanji->getKunyomiReadingsList().isEmpty()) {
-        text.append(QString("<p class=\"label\">%1"
-                            "<span class=\"kana\">%2</span></p></br>")
+        text.append(QStringLiteral("<p class=\"label\">%1"
+                                   "<span class=\"kana\">%2</span></p></br>")
                         .arg(i18n("Kunyomi: "))
                         .arg(kanji->getKunyomiReadings()));
     }
 
     // Special readings used in names.
     if (!kanji->getInNamesReadingsList().isEmpty()) {
-        text.append(QString("<p class=\"label\">%1"
-                            "<span class=\"kana\">%2</span></p></br>")
+        text.append(QStringLiteral("<p class=\"label\">%1"
+                                   "<span class=\"kana\">%2</span></p></br>")
                         .arg(i18n("In names: "))
                         .arg(kanji->getInNamesReadings()));
     }
 
     // Reading used as radical.
     if (!kanji->getAsRadicalReadingsList().isEmpty()) {
-        text.append(QString("<p class=\"label\">%1"
-                            "<span class=\"kana\">%2</span></p></br>")
+        text.append(QStringLiteral("<p class=\"label\">%1"
+                                   "<span class=\"kana\">%2</span></p></br>")
                         .arg(i18n("As radical: "))
                         .arg(kanji->getAsRadicalReadings()));
     }
 
     // Meanings
-    text.append("<p class=\"label\">");
+    text.append(QStringLiteral("<p class=\"label\">"));
     if (kanji->getMeaningsList().count() == 1) {
         text.append(i18n("Meaning: "));
     } else {
@@ -318,7 +320,7 @@ void KanjiBrowserView::showKanjiInformation(const EntryKanjidic *kanji)
     text.append(QStringLiteral("<span class=\"kana\">%1</span></p>").arg(kanji->getMeanings()));
 
     // Close remaining tags and set the HTML text.
-    text.append("</body></html>");
+    text.append(QStringLiteral("</body></html>"));
     _kanjiInformation->setHtml(text);
 }
 

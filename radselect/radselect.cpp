@@ -86,7 +86,7 @@ void RadSelect::dropEvent(QDropEvent *event)
 {
     QByteArray qba = event->mimeData()->data(QStringLiteral("text/plain"));
     if (qba.size() > 0) {
-        loadSearchString(qba);
+        loadSearchString(QString::fromUtf8(qba));
     }
 }
 

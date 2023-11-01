@@ -27,6 +27,7 @@ target_link_libraries(kanjibrowser_bin
     KF6::Completion
     KF6::I18n
     KF6::XmlGui
+    KF6::CoreAddons
 )
 
 install( TARGETS kanjibrowser_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

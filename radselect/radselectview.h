@@ -17,7 +17,6 @@
 class ButtonGrid;
 class QListWidgetItem;
 class QString;
-class QStringList;
 
 #include "radicalfile.h" //For Kanji/radicalFile definitions
 
