@@ -18,6 +18,8 @@
 #include "DictEdict/entryedict.h"
 #include "kitenmacros.h"
 
+using namespace Qt::StringLiterals;
+
 class EntryList::Private
 {
 public:
@@ -151,7 +153,7 @@ QString EntryList::toHTML(unsigned int start, unsigned int length) const
 
         if (length-- > 0) {
             result += QStringLiteral("<div class=\"%1\" index=\"%2\" dict=\"%3\">%4</div>")
-                          .arg(i % 2 == 0 ? "Entry" : "Entry odd")
+                          .arg(i % 2 == 0 ? QStringLiteral("Entry") : QStringLiteral("Entry odd"))
                           .arg(QString::number(i))
                           .arg(entry->getDictName())
                           .arg(entry->toHTML());
@@ -173,19 +175,19 @@ QString EntryList::toKVTML(unsigned int start, unsigned int length) const
         length = max - start;
     }
 
-    QString result =
+    QString result = QStringLiteral(
         "<?xml version=\"1.0\"?>\n<!DOCTYPE kvtml SYSTEM \"kvoctrain.dtd\">\n"
         "<kvtml encoding=\"UTF-8\" "
         " generator=\"kiten v42.0\""
-        " title=\"To be determined\">\n";
+        " title=\"To be determined\">\n");
     for (Entry *it : *this) {
         if (length-- > 0) {
-            result = result + it->toKVTML() + '\n';
+            result = result + it->toKVTML() + '\n'_L1;
         } else {
             break;
         }
     }
-    return result + "</kvtml>\n";
+    return result + QStringLiteral("</kvtml>\n");
 }
 
 QString EntryList::toHTML() const

@@ -15,6 +15,8 @@
 #include <QString>
 #include <QVBoxLayout>
 
+using namespace Qt::StringLiterals;
+
 DictFileFieldSelector::DictFileFieldSelector(KConfigSkeleton *config, const QString &dictionaryTypeName, QWidget *parent)
     : DictionaryPreferenceDialog(parent, dictionaryTypeName)
     , m_dictName(dictionaryTypeName)
@@ -57,16 +59,16 @@ void DictFileFieldSelector::readFromPrefs()
 {
     QStringList selectedList;
 
-    m_config->setCurrentGroup("dicts_" + m_dictName);
+    m_config->setCurrentGroup("dicts_"_L1 + m_dictName);
 
     QStringList actionList = m_completeList;
-    QString itemName = m_dictName + "__displayFields";
+    QString itemName = m_dictName + "__displayFields"_L1;
     KConfigSkeletonItem *item = m_config->findItem(itemName);
     if (item != nullptr) {
         selectedList = item->property().toStringList();
     } else {
         // it's not currently in the preferences list
-        m_config->addItem(new KConfigSkeleton::ItemStringList("dicts_" + m_dictName, itemName, *new QStringList()), itemName);
+        m_config->addItem(new KConfigSkeleton::ItemStringList("dicts_"_L1 + m_dictName, itemName, *new QStringList()), itemName);
         m_config->load();
         selectedList = m_config->findItem(itemName)->property().toStringList();
     }
@@ -113,7 +115,7 @@ void DictFileFieldSelector::updateWidgetsDefault()
 
 void DictFileFieldSelector::writeToPrefs()
 {
-    m_config->setCurrentGroup("dicts_" + m_dictName);
+    m_config->setCurrentGroup("dicts_"_L1 + m_dictName);
     QStringList theList;
     KConfigSkeletonItem *item;
     QString itemName;
@@ -122,10 +124,10 @@ void DictFileFieldSelector::writeToPrefs()
         theList.append(m_listView->selectedListWidget()->item(i)->text());
     }
 
-    itemName = m_dictName + "__displayFields";
+    itemName = m_dictName + "__displayFields"_L1;
     item = m_config->findItem(itemName);
     if (!item) {
-        item = new KConfigSkeleton::ItemStringList("dicts_" + m_dictName, itemName, *new QStringList());
+        item = new KConfigSkeleton::ItemStringList("dicts_"_L1 + m_dictName, itemName, *new QStringList());
         m_config->addItem(item, itemName);
     }
     item->setProperty(theList);

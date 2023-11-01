@@ -27,6 +27,8 @@
 #include <QTextStream>
 #include <QVector>
 
+using namespace Qt::StringLiterals;
+
 // This is a very primative form of information hiding
 // But C++ can get stupid with static QT objects...
 // So this turns out to be much, much easier
@@ -155,13 +157,13 @@ bool Deinflection::load()
     }
 
     QTextStream t(&f);
-    t.setCodec(QTextCodec::codecForName("eucJP"));
+    // t.setCodec(QTextCodec::codecForName("eucJP"));
 
     // The file starts out with a number -> name list of the conjugation types
     // In the format "#[#]  NAME\n"
     // The next section beginning is flagged with a $ at the beginning of the line
-    for (QString text = t.readLine(); !t.atEnd() && text.at(0) != '$'; text = t.readLine()) {
-        if (text.at(0) != '#') {
+    for (QString text = t.readLine(); !t.atEnd() && text.at(0) != '$'_L1; text = t.readLine()) {
+        if (text.at(0) != '#'_L1) {
             unsigned long number = text.left(2).trimmed().toULong();
             QString name = text.right(text.length() - 2).trimmed();
             names[number] = name;
@@ -172,14 +174,14 @@ bool Deinflection::load()
     // Format is "NUMBER_FROM_LIST_ABOVE  ENDING_TO_REPLACE\n"
     QString replacement = QString();
     for (QString text = t.readLine(); !t.atEnd(); text = t.readLine()) {
-        if (!text.isEmpty() && text.at(0) == '$') {
+        if (!text.isEmpty() && text.at(0) == '$'_L1) {
             replacement = text.right(1).trimmed();
-        } else if (!text.trimmed().isEmpty() && text.at(0) != '#') {
-            unsigned long labelIndex = text.section(' ', 0, 1).trimmed().toULong();
+        } else if (!text.trimmed().isEmpty() && text.at(0) != '#'_L1) {
+            unsigned long labelIndex = text.section(' '_L1, 0, 1).trimmed().toULong();
 
             Conjugation conj;
             conj.label = names.value(labelIndex);
-            conj.ending = text.section(' ', 2).trimmed();
+            conj.ending = text.section(' '_L1, 2).trimmed();
             conj.replace = replacement;
 
             conjugationList->append(conj);

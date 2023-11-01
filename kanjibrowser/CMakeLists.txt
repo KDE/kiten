@@ -24,9 +24,9 @@ kconfig_add_kcfg_files(kanjibrowser_bin kanjibrowserconfig.kcfgc)
 target_link_libraries(kanjibrowser_bin  
     kiten
     Qt::Widgets
-    KF5::Completion
-    KF5::I18n
-    KF5::XmlGui
+    KF6::Completion
+    KF6::I18n
+    KF6::XmlGui
 )
 
 install( TARGETS kanjibrowser_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

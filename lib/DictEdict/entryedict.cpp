@@ -17,6 +17,8 @@
 
 #define QSTRINGLISTCHECK(x) (x == NULL ? QStringList() : *x)
 
+using namespace Qt::StringLiterals;
+
 EntryEdict::EntryEdict(const QString &dict)
     : Entry(dict)
 {
@@ -38,7 +40,7 @@ Entry *EntryEdict::clone() const
  */
 QString EntryEdict::dumpEntry() const
 {
-    QString readings = QString(Readings.isEmpty() ? QStringLiteral(" ") : " [" + Readings.first() + "] ");
+    QString readings = QString(Readings.isEmpty() ? QStringLiteral(" ") : QStringLiteral(" [") + Readings.first() + QStringLiteral("] "));
 
     return QStringLiteral("%1%2/%3/").arg(Word).arg(readings).arg(Meanings.join(QLatin1Char('/')));
 }
@@ -210,13 +212,13 @@ QString EntryEdict::kanjiLinkify(const QString &inString) const
 bool EntryEdict::loadEntry(const QString &entryLine)
 {
     /* Set tempQString to be the reading and word portion of the entryLine */
-    int endOfKanjiAndKanaSection = entryLine.indexOf('/');
+    int endOfKanjiAndKanaSection = entryLine.indexOf('/'_L1);
     if (endOfKanjiAndKanaSection == -1) {
         return false;
     }
     QString tempQString = entryLine.left(endOfKanjiAndKanaSection);
     /* The actual Word is the beginning of the line */
-    int endOfKanji = tempQString.indexOf(' ');
+    int endOfKanji = tempQString.indexOf(' '_L1);
     if (endOfKanji == -1) {
         return false;
     }
@@ -224,10 +226,10 @@ bool EntryEdict::loadEntry(const QString &entryLine)
 
     /* The Reading is either Word or encased in '[' */
     Readings.clear();
-    int startOfReading = tempQString.indexOf('[');
+    int startOfReading = tempQString.indexOf('['_L1);
     if (startOfReading != -1) // This field is optional for EDICT (and kiten)
     {
-        Readings.append(tempQString.left(tempQString.lastIndexOf(']')).mid(startOfReading + 1));
+        Readings.append(tempQString.left(tempQString.lastIndexOf(']'_L1)).mid(startOfReading + 1));
     }
     /* TODO: use this code or not?
     * app does not handle only reading and no word entries
@@ -242,8 +244,8 @@ bool EntryEdict::loadEntry(const QString &entryLine)
     /* set Meanings to be all of the meanings in the definition */
     QString remainingLine = entryLine.mid(endOfKanjiAndKanaSection);
     // Trim to last '/'
-    remainingLine = remainingLine.left(remainingLine.lastIndexOf('/'));
-    Meanings = remainingLine.split('/', Qt::SkipEmptyParts);
+    remainingLine = remainingLine.left(remainingLine.lastIndexOf('/'_L1));
+    Meanings = remainingLine.split('/'_L1, Qt::SkipEmptyParts);
 
     if (Meanings.empty()) {
         return false;
@@ -261,7 +263,7 @@ bool EntryEdict::loadEntry(const QString &entryLine)
     // TODO: Remove them from the original string
     for (int i = firstWord.indexOf(QLatin1Char('(')); i != -1; i = firstWord.indexOf(QLatin1Char('('), i + 1)) {
         QString parentheses = firstWord.mid(i + 1, firstWord.indexOf(QLatin1Char(')'), i) - i - 1);
-        stringTypes += parentheses.split(',');
+        stringTypes += parentheses.split(','_L1);
     }
 
     for (const QString &str : stringTypes) {
@@ -323,11 +325,11 @@ QString EntryEdict::toHTML() const
         if (field == QLatin1String("--NewLine--"))
             result += QLatin1String("<br>");
         else if (field == QLatin1String("Word/Kanji"))
-            result += HTMLWord() + ' ';
+            result += HTMLWord() + ' '_L1;
         else if (field == QLatin1String("Meaning"))
-            result += HTMLMeanings() + ' ';
+            result += HTMLMeanings() + ' '_L1;
         else if (field == QLatin1String("Reading"))
-            result += HTMLReadings() + ' ';
+            result += HTMLReadings() + ' '_L1;
         else
             qDebug() << "Unknown field: " << field;
     }

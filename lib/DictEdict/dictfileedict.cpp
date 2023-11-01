@@ -15,6 +15,7 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QRegularExpression>
 #include <QString>
 #include <QTextCodec>
 #include <QTextStream>
@@ -26,6 +27,8 @@
 #include "entryedict.h"
 #include "entrylist.h"
 #include "kitenmacros.h"
+
+using namespace Qt::StringLiterals;
 
 QString *DictFileEdict::deinflectionLabel = nullptr;
 QStringList *DictFileEdict::displayFields = nullptr;
@@ -80,7 +83,7 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
     if (firstChoice.length() == 0) {
         firstChoice = query.getPronunciation();
         if (firstChoice.length() == 0) {
-            firstChoice = query.getMeaning().split(' ').first().toLower();
+            firstChoice = query.getMeaning().split(' '_L1).first().toLower();
             if (firstChoice.length() == 0) {
                 // The nastiest situation... we have to assemble a search string
                 // from the first property
@@ -272,7 +275,7 @@ void DictFileEdict::loadSettings(KConfigSkeleton *config)
     long2short[QStringLiteral("Meaning")] = QStringLiteral("Meaning");
     long2short[QStringLiteral("--Newline--")] = QStringLiteral("--Newline--");
 
-    KConfigSkeletonItem *item = config->findItem(getType() + "__displayFields");
+    KConfigSkeletonItem *item = config->findItem(getType() + "__displayFields"_L1);
     this->displayFields = loadListType(item, this->displayFields, long2short);
 }
 
@@ -307,10 +310,10 @@ bool DictFileEdict::validDictionaryFile(const QString &filename)
 
     // Now we can actually check the file
     QTextStream fileStream(&file);
-    fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
     QString commentMarker(QStringLiteral("？？？？")); // Note: Don't touch this! vim seems to have
                                                        // An odd text codec error here too :(
-    QRegExp formattedLine("^\\S+\\s+(\\[\\S+\\]\\s+)?/.*/$");
+    QRegularExpression formattedLine(QStringLiteral("^\\S+\\s+(\\[\\S+\\]\\s+)?/.*/$"));
     while (!fileStream.atEnd()) {
         QString line = fileStream.readLine();
 

@@ -19,7 +19,11 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextCodec>
+
+using namespace Qt::StringLiterals;
 
 QStringList *DictFileKanjidic::displayFields = nullptr;
 
@@ -94,7 +98,7 @@ EntryList *DictFileKanjidic::doSearch(const DictQuery &query)
     if (searchQuery.length() == 0) {
         searchQuery = query.getPronunciation();
         if (searchQuery.length() == 0) {
-            searchQuery = query.getMeaning().split(' ').first().toLower();
+            searchQuery = query.getMeaning().split(' '_L1).first().toLower();
             if (searchQuery.length() == 0) {
                 QList<QString> keys = query.listPropertyKeys();
                 if (keys.empty()) {
@@ -149,12 +153,12 @@ bool DictFileKanjidic::loadDictionary(const QString &file, const QString &name)
     qDebug() << "Loading kanjidic from:" << file;
 
     QTextStream fileStream(&dictionary);
-    fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
 
     QString currentLine;
     while (!fileStream.atEnd()) {
         currentLine = fileStream.readLine();
-        if (currentLine[0] != '#') {
+        if (currentLine[0] != '#'_L1) {
             m_kanjidic << currentLine;
         }
     }
@@ -211,7 +215,7 @@ void DictFileKanjidic::loadSettings()
 
 void DictFileKanjidic::loadSettings(KConfigSkeleton *config)
 {
-    KConfigSkeletonItem *item = config->findItem(getType() + "__displayFields");
+    KConfigSkeletonItem *item = config->findItem(getType() + "__displayFields"_L1);
     this->displayFields = loadListType(item, this->displayFields, loadDisplayOptions());
 }
 
@@ -233,14 +237,14 @@ bool DictFileKanjidic::validDictionaryFile(const QString &filename)
     }
 
     QTextStream fileStream(&file);
-    fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
 
-    QRegExp format("^\\S\\s+(\\S+\\s+)+(\\{(\\S+\\s?)+\\})+");
+    QRegularExpression format(QStringLiteral("^\\S\\s+(\\S+\\s+)+(\\{(\\S+\\s?)+\\})+"));
     m_validKanjidic = true;
     while (!fileStream.atEnd()) {
         QString currentLine = fileStream.readLine();
 
-        if (currentLine[0] == '#') {
+        if (currentLine[0] == '#'_L1) {
             continue;
         } else if (currentLine.contains(format)) {
             continue;

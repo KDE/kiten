@@ -10,10 +10,10 @@ set(RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_
 project(kiten VERSION ${RELEASE_SERVICE_VERSION})
 
 #ECM setup
-set(KF5_MIN_VERSION "5.90.0")
-set(KDE_COMPILERSETTINGS_LEVEL "5.82")
-set(QT_REQUIRED_VERSION "5.15.0")
-find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
+set(KF_MIN_VERSION "5.240.0")
+set(KDE_COMPILERSETTINGS_LEVEL "5.240.0")
+set(QT_REQUIRED_VERSION "6.5.0")
+find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
@@ -28,8 +28,8 @@ include(ECMSetupVersion)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
 
-find_package(Qt${QT_MAJOR_VERSION} ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets)
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+find_package(Qt6 ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets Core5Compat)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Completion
     Config
@@ -40,10 +40,8 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     I18n
     KIO
     Notifications
-    XmlGui)
-if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(Qt6Core5Compat)
-endif()
+    XmlGui
+    StatusNotifierItem)
 
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
@@ -86,7 +84,7 @@ add_subdirectory( kitengen )
 install(FILES org.kde.kiten.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 ki18n_install(po)
-if (KF5DocTools_FOUND)
+if (KF6DocTools_FOUND)
     kdoctools_install(po)
 endif()
 

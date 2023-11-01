@@ -50,7 +50,7 @@ void ResultsView::doScroll()
  */
 void ResultsView::flush()
 {
-    const QString content = QString("<head><style>%1</style></head><body>%2</body>").arg(generateCSS()).arg(_printText);
+    const QString content = QStringLiteral("<head><style>%1</style></head><body>%2</body>").arg(generateCSS()).arg(_printText);
     setHtml(content);
 }
 
@@ -59,7 +59,7 @@ QString ResultsView::generateCSS()
     KColorScheme scheme(QPalette::Active);
     QFont font = KitenConfigSkeleton::self()->font();
 
-    return QString(
+    return QStringLiteral(
                ".Word { font-size: %9px }"
                ".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
                //"div.Entry {display: inline; }"
@@ -154,7 +154,7 @@ void ResultsView::setBasicMode(bool yes)
  */
 void ResultsView::setContents(const QString &text)
 {
-    const QString content = QString("<head><style>%1</style></head><body>%2</body>").arg(generateCSS()).arg(text);
+    const QString content = QStringLiteral("<head><style>%1</style></head><body>%2</body>").arg(generateCSS()).arg(text);
     setHtml(content);
     //  qDebug() << "Set HTML to " << content;
 }

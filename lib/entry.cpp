@@ -17,6 +17,8 @@
 #include <iostream>
 #include <sys/mman.h>
 
+using namespace Qt::StringLiterals;
+
 /**
  * The default constructor, unless you really know what you're doing,
  * THIS SHOULD NOT BE USED. For general use, other entities will need
@@ -286,7 +288,7 @@ bool Entry::matchesQuery(const DictQuery &query) const
     }
 
     if (!query.getMeaning().isEmpty()) {
-        if (!listMatch(Meanings.join(QLatin1Char(' ')).toLower().split(' '),
+        if (!listMatch(Meanings.join(QLatin1Char(' ')).toLower().split(' '_L1),
                        query.getMeaning().toLower().split(DictQuery::mainDelimiter),
                        query.getMatchType())) {
             return false;
@@ -320,7 +322,7 @@ inline QString Entry::toKVTML() const
 </e>
 */
     // TODO: en should not necessarily be the language here.
-    return QString(
+    return QStringLiteral(
                "<e>\n<o l=\"en\">%1</o>\n"
                "<t l=\"jp-kanji\">%2</t>\n"
                "<t l=\"jp-kana\">%3</t></e>\n\n")

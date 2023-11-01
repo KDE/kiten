@@ -27,10 +27,10 @@ target_link_libraries(radselect_bin
     kiten 
     Qt::Core
     Qt::Widgets
-    KF5::ConfigWidgets 
-    KF5::CoreAddons 
-    KF5::I18n 
-    KF5::XmlGui
+    KF6::ConfigWidgets
+    KF6::CoreAddons
+    KF6::I18n
+    KF6::XmlGui
 )
 
 install( TARGETS radselect_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

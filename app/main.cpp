@@ -10,7 +10,6 @@
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>
-#include <Kdelibs4ConfigMigrator>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QDBusConnection>
@@ -25,12 +24,6 @@ void noMessageOutput(QtMsgType, const char *)
 int main(int argc, char *argv[])
 {
     //   qInstallMsgHandler(noMessageOutput);	//Disable Qt Errors from showing
-
-    // Copyright and author information
-    Kdelibs4ConfigMigrator migrate(QStringLiteral("kiten"));
-    migrate.setConfigFiles(QStringList() << QStringLiteral("kitenrc"));
-    migrate.setUiFiles(QStringList() << QStringLiteral("kitenui.rc"));
-    migrate.migrate();
 
     KLocalizedString::setApplicationDomain("kiten");
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

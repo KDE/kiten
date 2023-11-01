@@ -32,19 +32,17 @@ generate_export_header(kiten)
 
 target_link_libraries(kiten
     PUBLIC
-        KF5::Completion
+        KF6::Completion
         Qt::Widgets
         Qt::Core
     PRIVATE
-        KF5::ConfigCore
-        KF5::ConfigGui
-        KF5::CoreAddons
-        KF5::I18n
-        KF5::WidgetsAddons
+		Qt6::Core5Compat
+        KF6::ConfigCore
+        KF6::ConfigGui
+        KF6::CoreAddons
+        KF6::I18n
+        KF6::WidgetsAddons
 )
-if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(kiten PRIVATE Qt6::Core5Compat)
-endif()
 
 if(WIN32)
     target_include_directories(kiten PRIVATE ${MMAN_INCLUDE_PATH})

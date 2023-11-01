@@ -18,6 +18,8 @@
 
 #include <sys/mman.h>
 
+using namespace Qt::StringLiterals;
+
 IndexedEdictFile::IndexedEdictFile()
     : m_valid(false)
     , m_dictPtr(static_cast<unsigned char *>(MAP_FAILED))
@@ -125,7 +127,7 @@ uint32_t IndexedEdictFile::findFirstMatch(const QByteArray &query) const
 
     do {
         cur = (high + low) / 2;
-        comp = equalOrSubstring(query, lookupDictLine(cur));
+        comp = equalOrSubstring(query.data(), lookupDictLine(cur).data());
         if (comp < 0) {
             low = cur + 1;
         }
@@ -138,7 +140,7 @@ uint32_t IndexedEdictFile::findFirstMatch(const QByteArray &query) const
         return 0;
     }
 
-    while (cur - 1 && 0 == equalOrSubstring(query, lookupDictLine(cur))) {
+    while (cur - 1 && 0 == equalOrSubstring(query.data(), lookupDictLine(cur).data())) {
         --cur;
     }
 
@@ -175,7 +177,7 @@ QVector<QString> IndexedEdictFile::findMatches(const QString &query) const
             --i;
         }
         possibleHits.push_back(m_indexPtr[matchLocation - 1] + i - 1);
-    } while (matchLocation < indexSize && 0 == equalOrSubstring(searchString, currentWord));
+    } while (matchLocation < indexSize && 0 == equalOrSubstring(searchString.data(), currentWord.data()));
 
     if (possibleHits.empty()) {
         return results;
@@ -257,8 +259,8 @@ bool IndexedEdictFile::loadFile(const QString &fileName)
     }
 
     m_dictPtr = static_cast<unsigned char *>(MAP_FAILED);
-    m_indexFile.setFileName(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "kiten/xjdx/"
-                            + QFileInfo(fileName).baseName() + ".xjdx");
+    m_indexFile.setFileName(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "kiten/xjdx/"_L1
+                            + QFileInfo(fileName).baseName() + ".xjdx"_L1);
     m_indexPtr = static_cast<uint32_t *>(MAP_FAILED);
     if (!m_indexFile.exists()) {
         // If the index file isn't there, build it

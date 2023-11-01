@@ -14,6 +14,8 @@
 #include <QFileDialog>
 #include <QStringList>
 
+using namespace Qt::StringLiterals;
+
 ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName, QWidget *parent, KConfigSkeleton *config, Qt::WindowFlags f)
     : QWidget(parent, f)
 {
@@ -23,15 +25,15 @@ ConfigDictionarySelector::ConfigDictionarySelector(const QString &dictionaryName
 
     connect(addButton, &QPushButton::clicked, this, &ConfigDictionarySelector::addDictSlot);
     connect(delButton, &QPushButton::clicked, this, &ConfigDictionarySelector::deleteDictSlot);
-    __useGlobal->setObjectName(QString("kcfg_" + _dictName + "__useGlobal"));
+    __useGlobal->setObjectName(QString("kcfg_"_L1 + _dictName + "__useGlobal"_L1));
 }
 
 // Read from preferences to the active list
 void ConfigDictionarySelector::updateWidgets()
 {
-    QString groupName = "dicts_" + _dictName;
+    QString groupName = "dicts_"_L1 + _dictName;
     KConfigGroup group = _config->config()->group(groupName);
-    QStringList names = group.readEntry("__NAMES", QStringList());
+    QStringList names = group.readEntry("__NAMES"_L1, QStringList());
 
     fileList->clear();
 
@@ -46,7 +48,7 @@ void ConfigDictionarySelector::updateSettings()
 {
     QStringList names;
 
-    KConfigGroup group = _config->config()->group("dicts_" + _dictName.toLower());
+    KConfigGroup group = _config->config()->group("dicts_"_L1 + _dictName.toLower());
 
     for (int i = 0; i < fileList->topLevelItemCount(); i++) {
         QTreeWidgetItem *it = fileList->topLevelItem(i);
@@ -58,7 +60,7 @@ void ConfigDictionarySelector::updateSettings()
     }
 
     // This feels distinctly hackish to me... :(
-    _config->findItem(_dictName + "__NAMES")->setProperty(names);
+    _config->findItem(_dictName + "__NAMES"_L1)->setProperty(names);
     _config->save();
 }
 
@@ -84,7 +86,7 @@ void ConfigDictionarySelector::addDictSlot()
 {
     QTreeWidgetItem *item = fileList->topLevelItem(0);
 
-    QString filename = QFileDialog::getOpenFileName(nullptr, QString(), item ? QFileInfo(item->text(1)).absolutePath().append("/") : QString());
+    QString filename = QFileDialog::getOpenFileName(nullptr, QString(), item ? QFileInfo(item->text(1)).absolutePath().append(QStringLiteral("/")) : QString());
     QString name = QFileInfo(filename).fileName();
     if (filename.isNull())
         return;

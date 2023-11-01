@@ -27,6 +27,8 @@ IMPORTANT: To add a dictionary type, add the header file here and add it to the
 #include "DictEdict/dictfileedict.h"
 #include "DictKanjidic/dictfilekanjidic.h"
 
+using namespace Qt::StringLiterals;
+
 class DictionaryManager::Private
 {
 public:
@@ -293,7 +295,7 @@ void DictionaryManager::loadDictSettings(const QString &dictName, KConfigSkeleto
 {
     DictFile *dict = this->makeDictFile(dictName);
     if (dict != nullptr) {
-        config->setCurrentGroup("dicts_" + dictName.toLower());
+        config->setCurrentGroup("dicts_"_L1 + dictName.toLower());
         dict->loadSettings(config);
         delete dict;
     }

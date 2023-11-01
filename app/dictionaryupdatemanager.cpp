@@ -23,15 +23,16 @@
 
 #include <QStandardPaths>
 #include <QTemporaryFile>
-#include <QTextCodec>
 #include <QTextStream>
 
 // URL to the information file.
-#define INFO_URL "http://ftp.edrdg.org/pub/Nihongo/edicthdr.txt"
+#define INFO_URL QStringLiteral("http://ftp.edrdg.org/pub/Nihongo/edicthdr.txt")
 // URL to the EDICT dictionary.
-#define EDICT_URL "http://ftp.edrdg.org/pub/Nihongo/edict.gz"
+#define EDICT_URL QStringLiteral("http://ftp.edrdg.org/pub/Nihongo/edict.gz")
 // URL to the KANJIDIC dictionary.
-#define KANJIDIC_URL "http://ftp.edrdg.org/pub/Nihongo/kanjidic.gz"
+#define KANJIDIC_URL QStringLiteral("http://ftp.edrdg.org/pub/Nihongo/kanjidic.gz")
+
+using namespace Qt::StringLiterals;
 
 DictionaryUpdateManager::DictionaryUpdateManager(Kiten *parent)
     : QObject(parent)
@@ -169,7 +170,7 @@ QDate DictionaryUpdateManager::getFileDate(QFile &file)
     }
 
     QTextStream fileStream(&file);
-    fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
 
     // The first line of the file is in the following form:
     // 　？？？ /
@@ -187,13 +188,13 @@ QDate DictionaryUpdateManager::getFileDate(QFile &file)
     // We take the 4th section which is the last one
     // separated by the '/' character and the
     // 10 rightmost characters for that section.
-    QString dateSection = fileStream.readLine().section('/', -1, -1, QString::SectionSkipEmpty).right(10);
+    QString dateSection = fileStream.readLine().section('/'_L1, -1, -1, QString::SectionSkipEmpty).right(10);
 
     // dateSection has the following value: year-month-day
     // Finally we take the numbers separated by the '-' character.
-    int year = dateSection.section('-', 0, 0).toInt();
-    int month = dateSection.section('-', 1, 1).toInt();
-    int day = dateSection.section('-', 2, 2).toInt();
+    int year = dateSection.section('-'_L1, 0, 0).toInt();
+    int month = dateSection.section('-'_L1, 1, 1).toInt();
+    int day = dateSection.section('-'_L1, 2, 2).toInt();
 
     file.close();
 
@@ -285,9 +286,9 @@ void DictionaryUpdateManager::showUpdateResults()
     } else if (_succeeded.isEmpty() && _failed.isEmpty()) {
         KMessageBox::information(nullptr, i18n("Successfully updated your dictionaries."));
     } else if (!_succeeded.isEmpty() && !_failed.isEmpty()) {
-        KMessageBox::information(nullptr, i18n("Successfully updated:\n%1\n\nFailed to update:\n%2", _succeeded.join("\n"), _failed.join("\n")));
+        KMessageBox::information(nullptr, i18n("Successfully updated:\n%1\n\nFailed to update:\n%2", _succeeded.join("\n"_L1), _failed.join("\n"_L1)));
     } else if (_succeeded.isEmpty() && !_failed.isEmpty()) {
-        KMessageBox::error(nullptr, i18n("Failed to update:\n%1", _failed.join("\n")));
+        KMessageBox::error(nullptr, i18n("Failed to update:\n%1", _failed.join("\n"_L1)));
     }
 
     // Avoid repetitions in our lists.

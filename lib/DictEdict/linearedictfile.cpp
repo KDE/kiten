@@ -12,6 +12,8 @@
 #include <QFile>
 #include <QTextCodec>
 
+using namespace Qt::StringLiterals;
+
 LinearEdictFile::LinearEdictFile()
     : m_properlyLoaded(false)
 {
@@ -47,12 +49,12 @@ bool LinearEdictFile::loadFile(const QString &filename)
     }
 
     QTextStream fileStream(&file);
-    fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
 
     QString lastLine;
     while (!fileStream.atEnd()) {
         lastLine = fileStream.readLine();
-        if (lastLine[0] != '#')
+        if (lastLine[0] != '#'_L1)
             m_edict << lastLine;
     }
 

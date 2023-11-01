@@ -48,6 +48,8 @@
 /* Separating Learn */
 // #include "learn.h"
 
+using namespace Qt::StringLiterals;
+
 Kiten::Kiten(QWidget *parent, const char *name)
     : KXmlGuiWindow(parent)
     , _lastQuery(DictQuery())
@@ -88,7 +90,7 @@ Kiten::Kiten(QWidget *parent, const char *name)
     /* Start the system tray icon. */
     _sysTrayIcon = new KStatusNotifierItem(this);
     _sysTrayIcon->setStandardActionsEnabled(true);
-    _sysTrayIcon->setAssociatedWidget(this);
+    _sysTrayIcon->setAssociatedWindow(windowHandle());
     _sysTrayIcon->setIconByName(QStringLiteral("kiten"));
     _sysTrayIcon->setStatus(KStatusNotifierItem::Active);
 
@@ -451,7 +453,7 @@ void Kiten::displayResults(EntryList *results)
         results->sort(fieldSort, dictSort);
         _mainView->setContents(results->toHTML());
     } else {
-        _mainView->setContents("<html><body>" + infoStr + "</body></html>");
+        _mainView->setContents("<html><body>"_L1 + infoStr + "</body></html>"_L1);
     }
 
     _mainView->setLaterScrollValue(results->scrollValue());
@@ -606,7 +608,7 @@ void Kiten::loadDictionaries()
  */
 void Kiten::loadDictConfig(const QString &dictType)
 {
-    KConfigGroup group = _config->config()->group("dicts_" + dictType.toLower());
+    KConfigGroup group = _config->config()->group("dicts_"_L1 + dictType.toLower());
 
     // A list of QPair's Name->Path
     QList<QPair<QString, QString>> dictionariesToLoad;

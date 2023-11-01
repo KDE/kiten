@@ -39,7 +39,7 @@ KRomajiEdit::KRomajiEdit(QWidget *parent)
     }
 
     QTextStream t(&f);
-    t.setCodec(QTextCodec::codecForName("eucJP"));
+    // t.setCodec(QTextCodec::codecForName("eucJP"));
     while (!t.atEnd()) // KDE4 CHANGE
     {
         QString s = t.readLine();
@@ -199,9 +199,9 @@ void KRomajiEdit::keyPressEvent(QKeyEvent *e)
         if (ji.at(0) == farRight.at(0)) // if two letters are same, and we can add a twoletter length kana
         {
             if (m_kana == "hiragana") {
-                setText(curKana + m_hiragana[ji.at(0) == QLatin1Char('n') ? "n'" : "t-"] + farRight.at(0));
+                setText(curKana + m_hiragana[ji.at(0) == QLatin1Char('n') ? QStringLiteral("n'") : QStringLiteral("t-")] + farRight.at(0));
             } else {
-                setText(curKana + m_katakana[ji.at(0) == QLatin1Char('n') ? "n'" : "t-"] + farRight.at(0));
+                setText(curKana + m_katakana[ji.at(0) == QLatin1Char('n') ? QStringLiteral("n'") : QStringLiteral("t-")] + farRight.at(0));
             }
 
             if (m_kana == "katakana") {

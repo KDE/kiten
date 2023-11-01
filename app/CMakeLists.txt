@@ -46,13 +46,14 @@ file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../data/pics/*-apps-kiten.png"
 ecm_add_app_icon(kiten_bin ICONS ${ICONS_SRCS})
 
 target_link_libraries(kiten_bin
-    KF5::Archive
-    KF5::ConfigWidgets
-    KF5::Crash
-    KF5::I18n
-    KF5::KIOCore
-    KF5::Notifications
-    KF5::XmlGui
+    KF6::Archive
+    KF6::ConfigWidgets
+    KF6::Crash
+    KF6::I18n
+    KF6::KIOCore
+    KF6::Notifications
+    KF6::XmlGui
+    KF6::StatusNotifierItem
     kiten
 )
 

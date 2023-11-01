@@ -18,6 +18,8 @@
 
 #define QSTRINGLISTCHECK(x) (x == NULL ? QStringList() : *x)
 
+using namespace Qt::StringLiterals;
+
 EntryKanjidic::EntryKanjidic(const EntryKanjidic &dict)
     : Entry(dict)
 {
@@ -59,7 +61,7 @@ QString EntryKanjidic::dumpEntry() const
     QString dumpExtendedInfo;
     QHash<QString, QString>::const_iterator it;
     for (it = ExtendedInfo.constBegin(); it != ExtendedInfo.constEnd(); ++it) {
-        dumpExtendedInfo += ' ' + it.key() + it.value();
+        dumpExtendedInfo += ' '_L1 + it.key() + it.value();
     }
 
     return QStringLiteral("%1 %2%3").arg(Word).arg(Readings.join(QLatin1Char(' '))).arg(dumpExtendedInfo);
@@ -192,7 +194,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
         ichar = entryLine.at(i);                                                                                                                               \
     }
 #define LOADSTRING(stringToLoad)                                                                                                                               \
-    while (entryLine.at(i) != ' ') {                                                                                                                           \
+    while (entryLine.at(i) != ' '_L1) {                                                                                                                        \
         stringToLoad += entryLine.at(i);                                                                                                                       \
         if (i < length)                                                                                                                                        \
             i++;                                                                                                                                               \
@@ -262,25 +264,25 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
         case 'I':
             /* index codes for Spahn & Hadamitzky reference books we need the next
                     char to know what to do with it. */
-            INCI if (ichar == 'N')
+            INCI if (ichar == 'N'_L1)
             {
                 /* a Kanji & Kana book number */
                 LOADSTRING(curString)
             }
             else {/* The Kanji Dictionary number, we need the current ichar. */
-                  LOADSTRING(curString)} ExtendedInfo.insert('I' + QString(ichar), curString);
+                  LOADSTRING(curString)} ExtendedInfo.insert('I'_L1 + QString(ichar), curString);
             break;
         case 'M':
             /* index and page numbers for Morohashi's Daikanwajiten 2 fields possible */
-            INCI if (ichar == 'N')
+            INCI if (ichar == 'N'_L1)
             {
                 LOADSTRING(curString)
                 /* index number */
             }
-            else if (ichar == 'P'){
+            else if (ichar == 'P'_L1){
                 LOADSTRING(curString)
                 /* page number in volume.page format */
-            } ExtendedInfo.insert('M' + QString(ichar), curString);
+            } ExtendedInfo.insert('M'_L1 + QString(ichar), curString);
             break;
         case 'S':
             /* stroke count: may be multiple.  In that case, first is actual, others common
@@ -291,17 +293,17 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
                 ExtendedInfo.insert(QString(ichar), curString);
             } else {
                 LOADSTRING(curString)
-                ExtendedInfo.insert('_' + QString(ichar), curString);
+                ExtendedInfo.insert('_'_L1 + QString(ichar), curString);
             }
             break;
         case 'D':
             /* dictionary codes */
-            INCI LOADSTRING(curString) ExtendedInfo.insert('D' + QString(ichar), curString);
+            INCI LOADSTRING(curString) ExtendedInfo.insert('D'_L1 + QString(ichar), curString);
             break;
         case '{':
             /* This should be starting with the first '{' character of a meaning section.
                     Let us get take it to the last. */
-            INCI while (ichar != '}')
+            INCI while (ichar != '}'_L1)
             {
                 curString += ichar;
                 /* sanity */
@@ -325,7 +327,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
             bool finished = false;
             while (!finished) {
                 // Skip all whitespaces.
-                INCI while (ichar == ' ')
+                INCI while (ichar == ' '_L1)
                 {
                     INCI
                 }
@@ -368,7 +370,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
                 OnyomiReadings.append(curString);
             }
 
-            curString = curString.remove('-').remove('.');
+            curString = curString.remove('-'_L1).remove('.'_L1);
             Readings.append(curString);
             break;
         default:
@@ -390,7 +392,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
                     OnyomiReadings.append(curString);
                 }
 
-                curString = curString.remove('-').remove('.');
+                curString = curString.remove('-'_L1).remove('.'_L1);
                 Readings.append(curString);
                 break;
             }
@@ -414,7 +416,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
 QString EntryKanjidic::makeReadingLink(const QString &inReading) const
 {
     QString reading = inReading;
-    return QStringLiteral("<a href=\"%1\">%2</a>").arg(reading.remove('.').remove('-')).arg(inReading);
+    return QStringLiteral("<a href=\"%1\">%2</a>").arg(reading.remove('.'_L1).remove('-'_L1)).arg(inReading);
 }
 
 /**
@@ -429,13 +431,13 @@ QString EntryKanjidic::toHTML() const
         if (field == QLatin1String("--NewLine--"))
             result += QLatin1String("<br>");
         else if (field == QLatin1String("Word/Kanji"))
-            result += HTMLWord() + ' ';
+            result += HTMLWord() + ' '_L1;
         else if (field == QLatin1String("Meaning"))
-            result += HTMLMeanings() + ' ';
+            result += HTMLMeanings() + ' '_L1;
         else if (field == QLatin1String("Reading"))
-            result += HTMLReadings() + ' ';
+            result += HTMLReadings() + ' '_L1;
         else if (ExtendedInfo.contains(field))
-            result += HTMLExtendedInfo(field) + ' ';
+            result += HTMLExtendedInfo(field) + ' '_L1;
     }
 
     result += QLatin1String("</div>");
