@@ -152,8 +152,10 @@ bool DictFileKanjidic::loadDictionary(const QString &file, const QString &name)
 
     qDebug() << "Loading kanjidic from:" << file;
 
-    QTextStream fileStream(&dictionary);
-    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(dictionary.readAll());
+
+    QTextStream fileStream(decoded.toUtf8());
 
     QString currentLine;
     while (!fileStream.atEnd()) {
@@ -236,8 +238,10 @@ bool DictFileKanjidic::validDictionaryFile(const QString &filename)
         return false;
     }
 
-    QTextStream fileStream(&file);
-    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(file.readAll());
+
+    QTextStream fileStream(decoded.toUtf8());
 
     QRegularExpression format(QStringLiteral("^\\S\\s+(\\S+\\s+)+(\\{(\\S+\\s?)+\\})+"));
     m_validKanjidic = true;

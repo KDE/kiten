@@ -48,8 +48,10 @@ bool LinearEdictFile::loadFile(const QString &filename)
         return false;
     }
 
-    QTextStream fileStream(&file);
-    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(file.readAll());
+
+    QTextStream fileStream(decoded.toUtf8());
 
     QString lastLine;
     while (!fileStream.atEnd()) {

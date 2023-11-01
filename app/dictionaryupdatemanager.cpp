@@ -22,6 +22,7 @@
 #include <QUrl>
 
 #include <QStandardPaths>
+#include <QStringDecoder>
 #include <QTemporaryFile>
 #include <QTextStream>
 
@@ -169,8 +170,10 @@ QDate DictionaryUpdateManager::getFileDate(QFile &file)
         return QDate();
     }
 
-    QTextStream fileStream(&file);
-    // fileStream.setCodec(QTextCodec::codecForName("eucJP"));
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(file.readAll());
+
+    QTextStream fileStream(decoded.toUtf8());
 
     // The first line of the file is in the following form:
     // 　？？？ /

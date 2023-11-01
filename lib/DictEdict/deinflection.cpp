@@ -156,8 +156,9 @@ bool Deinflection::load()
         return false;
     }
 
-    QTextStream t(&f);
-    // t.setCodec(QTextCodec::codecForName("eucJP"));
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(f.readAll());
+    QTextStream t(decoded.toUtf8());
 
     // The file starts out with a number -> name list of the conjugation types
     // In the format "#[#]  NAME\n"

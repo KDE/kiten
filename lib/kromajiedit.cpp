@@ -38,8 +38,10 @@ KRomajiEdit::KRomajiEdit(QWidget *parent)
         KMessageBox::error(nullptr, i18n("Romaji information could not be loaded, so Romaji conversion cannot be used."));
     }
 
-    QTextStream t(&f);
-    // t.setCodec(QTextCodec::codecForName("eucJP"));
+    QStringDecoder decoder("EUC-JP");
+    const QString decoded = decoder(f.readAll());
+
+    QTextStream t(decoded.toUtf8());
     while (!t.atEnd()) // KDE4 CHANGE
     {
         QString s = t.readLine();
