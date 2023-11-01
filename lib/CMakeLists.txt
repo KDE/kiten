@@ -36,7 +36,6 @@ target_link_libraries(kiten
         Qt::Widgets
         Qt::Core
     PRIVATE
-		Qt6::Core5Compat
         KF6::ConfigCore
         KF6::ConfigGui
         KF6::CoreAddons

@@ -14,8 +14,8 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QString>
-#include <QTextCodec>
 
+#include <QStringEncoder>
 #include <sys/mman.h>
 
 using namespace Qt::StringLiterals;
@@ -154,12 +154,13 @@ QVector<QString> IndexedEdictFile::findMatches(const QString &query) const
         return results;
     }
 
-    QTextCodec *codec = QTextCodec::codecForName("eucJP");
-    if (!codec) {
+    QStringEncoder encoder("EUC-JP");
+    if (!encoder.isValid()) {
         return results;
     }
 
-    QByteArray searchString = codec->fromUnicode(query);
+    QByteArray searchString = encoder.encode(query);
+    ;
     int indexSize = m_indexFile.size() / sizeof(uint32_t);
 
     int matchLocation = findFirstMatch(searchString);
@@ -189,7 +190,7 @@ QVector<QString> IndexedEdictFile::findMatches(const QString &query) const
     for (uint32_t it : possibleHits) {
         if (last != it) {
             last = it;
-            results.push_back(codec->toUnicode(lookupFullLine(it)));
+            results.push_back(QString::fromUtf8(encoder.encode(QString::fromUtf8(lookupFullLine(it)))));
         }
     }
 

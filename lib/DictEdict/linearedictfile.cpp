@@ -10,7 +10,7 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QTextCodec>
+#include <QStringDecoder>
 
 using namespace Qt::StringLiterals;
 

@@ -23,9 +23,8 @@
 #include <QList>
 #include <QStandardPaths>
 #include <QString>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QTextStream>
-#include <QVector>
 
 using namespace Qt::StringLiterals;
 

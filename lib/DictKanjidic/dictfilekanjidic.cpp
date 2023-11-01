@@ -19,9 +19,8 @@
 
 #include <QDebug>
 #include <QFile>
-#include <QRegExp>
 #include <QRegularExpression>
-#include <QTextCodec>
+#include <QStringDecoder>
 
 using namespace Qt::StringLiterals;
 

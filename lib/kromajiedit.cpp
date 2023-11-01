@@ -18,7 +18,7 @@
 #include <QKeyEvent>
 #include <QMenu>
 #include <QStandardPaths>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QTextStream>
 
 KRomajiEdit::KRomajiEdit(QWidget *parent)

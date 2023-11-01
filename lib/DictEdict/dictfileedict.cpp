@@ -10,14 +10,12 @@
 
 #include "dictfileedict.h"
 
-#include <KConfig>
 #include <KConfigSkeleton>
 
-#include <QDebug>
 #include <QFile>
 #include <QRegularExpression>
 #include <QString>
-#include <QTextCodec>
+#include <QStringDecoder>
 #include <QTextStream>
 #include <QVector>
 
