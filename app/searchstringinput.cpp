@@ -55,7 +55,7 @@ SearchStringInput::SearchStringInput(Kiten *parent)
     updateFontFromConfig();
 
     _actionFocusInput = _parent->actionCollection()->addAction(QStringLiteral("focusinputfield"), this, SLOT(focusInput()));
-    _parent->actionCollection()->setDefaultShortcut(_actionFocusInput, Qt::CTRL + Qt::Key_L);
+    _parent->actionCollection()->setDefaultShortcut(_actionFocusInput, Qt::CTRL | Qt::Key_L);
     _actionFocusInput->setText(i18n("Focus input field"));
 
     auto actionsearchbox = new QWidgetAction(this);

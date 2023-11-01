@@ -154,12 +154,12 @@ void Kiten::setupActions()
     QAction *radselect = actionCollection()->addAction(QStringLiteral("radselect"));
     radselect->setText(i18n("Radical Selector"));
     //	radselect->setIcon( "edit-find" );
-    actionCollection()->setDefaultShortcut(radselect, Qt::CTRL + Qt::Key_R);
+    actionCollection()->setDefaultShortcut(radselect, Qt::CTRL | Qt::Key_R);
     connect(radselect, &QAction::triggered, this, &Kiten::radicalSearch);
 
     QAction *kanjibrowser = actionCollection()->addAction(QStringLiteral("kanjibrowser"));
     kanjibrowser->setText(i18n("Kanji Browser"));
-    actionCollection()->setDefaultShortcut(kanjibrowser, Qt::CTRL + Qt::Key_K);
+    actionCollection()->setDefaultShortcut(kanjibrowser, Qt::CTRL | Qt::Key_K);
     connect(kanjibrowser, &QAction::triggered, this, &Kiten::kanjiBrowserSearch);
 
     /* Setup the Search Actions and our custom Edit Box */

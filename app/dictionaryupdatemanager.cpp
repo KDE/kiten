@@ -45,7 +45,7 @@ DictionaryUpdateManager::DictionaryUpdateManager(Kiten *parent)
 {
     _actionUpdate = _parent->actionCollection()->add<QAction>(QStringLiteral("update_dictionaries"));
     _actionUpdate->setText(i18n("Check for dictionary &updates"));
-    _parent->actionCollection()->setDefaultShortcut(_actionUpdate, Qt::CTRL + Qt::Key_U);
+    _parent->actionCollection()->setDefaultShortcut(_actionUpdate, Qt::CTRL | Qt::Key_U);
 
     connect(_actionUpdate, &QAction::triggered, this, &DictionaryUpdateManager::checkForUpdates);
 }

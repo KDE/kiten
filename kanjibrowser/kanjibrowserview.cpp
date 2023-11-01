@@ -109,13 +109,20 @@ void KanjiBrowserView::changeToListPage()
 QString KanjiBrowserView::convertToCSS(const QFont &font)
 {
     QString weight;
+    // TODO: these have numeric values in Qt we could plug into the CSS here
     switch (font.weight()) {
+    case QFont::Thin:
+    case QFont::ExtraLight:
     case QFont::Light:
         weight = QStringLiteral("lighter");
         break;
+    case QFont::Medium:
     case QFont::Normal:
         weight = QStringLiteral("normal");
         break;
+    case QFont::DemiBold:
+    case QFont::ExtraBold:
+    case QFont::Black:
     case QFont::Bold:
         weight = QStringLiteral("bold");
         break;
