@@ -38,7 +38,6 @@
   <name xml:lang="sv">Kiten</name>
   <name xml:lang="tr">Kiten</name>
   <name xml:lang="uk">Kiten</name>
-  <name xml:lang="x-test">xxKitenxx</name>
   <name xml:lang="zh-CN">Kiten</name>
   <name xml:lang="zh-TW">語言_Kiten</name>
   <summary>Japanese Reference and Study Tool</summary>
@@ -76,7 +75,6 @@
   <summary xml:lang="sv">Japanskt referens- och studieverktyg</summary>
   <summary xml:lang="tr">Japonca Başvuru ve Çalışma Aracı</summary>
   <summary xml:lang="uk">Програма для вивчення японської мови</summary>
-  <summary xml:lang="x-test">xxJapanese Reference and Study Toolxx</summary>
   <summary xml:lang="zh-CN">日语参考/学习工具</summary>
   <summary xml:lang="zh-TW">日語參考/學習工具</summary>
   <description>
@@ -112,7 +110,6 @@
     <p xml:lang="sv">Kiten är ett japanskt referens- och studieverktyg. Den innehåller både en engelsk-japansk och japansk-engelsk ordlista, samt ett Kanji-lexikon. Flera sätt att slå upp tecken stöds för Kanji-lexikonet.</p>
     <p xml:lang="tr">Kiten bir Japonca başvuru ve çalışma aracıdır. Kanji sözlüğünün yanı sıra İngilizceden Japoncaya ve tersine sözlükler içerir. Kanji sözlüğü için karakterlere bakmanın bir çok yolu vardır.</p>
     <p xml:lang="uk">Kiten — програма-словник і програма для вивчення японської мови. Вона може працювати у режимі англо-японського та японо-англійського словника та словника кандзі. Передбачено декілька способів пошуку символів у словнику кандзі.</p>
-    <p xml:lang="x-test">xxKiten is a Japanese reference and study tool. It features an English to Japanese and Japanese to English dictionary, as well as a Kanji dictionary. For the Kanji dictionary there are multiple ways supported to look up characters.xx</p>
     <p xml:lang="zh-CN">Kiten 是一款日文参考与学习工具。它提供了英译日词典、日译英词典及日语汉字词典。日语汉字词典还支持多种方式查询字词。</p>
     <p xml:lang="zh-TW">Kiten 是一套日語學習工具。它有一套英日、日英字典，以及漢字字典。漢字字典部份支援多種查詢方式。</p>
   </description>
@@ -152,7 +149,6 @@
       <caption xml:lang="sv">Japansk övningsordbok med Kiten</caption>
       <caption xml:lang="tr">Kiten ile Japonca sözlük pratiği</caption>
       <caption xml:lang="uk">Вивчення словника японської мови за допомогою Kiten</caption>
-      <caption xml:lang="x-test">xxPracticing Japanese dictionary with Kitenxx</caption>
       <caption xml:lang="zh-CN">使用 Kiten 练习日语词典</caption>
       <caption xml:lang="zh-TW">使用 Kiten 練習日文字典</caption>
       <image>https://cdn.kde.org/screenshots/kiten/kiten.png</image>
