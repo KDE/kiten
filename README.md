@@ -1,7 +1,10 @@
-    ****************************************
-   **                Kiten                 **
-   **      a Japanese reference tool       **
-    ****************************************
+# Kiten
+
+A Japanese reference tool.
+
+![Kiten Main Window](https://cdn.kde.org/screenshots/kiten/kiten.png)
+
+## Features
 
 Kiten comes ready to use. It will take a bit of time to
 start up the first time as it indexes your dictionary files.
