@@ -1,6 +1,8 @@
-# Kiten
+# <img src="logo.png" width="40"/> Kiten
 
 A Japanese reference tool.
+
+<a href='https://flathub.org/apps/details/org.kde.kiten'><img width='190px' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-i-en.png'/></a>
 
 ![Kiten Main Window](https://cdn.kde.org/screenshots/kiten/kiten.png)
 
