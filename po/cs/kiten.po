@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:23+0000\n"
+"POT-Creation-Date: 2023-11-14 01:37+0000\n"
 "PO-Revision-Date: 2022-01-06 16:56+0100\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -166,43 +166,43 @@ msgstr "Zobrazení"
 msgid "Results Sorting"
 msgstr "Řazení výsledků"
 
-#: app/dictionaryupdatemanager.cpp:45
+#: app/dictionaryupdatemanager.cpp:47
 #, kde-format
 msgid "Check for dictionary &updates"
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:77
+#: app/dictionaryupdatemanager.cpp:79
 #, kde-format
 msgid ""
 "Update canceled.\n"
 "Could not read file."
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:86
+#: app/dictionaryupdatemanager.cpp:88
 #, kde-format
 msgid ""
 "Update canceled.\n"
 "Could not open file."
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:102
+#: app/dictionaryupdatemanager.cpp:104
 #, kde-format
 msgid ""
 "Update canceled.\n"
 "The update information file has an invalid date."
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:284
+#: app/dictionaryupdatemanager.cpp:288
 #, kde-format
 msgid "You already have the latest updates."
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:286
+#: app/dictionaryupdatemanager.cpp:290
 #, kde-format
 msgid "Successfully updated your dictionaries."
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:288
+#: app/dictionaryupdatemanager.cpp:292
 #, kde-format
 msgid ""
 "Successfully updated:\n"
@@ -212,67 +212,67 @@ msgid ""
 "%2"
 msgstr ""
 
-#: app/dictionaryupdatemanager.cpp:290
+#: app/dictionaryupdatemanager.cpp:294
 #, kde-format
 msgid ""
 "Failed to update:\n"
 "%1"
 msgstr ""
 
-#: app/kiten.cpp:153 radselect/main.cpp:29
+#: app/kiten.cpp:155 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Výběr podle radikálů"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:159 kanjibrowser/kanjibrowserview.ui:26
-#: kanjibrowser/main.cpp:32
+#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Prohlížeč kandži"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:167 app/kitenui.rc:15
+#: app/kiten.cpp:169 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Hledat"
 
-#: app/kiten.cpp:185
+#: app/kiten.cpp:187
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Automaticky prohledávat výběr ve schránce"
 
-#: app/kiten.cpp:188
+#: app/kiten.cpp:190
 #, kde-format
 msgid "Search &in Results"
 msgstr "Hledat ve &výsledcích"
 
-#: app/kiten.cpp:194
+#: app/kiten.cpp:196
 #, kde-format
 msgid "Focus result view"
 msgstr "Zaměřit pohled s výsledky"
 
-#: app/kiten.cpp:221
+#: app/kiten.cpp:223
 #, kde-format
 msgid "Export List"
 msgstr "Exportovat seznam"
 
-#: app/kiten.cpp:251
+#: app/kiten.cpp:253
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr ""
 
-#: app/kiten.cpp:264
+#: app/kiten.cpp:266
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Vítejte v programu Kiten"
 
-#: app/kiten.cpp:360 app/kiten.cpp:417
+#: app/kiten.cpp:362 app/kiten.cpp:419
 #, kde-format
 msgid "Searching..."
 msgstr "Vyhledává se..."
 
-#: app/kiten.cpp:436
+#: app/kiten.cpp:438
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
@@ -280,7 +280,7 @@ msgstr[0] "Nalezen jeden výsledek"
 msgstr[1] "Nalezeny %1 výsledky"
 msgstr[2] "Nalezeno %1 výsledků"
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:440
 #, kde-format
 msgid "No results found"
 msgstr "Nenalezeny žádné výsledky"
@@ -407,17 +407,17 @@ msgstr "Extra nástrojový panel"
 msgid "Search Toolbar"
 msgstr "Panel nástrojů pro hledání"
 
-#: app/main.cpp:42
+#: app/main.cpp:33
 #, kde-format
 msgid "Kiten"
 msgstr "Kiten"
 
-#: app/main.cpp:44
+#: app/main.cpp:35
 #, kde-format
 msgid "Japanese Reference Tool"
 msgstr "Srovnávací pomůcka pro japonštinu"
 
-#: app/main.cpp:46
+#: app/main.cpp:37
 #, kde-format
 msgid ""
 "(c) 2001-2004, Jason Katz-Brown\n"
@@ -430,22 +430,22 @@ msgstr ""
 "(c) 2006-2008, Joseph Kerian\n"
 "(c) 2011, Daniel E. Moctezuma"
 
-#: app/main.cpp:53
+#: app/main.cpp:44
 #, kde-format
 msgid "Jason Katz-Brown"
 msgstr "Jason Katz-Brown"
 
-#: app/main.cpp:53
+#: app/main.cpp:44
 #, kde-format
 msgid "Original author"
 msgstr "Původní autor"
 
-#: app/main.cpp:54
+#: app/main.cpp:45
 #, kde-format
 msgid "Jim Breen"
 msgstr "Jim Breen"
 
-#: app/main.cpp:55
+#: app/main.cpp:46
 #, kde-format
 msgid ""
 "Wrote xjdic, of which Kiten borrows code, and the xjdic index file "
@@ -456,57 +456,57 @@ msgstr ""
 "xjdic.\n"
 "Je také hlavním autorem edict a kanjidic, které Kiten nezbytně vyžaduje."
 
-#: app/main.cpp:58
+#: app/main.cpp:49
 #, kde-format
 msgid "Neil Stevens"
 msgstr "Neil Stevens"
 
-#: app/main.cpp:58
+#: app/main.cpp:49
 #, kde-format
 msgid "Code simplification, UI suggestions."
 msgstr "Zjednodušení kódu, návrh uživatelského rozhraní."
 
-#: app/main.cpp:59
+#: app/main.cpp:50
 #, kde-format
 msgid "David Vignoni"
 msgstr "David Vignoni"
 
-#: app/main.cpp:59
+#: app/main.cpp:50
 #, kde-format
 msgid "svg icon"
 msgstr "Ikona ve formátu svg"
 
-#: app/main.cpp:60
+#: app/main.cpp:51
 #, kde-format
 msgid "Paul Temple"
 msgstr "Paul Temple"
 
-#: app/main.cpp:60
+#: app/main.cpp:51
 #, kde-format
 msgid "Porting to KConfig XT, bug fixing"
 msgstr "Převod na KConfig XT, opravy chyb"
 
-#: app/main.cpp:61 radselect/main.cpp:37
+#: app/main.cpp:52 radselect/main.cpp:32
 #, kde-format
 msgid "Joseph Kerian"
 msgstr "Joseph Kerian"
 
-#: app/main.cpp:61 app/main.cpp:62
+#: app/main.cpp:52 app/main.cpp:53
 #, kde-format
 msgid "KDE4 rewrite"
 msgstr "Úprava pro KDE 4"
 
-#: app/main.cpp:62
+#: app/main.cpp:53
 #, kde-format
 msgid "Eric Kjeldergaard"
 msgstr "Eric Kjeldergaard"
 
-#: app/main.cpp:63 kanjibrowser/main.cpp:40
+#: app/main.cpp:54 kanjibrowser/main.cpp:29
 #, kde-format
 msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
-#: app/main.cpp:64
+#: app/main.cpp:55
 #, kde-format
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
@@ -613,12 +613,12 @@ msgstr "Zaměřit vstupní pole"
 msgid "Search Bar"
 msgstr "Panel pro hledání"
 
-#: kanjibrowser/kanjibrowser.cpp:133 radselect/radselect.cpp:114
+#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
 #, kde-format
 msgid "Settings"
 msgstr "Nastavení"
 
-#: kanjibrowser/kanjibrowserview.cpp:177
+#: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
@@ -626,57 +626,57 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: kanjibrowser/kanjibrowserview.cpp:186
+#: kanjibrowser/kanjibrowserview.cpp:193
 #, kde-format
 msgid "About %1"
 msgstr "O aplikaci %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:187
+#: kanjibrowser/kanjibrowserview.cpp:194
 #, kde-format
 msgid "Copy %1 to clipboard"
 msgstr "Zkopírovat %1 do schránky"
 
-#: kanjibrowser/kanjibrowserview.cpp:202
+#: kanjibrowser/kanjibrowserview.cpp:209
 #, kde-format
 msgid "Could not load the necessary kanji information."
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:212
+#: kanjibrowser/kanjibrowserview.cpp:219
 #, kde-format
 msgid "Kanji &List"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:215
+#: kanjibrowser/kanjibrowserview.cpp:222
 #, kde-format
 msgid "Kanji &Information"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:220
+#: kanjibrowser/kanjibrowserview.cpp:227
 #, kde-format
 msgid "All Jouyou Kanji grades"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:224
+#: kanjibrowser/kanjibrowserview.cpp:231
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:226
+#: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
 msgid "Grade %1"
 msgstr "Úroveň %1"
 
-#: kanjibrowser/kanjibrowserview.cpp:229
+#: kanjibrowser/kanjibrowserview.cpp:236
 #, kde-format
 msgid "Not in Jouyou list"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:231
+#: kanjibrowser/kanjibrowserview.cpp:238
 #, kde-format
 msgid "No stroke limit"
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:233
+#: kanjibrowser/kanjibrowserview.cpp:240
 #, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
@@ -684,53 +684,53 @@ msgstr[0] "%1 tah"
 msgstr[1] "%1 tahy"
 msgstr[2] "%1 tah;"
 
-#: kanjibrowser/kanjibrowserview.cpp:275
+#: kanjibrowser/kanjibrowserview.cpp:284
 #, kde-format
 msgid "Grade:"
 msgstr "Úroveň:"
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label_2)
-#: kanjibrowser/kanjibrowserview.cpp:277 radselect/radical_selector.ui:102
+#: kanjibrowser/kanjibrowserview.cpp:286 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
 msgstr "Tahy:"
 
-#: kanjibrowser/kanjibrowserview.cpp:283
+#: kanjibrowser/kanjibrowserview.cpp:292
 #, kde-format
 msgid "Onyomi: "
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:291
+#: kanjibrowser/kanjibrowserview.cpp:300
 #, kde-format
 msgid "Kunyomi: "
 msgstr ""
 
-#: kanjibrowser/kanjibrowserview.cpp:299 lib/DictKanjidic/entrykanjidic.cpp:147
+#: kanjibrowser/kanjibrowserview.cpp:308 lib/DictKanjidic/entrykanjidic.cpp:149
 #, kde-format
 msgid "In names: "
 msgstr "V názvech: "
 
-#: kanjibrowser/kanjibrowserview.cpp:307 lib/DictKanjidic/entrykanjidic.cpp:152
+#: kanjibrowser/kanjibrowserview.cpp:316 lib/DictKanjidic/entrykanjidic.cpp:154
 #, kde-format
 msgid "As radical: "
 msgstr "Jako radikál: "
 
-#: kanjibrowser/kanjibrowserview.cpp:314
+#: kanjibrowser/kanjibrowserview.cpp:323
 #, kde-format
 msgid "Meaning: "
 msgstr "Význam: "
 
-#: kanjibrowser/kanjibrowserview.cpp:316
+#: kanjibrowser/kanjibrowserview.cpp:325
 #, kde-format
 msgid "Meanings: "
 msgstr "Významy:"
 
-#: kanjibrowser/main.cpp:34
+#: kanjibrowser/main.cpp:23
 #, kde-format
 msgid "Kiten's Kanji Browser, a KDE Japanese Reference Tool"
 msgstr ""
 
-#: kanjibrowser/main.cpp:36
+#: kanjibrowser/main.cpp:25
 #, kde-format
 msgid "(C) 2011 Daniel E. Moctezuma"
 msgstr "(C) 2011 Daniel E. Moctezuma"
@@ -811,17 +811,17 @@ msgstr "かな"
 msgid "Label font:"
 msgstr "Písmo popisky:"
 
-#: lib/DictEdict/deinflection.cpp:117
+#: lib/DictEdict/deinflection.cpp:118
 #, kde-format
 msgid "verb"
 msgstr "sloveso"
 
-#: lib/DictEdict/deinflection.cpp:119
+#: lib/DictEdict/deinflection.cpp:120
 #, kde-format
 msgid "adjective"
 msgstr "přídavné jméno"
 
-#: lib/DictEdict/deinflection.cpp:145
+#: lib/DictEdict/deinflection.cpp:146
 #, kde-format
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
@@ -829,7 +829,7 @@ msgstr ""
 "Informace o ohýbání sloves nebyla nalezena. Z toho důvodu slovesa nelze "
 "časovat."
 
-#: lib/DictEdict/deinflection.cpp:153
+#: lib/DictEdict/deinflection.cpp:154
 #, kde-format
 msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
@@ -838,22 +838,22 @@ msgstr ""
 "Informace o ohýbání sloves nebyla načtena. Z toho důvodu slovesa nelze "
 "časovat."
 
-#: lib/DictEdict/dictfilefieldselector.cpp:26
+#: lib/DictEdict/dictfilefieldselector.cpp:28
 #, kde-format
 msgid "&Available Fields:"
 msgstr "&Dostupná pole:"
 
-#: lib/entry.cpp:157
+#: lib/entry.cpp:159
 #, kde-format
 msgid "; "
 msgstr "; "
 
-#: lib/entrylist.cpp:105
+#: lib/entrylist.cpp:107
 #, kde-format
 msgid "From Dictionary:"
 msgstr "Ze slovníku:"
 
-#: lib/entrylist.cpp:122
+#: lib/entrylist.cpp:124
 #, kde-format
 msgctxt ""
 "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
@@ -861,12 +861,12 @@ msgctxt ""
 msgid "Entered %1 in %2 form"
 msgstr ""
 
-#: lib/entrylist.cpp:143
+#: lib/entrylist.cpp:145
 #, kde-format
 msgid "Common"
 msgstr "Společné"
 
-#: lib/entrylist.cpp:146
+#: lib/entrylist.cpp:148
 #, kde-format
 msgid "Uncommon"
 msgstr ""
@@ -887,13 +887,13 @@ msgstr ""
 "Informace o rómadži nebyly načteny. Z toho důvodu nelze používat převod do a "
 "z rómadži."
 
-#: lib/kromajiedit.cpp:87
+#: lib/kromajiedit.cpp:89
 #, kde-format
 msgctxt "@option:radio selects english translation"
 msgid "English"
 msgstr "Anglicky"
 
-#: lib/kromajiedit.cpp:96
+#: lib/kromajiedit.cpp:98
 #, kde-format
 msgctxt "@option:radio selects japanese translation"
 msgid "Kana"
@@ -909,22 +909,22 @@ msgstr "Nebyly vybrány žádné radikály"
 msgid "Selected Radicals: "
 msgstr "Vybrané radikály: "
 
-#: radselect/main.cpp:31
+#: radselect/main.cpp:26
 #, kde-format
 msgid "A KDE Application"
 msgstr "KDE aplikace"
 
-#: radselect/main.cpp:33
+#: radselect/main.cpp:28
 #, kde-format
 msgid "(C) 2005 Joseph Kerian"
 msgstr "(C) 2005 Joseph Kerian"
 
-#: radselect/main.cpp:38
+#: radselect/main.cpp:33
 #, kde-format
 msgid "Electronic Dictionary Research and Development Group"
 msgstr ""
 
-#: radselect/main.cpp:39
+#: radselect/main.cpp:34
 #, kde-format
 msgid ""
 "This program uses the KANJIDIC and RADKFILE dictionary files. These files "
@@ -932,7 +932,7 @@ msgid ""
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
 
-#: radselect/main.cpp:49
+#: radselect/main.cpp:44
 #, kde-format
 msgid "Initial Search String from Kiten"
 msgstr "Počáteční vyhledávací řetězec programu Kiten"
