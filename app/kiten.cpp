@@ -98,7 +98,7 @@ Kiten::Kiten(QWidget *parent, const char *name)
     _autoSearchToggle->setChecked(_config->autosearch());
     _inputManager->setDefaultsFromConfig();
     updateConfiguration();
-    applyMainWindowSettings(KSharedConfig::openConfig()->group("kitenWindow"));
+    applyMainWindowSettings(KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow")));
 
     /* What happens when links are clicked or things are selected in the clipboard */
     connect(_mainView, &ResultsView::urlClicked, this, &Kiten::searchText);
@@ -255,7 +255,7 @@ void Kiten::finishInit()
     // if it's the application's first time starting,
     // the app group won't exist and we show demo
     if (_config->initialSearch()) {
-        if (KConfigGui::hasSessionConfig() && !KConfigGui::sessionConfig()->hasGroup("app")) {
+        if (KConfigGui::hasSessionConfig() && !KConfigGui::sessionConfig()->hasGroup(QStringLiteral("app"))) {
             searchTextAndRaise(QStringLiteral("辞書"));
             // Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
             // it's an embedded unicode search string to find "dictionary" in japanese
@@ -279,7 +279,7 @@ bool Kiten::queryClose()
     _config->setAutosearch(_autoSearchToggle->isChecked());
     _config->save();
 
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group("kitenWindow");
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
     saveMainWindowSettings(configGroup);
     return true;
 }
@@ -535,7 +535,7 @@ void Kiten::createEEdit()
 
 void Kiten::configureToolBars()
 {
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group("kitenWindow");
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
     saveMainWindowSettings(configGroup);
     KEditToolBar dlg(actionCollection());
     connect(&dlg, &KEditToolBar::newToolBarConfig, this, &Kiten::newToolBarConfig);
@@ -545,7 +545,7 @@ void Kiten::configureToolBars()
 void Kiten::newToolBarConfig()
 {
     createGUI(QStringLiteral("kitenui.rc"));
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group("kitenWindow");
+    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
     applyMainWindowSettings(configGroup);
 }
 
