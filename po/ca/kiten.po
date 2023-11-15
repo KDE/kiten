@@ -5,20 +5,20 @@
 # Albert Astals Cid <aacid@kde.org>, 2004, 2005.
 # David Gil <al016950@yahoo.es>, 2005.
 # Orestes Mas Casals <orestes@tsc.upc.edu>, 2007, 2008, 2010, 2011, 2012.
-# Josep M. Ferrer <txemaq@gmail.com>, 2009, 2010, 2011, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2009, 2010, 2011, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-14 01:37+0000\n"
-"PO-Revision-Date: 2022-01-26 21:47+0100\n"
+"PO-Revision-Date: 2023-11-14 15:59+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -72,13 +72,13 @@ msgstr "Suprimeix"
 #: app/configfont.ui:13
 #, kde-format
 msgid "Fonts"
-msgstr "Tipus de lletra"
+msgstr "Lletres"
 
 #. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
 #: app/configfont.ui:21
 #, kde-format
 msgid "Main Font"
-msgstr "Tipus de lletra principal"
+msgstr "Lletra principal"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
 #: app/configfont.ui:28
@@ -156,7 +156,7 @@ msgstr "Diccionaris"
 #: app/configuredialog.cpp:55
 #, kde-format
 msgid "Font"
-msgstr "Tipus de lletra"
+msgstr "Lletra"
 
 #: app/configuredialog.cpp:58
 #, kde-format
@@ -781,8 +781,7 @@ msgstr "Llista de kanji"
 #: radselect/radselectprefdialog.ui:85
 #, kde-format
 msgid "The font for the main kanji/kana entry in list view"
-msgstr ""
-"El tipus de lletra per a l'entrada principal kanji/kana en la vista de llista"
+msgstr "La lletra per a l'entrada principal kanji/kana en la vista de llista"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
@@ -791,13 +790,13 @@ msgstr ""
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr "Empreu-ho per a ajustar el tipus de lletra dels botons"
+msgstr "Empreu-ho per a ajustar la lletra dels botons"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
 #, kde-format
 msgid "Kanji font:"
-msgstr "Tipus de lletra Kanji:"
+msgstr "Lletra Kanji:"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
 #: kanjibrowser/preferences.ui:56
@@ -821,7 +820,7 @@ msgstr "Mida del kanji:"
 #: kanjibrowser/preferences.ui:121
 #, kde-format
 msgid "Kana font:"
-msgstr "Tipus de lletra kana:"
+msgstr "Lletra kana:"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
 #: kanjibrowser/preferences.ui:128
@@ -833,7 +832,7 @@ msgstr "かな"
 #: kanjibrowser/preferences.ui:151
 #, kde-format
 msgid "Label font:"
-msgstr "Tipus de lletra de les etiquetes:"
+msgstr "Lletra de les etiquetes:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
@@ -1017,14 +1016,14 @@ msgstr "Tanca radselect quan premeu cerca"
 #: radselect/radselectprefdialog.ui:43
 #, kde-format
 msgid "Search Results Font:"
-msgstr "Tipus de lletra dels resultats de la cerca:"
+msgstr "Lletra dels resultats de la cerca:"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
 #, kde-format
 msgid "Use this to adjust the result list font"
-msgstr "Empreu-ho per a ajustar el tipus de lletra de la llista dels resultats"
+msgstr "Empreu-ho per a ajustar la lletra de la llista dels resultats"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1037,7 +1036,7 @@ msgstr "漢字 かな"
 #: radselect/radselectprefdialog.ui:69
 #, kde-format
 msgid "Button Font:"
-msgstr "Tipus de lletra per als botons:"
+msgstr "Lletra dels botons:"
 
 #: radselect/radselectview.cpp:39
 #, kde-format

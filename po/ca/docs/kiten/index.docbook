@@ -504,33 +504,33 @@ until you get used to handling Japanese verb forms.
 
 <sect1 id="fonts">
 <title
->Tipus de lletra</title>
+>Lletres</title>
 
 <para
->Podeu escollir el tipus de lletra que utilitzarà el &kiten; en la seva vista de resultats. Aneu al diàleg de configuració del &kiten;, el qual es pot obrir escollint <menuchoice
+>Podeu escollir la lletra que utilitzarà el &kiten; en la seva vista de resultats. Aneu al diàleg de configuració del &kiten;, el qual es pot obrir escollint <menuchoice
 ><guimenu
 >Arranjament</guimenu
 ><guimenuitem
 >Configura el &kiten;...</guimenuitem
 ></menuchoice
 >. Seleccioneu la pàgina <guilabel
->Tipus de lletra</guilabel
-> del diàleg i seleccioneu-lo en el selector del tipus de lletra.</para>
+>Lletra</guilabel
+> del diàleg i seleccioneu-la en el selector de lletres.</para>
 
 <note
 ><para
->El sistema de substitució del tipus de lletra de les &Qt; fa que un tipus de lletra japonesa sempre sigui substituït per caràcters japonesos, encara que el tipus de lletra especificat no els inclogui. Per tant, podreu escollir qualsevol tipus de lletra al selector i encara es mostrarà tot bé.</para
+>El sistema de substitució de lletres de les &Qt; fa que una lletra japonesa sempre sigui substituïda per caràcters japonesos, encara que la lletra especificada no els inclogui. Per tant, podreu escollir qualsevol lletra al selector i encara es mostrarà tot bé.</para
 ></note>
 
 <screenshot>
 <screeninfo
->Captura de pantalla per al tipus de lletra</screeninfo>
+>Captura de pantalla per a la lletra</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata fileref="font.png" format="PNG"/></imageobject>
 <textobject
 ><phrase
->Tipus de lletra del &kiten;</phrase
+>Lletra del &kiten;</phrase
 ></textobject>
 </mediaobject>
 </screenshot>
