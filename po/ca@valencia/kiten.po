@@ -791,7 +791,7 @@ msgstr ""
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr "Utilitzeu-ho per a ajustar el tipus de lletra dels botons"
+msgstr "Utilitzeu-la per a ajustar el tipus de lletra dels botons"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
@@ -1025,7 +1025,7 @@ msgstr "Tipus de lletra dels resultats de la busca:"
 #, kde-format
 msgid "Use this to adjust the result list font"
 msgstr ""
-"Utilitzeu-ho per a ajustar el tipus de lletra de la llista dels resultats"
+"Utilitzeu-la per a ajustar el tipus de lletra de la llista dels resultats"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
