@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
                               "(c) 2006-2008, Joseph Kerian\n"
                               "(c) 2011, Daniel E. Moctezuma"),
                          QString(),
-                         QStringLiteral("https://edu.kde.org/kiten"));
+                         QStringLiteral("https://apps.kde.org/kiten"));
 
     aboutData.addAuthor(i18n("Jason Katz-Brown"), i18n("Original author"), QStringLiteral("jason@katzbrown.com"));
     aboutData.addCredit(i18n("Jim Breen"),

@@ -24,7 +24,7 @@ int main(int argc, char **argv)
                      KAboutLicense::GPL_V2,
                      i18n("(C) 2011 Daniel E. Moctezuma"),
                      QString(),
-                     QStringLiteral("https://edu.kde.org/kiten"),
+                     QStringLiteral("https://apps.kde.org/kiten"),
                      QStringLiteral("democtezuma@gmail.com"));
     about.addAuthor(i18n("Daniel E. Moctezuma"), QString(), QStringLiteral("democtezuma@gmail.com"));
     about.setOrganizationDomain("kde.org");

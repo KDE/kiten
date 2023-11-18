@@ -116,7 +116,7 @@
     <p xml:lang="zh-CN">Kiten 是一款日文参考与学习工具。它提供了英译日词典、日译英词典及日语汉字词典。日语汉字词典还支持多种方式查询字词。</p>
     <p xml:lang="zh-TW">Kiten 是一套日語學習工具。它有一套英日、日英字典，以及漢字字典。漢字字典部份支援多種查詢方式。</p>
   </description>
-  <url type="homepage">https://edu.kde.org/kiten/</url>
+  <url type="homepage">https://apps.kde.org/kiten</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kiten</url>
   <url type="help">https://docs.kde.org/?application=kiten</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kiten&amp;source=appdata</url>
