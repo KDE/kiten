@@ -212,8 +212,11 @@ QMap<QString, DictionaryPreferenceDialog *> DictionaryManager::generatePreferenc
         DictFile *tempDictFile = makeDictFile(dictType);
         DictionaryPreferenceDialog *newDialog = tempDictFile->preferencesWidget(config, parent);
 
-        if (newDialog == nullptr)
+        if (newDialog == nullptr) {
+            delete tempDictFile;
             continue;
+        }
+
         result.insert(dictType, newDialog);
         delete tempDictFile;
     }
