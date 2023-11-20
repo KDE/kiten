@@ -1,5 +1,5 @@
 # Translation of kiten.po to Catalan
-# Copyright (C) 2003-2022 This_file_is_part_of_KDE
+# Copyright (C) 2003-2023 This_file_is_part_of_KDE
 #
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2003, 2012, 2014, 2020, 2021, 2022.
 # Albert Astals Cid <aacid@kde.org>, 2004, 2005.
@@ -1073,81 +1073,3 @@ msgstr "Màx"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(TOTS)"
-
-#~ msgid "kitenkanjibrowser"
-#~ msgstr "kitenkanjibrowser"
-
-#~ msgid "kitenradselect"
-#~ msgstr "kitenradselect"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Noun"
-#~ msgstr "Nom"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Verb"
-#~ msgstr "Verb"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adjective"
-#~ msgstr "Adjectiu"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adverb"
-#~ msgstr "Adverbi"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Particle"
-#~ msgstr "Partícula"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated (except possibly in far-eastern languages), this must be a "
-#~ "single word"
-#~ msgid "Ichidan"
-#~ msgstr "Ichidan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Godan"
-#~ msgstr "Godan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Fukisoku"
-#~ msgstr "Fukisoku"
-
-#~ msgid "Idiomatic expression"
-#~ msgstr "Expressió idiomàtica"
-
-#~ msgid "Noun (used as a prefix)"
-#~ msgstr "Nom (usat com a prefix)"
-
-#~ msgid "Noun (used as a suffix)"
-#~ msgstr "Nom (usat com a sufix)"
-
-#~ msgid "On The Spo&t Search"
-#~ msgstr "Cerca «in si&tu»"
-
-#~ msgid "(c) 2001-2004, Jason Katz-Brown"
-#~ msgstr "(c) 2001-2004, Jason Katz-Brown"
-
-#~ msgid "Deinflect Verbs/Adjectives"
-#~ msgstr "Fes la desinflexió de verbs/adjectius"
-
-#~ msgid "Possible de-conjugation %1 as %2"
-#~ msgstr "Possible de-conjugació %1 com a %2"
-
-#~ msgid "Deinflect Dictionary Files"
-#~ msgstr "Fitxers del diccionari de desinflexions"
-
-#~ msgid ""
-#~ "Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb"
-#~ msgstr ""
-#~ "Limitar a l'usuari l'elecció del tipus de paraules? 0:Qualsevol, Verbs, "
-#~ "Noms, Adjectius, Adverbis"
-
-#~ msgid "Enable the Deinflection checker?"
-#~ msgstr "Habilitar el comprovador de desinflexions?"
