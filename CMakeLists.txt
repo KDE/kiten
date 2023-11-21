@@ -41,10 +41,6 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     KIO
     XmlGui)
 
-## Make it easy for radselect and kiten to find libkiten headers
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 add_definitions(-DTRANSLATION_DOMAIN=\"kiten\")
 
 ## Build each subdir
@@ -55,7 +51,6 @@ add_subdirectory( doc )
 add_subdirectory( kanjibrowser )
 add_subdirectory( lib )
 add_subdirectory( radselect )
-add_subdirectory( kitengen )
 
 install(FILES org.kde.kiten.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
