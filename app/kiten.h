@@ -68,7 +68,6 @@ private Q_SLOTS:
     void displayResults(EntryList *);
     void radicalSearch();
     void kanjiBrowserSearch();
-    // void searchOnTheSpot();
 
     // Configuration related slots
     void slotConfigure();
@@ -90,12 +89,6 @@ private Q_SLOTS:
     void enableHistoryButtons();
     void setCurrentScrollValue(int value);
 
-    //	void createEEdit();
-    //	void kanjiDictChange();
-    // Q_SIGNALS:
-    //	void saveLists();
-    //	void add( Entry* );
-
 private:
     QStatusBar *_statusBar = nullptr;
     DictionaryManager _dictionaryManager;
@@ -105,18 +98,11 @@ private:
 
     DictQuery _lastQuery;
     KToggleAction *_autoSearchToggle = nullptr;
-    KListAction *_historyAction = nullptr;
     QAction *_irAction = nullptr;
     QAction *_backAction = nullptr;
     QAction *_forwardAction = nullptr;
     KProcess *_radselect_proc = nullptr;
     KProcess *_kanjibrowser_proc = nullptr;
-
-    // TODO: this should probably be a standardaction
-    QAction *_globalShortcutsAction = nullptr;
-
-    // ResultsView *detachedView;
-    QAction *_globalSearchAction = nullptr;
 
     // Export list related:
     QDockWidget *_exportListDock = nullptr;

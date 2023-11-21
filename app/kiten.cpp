@@ -177,14 +177,6 @@ void Kiten::setupActions()
 
     (void)KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
-    // TODO: implement this
-    //_globalSearchAction = actionCollection()->add<KToggleAction>( "search_on_the_spot" );
-    //_globalSearchAction->setText( i18n( "On The Spo&t Search" ) );
-    // KAction *temp = qobject_cast<KAction*>( _globalSearchAction );
-    // KShortcut shrt( "Ctrl+Alt+S" );
-    // globalSearchAction->setGlobalShortcut(shrt);  //FIXME: Why does this take ~50 seconds to return!?
-    // connect(globalSearchAction, SIGNAL(triggered()), this, SLOT(searchOnTheSpot()));
-
     _backAction = KStandardAction::back(this, SLOT(back()), actionCollection());
     _forwardAction = KStandardAction::forward(this, SLOT(forward()), actionCollection());
     _backAction->setEnabled(false);
@@ -438,13 +430,6 @@ void Kiten::displayResults(EntryList *results)
     file.close();
     */
 }
-
-/*
-void Kiten::searchOnTheSpot()
-{
-  qDebug() << "On the spot search!\n";
-}
-*/
 
 void Kiten::radicalSearch()
 {
