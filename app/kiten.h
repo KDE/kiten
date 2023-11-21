@@ -72,8 +72,6 @@ private Q_SLOTS:
 
     // Configuration related slots
     void slotConfigure();
-    void slotConfigureHide();
-    void slotConfigureDestroy();
     void configureToolBars();
     void newToolBarConfig();
     void updateConfiguration();

@@ -481,30 +481,9 @@ void Kiten::slotConfigure()
 
     // ConfigureDialog didn't find an instance of this dialog, so lets create it :
     _optionDialog = new ConfigureDialog(this, _config);
-    connect(_optionDialog, SIGNAL(hidden()), this, SLOT(slotConfigureHide()));
     connect(_optionDialog, &ConfigureDialog::settingsChanged, this, &Kiten::updateConfiguration);
 
     _optionDialog->show();
-}
-
-/**
- * This function just queues up slotConfigureDestroy() to get around the
- * SIGSEGV if you try to delete yourself if you are in the stack.
- */
-void Kiten::slotConfigureHide()
-{
-    QTimer::singleShot(0, this, &Kiten::slotConfigureDestroy);
-}
-
-/**
- * This function actually tears down the optionDialog
- */
-void Kiten::slotConfigureDestroy()
-{
-    if (_optionDialog != nullptr && _optionDialog->isVisible() == 0) {
-        delete _optionDialog;
-        _optionDialog = nullptr;
-    }
 }
 
 /* TODO: reimplement something very much like this
