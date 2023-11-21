@@ -80,7 +80,7 @@ private Q_SLOTS:
      *
      * @param item item to search in the dictionary
      */
-    void searchKanji(QListWidgetItem *item);
+    void searchKanji(const QString &term);
 
 private:
     /**
@@ -106,6 +106,11 @@ private:
     void toClipboard();
 
     /**
+     * Open the search dialog.
+     */
+    void openSearchDialog();
+
+    /**
      * Enumerations of our possible states in QStackedWidget.
      */
     enum Page { List, Info };
@@ -122,6 +127,10 @@ private:
      * We need to update this action's text from different functions.
      */
     QAction *_goToKanjiInfo;
+    /**
+     * We need to update this action's text from different functions.
+     */
+    QAction *_searchKanjiAction;
     /**
      * We need to update this action's text from different functions.
      */

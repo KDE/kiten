@@ -11,13 +11,15 @@ target_sources(kanjibrowser_bin PRIVATE
     kanjibrowserview.cpp
     kanjibrowserview.h
     main.cpp
-
+    searchdialog.cpp
+    searchdialog.h
     kanjibrowser.qrc
 )
 
 ki18n_wrap_ui(kanjibrowser_bin
     kanjibrowserview.ui
     preferences.ui
+    searchdialog.ui
 )
 kconfig_add_kcfg_files(kanjibrowser_bin kanjibrowserconfig.kcfgc)
 

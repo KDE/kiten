@@ -13,6 +13,7 @@
 #include "entrylist.h"
 #include "kanjibrowser.h"
 #include "kanjibrowserconfig.h"
+#include "searchdialog.h"
 
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -183,21 +184,23 @@ void KanjiBrowserView::reloadKanjiList()
     statusBarChanged(i18np("%1 kanji found", "%1 kanji found", _kanjiList->count()));
 }
 
-void KanjiBrowserView::searchKanji(QListWidgetItem *item)
+void KanjiBrowserView::searchKanji(const QString &term)
 {
-    if (_currentKanji != nullptr && item->text() == _currentKanji->getWord()) {
+    if (_currentKanji != nullptr && term == _currentKanji->getWord()) {
         return;
     }
 
-    _goToKanjiInfo->setText(i18n("About %1", item->text()));
-    _copyToClipboard->setText(i18n("Copy %1 to clipboard", item->text()));
-    _copyToClipboard->setVisible(true);
+    if (auto result = _parent->_dictFileKanjidic->doSearch(DictQuery(term)); result != nullptr && !result->isEmpty()) {
+        auto kanji = dynamic_cast<EntryKanjidic *>(result->first());
+        _currentKanji = kanji;
 
-    Entry *result = _parent->_dictFileKanjidic->doSearch(DictQuery(item->text()))->first();
-    auto kanji = static_cast<EntryKanjidic *>(result);
-    _currentKanji = kanji;
+        _goToKanjiInfo->setText(i18n("About %1", _currentKanji->getWord()));
+        _copyToClipboard->setText(i18n("Copy %1 to clipboard", _currentKanji->getWord()));
+        _copyToClipboard->setVisible(true);
 
-    showKanjiInformation(kanji);
+        showKanjiInformation(kanji);
+        _goToKanjiInfo->triggered();
+    }
 }
 
 void KanjiBrowserView::setupView(KanjiBrowser *parent, const QHash<QString, QPair<int, int>> &kanji, QList<int> &kanjiGrades, QList<int> &strokeCount)
@@ -220,6 +223,10 @@ void KanjiBrowserView::setupView(KanjiBrowser *parent, const QHash<QString, QPai
     _goToKanjiInfo = _parent->actionCollection()->addAction(QStringLiteral("kanji_info"));
     _goToKanjiInfo->setText(i18n("Kanji &Information"));
 
+    _searchKanjiAction = _parent->actionCollection()->addAction(QStringLiteral("search"));
+    _searchKanjiAction->setIcon(QIcon::fromTheme(QStringLiteral("search")));
+    _searchKanjiAction->setText(i18n("&Search…"));
+
     _copyToClipboard = _parent->actionCollection()->addAction(QStringLiteral("copy_kanji_to_clipboard"));
     _copyToClipboard->setVisible(false);
 
@@ -241,13 +248,16 @@ void KanjiBrowserView::setupView(KanjiBrowser *parent, const QHash<QString, QPai
 
     connect(_grades, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeGrade);
     connect(_strokes, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &KanjiBrowserView::changeStrokeCount);
-    connect(_kanjiList, &QListWidget::itemClicked, this, &KanjiBrowserView::searchKanji);
+    connect(_kanjiList, &QListWidget::itemClicked, this, [this](QListWidgetItem *item) {
+        searchKanji(item->text());
+    });
     connect(_kanjiList, &QListWidget::itemClicked, _goToKanjiInfo, [this] {
         _goToKanjiInfo->triggered();
     });
     connect(goToKanjiList, &QAction::triggered, this, &KanjiBrowserView::changeToListPage);
     connect(_goToKanjiInfo, &QAction::triggered, this, &KanjiBrowserView::changeToInfoPage);
     connect(_copyToClipboard, &QAction::triggered, this, &KanjiBrowserView::toClipboard);
+    connect(_searchKanjiAction, &QAction::triggered, this, &KanjiBrowserView::openSearchDialog);
 
     // Set the current grade (Grade 1).
     _grades->setCurrentIndex(1);
@@ -335,6 +345,16 @@ void KanjiBrowserView::toClipboard()
     QClipboard *cb = QApplication::clipboard();
     cb->setText(_currentKanji->getWord(), QClipboard::Clipboard);
     cb->setText(_currentKanji->getWord(), QClipboard::Selection);
+}
+
+void KanjiBrowserView::openSearchDialog()
+{
+    auto dialog = new SearchDialog(this);
+    connect(dialog, &SearchDialog::search, this, [this, dialog](const QString &query) {
+        searchKanji(query);
+        dialog->close();
+    });
+    dialog->show();
 }
 
 #include "moc_kanjibrowserview.cpp"

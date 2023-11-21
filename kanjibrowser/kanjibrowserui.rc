@@ -4,6 +4,7 @@
 <MenuBar>
 	<Menu name="file">
 		<text>&amp;File</text>
+		<Action name="search" />
 	</Menu>
 	<Menu name="settings">
 	</Menu>
