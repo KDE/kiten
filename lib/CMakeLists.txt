@@ -24,7 +24,6 @@ target_sources(kiten PRIVATE
     entry.cpp
     entrylist.cpp
     historyptrlist.cpp
-    kromajiedit.cpp
 )
 
 generate_export_header(kiten)
@@ -52,7 +51,6 @@ install( FILES
 		entry.h
 		entrylist.h
 		historyptrlist.h
-		kromajiedit.h
 	  DESTINATION ${KDE_INSTALL_INCLUDEDIR}/libkiten COMPONENT Devel
 		)
 install(FILES
