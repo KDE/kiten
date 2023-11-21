@@ -245,7 +245,7 @@ void Kiten::finishInit()
     // if it's the application's first time starting,
     // the app group won't exist and we show demo
     if (_config->initialSearch()) {
-        if (KConfigGui::hasSessionConfig() && !KConfigGui::sessionConfig()->hasGroup(QStringLiteral("app"))) {
+        if (!KConfigGui::hasSessionConfig() || !KConfigGui::sessionConfig()->hasGroup(QStringLiteral("app"))) {
             searchTextAndRaise(QStringLiteral("辞書"));
             // Note to future tinkerers... DO NOT EDIT OR TRANSLATE THAT
             // it's an embedded unicode search string to find "dictionary" in japanese
