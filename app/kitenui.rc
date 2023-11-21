@@ -19,6 +19,7 @@
     <Action name="search_wordType" />
     <Action name="filter_rare" />
     <Action name="search_radical" />
+    <Separator/>
     <Action name="radselect" />
     <Action name="kanjibrowser" />
   </Menu>

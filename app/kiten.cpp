@@ -134,7 +134,6 @@ void Kiten::setupActions()
 
     QAction *radselect = actionCollection()->addAction(QStringLiteral("radselect"));
     radselect->setText(i18n("Radical Selector"));
-    //	radselect->setIcon( "edit-find" );
     actionCollection()->setDefaultShortcut(radselect, Qt::CTRL | Qt::Key_R);
     connect(radselect, &QAction::triggered, this, &Kiten::radicalSearch);
 
