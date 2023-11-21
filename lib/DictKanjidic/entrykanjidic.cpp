@@ -14,7 +14,6 @@
 #include "kitenmacros.h"
 
 #include <KLocalizedString>
-#include <QDebug>
 
 #define QSTRINGLISTCHECK(x) (x == NULL ? QStringList() : *x)
 
@@ -258,7 +257,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
             /* All of the above are of the format <Char><Data> where <Char> is
                     exactly 1 character. */
             i++;
-            LOADSTRING(curString);
+            LOADSTRING(curString)
             ExtendedInfo.insert(QString(ichar), curString);
             break;
         case 'I':
@@ -336,7 +335,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
                     // Reset our variable and load it with
                     // all available kana until we find a whitespace.
                     curString = QLatin1String("");
-                    LOADSTRING(curString);
+                    LOADSTRING(curString)
                     switch (type) {
                     case 1: // Special reading used in names.
                         InNamesReadings.append(curString);
@@ -401,7 +400,7 @@ bool EntryKanjidic::loadEntry(const QString &entryLine)
                oh-so-common <char><data> type of entry.  It could be hotly
                debated what we should actually do about these. */
             i++;
-            LOADSTRING(curString);
+            LOADSTRING(curString)
             ExtendedInfo.insert(QString(ichar), curString);
 
             break;

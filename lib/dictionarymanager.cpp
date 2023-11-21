@@ -18,7 +18,6 @@
 #include <KConfig>
 #include <KConfigSkeleton>
 
-#include <QDebug>
 #include <QString>
 
 /* Includes to handle various types of dictionaries
@@ -306,7 +305,7 @@ void DictionaryManager::loadDictSettings(const QString &dictName, KConfigSkeleto
 
 void DictionaryManager::loadSettings(const KConfig &config)
 {
-    Q_UNUSED(config);
+    Q_UNUSED(config)
     // TODO
 }
 

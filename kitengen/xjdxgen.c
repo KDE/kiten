@@ -20,13 +20,11 @@
 	--Joe
 	*/
 
-#include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
+#include <sys/stat.h>
 
-#include <inttypes.h>
 #include <stdint.h>
 
 #define TRUE 1

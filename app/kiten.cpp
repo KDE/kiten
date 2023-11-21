@@ -12,12 +12,10 @@
 #include "kiten.h"
 
 #include <KActionCollection>
-#include <KConfig>
 #include <KConfigGui>
 #include <KEditToolBar>
 #include <KLocalizedString>
 #include <KProcess>
-#include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KStandardGuiItem>
 #include <KToggleAction>
@@ -27,7 +25,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QDockWidget>
-#include <QFile>
 #include <QList>
 #include <QPair>
 #include <QScrollBar>

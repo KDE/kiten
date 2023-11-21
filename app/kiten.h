@@ -20,7 +20,6 @@
 #include "historyptrlist.h"
 
 class QAction;
-class KListAction;
 class KProcess;
 class QStatusBar;
 class KToggleAction;

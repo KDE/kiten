@@ -12,7 +12,6 @@
 #include "dictfileedict.h"
 #include "kitenmacros.h"
 
-#include <KLocalizedString>
 #include <QDebug>
 
 #define QSTRINGLISTCHECK(x) (x == NULL ? QStringList() : *x)

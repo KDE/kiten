@@ -112,8 +112,8 @@ public:
      */
     virtual DictionaryPreferenceDialog *preferencesWidget(KConfigSkeleton *config, QWidget *parent = nullptr)
     {
-        Q_UNUSED(parent);
-        Q_UNUSED(config);
+        Q_UNUSED(parent)
+        Q_UNUSED(config)
         return nullptr;
     }
     /**

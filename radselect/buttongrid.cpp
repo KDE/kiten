@@ -103,7 +103,7 @@ void ButtonGrid::clearSelections()
 void ButtonGrid::radicalClicked(const QString &newrad, RadicalButton::ButtonStatus newStatus)
 {
     if (newStatus == RadicalButton::Related) {
-        ; // Do something fancy
+        // TODO: Do something fancy
     } else if (newStatus == RadicalButton::Normal || newStatus == RadicalButton::Selected) {
         CurrentMode = Selection;
 

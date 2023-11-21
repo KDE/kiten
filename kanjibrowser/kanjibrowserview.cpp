@@ -19,7 +19,6 @@
 #include <KMessageBox>
 #include <QAction>
 #include <QClipboard>
-#include <QDebug>
 
 KanjiBrowserView::KanjiBrowserView(QWidget *parent)
     : QWidget(parent)

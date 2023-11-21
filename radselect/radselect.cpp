@@ -13,9 +13,7 @@
 #include "ui_radselectprefdialog.h"
 
 #include <KActionCollection>
-#include <KConfig>
 #include <KConfigDialog>
-#include <KLocalizedString>
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KXMLGUIFactory>
@@ -23,7 +21,6 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusMessage>
-#include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QMimeData>
 #include <QStatusBar>

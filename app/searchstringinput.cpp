@@ -17,8 +17,6 @@
 #include <KSelectAction>
 #include <KToolBar>
 
-#include <QAction>
-#include <QDebug>
 #include <QLineEdit>
 
 SearchStringInput::SearchStringInput(Kiten *parent)

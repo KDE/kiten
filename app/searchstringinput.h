@@ -17,7 +17,6 @@ class QAction;
 class KHistoryComboBox;
 class KSelectAction;
 class Kiten;
-class WordType;
 
 class SearchStringInput : public QObject
 {

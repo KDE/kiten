@@ -17,7 +17,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QAction>
-#include <QDebug>
 #include <QDir>
 #include <QUrl>
 

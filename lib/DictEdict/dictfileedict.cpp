@@ -340,6 +340,6 @@ bool DictFileEdict::validDictionaryFile(const QString &filename)
 // TODO: Actually write this method (validQuery)
 bool DictFileEdict::validQuery(const DictQuery &query)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(query)
     return true;
 }
