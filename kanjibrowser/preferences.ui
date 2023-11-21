@@ -86,10 +86,10 @@
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
         <property name="leftMargin">
-         <number>0</number>
+         <number>-1</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>-1</number>
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="_kanjiSizeLabel">

@@ -132,7 +132,8 @@ void KanjiBrowser::showPreferences()
     layout.setupUi(preferences);
 
     KConfigDialog *dialog = new KConfigDialog(this, QStringLiteral("settings"), KanjiBrowserConfigSkeleton::self());
-    dialog->addPage(preferences, i18n("Settings"), QStringLiteral("help-contents"));
+    dialog->setFaceType(KPageDialog::FaceType::Plain);
+    dialog->addPage(preferences, QString(), QStringLiteral("help-contents"));
     connect(dialog, &KConfigDialog::settingsChanged, _view, &KanjiBrowserView::loadSettings);
     dialog->show();
 }
