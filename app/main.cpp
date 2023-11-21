@@ -12,7 +12,6 @@
 #include <KLocalizedString>
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QDBusConnection>
 
 #include "kiten.h"
 #include "kiten_version.h"
@@ -56,7 +55,7 @@ int main(int argc, char *argv[])
                              "polishing and simplification"),
                         QStringLiteral("democtezuma@gmail.com"));
 
-    aboutData.setOrganizationDomain("kde.org"); // Set this for the DBUS ID
+    aboutData.setOrganizationDomain("kde.org");
 
 #ifdef Q_OS_WIN
     QApplication::setStyle(QStringLiteral("breeze"));
@@ -72,13 +71,7 @@ int main(int argc, char *argv[])
     aboutData.processCommandLine(&parser);
 
     auto kiten = new Kiten();
-
-    // Register the DBUS name or die
-    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("org.kde.kiten"))) {
-        exit(1);
-    }
-
     kiten->show();
-    QDBusConnection::sessionBus().registerObject(QStringLiteral("/"), kiten, QDBusConnection::ExportAllSlots);
+
     return app.exec();
 }

@@ -44,7 +44,6 @@ public:
 
     KitenConfigSkeleton *getConfig();
 
-    // The following will be available via dbus.
 public Q_SLOTS:
     void searchTextAndRaise(const QString &str);
     void addExportListEntry(int index);
