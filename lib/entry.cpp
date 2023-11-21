@@ -12,11 +12,6 @@
 
 #include <KLocalizedString>
 
-#include <cassert>
-#include <cstdio>
-#include <iostream>
-#include <sys/mman.h>
-
 using namespace Qt::StringLiterals;
 
 /**

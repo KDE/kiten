@@ -12,8 +12,6 @@
 
 #include <KLocalizedString>
 
-#include <sys/mman.h>
-
 #include "DictEdict/dictfileedict.h"
 #include "DictEdict/entryedict.h"
 #include "kitenmacros.h"

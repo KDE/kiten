@@ -14,7 +14,6 @@
 #include <config-kiten.h>
 
 #include "dictfile.h"
-#include "indexededictfile.h"
 #include "kiten_export.h"
 #include "linearedictfile.h"
 

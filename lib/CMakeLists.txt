@@ -12,7 +12,6 @@ target_sources(kiten PRIVATE
     DictEdict/deinflection.cpp
     DictEdict/dictfileedict.cpp
     DictEdict/entryedict.cpp
-    DictEdict/indexededictfile.cpp
     DictEdict/linearedictfile.cpp
     DictEdict/dictfilefieldselector.cpp
 
@@ -42,11 +41,6 @@ target_link_libraries(kiten
         KF6::I18n
         KF6::WidgetsAddons
 )
-
-if(WIN32)
-    target_include_directories(kiten PRIVATE ${MMAN_INCLUDE_PATH})
-    target_link_libraries(kiten PRIVATE ${MMAN_LIBRARY})
-endif()
 
 install( TARGETS kiten  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 

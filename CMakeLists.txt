@@ -45,21 +45,6 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-## Find mman.h on Windows
-if(WIN32)
-    find_path(MMAN_INCLUDE_PATH NAMES sys/mman.h)
-    if(NOT MMAN_INCLUDE_PATH)
-        message(FATAL_ERROR "On Windows, you need to install mman-win32 headers.")
-    endif()
-    message(STATUS "Found mman-win32 include: ${MMAN_INCLUDE_PATH}")
-
-    find_library(MMAN_LIBRARY NAMES mman)
-    if(NOT MMAN_LIBRARY)
-        message(FATAL_ERROR "On Windows, you need to install mman-win32 library.")
-    endif()
-    message(STATUS "Found mman-win32 library: ${MMAN_LIBRARY}")
-endif(WIN32)
-
 add_definitions(-DTRANSLATION_DOMAIN=\"kiten\")
 
 ## Build each subdir
