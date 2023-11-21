@@ -14,11 +14,7 @@
 #include <QString>
 #include <QVector>
 
-#ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
-#else
-typedef unsigned int uint32_t;
-#endif
 
 /**
  * A class for managing the EDICT formatted dictionaries with their

@@ -60,14 +60,7 @@ if(WIN32)
     message(STATUS "Found mman-win32 library: ${MMAN_LIBRARY}")
 endif(WIN32)
 
-## Generate config.h
-check_include_files(stdint.h HAVE_STDINT_H)
-check_include_files(inttypes.h HAVE_INTTYPES_H)
-configure_file( config-kiten.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kiten.h )
-
 add_definitions(-DTRANSLATION_DOMAIN=\"kiten\")
-
-
 
 ## Build each subdir
 add_subdirectory( app )

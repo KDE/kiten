@@ -27,12 +27,8 @@
 #include <ctype.h>
 #include <string.h>
 
-#ifdef HAVE_STDINT_H
-#include <stdint.h>
-#endif
-#ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
-#endif
+#include <stdint.h>
 
 #define TRUE 1
 #define FALSE 0
