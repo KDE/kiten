@@ -132,14 +132,6 @@ void Kiten::setupActions()
     // old style cast seems needed here, (const QObject*)
     KStandardAction::keyBindings(guiFactory(), &KXMLGUIFactory::showConfigureShortcutsDialog, actionCollection());
 
-    /* TODO: put back when Dictionary Editor is reorganised */
-    // 	(void) new KAction(   i18n( "&Dictionary Editor..." )
-    //                             , "document-properties"
-    //                             , 0
-    //                             , this
-    //                             , SLOT(createEEdit())
-    //                             , actionCollection()
-    //                             , "dict_editor");
     QAction *radselect = actionCollection()->addAction(QStringLiteral("radselect"));
     radselect->setText(i18n("Radical Selector"));
     //	radselect->setIcon( "edit-find" );
@@ -485,14 +477,6 @@ void Kiten::slotConfigure()
 
     _optionDialog->show();
 }
-
-/* TODO: reimplement something very much like this
-void Kiten::createEEdit()
-{
-  eEdit *_eEdit = new eEdit( PERSONALDictionaryLocation( "data" ), this );
-  _eEdit->show();
-}
-*/
 
 void Kiten::configureToolBars()
 {
