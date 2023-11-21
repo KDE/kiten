@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2022-11-27 11:39+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -88,34 +88,14 @@ msgstr "Letra-tipo nagusia"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romaji"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Ikasi"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, kde-format
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Ikasteko modua desgaituta dago Kiten-en bertsio honetan. Iturburu irekiko "
-"txartelen hainbat aplikazio on daude eskuragarri, haien artea <a href="
-"\"https:// apps.kde.org/parley\">Parley</a>, eta <a href=\"https://apps."
-"ankiweb.net\">Anki proiektua</a>."
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Bilaketa"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Bilatu \"jiten\" Kiten abiatzean"
@@ -150,23 +130,23 @@ msgstr "&Bistaratu aurrenekoa:"
 msgid "Fields to Sort &By:"
 msgstr "Zein eremuren &arabera sailkatu:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Hiztegiak"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Letra-tipoa"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Bistaratu"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Emaitzak sailkatzea"
@@ -237,67 +217,67 @@ msgstr ""
 "Eguneratzea huts egin du:\n"
 "%1"
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Erroaren hautapena"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Kanji arakatzailea"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "B&ilatu"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Automatikoki bilatu arbeleko hautapenetan"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Bilatu ema&itzetan"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Fokua emaitzaren ikuspegira"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Esportatu zerrenda"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Hiztegiak hasieratzen"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Ongi etorri Kiten-era"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Bilatzen..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "Emaitza 1 aurkitu da"
 msgstr[1] "%1 emaitza aurkitu dira"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Ez da emaitzarik aurkitu"
@@ -370,7 +350,7 @@ msgid "What order do we sort the fields in?"
 msgstr "Eremuak zein ordenatan sailkatuko ditugu?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -380,7 +360,7 @@ msgstr ""
 "bakarrik, 2=Banatu sarrera arruntak eta ez-arruntak"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -390,7 +370,7 @@ msgstr ""
 "2=Bukaera bat-etortzea, 3=Bat-etortzea edonon"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -400,7 +380,7 @@ msgstr ""
 "3=Adjektiboa, 4=Adberbioa, 5=Aurrizkia, 6=Atzizkia, 7=Adierazpena"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Arbeleko sarreretan automatikoki bilatu?"
@@ -637,11 +617,6 @@ msgstr "Fokua sarrerako eremura"
 #, kde-format
 msgid "Search Bar"
 msgstr "Bilaketa-barra"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Ezarpenak"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1074,6 +1049,23 @@ msgstr "Max"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(DENA)"
+
+#~ msgid "Learn"
+#~ msgstr "Ikasi"
+
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Ikasteko modua desgaituta dago Kiten-en bertsio honetan. Iturburu irekiko "
+#~ "txartelen hainbat aplikazio on daude eskuragarri, haien artea <a href="
+#~ "\"https:// apps.kde.org/parley\">Parley</a>, eta <a href=\"https://apps."
+#~ "ankiweb.net\">Anki proiektua</a>."
+
+#~ msgid "Settings"
+#~ msgstr "Ezarpenak"
 
 #~ msgid "kitenradselect"
 #~ msgstr "kitenradselect"

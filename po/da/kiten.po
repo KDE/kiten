@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2022-02-08 20:05+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -85,39 +85,14 @@ msgstr "Hovedskrifttype"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romaji"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Lær"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, fuzzy, kde-format
-#| msgid ""
-#| "Learn mode is disabled in this version of kiten. There are several "
-#| "excellent open source flashcard programs available, such as Parley in kde-"
-#| "edu (and probably in your distro's repositories), and the anki project "
-#| "(https://apps.ankiweb.net/)"
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Læringstilstand er deaktiveret i denne version af Kiten. Der findes "
-"adskillige tilgængelige open source flashcard-programmer, såsom Parley i kde-"
-"edu (og sandsynligvis i din distributions softwarekilder), og anki-projektet "
-"(https://apps.ankiweb.net/))"
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Søger"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Søg efter \"jiten\" ved opstart"
@@ -152,23 +127,23 @@ msgstr "&Vis først:"
 msgid "Fields to Sort &By:"
 msgstr "Felter &der skal sorteres efter:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Ordbøger"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Skrifttype"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Vis"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Resultatsortering"
@@ -238,67 +213,67 @@ msgstr ""
 "Kunne ikke opdatere:\n"
 "%1"
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Rod-vælger"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Kanjibrowser"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Søg"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "Gennemsøg &automatisk udklipsholderens udvalg"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Søg &i resultater"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Resultatvisning i fokus"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Eksportliste"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Initialiserer ordbøger"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Velkommen til Kiten"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Søger..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "1 resultat fundet"
 msgstr[1] "%1 resultater fundet"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Ingen resultater fundet"
@@ -371,7 +346,7 @@ msgid "What order do we sort the fields in?"
 msgstr "Hvilken rækkefølge sorterer vi felterne i?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -381,7 +356,7 @@ msgstr ""
 "2=Adskil almindelige og sjældne opslag"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -391,7 +366,7 @@ msgstr ""
 "endelse, 3=Match hvor som helst"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -401,7 +376,7 @@ msgstr ""
 "3=Tillægsord, 4=Biord, 5=Præfiks, 6=Suffiks, 7=Udtryk"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Søg automatisk efter indgange i udklipsholderen?"
@@ -638,11 +613,6 @@ msgstr "Tekstfelt i fokus"
 #, kde-format
 msgid "Search Bar"
 msgstr "Søgelinje"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Indstillinger"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1074,6 +1044,29 @@ msgstr "Maks."
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(ALLE)"
+
+#~ msgid "Learn"
+#~ msgstr "Lær"
+
+#, fuzzy
+#~| msgid ""
+#~| "Learn mode is disabled in this version of kiten. There are several "
+#~| "excellent open source flashcard programs available, such as Parley in "
+#~| "kde-edu (and probably in your distro's repositories), and the anki "
+#~| "project (https://apps.ankiweb.net/)"
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Læringstilstand er deaktiveret i denne version af Kiten. Der findes "
+#~ "adskillige tilgængelige open source flashcard-programmer, såsom Parley i "
+#~ "kde-edu (og sandsynligvis i din distributions softwarekilder), og anki-"
+#~ "projektet (https://apps.ankiweb.net/))"
+
+#~ msgid "Settings"
+#~ msgstr "Indstillinger"
 
 #~ msgid "kitenkanjibrowser"
 #~ msgstr "kitenkanjibrowser"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2022-03-24 12:28+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -91,34 +91,14 @@ msgstr "Основной шрифт"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな Ромадзи"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Изучение"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, kde-format
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Режим изучения языка отключён в этой версии Kiten. Но существует несколько "
-"других программ, предназначенных для тренировки словарного запаса (например, "
-"<a href=\"https://apps.kde.org/parley\">Parley</a> и <a href=\"https://apps."
-"ankiweb.net\">Anki</a>)."
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Поиск"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Открывать слово «辞書» («дзисё», словарь) при запуске"
@@ -153,23 +133,23 @@ msgstr "&Порядок отображения"
 msgid "Fields to Sort &By:"
 msgstr "Возможна &cортировка по:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Словари"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Шрифт"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Вид"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Сортировка"
@@ -240,60 +220,60 @@ msgstr ""
 "Ошибка обновления:\n"
 "%1"
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Поиск кандзи по ключам"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Браузер кандзи"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Поиск"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Автоматический поиск слова из буфера обмена"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Поиск в &найденном"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Перейти к результатам поиска"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Экспорт списка"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Инициализация словарей"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Добро пожаловать в Kiten"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Поиск..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
@@ -302,7 +282,7 @@ msgstr[1] "Найдено %1 слова"
 msgstr[2] "Найдено %1 слов"
 msgstr[3] "Найдено %1 слово"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Ничего не найдено"
@@ -375,7 +355,7 @@ msgid "What order do we sort the fields in?"
 msgstr "В каком порядке сортировать поля?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -385,7 +365,7 @@ msgstr ""
 "2=Отделить общие и необщие записи"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -395,7 +375,7 @@ msgstr ""
 "2=Совпадение вконце, 3=Частичное совпадение"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -406,7 +386,7 @@ msgstr ""
 "7=Выражение"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Автоматический поиск слова из буфера обмена"
@@ -644,11 +624,6 @@ msgstr "Перейти в строку поиска"
 #, kde-format
 msgid "Search Bar"
 msgstr "Строка поиска"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Параметры"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1084,6 +1059,23 @@ msgstr "Максимум"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(Все)"
+
+#~ msgid "Learn"
+#~ msgstr "Изучение"
+
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Режим изучения языка отключён в этой версии Kiten. Но существует "
+#~ "несколько других программ, предназначенных для тренировки словарного "
+#~ "запаса (например, <a href=\"https://apps.kde.org/parley\">Parley</a> и <a "
+#~ "href=\"https://apps.ankiweb.net\">Anki</a>)."
+
+#~ msgid "Settings"
+#~ msgstr "Параметры"
 
 #~ msgid "kitenkanjibrowser"
 #~ msgstr "kitenkanjibrowser"

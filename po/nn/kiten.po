@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2022-06-19 14:06+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -83,34 +83,14 @@ msgstr "Hovudskrift"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romanisering"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Lær"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, kde-format
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Læringsmodusen er ikkje lenger tilgjengeleg i denne versjonen av Kiten. Det "
-"finst fleire veldig gode og frie hugsekort­program (flashcard-program) "
-"tilgjengelege, for eksempel <a href=\"https://apps.kde.org/parley\">Parley</"
-"a> og <a href=\"https://apps.ankiweb.net\">Anki-prosjektet</a>."
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Søk"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Søk etter «jiten» ved oppstart"
@@ -145,23 +125,23 @@ msgstr "&Vis først:"
 msgid "Fields to Sort &By:"
 msgstr "Sorter felt &etter:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Ordlister"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Skrift"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Vising"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Resultatsortering"
@@ -232,67 +212,67 @@ msgstr ""
 "Klarte ikkje oppdatera:\n"
 "%1"
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Vel teiknstamme"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Bla gjennom kanji-teikn"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Søk"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Søk automatisk i utklippstavla"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Søk &i resultat"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Fokusert på resultatvisinga"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Eksporteringsliste"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Startar ordlister"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Velkommen til Kiten"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Søkjer …"
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "Fann 1 treff"
 msgstr[1] "Fann %1 treff"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Fann ingen treff"
@@ -365,7 +345,7 @@ msgid "What order do we sort the fields in?"
 msgstr "I kva rekkjefølgje skal felta sorterast?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -375,7 +355,7 @@ msgstr ""
 "oppføringar, 2 = skil mellom vanlege og uvanlege oppføringar"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -385,7 +365,7 @@ msgstr ""
 "slutten, 3 = del av teksten"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -395,7 +375,7 @@ msgstr ""
 "adjektiv, 4 = adverb, 5 = prefiks, 6 = suffiks, 7 = uttrykk"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Skal det automatisk søkjast etter oppføringa på utklippstavla?"
@@ -632,11 +612,6 @@ msgstr "Fokusert på skrivefeltet"
 #, kde-format
 msgid "Search Bar"
 msgstr "Søkjelinje"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Innstillingar"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1067,3 +1042,20 @@ msgstr "Maks"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(ALLE)"
+
+#~ msgid "Learn"
+#~ msgstr "Lær"
+
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Læringsmodusen er ikkje lenger tilgjengeleg i denne versjonen av Kiten. "
+#~ "Det finst fleire veldig gode og frie hugsekort­program (flashcard-program) "
+#~ "tilgjengelege, for eksempel <a href=\"https://apps.kde.org/parley"
+#~ "\">Parley</a> og <a href=\"https://apps.ankiweb.net\">Anki-prosjektet</a>."
+
+#~ msgid "Settings"
+#~ msgstr "Innstillingar"

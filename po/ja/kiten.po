@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2019-05-25 17:04+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -90,38 +90,14 @@ msgstr "メインのフォント"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romaji"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "学習"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, fuzzy, kde-format
-#| msgid ""
-#| "Learn mode is disabled in this version of kiten. There are several "
-#| "excellent open source flashcard programs available, such as Parley in kde-"
-#| "edu (and probably in your distro's repositories), and the anki project "
-#| "(http://www.ichi2.net/anki)"
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"このバージョンの Kiten では学習モードは無効になっています。学習には kdeedu の"
-"一部として配布されている Parley や Anki (http://www.ichi2.net/anki) などの優"
-"れたオープンソースのプログラムを利用してください。"
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "検索"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "起動時に「辞書」を検索する"
@@ -156,23 +132,23 @@ msgstr "最初に表示(&Y):"
 msgid "Fields to Sort &By:"
 msgstr "ソート基準フィールド(&B):"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "辞書"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "フォント"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "表示"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "結果のソート"
@@ -230,67 +206,67 @@ msgid ""
 "%1"
 msgstr ""
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "部首の選択"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr ""
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "検索(&E)"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "クリップボードの内容を自動的に検索(&A)"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "結果の中を検索(&I)"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "結果フィールドをフォーカス"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "エクスポートリスト"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, fuzzy, kde-format
 #| msgid "Initialising Dictionaries"
 msgid "Initializing Dictionaries"
 msgstr "辞書を初期化"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Kiten へようこそ"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "検索中..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "検索結果 %1 件"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "検索結果はありません"
@@ -365,7 +341,7 @@ msgid "What order do we sort the fields in?"
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -373,7 +349,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -381,7 +357,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -389,7 +365,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, fuzzy, kde-format
 #| msgid "&Automatically Search Clipboard Selections"
 msgid "Automatically search for clipboard entries?"
@@ -633,11 +609,6 @@ msgstr "入力フィールドをフォーカス"
 #, kde-format
 msgid "Search Bar"
 msgstr "検索バー"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "設定"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1079,3 +1050,25 @@ msgstr "最大"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(すべて)"
+
+#~ msgid "Learn"
+#~ msgstr "学習"
+
+#, fuzzy
+#~| msgid ""
+#~| "Learn mode is disabled in this version of kiten. There are several "
+#~| "excellent open source flashcard programs available, such as Parley in "
+#~| "kde-edu (and probably in your distro's repositories), and the anki "
+#~| "project (http://www.ichi2.net/anki)"
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "このバージョンの Kiten では学習モードは無効になっています。学習には "
+#~ "kdeedu の一部として配布されている Parley や Anki (http://www.ichi2.net/"
+#~ "anki) などの優れたオープンソースのプログラムを利用してください。"
+
+#~ msgid "Settings"
+#~ msgstr "設定"

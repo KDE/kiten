@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2012-06-20 20:25+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -81,39 +81,14 @@ msgstr "Alap betűtípus"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romadzsi"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Tanulás"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, fuzzy, kde-format
-#| msgid ""
-#| "Learn mode is disabled in this version of kiten. There are several "
-#| "excellent open source flashcard programs available, such as Parley in kde-"
-#| "edu (and probably in your distro's repositories), and the anki project "
-#| "(http://www.ichi2.net/anki)"
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"A tanuló mód a kiten ezen verziójában le van tiltva. Számos kiváló nyílt "
-"forrású tanulókártya program érhető el, mint például a Parley a kde-edu "
-"csomagban (és valószínűleg a disztribúciója tárolójában) és az anki projekt "
-"(http://www.ichi2.net/anki)"
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Keresés"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "A \"jiten\" szó (jelentése: szótár) keresése induláskor"
@@ -148,23 +123,23 @@ msgstr "Megjelenítés &először:"
 msgid "Fields to Sort &By:"
 msgstr "&Rendezési mező:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Szótárak"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Betűtípus"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Megjelenítés"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "A találatok rendezése"
@@ -235,67 +210,67 @@ msgstr ""
 "Nem sikerült frissíteni:\n"
 "%1"
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Gyökválasztó"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Kandzsi böngésző"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Keresés"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "A vágólapon ki&jelölt részek automatikus keresése"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Keresés az ere&dmények között"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Fókuszálás az eredménynézetre"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Lista exportálása"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Szótárak inicializálása"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Üdvözöljük a Kitenben!"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Keresés…"
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "1 találat"
 msgstr[1] "%1 találat"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Nincs találat"
@@ -368,7 +343,7 @@ msgid "What order do we sort the fields in?"
 msgstr "Milyen sorrendben rendezzünk a mezőkben?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -378,7 +353,7 @@ msgstr ""
 "bejegyzésekre, 2=Általános és ritka bejegyzések elválasztása"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -388,7 +363,7 @@ msgstr ""
 "2=Illeszkedés a végére, 3=Illeszkedés bárhol"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -398,7 +373,7 @@ msgstr ""
 "3=Melléknév, 4=Határozószó, 5=Előtag, 6=Utótag, 7=Kifejezés"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Automatikusan keressen vágólap bejegyzéseket?"
@@ -635,11 +610,6 @@ msgstr "Fókuszálás a beviteli mezőre"
 #, kde-format
 msgid "Search Bar"
 msgstr "Keresési sáv"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Beállítások"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1075,6 +1045,29 @@ msgstr "Max"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(MIND)"
+
+#~ msgid "Learn"
+#~ msgstr "Tanulás"
+
+#, fuzzy
+#~| msgid ""
+#~| "Learn mode is disabled in this version of kiten. There are several "
+#~| "excellent open source flashcard programs available, such as Parley in "
+#~| "kde-edu (and probably in your distro's repositories), and the anki "
+#~| "project (http://www.ichi2.net/anki)"
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "A tanuló mód a kiten ezen verziójában le van tiltva. Számos kiváló nyílt "
+#~ "forrású tanulókártya program érhető el, mint például a Parley a kde-edu "
+#~ "csomagban (és valószínűleg a disztribúciója tárolójában) és az anki "
+#~ "projekt (http://www.ichi2.net/anki)"
+
+#~ msgid "Settings"
+#~ msgstr "Beállítások"
 
 #~ msgid "kitenkanjibrowser"
 #~ msgstr "kitenkanjibrowser"

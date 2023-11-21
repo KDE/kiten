@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2012-12-22 11:56+0200\n"
 "Last-Translator: Sergiu Bivol <sergiu@ase.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -84,39 +84,14 @@ msgstr "Fontul principal"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romaji"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Învață"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, fuzzy, kde-format
-#| msgid ""
-#| "Learn mode is disabled in this version of kiten. There are several "
-#| "excellent open source flashcard programs available, such as Parley in kde-"
-#| "edu (and probably in your distro's repositories), and the anki project "
-#| "(http://www.ichi2.net/anki)"
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Modul de invățare este dezactivat in aceasta versiune de kiten. Sunt câteva "
-"programe excelente open source disponibile, cum ar fi Parley în kde-edu (și "
-"probabil și în arhivele distribuției dumneavoastră), și proiectul anki "
-"(http://www.ichi2.net/anki)"
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Căutare"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Căutăm pentru \"jiten\" la pornire"
@@ -151,23 +126,23 @@ msgstr "Afișeaza primul: "
 msgid "Fields to Sort &By:"
 msgstr "Câmpuri &sortate de: "
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Dicționare"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Font"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Afișaj"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Rezultatele selectării"
@@ -225,61 +200,61 @@ msgid ""
 "%1"
 msgstr ""
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Selector radical"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr ""
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Căutare"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Caută automat selecțiile clipboardului"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Caută î&n rezultate"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Focalizează modul de afișare al rezultatelor"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Exportează lista"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, fuzzy, kde-format
 #| msgid "Initialising Dictionaries"
 msgid "Initializing Dictionaries"
 msgstr "Se inițializeaza dicționarele"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Bun venit in Kiten"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Se caută..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
@@ -287,7 +262,7 @@ msgstr[0] "S-a găsit 1 rezultat"
 msgstr[1] "S-au gasit %1 rezultate"
 msgstr[2] "S-au gasit %1 rezultate"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Nu s-a găsit nici un rezultat"
@@ -360,7 +335,7 @@ msgid "What order do we sort the fields in?"
 msgstr "In ce ordine sortăm câmpurile?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, fuzzy, kde-format
 #| msgid "Limit search results to \"common\" entries only?"
 msgid ""
@@ -369,7 +344,7 @@ msgid ""
 msgstr "Limitați rezultatele căutării doar la intrări \"comune\"?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, fuzzy, kde-format
 #| msgid ""
 #| "The user's last type of search, 0=Exact, 1=Match Start, 2=Match Anywhere"
@@ -381,7 +356,7 @@ msgstr ""
 "2=Potrivireoriunde"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -389,7 +364,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Se caută automat intrări ale clipboardului?"
@@ -629,11 +604,6 @@ msgstr "Focalizează câmpul de input"
 #, kde-format
 msgid "Search Bar"
 msgstr "Bara de căutare"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Configurări"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1081,6 +1051,29 @@ msgstr "Max"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(ALL"
+
+#~ msgid "Learn"
+#~ msgstr "Învață"
+
+#, fuzzy
+#~| msgid ""
+#~| "Learn mode is disabled in this version of kiten. There are several "
+#~| "excellent open source flashcard programs available, such as Parley in "
+#~| "kde-edu (and probably in your distro's repositories), and the anki "
+#~| "project (http://www.ichi2.net/anki)"
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Modul de invățare este dezactivat in aceasta versiune de kiten. Sunt "
+#~ "câteva programe excelente open source disponibile, cum ar fi Parley în "
+#~ "kde-edu (și probabil și în arhivele distribuției dumneavoastră), și "
+#~ "proiectul anki (http://www.ichi2.net/anki)"
+
+#~ msgid "Settings"
+#~ msgstr "Configurări"
 
 #~ msgid "kitenradselect"
 #~ msgstr "kitenradselect"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2008-07-09 21:09+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -80,30 +80,14 @@ msgstr ""
 msgid "漢字 かな romaji"
 msgstr ""
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, kde-format
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Mencari"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, fuzzy, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Mula \"belajar\" ketika Kiten dimulakan"
@@ -138,23 +122,23 @@ msgstr ""
 msgid "Fields to Sort &By:"
 msgstr ""
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, fuzzy, kde-format
 msgid "Dictionaries"
 msgstr "tiada kamus dipasang"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr ""
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr ""
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, fuzzy, kde-format
 msgid "Results Sorting"
 msgstr "Jawapan dari %1"
@@ -212,67 +196,67 @@ msgid ""
 "%1"
 msgstr ""
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, fuzzy, kde-format
 msgid "Radical Selector"
 msgstr "pemilih direktori"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr ""
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Cari"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, fuzzy, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "C&ari Papan Klip"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, fuzzy, kde-format
 msgid "Search &in Results"
 msgstr "Hasil pencarian bagi "
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, fuzzy, kde-format
 msgid "Focus result view"
 msgstr "Hasil carian"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr ""
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, fuzzy, kde-format
 msgid "Initializing Dictionaries"
 msgstr "tiada kamus dipasang"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, fuzzy, kde-format
 msgid "Welcome to Kiten"
 msgstr "Selamat datang ke &RHL;"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Mencari..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, fuzzy, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "Hasil carian"
 msgstr[1] "Hasil carian"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, fuzzy, kde-format
 msgid "No results found"
 msgstr "Jawapan umum dari %1"
@@ -346,7 +330,7 @@ msgid "What order do we sort the fields in?"
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -354,7 +338,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -362,7 +346,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -370,7 +354,7 @@ msgid ""
 msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, fuzzy, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "C&ari Papan Klip"
@@ -598,11 +582,6 @@ msgstr ""
 #, fuzzy, kde-format
 msgid "Search Bar"
 msgstr "Hasil pencarian bagi "
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format

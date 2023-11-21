@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
 "PO-Revision-Date: 2022-10-17 00:10+0300\n"
 "Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -90,33 +90,14 @@ msgstr "Pääfontti"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romaji"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Oppiminen"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, kde-format
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Oppimistila ei ole tässä Kitenin versiossa käytössä. Erinomaisia "
-"opettelukorttiohjelmia ovat <a href=\"https://apps.kde.org/parley\">Parley</"
-"a> sekä <a href=\"https://apps.ankiweb.net/\">Anki-projekti</a>."
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Haku"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Etsi käynnistyessä hakusanalla ”jiten”"
@@ -151,23 +132,23 @@ msgstr "Näytä &ensin:"
 msgid "Fields to Sort &By:"
 msgstr "Järjestys &kentän mukaan:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Sanakirjat"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Fontti"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Näkymä"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Tulosten järjestäminen"
@@ -241,7 +222,7 @@ msgstr ""
 # pmap: =:gen=Radikaalivalitsimen:
 # pmap: =:elat=Radikaalivalitsimesta:
 # pmap: =:yleisnimi=kyllä:
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Radikaalivalitsin"
@@ -250,61 +231,61 @@ msgstr "Radikaalivalitsin"
 # pmap: =:elat=Kanjiselaimesta:
 # pmap: =:yleisnimi=kyllä:
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Kanjiselain"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "&Hae"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Hae leikepöytävalintoja automaattisesti"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Hae &tuloksista"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Kohdista tuloksiin"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Vientiluettelo"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Alustetaan sanakirjoja"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Tervetuloa Kiteniin"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Hakee…"
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "Löytyi 1 tulos"
 msgstr[1] "Löytyi %1 tulosta"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Ei löydettyjä"
@@ -377,7 +358,7 @@ msgid "What order do we sort the fields in?"
 msgstr "Kenttien järjestys"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -387,7 +368,7 @@ msgstr ""
 "2=Erittele yleiset ja harvinaiset tietueet"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -397,7 +378,7 @@ msgstr ""
 "3=Hae kaikkialta"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -407,7 +388,7 @@ msgstr ""
 "3=Adjektiivi, 4=Adverbi, 5=Etuliite, 6=Jälkiliite, 7=Ilmaus"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Haetaanko leikepöytävalintoja automaattisesti"
@@ -647,11 +628,6 @@ msgstr "Kohdista hakukenttään"
 #, kde-format
 msgid "Search Bar"
 msgstr "Hakurivi"
-
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Asetukset"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
@@ -1084,6 +1060,23 @@ msgstr "Enintään"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(KAIKKI)"
+
+#~ msgid "Learn"
+#~ msgstr "Oppiminen"
+
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Oppimistila ei ole tässä Kitenin versiossa käytössä. Erinomaisia "
+#~ "opettelukorttiohjelmia ovat <a href=\"https://apps.kde.org/parley"
+#~ "\">Parley</a> sekä <a href=\"https://apps.ankiweb.net/\">Anki-projekti</"
+#~ "a>."
+
+#~ msgid "Settings"
+#~ msgstr "Asetukset"
 
 # pmap: =:gen=Kitenin kanjiselaimen:
 # pmap: =:elat=Kitenin kanjiselaimesta:

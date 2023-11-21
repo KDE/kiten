@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-14 01:37+0000\n"
-"PO-Revision-Date: 2023-11-13 18:06+0100\n"
+"POT-Creation-Date: 2023-11-21 01:33+0000\n"
+"PO-Revision-Date: 2023-11-20 22:34+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -84,34 +84,14 @@ msgstr "Ĉefa tiparo"
 msgid "漢字 かな romaji"
 msgstr "漢字 かな romaji"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ConfigLearn)
-#: app/configlearn.ui:13 app/configuredialog.cpp:50
-#, kde-format
-msgid "Learn"
-msgstr "Lerni"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: app/configlearn.ui:19
-#, kde-format
-msgid ""
-"Learn mode is disabled in this version of kiten. There are several excellent "
-"open source flashcard programs available, such as <a href=\"https://apps.kde."
-"org/parley\">Parley</a>, and the <a href=\"https://apps.ankiweb.net\">Anki "
-"project</a>."
-msgstr ""
-"Lerna reĝimo estas malŝaltita en ĉi tiu versio de kiten. Estas pluraj "
-"bonegaj malfermfontaj fulmkartprogramoj haveblaj, kiel ekzemple <a href="
-"\"https://apps.kde.org/parley\">Parley</a>, kaj la <a href=\"https://apps."
-"ankiweb.net\">Anki-projekto</a>."
-
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
-#: app/configsearching.ui:13 app/configuredialog.cpp:45
+#: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
 msgstr "Ŝerĉado"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
-#: app/configsearching.ui:33
+#: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
 msgstr "Serĉi \"jiten\" dum la lanco"
@@ -146,23 +126,23 @@ msgstr "Montr&i unue:"
 msgid "Fields to Sort &By:"
 msgstr "Kampoj ordi&gendas laŭ:"
 
-#: app/configuredialog.cpp:39
+#: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
 msgstr "Vortaroj"
 
-#: app/configuredialog.cpp:55
+#: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
 msgstr "Tiparo"
 
-#: app/configuredialog.cpp:58
+#: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
 msgstr "Montrado"
 
-#: app/configuredialog.cpp:60
+#: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
 msgstr "Ordigo de rezultoj"
@@ -233,67 +213,67 @@ msgstr ""
 "Malsukcesis ĝisdatigi:\n"
 "%1"
 
-#: app/kiten.cpp:155 radselect/main.cpp:24
+#: app/kiten.cpp:144 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
 msgstr "Radikala Elektilo"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
-#: app/kiten.cpp:161 kanjibrowser/kanjibrowserview.ui:26
+#: app/kiten.cpp:150 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
 msgstr "Kanji-Retumilo"
 
 #. i18n: ectx: Menu (search)
-#: app/kiten.cpp:169 app/kitenui.rc:15
+#: app/kiten.cpp:158 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
 msgstr "S&erĉi"
 
-#: app/kiten.cpp:187
+#: app/kiten.cpp:176
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
 msgstr "&Aŭtomate serĉi en la poŝenhavo"
 
-#: app/kiten.cpp:190
+#: app/kiten.cpp:179
 #, kde-format
 msgid "Search &in Results"
 msgstr "Serĉi en la &rezultoj"
 
-#: app/kiten.cpp:196
+#: app/kiten.cpp:185
 #, kde-format
 msgid "Focus result view"
 msgstr "Fokusa rezulto-vido"
 
-#: app/kiten.cpp:223
+#: app/kiten.cpp:205
 #, kde-format
 msgid "Export List"
 msgstr "Eksporta listo"
 
-#: app/kiten.cpp:253
+#: app/kiten.cpp:235
 #, kde-format
 msgid "Initializing Dictionaries"
 msgstr "Inicialigado de Vortaroj"
 
-#: app/kiten.cpp:266
+#: app/kiten.cpp:248
 #, kde-format
 msgid "Welcome to Kiten"
 msgstr "Bonvenon ĉe Kiten"
 
-#: app/kiten.cpp:362 app/kiten.cpp:419
+#: app/kiten.cpp:344 app/kiten.cpp:401
 #, kde-format
 msgid "Searching..."
 msgstr "Serĉante..."
 
-#: app/kiten.cpp:438
+#: app/kiten.cpp:420
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
 msgstr[0] "Trovis 1 rezulton"
 msgstr[1] "Trovis %1 rezulton"
 
-#: app/kiten.cpp:440
+#: app/kiten.cpp:422
 #, kde-format
 msgid "No results found"
 msgstr "Neniu rezulto troviĝis"
@@ -366,7 +346,7 @@ msgid "What order do we sort the fields in?"
 msgstr "En kia ordo ni ordigas la kampojn?"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:91
+#: app/kiten.kcfg:89
 #, kde-format
 msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
@@ -376,7 +356,7 @@ msgstr ""
 "2=Apartigi komunajn kaj neoftajn enskribojn"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:95
+#: app/kiten.kcfg:93
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
@@ -386,7 +366,7 @@ msgstr ""
 "ie ajn"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:99
+#: app/kiten.kcfg:97
 #, kde-format
 msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
@@ -396,7 +376,7 @@ msgstr ""
 "3=Adjektivo, 4=Adverbo, 5=Prefikso, 6=Sufikso, 7=Esprimo"
 
 #. i18n: ectx: label, entry, group (app)
-#: app/kiten.kcfg:103
+#: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
 msgstr "Ĉu aŭtomate serĉi enskribojn de la tondujo?"
@@ -634,11 +614,6 @@ msgstr "Fokusi enigokampon"
 msgid "Search Bar"
 msgstr "Serĉobreto"
 
-#: kanjibrowser/kanjibrowser.cpp:135 radselect/radselect.cpp:114
-#, kde-format
-msgid "Settings"
-msgstr "Agordo"
-
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
 msgid "%1 kanji found"
@@ -669,7 +644,7 @@ msgstr "Kanji &Listo"
 #: kanjibrowser/kanjibrowserview.cpp:222
 #, kde-format
 msgid "Kanji &Information"
-msgstr "Kanji & Informoj"
+msgstr "Kanji &Informoj"
 
 #: kanjibrowser/kanjibrowserview.cpp:227
 #, kde-format
@@ -1063,3 +1038,20 @@ msgstr "Maks"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(ĈIUJ)"
+
+#~ msgid "Learn"
+#~ msgstr "Lerni"
+
+#~ msgid ""
+#~ "Learn mode is disabled in this version of kiten. There are several "
+#~ "excellent open source flashcard programs available, such as <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
+#~ "apps.ankiweb.net\">Anki project</a>."
+#~ msgstr ""
+#~ "Lerna reĝimo estas malŝaltita en ĉi tiu versio de kiten. Estas pluraj "
+#~ "bonegaj malfermfontaj fulmkartprogramoj haveblaj, kiel ekzemple <a href="
+#~ "\"https://apps.kde.org/parley\">Parley</a>, kaj la <a href=\"https://apps."
+#~ "ankiweb.net\">Anki-projekto</a>."
+
+#~ msgid "Settings"
+#~ msgstr "Agordo"
