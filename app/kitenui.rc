@@ -31,7 +31,7 @@
 
 <!-- Toolbars seem to be loaded in inverse order -->
 
-<ToolBar name="mainToolbar" fullWidth="true" newline="true">
+<ToolBar name="mainToolbar" noMerge="1" newline="true" iconText="icononly">
   <text>Main Toolbar</text>
   <Action name="go_back" />
   <Action name="go_forward" />

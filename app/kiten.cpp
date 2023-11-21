@@ -178,7 +178,9 @@ void Kiten::setupActions()
     (void)KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
     _backAction = KStandardAction::back(this, SLOT(back()), actionCollection());
+    _backAction->setWhatsThis(i18n("Go to the previous search query."));
     _forwardAction = KStandardAction::forward(this, SLOT(forward()), actionCollection());
+    _forwardAction->setWhatsThis(i18n("Go to the next search query."));
     _backAction->setEnabled(false);
     _forwardAction->setEnabled(false);
 }
