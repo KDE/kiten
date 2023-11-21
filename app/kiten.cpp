@@ -88,7 +88,7 @@ Kiten::Kiten(QWidget *parent, const char *name)
     _autoSearchToggle->setChecked(_config->autosearch());
     _inputManager->setDefaultsFromConfig();
     updateConfiguration();
-    applyMainWindowSettings(KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow")));
+    applyMainWindowSettings(KSharedConfig::openStateConfig()->group(QStringLiteral("kitenWindow")));
 
     /* What happens when links are clicked or things are selected in the clipboard */
     connect(_mainView, &ResultsView::urlClicked, this, &Kiten::searchText);
@@ -261,7 +261,7 @@ bool Kiten::queryClose()
     _config->setAutosearch(_autoSearchToggle->isChecked());
     _config->save();
 
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
+    KConfigGroup configGroup = KSharedConfig::openStateConfig()->group(QStringLiteral("kitenWindow"));
     saveMainWindowSettings(configGroup);
     return true;
 }
@@ -517,7 +517,7 @@ void Kiten::createEEdit()
 
 void Kiten::configureToolBars()
 {
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
+    KConfigGroup configGroup = KSharedConfig::openStateConfig()->group(QStringLiteral("kitenWindow"));
     saveMainWindowSettings(configGroup);
     KEditToolBar dlg(actionCollection());
     connect(&dlg, &KEditToolBar::newToolBarConfig, this, &Kiten::newToolBarConfig);
@@ -527,7 +527,7 @@ void Kiten::configureToolBars()
 void Kiten::newToolBarConfig()
 {
     createGUI(QStringLiteral("kitenui.rc"));
-    KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
+    KConfigGroup configGroup = KSharedConfig::openStateConfig()->group(QStringLiteral("kitenWindow"));
     applyMainWindowSettings(configGroup);
 }
 
