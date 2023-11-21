@@ -48,7 +48,7 @@ RadSelect::RadSelect()
     // automatically save settings if changed: window size, toolbar
     // position, icon size, etc.  Also to add actions for the statusbar
     // toolbar, and keybindings if necessary.
-    setupGUI(Default, QStringLiteral("radselectui.rc"));
+    setupGUI(Keys | StatusBar | Save | Create, QStringLiteral("radselectui.rc"));
 
     // allow the view to change the statusbar
     connect(m_view, &RadSelectView::signalChangeStatusbar, this, &RadSelect::changeStatusbar);
