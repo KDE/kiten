@@ -11,8 +11,6 @@
 #ifndef KITEN_DICTFILEEDICT_H
 #define KITEN_DICTFILEEDICT_H
 
-#include <config-kiten.h>
-
 #include "dictfile.h"
 #include "kiten_export.h"
 #include "linearedictfile.h"

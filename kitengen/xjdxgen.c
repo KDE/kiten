@@ -20,7 +20,6 @@
 	--Joe
 	*/
 
-#include <config-kiten.h>
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
