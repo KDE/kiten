@@ -47,7 +47,7 @@
   <text>Extra Toolbar</text>
 </ToolBar>
 -->
-<ToolBar name="searchToolbar" fullWidth="true" newline="true">
+<ToolBar name="searchToolbar" fullWidth="true" newline="true" iconText="icononly">
   <text>Search Toolbar</text>
   <Action name="searchbox" />
   <Action name="search" />
