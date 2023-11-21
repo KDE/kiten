@@ -20,7 +20,6 @@
 #include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KStandardGuiItem>
-#include <KStatusNotifierItem>
 #include <KToggleAction>
 #include <KXMLGUIFactory>
 
@@ -84,13 +83,6 @@ Kiten::Kiten(QWidget *parent, const char *name)
 
     _statusBar = statusBar();
     _optionDialog = nullptr;
-
-    /* Start the system tray icon. */
-    _sysTrayIcon = new KStatusNotifierItem(this);
-    _sysTrayIcon->setStandardActionsEnabled(true);
-    _sysTrayIcon->setAssociatedWindow(windowHandle());
-    _sysTrayIcon->setIconByName(QStringLiteral("kiten"));
-    _sysTrayIcon->setStatus(KStatusNotifierItem::Active);
 
     /* Set things as they were (as told in the config) */
     _autoSearchToggle->setChecked(_config->autosearch());

@@ -40,8 +40,7 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     I18n
     KIO
     Notifications
-    XmlGui
-    StatusNotifierItem)
+    XmlGui)
 
 ## Make it easy for radselect and kiten to find libkiten headers
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)

@@ -52,7 +52,6 @@ target_link_libraries(kiten_bin
     KF6::KIOCore
     KF6::Notifications
     KF6::XmlGui
-    KF6::StatusNotifierItem
     kiten
 )
 

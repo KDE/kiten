@@ -23,7 +23,6 @@ class QAction;
 class KListAction;
 class KProcess;
 class QStatusBar;
-class KStatusNotifierItem;
 class KToggleAction;
 class KitenConfigSkeleton;
 
@@ -120,8 +119,6 @@ private:
 
     // ResultsView *detachedView;
     QAction *_globalSearchAction = nullptr;
-
-    KStatusNotifierItem *_sysTrayIcon = nullptr;
 
     // Export list related:
     QDockWidget *_exportListDock = nullptr;
