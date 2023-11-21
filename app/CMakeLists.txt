@@ -28,8 +28,6 @@ target_sources(kiten_bin PRIVATE
     resultsview.h
     searchstringinput.cpp
     searchstringinput.h
-    wordtype.cpp
-    wordtype.h
 
     kiten.qrc
 )
