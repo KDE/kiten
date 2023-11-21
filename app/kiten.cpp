@@ -45,8 +45,6 @@
 #include "kitenconfig.h"
 #include "resultsview.h"
 #include "searchstringinput.h"
-/* Separating Learn */
-// #include "learn.h"
 
 using namespace Qt::StringLiterals;
 
@@ -142,7 +140,6 @@ void Kiten::setupActions()
     // old style cast seems needed here, (const QObject*)
     KStandardAction::keyBindings(guiFactory(), &KXMLGUIFactory::showConfigureShortcutsDialog, actionCollection());
 
-    /* Setup the Go-to-learn-mode actions */
     /* TODO: put back when Dictionary Editor is reorganised */
     // 	(void) new KAction(   i18n( "&Dictionary Editor..." )
     //                             , "document-properties"

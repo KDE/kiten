@@ -36,7 +36,6 @@ target_sources(kiten_bin PRIVATE
 ki18n_wrap_ui(kiten_bin
     configdictselect.ui
     configfont.ui
-    configlearn.ui
     configsearching.ui
     configsorting.ui
 )

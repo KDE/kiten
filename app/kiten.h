@@ -95,7 +95,6 @@ private Q_SLOTS:
 
     //	void createEEdit();
     //	void kanjiDictChange();
-    //	void slotLearnConfigure();
     // Q_SIGNALS:
     //	void saveLists();
     //	void add( Entry* );

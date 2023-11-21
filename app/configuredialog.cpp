@@ -20,7 +20,6 @@
 
 // Generated from UI files
 #include "ui_configfont.h"
-#include "ui_configlearn.h"
 #include "ui_configsearching.h"
 
 // Our template for managing individual dict type's settings
@@ -43,11 +42,6 @@ ConfigureDialog::ConfigureDialog(QWidget *parent, KitenConfigSkeleton *config)
     Ui::ConfigSearching cs;
     cs.setupUi(widget);
     addPage(widget, i18n("Searching"), QStringLiteral("edit-find"));
-
-    widget = new QWidget();
-    Ui::ConfigLearn cl;
-    cl.setupUi(widget);
-    addPage(widget, i18n("Learn"), QStringLiteral("draw-freehand"));
 
     widget = new QWidget();
     Ui::ConfigFont cf;

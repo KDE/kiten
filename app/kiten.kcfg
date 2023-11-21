@@ -84,8 +84,6 @@
       <default>true</default>
     </entry>
   </group>
-  <group name="Learn">
-  </group>
   <group name="app">
     <entry key="filter_rare" type="Int">
       <label>0=No filter, 1=Limit search results to "common" entries only, 2=Separate common and uncommon entries</label>
