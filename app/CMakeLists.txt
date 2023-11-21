@@ -48,7 +48,6 @@ target_link_libraries(kiten_bin
     KF6::Crash
     KF6::I18n
     KF6::KIOCore
-    KF6::Notifications
     KF6::XmlGui
     kiten
 )

@@ -39,7 +39,6 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     DocTools
     I18n
     KIO
-    Notifications
     XmlGui)
 
 ## Make it easy for radselect and kiten to find libkiten headers
