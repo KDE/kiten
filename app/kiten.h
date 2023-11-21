@@ -76,7 +76,6 @@ private Q_SLOTS:
     void slotConfigureHide();
     void slotConfigureDestroy();
     void configureToolBars();
-    void configureGlobalKeys();
     void newToolBarConfig();
     void updateConfiguration();
     void loadDictionaries();

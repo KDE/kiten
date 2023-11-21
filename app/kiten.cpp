@@ -197,13 +197,6 @@ void Kiten::setupActions()
 
     (void)KStandardAction::configureToolbars(this, SLOT(configureToolBars()), actionCollection());
 
-    // TODO: this should probably be a standard action
-    /*
-    globalShortcutsAction = actionCollection()->addAction( "options_configure_global_keybinding" );
-    globalShortcutsAction->setText( i18n( "Configure &Global Shortcuts..." ) );
-    connect( globalShortcutsAction, SIGNAL(triggered()), this, SLOT(configureGlobalKeys()) );
-    */
-
     // TODO: implement this
     //_globalSearchAction = actionCollection()->add<KToggleAction>( "search_on_the_spot" );
     //_globalSearchAction->setText( i18n( "On The Spo&t Search" ) );
@@ -547,12 +540,6 @@ void Kiten::newToolBarConfig()
     createGUI(QStringLiteral("kitenui.rc"));
     KConfigGroup configGroup = KSharedConfig::openConfig()->group(QStringLiteral("kitenWindow"));
     applyMainWindowSettings(configGroup);
-}
-
-/** Opens the dialog for configuring the global accelerator keys. */
-void Kiten::configureGlobalKeys()
-{
-    KShortcutsDialog::showDialog(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this);
 }
 
 /**
