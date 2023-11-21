@@ -65,7 +65,17 @@ void ConfigureDialog::updateConfiguration()
 
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, KitenConfigSkeleton *config)
 {
-    auto tabWidget = new QTabWidget(parent);
+    auto layoutWidget = new QWidget(parent);
+
+    auto layout = new QVBoxLayout();
+    layout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                               style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                               style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                               style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    layoutWidget->setLayout(layout);
+
+    auto tabWidget = new QTabWidget();
+    layout->addWidget(tabWidget);
 
     for (const QString &dict : config->dictionary_list()) {
         QWidget *newTab = new ConfigDictionarySelector(dict, tabWidget, config);
@@ -78,14 +88,24 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, Kiten
         }
     }
 
-    return tabWidget;
+    return layoutWidget;
 }
 
 QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenConfigSkeleton *config)
 {
+    auto layoutWidget = new QWidget(parent);
+
+    auto layout = new QVBoxLayout();
+    layout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                               style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                               style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                               style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    layoutWidget->setLayout(layout);
+
     QStringList dictTypes = DictionaryManager::listDictFileTypes();
 
-    auto tabWidget = new QTabWidget(parent);
+    auto tabWidget = new QTabWidget();
+    layout->addWidget(tabWidget);
 
     QMap<QString, DictionaryPreferenceDialog *> dialogList = DictionaryManager::generatePreferenceDialogs(config, parent);
 
@@ -97,7 +117,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenCo
         tabWidget->addTab(dialog, dialog->name());
     }
 
-    return tabWidget;
+    return layoutWidget;
 }
 
 QWidget *ConfigureDialog::makeSortingPage(QWidget *parent, KitenConfigSkeleton *config)
