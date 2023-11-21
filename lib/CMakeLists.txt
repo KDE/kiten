@@ -1,6 +1,6 @@
 ############# kitenlib #################
-set(KITEN_LIB_VERSION "5.0.0")
-set(KITEN_LIB_SOVERSION "5")
+set(KITEN_LIB_VERSION "6.0.0")
+set(KITEN_LIB_SOVERSION "6")
 
 add_library(kiten)
 set_target_properties(kiten PROPERTIES
