@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-11-20 22:34+0100\n"
+"PO-Revision-Date: 2023-11-22 06:38+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -249,12 +249,12 @@ msgstr "Fokusa rezulto-vido"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Iri al antaŭa serĉdemando."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Iri al sekvonta serĉdemando."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -264,7 +264,7 @@ msgstr "Eksporta listo"
 #: app/kiten.cpp:217
 #, kde-format
 msgid "Initializing Dictionaries"
-msgstr "Inicialigado de Vortaroj"
+msgstr "Pravalorizante Vortarojn"
 
 #: app/kiten.cpp:230
 #, kde-format
@@ -298,7 +298,7 @@ msgstr "Listo de vortaraj tipoj, uzata interne, ne tuŝu"
 #: app/kiten.kcfg:25
 #, kde-format
 msgid "Edict dictionary files"
-msgstr "Edict vortaraj dosieroj"
+msgstr "Edict-vortaraj dosieroj"
 
 #. i18n: ectx: label, entry (edict__useGlobal), group (dicts_edict)
 #: app/kiten.kcfg:28
@@ -417,10 +417,9 @@ msgstr "Serĉa Ilobreto"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Ŝerĉado"
+msgstr "Ŝerĉ-Opcioj"
 
 #: app/main.cpp:32
 #, kde-format
@@ -664,10 +663,9 @@ msgid "Kanji &Information"
 msgstr "Kanji &Informoj"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "S&erĉi"
+msgstr "&Serĉi…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -830,16 +828,15 @@ msgstr "Etikedtiparo:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "S&erĉi"
+msgstr "Serĉi"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Enigu serĉdemandon:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
@@ -1050,38 +1047,3 @@ msgstr "Maks"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(ĈIUJ)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr "Romaĝia informo ne instalatas, do romaĝia konverto ne uzeblas."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr "Romaĝia informo ne ŝargeblis, do romaĝia konverto ne uzeblas."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Angla"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kanao"
-
-#~ msgid "Learn"
-#~ msgstr "Lerni"
-
-#~ msgid ""
-#~ "Learn mode is disabled in this version of kiten. There are several "
-#~ "excellent open source flashcard programs available, such as <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
-#~ "apps.ankiweb.net\">Anki project</a>."
-#~ msgstr ""
-#~ "Lerna reĝimo estas malŝaltita en ĉi tiu versio de kiten. Estas pluraj "
-#~ "bonegaj malfermfontaj fulmkartprogramoj haveblaj, kiel ekzemple <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, kaj la <a href=\"https://apps."
-#~ "ankiweb.net\">Anki-projekto</a>."
-
-#~ msgid "Settings"
-#~ msgstr "Agordo"

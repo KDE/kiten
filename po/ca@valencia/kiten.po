@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-11-14 15:59+0100\n"
+"PO-Revision-Date: 2023-11-22 11:39+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -251,12 +251,12 @@ msgstr "Focalitza la vista de resultats"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Va fins a la consulta de busca anterior."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Va fins a la consulta de busca següent."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -419,10 +419,9 @@ msgstr "Barra d'eines de busca"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Busques"
+msgstr "Opcions de busca"
 
 #: app/main.cpp:32
 #, kde-format
@@ -667,10 +666,9 @@ msgid "Kanji &Information"
 msgstr "&Informació de kanji"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "Bu&sca"
+msgstr "Bu&sca…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -834,16 +832,15 @@ msgstr "Lletra de les etiquetes:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "Bu&sca"
+msgstr "Busca"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Introduïu una consulta de busca:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
@@ -1056,42 +1053,3 @@ msgstr "Màx"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(TOTS)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "El fitxer d'informació de Romaji no està instal·lat, de manera que no "
-#~ "podeu emprar la seua conversió."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "No s'ha pogut carregar la informació de Romaji, de manera que no podeu "
-#~ "emprar la seua conversió."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Anglés"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kana"
-
-#~ msgid "Learn"
-#~ msgstr "Aprendre"
-
-#~ msgid ""
-#~ "Learn mode is disabled in this version of kiten. There are several "
-#~ "excellent open source flashcard programs available, such as <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
-#~ "apps.ankiweb.net\">Anki project</a>."
-#~ msgstr ""
-#~ "En esta versió de Kiten s'ha desactivat el mòdul d'aprenentatge. Hi ha "
-#~ "disponibles excel·lents programes lliures de targetes didàctiques, com "
-#~ "ara <a href=\"https://apps.kde.org/parley\">Parley</a> i el <a href="
-#~ "\"https://apps.ankiweb.net\">projecte Anki</a>."
-
-#~ msgid "Settings"
-#~ msgstr "Configuració"

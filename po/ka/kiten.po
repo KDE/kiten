@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-02-09 14:38+0100\n"
+"PO-Revision-Date: 2023-11-22 06:42+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -247,12 +247,12 @@ msgstr "ფოკუსი შედეგების ხედზე"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "წინა ძებნის მოთხოვნაზე გადასვლა."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "შემდეგ ძებნის მოთხოვნაზე გადასვლა."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -415,10 +415,9 @@ msgstr "ძებნის პანელი"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "ძებნა"
+msgstr "ძებნის მორგება"
 
 #: app/main.cpp:32
 #, kde-format
@@ -662,10 +661,9 @@ msgid "Kanji &Information"
 msgstr "კანჯის &ინფორმაცია"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&ძებნა"
+msgstr "&ძებნა…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -828,16 +826,15 @@ msgstr "ჭდის ფონტი:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "&ძებნა"
+msgstr "ძებნა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "შეიყვანეთ საძებნი სტრიქონი:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format

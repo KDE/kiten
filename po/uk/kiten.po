@@ -3,14 +3,14 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2007, 2008, 2009, 2010, 2011, 2012, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2007, 2008, 2009, 2010, 2011, 2012, 2019, 2020, 2021, 2022, 2023.
 # Ivan Petrouchtchak <fr.ivan@ukrainian-orthodox.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2022-01-03 08:46+0200\n"
+"PO-Revision-Date: 2023-11-23 00:01+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -250,12 +250,12 @@ msgstr "Фокусувати перегляд результатів"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Перейти до попереднього запиту щодо пошуку."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Перейти до наступного запиту щодо пошуку."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -420,10 +420,9 @@ msgstr "Панель пошуку"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Пошук"
+msgstr "Параметри пошуку"
 
 #: app/main.cpp:32
 #, kde-format
@@ -669,10 +668,9 @@ msgid "Kanji &Information"
 msgstr "&Дані щодо кандзі"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&Пошук"
+msgstr "&Шукати…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -838,16 +836,15 @@ msgstr "Шрифт міток:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "&Пошук"
+msgstr "Пошук"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Введіть запит щодо пошуку:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format

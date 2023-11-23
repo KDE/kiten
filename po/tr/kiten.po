@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-08-22 15:47+0300\n"
+"PO-Revision-Date: 2023-11-22 14:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -255,12 +255,12 @@ msgstr "Sonuç görünümüne odaklan"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Önceki arama sorgusuna gidin."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Sonraki arama sorgusuna gidin."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -423,10 +423,9 @@ msgstr "Arama Araç Çubuğu"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Arama"
+msgstr "Arama Seçenekleri"
 
 #: app/main.cpp:32
 #, kde-format
@@ -671,10 +670,9 @@ msgid "Kanji &Information"
 msgstr "Kanji &Bilgisi"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&Ara"
+msgstr "&Ara…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -837,16 +835,15 @@ msgstr "Etiket yazıtipi:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "&Ara"
+msgstr "Arama"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Bir arama sorgusu gir:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format

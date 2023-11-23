@@ -1049,30 +1049,3 @@ msgstr "Maks"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(ALLE)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Fant ikke informasjon om romanisering, og kan derfor ikke romanisere ord."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Klarte ikke laste informasjon om romanisering, og kan derfor ikke "
-#~ "romanisere ord."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Engelsk"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kana"
-
-#~ msgid "Learn"
-#~ msgstr "Lær"
-
-#~ msgid "Settings"
-#~ msgstr "Innstillinger"
