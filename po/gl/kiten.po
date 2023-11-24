@@ -1,12 +1,12 @@
 # translation of kiten.po to galician
 # Tradución de kiten.po ó galego
+# SPDX-FileCopyrightText: 2023 Adrián Chaves (Gallaecio)
 # Gonzalo H. Castilla <ttxzgl@yahoo.es>, 2004.
 # mvillarino <mvillarino@users.sourceforge.net>, 2006, 2008, 2009.
 # Manuel A. Vazquez <xixirei@yahoo.es>, 2008.
 # Xosé <xosecalvo@gmail.com>, 2010, 2011, 2012.
 # Marce Villarino <mvillarino@kde-espana.org>, 2013, 2014.
 # Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
