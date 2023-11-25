@@ -19,7 +19,7 @@
 # Robert Jacolin <rjacolin@ifrance.com>, 2003.
 # Matthieu Robin <kde@macolu.org>, 2004, 2005.
 # Mickael Sibelle <kimael@gmail.com>, 2007, 2008, 2010, 2012.
-# xavier <xavier.besnard@neuf.fr>, 2012, 2013, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023 xavier <xavier.besnard@neuf.fr>
 # Simon Depiets <sdepiets@gmail.com>, 2019.
 #
 msgid ""
@@ -27,9 +27,9 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2022-01-09 09:22+0100\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2023-11-23 11:28+0100\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr ""
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -270,12 +270,12 @@ msgstr "Donner le focus à la vue de résultats"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Allez à la requête de recherche précédente."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Allez à la requête de recherche suivante."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -438,10 +438,9 @@ msgstr "Barre d'outils de recherche"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Recherche en cours"
+msgstr "Options de recherche"
 
 #: app/main.cpp:32
 #, kde-format
@@ -687,10 +686,9 @@ msgid "Kanji &Information"
 msgstr "&Informations de kanji"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "R&echerche"
+msgstr "Re&chercher..."
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -856,16 +854,15 @@ msgstr "Police de libellé :"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "R&echerche"
+msgstr "Rechercher"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Saisir une requête de recherche :"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
