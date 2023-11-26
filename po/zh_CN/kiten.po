@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-11-19 03:37\n"
+"PO-Revision-Date: 2023-11-25 02:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -410,10 +410,9 @@ msgstr "搜索工具栏"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "搜索"
+msgstr ""
 
 #: app/main.cpp:32
 #, kde-format
@@ -654,10 +653,9 @@ msgid "Kanji &Information"
 msgstr "汉字信息(&I)"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "搜索(&E)"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -819,10 +817,9 @@ msgstr "标签字体："
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "搜索(&E)"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
@@ -1034,27 +1031,3 @@ msgstr "最大"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(全部)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr "没有安装罗马字信息文件，因此无法使用罗马字转换。"
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr "无法加载罗马字信息文件，因此无法使用罗马字转换。"
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "英语"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "假名"
-
-#~ msgid "Learn"
-#~ msgstr "学习"
-
-#~ msgid "Settings"
-#~ msgstr "设置"
