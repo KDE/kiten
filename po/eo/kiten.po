@@ -867,11 +867,7 @@ msgid "From Dictionary:"
 msgstr "El Vortaro:"
 
 #: lib/entrylist.cpp:122
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
-#| "¦Example: 'Entered verb in past tense'."
-#| msgid "Entered %1 in %2 form"
+#, kde-format
 msgctxt ""
 "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
 "Example: 'Entered verb in past tense'."
