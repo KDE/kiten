@@ -66,15 +66,11 @@ void ConfigureDialog::updateConfiguration()
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, KitenConfigSkeleton *config)
 {
     auto layoutWidget = new QWidget(parent);
+    auto layout = new QVBoxLayout(layoutWidget);
+    layout->setContentsMargins({});
 
-    auto layout = new QVBoxLayout();
-    layout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
-                               style()->pixelMetric(QStyle::PM_LayoutTopMargin),
-                               style()->pixelMetric(QStyle::PM_LayoutRightMargin),
-                               style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
-    layoutWidget->setLayout(layout);
-
-    auto tabWidget = new QTabWidget();
+    auto tabWidget = new QTabWidget(layoutWidget);
+    tabWidget->setDocumentMode(true);
     layout->addWidget(tabWidget);
 
     for (const QString &dict : config->dictionary_list()) {
