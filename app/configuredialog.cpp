@@ -65,13 +65,8 @@ void ConfigureDialog::updateConfiguration()
 
 QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, KitenConfigSkeleton *config)
 {
-    auto layoutWidget = new QWidget(parent);
-    auto layout = new QVBoxLayout(layoutWidget);
-    layout->setContentsMargins({});
-
-    auto tabWidget = new QTabWidget(layoutWidget);
+    auto tabWidget = new QTabWidget(parent);
     tabWidget->setDocumentMode(true);
-    layout->addWidget(tabWidget);
 
     for (const QString &dict : config->dictionary_list()) {
         QWidget *newTab = new ConfigDictionarySelector(dict, tabWidget, config);
@@ -84,26 +79,16 @@ QWidget *ConfigureDialog::makeDictionaryFileSelectionPage(QWidget *parent, Kiten
         }
     }
 
-    return layoutWidget;
+    return tabWidget;
 }
 
 QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenConfigSkeleton *config)
 {
-    auto layoutWidget = new QWidget(parent);
+    const QStringList dictTypes = DictionaryManager::listDictFileTypes();
+    const QMap<QString, DictionaryPreferenceDialog *> dialogList = DictionaryManager::generatePreferenceDialogs(config, parent);
 
-    auto layout = new QVBoxLayout();
-    layout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
-                               style()->pixelMetric(QStyle::PM_LayoutTopMargin),
-                               style()->pixelMetric(QStyle::PM_LayoutRightMargin),
-                               style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
-    layoutWidget->setLayout(layout);
-
-    QStringList dictTypes = DictionaryManager::listDictFileTypes();
-
-    auto tabWidget = new QTabWidget();
-    layout->addWidget(tabWidget);
-
-    QMap<QString, DictionaryPreferenceDialog *> dialogList = DictionaryManager::generatePreferenceDialogs(config, parent);
+    auto tabWidget = new QTabWidget(parent);
+    tabWidget->setDocumentMode(true);
 
     for (DictionaryPreferenceDialog *dialog : dialogList) {
         connect(this, &ConfigureDialog::updateWidgetsSignal, dialog, &DictionaryPreferenceDialog::updateWidgets);
@@ -113,7 +98,7 @@ QWidget *ConfigureDialog::makeDictionaryPreferencesPage(QWidget *parent, KitenCo
         tabWidget->addTab(dialog, dialog->name());
     }
 
-    return layoutWidget;
+    return tabWidget;
 }
 
 QWidget *ConfigureDialog::makeSortingPage(QWidget *parent, KitenConfigSkeleton *config)
