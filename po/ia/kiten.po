@@ -1,52 +1,49 @@
-# translation of kiten.po to Italian
-# Copyright (C) 2002, 2003, 2004, 2005, 2007, 2008, 2010, 2011 Free Software Foundation, Inc.
-# Davide Rizzo <drizzo@daviderizzo.com>, 2002, 2003, 2004, 2005.
-# Pino Toscano <toscano.pino@tiscali.it>, 2007, 2008, 2010, 2011, 2019, 2020, 2021.
-# Paolo Zamponi <feus73@gmail.com>, 2022.
-# SPDX-FileCopyrightText: 2023 Vincenzo Reale <smart2128vr@gmail.com>
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kiten package.
 #
+# giovanni <g.sora@tiscali.it>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-12-02 10:52+0100\n"
-"Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
-"Language-Team: Italian <kde-i18n-it@kde.org>\n"
-"Language: it\n"
+"PO-Revision-Date: 2023-12-05 10:57+0100\n"
+"Last-Translator: giovanni <g.sora@tiscali.it>\n"
+"Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
+"Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Pino Toscano,Davide Rizzo"
+msgstr "Giovanni Sora"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "toscano.pino@tiscali.it,"
+msgstr "g.sora@tiscali.it"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
 #: app/configdictselect.ui:14
 #, kde-format
 msgid "Dictionary Selector"
-msgstr "Selettore dizionario"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, __useGlobal)
 #: app/configdictselect.ui:25
 #, kde-format
 msgid "Use prei&nstalled dict"
-msgstr "Utilizza dizionario prei&nstallato"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:56
 #, kde-format
 msgid "Name"
-msgstr "Nome"
+msgstr "Nomine"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:67
@@ -58,25 +55,25 @@ msgstr "File"
 #: app/configdictselect.ui:86
 #, kde-format
 msgid "&Add..."
-msgstr "&Aggiungi..."
+msgstr "&Adde..."
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
 #, kde-format
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Dele"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigFont)
 #: app/configfont.ui:13
 #, kde-format
 msgid "Fonts"
-msgstr "Caratteri"
+msgstr "Fonts"
 
 #. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
 #: app/configfont.ui:21
 #, kde-format
 msgid "Main Font"
-msgstr "Carattere principale"
+msgstr ""
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
 #: app/configfont.ui:28
@@ -88,69 +85,69 @@ msgstr "漢字 かな romaji"
 #: app/configsearching.ui:13 app/configuredialog.cpp:44
 #, kde-format
 msgid "Searching"
-msgstr "Ricerca"
+msgstr "Cercante"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_initialSearch)
 #: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
-msgstr "Cerca «jiten» all'avvio"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configSorting)
 #: app/configsorting.ui:15
 #, kde-format
 msgid "sorting"
-msgstr "ordinamento"
+msgstr "ordinar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_dictionary_enable)
 #: app/configsorting.ui:21
 #, kde-format
 msgid "Sort Se&arch Results By Dictionary"
-msgstr "Ordina risult&ati di ricerca per dizionario"
+msgstr ""
 
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, dictionary_order)
 #: app/configsorting.ui:28
 #, kde-format
 msgid "Dicti&onaries Available:"
-msgstr "Dizi&onari disponibili:"
+msgstr "Dicti&onarios disponibile:"
 
 #. i18n: ectx: property (selectedLabel), widget (KActionSelector, dictionary_order)
 #: app/configsorting.ui:31
 #, kde-format
 msgid "Displa&y First:"
-msgstr "Mostra &prima:"
+msgstr ""
 
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, field_order)
 #: app/configsorting.ui:48
 #, kde-format
 msgid "Fields to Sort &By:"
-msgstr "&Campi secondo cui ordinare:"
+msgstr ""
 
 #: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
-msgstr "Dizionari"
+msgstr "Dictionarios"
 
 #: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
-msgstr "Caratteri"
+msgstr "Font"
 
 #: app/configuredialog.cpp:52
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
-msgstr "Visualizzazione"
+msgstr "Monstrator"
 
 #: app/configuredialog.cpp:54
 #, kde-format
 msgid "Results Sorting"
-msgstr "Ordinamento risultati"
+msgstr ""
 
 #: app/dictionaryupdatemanager.cpp:46
 #, kde-format
 msgid "Check for dictionary &updates"
-msgstr "Cerca &aggiornamenti dei dizionari"
+msgstr ""
 
 #: app/dictionaryupdatemanager.cpp:78
 #, kde-format
@@ -158,8 +155,6 @@ msgid ""
 "Update canceled.\n"
 "Could not read file."
 msgstr ""
-"Aggiornamento annullato.\n"
-"Non è stato possibile leggere il file."
 
 #: app/dictionaryupdatemanager.cpp:87
 #, kde-format
@@ -167,8 +162,6 @@ msgid ""
 "Update canceled.\n"
 "Could not open file."
 msgstr ""
-"Aggiornamento annullato.\n"
-"Non è stato possibile aprire il file."
 
 #: app/dictionaryupdatemanager.cpp:103
 #, kde-format
@@ -176,18 +169,16 @@ msgid ""
 "Update canceled.\n"
 "The update information file has an invalid date."
 msgstr ""
-"Aggiornamento annullato.\n"
-"Il file con le informazioni dell'aggiornamento ha una data non valida."
 
 #: app/dictionaryupdatemanager.cpp:287
 #, kde-format
 msgid "You already have the latest updates."
-msgstr "Hai già gli ultimi aggiornamenti."
+msgstr ""
 
 #: app/dictionaryupdatemanager.cpp:289
 #, kde-format
 msgid "Successfully updated your dictionaries."
-msgstr "Dizionari aggiornati correttamente."
+msgstr ""
 
 #: app/dictionaryupdatemanager.cpp:291
 #, kde-format
@@ -198,11 +189,6 @@ msgid ""
 "Failed to update:\n"
 "%2"
 msgstr ""
-"Aggiornati correttamente:\n"
-"%1\n"
-"\n"
-"Aggiornamento non riuscito:\n"
-"%2"
 
 #: app/dictionaryupdatemanager.cpp:293
 #, kde-format
@@ -210,150 +196,148 @@ msgid ""
 "Failed to update:\n"
 "%1"
 msgstr ""
-"Aggiornamento non riuscito:\n"
-"%1"
 
 #: app/kiten.cpp:133 radselect/main.cpp:24
 #, kde-format
 msgid "Radical Selector"
-msgstr "Selettore di radicali"
+msgstr "Selector radical"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KanjiBrowserView)
 #: app/kiten.cpp:138 kanjibrowser/kanjibrowserview.ui:26
 #: kanjibrowser/main.cpp:21
 #, kde-format
 msgid "Kanji Browser"
-msgstr "Visualizzatore dei kanji"
+msgstr "Navigator de Kanji"
 
 #. i18n: ectx: Menu (search)
 #: app/kiten.cpp:146 app/kitenui.rc:15
 #, kde-format
 msgid "S&earch"
-msgstr "&Cerca"
+msgstr "C&erca"
 
 #: app/kiten.cpp:164
 #, kde-format
 msgid "&Automatically Search Clipboard Selections"
-msgstr "Cerca &automaticamente selezioni appunti"
+msgstr ""
 
 #: app/kiten.cpp:167
 #, kde-format
 msgid "Search &in Results"
-msgstr "Cerca nei &risultati"
+msgstr ""
 
 #: app/kiten.cpp:173
 #, kde-format
 msgid "Focus result view"
-msgstr "Imposta il fuoco sui risultati"
+msgstr ""
 
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr "Vai alla ricerca precedente."
+msgstr ""
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr "Vai alla ricerca successiva."
+msgstr ""
 
 #: app/kiten.cpp:187
 #, kde-format
 msgid "Export List"
-msgstr "Esporta lista"
+msgstr ""
 
 #: app/kiten.cpp:217
 #, kde-format
 msgid "Initializing Dictionaries"
-msgstr "Inizializzazione dei dizionari"
+msgstr ""
 
 #: app/kiten.cpp:230
 #, kde-format
 msgid "Welcome to Kiten"
-msgstr "Benvenuto in Kiten"
+msgstr ""
 
 #: app/kiten.cpp:326 app/kiten.cpp:383
 #, kde-format
 msgid "Searching..."
-msgstr "Ricerca in corso..."
+msgstr "Cercante..."
 
 #: app/kiten.cpp:402
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
-msgstr[0] "Trovato un risultato"
-msgstr[1] "Trovati %1 risultati"
+msgstr[0] ""
+msgstr[1] ""
 
 #: app/kiten.cpp:404
 #, kde-format
 msgid "No results found"
-msgstr "Nessun risultato trovato"
+msgstr "Necun resultatos trovate"
 
 #. i18n: ectx: label, entry (dictionary_list), group (dict_config_types)
 #: app/kiten.kcfg:10
 #, kde-format
 msgid "List of dictionary Types, used internally, do not touch"
-msgstr "Lista dei tipi di dizionario, usato internamente, non toccare"
+msgstr ""
 
 #. i18n: ectx: label, entry (edict__NAMES), group (dicts_edict)
 #: app/kiten.kcfg:25
 #, kde-format
 msgid "Edict dictionary files"
-msgstr "File di dizionario Edict"
+msgstr ""
 
 #. i18n: ectx: label, entry (edict__useGlobal), group (dicts_edict)
 #: app/kiten.kcfg:28
 #, kde-format
 msgid "Use preinstalled edict"
-msgstr "Utilizza Edict preinstallato"
+msgstr ""
 
 #. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
 #. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
 #: app/kiten.kcfg:32 app/kiten.kcfg:46
 #, kde-format
 msgid "Set of fields to display for this dictionary type"
-msgstr "Insieme di campi da visualizzare per questo tipo di dizionario"
+msgstr ""
 
 #. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
 #: app/kiten.kcfg:39
 #, kde-format
 msgid "Kanjidic dictionary files"
-msgstr "File di dizionario Kanjidic"
+msgstr ""
 
 #. i18n: ectx: label, entry (kanjidic__useGlobal), group (dicts_kanjidic)
 #: app/kiten.kcfg:42
 #, kde-format
 msgid "Use preinstalled kanjidic"
-msgstr "Usa Kanjidic preinstallato"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:53
 #, kde-format
 msgid "Do we search for \"jiten\" on startup"
-msgstr "Cercare «jiten» all'avvio"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:57
 #, kde-format
 msgid "Case sensitive searches"
-msgstr "Ricerche distinguendo maiuscole"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:63
 #, kde-format
 msgid "Enable Sorting By Dictionary"
-msgstr "Abilita ordinamento secondo dizionario"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:67
 #, kde-format
 msgid "What order do we sort the dictionaries in?"
-msgstr "Quale ordine usare per i dizionari?"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Sorting)
 #: app/kiten.kcfg:71
 #, kde-format
 msgid "What order do we sort the fields in?"
-msgstr "Quale ordine usare per i campi?"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:89
@@ -362,8 +346,6 @@ msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
 "common and uncommon entries"
 msgstr ""
-"0=Nessun filtro, 1=Limita i risultati della ricerca solo a voci \"comuni\", "
-"2=Separa voci comuni e non comuni"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:93
@@ -372,8 +354,6 @@ msgid ""
 "The user's last type of search, 0=Exact, 1=Match Start, 2=Match End, 3=Match "
 "Anywhere"
 msgstr ""
-"L'ultimo tipo di ricerca dell'utente, 0=Esatta, 1=Corrispondenza "
-"dell'inizio, 2=Corrispondenza della fine, 3=Corrispondenza in qualsiasi punto"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:97
@@ -382,14 +362,12 @@ msgid ""
 "The user's last type of search, 0=Any, 1=Verb, 2=Noun, 3=Adjective, "
 "4=Adverb, 5=Prefix, 6=Suffix, 7=Expression"
 msgstr ""
-"L'ultimo tipo di ricerca dell'utente, 0=Qualsiasi, 1=Verbo, 2=Nome, "
-"3=Aggettivo, 4=Avverbio, 5=Prefisso, 6=Suffisso, 7=Espressione"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:101
 #, kde-format
 msgid "Automatically search for clipboard entries?"
-msgstr "Cercare automaticamente voci negli appunti?"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: app/kitenui.rc:6 kanjibrowser/kanjibrowserui.rc:6
@@ -401,25 +379,25 @@ msgstr "&File"
 #: app/kitenui.rc:35 kanjibrowser/kanjibrowserui.rc:16
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Barra principale"
+msgstr "Barra de instrumento principal"
 
 #. i18n: ectx: ToolBar (extraToolbar)
 #: app/kitenui.rc:44
 #, kde-format
 msgid "Extra Toolbar"
-msgstr "Barra aggiuntiva"
+msgstr "Barra de Instrumento Extra"
 
 #. i18n: ectx: ToolBar (searchToolbar)
 #: app/kitenui.rc:48
 #, kde-format
 msgid "Search Toolbar"
-msgstr "Barra di ricerca"
+msgstr "Barra de instrumento de cerca"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
 #, kde-format
 msgid "Search Options"
-msgstr "Opzioni di ricerca"
+msgstr "Optiones de cerca"
 
 #: app/main.cpp:32
 #, kde-format
@@ -429,7 +407,7 @@ msgstr "Kiten"
 #: app/main.cpp:34
 #, kde-format
 msgid "Japanese Reference Tool"
-msgstr "Strumento di riferimento per il giapponese"
+msgstr "Instrumento de referentia de Japonese"
 
 #: app/main.cpp:36
 #, kde-format
@@ -452,7 +430,7 @@ msgstr "Jason Katz-Brown"
 #: app/main.cpp:43
 #, kde-format
 msgid "Original author"
-msgstr "Autore originario"
+msgstr "Autor original"
 
 #: app/main.cpp:44
 #, kde-format
@@ -466,9 +444,6 @@ msgid ""
 "generator.\n"
 "Also is main author of edict and kanjidic, which Kiten essentially require."
 msgstr ""
-"Ha scritto xjdic, da cui è tratto parte del codice di Kiten, e il generatore "
-"del file indice di xjdic.\n"
-"È anche uno degli autori principali di edict e kanjidic, richiesti da Kiten."
 
 #: app/main.cpp:48
 #, kde-format
@@ -478,7 +453,7 @@ msgstr "Neil Stevens"
 #: app/main.cpp:48
 #, kde-format
 msgid "Code simplification, UI suggestions."
-msgstr "Semplificazione del codice, suggerimenti interfaccia utente."
+msgstr ""
 
 #: app/main.cpp:49
 #, kde-format
@@ -488,7 +463,7 @@ msgstr "David Vignoni"
 #: app/main.cpp:49
 #, kde-format
 msgid "svg icon"
-msgstr "Icona SVG"
+msgstr "icone svg"
 
 #: app/main.cpp:50
 #, kde-format
@@ -498,7 +473,7 @@ msgstr "Paul Temple"
 #: app/main.cpp:50
 #, kde-format
 msgid "Porting to KConfig XT, bug fixing"
-msgstr "Conversione a KConfig XT, correzione di bug"
+msgstr ""
 
 #: app/main.cpp:51 radselect/main.cpp:32
 #, kde-format
@@ -508,7 +483,7 @@ msgstr "Joseph Kerian"
 #: app/main.cpp:51 app/main.cpp:52
 #, kde-format
 msgid "KDE4 rewrite"
-msgstr "Riscrittura per KDE4"
+msgstr ""
 
 #: app/main.cpp:52
 #, kde-format
@@ -526,64 +501,61 @@ msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
-"Miglioramenti del sistema di deconiugazione, sistema di aggiornamento dei "
-"dizionari EDICT e KANJIDICT, miglioramenti all'interfaccia, visualizzatore "
-"dei kanji, correzioni di bug, pulizia e semplificazione del codice"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
 msgid "Filter Type"
-msgstr "Tipo di filtro"
+msgstr "Typo de filtro"
 
 #: app/searchstringinput.cpp:28
 #, kde-format
 msgid "No filter"
-msgstr "Nessun filtro"
+msgstr "Necun filtro"
 
 #: app/searchstringinput.cpp:29
 #, kde-format
 msgid "Filter out rare"
-msgstr "Filtra rari"
+msgstr ""
 
 #: app/searchstringinput.cpp:30
 #, kde-format
 msgid "Common/Uncommon"
-msgstr "Comuni / non comuni"
+msgstr ""
 
 #: app/searchstringinput.cpp:33
 #, kde-format
 msgid "Match Type"
-msgstr "Corrispondenza per tipo"
+msgstr ""
 
 #: app/searchstringinput.cpp:34
 #, kde-format
 msgid "Exact Match"
-msgstr "Corrispondenza esatta"
+msgstr "Exacte coincidentia"
 
 #: app/searchstringinput.cpp:35
 #, kde-format
 msgid "Match Beginning"
-msgstr "Corrispondenza con l'inizio"
+msgstr ""
 
 #: app/searchstringinput.cpp:36
 #, kde-format
 msgid "Match Ending"
-msgstr "Corrispondenza con la fine"
+msgstr ""
 
 #: app/searchstringinput.cpp:37
 #, kde-format
 msgid "Match Anywhere"
-msgstr "Corrispondenza in qualsiasi punto"
+msgstr ""
 
 #: app/searchstringinput.cpp:40
 #, kde-format
 msgid "Word Type"
-msgstr "Tipo di parola"
+msgstr "Typo de parola"
 
 #: app/searchstringinput.cpp:41
 #, kde-format
 msgid "Any"
-msgstr "Qualsiasi"
+msgstr "Ulle"
 
 #: app/searchstringinput.cpp:42
 #, kde-format
@@ -593,74 +565,74 @@ msgstr "Verbo"
 #: app/searchstringinput.cpp:43
 #, kde-format
 msgid "Noun"
-msgstr "Nome"
+msgstr "Substantivo"
 
 #: app/searchstringinput.cpp:44
 #, kde-format
 msgid "Adjective"
-msgstr "Aggettivo"
+msgstr "Adjectivo"
 
 #: app/searchstringinput.cpp:45
 #, kde-format
 msgid "Adverb"
-msgstr "Avverbio"
+msgstr "Adverbio"
 
 #: app/searchstringinput.cpp:46
 #, kde-format
 msgid "Prefix"
-msgstr "Prefisso"
+msgstr "Prefixo"
 
 #: app/searchstringinput.cpp:47
 #, kde-format
 msgid "Suffix"
-msgstr "Suffisso"
+msgstr "Suffixo"
 
 #: app/searchstringinput.cpp:48
 #, kde-format
 msgid "Expression"
-msgstr "Espressione"
+msgstr "Expression"
 
 #: app/searchstringinput.cpp:57
 #, kde-format
 msgid "Focus input field"
-msgstr "Imposta il fuoco sul campo di inserimento"
+msgstr ""
 
 #: app/searchstringinput.cpp:60
 #, kde-format
 msgid "Search Bar"
-msgstr "Barra di ricerca"
+msgstr "Barra de cerca"
 
 #: kanjibrowser/kanjibrowserview.cpp:184
 #, kde-format
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
-msgstr[0] "%1 kanji trovato"
-msgstr[1] "%1 kanji trovati"
+msgstr[0] ""
+msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:197
 #, kde-format
 msgid "About %1"
-msgstr "Informazioni su %1"
+msgstr "A proposito de %1"
 
 #: kanjibrowser/kanjibrowserview.cpp:198
 #, kde-format
 msgid "Copy %1 to clipboard"
-msgstr "Copia %1 negli appunti"
+msgstr "Copia %1 in area de transferentia"
 
 #: kanjibrowser/kanjibrowserview.cpp:211
 #, kde-format
 msgid "Could not load the necessary kanji information."
-msgstr "Non è stato possibile caricare le necessarie informazioni sui kanji."
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:221
 #, kde-format
 msgid "Kanji &List"
-msgstr "&Lista dei kanji"
+msgstr "&Lista Kanji"
 
 #: kanjibrowser/kanjibrowserview.cpp:224
 #, kde-format
 msgid "Kanji &Information"
-msgstr "&Informazioni sul kanji"
+msgstr "&Information de Kanji"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
 #, kde-format
@@ -670,12 +642,12 @@ msgstr "&Cerca…"
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
 msgid "All Jouyou Kanji grades"
-msgstr "Tutti i gradi degli jōyō kanji"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:237
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
-msgstr "Grado %1 (Jinmeiyō)"
+msgstr "Grado %1 (Jinmeiyou)"
 
 #: kanjibrowser/kanjibrowserview.cpp:239
 #, kde-format
@@ -685,19 +657,19 @@ msgstr "Grado %1"
 #: kanjibrowser/kanjibrowserview.cpp:242
 #, kde-format
 msgid "Not in Jouyou list"
-msgstr "Non nella lista jōyō"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:244
 #, kde-format
 msgid "No stroke limit"
-msgstr "Nessun limite di tratti"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:246
-#, kde-format
+#, fuzzy, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
-msgstr[0] "%1 tratto"
-msgstr[1] "%1 tratti"
+msgstr[0] "Tracto"
+msgstr[1] ""
 
 #: kanjibrowser/kanjibrowserview.cpp:293
 #, kde-format
@@ -708,44 +680,42 @@ msgstr "Grado:"
 #: kanjibrowser/kanjibrowserview.cpp:295 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
-msgstr "Tratti:"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:301
 #, kde-format
 msgid "Onyomi: "
-msgstr "On'yomi:"
+msgstr "Onyomi: "
 
 #: kanjibrowser/kanjibrowserview.cpp:309
 #, kde-format
 msgid "Kunyomi: "
-msgstr "Kun'yomi:"
+msgstr "Kunyomi: "
 
 #: kanjibrowser/kanjibrowserview.cpp:317 lib/DictKanjidic/entrykanjidic.cpp:148
 #, kde-format
 msgid "In names: "
-msgstr "Nei nomi:"
+msgstr "In nomines: "
 
 #: kanjibrowser/kanjibrowserview.cpp:325 lib/DictKanjidic/entrykanjidic.cpp:153
 #, kde-format
 msgid "As radical: "
-msgstr "Come radicale:"
+msgstr "Como radical: "
 
 #: kanjibrowser/kanjibrowserview.cpp:332
 #, kde-format
 msgid "Meaning: "
-msgstr "Significato:"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:334
 #, kde-format
 msgid "Meanings: "
-msgstr "Significati:"
+msgstr ""
 
 #: kanjibrowser/main.cpp:23
 #, kde-format
 msgid "Kiten's Kanji Browser, a KDE Japanese Reference Tool"
 msgstr ""
-"Visualizzatore dei kanji di Kiten, strumento KDE di riferimento per il "
-"giapponese"
 
 #: kanjibrowser/main.cpp:25
 #, kde-format
@@ -757,13 +727,13 @@ msgstr "(C) 2011 Daniel E. Moctezuma"
 #: kanjibrowser/preferences.ui:14 radselect/radselectprefdialog.ui:15
 #, kde-format
 msgid "Preferences"
-msgstr "Preferenze"
+msgstr "Preferentias"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: kanjibrowser/preferences.ui:20
 #, kde-format
 msgid "Kanji List"
-msgstr "Lista dei kanji"
+msgstr "Lista Kanji"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (toolTip), widget (QLabel, resultListFontSize_label)
@@ -775,7 +745,7 @@ msgstr "Lista dei kanji"
 #: radselect/radselectprefdialog.ui:85
 #, kde-format
 msgid "The font for the main kanji/kana entry in list view"
-msgstr "Il tipo di carattere per la voce kanji/kana principale nella lista"
+msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
@@ -784,13 +754,13 @@ msgstr "Il tipo di carattere per la voce kanji/kana principale nella lista"
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr "Usa questo pulsante per regolare il tipo di carattere dei pulsanti"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
 #, kde-format
 msgid "Kanji font:"
-msgstr "Carattere dei kanji:"
+msgstr "Font Kanji:"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
 #: kanjibrowser/preferences.ui:56
@@ -802,19 +772,19 @@ msgstr "漢字"
 #: kanjibrowser/preferences.ui:77
 #, kde-format
 msgid "Kanji Information"
-msgstr "Informazioni sui kanji"
+msgstr "Information de Kanji"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiSizeLabel)
 #: kanjibrowser/preferences.ui:97
 #, kde-format
 msgid "Kanji size:"
-msgstr "Dimensione dei kanji:"
+msgstr "Grandor de Kanji:"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanaFontLabel)
 #: kanjibrowser/preferences.ui:121
 #, kde-format
 msgid "Kana font:"
-msgstr "Carattere dei kana:"
+msgstr "Font Kana:"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
 #: kanjibrowser/preferences.ui:128
@@ -826,19 +796,19 @@ msgstr "かな"
 #: kanjibrowser/preferences.ui:151
 #, kde-format
 msgid "Label font:"
-msgstr "Carattere delle etichette:"
+msgstr "Font de Etiquetta:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
 #, kde-format
 msgid "Search"
-msgstr "Cerca"
+msgstr "Cerca "
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr "Digita una ricerca:"
+msgstr ""
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
@@ -848,15 +818,13 @@ msgstr "verbo"
 #: lib/DictEdict/deinflection.cpp:120
 #, kde-format
 msgid "adjective"
-msgstr "aggettivo"
+msgstr "adjectivo"
 
 #: lib/DictEdict/deinflection.cpp:146
 #, kde-format
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
 msgstr ""
-"Impossibile trovare le informazioni sulla deconiugazione dei verbi, che non "
-"può essere usata."
 
 #: lib/DictEdict/deinflection.cpp:154
 #, kde-format
@@ -864,13 +832,11 @@ msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
 msgstr ""
-"Impossibile caricare le informazioni sulla deconiugazione dei verbi, che non "
-"può essere usata."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:28
 #, kde-format
 msgid "&Available Fields:"
-msgstr "C&ampi disponibili:"
+msgstr "C&ampos disponibile:"
 
 #: lib/entry.cpp:154
 #, kde-format
@@ -880,7 +846,7 @@ msgstr "; "
 #: lib/entrylist.cpp:105
 #, kde-format
 msgid "From Dictionary:"
-msgstr "Dal dizionario:"
+msgstr "Ab Dictionario:"
 
 #: lib/entrylist.cpp:122
 #, kde-format
@@ -888,32 +854,32 @@ msgctxt ""
 "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
 "Example: 'Entered verb in past tense'."
 msgid "Entered %1 in %2 form"
-msgstr "Inserito %1 in forma «%2»"
+msgstr ""
 
 #: lib/entrylist.cpp:143
 #, kde-format
 msgid "Common"
-msgstr "Comuni"
+msgstr "Commun"
 
 #: lib/entrylist.cpp:146
 #, kde-format
 msgid "Uncommon"
-msgstr "Non comuni"
+msgstr "Non commun"
 
 #: radselect/buttongrid.cpp:113
 #, kde-format
 msgid "No Radicals Selected"
-msgstr "Nessun radicale selezionato"
+msgstr ""
 
 #: radselect/buttongrid.cpp:149
 #, kde-format
 msgid "Selected Radicals: "
-msgstr "Radicali selezionati: "
+msgstr ""
 
 #: radselect/main.cpp:26
 #, kde-format
 msgid "A KDE Application"
-msgstr "Un'applicazione per KDE"
+msgstr "Un Application de KDE"
 
 #: radselect/main.cpp:28
 #, kde-format
@@ -923,7 +889,7 @@ msgstr "(C) 2005 Joseph Kerian"
 #: radselect/main.cpp:33
 #, kde-format
 msgid "Electronic Dictionary Research and Development Group"
-msgstr "Electronic Dictionary Research and Development Group"
+msgstr ""
 
 #: radselect/main.cpp:34
 #, kde-format
@@ -932,32 +898,29 @@ msgid ""
 "are the property of the Electronic Dictionary Research and Development "
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
-"Questo programma usa i file di dizionario KANJIDIC e RADKFILE: sono di "
-"proprietà dell'Electronic Dictionary Research and Development Group, e sono "
-"stati usati in conformità con la licenza del gruppo."
 
 #: radselect/main.cpp:44
 #, kde-format
 msgid "Initial Search String from Kiten"
-msgstr "Stringa di ricerca da Kiten"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, radical_selector)
 #: radselect/radical_selector.ui:22
 #, kde-format
 msgid "RadicalSelector"
-msgstr "Selettore radicali"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: radselect/radical_selector.ui:40
 #, kde-format
 msgid "Results"
-msgstr "Risultati"
+msgstr "Resultatos"
 
 #. i18n: ectx: property (text), widget (QPushButton, copy_button)
 #: radselect/radical_selector.ui:82
 #, kde-format
 msgid "&To Clipboard"
-msgstr "&Negli appunti"
+msgstr "&Adde a area de transferentia"
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label)
 #: radselect/radical_selector.ui:122
@@ -969,32 +932,32 @@ msgstr " - "
 #: radselect/radical_selector.ui:164
 #, kde-format
 msgid "Clear"
-msgstr "Pulisci"
+msgstr "Netta"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_sortByFrequency)
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr "Mostra i radicali in ordine decrescente di frequenza"
+msgstr ""
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
 #, kde-format
 msgid "Do we close this program when searching?"
-msgstr "Chiudere questo programma durante la ricerca?"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_closeOnSearch)
 #: radselect/radselectprefdialog.ui:24
 #, kde-format
 msgid "Close radselect when you press search"
-msgstr "Chiudi radselect quando avvii la ricerca"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
 #, kde-format
 msgid "Search Results Font:"
-msgstr "Carattere dei risultati della ricerca:"
+msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
@@ -1002,8 +965,6 @@ msgstr "Carattere dei risultati della ricerca:"
 #, kde-format
 msgid "Use this to adjust the result list font"
 msgstr ""
-"Usa questo pulsante per regolare il tipo di carattere dei risultati della "
-"ricerca"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1016,7 +977,7 @@ msgstr "漢字 かな"
 #: radselect/radselectprefdialog.ui:69
 #, kde-format
 msgid "Button Font:"
-msgstr "Carattere per i pulsanti:"
+msgstr "Font de Button:"
 
 #: radselect/radselectview.cpp:38
 #, kde-format
@@ -1024,9 +985,6 @@ msgid ""
 "Kanji radical information does not seem to be installed (file kiten/"
 "radkfile), this file is required for this app to function."
 msgstr ""
-"Le informazioni sui radicali kanji non sembrano essere installate (file "
-"kiten/radkfile), questo file è richiesto per far funzionare questa "
-"applicazione."
 
 #: radselect/radselectview.cpp:45
 #, kde-format
@@ -1034,204 +992,21 @@ msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
-"Il dizionario dei kanji non sembra essere installato (file kiten/kanjidic), "
-"il numero dei tratti non sarà disponibile."
 
 #: radselect/radselectview.cpp:61
 #, kde-format
 msgctxt "Minimum number of strokes for a kanji"
 msgid "Min"
-msgstr "Minimo"
+msgstr "Min"
 
 #: radselect/radselectview.cpp:62
 #, kde-format
 msgctxt "Maximum number of strokes for a kanji"
 msgid "Max"
-msgstr "Massimo"
+msgstr "Max"
 
 #: radselect/radselectview.cpp:106
 #, kde-format
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
-msgstr "(TUTTI)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "File di informazioni Romaji non installato. Impossibile usare la "
-#~ "conversione Romaji."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Impossibile caricare informazioni Romaji. La conversione Romaji non può "
-#~ "essere usata."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Inglese"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kana"
-
-#~ msgid "Learn"
-#~ msgstr "Impara"
-
-#~ msgid ""
-#~ "Learn mode is disabled in this version of kiten. There are several "
-#~ "excellent open source flashcard programs available, such as <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
-#~ "apps.ankiweb.net\">Anki project</a>."
-#~ msgstr ""
-#~ "La modalità di apprendimento è disabilitata in questa versione di Kiten. "
-#~ "Ci sono molti programmi open source eccellenti per le carte mnemoniche, "
-#~ "ad esempio <a href=\"https://apps.kde.org/parley\">Parley</a> e il "
-#~ "progetto <a href=\"https://apps.ankiweb.net\">Anki</a>."
-
-#~ msgid "Settings"
-#~ msgstr "Impostazioni"
-
-#~ msgid "kitenkanjibrowser"
-#~ msgstr "kitenkanjibrowser"
-
-#~ msgid "kitenradselect"
-#~ msgstr "kitenradselect"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Noun"
-#~ msgstr "Nome"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Verb"
-#~ msgstr "Verbo"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adjective"
-#~ msgstr "Aggettivo"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adverb"
-#~ msgstr "Avverbio"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Particle"
-#~ msgstr "Participio"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated (except possibly in far-eastern languages), this must be a "
-#~ "single word"
-#~ msgid "Ichidan"
-#~ msgstr "Ichidan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Godan"
-#~ msgstr "Godan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Fukisoku"
-#~ msgstr "Fukisoku"
-
-#~ msgid "Idiomatic expression"
-#~ msgstr "Espressione idiomatica"
-
-#~ msgid "Noun (used as a prefix)"
-#~ msgstr "Nome (usato come prefisso)"
-
-#~ msgid "Noun (used as a suffix)"
-#~ msgstr "Nome (usato come suffisso)"
-
-#~ msgid "Deinflect Verbs/Adjectives"
-#~ msgstr "Deconiuga verbi/aggettivi"
-
-#~ msgid "On The Spo&t Search"
-#~ msgstr "Ricerca sul pos&to"
-
-#~ msgid "Possible de-conjugation %1 as %2"
-#~ msgstr "Possibile deconiugazione di %1 come %2"
-
-#~ msgid "Deinflect Dictionary Files"
-#~ msgstr "File di dizionario di deconiugazione"
-
-#~ msgid ""
-#~ "Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb"
-#~ msgstr ""
-#~ "Limitare le scelte dell'utente del tipo di parola? 0:Tutti, Verbo, Nome, "
-#~ "Aggettivo, Avverbio"
-
-#~ msgid "Enable the Deinflection checker?"
-#~ msgstr "Abilitare il controllo della deconiugazione?"
-
-#~ msgid "Configure &Global Shortcuts..."
-#~ msgstr "Configura scorciatoie &globali..."
-
-#~ msgid "Case sensitive searches (non-Japanese languages)"
-#~ msgstr "Ricerche distinguendo maiuscole (lingue non giapponesi)"
-
-#~ msgid "Kvtml files (*.kvtml)"
-#~ msgstr "File KVTML (*.kvtml)"
-
-#~ msgid "Choose file to export to"
-#~ msgstr "Scegli un file su cui esportare"
-
-#~ msgid "Search t&ext"
-#~ msgstr "T&esto di ricerca"
-
-#~ msgid "Search with &Beginning of Word"
-#~ msgstr "Cerca con &inizio parola"
-
-#~ msgid "Stro&kes"
-#~ msgstr "&Tratti"
-
-#~ msgid "&Add to export list"
-#~ msgstr "&Aggiungi alla lista di esportazione"
-
-#~ msgid "&Available Full View Fields:"
-#~ msgstr "C&ampi a vista completa disponibili:"
-
-#~ msgctxt "@item:inlist all matches should be found"
-#~ msgid "(All)"
-#~ msgstr "(Tutti)"
-
-#~ msgid "&Show Full Search String"
-#~ msgstr "&Mostra stringa della ricerca completa"
-
-#~ msgid "All Text is the same size"
-#~ msgstr "Tutto il testo ha la stessa altezza"
-
-#~ msgid "All Kanji are written bigger"
-#~ msgstr "Tutti i kanji sono scritti più grandi"
-
-#~ msgid "Make the main dictionary entry larger"
-#~ msgstr "Ingrandisci le voci del dizionario principale"
-
-#~ msgid "Match only whole english word"
-#~ msgstr "Solo parole inglesi complete"
-
-#~ msgid "Match only whole English word"
-#~ msgstr "Solo parole inglesi complete"
-
-#~ msgid "Start \"learn\" on Kiten startup"
-#~ msgstr "Modalità apprendimento all'avvio di Kiten"
-
-#~ msgid "&Extra search options"
-#~ msgstr "Opzioni aggiuntiv&e di ricerca"
-
-#~ msgid "Quizzing"
-#~ msgstr "Quiz"
-
-#~ msgid "Clue:"
-#~ msgstr "Suggerimento:"
-
-#~ msgid "Reading"
-#~ msgstr "Lettura"
-
-#~ msgid "Possible answers:"
-#~ msgstr "Risposte possibili:"
+msgstr "(Toto)"
