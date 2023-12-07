@@ -96,8 +96,8 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 >Le mode le plus simple de &kiten; est un dictionnaire de recherche des mots Anglais et Japonais. Vous pouvez aussi ajouter d'autres dictionnaires à la liste de &kiten;.</para>
 
 <para
->&kiten; utilise par défaut les dictionnaires « Edict » et « Kanjidict » de Kim Breen. Vous pouvez trouver plus d'informations à ce sujet sur <ulink url="https://www.edrdg.org/jmdict/edict.html"
-> le site d'Edict</ulink
+>&kiten; utilise par défaut les dictionnaires « Edict » et « Kanjidic » de Kim Breen. Vous pouvez trouver plus d'informations à ce sujet sur <ulink url="https://www.edrdg.org/jmdict/edict.html"
+> le site de Edict</ulink
 > et <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
 >le site de Kanjidic</ulink
 >.</para>
@@ -147,7 +147,7 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 
 <screenshot>
 <screeninfo
->Capture d'écran de l'utilisation de l'Exclusion des mots rares</screeninfo>
+>Capture d'écran de l'utilisation de filtres de mots rares</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
@@ -563,7 +563,7 @@ until you get used to handling Japanese verb forms.
 <para
 >Jim Breen <email
 >jwb@csse.monash.edu.au</email
-> - A écrit xjdic, dont &kiten; emprunte du code, et le générateur de fichiers d'indices xjdic. Il est aussi l'auteur principal d'edict et de kanjidic, dont &kiten; dépend fortement.</para>
+> - A écrit xjdic, dont &kiten; emprunte du code, et le générateur de fichiers d'indices « xjdic ». Il est aussi l'auteur principal de Edict et de Kanjidic, dont &kiten; dépend fortement.</para>
 </listitem>
 <listitem>
   <para
@@ -593,7 +593,7 @@ until you get used to handling Japanese verb forms.
   <para
 >Daniel E. Moctezuma <email
 >democtezuma@gmail.com</email
-> - Améliorations du système de désinflexion, mises à jour des dictionnaires pour « EDICT » et « KANJIDIC », Interface Graphique Utilisateur, améliorations, navigateur « Kanji », corrections de bogues, polissage et simplification du code.</para>
+> - Améliorations du système de déinflexion, mises à jour des dictionnaires pour « EDICT » et « KANJIDIC », Interface Graphique Utilisateur, améliorations, navigateur « Kanji », corrections de bogues, polissage et simplification du code.</para>
 </listitem>
 </itemizedlist>
 
