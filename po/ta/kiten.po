@@ -3,13 +3,13 @@
 # Copyright (C) 2004 Free Software Foundation, Inc.
 #
 # Ambalam <tamilpc@ambalam.com>, 2004.
-# Kishore G <kishore96@gmail.com>, 2021.
+# SPDX-FileCopyrightText: 2021, 2023 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2021-01-18 19:15+0530\n"
+"PO-Revision-Date: 2023-12-08 19:50+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.12.1\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -51,31 +51,31 @@ msgstr "பெயர் "
 #: app/configdictselect.ui:67
 #, kde-format
 msgid "File"
-msgstr ""
+msgstr "கோப்பு"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: app/configdictselect.ui:86
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Add..."
-msgstr "சேர்..."
+msgstr "&சேர்..."
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigFont)
 #: app/configfont.ui:13
 #, kde-format
 msgid "Fonts"
-msgstr ""
+msgstr "எழுத்துருக்கள்"
 
 #. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
 #: app/configfont.ui:21
 #, kde-format
 msgid "Main Font"
-msgstr ""
+msgstr "பிரதான எழுத்துரு"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
 #: app/configfont.ui:28
