@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-12-05 10:57+0100\n"
+"PO-Revision-Date: 2023-12-10 16:47+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -662,14 +662,14 @@ msgstr ""
 #: kanjibrowser/kanjibrowserview.cpp:244
 #, kde-format
 msgid "No stroke limit"
-msgstr ""
+msgstr "Nulle limite de tracto"
 
 #: kanjibrowser/kanjibrowserview.cpp:246
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
-msgstr[0] "Tracto"
-msgstr[1] ""
+msgstr[0] "%1 tracto"
+msgstr[1] "%1 tractos"
 
 #: kanjibrowser/kanjibrowserview.cpp:293
 #, kde-format
@@ -680,7 +680,7 @@ msgstr "Grado:"
 #: kanjibrowser/kanjibrowserview.cpp:295 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
-msgstr ""
+msgstr "Tractos:"
 
 #: kanjibrowser/kanjibrowserview.cpp:301
 #, kde-format
@@ -705,12 +705,12 @@ msgstr "Como radical: "
 #: kanjibrowser/kanjibrowserview.cpp:332
 #, kde-format
 msgid "Meaning: "
-msgstr ""
+msgstr "Signification: "
 
 #: kanjibrowser/kanjibrowserview.cpp:334
 #, kde-format
 msgid "Meanings: "
-msgstr ""
+msgstr "Significationes:"
 
 #: kanjibrowser/main.cpp:23
 #, kde-format
@@ -745,7 +745,7 @@ msgstr "Lista Kanji"
 #: radselect/radselectprefdialog.ui:85
 #, kde-format
 msgid "The font for the main kanji/kana entry in list view"
-msgstr ""
+msgstr "Le font per le entrata de kanji/kana principal in vgista de lista"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
@@ -754,7 +754,7 @@ msgstr ""
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr ""
+msgstr "Usa iste per adder lefont de button"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
@@ -808,7 +808,7 @@ msgstr "Cerca "
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Inserta un demanda de cerca:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
@@ -854,7 +854,7 @@ msgctxt ""
 "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
 "Example: 'Entered verb in past tense'."
 msgid "Entered %1 in %2 form"
-msgstr ""
+msgstr "Insertate %1 in forma %2"
 
 #: lib/entrylist.cpp:143
 #, kde-format
@@ -869,12 +869,12 @@ msgstr "Non commun"
 #: radselect/buttongrid.cpp:113
 #, kde-format
 msgid "No Radicals Selected"
-msgstr ""
+msgstr "Nulle radicales seligite"
 
 #: radselect/buttongrid.cpp:149
 #, kde-format
 msgid "Selected Radicals: "
-msgstr ""
+msgstr "Radicales Seligite: "
 
 #: radselect/main.cpp:26
 #, kde-format
