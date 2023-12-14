@@ -7,19 +7,20 @@
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2009, 2010, 2011.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2012, 2019.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2023 Geraldo Simiao <geraldosimiao@fedoraproject.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-30 00:42+0000\n"
-"PO-Revision-Date: 2022-01-04 11:25-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"PO-Revision-Date: 2023-12-13 08:02-0300\n"
+"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, kde-format
@@ -27,12 +28,14 @@ msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 "Antonio Sérgio de Mello e Souza, Lisiane Sztoltz Teixeira, André Marcelo "
-"Alvarenga"
+"Alvarenga, Geraldo Simião"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "asergioz@bol.com.br, lisiane@kdemail.net, alvarenga@kde.org"
+msgstr ""
+"asergioz@bol.com.br, lisiane@kdemail.net, alvarenga@kde.org, "
+"geraldosimiao@fedoraproject.org"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
 #: app/configdictselect.ui:14
