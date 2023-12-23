@@ -19,7 +19,7 @@
 # Robert Jacolin <rjacolin@ifrance.com>, 2003.
 # Matthieu Robin <kde@macolu.org>, 2004, 2005.
 # Mickael Sibelle <kimael@gmail.com>, 2007, 2008, 2010, 2012.
-# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023 xavier <xavier.besnard@neuf.fr>
+# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
 # Simon Depiets <sdepiets@gmail.com>, 2019.
 #
 msgid ""
@@ -28,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
 "PO-Revision-Date: 2023-11-23 11:28+0100\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Matthieu Robin, Mickaël Sibelle, Simon Depiets, Xavier Besnard"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"kde@macolu.org, kimael@gmail.com, sdepiets@gmail.com, xavier.besnard@neuf.fr"
+"kde@macolu.org, kimael@gmail.com, sdepiets@gmail.com, xavier.besnard@kde.org"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
 #: app/configdictselect.ui:14
