@@ -8,21 +8,21 @@
 # Tadeusz Hessel <tazdzioch@o2.pl>, 2007.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2007.
 # Maciej Wikło <maciej.wiklo@wp.pl>, 2008.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2015, 2016, 2019, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2011, 2012, 2015, 2016, 2019, 2020, 2021, 2022, 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Michał Lachowski <michal@lachowski.info>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2022-01-31 20:13+0100\n"
-"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
+"PO-Revision-Date: 2023-12-23 11:55+0100\n"
+"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmai.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.03.70\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -66,7 +66,7 @@ msgstr "Plik"
 #: app/configdictselect.ui:86
 #, kde-format
 msgid "&Add..."
-msgstr "&Dodaj..."
+msgstr "Dod&aj..."
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
@@ -257,12 +257,12 @@ msgstr "Widok wyników"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Przejdź do poprzedniego zapytania."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Przejdź do następnego zapytania."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -272,12 +272,12 @@ msgstr "Wyeksportuj listę"
 #: app/kiten.cpp:217
 #, kde-format
 msgid "Initializing Dictionaries"
-msgstr "Inicjacja słowników"
+msgstr "Przygotowywanie słowników"
 
 #: app/kiten.cpp:230
 #, kde-format
 msgid "Welcome to Kiten"
-msgstr "Witamy w Kiten"
+msgstr "Witaj w Kiten"
 
 #: app/kiten.cpp:326 app/kiten.cpp:383
 #, kde-format
@@ -313,14 +313,14 @@ msgstr "Pliki słownika Edict"
 #: app/kiten.kcfg:28
 #, kde-format
 msgid "Use preinstalled edict"
-msgstr "Użyj pre-instalowanego Edict"
+msgstr "Użyj wbudowanego edict"
 
 #. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
 #. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
 #: app/kiten.kcfg:32 app/kiten.kcfg:46
 #, kde-format
 msgid "Set of fields to display for this dictionary type"
-msgstr "Wybierz pola ażeby wyświetlić ten typ słownika"
+msgstr "Wybierz pola, aby wyświetlić ten rodzaj słownika"
 
 #. i18n: ectx: label, entry (kanjidic__NAMES), group (dicts_kanjidic)
 #: app/kiten.kcfg:39
@@ -332,7 +332,7 @@ msgstr "Pliki słownika Kanjidic"
 #: app/kiten.kcfg:42
 #, kde-format
 msgid "Use preinstalled kanjidic"
-msgstr "Użyj pre-instalowanego Kanjidic"
+msgstr "Użyj wbudowanego kanjidic"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:53
@@ -426,10 +426,9 @@ msgstr "Pasek wyszukiwania"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Wyszukiwanie"
+msgstr "Ustawienia wyszukiwania"
 
 #: app/main.cpp:32
 #, kde-format
@@ -673,10 +672,9 @@ msgid "Kanji &Information"
 msgstr "&Informacje Kanji"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&Znajdź"
+msgstr "Po&szukaj…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -840,16 +838,15 @@ msgstr "Etykieta czcionki:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "&Znajdź"
+msgstr "Poszukaj"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Wpisz swoje zapytanie:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
