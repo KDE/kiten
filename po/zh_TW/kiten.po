@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-11-29 18:46+0900\n"
+"PO-Revision-Date: 2023-12-29 20:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.01.85\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -918,6 +918,7 @@ msgstr "(C) 2005 Joseph Kerian"
 #, kde-format
 msgid "Electronic Dictionary Research and Development Group"
 msgstr ""
+"Electronic Dictionary Research and Development Group（電子字典研究與開發組）"
 
 #: radselect/main.cpp:34
 #, kde-format
@@ -926,6 +927,9 @@ msgid ""
 "are the property of the Electronic Dictionary Research and Development "
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
+"這個程式使用 KANJIDIC 和 RADKFILE 字典檔案。這些檔案是 Electronic Dictionary "
+"Research and Development Group（電子字典研究與開發組）的財產，並在此依其授權"
+"條款使用。"
 
 #: radselect/main.cpp:44
 #, kde-format
@@ -967,7 +971,7 @@ msgstr "清除"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr ""
+msgstr "依頻率遞減順序顯示部首"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
