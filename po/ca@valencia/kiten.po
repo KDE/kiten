@@ -657,7 +657,7 @@ msgstr "Quant a %1"
 #: kanjibrowser/kanjibrowserview.cpp:187
 #, kde-format
 msgid "Copy %1 to clipboard"
-msgstr "Copia %1 al porta-retalls"
+msgstr "Copia %1 a dins del porta-retalls"
 
 #: kanjibrowser/kanjibrowserview.cpp:202
 #, kde-format
@@ -980,7 +980,7 @@ msgstr "Resultats"
 #: radselect/radical_selector.ui:82
 #, kde-format
 msgid "&To Clipboard"
-msgstr "Al &porta-retalls"
+msgstr "A dins del &porta-retalls"
 
 #. i18n: ectx: property (text), widget (QLabel, strokes_label)
 #: radselect/radical_selector.ui:122
