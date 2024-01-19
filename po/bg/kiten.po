@@ -1017,31 +1017,3 @@ msgstr "Макс"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(Всички)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Файлът с данни за Romaji не е инсталиран, затова преобразуването в "
-#~ "латиница няма да може да се използва."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Файлът с данни за Romaji не може да се зареди, затова преобразуването в "
-#~ "латиница няма да може да се използва."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Английски"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Кана"
-
-#~ msgid "Learn"
-#~ msgstr "Изучаване"
-
-#~ msgid "Settings"
-#~ msgstr "Настройки"
