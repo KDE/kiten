@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
                         QStringLiteral("democtezuma@gmail.com"));
 
     aboutData.setOrganizationDomain("kde.org");
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kiten")));
 
 #ifdef Q_OS_WIN
     QApplication::setStyle(QStringLiteral("breeze"));
