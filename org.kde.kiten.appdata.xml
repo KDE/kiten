@@ -163,6 +163,10 @@
       <caption xml:lang="zh-TW">使用 Kiten 練習日文字典</caption>
       <image>https://cdn.kde.org/screenshots/kiten/kiten.png</image>
     </screenshot>
+    <screenshot type="default">
+      <caption>Kanji Browser</caption>
+      <image>https://cdn.kde.org/screenshots/kiten/kiten-browser.png</image>
+    </screenshot>
   </screenshots>
   <project_group>KDE</project_group>
   <provides>
