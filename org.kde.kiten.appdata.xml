@@ -165,6 +165,15 @@
     </screenshot>
     <screenshot type="default">
       <caption>Kanji Browser</caption>
+      <caption xml:lang="ca">Navegador de Kanji</caption>
+      <caption xml:lang="eu">Kanji arakatzailea</caption>
+      <caption xml:lang="he">דפדפן קאנג׳י</caption>
+      <caption xml:lang="ka">კანჯის დათვალიერება</caption>
+      <caption xml:lang="nl">Kanji-browser</caption>
+      <caption xml:lang="sl">Kanji brskalnik</caption>
+      <caption xml:lang="tr">Kanji Tarayıcısı</caption>
+      <caption xml:lang="uk">Переглядач кандзі</caption>
+      <caption xml:lang="x-test">xxKanji Browserxx</caption>
       <image>https://cdn.kde.org/screenshots/kiten/kiten-browser.png</image>
     </screenshot>
   </screenshots>
