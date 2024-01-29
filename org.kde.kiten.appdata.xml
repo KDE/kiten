@@ -168,8 +168,10 @@
       <caption xml:lang="ca">Navegador de Kanji</caption>
       <caption xml:lang="es">Explorador kanji</caption>
       <caption xml:lang="eu">Kanji arakatzailea</caption>
+      <caption xml:lang="pl">Przeglądarka Kanji</caption>
       <caption xml:lang="sl">Kanji brskalnik</caption>
       <caption xml:lang="tr">Kanji Tarayıcısı</caption>
+      <caption xml:lang="zh-TW">漢字瀏覽器</caption>
       <image>https://cdn.kde.org/screenshots/kiten/kiten-browser.png</image>
     </screenshot>
   </screenshots>
