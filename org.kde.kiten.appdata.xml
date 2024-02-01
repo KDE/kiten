@@ -166,6 +166,7 @@
     <screenshot type="default">
       <caption>Kanji Browser</caption>
       <caption xml:lang="ca">Navegador de Kanji</caption>
+      <caption xml:lang="ca-valencia">Navegador de Kanji</caption>
       <caption xml:lang="eo">Kanji-Foliumilo</caption>
       <caption xml:lang="es">Explorador kanji</caption>
       <caption xml:lang="eu">Kanji arakatzailea</caption>
