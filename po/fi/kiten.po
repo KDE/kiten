@@ -6,14 +6,14 @@
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
 # Mikko Piippo <piippo@cc.helsinki.fi>, 2008.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2022.
-# Tommi Nieminen <translator@legisign.org>, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2021, 2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2022-10-17 00:10+0300\n"
-"Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
+"PO-Revision-Date: 2024-01-31 17:42+0200\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:23:17+0000\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -261,12 +261,12 @@ msgstr "Kohdista tuloksiin"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Siirry edelliseen hakukyselyyn."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Siirry seuraavaan hakukyselyyn."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -429,10 +429,9 @@ msgstr "Hakutyökalurivi"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Haku"
+msgstr "Hakuvalinnat"
 
 # pmap: =/gen=Kitenin/
 # pmap: =/elat=Kitenistä/
@@ -679,10 +678,9 @@ msgid "Kanji &Information"
 msgstr "Kanjin &tiedot"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&Hae"
+msgstr "&Etsi…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -845,16 +843,15 @@ msgstr "Selitteiden fontti:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "&Hae"
+msgstr "Etsi"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Syötä hakukysely:"
 
 # Kontekstin takia genetiivissä.
 #: lib/DictEdict/deinflection.cpp:118
