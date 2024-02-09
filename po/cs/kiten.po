@@ -643,10 +643,9 @@ msgid "Kanji &Information"
 msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&Hledat"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -1028,43 +1027,3 @@ msgstr "Max"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(VŠE)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Soubor s informacemi o rómadži není nainstalován. Z toho důvodu nelze "
-#~ "použít převod do a z rómadži."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Informace o rómadži nebyly načteny. Z toho důvodu nelze používat převod "
-#~ "do a z rómadži."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Anglicky"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kana"
-
-#~ msgid "Learn"
-#~ msgstr "Procvičit"
-
-#~ msgid ""
-#~ "Learn mode is disabled in this version of kiten. There are several "
-#~ "excellent open source flashcard programs available, such as <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
-#~ "apps.ankiweb.net\">Anki project</a>."
-#~ msgstr ""
-#~ "Režim učení není v této verzi programu Kiten povolen. Dostupných je ale "
-#~ "několik výborných programů, pracujících s kartičkami jako pomůckami k "
-#~ "učení slovíček, s otevřeným zdrojovým kódem např. <a href=\"https://apps."
-#~ "kde.org/parley\">Parley</a>, a <a href=\"https://apps.ankiweb.net"
-#~ "\">projekt Anki</a>."
-
-#~ msgid "Settings"
-#~ msgstr "Nastavení"
