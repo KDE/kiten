@@ -2,30 +2,31 @@
 # Tamas Szanto <tszanto@interware.hu>, 2001.
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2012.
 # Balázs Úr <urbalazs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2012-06-20 20:25+0200\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"PO-Revision-Date: 2024-02-12 11:37+0100\n"
+"Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Szántó Tamás,Úr Balázs"
+msgstr "Kiszel Kristóf,Úr Balázs"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "tszanto@interware.hu,urbalazs@gmail.com"
+msgstr "ulysses@fsf.hu,urbalazs@fsf.hu"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
 #: app/configdictselect.ui:14
@@ -246,12 +247,12 @@ msgstr "Fókuszálás az eredménynézetre"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "Ugrás az előző keresési lekérdezésre."
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "Ugrás a következő keresési lekérdezésre."
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -414,10 +415,9 @@ msgstr "Keresés eszköztár"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Keresés"
+msgstr "Keresési beállítások"
 
 #: app/main.cpp:32
 #, kde-format
@@ -641,10 +641,9 @@ msgid "About %1"
 msgstr "%1 névjegy"
 
 #: kanjibrowser/kanjibrowserview.cpp:198
-#, fuzzy, kde-format
-#| msgid "&To Clipboard"
+#, kde-format
 msgid "Copy %1 to clipboard"
-msgstr "&Vágólapra"
+msgstr "%1 másolása a vágólapra"
 
 #: kanjibrowser/kanjibrowserview.cpp:211
 #, kde-format
@@ -662,10 +661,9 @@ msgid "Kanji &Information"
 msgstr "Kandzsi &információk"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "&Keresés"
+msgstr "Keresé&s…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -829,16 +827,15 @@ msgstr "Címke betűtípus:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "&Keresés"
+msgstr "Keresés"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "Adja meg a keresési lekérdezést:"
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
@@ -923,7 +920,7 @@ msgstr "(c) Joseph Kerian, 2005."
 #: radselect/main.cpp:33
 #, kde-format
 msgid "Electronic Dictionary Research and Development Group"
-msgstr ""
+msgstr "Electronic Dictionary Research and Development Group"
 
 #: radselect/main.cpp:34
 #, kde-format
@@ -932,6 +929,9 @@ msgid ""
 "are the property of the Electronic Dictionary Research and Development "
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
+"Ez a program a KANJIDIC és RADKFILE szótárfájlokat használja. Ezek a fájlok "
+"az Electronic Dictionary Research and Development Group tulajdonai, és a "
+"csoport licencének megfelelően használhatók."
 
 #: radselect/main.cpp:44
 #, kde-format
@@ -973,7 +973,7 @@ msgstr "Törlés"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr ""
+msgstr "Gyökök megjelenítése csökkenő gyakorisági sorrendben"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
@@ -989,18 +989,16 @@ msgstr "A gyökválasztó bezárása kereséskor"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
-#, fuzzy, kde-format
-#| msgid "Search &in Results"
+#, kde-format
 msgid "Search Results Font:"
-msgstr "Keresés az ere&dmények között"
+msgstr "Keresési eredmények betűtípusa:"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
-#, fuzzy, kde-format
-#| msgid "Use this to adjust the button font"
+#, kde-format
 msgid "Use this to adjust the result list font"
-msgstr "Itt lehet beállítani a gombfelirat betűtípusát"
+msgstr "Itt lehet beállítani az eredménylista betűtípusát"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1025,16 +1023,13 @@ msgstr ""
 "radkfile), enélkül nem tud működni a program."
 
 #: radselect/radselectview.cpp:45
-#, fuzzy, kde-format
-#| msgid ""
-#| "Kanji radical information does not seem to be installed (file kiten/"
-#| "radkfile), this file is required for this app to function."
+#, kde-format
 msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
-"A kandzsi gyök információk valószínűleg nincsenek telepítve (fájlnév: kiten/ "
-"radkfile), enélkül nem tud működni a program."
+"A kandzsi szótár valószínűleg nincs telepítve (fájlnév: kiten/kanjidic), a "
+"leütésszám nem lesz elérhető."
 
 #: radselect/radselectview.cpp:61
 #, kde-format
