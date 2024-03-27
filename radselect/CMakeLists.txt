@@ -26,6 +26,7 @@ kconfig_add_kcfg_files(radselect_bin radselectconfig.kcfgc)
 target_link_libraries(radselect_bin 
     kiten 
     Qt::Core
+    Qt::DBus
     Qt::Widgets
     KF6::ConfigWidgets
     KF6::CoreAddons

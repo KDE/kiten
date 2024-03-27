@@ -28,7 +28,7 @@ include(ECMSetupVersion)
 include(KDEClangFormat)
 include(KDEGitCommitHooks)
 
-find_package(Qt6 ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 ${QT_REQUIRED_VERSION} REQUIRED COMPONENTS Core DBus Widgets)
 find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Completion
