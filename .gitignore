@@ -27,3 +27,4 @@ CMakeLists.txt.user*
 .idea
 /cmake-build*
 .clang-format
+/.vscode/
