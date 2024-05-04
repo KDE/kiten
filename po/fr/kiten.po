@@ -19,7 +19,7 @@
 # Robert Jacolin <rjacolin@ifrance.com>, 2003.
 # Matthieu Robin <kde@macolu.org>, 2004, 2005.
 # Mickael Sibelle <kimael@gmail.com>, 2007, 2008, 2010, 2012.
-# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023, 2024 Xavier Besnard <xavier.besnard@kde.org>
 # Simon Depiets <sdepiets@gmail.com>, 2019.
 #
 msgid ""
@@ -27,9 +27,9 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-11-23 11:28+0100\n"
+"PO-Revision-Date: 2024-05-02 16:23+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr ""
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -338,7 +338,7 @@ msgstr "Ensemble de champs à afficher pour ce type de dictionnaire"
 #: app/kiten.kcfg:39
 #, kde-format
 msgid "Kanjidic dictionary files"
-msgstr "Fichiers de dictionnaires « kanjidic »"
+msgstr "Fichiers de dictionnaires « Kanjidic »"
 
 #. i18n: ectx: label, entry (kanjidic__useGlobal), group (dicts_kanjidic)
 #: app/kiten.kcfg:42
