@@ -60,7 +60,7 @@ msgstr "Fitxer"
 #: app/configdictselect.ui:86
 #, kde-format
 msgid "&Add..."
-msgstr "Afi&g..."
+msgstr "Afi&g…"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
@@ -276,7 +276,7 @@ msgstr "Us donem la benvinguda a Kiten"
 #: app/kiten.cpp:326 app/kiten.cpp:383
 #, kde-format
 msgid "Searching..."
-msgstr "S'està buscant..."
+msgstr "S'està buscant…"
 
 #: app/kiten.cpp:402
 #, kde-format
@@ -501,7 +501,7 @@ msgstr "Paul Temple"
 #: app/main.cpp:50
 #, kde-format
 msgid "Porting to KConfig XT, bug fixing"
-msgstr "Adaptació a KConfig XT, correcció d'errors"
+msgstr "Adaptació a KConfig XT, esmena d'errors"
 
 #: app/main.cpp:51 radselect/main.cpp:32
 #, kde-format
@@ -530,8 +530,8 @@ msgid ""
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
 "Millores en el sistema de desinflexió, actualitzacions dels diccionaris "
-"EDICT i KANJIDICT, millores de la IGU, navegador de kanji, correcció "
-"d'errors, simplificació i poliment del codi"
+"EDICT i KANJIDICT, millores de la IGU, navegador de kanji, esmena d'errors, "
+"simplificació i poliment del codi"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
