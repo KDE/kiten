@@ -18,3 +18,5 @@ SearchDialog::SearchDialog(QWidget *parent)
     });
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::close);
 }
+
+#include "moc_searchdialog.cpp"
