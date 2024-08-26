@@ -421,7 +421,6 @@ msgstr "Søkeverktøylinje"
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
 #, fuzzy, kde-format
-#| msgid "Searching"
 msgid "Search Options"
 msgstr "Søk"
 
@@ -667,7 +666,6 @@ msgstr "Kanji&informasjon"
 
 #: kanjibrowser/kanjibrowserview.cpp:228
 #, fuzzy, kde-format
-#| msgid "S&earch"
 msgid "&Search…"
 msgstr "&Søk"
 
@@ -833,7 +831,6 @@ msgstr "Etikett-skrift:"
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
 #, fuzzy, kde-format
-#| msgid "S&earch"
 msgid "Search"
 msgstr "&Søk"
 
