@@ -33,6 +33,7 @@
   <name xml:lang="ka">Kiten</name>
   <name xml:lang="ko">Kiten</name>
   <name xml:lang="lt">Kiten</name>
+  <name xml:lang="lv">Kiten</name>
   <name xml:lang="nds">Kiten</name>
   <name xml:lang="nl">Kiten</name>
   <name xml:lang="nn">Kiten</name>
@@ -73,6 +74,7 @@
   <summary xml:lang="ka">იაპონურის ცნობარი და სასწავლო პროგრამა</summary>
   <summary xml:lang="ko">일본어 참조 및 학습 도구</summary>
   <summary xml:lang="lt">Japonų kalbos žinynas ir studijavimo įrankis</summary>
+  <summary xml:lang="lv">Japāņu valodas uzziņu un mācību rīks</summary>
   <summary xml:lang="nds">Nakiek- un Lehrwarktüüch för Japaansch </summary>
   <summary xml:lang="nl">Hulpprogramma voor referentie/studie Japans</summary>
   <summary xml:lang="nn">Språk- og studieverktøy for japansk</summary>
@@ -111,6 +113,7 @@
     <p xml:lang="it">Kiten è uno strumento di riferimento e di studio del giapponese. Include un dizionario inglese-giapponese e giapponese-inglese, e un dizionario dei Kanji. Ci sono diversi modi per cercare caratteri nel dizionario dei Kanji.</p>
     <p xml:lang="ka">Kiten იაპონურის სასწავლი პროგრამაა. მას აქვს იაპონურ-ინგლისური და ინგლისურ-იაპონური ლექსიკონი და კანჯის ლექსიკონი. კანჯის ლექსიკონს აქვს მრავალი საშუალება, სიმბოლოები მოძებნოთ.</p>
     <p xml:lang="ko">Kiten은 일본어 참조 및 학습 도구입니다. 영일사전, 일영사전, 일본어 한자사전을 지원합니다. 일본어 한자사전은 다양한 방법으로 검색할 수 있습니다.</p>
+    <p xml:lang="lv">Kiten ir japāņu valodas uzziņu un mācību rīks. Tas ietver angļu—japāņu un japāņu—angļu vārdnīcu, kā arī kandži vārdnīcu. Kandži vārdnīcai ir dažādi veidi, kā atrast rakstzīmi.</p>
     <p xml:lang="nds">Kiten is en Nakiek- un Lehrwarktüüch för Japaansch. Dat gifft en Engelsch-Japaansch- un en Japaansch-Engelsch-Wöörbook blang en Kanji-Wöörbook. För dat Kanji-Wöörbook laat sik Bookstaven op en Reeg verscheden Oorden nakieken.</p>
     <p xml:lang="nl">Kiten is een hulpmiddel voor referenties naar Japans en om het te studeren. Het omvat een Engels naar Japans en Japans naar Engels woordenboek, evenals een Kanji woordenboek. Voor het Kanji woordenboek worden er meerdere manieren ondersteund om karakters op te zoeken.</p>
     <p xml:lang="nn">Kiten er språk- og studieverktøy for japansk. Det inneheld ei ordliste med tovegs omsetjing mellom engelsk og japansk, samt ei Kanji-ordliste. I Kanji-ordliste kan du slå opp teikn på fleire ulike måtar.</p>
@@ -154,6 +157,7 @@
       <caption xml:lang="it">Esercitandosi con il dizionario giapponese in Kiten</caption>
       <caption xml:lang="ka">იმეცადინეთ იაპონური Kiten-თან ერთად</caption>
       <caption xml:lang="ko">Kiten으로 일영사전 연습</caption>
+      <caption xml:lang="lv">Mācieties japāņu vārdus ar „Kiten“</caption>
       <caption xml:lang="nl">Oefenen met het Japanse woordenboek met Kiten</caption>
       <caption xml:lang="nn">Studerer japansk ordliste med Kiten</caption>
       <caption xml:lang="pl">Ćwiczenie japońskiego słownika z Kiten</caption>
@@ -187,6 +191,7 @@
       <caption xml:lang="it">Visualizzatore dei kanji</caption>
       <caption xml:lang="ka">კანჯის დათვალიერება</caption>
       <caption xml:lang="ko">한자 탐색기</caption>
+      <caption xml:lang="lv">Kandži pārlūks</caption>
       <caption xml:lang="nl">Kanji-browser</caption>
       <caption xml:lang="nn">Kanji-veljar</caption>
       <caption xml:lang="pl">Przeglądarka Kanji</caption>
