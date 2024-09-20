@@ -4,20 +4,21 @@
 # Toussis Manolis <manolis@koppermind.homelinux.org>, 2007, 2008.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2013.
 # Stelios <sstavra@gmail.com>, 2020, 2021.
+# SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2021-06-20 09:43+0300\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2024-09-19 22:01+0300\n"
+"Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -362,7 +363,7 @@ msgid ""
 "common and uncommon entries"
 msgstr ""
 "0=Κανένα φιλτράρισμα, 1=Περιορισμός των αποτελεσμάτων μόνο στις \"συνήθεις\" "
-"καταχωρήσεις , 2=Διαχωρισμόςσυνήθων και μη καταχωρήσεων"
+"καταχωρήσεις , 2=Διαχωρισμός συνήθων και μη καταχωρήσεων"
 
 #. i18n: ectx: label, entry, group (app)
 #: app/kiten.kcfg:93
@@ -934,9 +935,8 @@ msgid ""
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
 "Αυτό το πρόγραμμα χρησιμοποιεί τα αρχεία KANJIDIC και RADKFILE. Αυτά τα "
-"αρχεία είναι ιδιοκτησία της ομάδας έρευνα ςκαι ανάπτυξης του "
-"ηλεκτρονικούλεξικού και χρησιμοποιούνται σε συμφωνία με την άδεια χρήσης της "
-"ομάδας."
+"αρχεία είναι ιδιοκτησία της ομάδας έρευνας και ανάπτυξης του ηλεκτρονικού "
+"λεξικού και χρησιμοποιούνται σε συμφωνία με την άδεια χρήσης της ομάδας."
 
 #: radselect/main.cpp:44
 #, kde-format
@@ -978,7 +978,7 @@ msgstr "Καθαρισμός"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr "Εμφάνιση ριζικών σε φθίνουα σειρά συχνότητας"
+msgstr "Εμφάνιση ριζικών σε φθίνουσα σειρά συχνότητας"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
@@ -1036,7 +1036,7 @@ msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
-"Υο λεξικό Kanji δε φαίνεται να είναι εγκατεστημένο (αρχείο kiten/kanjidic), "
+"Το λεξικό Kanji δε φαίνεται να είναι εγκατεστημένο (αρχείο kiten/kanjidic), "
 "οι πληροφορίες μέτρησης των βασικών γραμμών δεν θα είναι διαθέσιμες."
 
 #: radselect/radselectview.cpp:61
