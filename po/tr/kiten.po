@@ -8,13 +8,13 @@
 # Muhammet Kara <muhammetk@gmail.com>, 2009.
 # obsoleteman <tulliana@gmail.com>, 2008.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2023-11-22 14:25+0300\n"
+"PO-Revision-Date: 2024-09-23 15:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -445,10 +445,10 @@ msgid ""
 "(c) 2006-2008, Joseph Kerian\n"
 "(c) 2011, Daniel E. Moctezuma"
 msgstr ""
-"(c) 2001-2004, Jason Katz-Brown\n"
-"(c) 2006-2007, Eric Kjeldergaard\n"
-"(c) 2006-2008, Joseph Kerian\n"
-"(c) 2011, Daniel E. Moctezuma"
+"© 2001–2004, Jason Katz-Brown\n"
+"© 2006–2007, Eric Kjeldergaard\n"
+"© 2006–2008, Joseph Kerian\n"
+"© 2011, Daniel E. Moctezuma"
 
 #: app/main.cpp:43
 #, kde-format
@@ -755,7 +755,7 @@ msgstr "Kiten Kanji Tarayıcısı, bir KDE Japonca Kaynak Aracı"
 #: kanjibrowser/main.cpp:25
 #, kde-format
 msgid "(C) 2011 Daniel E. Moctezuma"
-msgstr "(C) 2011 Daniel E. Moctezuma"
+msgstr "© 2011 Daniel E. Moctezuma"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, preferences)
 #. i18n: ectx: property (windowTitle), widget (QWidget, radselectprefdialog)
@@ -919,7 +919,7 @@ msgstr "Bir KDE uygulaması"
 #: radselect/main.cpp:28
 #, kde-format
 msgid "(C) 2005 Joseph Kerian"
-msgstr "(C) 2005 Joseph Kerian"
+msgstr "© 2005 Joseph Kerian"
 
 #: radselect/main.cpp:33
 #, kde-format

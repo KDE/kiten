@@ -1,0 +1,624 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Slovenian "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>&kiten; Priročnik</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Matjaž</firstname
+><surname
+>Jeran</surname
+><affiliation
+><address
+><email
+>matjaz.jeran@amis.net</email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>28.12.2020</date>
+<releaseinfo
+>Applications 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kiten; je japonsko referenčno/študijsko orodje &kde;.</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>japonsko</keyword>
+<keyword
+>Jezik</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Uvod</title>
+
+<para
+>&kiten; je komplet 3 orodij z več funkcijami. Prvič, to je priročen angleško-japonski in japonsko-angleški slovar; drugič, to je slovar Kanji, z več načini za iskanje določenih znakov; tretjič, je orodje, ki vam pomaga pri učenju Kanjija.</para>
+
+<para
+>Vsak od teh načinov je obravnavan v svojem poglavju.</para>
+
+<screenshot>
+<screeninfo
+>Tukaj je posnetek zaslona &kiten;</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; posnetek zaslona</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>Uporaba slovarja</title>
+
+<para
+>Najosnovnejši način &kiten; je kot slovar za iskanje angleških in japonskih besed. Na seznam &kiten; lahko dodate tudi druge slovarje.</para>
+
+<para
+>&kiten; kot privzeta slovarja uporablja Edict in Kanjidic Jima Breena. Več informacij najdete na <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>spletnem mestu Edict</ulink
+> in <ulink url="https://www.edrdg. org/wiki/index.php/KANJIDIC_Project"
+>spletnem mestu Kanjidic</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>Iskanje besed</title>
+
+<para
+>Če želite poiskati besede v katerem koli jeziku, jih vnesite v polje za urejanje besedila (podobno kot lokacijska vrstica &konqueror;) in pritisnite bodisi &Enter; ali gumb <guibutton
+>Išči</guibutton
+> v orodni vrstici (spet podobno kot &konqueror;). &kiten; bo nato poiskal besedo.</para>
+
+<para
+>Vnesete lahko Kanji, Kana in angleščino in dobite nazaj rezultate iz &kiten;. Ti rezultati vašega iskanja bodo prikazani v velikem pogledu rezultatov, ki zavzame večine okna &kiten;.</para>
+
+<screenshot>
+<screeninfo
+>iskanje angleškega prevoda</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; iskalni posnetek zaslona</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>Filtriranje</title>
+
+<para
+>Pogosto boste želeli iz svojega iskanja filtrirati redke besede. &kiten; bo to naredil namesto vas, če preklopite <menuchoice
+><guimenu
+>Iskanje</guimenu
+><guimenuitem
+>Izloči redke</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>Vse slovarske datoteke ne podpirajo filtriranja redkih vnosov - večina slovarjev, razen dveh, ki sta privzeto na voljo v &kiten; ne.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona s filtriranjem redkih besed</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; filtriranje iskanja</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>Običajne/neobičajne besede</title>
+<para
+>Drug način za ločevanje informacij je filtriranje običajnih in neobičajnih besed. To je uporabno, ko se želite osredotočiti na pogoste besede in/ali vas zanimajo neobičajne. Edina razlika med možnostma Fitriraj redke in Običajne/Neobičajne je, da tukaj dobite tudi rezultate Redke/Neobičajne.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za ujemanje običajno/neobičajno</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; ujemanje običajno/neobičajno</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>Napredna iskanja</title>
+
+<para
+>&kiten; podpira bolj napredna iskanja kot običajna iskanja besed.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>Začetek/konec/iskanja kjer koli</title>
+<para
+>Poleg iskanja z <guilabel
+>natančnim ujemanjem</guilabel
+> &kiten; ima tri dodatne načine iskanja.</para>
+<para
+>Če želite poiskati začetek besede, namesto da pritisnete gumb <guibutton
+>Išči</guibutton
+> v orodni vrstici ali pritisnete &Enter; pri vnosu besedila v orodni vrstici izberite s pomočjo <menuchoice
+><guimenu
+>Iskanja</guimenu
+><guisubmenu
+>Vrsta ujemanja </guisubmenu
+><guimenuitem
+>Ujemanje začetka</guimenuitem
+></menuchoice
+>. Podobno za iskanja na koncu ali kjer koli izberite <menuchoice
+><guimenu
+>Išči</guimenu
+> <guisubmenu
+>Vrsto ujemanja</guisubmenu
+></menuchoice
+> <guimenuitem
+>Ujemanje kjer koli</guimenuitem
+> ali <guimenuitem
+>Ujemanja konca</guimenuitem
+> za iskanje besedila kjer koli v ali na koncu besede. Ti načini iskanja delujejo pri iskanju v obeh jezikih.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za iskanje ujemanja konca</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; ujemanje pri iskanju konca</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>Iskanje besednih vrst</title>
+<para
+>&kiten; podpira iskanje besednih vrst, kot so: glagol, samostalnik, pridevnik, prislov, predpona, pripona, izraz ali katera koli vrsta. Tako lahko bolj priročno filtrirate rezultate.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za besedno vrsto ujemanja</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; ujemanje besedne vrste</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>Iskanje v rezultatih</title>
+
+<para
+>&kiten; vam lahko tudi pomaga izboljšati iskanja, tako da vam omogoči iskanje novega besedila v rezultatih prejšnjega iskanja. Če želite to narediti, preprosto izberite <menuchoice
+><guimenu
+>Iskanje</guimenu
+><guimenuitem
+>Iskanje v rezultatih</guimenuitem
+></menuchoice
+> za izvedbo iskanja. Podobno kot iskanja na začetku/koncu/kjer koli, tudi to deluje za oba jezika.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za iskanje v rezultatih</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; iskanje v rezultatih</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>Iskanje Kanjijev</title>
+
+<para
+>&kiten; ima funkcije, ki olajšajo iskanje želenega Kanjija med več kot 14.000 v privzetem slovarju.</para>
+
+<note
+><para
+>Če kliknete kateri koli kanji v glavnem pogledu rezultatov, se prikažejo podrobnosti o tem določenem Kanjiju. Včasih je to lahko najhitrejši način za iskanje Kanjija.</para
+></note>
+
+<tip
+><para
+>Iskanja Kanji so prav tako filtrirana glede na to, ali je potrjena možnost <menuchoice
+><guimenu
+>Iskanje</guimenu
+><guimenuitem
+>Izloči redke</guimenuitem
+></menuchoice
+>.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>Redno iskanje</title>
+
+<para
+>Iščete lahko z angleškimi in japonskimi iskalnimi nizi na popolnoma enak način kot z običajnim slovarjem.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>Radikalno iskanje</title>
+
+<para
+>Pogovorno okno radikalnega iskanja &kiten; lahko uporabite za iskanje kanjijev s kombinacijo radikalov in določenega števila potez. Izberite <menuchoice
+><guimenu
+>Iskanje</guimenu
+><guimenuitem
+>Radikalni izbirnik</guimenuitem
+></menuchoice
+>, da odprete pogovorno okno radikalnega iskanja.</para>
+
+<para
+>Če želite izbrati radikale, za katere želite, da so v vašem Kanjiju, izberite enega izmed gumbov na dnu okna. Če želite prikazati možne radikale za izbiro med temi gumbi z določenim številom potez, izberite to število potez v vrtilnih poljih tik nad gumbi. Izbrani radikali se bodo pojavili v seznamskem polju na vrhu.</para>
+
+<para
+>Če želite izbrati, koliko potez naj ima vaš Kanji, preprosto vnesite vrednosti v vrtilna polja pod območjem z rezultati.</para>
+
+<para
+>Če želite izvesti iskanje, pritisnite gumb, ki se ujema s Kanjijem, ki ste ga želeli poiskati.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za radikalni izbirnik</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; radikalni selektor</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>Iskanje ocen</title>
+
+<para
+>Če želite dobiti seznam vseh Kanjijev v določenem razredu, ga vnesite v iskalno polje kot "G:1" (G: je kanjidska oznaka za razred).</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za iskanje stopnje kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; iskanje stopnje kanji</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>Iskanje potez</title>
+
+<para
+>Če želite dobiti seznam vseh kanjijev z določenim številom potez, vnesite to številko v iskalno polje kot "S:2".</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za iskanje črt kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; iskanje črt kanji</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>Seznam Kanji</title>
+
+<para
+>Ta del brskalnika Kanji vam omogoča vizualizacijo seznama kanjijev, filtriranih po stopnji in številu potez. S klikom na Kanji lahko dobite podrobne informacije o njem. Brskalnk Kanji loči seznam Kanji Jouyou, Jinmeiyou in ne-Jouyou. Vsi ti Kanji so na voljo zahvaljujoč slovarju KANJIDIC.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za seznam kanji</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; seznam kanji</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>Kanji informacije</title>
+
+<para
+>Ta del prikazuje podrobne informacije o kanjiju, kot so: vrstni red potez kanjijev, število potez, odčitki in pomeni.</para>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za informacije o kanjiju</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; kanji informacije</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>Razno</title>
+
+<para
+>V tem poglavju so opisane različne funkcije, ki jih je mogoče uporabiti v obeh načinih v glavnem oknu &kiten;.</para>
+
+<sect1 id="history">
+<title
+>Zgodovina</title>
+
+<para
+>&kiten; spremlja vse vaše poizvedbe v vnosnem polju. Svoje zadnje rezultate si lahko ogledate s klikom na kljukico na desni strani vnosnega polja. Če se želite pomakniti naprej v zgodovini, izberite <menuchoice
+><guimenu
+>Pojdi</guimenu
+><guimenuitem
+>Naprej</guimenuitem
+></menuchoice
+>. Če se želite vrniti nazaj v zgodovini, izberite <menuchoice
+><guimenu
+>Pojdi</guimenu
+><guimenuitem
+>Nazaj</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>Pisave</title>
+
+<para
+>Izberete lahko pisavo, ki jo &kiten; uporablja v pogledu rezultatov. Pojdite na &kiten; konfiguracijsko pogovorno okno, ki ga lahko odprete z izbiro <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Konfiguriraj &kiten;...</guimenuitem
+></menuchoice
+>. Izberite stran <guilabel
+>Pisava</guilabel
+> v pogovornem oknu in izberite pisavo v izbirniku pisav.</para>
+
+<note
+><para
+>&Qt; sistem zamenjave pisav omogoča, da bo japonska pisava vedno nadomeščena z japonskimi znaki, tudi če jih pisava, ki jo podate, ne vključuje. Tako lahko v izbirniku izberete katero koli pisavo in vse bi moralo biti prikazano v redu.</para
+></note>
+
+<screenshot>
+<screeninfo
+>Posnetek zaslona za pisavo</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; pisava</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>Zasluge in licenca</title>
+
+<para
+>&kiten; avtorske pravice 2001, 2002 &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>Razvijalci</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - Izvirni avtor.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - Poenostavitev kode, predlogi uporabniškega vmesnika.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> – Napisal je xjdic, od tega &kiten; izposoja kodo in generator indeksne datoteke xjdic. Je tudi glavni avtor edikta in kanjidica, ki ga &kiten; v bistvu zahteva.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - Prenos na KConfig XT in popravljanje napak.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> – &SVG; ikona.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - &kde; 4 prepis.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - &kde; 4 prepis.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> – Izboljšave sistema deinfleksije, posodobitve slovarjev za EDICT in KANJIDIC, &GUI; izboljšave, brskalnik Kanji, popravki napak, poliranje in poenostavitev kode.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Avtorske pravice za dokumentacijo 2002, &Jason.Katz-Brown;</para>
+<para
+>Avtorske pravice za dokumentacijo 2012, Daniel E. Moctezuma</para>
+
+<para
+>Prevod: Matjaž Jeran<email
+>matjaz.jeran@amis.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
