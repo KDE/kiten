@@ -2,24 +2,24 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 ---
-name: picmi
+name: kiten
 confinement: strict
 grade: stable
 base: core22
-adopt-info: picmi
+adopt-info: kiten
 apps:
-  picmi:
+  kiten:
     extensions:
       - kde-neon-6
-    common-id: org.kde.picmi.desktop
-    desktop: usr/share/applications/org.kde.picmi.desktop
-    command: usr/bin/picmi
+    common-id: org.kde.kiten.desktop
+    desktop: usr/share/applications/org.kde.kiten.desktop
+    command: usr/bin/kiten
     plugs:
       - audio-record
 slots:
   session-dbus-interface:
     interface: dbus
-    name: org.kde.picmi
+    name: org.kde.kiten
     bus: session
 package-repositories:
   - type: apt
@@ -31,9 +31,9 @@ package-repositories:
     url: http://origin.archive.neon.kde.org/user
     key-server: keyserver.ubuntu.com
 parts:
-  picmi:
+  kiten:
     parse-info:
-      - usr/share/metainfo/org.kde.picmi.appdata.xml
+      - usr/share/metainfo/org.kde.kiten.appdata.xml
     plugin: cmake
     source: .
     source-type: local
@@ -65,15 +65,14 @@ parts:
       - -usr/share/lintian
   cleanup:
     after:
-      - picmi
+      - kiten
     plugin: nil
     build-snaps:
       - core22
       - kf6-core22
-      - qt-common-themes
     override-prime: |
       set -eux
-      for snap in "core22" "kf6-core22" "qt-common-themes"; do
+      for snap in "core22" "kf6-core22"; do
           cd "/snap/$snap/current" && find . -type f,l -exec rm -rf "${CRAFT_PRIME}/{}" \;
       done
 
