@@ -113,11 +113,20 @@ private:
     /**
      * Enumerations of our possible states in QStackedWidget.
      */
-    enum Page { List, Info };
+    enum Page {
+        List,
+        Info
+    };
 
-    enum Grade { AllJouyouGrades = 0, Grade7 = 7, Jinmeiyou = 9 };
+    enum Grade {
+        AllJouyouGrades = 0,
+        Grade7 = 7,
+        Jinmeiyou = 9
+    };
 
-    enum StrokesCount { NoStrokeLimit };
+    enum StrokesCount {
+        NoStrokeLimit
+    };
 
     /**
      * We need this as we are going to add some QActions to it.

@@ -56,7 +56,10 @@ private:
     static const unsigned int number_of_radical_columns = 11;
     static const unsigned int maximumStrokeValue = 50;
 
-    enum { Selection, Relational } CurrentMode;
+    enum {
+        Selection,
+        Relational
+    } CurrentMode;
 
     QString m_relationalRadical;
     QSet<QString> m_selectedRadicals;

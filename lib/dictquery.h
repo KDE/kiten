@@ -269,7 +269,12 @@ public:
      * This enum is used to define the type of matching this query is supposed
      * to do. The names are fairly self-explanatory
      */
-    enum MatchType { Exact, Beginning, Ending, Anywhere };
+    enum MatchType {
+        Exact,
+        Beginning,
+        Ending,
+        Anywhere
+    };
     /**
      * Get which match type is currently set on the DictQuery.
      */
@@ -283,7 +288,16 @@ public:
      * This enum is used to define the type of matching this query is supposed
      * to do.
      */
-    enum MatchWordType { Any, Verb, Noun, Adjective, Adverb, Prefix, Suffix, Expression };
+    enum MatchWordType {
+        Any,
+        Verb,
+        Noun,
+        Adjective,
+        Adverb,
+        Prefix,
+        Suffix,
+        Expression
+    };
     /**
      * Get which word type is currently set on the DictQuery.
      */
@@ -293,7 +307,11 @@ public:
      */
     void setMatchWordType(MatchWordType newType);
 
-    enum FilterType { NoFilter, Rare, CommonUncommon };
+    enum FilterType {
+        NoFilter,
+        Rare,
+        CommonUncommon
+    };
     /**
      * Get which filter is currently set on the DictQuery.
      */
@@ -308,7 +326,13 @@ public:
      * This enum is used as the return type for the two utility functions,
      * stringTypeCheck and charTypeCheck.
      */
-    enum StringTypeEnum { Kanji, Kana, Latin, Mixed, ParseError };
+    enum StringTypeEnum {
+        Kanji,
+        Kana,
+        Latin,
+        Mixed,
+        ParseError
+    };
     /**
      * A simple utility routine to tell us what sort of string we have
      * If the string contains only kanji, kana or non-kanji/kana characters, the result is strTypeKanji,
