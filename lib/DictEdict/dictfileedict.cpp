@@ -13,11 +13,11 @@
 #include <KConfigSkeleton>
 
 #include <QFile>
+#include <QList>
 #include <QRegularExpression>
 #include <QString>
 #include <QStringDecoder>
 #include <QTextStream>
-#include <QVector>
 
 #include "deinflection.h"
 #include "dictfilefieldselector.h"
@@ -101,7 +101,7 @@ EntryList *DictFileEdict::doSearch(const DictQuery &query)
         firstChoice = firstChoice.at(0);
     }
 
-    QVector<QString> preliminaryResults = m_edictFile.findMatches(firstChoice);
+    QList<QString> preliminaryResults = m_edictFile.findMatches(firstChoice);
 
     if (preliminaryResults.empty()) // If there were no matches... return an empty list
     {

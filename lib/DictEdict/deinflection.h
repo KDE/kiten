@@ -25,7 +25,7 @@ public:
 
     QString *getDeinflectionLabel();
     QString *getWordType();
-    EntryList *search(const DictQuery &query, const QVector<QString> &preliminaryResults);
+    EntryList *search(const DictQuery &query, const QList<QString> &preliminaryResults);
     bool load();
 
 private:

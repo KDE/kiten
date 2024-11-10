@@ -9,9 +9,9 @@
 #ifndef KITEN_LINEAREDICTFILE_H
 #define KITEN_LINEAREDICTFILE_H
 
+#include <QList>
 #include <QString>
 #include <QStringList>
-#include <QVector>
 
 /**
  * A class for managing the EDICT formatted dictionaries with their
@@ -39,7 +39,7 @@ public:
     /**
      * Get everything that looks remotely like a given search string
      */
-    QVector<QString> findMatches(const QString &searchString) const;
+    QList<QString> findMatches(const QString &searchString) const;
 
 private:
     QStringList m_edict;

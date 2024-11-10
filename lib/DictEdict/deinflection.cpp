@@ -53,7 +53,7 @@ QString *Deinflection::getWordType()
     return &m_wordType;
 }
 
-EntryList *Deinflection::search(const DictQuery &query, const QVector<QString> &preliminaryResults)
+EntryList *Deinflection::search(const DictQuery &query, const QList<QString> &preliminaryResults)
 {
     if (conjugationList == nullptr) {
         return nullptr;
