@@ -6,14 +6,14 @@ set_target_properties(radselect_bin PROPERTIES
 )
 
 target_sources(radselect_bin PRIVATE
-    buttongrid.cpp
-    kanji.cpp
+    buttongrid.cpp buttongrid.h
+    kanji.cpp kanji.h
     main.cpp
-    radical.cpp
-    radicalbutton.cpp
-    radicalfile.cpp
-    radselect.cpp
-    radselectview.cpp
+    radical.cpp radical.h
+    radicalbutton.cpp radicalbutton.h
+    radicalfile.cpp radicalfile.h
+    radselect.cpp radselect.h
+    radselectview.cpp radselectview.h
 
     radselect.qrc
 )

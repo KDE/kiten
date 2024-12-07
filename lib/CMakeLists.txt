@@ -9,11 +9,11 @@ set_target_properties(kiten PROPERTIES
 )
 
 target_sources(kiten PRIVATE
-    DictEdict/deinflection.cpp
+    DictEdict/deinflection.cpp DictEdict/deinflection.h
     DictEdict/dictfileedict.cpp
     DictEdict/entryedict.cpp
-    DictEdict/linearedictfile.cpp
-    DictEdict/dictfilefieldselector.cpp
+    DictEdict/linearedictfile.cpp DictEdict/linearedictfile.h
+    DictEdict/dictfilefieldselector.cpp DictEdict/dictfilefieldselector.h
 
     DictKanjidic/dictfilekanjidic.cpp
     DictKanjidic/entrykanjidic.cpp
