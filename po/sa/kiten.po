@@ -3,29 +3,31 @@
 # This file is distributed under the same license as the kiten package.
 # Kali <EMAIL@ADDRESS>, 2024.
 #
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2024-12-13 19:09+0530\n"
-"Last-Translator: Kali <EMAIL@ADDRESS>\n"
-"Language-Team: Sanskrit\n"
+"PO-Revision-Date: 2024-12-14 01:42+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "भवतः नामानि"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "भवतः ईमेलपत्राणि"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
 #: app/configdictselect.ui:14
@@ -137,7 +139,7 @@ msgstr "फॉन्ट्"
 #, kde-format
 msgctxt "@title:group the settings for the dictionary display"
 msgid "Display"
-msgstr ""
+msgstr "प्रदर्शन"
 
 #: app/configuredialog.cpp:54
 #, kde-format
@@ -277,8 +279,8 @@ msgstr "अन्वेषणं कुर्वन्..."
 #, kde-format
 msgid "Found 1 result"
 msgid_plural "Found %1 results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 परिणाम प्राप्त"
+msgstr[1] "%1 परिणामान् प्राप्तम्"
 
 #: app/kiten.cpp:404
 #, kde-format
@@ -629,8 +631,8 @@ msgstr "अन्वेषणपट्टिका"
 #, kde-format
 msgid "%1 kanji found"
 msgid_plural "%1 kanji found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 कञ्जि लब्ध"
+msgstr[1] "%1 कञ्जि लब्ध"
 
 #: kanjibrowser/kanjibrowserview.cpp:197
 #, kde-format
@@ -691,8 +693,8 @@ msgstr "न आघातसीमा"
 #, kde-format
 msgid "%1 stroke"
 msgid_plural "%1 strokes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 आघातः"
+msgstr[1] "%1 आघातः"
 
 #: kanjibrowser/kanjibrowserview.cpp:293
 #, kde-format
@@ -877,7 +879,7 @@ msgctxt ""
 "%1 is a word type (verb or adjective). %2 is a verb or adjective tense. "
 "Example: 'Entered verb in past tense'."
 msgid "Entered %1 in %2 form"
-msgstr ""
+msgstr "%2 रूपेण %1 प्रविष्टम्"
 
 #: lib/entrylist.cpp:143
 #, kde-format
@@ -1027,16 +1029,16 @@ msgstr ""
 #, kde-format
 msgctxt "Minimum number of strokes for a kanji"
 msgid "Min"
-msgstr ""
+msgstr "मि"
 
 #: radselect/radselectview.cpp:62
 #, kde-format
 msgctxt "Maximum number of strokes for a kanji"
 msgid "Max"
-msgstr ""
+msgstr "मैक्स"
 
 #: radselect/radselectview.cpp:106
 #, kde-format
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
-msgstr ""
+msgstr "(सर्वे)"
