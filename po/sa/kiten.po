@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2024-12-14 01:42+0530\n"
+"PO-Revision-Date: 2024-12-19 21:41+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -715,17 +715,17 @@ msgstr "ओन्योमिः १."
 #: kanjibrowser/kanjibrowserview.cpp:309
 #, kde-format
 msgid "Kunyomi: "
-msgstr "विडम्बना अस्ति यत् : १. "
+msgstr "विडम्बना अस्ति यत् : "
 
 #: kanjibrowser/kanjibrowserview.cpp:317 lib/DictKanjidic/entrykanjidic.cpp:148
 #, kde-format
 msgid "In names: "
-msgstr "नामेषु : १. "
+msgstr "नामेषु : "
 
 #: kanjibrowser/kanjibrowserview.cpp:325 lib/DictKanjidic/entrykanjidic.cpp:153
 #, kde-format
 msgid "As radical: "
-msgstr "यथा कट्टरपंथी : १. "
+msgstr "यथा कट्टरपंथी : "
 
 #: kanjibrowser/kanjibrowserview.cpp:332
 #, kde-format
@@ -735,7 +735,7 @@ msgstr "अर्थ: "
 #: kanjibrowser/kanjibrowserview.cpp:334
 #, kde-format
 msgid "Meanings: "
-msgstr "अर्थ : १. "
+msgstr "अर्थ : "
 
 #: kanjibrowser/main.cpp:23
 #, kde-format
@@ -899,7 +899,7 @@ msgstr "कोऽपि कट्टरपंथी चयनितः नास
 #: radselect/buttongrid.cpp:149
 #, kde-format
 msgid "Selected Radicals: "
-msgstr "चयनित कट्टरपंथी : १. "
+msgstr "चयनित कट्टरपंथी : "
 
 #: radselect/main.cpp:26
 #, kde-format
