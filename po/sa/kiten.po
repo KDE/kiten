@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2024-12-19 21:41+0530\n"
+"PO-Revision-Date: 2024-12-20 22:01+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -111,13 +111,13 @@ msgstr "Se&arch Results By Dictionary क्रमबद्धं कुर्�
 #: app/configsorting.ui:28
 #, kde-format
 msgid "Dicti&onaries Available:"
-msgstr "Dicti&onaries उपलब्धाः : १."
+msgstr "Dicti&onaries उपलब्धाः :"
 
 #. i18n: ectx: property (selectedLabel), widget (KActionSelector, dictionary_order)
 #: app/configsorting.ui:31
 #, kde-format
 msgid "Displa&y First:"
-msgstr "Displa&y प्रथमं : १."
+msgstr "Displa&y प्रथमं :"
 
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, field_order)
 #: app/configsorting.ui:48
@@ -672,7 +672,7 @@ msgstr "सर्वे जौयु कान्जी ग्रेड्स"
 #: kanjibrowser/kanjibrowserview.cpp:237
 #, kde-format
 msgid "Grade %1 (Jinmeiyou)"
-msgstr "ग्रेड %1 (जिनमेइयोउ) ९."
+msgstr "ग्रेड %1 (जिनमेइयोउ)"
 
 #: kanjibrowser/kanjibrowserview.cpp:239
 #, kde-format
@@ -705,12 +705,12 @@ msgstr "वर्ग:"
 #: kanjibrowser/kanjibrowserview.cpp:295 radselect/radical_selector.ui:102
 #, kde-format
 msgid "Strokes:"
-msgstr "आघातः : १."
+msgstr "आघातः :"
 
 #: kanjibrowser/kanjibrowserview.cpp:301
 #, kde-format
 msgid "Onyomi: "
-msgstr "ओन्योमिः १."
+msgstr "ओन्योमिः"
 
 #: kanjibrowser/kanjibrowserview.cpp:309
 #, kde-format
@@ -785,7 +785,7 @@ msgstr "बटन-फॉन्ट् समायोजयितुं एतस
 #: kanjibrowser/preferences.ui:40
 #, kde-format
 msgid "Kanji font:"
-msgstr "कान्जी फॉन्टः १."
+msgstr "कान्जी फॉन्टः"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
 #: kanjibrowser/preferences.ui:56
@@ -803,13 +803,13 @@ msgstr "कान्जी सूचना"
 #: kanjibrowser/preferences.ui:97
 #, kde-format
 msgid "Kanji size:"
-msgstr "कान्जी आकारः १."
+msgstr "कान्जी आकारः"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanaFontLabel)
 #: kanjibrowser/preferences.ui:121
 #, kde-format
 msgid "Kana font:"
-msgstr "कना फ़ॉन्ट् : १."
+msgstr "कना फ़ॉन्ट् :"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
 #: kanjibrowser/preferences.ui:128
@@ -821,7 +821,7 @@ msgstr "कना"
 #: kanjibrowser/preferences.ui:151
 #, kde-format
 msgid "Label font:"
-msgstr "लेबल फ़ॉन्ट् : १."
+msgstr "लेबल फ़ॉन्ट् :"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
@@ -861,7 +861,7 @@ msgstr "क्रियाविभक्तिसूचना लोड् क�
 #: lib/DictEdict/dictfilefieldselector.cpp:28
 #, kde-format
 msgid "&Available Fields:"
-msgstr "&उपलब्धक्षेत्राणि : १."
+msgstr "&उपलब्धक्षेत्राणि :"
 
 #: lib/entry.cpp:154
 #, kde-format
@@ -871,7 +871,7 @@ msgstr "; "
 #: lib/entrylist.cpp:105
 #, kde-format
 msgid "From Dictionary:"
-msgstr "शब्दकोशात् : १."
+msgstr "शब्दकोशात् :"
 
 #: lib/entrylist.cpp:122
 #, kde-format
@@ -1005,7 +1005,7 @@ msgstr "कान्जी कना"
 #: radselect/radselectprefdialog.ui:69
 #, kde-format
 msgid "Button Font:"
-msgstr "बटन फ़ॉन्टः : १."
+msgstr "बटन फ़ॉन्टः :"
 
 #: radselect/radselectview.cpp:38
 #, kde-format
