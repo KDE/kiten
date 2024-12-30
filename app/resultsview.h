@@ -25,8 +25,6 @@ class ResultsView : public QTextBrowser
 public:
     explicit ResultsView(QWidget *parent = nullptr, const char *name = nullptr);
 
-    void addResult(Entry *result, bool common = false);
-    void addKanjiResult(Entry *, bool common = false);
     void setLaterScrollValue(int scrollValue);
 
 public Q_SLOTS:
