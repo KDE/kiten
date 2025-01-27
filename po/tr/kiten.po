@@ -8,13 +8,13 @@
 # Muhammet Kara <muhammetk@gmail.com>, 2009.
 # obsoleteman <tulliana@gmail.com>, 2008.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-22 01:34+0000\n"
-"PO-Revision-Date: 2024-09-23 15:21+0300\n"
+"PO-Revision-Date: 2025-01-26 13:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -64,7 +64,7 @@ msgstr "Dosya"
 #: app/configdictselect.ui:86
 #, kde-format
 msgid "&Add..."
-msgstr "&Ekle..."
+msgstr "&Ekle…"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
@@ -100,7 +100,7 @@ msgstr "Arama"
 #: app/configsearching.ui:27
 #, kde-format
 msgid "Search for \"jiten\" on startup"
-msgstr "Açılışta \"jiten\"i ara"
+msgstr "Açılışta “jiten”i ara"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configSorting)
 #: app/configsorting.ui:15
@@ -275,12 +275,12 @@ msgstr "Sözlükler İlklendiriliyor"
 #: app/kiten.cpp:230
 #, kde-format
 msgid "Welcome to Kiten"
-msgstr "Kiten'e hoş geldiniz"
+msgstr "Kiten’e hoş geldiniz"
 
 #: app/kiten.cpp:326 app/kiten.cpp:383
 #, kde-format
 msgid "Searching..."
-msgstr "Arıyor..."
+msgstr "Aranıyor…"
 
 #: app/kiten.cpp:402
 #, kde-format
@@ -310,7 +310,7 @@ msgstr "Sözlük dosyalarını düzenle"
 #: app/kiten.kcfg:28
 #, kde-format
 msgid "Use preinstalled edict"
-msgstr "Önceden kurulmuş edict'i kullan"
+msgstr "Önceden kurulmuş edict’i kullan"
 
 #. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
 #. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
@@ -335,7 +335,7 @@ msgstr "Önceden kurulmuş kanjidic kullan"
 #: app/kiten.kcfg:53
 #, kde-format
 msgid "Do we search for \"jiten\" on startup"
-msgstr "Başlangıçta \"jiten\" aransın mı?"
+msgstr "Başlangıçta “jiten” aransın mı?"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:57
@@ -368,7 +368,7 @@ msgid ""
 "0=No filter, 1=Limit search results to \"common\" entries only, 2=Separate "
 "common and uncommon entries"
 msgstr ""
-"0=Süzgeç yok, 1=Aramaları \"yaygın\" girdilerle sınırla, 2=Yaygın olan ve "
+"0=Süzgeç yok, 1=Aramaları “yaygın” girdilerle sınırla, 2=Yaygın olan ve "
 "olmayan girdileri ayır"
 
 #. i18n: ectx: label, entry, group (app)
@@ -445,7 +445,7 @@ msgid ""
 "(c) 2006-2008, Joseph Kerian\n"
 "(c) 2011, Daniel E. Moctezuma"
 msgstr ""
-"© 2001–2004, Jason Katz-Brown\n"
+"© 2001–2004, Jason Katz–Brown\n"
 "© 2006–2007, Eric Kjeldergaard\n"
 "© 2006–2008, Joseph Kerian\n"
 "© 2011, Daniel E. Moctezuma"
@@ -453,7 +453,7 @@ msgstr ""
 #: app/main.cpp:43
 #, kde-format
 msgid "Jason Katz-Brown"
-msgstr "Jason Katz-Brown"
+msgstr "Jason Katz–Brown"
 
 #: app/main.cpp:43
 #, kde-format
@@ -472,9 +472,8 @@ msgid ""
 "generator.\n"
 "Also is main author of edict and kanjidic, which Kiten essentially require."
 msgstr ""
-"Kiten'ın kod ödünç aldığı xjdic'i ve xjdic indeks dosya oluşturucusunu "
-"yazdı.\n"
-"Ayrıca Kiten'ın öncelikli olarak gerek duyduğu edict ve kanjidi'nin ana "
+"Kiten’in kod ödünç aldığı xjdic’i ve xjdic indeks dosya üretecini yazdı.\n"
+"Ayrıca Kiten’in öncelikli olarak gerek duyduğu edict’in ve kanjidi’nin ana "
 "yazarı."
 
 #: app/main.cpp:48
@@ -505,7 +504,7 @@ msgstr "Paul Temple"
 #: app/main.cpp:50
 #, kde-format
 msgid "Porting to KConfig XT, bug fixing"
-msgstr "KConfig XT'ye taşıma, hata ayıklama"
+msgstr "KConfig XT’ye taşıma, hata ayıklama"
 
 #: app/main.cpp:51 radselect/main.cpp:32
 #, kde-format
@@ -934,13 +933,13 @@ msgid ""
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
 "Bu program, KANJIDIC ve RADKFILE sözlük dosyalarını kullanır. Bu dosyalar, "
-"Elektronik Sözlük Araştırma ve Geliştirme Grubunun mülküdür ve Grup'un "
+"Elektronik Sözlük Araştırma ve Geliştirme Grubunun mülküdür ve Grup’un "
 "lisansı ile uyumlu olarak kullanılmaktadır."
 
 #: radselect/main.cpp:44
 #, kde-format
 msgid "Initial Search String from Kiten"
-msgstr "Kiten'den İlk Arama Dizisi"
+msgstr "Kiten’den İlk Arama Dizisi"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, radical_selector)
 #: radselect/radical_selector.ui:22
