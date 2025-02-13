@@ -246,12 +246,12 @@ msgstr "聚焦结果视图"
 #: app/kiten.cpp:178
 #, kde-format
 msgid "Go to the previous search query."
-msgstr ""
+msgstr "转到上一个搜索查询。"
 
 #: app/kiten.cpp:180
 #, kde-format
 msgid "Go to the next search query."
-msgstr ""
+msgstr "转到下一个搜索查询。"
 
 #: app/kiten.cpp:187
 #, kde-format
@@ -412,7 +412,7 @@ msgstr "搜索工具栏"
 #: app/kitenui.rc:52
 #, kde-format
 msgid "Search Options"
-msgstr ""
+msgstr "搜索选项"
 
 #: app/main.cpp:32
 #, kde-format
@@ -655,7 +655,7 @@ msgstr "汉字信息(&I)"
 #: kanjibrowser/kanjibrowserview.cpp:228
 #, kde-format
 msgid "&Search…"
-msgstr ""
+msgstr "搜索(&S)..."
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -819,13 +819,13 @@ msgstr "标签字体："
 #: kanjibrowser/searchdialog.ui:20
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
 #, kde-format
 msgid "Enter a search query:"
-msgstr ""
+msgstr "输入搜索查询："
 
 #: lib/DictEdict/deinflection.cpp:118
 #, kde-format
