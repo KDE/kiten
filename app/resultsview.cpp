@@ -72,6 +72,7 @@ QString ResultsView::generateCSS()
                "a:hover {color: %6 } "
                "a:active {color: %6}"
                ".odd { background-color: %10 }"
+               "body { background-color: %11 }"
                "query { color: %6 }")
         .arg(scheme.foreground().color().name())
         .arg(scheme.foreground(KColorScheme::InactiveText).color().name())
@@ -82,7 +83,8 @@ QString ResultsView::generateCSS()
         .arg(font.family())
         .arg(font.pointSize()) // the text size
         .arg(font.pointSize() + 10) // a larger size for kanji
-        .arg(scheme.background(KColorScheme::AlternateBackground).color().name());
+        .arg(scheme.background(KColorScheme::AlternateBackground).color().name())
+        .arg(scheme.background(KColorScheme::NormalBackground).color().name());
 }
 
 /**
