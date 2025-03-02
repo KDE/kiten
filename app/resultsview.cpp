@@ -60,8 +60,8 @@ QString ResultsView::generateCSS()
     QFont font = KitenConfigSkeleton::self()->font();
 
     return QStringLiteral(
-               ".Word { font-size: %9px }"
-               ".Entry { font-size: %8px; color: %1; font-family: \"%7\"; }"
+               ".Word { font-size: %9pt }"
+               ".Entry { font-size: %8pt; color: %1; font-family: \"%7\"; }"
                //"div.Entry {display: inline; }"
                ".DictionaryHeader { color: %2; border-bottom: solid %3 }"
                ".CommonHeader { color: %2; text-align:center }"
