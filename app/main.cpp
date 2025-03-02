@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
 
     aboutData.addAuthor(i18n("Jason Katz-Brown"), i18n("Original author"), QStringLiteral("jason@katzbrown.com"));
     aboutData.addCredit(i18n("Jim Breen"),
-                        i18n("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\nAlso is main author of edict and kanjidic, which "
-                             "Kiten essentially require."),
+                        i18n("Wrote xjdic, of which Kiten borrows code, and the xjdic index file generator.\n"
+                             "Also is main author of edict and kanjidic, which Kiten essentially require."),
                         QStringLiteral("jwb@csse.monash.edu.au"));
     aboutData.addAuthor(i18n("Neil Stevens"), i18n("Code simplification, UI suggestions."), QStringLiteral("neil@qualityassistant.com"));
     aboutData.addCredit(i18n("David Vignoni"), i18n("svg icon"), QStringLiteral("david80v@tin.it"));
@@ -51,8 +51,8 @@ int main(int argc, char *argv[])
     aboutData.addAuthor(i18n("Joseph Kerian"), i18n("KDE4 rewrite"), QStringLiteral("jkerian@gmail.com"));
     aboutData.addAuthor(i18n("Eric Kjeldergaard"), i18n("KDE4 rewrite"), QStringLiteral("kjelderg@gmail.com"));
     aboutData.addAuthor(i18n("Daniel E. Moctezuma"),
-                        i18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code "
-                             "polishing and simplification"),
+                        i18n("Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC,\n"
+                             "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"),
                         QStringLiteral("democtezuma@gmail.com"));
 
     aboutData.setOrganizationDomain("kde.org");
