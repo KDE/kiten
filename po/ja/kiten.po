@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-22 01:34+0000\n"
+"POT-Creation-Date: 2025-03-03 00:37+0000\n"
 "PO-Revision-Date: 2019-05-25 17:04+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -514,7 +514,8 @@ msgstr "Daniel E. Moctezuma"
 #: app/main.cpp:54
 #, kde-format
 msgid ""
-"Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
+"Deinflection system improvements, Dictionary updates for EDICT and "
+"KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
 

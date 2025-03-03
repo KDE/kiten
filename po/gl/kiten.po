@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-22 01:34+0000\n"
+"POT-Creation-Date: 2025-03-03 00:37+0000\n"
 "PO-Revision-Date: 2023-11-23 17:22+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -405,7 +405,7 @@ msgstr "&Ficheiro"
 #: app/kitenui.rc:35 kanjibrowser/kanjibrowserui.rc:16
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Barra de ferramentas Principal"
+msgstr "Barra de ferramentas principal"
 
 #. i18n: ectx: ToolBar (extraToolbar)
 #: app/kitenui.rc:44
@@ -526,9 +526,14 @@ msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Deinflection system improvements, Dictionary updates for EDICT and "
+#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
+#| "simplification"
 msgid ""
-"Deinflection system improvements, Dictionary updates for EDICT and KANJIDIC, "
+"Deinflection system improvements, Dictionary updates for EDICT and "
+"KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
 "Melloras do sistema de deflexión, actualizacións dos dicionarios de EDICT e "
