@@ -1,17 +1,17 @@
 # Translation of kiten.po to Catalan
-# Copyright (C) 2003-2023 This_file_is_part_of_KDE
+# Copyright (C) 2003-2025 This_file_is_part_of_KDE
 #
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2003, 2012, 2014, 2020, 2021, 2022.
 # Albert Astals Cid <aacid@kde.org>, 2004, 2005.
 # David Gil <al016950@yahoo.es>, 2005.
 # Orestes Mas Casals <orestes@tsc.upc.edu>, 2007, 2008, 2010, 2011, 2012.
-# Josep M. Ferrer <txemaq@gmail.com>, 2009, 2010, 2011, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023.
+# Josep M. Ferrer <txemaq@gmail.com>, 2009, 2010, 2011, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2023-11-22 11:39+0100\n"
+"PO-Revision-Date: 2025-03-03 08:59+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -524,19 +524,16 @@ msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "Deinflection system improvements, Dictionary updates for EDICT and "
-#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
-#| "simplification"
+#, kde-format
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and "
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
 "Millores en el sistema de desinflexió, actualitzacions dels diccionaris "
-"EDICT i KANJIDICT, millores de la IGU, navegador de kanji, correcció "
-"d'errors, simplificació i poliment del codi"
+"EDICT i KANJIDICT,\n"
+"millores de la IGU, navegador de kanji, correcció d'errors, simplificació i "
+"poliment del codi"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
