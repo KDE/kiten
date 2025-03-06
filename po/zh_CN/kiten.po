@@ -513,18 +513,12 @@ msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "Deinflection system improvements, Dictionary updates for EDICT and "
-#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
-#| "simplification"
+#, kde-format
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and "
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
-"Deinflection系统改进，EDICT和KANJIDIC的词典更新，GUI改进，汉字浏览器，Bug修"
-"复，代码修饰和简化"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
