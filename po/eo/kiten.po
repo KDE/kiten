@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2023-11-22 06:38+0100\n"
+"PO-Revision-Date: 2025-03-15 10:38+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -522,18 +522,14 @@ msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "Deinflection system improvements, Dictionary updates for EDICT and "
-#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
-#| "simplification"
+#, kde-format
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and "
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
-"Malfleksiosistemaj plibonigoj, Vortaraj ĝisdatigoj por EDIKTO kaj KANJIDIC, "
-"GUI-Pliboniĝoj, Kanji-Retumilo, Cimaj korektoj, Kodopoluro kaj simpligo"
+"Malfleksiosistemaj plibonigoj, Vortaraj ĝisdatigoj por EDIKTO kaj KANJIDIC,\n"
+"GUI-Pliboniĝoj, Kanji-Retumilo, Cimkorektoj, Polurado kaj simpligo de kodo"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
