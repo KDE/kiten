@@ -520,10 +520,6 @@ msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
 #, fuzzy, kde-format
-#| msgid ""
-#| "Deinflection system improvements, Dictionary updates for EDICT and "
-#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
-#| "simplification"
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and "
 "KANJIDIC,\n"
