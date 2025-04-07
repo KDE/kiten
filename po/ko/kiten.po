@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kiten package.
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2024-02-09 23:45+0100\n"
+"PO-Revision-Date: 2025-04-06 23:15+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -514,18 +514,14 @@ msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "Deinflection system improvements, Dictionary updates for EDICT and "
-#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
-#| "simplification"
+#, kde-format
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and "
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
-"동사 원형 시스템 개선, EDICT 및 KANJIDIC 사전 업데이트, GUI 개선, 한자 탐색"
-"기, 버그 수정, 코드 수정 및 간략화"
+"동사 원형 시스템 개선, EDICT 및 KANJIDIC 사전 업데이트,\n"
+"GUI 개선, 한자 탐색기, 버그 수정, 코드 수정 및 간략화"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
