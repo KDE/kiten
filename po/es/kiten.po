@@ -1,5 +1,6 @@
-# Translation of kiten.po to Spanish
-# Copyright (C) 2002-2025 Free Software Foundation, Inc.
+# Spanish translations for kiten.po package.
+# Copyright (C) 2002-2025 This file is copyright:
+# This file is distributed under the same license as the kiten package.
 #
 # SPDX-FileCopyrightText: 2002, 2003, 2004 Miguel Revilla Rodríguez <yo@miguelrevilla.com>
 # SPDX-FileCopyrightText: 2004, 2005 Rafael Beccar <rafael.beccar@kdemail.net>
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2025-03-04 17:36+0100\n"
+"PO-Revision-Date: 2025-05-18 12:50+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1067,96 +1068,3 @@ msgstr "Máx"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(TODO)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "El archivo de información de romaji no está instalado, por lo que no se "
-#~ "puede usar la conversión a romaji."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "La información sobre romaji no se puede cargar, por lo que no se puede "
-#~ "usar la conversión a romaji."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Inglés"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kana"
-
-#~ msgid "Learn"
-#~ msgstr "Aprender"
-
-#~ msgid ""
-#~ "Learn mode is disabled in this version of kiten. There are several "
-#~ "excellent open source flashcard programs available, such as <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
-#~ "apps.ankiweb.net\">Anki project</a>."
-#~ msgstr ""
-#~ "El modo de aprendizaje está desactivado en esta versión de Kiten. Existen "
-#~ "varios programas de tarjetas de código abierto excelentes, como <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a> y el <a href=\"https://apps."
-#~ "ankiweb.net\">proyecto Anki</a>."
-
-#~ msgid "Settings"
-#~ msgstr "Preferencias"
-
-#~ msgid "kitenkanjibrowser"
-#~ msgstr "kitenkanjibrowser"
-
-#~ msgid "kitenradselect"
-#~ msgstr "kitenradselect"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Noun"
-#~ msgstr "Sustantivo"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Verb"
-#~ msgstr "Verbo"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adjective"
-#~ msgstr "Adjetivo"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adverb"
-#~ msgstr "Adverbio"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Particle"
-#~ msgstr "Partícula"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated (except possibly in far-eastern languages), this must be a "
-#~ "single word"
-#~ msgid "Ichidan"
-#~ msgstr "Ichidan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Godan"
-#~ msgstr "Godan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Fukisoku"
-#~ msgstr "Fukisoku"
-
-#~ msgid "Idiomatic expression"
-#~ msgstr "Expresión idiomática"
-
-#~ msgid "Noun (used as a prefix)"
-#~ msgstr "Nombre (usado como prefijo)"
-
-#~ msgid "Noun (used as a suffix)"
-#~ msgstr "Nombre (usado como sufijo)"
