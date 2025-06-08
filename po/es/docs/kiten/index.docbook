@@ -57,6 +57,20 @@
 > <contrib
 >Traductor</contrib
 > </othercredit
+> <othercredit role="translator"
+> <firstname
+>Eloy</firstname
+> <surname
+>Cuadra</surname
+> <affiliation
+><address
+><email
+>ecuadra@eloihr.net</email
+></address
+></affiliation
+> <contrib
+>Traductor</contrib
+> </othercredit
 > 
 </authorgroup>
 
@@ -539,7 +553,7 @@ until you get used to handling Japanese verb forms.
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &kiten;...</guimenuitem
+>Configurar &kiten;…</guimenuitem
 ></menuchoice
 >. Seleccione la sección <guilabel
 >Tipo de letra</guilabel
