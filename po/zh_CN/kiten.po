@@ -519,6 +519,8 @@ msgid ""
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
+"Deinflection 系统改进，EDICT 和 KANJIDIC 的词典更新，GUI 改进，汉字浏览器，"
+"Bug 修复，代码修饰和简化"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
