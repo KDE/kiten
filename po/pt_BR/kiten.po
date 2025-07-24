@@ -8,19 +8,20 @@
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2012, 2019.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2019, 2020, 2021, 2022, 2023.
 # SPDX-FileCopyrightText: 2023 Geraldo Simiao <geraldosimiao@fedoraproject.org>
+# SPDX-FileCopyrightText: 2025 Marcus Gama <marcus.gama@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2023-12-13 08:02-0300\n"
-"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
+"PO-Revision-Date: 2025-07-23 09:53-0300\n"
+"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, kde-format
@@ -529,19 +530,16 @@ msgid "Daniel E. Moctezuma"
 msgstr "Daniel E. Moctezuma"
 
 #: app/main.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "Deinflection system improvements, Dictionary updates for EDICT and "
-#| "KANJIDIC, GUI Improvements, Kanji Browser, Bug fixes, Code polishing and "
-#| "simplification"
+#, kde-format
 msgid ""
 "Deinflection system improvements, Dictionary updates for EDICT and "
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
 "Melhorias no sistema de declinações, atualizações do dicionário para o EDICT "
-"e o KANJIDIC, melhorias na interface, navegador do Kanji, correções de "
-"erros, organização e simplificação do código"
+"e o KANJIDIC,\n"
+"melhorias na interface, navegador do Kanji, correções de erros, organização "
+"e simplificação do código"
 
 #: app/searchstringinput.cpp:27
 #, kde-format
