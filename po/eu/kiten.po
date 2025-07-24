@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2025-03-04 13:22+0100\n"
+"PO-Revision-Date: 2025-07-23 14:03+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -62,7 +62,7 @@ msgstr "Fitxategia"
 #: app/configdictselect.ui:86
 #, kde-format
 msgid "&Add..."
-msgstr "&Gehitu..."
+msgstr "&Gehitu…"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: app/configdictselect.ui:93
@@ -278,7 +278,7 @@ msgstr "Ongi etorri Kiten-era"
 #: app/kiten.cpp:326 app/kiten.cpp:383
 #, kde-format
 msgid "Searching..."
-msgstr "Bilatzen..."
+msgstr "Bilatzen…"
 
 #: app/kiten.cpp:402
 #, kde-format
@@ -671,7 +671,7 @@ msgstr "Kanji-aren &informazioa"
 #: kanjibrowser/kanjibrowserview.cpp:228
 #, kde-format
 msgid "&Search…"
-msgstr "&Bilatu..."
+msgstr "&Bilatu…"
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
