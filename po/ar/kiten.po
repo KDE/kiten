@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:37+0000\n"
-"PO-Revision-Date: 2025-08-04 14:43+0400\n"
+"PO-Revision-Date: 2025-09-17 19:25+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -81,7 +81,7 @@ msgstr "الخط الرئيس:"
 #: app/configfont.ui:28
 #, kde-format
 msgid "漢字 かな romaji"
-msgstr ""
+msgstr "漢字 かな romaji"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigSearching)
 #: app/configsearching.ui:13 app/configuredialog.cpp:44
@@ -385,7 +385,7 @@ msgstr "&ملف"
 #: app/kitenui.rc:35 kanjibrowser/kanjibrowserui.rc:16
 #, kde-format
 msgid "Main Toolbar"
-msgstr "شريط الأدوات الرئيسي"
+msgstr "شريط الأدوات الرئيس"
 
 #. i18n: ectx: ToolBar (extraToolbar)
 #: app/kitenui.rc:44
@@ -426,7 +426,8 @@ msgid ""
 msgstr ""
 
 #: app/main.cpp:43
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Jason Katz-Brown"
 msgid "Jason Katz-Brown"
 msgstr "Jason Katz-Brown"
 
@@ -461,7 +462,7 @@ msgstr "الرّمز UI."
 #: app/main.cpp:49
 #, kde-format
 msgid "David Vignoni"
-msgstr "David Vignoni"
+msgstr "ديفيد فيجنوني"
 
 #: app/main.cpp:49
 #, kde-format
@@ -779,7 +780,7 @@ msgstr ""
 #: kanjibrowser/preferences.ui:56
 #, kde-format
 msgid "漢字"
-msgstr ""
+msgstr "漢字"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: kanjibrowser/preferences.ui:77
@@ -803,7 +804,7 @@ msgstr ""
 #: kanjibrowser/preferences.ui:128
 #, kde-format
 msgid "かな"
-msgstr ""
+msgstr "かな"
 
 #. i18n: ectx: property (text), widget (QLabel, _labelFontLabel)
 #: kanjibrowser/preferences.ui:151
@@ -855,7 +856,7 @@ msgstr "الحقول المتاحة"
 #: lib/entry.cpp:154
 #, kde-format
 msgid "; "
-msgstr ""
+msgstr "; "
 
 #: lib/entrylist.cpp:105
 #, fuzzy, kde-format
@@ -985,7 +986,7 @@ msgstr "إستعمل إلى تسوية زر الخط"
 #: radselect/radselectprefdialog.ui:56 radselect/radselectprefdialog.ui:82
 #, kde-format
 msgid "漢字 かな"
-msgstr ""
+msgstr "漢字 かな"
 
 #. i18n: ectx: property (text), widget (QLabel, fontSize_label)
 #: radselect/radselectprefdialog.ui:69
