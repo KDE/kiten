@@ -176,6 +176,7 @@
     </screenshot>
     <screenshot type="default">
       <caption>Kanji Browser</caption>
+      <caption xml:lang="ar">متصفح كانجي</caption>
       <caption xml:lang="ca">Navegador de Kanji</caption>
       <caption xml:lang="ca-valencia">Navegador de Kanji</caption>
       <caption xml:lang="cs">Prohlížeč kandži</caption>
