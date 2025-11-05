@@ -112,7 +112,7 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 > sur la barre d'outils (encore une fois, comme sur &konqueror;). &kiten; recherchera alors le mot.</para>
 
 <para
->Vous pouvez saisir des Kanjis, des Kanas ou de l'Anglais et obtenir les résultats de &kiten;. Les résultats de votre recherche apparaîtront dans la grande vue de résultats qui prend la majeure partie de la fenêtre de &kiten;.</para>
+>Vous pouvez saisir des Kanjis, des Kanas ou de l'Anglais et obtenir les résultats de &kiten;. Les résultats de votre recherche apparaitront dans la grande vue de résultats qui prend la majeure partie de la fenêtre de &kiten;.</para>
 
 <screenshot>
 <screeninfo
@@ -354,16 +354,16 @@ until you get used to handling Japanese verb forms.
 >Recherche par Radical</title>
 
 <para
->Vous pouvez utiliser la boîte de dialogue de &kiten; pour chercher un Kanji avec une combinaison de radicaux et un certain nombre de traits. Choisissez <menuchoice
+>Vous pouvez utiliser la boite de dialogue de &kiten; pour chercher un Kanji avec une combinaison de radicaux et un certain nombre de traits. Choisissez <menuchoice
 ><guimenu
 >Recherche</guimenu
 ><guimenuitem
 >Sélecteur de Radical</guimenuitem
 ></menuchoice
-> pour ouvrir la boîte de dialogue de recherche par radical.</para>
+> pour ouvrir la boite de dialogue de recherche par radical.</para>
 
 <para
->Pour choisir les radicaux devant être présents dans le Kanji, sélectionnez l'un d'eux via les boutons situés en bas de la fenêtre. Pour afficher les radicaux possibles ayant un certain nombre de traits, choisissez ce nombre de traits dans les compteurs situés juste au dessus des boutons. Les radicaux que vous avez choisi apparaîtront en haut de la liste.</para>
+>Pour choisir les radicaux devant être présents dans le Kanji, sélectionnez l'un d'eux via les boutons situés en bas de la fenêtre. Pour afficher les radicaux possibles ayant un certain nombre de traits, choisissez ce nombre de traits dans les compteurs situés juste au dessus des boutons. Les radicaux que vous avez choisi apparaitront en haut de la liste.</para>
 
 <para
 >Pour choisir combien de traits un Kanji devrait avoir, saisissez simplement les valeurs dans les compteurs situés sous la zone de résultats.</para>
@@ -391,7 +391,7 @@ until you get used to handling Japanese verb forms.
 >Recherche par grade</title>
 
 <para
->Pour obtenir la liste de tous les Kanjis d'un certain grade, saisissez celui-ci dans la boîte de recherche de la façon suivante « G:1 » (G: est le tag de Kanjidic pour le grade).</para>
+>Pour obtenir la liste de tous les Kanjis d'un certain grade, saisissez celui-ci dans la boite de recherche de la façon suivante « G:1 » (G: est le tag de Kanjidic pour le grade).</para>
 
 <screenshot>
 <screeninfo
@@ -413,7 +413,7 @@ until you get used to handling Japanese verb forms.
 >Recherche par Traits</title>
 
 <para
->Pour obtenir la liste de tous les Kanjis ayant un certain nombre de traits, saisissez ce nombre dans la boîte de recherche de la façon suivante « S:2 ».</para>
+>Pour obtenir la liste de tous les Kanjis ayant un certain nombre de traits, saisissez ce nombre dans la boite de recherche de la façon suivante « S:2 ».</para>
 
 <screenshot>
 <screeninfo
@@ -509,7 +509,7 @@ until you get used to handling Japanese verb forms.
 >Polices</title>
 
 <para
->Vous pouvez sélectionner la police que &kiten; utilise pour son affichage de résultats. Allez dans la boîte de configuration de &kiten;, que vous pouvez ouvrir vous rendant dans <menuchoice
+>Vous pouvez sélectionner la police que &kiten; utilise pour son affichage de résultats. Allez dans la boite de configuration de &kiten;, que vous pouvez ouvrir vous rendant dans <menuchoice
 ><guimenu
 >Configuration</guimenu
 ><guimenuitem
@@ -517,7 +517,7 @@ until you get used to handling Japanese verb forms.
 ></menuchoice
 >. Sélectionnez la page <guilabel
 >Police</guilabel
-> de la boîte de dialogue et sélectionnez la police dans le sélecteur de polices.</para>
+> de la boite de dialogue et sélectionnez la police dans le sélecteur de polices.</para>
 
 <note
 ><para
