@@ -402,10 +402,9 @@ msgstr "Barra Uirlisí Cuardaigh"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "Ag cuardach"
+msgstr ""
 
 #: app/main.cpp:32
 #, kde-format
@@ -631,10 +630,9 @@ msgid "About %1"
 msgstr "Maidir le %1"
 
 #: kanjibrowser/kanjibrowserview.cpp:198
-#, fuzzy, kde-format
-#| msgid "&To Clipboard"
+#, kde-format
 msgid "Copy %1 to clipboard"
-msgstr "&Go dtí an ghearrthaisce"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:211
 #, kde-format
@@ -652,10 +650,9 @@ msgid "Kanji &Information"
 msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "C&uardaigh"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -815,17 +812,15 @@ msgstr "かな"
 
 #. i18n: ectx: property (text), widget (QLabel, _labelFontLabel)
 #: kanjibrowser/preferences.ui:151
-#, fuzzy, kde-format
-#| msgid "Kana font:"
+#, kde-format
 msgid "Label font:"
-msgstr "Cló Kana:"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "C&uardaigh"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
@@ -982,18 +977,16 @@ msgstr "Dún an roghnóir fréamhacha nuair a bhrúfaidh tú Cuardaigh"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
-#, fuzzy, kde-format
-#| msgid "Search &in Results"
+#, kde-format
 msgid "Search Results Font:"
-msgstr "Cuardaigh &sna Torthaí"
+msgstr ""
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
-#, fuzzy, kde-format
-#| msgid "Use this to adjust the button font"
+#, kde-format
 msgid "Use this to adjust the result list font"
-msgstr "Leis seo is féidir cló an chnaipe a athrú"
+msgstr ""
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1018,16 +1011,11 @@ msgstr ""
 "kiten/radkfile). Tá gá leis an gcomhad seo chun an feidhmchlár a rith."
 
 #: radselect/radselectview.cpp:45
-#, fuzzy, kde-format
-#| msgid ""
-#| "Kanji radical information does not seem to be installed (file kiten/"
-#| "radkfile), this file is required for this app to function."
+#, kde-format
 msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
-"Dealraíonn sé nach bhfuil eolas faoi fhréamhacha Kanji suiteáilte (i gcomhad "
-"kiten/radkfile). Tá gá leis an gcomhad seo chun an feidhmchlár a rith."
 
 #: radselect/radselectview.cpp:61
 #, kde-format
@@ -1046,353 +1034,3 @@ msgstr "Uas"
 msgctxt "@item:inlist all matches should be found"
 msgid "(ALL)"
 msgstr "(UILE)"
-
-#~ msgid ""
-#~ "Romaji information file not installed, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Níl an comhad eolais Romaji suiteáilte, agus mar sin ní féidir tiontú "
-#~ "Romaji a dhéanamh."
-
-#~ msgid ""
-#~ "Romaji information could not be loaded, so Romaji conversion cannot be "
-#~ "used."
-#~ msgstr ""
-#~ "Níorbh fhéidir an comhad eolais Romaji a luchtú, agus mar sin ní féidir "
-#~ "tiontú Romaji a dhéanamh."
-
-#~ msgctxt "@option:radio selects english translation"
-#~ msgid "English"
-#~ msgstr "Béarla"
-
-#~ msgctxt "@option:radio selects japanese translation"
-#~ msgid "Kana"
-#~ msgstr "Kana"
-
-#~ msgid "Learn"
-#~ msgstr "Foghlaim"
-
-#, fuzzy
-#~| msgid ""
-#~| "Learn mode is disabled in this version of kiten. There are several "
-#~| "excellent open source flashcard programs available, such as Parley in "
-#~| "kde-edu (and probably in your distro's repositories), and the anki "
-#~| "project (http://www.ichi2.net/anki)"
-#~ msgid ""
-#~ "Learn mode is disabled in this version of kiten. There are several "
-#~ "excellent open source flashcard programs available, such as <a href="
-#~ "\"https://apps.kde.org/parley\">Parley</a>, and the <a href=\"https://"
-#~ "apps.ankiweb.net\">Anki project</a>."
-#~ msgstr ""
-#~ "Tá an mód foghlamtha díchumasaithe sa leagan seo de kiten. Tá cúpla "
-#~ "ríomhchlár iontach le foinse oscailte a thaispeánann luaschártaí, mar "
-#~ "shampla Parley i kde-edu (ar fáil ó do dháileadh is dócha), agus \"anki"
-#~ "\" (http://www.ichi2.net/anki)"
-
-#~ msgid "Settings"
-#~ msgstr "Socruithe"
-
-#~ msgid "kitenkanjibrowser"
-#~ msgstr "kitenkanjibrowser"
-
-#~ msgid "kitenradselect"
-#~ msgstr "kitenradselect"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Noun"
-#~ msgstr "Ainmfhocal"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Verb"
-#~ msgstr "Briathar"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adjective"
-#~ msgstr "Aidiacht"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Adverb"
-#~ msgstr "Dobhriathar"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "Particle"
-#~ msgstr "Páirteagal"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated (except possibly in far-eastern languages), this must be a "
-#~ "single word"
-#~ msgid "Ichidan"
-#~ msgstr "Ichidan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Godan"
-#~ msgstr "Godan"
-
-#~ msgctxt ""
-#~ "This is a technical japanese linguist's term... and probably should not "
-#~ "be translated, this must be a single word"
-#~ msgid "Fukisoku"
-#~ msgstr "Fukisoku"
-
-#~ msgid "On The Spo&t Search"
-#~ msgstr "Cuar&dach ar an bhFód"
-
-#~ msgid "(c) 2001-2004, Jason Katz-Brown"
-#~ msgstr "© 2001-2004, Jason Katz-Brown"
-
-#~ msgid "Deinflect Verbs/Adjectives"
-#~ msgstr "Dí-infhill Briathra/Aidiachtaí"
-
-#~ msgid "Possible de-conjugation %1 as %2"
-#~ msgstr "Dí-infhilleadh féideartha de %1 mar %2"
-
-#~ msgid "Deinflect Dictionary Files"
-#~ msgstr "Dí-infhill Comhaid Fhoclóra"
-
-#~ msgid ""
-#~ "Limit the user's word-type choices? 0:Any, Verb, Noun, Adjective, Adverb"
-#~ msgstr ""
-#~ "An bhfuil fonn ort srian a chur leis na cineálacha focail is féidir leis "
-#~ "an úsáideoir a roghnú? 0:Ar Bith, Briathar, Ainmfhocal, Aidiacht, "
-#~ "Dobhriathar"
-
-#~ msgid "Enable the Deinflection checker?"
-#~ msgstr "An bhfuil fonn ort an seiceálaí Dí-infhillte a chumasú?"
-
-#~ msgid "Configure &Global Shortcuts..."
-#~ msgstr "Cumraigh Aicearraí &Comhchoiteanna..."
-
-#~ msgctxt "@item:inlist all matches should be found"
-#~ msgid "(All)"
-#~ msgstr "(Uile)"
-
-#~ msgid "GroupBox"
-#~ msgstr "BoscaGrúpa"
-
-#~ msgid "Kvtml files (*.kvtml)"
-#~ msgstr "Comhaid Kvtml (*.kvtml)"
-
-#~ msgid "&Add to export list"
-#~ msgstr "&Cuir é leis an liosta easpórtála"
-
-#~ msgid "Match only whole english word"
-#~ msgstr "Comhoiriúnaigh focal iomlán Béarla amháin"
-
-#~ msgid "Match only whole English word"
-#~ msgstr "Comhoiriúnaigh focal iomlán Béarla amháin"
-
-#~ msgid "Start \"learn\" on Kiten startup"
-#~ msgstr "Tosaigh \"learn\" ag am tosaithe Kiten"
-
-#~ msgid "Quizzing"
-#~ msgstr "Ceistiú"
-
-#~ msgid "Clue:"
-#~ msgstr "Leid:"
-
-#~ msgid "Meaning"
-#~ msgstr "Brí"
-
-#~ msgid "Reading"
-#~ msgstr "Ag Léamh"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "noun"
-#~ msgstr "ainmfhocal"
-
-#~ msgctxt "This must be a single word"
-#~ msgid "adverb"
-#~ msgstr "dobhriathar"
-
-#~ msgid "Stro&kes"
-#~ msgstr "Strío&ca"
-
-#~ msgid "&Grade"
-#~ msgstr "&Grád"
-
-#~ msgid "Found "
-#~ msgstr "Aimsíodh "
-
-#~ msgid "&Extra search options"
-#~ msgstr "Roghanna &breise cuardaigh"
-
-#~ msgid "かな カナ"
-#~ msgstr "かな カナ"
-
-#~ msgid "romaji"
-#~ msgstr "romaji"
-
-#~ msgid "Other Info:"
-#~ msgstr "Eolas Eile:"
-
-#~ msgid "&Clear Search Bar"
-#~ msgstr "&Glan an Barra Cuardaigh"
-
-#~ msgid "Alt+N"
-#~ msgstr "Alt+M"
-
-#~ msgid "Personal"
-#~ msgstr "Pearsanta"
-
-#~ msgid "Could not open dictionary %1."
-#~ msgstr "Níorbh fhéidir foclóir %1 a oscailt."
-
-#~ msgid "Memory error when loading dictionary %1."
-#~ msgstr "Earráid chuimhne agus foclóir %1 á luchtú."
-
-#~ msgid "Could not open index for dictionary %1."
-#~ msgstr "Níorbh fhéidir an t-innéacs a oscailt le haghaidh foclóra %1."
-
-#~ msgid "Memory error when loading dictionary %1's index file."
-#~ msgstr "Earráid chuimhne agus comhad innéacs d'fhoclóir %1 á luchtú."
-
-#~ msgid "No dictionaries in list!"
-#~ msgstr "Níl aon fhoclóir sa liosta!"
-
-#~ msgid "Lookup Kanji (Kanjidic)"
-#~ msgstr "Cuardaigh Kanji (Kanjidic)"
-
-#~ msgid "Gives detailed information about Kanji currently on clipboard."
-#~ msgstr ""
-#~ "Faigh eolas mionsonraithe faoin Kanji sa ghearrthaisce faoi láthair."
-
-#~ msgid "Lookup English/Japanese Word"
-#~ msgstr "Déan cuardach ar focal Béarla/Seapáinise"
-
-#~ msgid "&Learn"
-#~ msgstr "Fogh&laim"
-
-#~ msgid "Ra&dical Search..."
-#~ msgstr "Cuar&dach ar Fhréamh..."
-
-#~ msgid "&Kanjidic"
-#~ msgstr "&Kanjidic"
-
-#~ msgid "&Deinflect Verbs in Regular Search"
-#~ msgstr "&Dí-infhill Briathra i nGnáthchuardach"
-
-#~ msgid "Add &Kanji to Learning List"
-#~ msgstr "Cuir &Kanji le Liosta Foghlama"
-
-#~ msgid "&History"
-#~ msgstr "&Stair"
-
-#~ msgid "HTML Entity: %1"
-#~ msgstr "Aonán HTML: %1"
-
-#~ msgid "(No common compounds)"
-#~ msgstr "(Gan chomhfhocail coitianta)"
-
-#~ msgid "No deinflection"
-#~ msgstr "Gan dí-infhilleadh"
-
-#~ msgid "Unparseable number"
-#~ msgstr "Uimhir nach inpharsáilte"
-
-#~ msgid "Invalid stroke count"
-#~ msgstr "Líon neamhbhailí stríoca"
-
-#~ msgid "Invalid grade"
-#~ msgstr "Grád neamhbhailí"
-
-#~ msgid "Could not read from %1."
-#~ msgstr "Níorbh fhéidir léamh ó %1."
-
-#~ msgid "Could not write to %1."
-#~ msgstr "Níorbh fhéidir scríobh ar %1."
-
-#~ msgid "&List"
-#~ msgstr "&Liosta"
-
-#~ msgid "&Quiz"
-#~ msgstr "&Quiz"
-
-#~ msgid "Your Score"
-#~ msgstr "Do Scór"
-
-#~ msgid "Grade 2"
-#~ msgstr "Grád 2"
-
-#~ msgid "Grade 3"
-#~ msgstr "Grád 3"
-
-#~ msgid "Grade 4"
-#~ msgstr "Grád 4"
-
-#~ msgid "Grade 5"
-#~ msgstr "Grád 5"
-
-#~ msgid "Grade 6"
-#~ msgstr "Grád 6"
-
-#~ msgid "Jinmeiyou"
-#~ msgstr "Jinmeiyou"
-
-#~ msgid "&Cheat"
-#~ msgstr "&Caimiléireacht"
-
-#~ msgid "&Random"
-#~ msgstr "&Fánach"
-
-#~ msgid "&Add"
-#~ msgstr "C&uir Leis"
-
-#~ msgid "Add A&ll"
-#~ msgstr "Cuir &Uile Leis"
-
-#~ msgid "There are unsaved changes to learning list. Save them?"
-#~ msgstr "Athraíodh an liosta foghlama gan sábháil. Sábháil iad?"
-
-#~ msgid "Unsaved Changes"
-#~ msgstr "Athruithe gan sábháil"
-
-#~ msgid "Grade not loaded"
-#~ msgstr "Grád gan luchtú"
-
-#~ msgid "%1 entries in grade %2"
-#~ msgstr "%1 iontráil i ngrád %2"
-
-#~ msgid "%1 written"
-#~ msgstr "%1 scríofa"
-
-#~ msgid "%1 already on your list"
-#~ msgstr "%1 ar do liosta cheana"
-
-#~ msgid "Good!"
-#~ msgstr "Go Maith!"
-
-#~ msgid "Wrong"
-#~ msgstr "Mícheart"
-
-#~ msgid "Search by total strokes"
-#~ msgstr "Cuardach de réir líon na stríoca"
-
-#~ msgid "&Look Up"
-#~ msgstr "&Cuardach"
-
-#~ msgid "&Edict"
-#~ msgstr "&Edict"
-
-#~ msgid "Rare"
-#~ msgstr "Annamh"
-
-#~ msgid "<br />In names: "
-#~ msgstr "<br />In ainmneacha: "
-
-#~ msgid "<br />As radical: "
-#~ msgstr "<br />Mar fhréamh: "
-
-#~ msgid "In Jouyou"
-#~ msgstr "I Jouyou"
-
-#~ msgid "<h1>Search for \"%1\"</h1>"
-#~ msgstr "<h1>Cuardach ar \"%1\"</h1>"
-
-#~ msgid "Saved"
-#~ msgstr "Sábháilte"
-
-#~ msgid "Disable"
-#~ msgstr "Díchumasaigh"
