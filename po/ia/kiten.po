@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:48+0000\n"
-"PO-Revision-Date: 2026-02-25 17:04+0100\n"
+"PO-Revision-Date: 2026-03-31 10:57+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -463,6 +463,10 @@ msgid ""
 "generator.\n"
 "Also is main author of edict and kanjidic, which Kiten essentially require."
 msgstr ""
+"Scribeva xjdic, del qual Kiten emprunta codice, e le generator de files de "
+"indice de xjdic.\n"
+"Es etiam le autor principal de edict e kanjidic, le quales Kiten require  "
+"essentialmente."
 
 #: app/main.cpp:48
 #, kde-format
@@ -521,6 +525,10 @@ msgid ""
 "KANJIDIC,\n"
 "GUI Improvements, Kanji Browser, Bug fixes, Code polishing and simplification"
 msgstr ""
+"Meliorationes del systema de deinflexion, actualisationes de dictionario pro "
+"EDICT e KANJIDIC,\n"
+"Meliorationes del GUI, navigator de kanji, correctiones de errores, "
+"polimento  e simplification del codice."
 
 #: app/searchstringinput.cpp:27
 #, kde-format
@@ -662,7 +670,7 @@ msgstr "&Cerca…"
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
 msgid "All Jouyou Kanji grades"
-msgstr ""
+msgstr "Omne notas de  Jouyou Kanj"
 
 #: kanjibrowser/kanjibrowserview.cpp:237
 #, kde-format
@@ -677,7 +685,7 @@ msgstr "Grado %1"
 #: kanjibrowser/kanjibrowserview.cpp:242
 #, kde-format
 msgid "Not in Jouyou list"
-msgstr ""
+msgstr "Non il lista de Jouyou"
 
 #: kanjibrowser/kanjibrowserview.cpp:244
 #, kde-format
@@ -845,6 +853,8 @@ msgstr "adjectivo"
 msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
 msgstr ""
+"Information de deinflection de verbos non trovate, ergo le deinflection "
+"deverbos non pote esser usate."
 
 #: lib/DictEdict/deinflection.cpp:154
 #, kde-format
@@ -852,6 +862,8 @@ msgid ""
 "Verb deinflection information could not be loaded, so verb deinflection "
 "cannot be used."
 msgstr ""
+"Information de deinflection de verbos non poteva esser cargate, per lo que "
+"le deinflection de verbos non pote esser usate."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:28
 #, kde-format
@@ -918,6 +930,9 @@ msgid ""
 "are the property of the Electronic Dictionary Research and Development "
 "Group, and are used in conformance with the Group's licence."
 msgstr ""
+"Iste programma usa le files de dictionario KANJIDIC e RADKFILE. Iste files "
+"es le proprietate del Electronic Dictionary Research and Development Group, "
+"e es usate in conformitate con le licentia del Gruppo."
 
 #: radselect/main.cpp:44
 #, kde-format
@@ -928,7 +943,7 @@ msgstr "Stringa de cerca initial ex Kiten"
 #: radselect/radical_selector.ui:22
 #, kde-format
 msgid "RadicalSelector"
-msgstr ""
+msgstr "RadicalSelector"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: radselect/radical_selector.ui:40
@@ -959,19 +974,19 @@ msgstr "Netta"
 #: radselect/radselectconfig.kcfg:20 radselect/radselectprefdialog.ui:31
 #, kde-format
 msgid "Display radicals in descending frequency order"
-msgstr ""
+msgstr "Monstra radicales in ordine de frequentia descendente"
 
 #. i18n: ectx: label, entry, group (Options)
 #: radselect/radselectconfig.kcfg:24
 #, kde-format
 msgid "Do we close this program when searching?"
-msgstr ""
+msgstr "Esque nos claude iste programma durante le recerca?"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_closeOnSearch)
 #: radselect/radselectprefdialog.ui:24
 #, kde-format
 msgid "Close radselect when you press search"
-msgstr ""
+msgstr "Claude radselect quando tu pressa cerca"
 
 #. i18n: ectx: property (text), widget (QLabel, resultListFontSize_label)
 #: radselect/radselectprefdialog.ui:43
@@ -1005,6 +1020,8 @@ msgid ""
 "Kanji radical information does not seem to be installed (file kiten/"
 "radkfile), this file is required for this app to function."
 msgstr ""
+"Le information de radicales kanji non sembla esser installate (file kiten/"
+"radkfile), iste file es necessari pro le functionamento de iste application."
 
 #: radselect/radselectview.cpp:45
 #, kde-format
@@ -1012,6 +1029,8 @@ msgid ""
 "Kanji dictionary does not seem to be installed (file kiten/kanjidic), stroke "
 "count information will be unavailable."
 msgstr ""
+"Le dictionario de kanji non sembla esser installate (file kiten/kanjidic),  "
+"le information super le computo de tractos essera indisponibile."
 
 #: radselect/radselectview.cpp:61
 #, kde-format
