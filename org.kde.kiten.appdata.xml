@@ -109,6 +109,7 @@
     <p xml:lang="gl">Kiten é unha ferramenta de consulta e aprendizaxe do xaponés. Goza dun dicionario inglés-xaponés e un dicionario xaponés-inglés, así como un dicionario de Kanji. O dicionario de Kanji permite buscar caracteres de varios xeitos distintos.</p>
     <p xml:lang="he">Kiten הוא כלי לעיון וללימוד יפנית. יש בו מילון אנגלי יפני ויפני אנגלי לרבות מילון קאנג׳י. במילון הקאנג׳י יש מספר דרכים נתמכות לחיפוש תווים.</p>
     <p xml:lang="hu">A Kiten egy japán referencia- és tanulmányi eszköz. Tartalmaz egy angol-japán és japán-angol szótárat, valamint egy kandzsi szótárat. A kandzsiszótárban többféleképpen lehet keresni a karakterek.</p>
+    <p xml:lang="ia">Kiten es un instrumento de referentia e studio japonese. Illo include un dictionario anglese-japonese e japonese-anglese, assi como un dictionario de kanji. Pro le dictionario de kanji, existe multiple methodos supportate pro cercar characteres.</p>
     <p xml:lang="id">Kiten adalah alat belajar dan referensi Jepang. Ini fitur kamus Bahasa Inggris ke Bahasa Jepang dan Bahasa Jepang ke Bahasa Inggris, serta kamus Kanji. Untuk kamus Kanji ada beberapa cara yang didukung untuk mencari karakter</p>
     <p xml:lang="it">Kiten è uno strumento di riferimento e di studio del giapponese. Include un dizionario inglese-giapponese e giapponese-inglese, e un dizionario dei Kanji. Ci sono diversi modi per cercare caratteri nel dizionario dei Kanji.</p>
     <p xml:lang="ka">Kiten იაპონურის სასწავლი პროგრამაა. მას აქვს იაპონურ-ინგლისური და ინგლისურ-იაპონური ლექსიკონი და კანჯის ლექსიკონი. კანჯის ლექსიკონს აქვს მრავალი საშუალება, სიმბოლოები მოძებნოთ.</p>
@@ -153,6 +154,7 @@
       <caption xml:lang="gl">Practicando o dicionario de xaponés con Kiten</caption>
       <caption xml:lang="he">תרגול המילון היפני עם Kiten</caption>
       <caption xml:lang="hu">Japán szótár gyakorlása a Kitennel</caption>
+      <caption xml:lang="ia">Practicar le dictionario japonese con Kiten</caption>
       <caption xml:lang="id">Kamus praktis bahasa Jepang dengan Kiten</caption>
       <caption xml:lang="it">Esercitandosi con il dizionario giapponese in Kiten</caption>
       <caption xml:lang="ka">იმეცადინეთ იაპონური Kiten-თან ერთად</caption>
