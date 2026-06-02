@@ -8,24 +8,25 @@ msgstr ""
 "Project-Id-Version: kiten\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:48+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-31 18:52-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, configDictSelect)
 #: app/configdictselect.ui:14
@@ -67,7 +68,7 @@ msgstr "ئۆچۈر"
 #: app/configfont.ui:13
 #, kde-format
 msgid "Fonts"
-msgstr "خەت نۇسخىلىرى"
+msgstr "خەت نۇسخا"
 
 #. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
 #: app/configfont.ui:21
@@ -126,7 +127,7 @@ msgstr ""
 #: app/configuredialog.cpp:38
 #, kde-format
 msgid "Dictionaries"
-msgstr "لۇغەتلەر"
+msgstr "لۇغەت"
 
 #: app/configuredialog.cpp:49
 #, kde-format
@@ -394,15 +395,14 @@ msgstr "ئىزدەش قورال بالدىقى"
 
 #. i18n: ectx: Menu (search_options)
 #: app/kitenui.rc:52
-#, fuzzy, kde-format
-#| msgid "Searching"
+#, kde-format
 msgid "Search Options"
-msgstr "ئىزدەۋاتىدۇ"
+msgstr "ئىزدەش تاللانما"
 
 #: app/main.cpp:32
 #, kde-format
 msgid "Kiten"
-msgstr "Kiten"
+msgstr ""
 
 #: app/main.cpp:34
 #, kde-format
@@ -421,12 +421,12 @@ msgstr ""
 #: app/main.cpp:43
 #, kde-format
 msgid "Jason Katz-Brown"
-msgstr "Jason Katz-Brown"
+msgstr ""
 
 #: app/main.cpp:43
 #, kde-format
 msgid "Original author"
-msgstr "ئەسلى ئاپتور"
+msgstr "ئەسلى يازغۇچى"
 
 #: app/main.cpp:44
 #, kde-format
@@ -454,7 +454,7 @@ msgstr ""
 #: app/main.cpp:49
 #, kde-format
 msgid "David Vignoni"
-msgstr "David Vignoni"
+msgstr ""
 
 #: app/main.cpp:49
 #, kde-format
@@ -611,10 +611,9 @@ msgid "About %1"
 msgstr "%1 ھەققىدە"
 
 #: kanjibrowser/kanjibrowserview.cpp:198
-#, fuzzy, kde-format
-#| msgid "&To Clipboard"
+#, kde-format
 msgid "Copy %1 to clipboard"
-msgstr "چاپلاش تاختىسىغا(&T)"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:211
 #, kde-format
@@ -632,10 +631,9 @@ msgid "Kanji &Information"
 msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:228
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "&Search…"
-msgstr "ئىزدە(&E)"
+msgstr ""
 
 #: kanjibrowser/kanjibrowserview.cpp:233
 #, kde-format
@@ -793,14 +791,13 @@ msgstr ""
 #: kanjibrowser/preferences.ui:151
 #, kde-format
 msgid "Label font:"
-msgstr "ئەننىڭ خەت نۇسخىسى"
+msgstr "بەلگە خەت نۇسخىسى:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
-#, fuzzy, kde-format
-#| msgid "S&earch"
+#, kde-format
 msgid "Search"
-msgstr "ئىزدە(&E)"
+msgstr "ئىزدە"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: kanjibrowser/searchdialog.ui:26
@@ -877,7 +874,7 @@ msgstr ""
 #: radselect/main.cpp:26
 #, kde-format
 msgid "A KDE Application"
-msgstr "ك د ئې(KDE) پروگراممىسى"
+msgstr "KDE پىروگراممىسى"
 
 #: radselect/main.cpp:28
 #, kde-format
