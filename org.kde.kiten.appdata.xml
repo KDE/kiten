@@ -87,6 +87,7 @@
   <summary xml:lang="sl">Orodje za učenje japonščine</summary>
   <summary xml:lang="sv">Japanskt referens- och studieverktyg</summary>
   <summary xml:lang="tr">Japonca Başvuru ve Çalışma Aracı</summary>
+  <summary xml:lang="ug">ياپونچە پايدىلىنىش ۋە ئۆگىنىش قورالى</summary>
   <summary xml:lang="uk">Програма для вивчення японської мови</summary>
   <summary xml:lang="zh-CN">日语参考/学习工具</summary>
   <summary xml:lang="zh-TW">日語參考/學習工具</summary>
@@ -208,6 +209,7 @@
       <caption xml:lang="sl">Kanji brskalnik</caption>
       <caption xml:lang="sv">Kanji-bläddrare</caption>
       <caption xml:lang="tr">Kanji Tarayıcısı</caption>
+      <caption xml:lang="ug">Kanji كۆرگۈ</caption>
       <caption xml:lang="uk">Переглядач кандзі</caption>
       <caption xml:lang="zh-CN">汉字浏览器</caption>
       <caption xml:lang="zh-TW">漢字瀏覽器</caption>
