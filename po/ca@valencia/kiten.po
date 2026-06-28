@@ -967,7 +967,7 @@ msgstr "A dins del &porta-retalls"
 #: radselect/radical_selector.ui:122
 #, kde-format
 msgid " - "
-msgstr " - "
+msgstr " – "
 
 #. i18n: ectx: property (text), widget (QPushButton, clear_button)
 #: radselect/radical_selector.ui:164
