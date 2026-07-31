@@ -104,13 +104,13 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 
 <chapter id="dictionary">
 <title
->Das Wörterbuch benutzen</title>
+>Das Wörterbuch verwenden</title>
 
 <para
 >&kiten;s Basisbetriebsart ist ein Wörterbuch, um englische und japanische Wörter nachzuschlagen. Sie können auch andere Wörterbücher zur Liste hinzufügen.</para>
 
 <para
->&kiten; benutzt Jim Breens Edict und Kanjidic als standardmäßige Wörterbücher. Sie können mehr Informationen auf der <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>&kiten; verwendet Jim Breens Edict und Kanjidic als standardmäßige Wörterbücher. Sie können mehr Informationen auf der <ulink url="https://www.edrdg.org/jmdict/edict.html"
 >Edict Webseite</ulink
 > und auf der <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
 >Kanjidic Webseite</ulink
@@ -148,7 +148,7 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 >Filtern</title>
 
 <para
->Oft wollen Sie seltene Wörter aus der Suche ausfiltern. Aktivieren Sie dies in &kiten; mit <menuchoice
+>Oft möchten Sie seltene Wörter aus der Suche ausfiltern. Aktivieren Sie dies in &kiten; mit <menuchoice
 ><guimenu
 >Suchen</guimenu
 ><guimenuitem
@@ -283,7 +283,7 @@ https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
 ><guimenuitem
 > In Resultaten suchen</guimenuitem
 ></menuchoice
-> für Ihre Suche. Benutzen Sie diese Methode für Suche am Wortanfang/Wortende/Irgendwo, dies funktioniert ebenso für beide Sprachen.</para>
+> für Ihre Suche. Verwenden Sie diese Methode für Suche am Wortanfang/Wortende/Irgendwo, dies funktioniert ebenso für beide Sprachen.</para>
 
 <screenshot>
 <screeninfo
@@ -368,7 +368,7 @@ until you get used to handling Japanese verb forms.
 >Stammformensuche</title>
 
 <para
->Sie können &kiten;s Stammformensuchdialog benutzen, um nach Kanjis mit einer Kombination von Stammformen und einer bestimmten Strichanzahl zu suchen. Wählen Sie <menuchoice
+>Sie können &kiten;s Stammformensuchdialog verwenden, um nach Kanjis mit einer Kombination von Stammformen und einer bestimmten Strichanzahl zu suchen. Wählen Sie <menuchoice
 ><guimenu
 >Suchen</guimenu
 ><guimenuitem
@@ -527,7 +527,7 @@ until you get used to handling Japanese verb forms.
 >Schriftarten</title>
 
 <para
->Sie können die Schriftart wählen, die &kiten; in seiner Ergebnisansicht benutzt. Gehen Sie zum Einrichtungsdialog von &kiten;, der über <menuchoice
+>Sie können die Schriftart wählen, die &kiten; in seiner Ergebnisansicht verwendet. Gehen Sie zum Einrichtungsdialog von &kiten;, der über <menuchoice
 ><guimenu
 >Einstellungen</guimenu
 ><guimenuitem
