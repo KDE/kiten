@@ -44,7 +44,7 @@ msgstr "Wörterbuchauswahl"
 #: app/configdictselect.ui:25
 #, kde-format
 msgid "Use prei&nstalled dict"
-msgstr "Vori&nstalliertes dict benutzen"
+msgstr "Vori&nstalliertes dict verwenden"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, fileList)
 #: app/configdictselect.ui:56
@@ -296,7 +296,7 @@ msgstr "Keine Ergebnisse gefunden"
 #: app/kiten.kcfg:10
 #, kde-format
 msgid "List of dictionary Types, used internally, do not touch"
-msgstr "Liste von Wörterbuchtypen, wird intern benutzt"
+msgstr "Liste von Wörterbuchtypen, wird intern verwendet"
 
 #. i18n: ectx: label, entry (edict__NAMES), group (dicts_edict)
 #: app/kiten.kcfg:25
@@ -308,7 +308,7 @@ msgstr "Edict-Wörterbuchdateien"
 #: app/kiten.kcfg:28
 #, kde-format
 msgid "Use preinstalled edict"
-msgstr "Vorinstalliertes Edict benutzen"
+msgstr "Vorinstalliertes Edict verwenden"
 
 #. i18n: ectx: label, entry (edict__displayFields), group (dicts_edict)
 #. i18n: ectx: label, entry (kanjidic__displayFields), group (dicts_kanjidic)
@@ -327,7 +327,7 @@ msgstr "Kanjidic-Wörterbuchdateien"
 #: app/kiten.kcfg:42
 #, kde-format
 msgid "Use preinstalled kanjidic"
-msgstr "Vorinstalliertes kanjidic benutzen"
+msgstr "Vorinstalliertes kanjidic verwenden"
 
 #. i18n: ectx: label, entry, group (Searching Options)
 #: app/kiten.kcfg:53
@@ -790,7 +790,7 @@ msgstr "Die Schriftart für die Kanji/Kana-Haupteingabe in der Listenansicht"
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr "Benutzen Sie dies, um die Knopf-Schriftart einzustellen"
+msgstr "Verwenden Sie dies, um die Knopf-Schriftart einzustellen"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
@@ -862,7 +862,7 @@ msgid ""
 "Verb deinflection information not found, so verb deinflection cannot be used."
 msgstr ""
 "Verb-Deflexionsinformationen nicht gefunden, also kann die Verb-Deinflexion "
-"nicht benutzt werden."
+"nicht verwendet werden."
 
 #: lib/DictEdict/deinflection.cpp:154
 #, kde-format
@@ -871,7 +871,7 @@ msgid ""
 "cannot be used."
 msgstr ""
 "Verb-Deflexionsinformationen können nicht geladen werden, also kann die Verb-"
-"Deinflexion nicht benutzt werden."
+"Deinflexion nicht verwendet werden."
 
 #: lib/DictEdict/dictfilefieldselector.cpp:28
 #, kde-format
@@ -1008,7 +1008,7 @@ msgstr "Schriftart für Ergebnisse:"
 #, kde-format
 msgid "Use this to adjust the result list font"
 msgstr ""
-"Benutzen Sie dies, um die Schriftart für die Ergebnisliste einzustellen"
+"Verwenden Sie dies, um die Schriftart für die Ergebnisliste einzustellen"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
