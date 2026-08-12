@@ -117,7 +117,7 @@ msgstr "القواميس المتاحة:"
 #: app/configsorting.ui:31
 #, kde-format
 msgid "Displa&y First:"
-msgstr "اعرض أولاً:"
+msgstr "اعرض أولًا:"
 
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, field_order)
 #: app/configsorting.ui:48
