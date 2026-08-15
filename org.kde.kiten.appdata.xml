@@ -137,6 +137,9 @@
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kiten</url>
   <url type="help">https://docs.kde.org/?application=kiten</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kiten&amp;source=appdata</url>
+  <custom>
+    <value key="KDE::mailinglist">kde-edu@kde.org</value>
+  </custom>
   <screenshots>
     <screenshot type="default">
       <caption>Practicing Japanese dictionary with Kiten</caption>
