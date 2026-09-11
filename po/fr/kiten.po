@@ -966,7 +966,7 @@ msgstr ""
 #: radselect/main.cpp:44
 #, kde-format
 msgid "Initial Search String from Kiten"
-msgstr "Chaîne de recherche initiale de Kiten"
+msgstr "Chaine de recherche initiale de Kiten"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, radical_selector)
 #: radselect/radical_selector.ui:22
