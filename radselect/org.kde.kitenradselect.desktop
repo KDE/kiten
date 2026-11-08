@@ -2,9 +2,16 @@
 Exec=kitenradselect
 Name=Radical Selector
 Name[ar]=محدد جذري
+Name[ast]=Selector de radicales
+Name[bs]=Birač radikala
+Name[ca]=Selector de radicals
+Name[ca@valencia]=Selector de radicals
 Name[cs]=Výběr podle radikálů
+Name[da]=Rod-vælger
 Name[de]=Stammformenauswahl
 Name[el]=Επιλογέας ριζικού
+Name[en_GB]=Radical Selector
+Name[eo]=Elektilo de Radikoj
 Name[es]=Selector de radicales
 Name[et]=Radikaalide valija
 Name[eu]=Erro hautatzailea
