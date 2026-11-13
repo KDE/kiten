@@ -1,0 +1,624 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Arabic "INCLUDE">
+]>
+
+<book id="kiten" lang="&language;">
+
+<bookinfo>
+<title
+>دليل كيتين</title>
+
+<authorgroup>
+<author
+><firstname
+>Jason</firstname
+> <surname
+>Katz-Brown</surname
+> <affiliation
+> <address
+>&Jason.Katz-Brown.mail;</address>
+</affiliation>
+</author>
+<author
+><firstname
+>Daniel E.</firstname
+> <surname
+>Moctezuma</surname
+> <email
+>democtezuma@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-12-28</date>
+<releaseinfo
+>تطبيقات 20.12</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>كيتين هي أداة مرجعية/دراسية يابانية من &kde;.</para>
+</abstract>
+
+<!--
+Info about kiten improvements for 4.8
+https://jpwhiting.blogspot.com/2011/09/improving-user-experience-in-kiten.html
+-->
+
+<keywordset>
+<keyword
+>كيدي</keyword>
+<keyword
+>اليابانية</keyword>
+<keyword
+>اللغة</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>مقدمة</title>
+
+<para
+>كيتين هي مجموعة من 3 أدوات ذات وظائف متعددة. أولًا، هي قاموس مناسب من الإنجليزية إلى اليابانية ومن اليابانية إلى الإنجليزية؛ ثانيًا، هي قاموس كانجي، مع طرق متعددة للبحث عن أحرف محددة؛ ثالثًا، هي أداة لمساعدتك على تعلم الكانجي.</para>
+
+<para
+>كل من هذه الأوضاع يُناقش في فصل خاص به.</para>
+
+<screenshot>
+<screeninfo
+>هذه لقطة شاشة لـ كيتين</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="introduction.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>لقطة شاشة كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="dictionary">
+<title
+>استخدام القاموس</title>
+
+<para
+>الوضع الأساسي لـ كيتين هو كقاموس للبحث عن الكلمات الإنجليزية واليابانية. يمكنك أيضًا إضافة قواميس أخرى إلى قائمة كيتين.</para>
+
+<para
+>يستخدم كيتين قواميس Jim Breen's Edict و Kanjidic كقواميس مبدئية. يمكنك العثور على مزيد من المعلومات على <ulink url="https://www.edrdg.org/jmdict/edict.html"
+>موقع Edict</ulink
+> و <ulink url="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project"
+>موقع Kanjidic</ulink
+>.</para>
+
+<sect1 id="looking-up-words">
+<title
+>البحث عن الكلمات</title>
+
+<para
+>للبحث عن كلمات في أي من اللغتين، اكتبها في محرر النص (يشبه إلى حد كبير شريط الموقع في &konqueror;) واضغط إما على &Enter; أو زر <guibutton
+>بحث</guibutton
+> على شريط الأدوات (مرة أخرى، يشبه &konqueror;). سيبحث كيتين بعد ذلك عن الكلمة.</para>
+
+<para
+>يمكنك إدخال كانجي، كاتاكانا، وإنجليزية والحصول على نتائج من كيتين. ستظهر نتائج بحثك في عرض النتائج الكبير الذي يشغل معظم نافذة كيتين.</para>
+
+<screenshot>
+<screeninfo
+>البحث عن ترجمة إنجليزية</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="looking_up_words.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>لقطة شاشة بحث كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<sect2 id="filtering">
+<title
+>التّرشيح</title>
+
+<para
+>غالبًا ما سترغب في تصفية الكلمات النادرة من بحثك. سيفعل كيتين ذلك لك إذا قمت بتبديل <menuchoice
+><guimenu
+>بحث</guimenu
+><guimenuitem
+>تصفية النادر</guimenuitem
+></menuchoice
+>.</para>
+
+<note
+><para
+>لا تدعم جميع ملفات القاموس تصفية الإدخالات النادرة - معظم القواميس، باستثناء الاثنين المقدمين افتراضيًا في كيتين، لا تدعم ذلك.</para
+></note>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة باستخدام تصفية الكلمات النادرة</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="with_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>بحث تصفية كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="common-uncommon-words">
+<title
+>الكلمات الشائعة/غير الشائعة</title>
+<para
+>طريقة أخرى لفصل المعلومات هي تصفية الكلمات الشائعة وغير الشائعة، وهذا مفيد عندما تريد التركيز على الكلمات الشائعة و/أو لديك اهتمام بالكلمات غير الشائعة. الفرق الوحيد بين خيار تصفية النادر وخيار شائع/غير شائع هو أنك هنا تحصل أيضًا على النتائج النادرة/غير الشائعة.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لمطابقة شائع/غير شائع</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="common_uncommon_filtering.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>مطابقة شائع/غير شائع في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-searches">
+<title
+>البحث المتقدم</title>
+
+<para
+>يدعم كيتين عمليات بحث أكثر تقدمًا من عمليات البحث العادية عن الكلمات.</para>
+
+<sect2 id="beginning-ending-anywhere-searches">
+<title
+>عمليات بحث البداية/النهاية/في أي مكان</title>
+<para
+>بالإضافة إلى البحث باستخدام <guilabel
+>مطابقة تامة</guilabel
+>، لدى كيتين ثلاثة أوضاع بحث إضافية.</para>
+<para
+>للبحث عن بداية كلمة، بدلًا من الضغط على زر <guibutton
+>بحث</guibutton
+> على شريط الأدوات أو الضغط على &Enter; في إدخال النص على شريط الأدوات، اختر باستخدام <menuchoice
+><guimenu
+>بحث</guimenu
+><guisubmenu
+>نوع المطابقة </guisubmenu
+><guimenuitem
+>مطابقة البداية</guimenuitem
+></menuchoice
+>. وبالمثل، لعمليات بحث النهاية أو في أي مكان، اختر <menuchoice
+><guimenu
+>بحث</guimenu
+> <guisubmenu
+>نوع المطابقة</guisubmenu
+></menuchoice
+> <guimenuitem
+>مطابقة في أي مكان</guimenuitem
+> أو <guimenuitem
+>مطابقة النهاية</guimenuitem
+> للبحث عن نصك في أي مكان في الكلمة أو في نهايتها. تعمل أوضاع البحث هذه لعمليات البحث في كلتا اللغتين.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لبحث مطابقة النهاية</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="ending_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>بحث مطابقة النهاية في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="word-type-searches">
+<title
+>عمليات بحث نوع الكلمة</title>
+<para
+>يدعم كيتين عمليات بحث حسب نوع الكلمة مثل: فعل، اسم، صفة، ظرف، بادئة، لاحقة، تعبير، أو أي نوع. بهذه الطريقة يمكنك تصفية نتائجك بشكل أكثر ملاءمة.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لنوع تطابق الكلمة</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="word_type_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>نوع تطابق الكلمة في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="searching-in-results">
+<title
+>البحث في النتائج</title>
+
+<para
+>يمكن لـ كيتين أيضًا مساعدتك في تحسين عمليات البحث الخاصة بك بالسماح لك بالبحث عن نص جديد في النتائج الناتجة عن بحث سابق. لفعل ذلك، اختر <menuchoice
+><guimenu
+>بحث</guimenu
+><guimenuitem
+>بحث في النتائج</guimenuitem
+></menuchoice
+> لتنفيذ بحثك. على غرار عمليات البحث في البداية/النهاية/أي مكان، يعمل هذا لكلتا اللغتين أيضًا.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة للبحث في النتائج</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="search_in_results.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>بحث كيتين في النتائج</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+</sect1>
+<!--FIXME disabled in kf5
+<sect1 id="deinf">
+<title
+>Verb Deinflection</title>
+
+<para
+>&kiten; can deinflect verbs you search for. The "Deinflect" option
+tries to unconjugate Japanese verbs and shows you a message on top of
+the results about the type of verb you entered.
+If you search a lot of Japanese text you might consider using this option
+until you get used to handling Japanese verb forms.
+</para>
+
+<screenshot>
+<screeninfo
+>Screenshot for verb deinflection</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="verb_deinflection.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>&kiten; verb deinflection search</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+-->
+</chapter>
+
+<chapter id="looking-up-kanji">
+<title
+>البحث عن كانجي</title>
+
+<para
+>يمتلك كيتين ميزات تجعل العثور على الكانجي الذي تريده سهلًا من بين أكثر من 14,000 كانجي في القاموس المبدئي.</para>
+
+<note
+><para
+>سيؤدي النقر على أي كانجي في عرض النتائج الرئيس إلى إظهار تفاصيل عن ذلك الكانجي المعين. يمكن أن يكون هذا أحيانًا أسرع طريقة للبحث عن كانجي.</para
+></note>
+
+<tip
+><para
+>تُصفى عمليات بحث الكانجي أيضًا وفقًا لما إذا كان <menuchoice
+><guimenu
+>بحث</guimenu
+><guimenuitem
+>تصفية النادر</guimenuitem
+></menuchoice
+> محددًا أم لا.</para
+></tip>
+
+<sect1 id="regular-kanji-search">
+<title
+>البحث العادي</title>
+
+<para
+>يمكنك البحث باستخدام سلاسل بحث إنجليزية ويابانية بنفس الطريقة تمامًا التي تبحث بها مع القاموس العادي.</para>
+
+</sect1>
+
+<sect1 id="radical-search">
+<title
+>البحث بالجذور</title>
+
+<para
+>يمكنك استخدام حوار البحث بالجذور في كيتين للبحث عن كانجي بمزيج من الجذور وعدد معين من الضربات. اختر <menuchoice
+><guimenu
+>بحث</guimenu
+><guimenuitem
+>محدد الجذور</guimenuitem
+></menuchoice
+> لفتح حوار البحث بالجذور.</para>
+
+<para
+>لاختيار الجذور التي تريدها في الكانجي الخاص بك، اختر واحدًا منها من الأزرار في أسفل النافذة. لعرض الجذور الممكنة للاختيار من هذه الأزرار بعدد معين من الضربات، اختر هذا العدد من الضربات من مربعات التدوير أعلى الأزرار مباشرة. ستظهر الجذور التي تختارها في مربع القائمة في الأعلى.</para>
+
+<para
+>لاختيار عدد الضربات التي يجب أن يمتلكها الكانجي الخاص بك، أدخل القيم في مربعات التدوير أسفل منطقة النتائج.</para>
+
+<para
+>لتنفيذ البحث، اضغط على الزر الذي يطابق الكانجي الذي أردت البحث عنه.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لمحدد الجذور</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="radical_selector.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>محدد الجذور في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="grade-search">
+<title
+>بحث بالصف</title>
+
+<para
+>للحصول على قائمة بجميع الكانجي في صف معين، أدخل ذلك في مربع البحث كـ "G:1" (G: هي وسم Kanjidic للصف).</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لبحث الكانجي بالصف</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="grade_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>بحث الكانجي بالصف في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="stroke-search">
+<title
+>بحث بالضربات</title>
+
+<para
+>للحصول على قائمة بجميع الكانجي بعدد معين من الضربات، أدخل ذلك الرقم في مربع البحث كـ "S:2".</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لبحث الكانجي بالضربات</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="stroke_search.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>بحث الكانجي بالضربات في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-list">
+<title
+>قائمة كانجي</title>
+
+<para
+>يتيح لك هذا الجزء من متصفح الكانجي تصور قائمة من الكانجي مصفاة حسب الصف وعدد الضربات. بالنقر على كانجي يمكنك الحصول على معلومات مفصلة عنه. يفصل متصفح الكانجي القائمة إلى كانجي جويو وجينمييو وغير جويو. كل هذا الكانجي متاح بفضل قاموس KANJIDIC.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لقائمة الكانجي</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_list.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>قائمة الكانجي في كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="kanji-info">
+<title
+>معلومات كانجي</title>
+
+<para
+>يظهر هذا الجزء معلومات مفصلة عن الكانجي مثل: ترتيب ضربات الكانجي، عدد الضربات، القراءات والمعاني.</para>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة لمعلومات الكانجي</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="kanji_information.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>معلومات كانجي كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="misc">
+<title
+>متنوّع</title>
+
+<para
+>يصف هذا الفصل ميزات متنوعة يمكن استخدامها في كلا الوضعين في النافذة الرئيسة لـ كيتين.</para>
+
+<sect1 id="history">
+<title
+>التاريخ</title>
+
+<para
+>يتتبع كيتين جميع استعلاماتك في حقل الإدخال. يمكنك رؤية آخر نتائجك بالنقر على علامة الصح يمين حقل الإدخال. للتقدم خطوة في السجل، اختر <menuchoice
+><guimenu
+>اذهب</guimenu
+><guimenuitem
+>للأمام</guimenuitem
+></menuchoice
+>. للتراجع خطوة في السجل، اختر <menuchoice
+><guimenu
+>اذهب</guimenu
+><guimenuitem
+>للخلف</guimenuitem
+></menuchoice
+>.</para>
+
+</sect1>
+
+<sect1 id="fonts">
+<title
+>الخطوط</title>
+
+<para
+>يمكنك اختيار الخط الذي يستخدمه كيتين في عرض نتائجه. اذهب إلى حوار ضبط كيتين، الذي يمكن فتحه باختيار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط كيتين...</guimenuitem
+></menuchoice
+>. اختر صفحة <guilabel
+>الخط</guilabel
+> من الحوار واختر الخط في منتقي الخطوط.</para>
+
+<note
+><para
+>يجعل نظام استبدال الخطوط في &Qt; خطًا يابانيًا يُستبدل دائمًا بالأحرف اليابانية، حتى لو لم يتضمنها الخط الذي تحدده. وبالتالي، يمكنك اختيار أي خط في المنتقي ويجب أن يظل كل شيء معروضًا بشكل جيد.</para
+></note>
+
+<screenshot>
+<screeninfo
+>لقطة شاشة للخط</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="font.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>خط كيتين</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits-and-license">
+<title
+>الحقوق والترخيص</title>
+
+<para
+>حقوق نشر كيتين 2001، 2002 &Jason.Katz-Brown;</para>
+
+<itemizedlist>
+<title
+>المطورون</title>
+<listitem>
+<para
+>&Jason.Katz-Brown; &Jason.Katz-Brown.mail; - المؤلف الأصلي.</para>
+</listitem>
+<listitem>
+<para
+>&Neil.Stevens; &Neil.Stevens.mail; - تبسيط الشيفرة، اقتراحات واجهة المستخدم.</para>
+</listitem>
+<listitem>
+<para
+>Jim Breen <email
+>jwb@csse.monash.edu.au</email
+> - كتب xjdic، الذي يستعير كيتين منه شيفرة، ومولد ملف فهرس xjdic. وهو أيضًا المؤلف الرئيسي لـ edict وkanjidic، اللذين يتطلبهما كيتين أساسًا.</para>
+</listitem>
+<listitem>
+  <para
+>Paul Temple <email
+>paul.temple@gmx.net</email
+> - النقل إلى KConfig XT وإصلاح الأخطاء.</para>
+</listitem>
+<listitem>
+  <para
+>David Vignoni <email
+>david80v@tin.it</email
+> - أيقونة &SVG;.</para>
+</listitem>
+<listitem>
+	<para
+>Joe Kerian <email
+>jkerian@gmail.com</email
+> - إعادة كتابة &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Eric Kjeldergaard <email
+>kjelderg@gmail.com</email
+> - إعادة كتابة &kde; 4.</para>
+</listitem>
+<listitem>
+  <para
+>Daniel E. Moctezuma <email
+>democtezuma@gmail.com</email
+> - تحسينات نظام فك التصريف، تحديثات القاموس لـ EDICT وKANJIDIC، تحسينات &GUI;، متصفح كانجي، إصلاحات أخطاء، صقل الشيفرة وتبسيطها.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>حقوق طبع الوثائق 2002 لـ &Jason.Katz-Brown;</para>
+<para
+>حقوق نشر التوثيق 2012، Daniel E. Moctezuma</para>
+
+<para
+>الترجمة: زايد السعيدي <email
+>zayed.alsaidi@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
