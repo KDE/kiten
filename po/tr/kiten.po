@@ -8,13 +8,13 @@
 # Muhammet Kara <muhammetk@gmail.com>, 2009.
 # obsoleteman <tulliana@gmail.com>, 2008.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022-2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:48+0000\n"
-"PO-Revision-Date: 2026-05-02 19:55+0300\n"
+"PO-Revision-Date: 2026-11-15 20:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -76,13 +76,13 @@ msgstr "Sil"
 #: app/configfont.ui:13
 #, kde-format
 msgid "Fonts"
-msgstr "Yazıtipleri"
+msgstr "Yazı Tipleri"
 
 #. i18n: ectx: property (text), widget (QLabel, Listview_mainentry_label)
 #: app/configfont.ui:21
 #, kde-format
 msgid "Main Font"
-msgstr "Ana Yazıtipi"
+msgstr "Ana yazı tipi"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
 #: app/configfont.ui:28
@@ -140,7 +140,7 @@ msgstr "Sözlükler"
 #: app/configuredialog.cpp:49
 #, kde-format
 msgid "Font"
-msgstr "Yazıtipi"
+msgstr "Yazı Tipi"
 
 #: app/configuredialog.cpp:52
 #, kde-format
@@ -780,7 +780,7 @@ msgstr "Kanji Listesi"
 #: radselect/radselectprefdialog.ui:85
 #, kde-format
 msgid "The font for the main kanji/kana entry in list view"
-msgstr "Liste görünümünde temel kanji/kana girdisi yazıtipi"
+msgstr "Liste görünümünde temel kanji/kana girdisi yazı tipi"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, _kanjiListFontLabel)
 #. i18n: ectx: property (whatsThis), widget (QLabel, fontSize_label)
@@ -789,13 +789,13 @@ msgstr "Liste görünümünde temel kanji/kana girdisi yazıtipi"
 #: radselect/radselectprefdialog.ui:88
 #, kde-format
 msgid "Use this to adjust the button font"
-msgstr "Düğme yazıtipini ayarlamak için bunu kullanın"
+msgstr "Düğme yazı tipini ayarlamak için bunu kullanın"
 
 #. i18n: ectx: property (text), widget (QLabel, _kanjiListFontLabel)
 #: kanjibrowser/preferences.ui:40
 #, kde-format
 msgid "Kanji font:"
-msgstr "Kanji yazıtipi:"
+msgstr "Kanji yazı tipi:"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanjiListFont)
 #: kanjibrowser/preferences.ui:56
@@ -819,7 +819,7 @@ msgstr "Kanji boyutu:"
 #: kanjibrowser/preferences.ui:121
 #, kde-format
 msgid "Kana font:"
-msgstr "Kana yazıtipi:"
+msgstr "Kana yazı tipi:"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_kanaFont)
 #: kanjibrowser/preferences.ui:128
@@ -831,7 +831,7 @@ msgstr "かな"
 #: kanjibrowser/preferences.ui:151
 #, kde-format
 msgid "Label font:"
-msgstr "Etiket yazıtipi:"
+msgstr "Etiket yazı tipi:"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SearchDialog)
 #: kanjibrowser/searchdialog.ui:20
@@ -995,14 +995,14 @@ msgstr "Aramaya basıldığında kök seçiciyi kapat"
 #: radselect/radselectprefdialog.ui:43
 #, kde-format
 msgid "Search Results Font:"
-msgstr "Arama sonuçları yazıtipi:"
+msgstr "Arama sonuçları yazı tipi:"
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, resultListFontSize_label)
 #. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_resultListFont)
 #: radselect/radselectprefdialog.ui:49 radselect/radselectprefdialog.ui:62
 #, kde-format
 msgid "Use this to adjust the result list font"
-msgstr "Sonuç listesi yazıtipini ayarlamak için bunu kullanın"
+msgstr "Sonuç listesi yazı tipini ayarlamak için bunu kullanın"
 
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_resultListFont)
 #. i18n: ectx: property (sampleText), widget (KFontRequester, kcfg_font)
@@ -1015,7 +1015,7 @@ msgstr "漢字 かな"
 #: radselect/radselectprefdialog.ui:69
 #, kde-format
 msgid "Button Font:"
-msgstr "Düğme yazıtipi:"
+msgstr "Düğme yazı tipi:"
 
 #: radselect/radselectview.cpp:38
 #, kde-format
